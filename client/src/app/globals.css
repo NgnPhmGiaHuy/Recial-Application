@@ -3,25 +3,59 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --color-primary: #1dad9b;
+    --color-primary-dark: #346357;
+    --color-primary-light: #9bf4d5;
+
+    --color-secondary: #fcffc1;
+    --color-secondary-dark: #b0bca0;
+    --color-secondary-light: #f0f5c9;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    box-sizing: border-box;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
 }
+
+ol, ul {
+    list-style: none;
+}
+
+@keyframes moveIconRightToLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-5px);
+    }
+}
+
+@keyframes moveIconLeftToRight {
+    0% {
+        transform: translateX(-5px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+.animate-moveIconRightToLeft {
+    animation: moveIconRightToLeft 0.3s ease-in-out forwards;
+}
+
+.animate-moveIconLeftToRight {
+    animation: moveIconLeftToRight 0.3s ease-in-out forwards;
+}
+
+
+

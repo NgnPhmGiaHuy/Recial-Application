@@ -25,7 +25,10 @@
 **yarn-error.log*
 
 # local env files
+**.env
 **.env*.local
+client/src/.env
+server/src/.env
 
 # vercel
 **.vercel

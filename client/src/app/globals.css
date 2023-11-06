@@ -31,6 +31,28 @@ ol, ul {
     list-style: none;
 }
 
+b, strong{
+   font-weight: 600;
+}
+
+::-webkit-scrollbar{
+    width: 8px;
+}
+
+::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-track:hover{
+    background-color: #fafafa;
+}
+
+::-webkit-scrollbar-thumb{
+    border-radius: 50px;
+    background-color: rgb(128, 128, 128);
+    /*background-image: linear-gradient(-45deg, lime, limegreen);*/
+}
+
 @keyframes moveIconRightToLeft {
     0% {
         transform: translateX(0);
@@ -49,6 +71,24 @@ ol, ul {
     }
 }
 
+@keyframes movePanelRightToLeft {
+    0% {
+        transform: translateX(100%);
+    }
+    100%{
+        transform: translateX(0%);
+    }
+}
+
+@keyframes movePanelLeftToRight {
+    0% {
+        transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(100%);
+    }
+}
+
 .animate-moveIconRightToLeft {
     animation: moveIconRightToLeft 0.3s ease-in-out forwards;
 }
@@ -57,5 +97,50 @@ ol, ul {
     animation: moveIconLeftToRight 0.3s ease-in-out forwards;
 }
 
+.animate-movePanelRightToLeft {
+    animation: movePanelRightToLeft 0.3s ease-in-out forwards;
+}
 
+.animate-movePanelLeftToRight {
+    animation: movePanelLeftToRight 0.3s ease-in-out forwards;
+}
+
+
+
+
+
+/*body{*/
+/*    font-family: "Helvetica", sans-serif;*/
+/*}*/
+
+/*@font-face {*/
+/*    font-family: "Helvetica-Bold";*/
+/*    font-weight: 700;*/
+/*    src: url("/public/fonts/Helvetica-Font/Helvetica-Bold.ttf") format('truetype');*/
+/*}*/
+
+/*@font-face {*/
+/*    font-family: "Helvetica-BoldOblique";*/
+/*    font-weight: 700;*/
+/*    font-style: italic;*/
+/*    src: url("/public/fonts/Helvetica-Font/Helvetica-BoldOblique.ttf") format('truetype');*/
+/*}*/
+
+/*@font-face {*/
+/*    font-family: "Helvetica-Light";*/
+/*    font-weight: 300;*/
+/*    src: url("/public/fonts/Helvetica-Font/helvetica-light-587ebe5a59211.ttf") format('truetype');*/
+/*}*/
+
+/*@font-face {*/
+/*    font-family: "Helvetica-Oblique";*/
+/*    font-style: italic;*/
+/*    src: url("/public/fonts/Helvetica-Font/Helvetica-Oblique.ttf") format('truetype');*/
+/*}*/
+
+/*@font-face {*/
+/*    font-family: "Helvetica";*/
+/*    font-weight: 400;*/
+/*    src: url("/public/fonts/Helvetica-Font/Helvetica.ttf") format('truetype');*/
+/*}*/
 

@@ -44,7 +44,7 @@ const OAuthLogin = ({isLogin, isSignup}) => {
             {isLogin ? (
                 <div className="flex items-center justify-center">
                     <a href="/auth/signup"
-                       className="w-full min-h-[48px] px-[24px] py-[12px] text-center text-[16px] font-semibold leading-normal border border-solid rounded-full hover:bg-gray-100 transition-all">
+                       className="w-full min-h-[48px] px-[24px] py-[12px] text-center text-[16px] font-semibold leading-normal border border-solid rounded-full hover:bg-zinc-100 transition-all">
                         New to Recial? Join now
                     </a>
                 </div>

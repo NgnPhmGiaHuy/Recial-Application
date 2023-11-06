@@ -54,7 +54,7 @@ const AuthLoginForm = ({action, isLogin, isSignup}) => {
                     </form>
                     <div className="pt-[16px] pb-[24px]">
                         <div
-                            className="w-full before:h-[1px] before:bg-gray-300 before:w-auto before:grow after:h-[1px] after:bg-gray-300 after:w-auto after:grow flex items-center justify-center text-center">
+                            className="w-full before:h-[1px] before:bg-zinc-300 before:w-auto before:grow after:h-[1px] after:bg-zinc-300 after:w-auto after:grow flex items-center justify-center text-center">
                             <p className="h-[21px] px-[32px] text-black">or</p>
                         </div>
                     </div>

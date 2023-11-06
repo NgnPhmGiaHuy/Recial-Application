@@ -12,7 +12,7 @@ const AuthHeader = () => {
                     <Image src={Favicon} alt="logo-image" fill className="object-contain"/>
                 </div>
             </a>
-            <ul className="flex flex-row items-center justify-center mr-1 after:!h-[37px] after:w-[1px] after:flex after:items-center after:bg-gray-500">
+            <ul className="flex flex-row items-center justify-center mr-1 after:!h-[37px] after:w-[1px] after:flex after:items-center after:bg-zinc-500">
                 <li>
                     <a href=""
                        className="w-[64px] h-[52px] mx-[8px] flex flex-col items-center justify-center text-gray-500 hover:text-black transition-all">
@@ -66,7 +66,7 @@ const AuthHeader = () => {
                 </li>
             </ul>
             <div className="min-w-[100px] flex flex-nowrap flex-shrink-0 justify-end gap-x-1">
-                <a href="/auth/signup" className="h-min min-h-[48px] px-[24px] py-[12px] text-[16px] font-semibold leading-normal text-center text-gray-500 rounded-3xl hover:bg-gray-100 hover:text-gray-700 transition-all duration-500">Join now</a>
+                <a href="/auth/signup" className="h-min min-h-[48px] px-[24px] py-[12px] text-[16px] font-semibold leading-normal text-center text-gray-500 rounded-3xl hover:bg-zinc-100 hover:text-gray-700 transition-all duration-500">Join now</a>
                 <a href="/auth/login" className="h-min min-h-[48px] px-[24px] py-[12px] text-[16px] bg-white border border-solid border-lime-500 font-semibold leading-normal text-center text-lime-500 rounded-3xl hover:border-lime-700 hover:text-lime-700 hover:bg-lime-50 transition-all duration-500">Sign in</a>
             </div>
         </nav>

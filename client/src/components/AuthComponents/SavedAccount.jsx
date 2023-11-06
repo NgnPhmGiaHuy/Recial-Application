@@ -15,7 +15,7 @@ const SavedAccount = ({userName, userProfilePicture, lastOnlineTime}) => {
             onMouseOut={() => setIsSavedAccountHover(false)}>
             <div className={`absolute ${isSavedAccountHover ? "-top-1 -right-1" : " top-0 right-1"} transition-all`}>
                 <button
-                    className={`${isSavedAccountHover ? "bg-white shadow-[0_3px_8px_rgba(0,0,0,0.24)]" : "bg-gray-500 transition-all"} rounded-full p-[1px]`}>
+                    className={`${isSavedAccountHover ? "bg-white shadow-[0_3px_8px_rgba(0,0,0,0.24)]" : "bg-zinc-500 transition-all"} rounded-full p-[1px]`}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill={`${isSavedAccountHover ? "white" : "gray"}`}
                          viewBox="0 0 24 24" strokeWidth={1.5}
                          stroke={`${isSavedAccountHover ? "black" : "white"}`}

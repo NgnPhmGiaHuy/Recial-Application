@@ -1,10 +1,13 @@
 import './globals.css';
-import {Rubik} from "next/font/google";
+import {Rubik, Roboto, Nunito_Sans, Montserrat} from "next/font/google";
 
-import Favicon from '/public/images/Metadata/favicon.ico';
 import {Providers} from "@/components";
+import Favicon from '/public/images/Metadata/favicon.ico';
 
 const rubik = Rubik({subsets: ["latin"]});
+const nunitoSans = Nunito_Sans({subsets: ["latin"]});
+const montserrat = Montserrat({subsets: ["latin"]});
+const roboto = Roboto({subsets: ["latin"], weight: ["100", "300", "400", "500", "700", "900"]});
 
 export const metadata = {
     title: 'Recial',
@@ -15,7 +18,7 @@ export const metadata = {
 export default function RootLayout({children}) {
     return (
         <html lang="en">
-            <body className={`${rubik.className}`}>
+            <body className={`${nunitoSans.className}`}>
                 <Providers>
                     {children}
                 </Providers>

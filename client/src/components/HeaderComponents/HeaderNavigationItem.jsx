@@ -1,6 +1,4 @@
-import React from "react";
-
-const NavigationItemList = ({itemProps, navigationItem}) => {
+const HeaderNavigationItem = ({itemProps, navigationItem}) => {
     return (
         <li className={`${navigationItem === itemProps.navigationName ? "after:border-b-2 after:border-solid after:border-black after:w-full" : ""} w-[112px] flex flex-col items-center`}>
             <a href={itemProps.navigationLink}
@@ -14,4 +12,4 @@ const NavigationItemList = ({itemProps, navigationItem}) => {
     );
 };
 
-export default NavigationItemList;
+export default HeaderNavigationItem;

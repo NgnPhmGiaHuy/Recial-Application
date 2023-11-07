@@ -7,7 +7,6 @@ import Calender from "/public/images/Icon/calendar.png";
 import Memories from "/public/images/Icon/memories.png";
 import Networking from "/public/images/Icon/networking.png";
 import RecentAdActivity from "/public/images/Icon/recent-ad-activity.png";
-import React from "react";
 
 export const fakeNotificationData = [
     {

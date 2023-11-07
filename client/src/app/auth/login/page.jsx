@@ -2,11 +2,10 @@
 
 import React from "react";
 import Image from "next/image";
-
 import {useSession} from "next-auth/react";
-import {AuthLoginForm, AuthHeader} from "@/components";
 import {signIn, signOut} from "next-auth/react";
 
+import {AuthLoginForm, AuthHeader} from "@/components";
 import Illustration from "/public/images/Illustration/illustration-of-a-man-and-a-woman-watering-a-plant.jpg";
 
 const Login = () => {
@@ -22,7 +21,7 @@ const Login = () => {
         )
     }
     return (
-        <>
+        <div className="w-screen h-screen bg-white">
             <AuthHeader/>
             <main className="flex flex-col items-center justify-center relative overflow-hidden">
                 <section
@@ -32,10 +31,10 @@ const Login = () => {
                     </div>
                     <Image src={Illustration} alt="illustration-of-a-man-and-a-woman-watering-a-plant" width={600}
                            height={560}
-                           className="hidden z-[-1] relative flex-shrink object-cover lg:block"/>
+                           className="hidden z-[1] relative flex-shrink object-cover lg:block"/>
                 </section>
             </main>
-        </>
+        </div>
     );
 };
 

@@ -74,7 +74,7 @@ const Header = ({navigationItem}) => {
 
     return (
         <nav>
-            <div className="h-[56px] top-0 left-0 fixed z-20">
+            <div className="h-[56px] top-0 left-0 fixed z-30">
                 <div className="w-full h-full flex flex-row relative">
                     <div
                         className={`${showSearchHistory ? "hidden" : "flex"} h-full flex-row relative items-center z-0 ml-[16px]`}>
@@ -108,7 +108,7 @@ const Header = ({navigationItem}) => {
                     </div>
                 </div>
             </div>
-            <div className="w-full h-[56px] top-0 right-0 fixed shadow-md">
+            <div className="w-full h-[56px] top-0 right-0 fixed shadow z-20 bg-white">
                 <div className="w-full h-full flex flex-col justify-end relative z-0">
                     <ul className="w-full h-full flex flex-nowrap list-none items-center justify-center grow px-[110px]">
                         {headerNavigationItemList.map((value, index) => (
@@ -117,7 +117,7 @@ const Header = ({navigationItem}) => {
                     </ul>
                 </div>
             </div>
-            <div className="h-[56px] top-0 right-0 fixed">
+            <div className="h-[56px] top-0 right-0 fixed z-20">
                 <div className="h-full pr-[16px] pl-[4px] flex flex-row items-center">
                     <div className="h-full flex items-center justify-center mr-[8px]">
                         <div ref={menuButtonRef} className={`${showMenu ? "bg-lime-200 hover:bg-lime-300 text-lime-700" : "bg-zinc-200 hover:bg-zinc-300"} w-[40px] h-[40px] flex items-center justify-center rounded-full cursor-pointer relative transition-all`} onClick={handleMenuButtonClick}>

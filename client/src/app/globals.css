@@ -12,7 +12,7 @@
     --color-secondary-light: #f0f5c9;
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     border: 0;
@@ -20,7 +20,11 @@
     box-sizing: border-box;
 }
 
-html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p{
+body {
+    background-color: #F0F2F5;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p {
     margin: 0;
     padding: 0;
     border: 0;
@@ -31,26 +35,8 @@ ol, ul {
     list-style: none;
 }
 
-b, strong{
-   font-weight: 600;
-}
-
-::-webkit-scrollbar{
-    width: 8px;
-}
-
-::-webkit-scrollbar-track{
-    background-color: transparent;
-}
-
-::-webkit-scrollbar-track:hover{
-    background-color: #fafafa;
-}
-
-::-webkit-scrollbar-thumb{
-    border-radius: 50px;
-    background-color: rgb(128, 128, 128);
-    /*background-image: linear-gradient(-45deg, lime, limegreen);*/
+b, strong {
+    font-weight: 600;
 }
 
 @keyframes moveIconRightToLeft {
@@ -75,7 +61,7 @@ b, strong{
     0% {
         transform: translateX(100%);
     }
-    100%{
+    100% {
         transform: translateX(0%);
     }
 }
@@ -84,7 +70,7 @@ b, strong{
     0% {
         transform: translateX(0%);
     }
-    100%{
+    100% {
         transform: translateX(100%);
     }
 }
@@ -106,8 +92,23 @@ b, strong{
 }
 
 
+/*::-webkit-scrollbar {*/
+/*    width: 8px;*/
+/*}*/
 
+/*::-webkit-scrollbar-track {*/
+/*    background-color: transparent;*/
+/*}*/
 
+/*::-webkit-scrollbar-track:hover {*/
+/*    background-color: #fafafa;*/
+/*}*/
+
+/*::-webkit-scrollbar-thumb {*/
+/*    border-radius: 50px;*/
+/*    background-color: rgb(128, 128, 128);*/
+/*    !*background-image: linear-gradient(-45deg, lime, limegreen);*!*/
+/*}*/
 
 /*body{*/
 /*    font-family: "Helvetica", sans-serif;*/

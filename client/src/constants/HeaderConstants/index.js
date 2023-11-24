@@ -2,157 +2,10 @@ import Group from "/public/images/Icon/group.png";
 import Feeds from "/public/images/Icon/feeds.png";
 import Pages from "/public/images/Icon/pages.png";
 import Saved from "/public/images/Icon/saved.png";
-import Avatar from "/public/images/Avatars/Avatar.png";
 import Calender from "/public/images/Icon/calendar.png";
 import Memories from "/public/images/Icon/memories.png";
 import Networking from "/public/images/Icon/networking.png";
 import RecentAdActivity from "/public/images/Icon/recent-ad-activity.png";
-
-export const fakeNotificationData = [
-    {
-        notificationImage: Avatar,
-        notificationType: 'message',
-        notificationContent: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        notificationTime: '2 hours',
-        notificationHasBeenRead: true,
-    },
-    {
-        notificationImage: Avatar,
-        notificationType: 'message',
-        notificationContent: 'A warning message that needs your attention.',
-        notificationTime: '1 day',
-        notificationHasBeenRead: false,
-    },
-    {
-        notificationImage: Avatar,
-        notificationType: 'message',
-        notificationContent: 'An error occurred while processing your request.',
-        notificationTime: '30 minutes',
-        notificationHasBeenRead: false,
-    },
-    {
-        notificationImage: Avatar,
-        notificationType: 'message',
-        notificationContent: 'Your task was completed successfully.',
-        notificationTime: '2 days',
-        notificationHasBeenRead: true,
-    },
-    {
-        notificationImage: Avatar,
-        notificationType: 'message',
-        notificationContent: 'This is a custom notification with a unique type.',
-        notificationTime: '5 hours',
-        notificationHasBeenRead: false,
-    },
-    {
-        notificationImage: Avatar,
-        notificationType: 'message',
-        notificationContent: 'A new update is available for your app.',
-        notificationTime: '30 minutes',
-        notificationHasBeenRead: true,
-    },
-    {
-        notificationImage: Avatar,
-        notificationType: 'message',
-        notificationContent: 'Your subscription is about to expire.',
-        notificationTime: '1 hour',
-        notificationHasBeenRead: false,
-    },
-    {
-        notificationImage: Avatar,
-        notificationType: 'message',
-        notificationContent: 'Your subscription is about to expire.',
-        notificationTime: '3 days',
-        notificationHasBeenRead: false,
-    },
-    {
-        notificationImage: Avatar,
-        notificationType: 'message',
-        notificationContent: 'Your subscription is about to expire.',
-        notificationTime: '1 week',
-        notificationHasBeenRead: true,
-    },
-    {
-        notificationImage: Avatar,
-        notificationType: 'message',
-        notificationContent: 'Custom notification content here.',
-        notificationTime: '4 hours',
-        notificationHasBeenRead: false,
-    },
-];
-
-export const headerSearchHistoryItemFakeList = [
-    {
-        searchHistoryImage: Avatar,
-        searchHistoryTitle: "John Doe",
-        searchHistoryHasBeenEntity: true,
-        searchHistoryHasNews: true,
-        searchHistoryNewsNumber: 3,
-    },
-    {
-        searchHistoryImage: null,
-        searchHistoryTitle: "Jane Smith",
-        searchHistoryHasBeenEntity: false,
-        searchHistoryHasNews: true,
-        searchHistoryNewsNumber: 1,
-    },
-    {
-        searchHistoryImage: Avatar,
-        searchHistoryTitle: "Michael Johnson",
-        searchHistoryHasBeenEntity: true,
-        searchHistoryHasNews: false,
-        searchHistoryNewsNumber: 0,
-    },
-    {
-        searchHistoryImage: null,
-        searchHistoryTitle: "Emily Davis",
-        searchHistoryHasBeenEntity: false,
-        searchHistoryHasNews: false,
-        searchHistoryNewsNumber: 0,
-    },
-    {
-        searchHistoryImage: Avatar,
-        searchHistoryTitle: "William Brown",
-        searchHistoryHasBeenEntity: true,
-        searchHistoryHasNews: true,
-        searchHistoryNewsNumber: 2,
-    },
-    {
-        searchHistoryImage: null,
-        searchHistoryTitle: "Linda Wilson",
-        searchHistoryHasBeenEntity: false,
-        searchHistoryHasNews: true,
-        searchHistoryNewsNumber: 1,
-    },
-    {
-        searchHistoryImage: Avatar,
-        searchHistoryTitle: "James Taylor",
-        searchHistoryHasBeenEntity: true,
-        searchHistoryHasNews: false,
-        searchHistoryNewsNumber: 0,
-    },
-    {
-        searchHistoryImage: null,
-        searchHistoryTitle: "Susan Martinez",
-        searchHistoryHasBeenEntity: false,
-        searchHistoryHasNews: false,
-        searchHistoryNewsNumber: 0,
-    },
-    {
-        searchHistoryImage: Avatar,
-        searchHistoryTitle: "Robert Anderson",
-        searchHistoryHasBeenEntity: true,
-        searchHistoryHasNews: true,
-        searchHistoryNewsNumber: 2,
-    },
-    {
-        searchHistoryImage: null,
-        searchHistoryTitle: "Karen Hernandez",
-        searchHistoryHasBeenEntity: false,
-        searchHistoryHasNews: true,
-        searchHistoryNewsNumber: 1,
-    },
-];
 
 export const notificationTypeOfColor = {
     friendRequest: {
@@ -394,18 +247,23 @@ export const headerNavigationItemList = [
 
 export const headerMenuSocialSectionItemList = [
     {
+        sectionItemLink: "",
         sectionItemIcon: Calender,
         sectionItemTitle: "Events",
     }, {
+        sectionItemLink: "/friends",
         sectionItemIcon: Networking,
         sectionItemTitle: "Find friends",
     }, {
+        sectionItemLink: "",
         sectionItemIcon: Group,
         sectionItemTitle: "Groups",
     }, {
+        sectionItemLink: "",
         sectionItemIcon: Feeds,
         sectionItemTitle: "Feeds",
     }, {
+        sectionItemLink: "",
         sectionItemIcon: Pages,
         sectionItemTitle: "Pages",
     }
@@ -413,12 +271,15 @@ export const headerMenuSocialSectionItemList = [
 
 export const headerMenuPersonalSectionItemList = [
     {
+        sectionItemLink: "",
         sectionItemIcon: RecentAdActivity,
         sectionItemTitle: "Recent ad activity",
     }, {
+        sectionItemLink: "",
         sectionItemIcon: Memories,
         sectionItemTitle: "Memories",
     }, {
+        sectionItemLink: "",
         sectionItemIcon: Saved,
         sectionItemTitle: "Saved",
     }

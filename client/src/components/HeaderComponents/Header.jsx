@@ -6,10 +6,9 @@ import React, {useEffect, useRef, useState, useCallback} from "react";
 import {headerNavigationItemList} from "@/constants/HeaderConstants";
 import {HeaderMenu, HeaderMessage, HeaderNotification, HeaderPersonalAccount, HeaderSearchHistory, HeaderNavigationItem} from "@/components";
 
-import Avatar from "/public/images/Avatars/Avatar.png";
 import Favicon from "/public/images/Metadata/favicon.ico";
 
-const Header = ({navigationItem}) => {
+const Header = ({navigationItem, userData}) => {
     const menuButtonRef = useRef(null);
     const messageButtonRef = useRef(null);
     const notificationButtonRef = useRef(null);
@@ -76,11 +75,12 @@ const Header = ({navigationItem}) => {
         <nav>
             <div className="h-[56px] top-0 left-0 fixed z-30">
                 <div className="w-full h-full flex flex-row relative">
-                    <div
-                        className={`${showSearchHistory ? "hidden" : "flex"} h-full flex-row relative items-center z-0 ml-[16px]`}>
-                        <div className="w-[40px] h-[40px] relative">
-                            <Image src={Favicon} alt="logo-image" fill className="object-contain"/>
-                        </div>
+                    <div className={`${showSearchHistory ? "hidden" : "flex"} h-full flex-row relative items-center z-0 ml-[16px]`}>
+                        <a href="/" className="w-full h-full flex flex-col items-center justify-center relative">
+                            <div className="w-[40px] h-[40px] relative">
+                                <Image src={Favicon} alt="logo-image" fill className="object-contain"/>
+                            </div>
+                        </a>
                     </div>
                     <div className="w-[320px] h-full">
                         <div className="w-full h-full relative before:shadow-md">
@@ -102,7 +102,7 @@ const Header = ({navigationItem}) => {
                                 </div>
                             </div>
                             <div ref={searchHistoryButtonRef}>
-                                {showSearchHistory ? (<HeaderSearchHistory/>) : ""}
+                                {showSearchHistory ? (<HeaderSearchHistory userData={userData}/>) : ""}
                             </div>
                         </div>
                     </div>
@@ -159,7 +159,7 @@ const Header = ({navigationItem}) => {
                     <div className="h-full flex items-center justify-center">
                         <div ref={personalAccountButtonRef} className="w-[40px] h-[40px] relative cursor-pointer" onClick={handlePersonalAccountButtonClick}>
                             <div className="w-full h-full rounded-full overflow-hidden relative">
-                                <Image src={Avatar} alt="user-avatar" fill className="object-cover"/>
+                                <Image src={userData.user.profile_picture_url} alt={`${userData.user.profile_picture_url}-image`} fill className="object-cover"/>
                             </div>
                             <div className="w-3 h-3 top-0 right-0 absolute border border-solid border-white rounded-full bg-red-500">
                                 <span></span>
@@ -171,13 +171,13 @@ const Header = ({navigationItem}) => {
                     {showMenu ? (<HeaderMenu forwardedRef={menuButtonRef} handleMenuButtonClick={handleMenuButtonClick}/>) : ""}
                 </div>
                 <div>
-                    {showMessage ? (<HeaderMessage forwardedRef={messageButtonRef}/>) : ""}
+                    {showMessage ? (<HeaderMessage forwardedRef={messageButtonRef} userData={userData}/>) : ""}
                 </div>
                 <div>
-                    {showNotification ? (<HeaderNotification forwardedRef={notificationButtonRef}/>) : ""}
+                    {showNotification ? (<HeaderNotification forwardedRef={notificationButtonRef} userData={userData}/>) : ""}
                 </div>
                 <div>
-                    {showPersonalAccount ? (<HeaderPersonalAccount forwardedRef={personalAccountButtonRef} personalAccountImage={Avatar} personalAccountUserName="Nguyen Pham Gia Huy"/>) : ""}
+                    {showPersonalAccount ? (<HeaderPersonalAccount forwardedRef={personalAccountButtonRef} userData={userData}/>) : ""}
                 </div>
             </div>
         </nav>

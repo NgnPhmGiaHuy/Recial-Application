@@ -1,13 +1,12 @@
 "use client"
 
 import Image from "next/image";
-import React, {useCallback, useState} from "react";
+import {useCallback, useState} from "react";
 
-import Avatar from "/public/images/Avatars/Avatar.png";
-import {AsideItem, AsideShowMoreOrShowLessButton} from "@/components";
-import {asideNavigationItemList, asideFollowFakeItemList} from "@/constants/AsideConstants";
+import {asideNavigationItemList} from "@/constants/AsideConstants";
+import {AsideFollowItem, AsideItem, AsideShowMoreOrShowLessButton} from "@/components";
 
-const Aside = () => {
+const Aside = ({userData}) => {
     const [asideFollowItemToShow, setAsideFollowItemToShow] = useState(3);
     const [asideNavigationItemsToShow, setAsideNavigationItemsToShow] = useState(6);
 
@@ -36,11 +35,11 @@ const Aside = () => {
                             <div className="flex flex-col relative">
                                 <section>
                                     <div className="px-[8px]">
-                                        <a href="" className="block rounded-md hover:bg-zinc-100 transition-all">
+                                        <a href={userData.user.user_id} className="block rounded-md hover:bg-zinc-100 transition-all">
                                             <div className="min-h-[48px] px-[8px] flex flex-row items-center justify-between relative">
                                                 <div className="my-[6px] mr-[12px] flex flex-col self-center relative">
                                                     <div className="w-[36px] h-[36px] flex flex-row rounded-full overflow-hidden relative">
-                                                        <Image src={Avatar} alt={`${Avatar}-image`} fill className="object-cover"/>
+                                                        <Image src={userData.user.profile_picture_url} alt={`${userData.user.profile_picture_url}-image`} fill className="object-cover"/>
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-row flex-shrink grow items-center justify-between self-stretch relative">
@@ -49,7 +48,7 @@ const Aside = () => {
                                                             <div className="my-[5px]">
                                                                 <span className="block text-[16px] text-black text-left font-medium break-words leading-5">
                                                                     <span className="overflow-x-hidden overflow-y-hidden line-clamp-2 relative">
-                                                                        Nguyen Huy
+                                                                        {userData.user.username}
                                                                     </span>
                                                                 </span>
                                                             </div>
@@ -105,14 +104,14 @@ const Aside = () => {
                                         </div>
                                     </div>
                                     <ul>
-                                        {asideFollowFakeItemList.slice(0, asideFollowItemToShow).map((value, index) => (
-                                            <AsideItem key={index} asideItemData={value} hasNotificationBadge={true}/>
+                                        {userData.follows.slice(0, asideFollowItemToShow).map((value, index) => (
+                                            <AsideFollowItem key={index} asideItemData={value} hasNotificationBadge={true}/>
                                         ))}
                                     </ul>
-                                    {asideFollowItemToShow === asideFollowFakeItemList.length ? (
-                                        <AsideShowMoreOrShowLessButton showMore={false} onClick={() => showLessAsideFollowItem(asideFollowFakeItemList)}/>
+                                    {asideFollowItemToShow === userData.follows.length ? (
+                                        <AsideShowMoreOrShowLessButton showMore={false} onClick={() => showLessAsideFollowItem(userData.follows)}/>
                                     ) : (
-                                        <AsideShowMoreOrShowLessButton showMore={true} onClick={() => showMoreAsideFollowItem(asideFollowFakeItemList)}/>
+                                        <AsideShowMoreOrShowLessButton showMore={true} onClick={() => showMoreAsideFollowItem(userData.follows)}/>
                                     )}
                                 </section>
                             </div>

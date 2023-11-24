@@ -3,7 +3,7 @@ import Image from "next/image";
 import {HeaderPersonalAccountSettingItem} from "@/components";
 import {headerPersonalAccountSettingItemList} from "@/constants/HeaderConstants";
 
-const HeaderPersonalAccount = ({forwardedRef, personalAccountImage, personalAccountUserName}) => {
+const HeaderPersonalAccount = ({forwardedRef, userData}) => {
     return (
         <div ref={forwardedRef} className="absolute top-0 left-0 translate-x-[-172px] translate-y-[48px]">
             <div className="mt-[5px]">
@@ -20,12 +20,12 @@ const HeaderPersonalAccount = ({forwardedRef, personalAccountImage, personalAcco
                                                         <div className="my-[-4px] p-[8px] flex flex-row flex-nowrap items-center justify-between">
                                                             <div className="p-[4px] flex flex-col flex-shrink-0 items-center justify-center relative">
                                                                 <div className="w-[36px] h-[36px] flex items-center justify-center rounded-full overflow-hidden relative">
-                                                                    <Image src={personalAccountImage} alt={`${personalAccountImage} image`} fill className="object-cover"/>
+                                                                    <Image src={userData.user.profile_picture_url} alt={`${userData.user.profile_picture_url} image`} fill className="object-cover"/>
                                                                 </div>
                                                             </div>
                                                             <div className="p-[4px] flex flex-col flex-shrink grow relative">
                                                                 <span className="block text-[16px] text-left text-black font-semibold break-words leading-4">
-                                                                    {personalAccountUserName}
+                                                                    {userData.user.username}
                                                                 </span>
                                                             </div>
                                                         </div>

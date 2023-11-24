@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.5.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#D6FF00;}
+	.st1{fill:#34E27A;}
+	.st2{fill:#00B9F1;}
+	.st3{fill:#FFFFFF;}
+</style>
+<g id="XMLID_1_">
+	<rect id="XMLID_2_" width="512" height="512"/>
+	<path id="XMLID_3_" class="st0" d="M256,48.39c-91.74,0-166.08,74.35-166.08,166.08h83.04c0-45.87,37.17-83.04,83.04-83.04V48.39z"
+		/>
+	<path id="XMLID_4_" class="st1" d="M422.08,214.48c0-91.74-74.35-166.08-166.08-166.08v83.04c45.87,0,83.04,37.17,83.04,83.04
+		H422.08z"/>
+	<path id="XMLID_5_" class="st2" d="M256,380.56c91.74,0,166.08-74.35,166.08-166.08h-83.04c0,45.87-37.17,83.04-83.04,83.04
+		L256,380.56L256,380.56z"/>
+	<polygon id="XMLID_6_" class="st3" points="172.96,380.56 172.96,214.48 89.92,214.48 89.92,463.61 256,463.61 256,380.56 	"/>
+</g>
+</svg>

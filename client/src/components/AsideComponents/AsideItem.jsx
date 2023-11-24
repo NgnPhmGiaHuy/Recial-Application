@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const AsideItem = ({asideItemData, hasNotificationBadge}) => {
+const AsideItem = ({asideItemData}) => {
     return(
         <li>
             <div className="px-[8px]">
@@ -24,15 +24,6 @@ const AsideItem = ({asideItemData, hasNotificationBadge}) => {
                                 </div>
                             </div>
                         </div>
-                        {hasNotificationBadge ? (
-                            <div className="my-[8px] ml-[12px] self-center relative">
-                                <div className="flex flex-row items-center">
-                                    <div className="w-[20px] pl-[4px] flex flex-row bg-transparent relative cursor-pointer">
-                                        <span className={`bg-lime-500 w-[6px] h-[6px] inline-flex items-center justify-center rounded-full`}></span>
-                                    </div>
-                                </div>
-                            </div>
-                        ):""}
                     </div>
                 </a>
             </div>

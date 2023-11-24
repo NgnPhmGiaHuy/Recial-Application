@@ -1,0 +1,88 @@
+import Image from "next/image";
+
+const PostItemHeader = ({postData, handleShowPostItemQuickSetting}) => {
+    return (
+        <div className="mb-[12px] px-[16px] pt-[12px] flex flex-row items-start">
+            <div className="flex flex-row flex-shrink grow items-center relative">
+                <div className="mr-[8px] flex flex-col justify-center relative">
+                    <a href="" className="">
+                        <div className="w-[40px] h-[40px] overflow-hidden rounded-full relative group">
+                            <Image src={postData.postAuthor.authorAvatar} alt={`${postData.postAuthor.authorAvatar}-image`} fill className="object-cover"/>
+                            <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                        </div>
+                    </a>
+                    {/*<a href="">*/}
+                    {/*    <div className="w-[40px] h-[40px] relative">*/}
+                    {/*        <div className="w-full h-full overflow-hidden rounded-md relative">*/}
+                    {/*            <Image src={postData.postAuthor.authorAvatar} alt={`${postData.postAuthor.authorAvatar}-image`} fill className="object-cover"/>*/}
+                    {/*        </div>*/}
+                    {/*        <div className="w-[30px] h-[30px] bottom-[-5px] right-[-5px] rounded-full overflow-hidden border border-solid border-lime-500 absolute">*/}
+                    {/*            <Image src={postData.postAuthor.authorAvatar} alt={`${postData.postAuthor.authorAvatar}-image`} fill className="object-cover"/>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*</a>*/}
+                </div>
+                <div className="max-w-[600px] my-[-5px] flex flex-col grow">
+                    <div>
+                        <span className="block text-[16px] text-black text-left font-normal break-words leading-5 relative hover:underline">
+                            <a href="" className="w-full h-full">
+                                <strong>
+                                    <span className="overflow-x-hidden overflow-y-hidden text-ellipsis line-clamp-2 relative">
+                                        {postData.postAuthor.authorName}
+                                    </span>
+                                </strong>
+                            </a>
+                        </span>
+                    </div>
+                    <div>
+                        <span className="block text-[13px] text-zinc-500 text-left font-normal break-words leading-4">
+                            <div className="min-h-[16px] flex flex-row items-center pt-[6px]">
+                                <span className="flex items-center break-words pr-[2px]">
+                                    <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
+                                        <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
+                                            {postData.postUpdateAt}
+                                        </span>
+                                    </span>
+                                </span>
+                                <span className="flex items-center break-words">
+                                    <span className="block text-[13px] text-gray-500 font-normal break-words leading-4 mx-[4px]">
+                                        <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
+                                            <span> · </span>
+                                        </span>
+                                    </span>
+                                </span>
+                                <span className="flex items-center break-words pl-[2px]">
+                                    <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
+                                        <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis line-clamp-1 relative">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+                                            </svg>
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div className="flex flex-row flex-shrink-0 grow-0 items-center relative">
+                <div className="w-[40px] h-[40px] mx-[4px] p-[8px] flex self-start rounded-full cursor-pointer relative hover:bg-zinc-200" onClick={handleShowPostItemQuickSetting}>
+                    <div className="w-full h-full inline-flex flex-row items-stretch ">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                        </svg>
+                    </div>
+                </div>
+                <div className="w-[40px] h-[40px] mx-[4px] p-[8px] flex self-start rounded-full cursor-pointer relative hover:bg-zinc-200">
+                    <div className="w-full h-full inline-flex flex-row items-stretch ">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default PostItemHeader;

@@ -1,25 +1,29 @@
 "use client"
 
-import React, {useEffect, useRef, useState, useCallback} from "react";
+import {useEffect, useRef, useState, useCallback} from "react";
 
 import {headerMessageQuickSettingList} from "@/constants/HeaderConstants";
-import {HeaderMessageContentItem, HeaderQuickSettingItem} from "@/components";
+import {HeaderMessageContentItem, QuickSettingItem} from "@/components";
 
-import Avatar from "/public/images/Avatars/Avatar.png";
+const HeaderMessage = ({forwardedRef, userData}) => {
+    const messageQuickSettingButtonRef = useRef(null);
 
-const HeaderMessage = ({forwardedRef}) => {
-    const messageQuickSettingButtonRef = useRef();
     const [showMessageQuickSetting, setShowMessageQuickSetting] = useState(false);
+    const [messageQuickSettingTranslateYValue, setMessageQuickSettingTranslateYValue] = useState(-415);
 
     const handleMessageQuickSettingButton = useCallback(() => {
         setShowMessageQuickSetting((prevShowMessageQuickSetting) => !prevShowMessageQuickSetting);
     }, []);
 
     useEffect(() => {
+        if (messageQuickSettingButtonRef.current && showMessageQuickSetting) {
+            setMessageQuickSettingTranslateYValue(-messageQuickSettingButtonRef.current.clientHeight);
+        }
+
         const handleOutsideClick = (event) => {
             if (messageQuickSettingButtonRef.current && !messageQuickSettingButtonRef.current.contains(event.target)) {
                 setShowMessageQuickSetting(false);
-            }
+            };
         };
 
         if (showMessageQuickSetting) {
@@ -113,19 +117,18 @@ const HeaderMessage = ({forwardedRef}) => {
                             </div>
                             <div>
                                 <ul className="flex flex-col relative">
-                                    <HeaderMessageContentItem messageImage={Avatar} messageFrom="Nguyen Pham Gia Huy" messageRecentContent="You: Hello nice to meet you hihhihihihihih" messageRecentContentTime="2 days" messageHasBeenMuted={true} messageHasBeenRead={true}/>
-                                    <HeaderMessageContentItem messageImage={Avatar} messageFrom="Nguyen Pham Gia Huy" messageRecentContent="You: Hello nice to meet you hihhihihihihih" messageRecentContentTime="2 days" messageHasBeenMuted={true} messageHasBeenRead={false}/>
-                                    <HeaderMessageContentItem messageImage={Avatar} messageFrom="Nguyen Pham Gia Huy" messageRecentContent="You: Hello nice to meet you hihhihihihihih" messageRecentContentTime="2 days" messageHasBeenMuted={false} messageHasBeenRead={true}/>
-                                    <HeaderMessageContentItem messageImage={Avatar} messageFrom="Nguyen Pham Gia Huy" messageRecentContent="You: Hello nice to meet you hihhihihihihih" messageRecentContentTime="2 days" messageHasBeenMuted={false} messageHasBeenRead={false}/>
+                                    {userData.messages.map((value, index) => (
+                                        <HeaderMessageContentItem key={index} userData={value}/>
+                                    ))}
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div ref={messageQuickSettingButtonRef} >
+            <div>
                 {showMessageQuickSetting ? (
-                    <div className="absolute top-0 left-0 translate-x-[-65px] translate-y-[60px] z-50">
+                    <div ref={messageQuickSettingButtonRef} className="absolute top-0 left-0 translate-x-[-65px] translate-y-[60px] z-50">
                         <div className="relative mt-[15px] rounded-l-md rounded-b-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
                             <div className="overflow-x-hidden overflow-y-hidden rounded-l-md rounded-b-md bg-white">
                                 <div className="flex flex-col grow items-stretch origin-top-left relative">
@@ -144,13 +147,13 @@ const HeaderMessage = ({forwardedRef}) => {
                                                 </div>
                                             </div>
                                             {headerMessageQuickSettingList.map((value, index) => (
-                                                <HeaderQuickSettingItem key={index} settingItemData={value}/>
+                                                <QuickSettingItem key={index} settingItemData={value}/>
                                             ))}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <svg height="12" viewBox="0 0 21 12" width="21" className="absolute right-0 bottom-[calc(100%-1)] scale-x-[-1] scale-y-[-1] translate-x-0 translate-y-[-417px]" fill="white">
+                            <svg height="12" viewBox="0 0 21 12" width="21" className="absolute right-0 bottom-[calc(100%-1)] scale-x-[-1] scale-y-[-1] translate-x-0" style={{ '--tw-translate-y': `${messageQuickSettingTranslateYValue + 5}px` }} fill="white">
                                 <path d="M20.685.12c-2.229.424-4.278 1.914-6.181 3.403L5.4 10.94c-2.026 2.291-5.434.62-5.4-2.648V.12h20.684z"></path>
                             </svg>
                         </div>

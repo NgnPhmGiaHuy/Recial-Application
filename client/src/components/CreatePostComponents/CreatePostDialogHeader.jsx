@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const CreatePostDialogHeader = ({userData, handleShowCreatePost, handeShowCreatePostAudience}) => {
+const CreatePostDialogHeader = ({userProps, handleShowCreatePost, handeShowCreatePostAudience}) => {
     return(
         <div>
             <div className="relative">
@@ -27,7 +27,7 @@ const CreatePostDialogHeader = ({userData, handleShowCreatePost, handeShowCreate
                         <div className="mr-[12px]">
                             <div className="inline-block align-bottom relative">
                                 <div className="w-[56px] h-[56px] rounded-full overflow-hidden relative">
-                                    <Image src={userData.user.profile_picture_url} alt={`${userData.user.profile_picture_url}-image`} fill className="object-cover"/>
+                                    <Image src={userProps.user.profile_picture_url} alt={`${userProps.user.profile_picture_url}-image`} fill className="object-cover"/>
                                 </div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@ const CreatePostDialogHeader = ({userData, handleShowCreatePost, handeShowCreate
                             <div className="flex flex-row flex-shrink-0 relative">
                                 <span className="block text-[20px] text-black font-semibold break-words leading-5">
                                     <span className="overflow-x-hidden overflow-y-hidden relative">
-                                        {userData.user.username}
+                                        {userProps.user.username}
                                     </span>
                                 </span>
                             </div>

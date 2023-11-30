@@ -1,11 +1,11 @@
 "use client"
 
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from "react";
 
 import {postItemShareSettingList} from "@/constants/PostConstants";
 import {PostItemHeader, PostItemContent, PostItemFooter, QuickSettingItem, PostItemComment} from "@/components";
 
-const PostItem = ({postData}) => {
+const PostItem = ({postProps}) => {
     const postItemQuickSettingList = [
         {
             isSettingItemBreak: false,
@@ -56,7 +56,7 @@ const PostItem = ({postData}) => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             ),
-            settingItemTitle: `Snooze ${postData.postAuthor.authorName} for 30 days`,
+            settingItemTitle: `Snooze ${postProps.postAuthor.authorName} for 30 days`,
             settingItemSubtitle: "Temporarily stop seeing posts.",
             hasSettingItemSwitchButton: false,
         }, {
@@ -77,20 +77,24 @@ const PostItem = ({postData}) => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                 </svg>
             ),
-            settingItemTitle: `Block ${postData.postAuthor.authorName}'s profile`,
+            settingItemTitle: `Block ${postProps.postAuthor.authorName}'s profile`,
             settingItemSubtitle: "You won't be able to see or contact each other.",
             hasSettingItemSwitchButton: false,
         },
     ]
 
+    const postItemRef = useRef(null)
     const postItemShareSettingButtonRef = useRef(null);
     const postItemQuickSettingButtonRef = useRef(null);
 
     const [showPostItemComment, setShowPostItemComment] = useState(false);
     const [showPostItemQuickSetting, setShowPostItemQuickSetting] = useState(false);
     const [showPostItemShareSetting, setShowPostItemShareSetting] = useState(false);
-    const [postItemShareSettingTranslateYValue, setPostItemShareSettingTranslateYValue] = useState(-190);
-    const [postItemQuickSettingTranslateYValue, setPostItemQuickSettingTranslateYValue] = useState(-370);
+
+    const [postItemTranslateXValue, setPostItemTranslateXValue] = useState(0);
+    const [postItemTranslateYValue, setPostItemTranslateYValue] = useState(0);
+    const [postItemShareSettingTranslateYValue, setPostItemShareSettingTranslateYValue] = useState(0);
+    const [postItemQuickSettingTranslateYValue, setPostItemQuickSettingTranslateYValue] = useState(0);
 
     const handleShowPostItemComment = useCallback(() => {
         setShowPostItemComment((prevShowPostItemComment) => !prevShowPostItemComment);
@@ -105,6 +109,18 @@ const PostItem = ({postData}) => {
     }, []);
 
     useEffect(() => {
+        if (postItemRef.current && postItemQuickSettingButtonRef.current && showPostItemQuickSetting){
+            setPostItemTranslateXValue(postItemRef.current.clientWidth - postItemQuickSettingButtonRef.current.clientWidth - 25);
+        }
+
+        if (postItemRef.current && postItemShareSettingButtonRef.current && showPostItemShareSetting){
+            setPostItemTranslateXValue(postItemRef.current.clientWidth * 46 / 55 - postItemShareSettingButtonRef.current.clientWidth *  105 / 253);
+        }
+
+        if (postItemRef.current && postItemShareSettingButtonRef.current && showPostItemShareSetting){
+            setPostItemTranslateYValue(postItemRef.current.clientHeight);
+        }
+
         if (postItemQuickSettingButtonRef.current && showPostItemQuickSetting) {
             setPostItemQuickSettingTranslateYValue(-postItemQuickSettingButtonRef.current.clientHeight);
         }
@@ -134,24 +150,24 @@ const PostItem = ({postData}) => {
     }, [showPostItemQuickSetting, showPostItemShareSetting])
 
     return (
-        <div className="mb-[24px] flex flex-col justify-center rounded-md shadow-md bg-white relative">
+        <div className="mb-[24px] flex flex-col justify-center rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white relative" ref={postItemRef}>
             <div>
-                <PostItemHeader postData={postData} handleShowPostItemQuickSetting={handleShowPostItemQuickSetting}/>
+                <PostItemHeader postProps={postProps} handleShowPostItemQuickSetting={handleShowPostItemQuickSetting}/>
             </div>
             <div>
-                <PostItemContent postData={postData}/>
+                <PostItemContent postProps={postProps}/>
             </div>
             <div>
-                <PostItemFooter postData={postData} handleShowPostShareSetting={handleShowPostShareSetting} handleShowPostItemComment={handleShowPostItemComment}/>
+                <PostItemFooter postProps={postProps} handleShowPostShareSetting={handleShowPostShareSetting} handleShowPostItemComment={handleShowPostItemComment}/>
             </div>
             <div>
                 {showPostItemComment ? (
-                    <PostItemComment postData={postData}/>
-                ) : ""}
+                    <PostItemComment postProps={postProps}/>
+                ) : null}
             </div>
             <div ref={postItemQuickSettingButtonRef}>
                 {showPostItemQuickSetting ? (
-                    <div ref={postItemQuickSettingButtonRef} className="absolute top-0 left-0 translate-x-[400px] translate-y-[50px] z-50">
+                    <div ref={postItemQuickSettingButtonRef} className="absolute top-0 left-0 translate-x-[400px] translate-y-[50px] z-50" style={{ "--tw-translate-x": `${postItemTranslateXValue}px` }}>
                         <div className="relative mt-[15px] rounded-l-md rounded-r-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
                             <div className="overflow-x-hidden overflow-y-hidden rounded-l-md rounded-r-md bg-white">
                                 <div className="flex flex-col grow items-stretch origin-top-left relative">
@@ -164,16 +180,16 @@ const PostItem = ({postData}) => {
                                     </div>
                                 </div>
                             </div>
-                            <svg height="12" viewBox="0 0 21 12" width="21" className="absolute right-0 bottom-[calc(100%-1)] scale-x-[-1] scale-y-[-1] translate-x-[-60px]" style={{ '--tw-translate-y': `${postItemQuickSettingTranslateYValue + 5}px` }} fill="white">
+                            <svg height="12" viewBox="0 0 21 12" width="21" className="absolute right-0 bottom-[calc(100%-1)] scale-x-[-1] scale-y-[-1] translate-x-[-60px]" style={{ "--tw-translate-y": `${postItemQuickSettingTranslateYValue + 5}px` }} fill="white">
                                 <path d="M20.685.12c-2.229.424-4.278 1.914-6.181 3.403L5.4 10.94c-2.026 2.291-5.434.62-5.4-2.648V.12h20.684z"></path>
                             </svg>
                         </div>
                     </div>
-                ) : ""}
+                ) : null}
             </div>
-            <div>
+            <div ref={postItemShareSettingButtonRef}>
                 {showPostItemShareSetting ? (
-                    <div ref={postItemShareSettingButtonRef} className="absolute top-0 left-0 translate-x-[525px] translate-y-[800px] z-50">
+                    <div ref={postItemShareSettingButtonRef} className="absolute top-0 left-0 translate-x-[525px] translate-y-[800px] z-50" style={{ "--tw-translate-x": `${postItemTranslateXValue}px`, "--tw-translate-y": `${postItemTranslateYValue}px`}}>
                         <div className="relative mt-[15px] rounded-l-md rounded-r-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
                             <div className="overflow-x-hidden overflow-y-hidden rounded-l-md rounded-r-md bg-white">
                                 <div className="flex flex-col grow items-stretch origin-top-left relative">
@@ -186,12 +202,12 @@ const PostItem = ({postData}) => {
                                     </div>
                                 </div>
                             </div>
-                            <svg height="12" viewBox="0 0 21 12" width="21" className="absolute right-0 bottom-[calc(100%-1)] scale-x-[1] scale-y-[-1] translate-x-[-220px]" style={{ '--tw-translate-y': `${postItemShareSettingTranslateYValue + 5}px` }} fill="white">
+                            <svg height="12" viewBox="0 0 21 12" width="21" className="absolute right-0 bottom-[calc(100%-1)] scale-x-[1] scale-y-[-1] translate-x-[-220px]" style={{ "--tw-translate-y": `${postItemShareSettingTranslateYValue + 5}px` }} fill="white">
                                 <path d="M20.685.12c-2.229.424-4.278 1.914-6.181 3.403L5.4 10.94c-2.026 2.291-5.434.62-5.4-2.648V.12h20.684z"></path>
                             </svg>
                         </div>
                     </div>
-                ) : ""}
+                ) : null}
             </div>
         </div>
     );

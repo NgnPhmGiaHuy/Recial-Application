@@ -3,19 +3,150 @@ import Illustration01 from "/public/images/Illustration/illustration-of-a-man-an
 import Illustration02 from "/public/images/Illustration/vecteezy-people-sorting-garbage-for-recycling-environment.jpg";
 import Illustration03 from "/public/images/Illustration/test.svg";
 
+const Video = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+
 export const fakeUserData = {
     user: {
-        user_id: "Huy",
+        user_id: "HuyNguyen",
         username: "Huy Nguyen",
         email: "",
         name_first: "Nguyen",
         name_middle: "Pham Gia",
         name_last: "Huy",
+        job_title: "Software Engineering",
+        short_description: "Description of the event...",
+        description: "Space exploration has captivated the human imagination for decades, pushing the boundaries of what we know and what's possible. It encompasses the discovery of celestial bodies, understanding the universe's mysteries, and potentially establishing human colonies beyond Earth.\n" +
+            "\n" +
+            "The journey began with the Space Race in the mid-20th century when the United States and the Soviet Union competed to reach milestones like the first satellite (Sputnik) and the first human in space (Yuri Gagarin). Since then, space agencies worldwide, like NASA, ESA, and private companies like SpaceX, Blue Origin, and others, have joined the quest for exploration and colonization.\n" +
+            "\n" +
+            "Exploration missions have unveiled wonders such as the Martian surface through rovers like Curiosity and Perseverance, revealing clues about the planet's past and the potential for sustaining life. Meanwhile, probes like Voyager have ventured beyond our solar system, sending back valuable data about interstellar space.\n" +
+            "\n" +
+            "The dream of colonizing other planets has gained traction. Mars, with its similarities to Earth and potential resources, stands as a primary target. However, challenges abound, from the harsh environment to the immense distances and technological hurdles. Concepts like terraforming Mars or establishing self-sustaining habitats show promise but also pose ethical and logistical questions.\n" +
+            "\n" +
+            "Space exploration isn't limited to Mars; plans for lunar bases, mining asteroids for resources, and even exploring moons of gas giants like Europa or Titan have sparked interest and debate.\n" +
+            "\n" +
+            "The benefits of space exploration are manifold. It drives technological advancements in various fields, from materials science to robotics and healthcare. Additionally, it inspires generations, fostering scientific curiosity and innovation.\n" +
+            "\n" +
+            "However, it's not without controversy. Critics argue that the vast resources spent on space exploration could be better utilized for solving issues on Earth, such as poverty, climate change, or healthcare.\n" +
+            "\n" +
+            "The future of space exploration and colonization holds both excitement and challenges. As technology advances and our understanding of the cosmos deepens, the possibility of humans becoming a multi-planetary species edges closer to reality. It's a narrative of human ambition, curiosity, and the relentless pursuit of the unknown.",
+        followers_count: 200,
+        following_count: 200,
         profile_picture_url: Avatar,
+        profile_cover_photo_url: Illustration01,
         location: {
             city: "Vung Tau",
+            country: "Viet Nam",
         },
     },
+    photos_list: [
+        {
+            photo_id: "unique_id_2",
+            photo_url: Illustration01,
+            photo_title: "Photo 2",
+            description: "Description for photo 2",
+            tags: ["tag2", "tag4", "tag5"],
+            location: {
+                latitude: 34.0522,
+                longitude: -118.2437,
+                city: "Los Angeles",
+                country: "USA"
+            },
+            uploaded_by: {
+                user_id: "user456",
+                username: "user456",
+                profile_picture_url: Avatar,
+            },
+            created_at: "2023-11-27T10:00:00Z",
+            updated_at: "2023-11-27T10:45:00Z"
+        },
+        {
+            photo_id: "unique_id_2",
+            photo_url: Illustration02,
+            photo_title: "Photo 2",
+            description: "Description for photo 2",
+            tags: ["tag2", "tag4", "tag5"],
+            location: {
+                latitude: 34.0522,
+                longitude: -118.2437,
+                city: "Los Angeles",
+                country: "USA"
+            },
+            uploaded_by: {
+                user_id: "user456",
+                username: "user456",
+                profile_picture_url: Avatar,
+            },
+            created_at: "2023-11-27T10:00:00Z",
+            updated_at: "2023-11-27T10:45:00Z"
+        },
+        {
+            photo_id: "unique_id_2",
+            photo_url: Illustration03,
+            photo_title: "Photo 2",
+            description: "Description for photo 2",
+            tags: ["tag2", "tag4", "tag5"],
+            location: {
+                latitude: 34.0522,
+                longitude: -118.2437,
+                city: "Los Angeles",
+                country: "USA"
+            },
+            uploaded_by: {
+                user_id: "user456",
+                username: "user456",
+                profile_picture_url: Avatar,
+            },
+            created_at: "2023-11-27T10:00:00Z",
+            updated_at: "2023-11-27T10:45:00Z"
+        },
+    ],
+    videos_list: [
+        {
+            video_id: "unique_id_2",
+            video_url: Video,
+            video_title: "Big Buck Bunny 720p 2mb",
+            description: "Description for photo 2",
+            tags: ["tag2", "tag4", "tag5"],
+            location: {
+                latitude: 34.0522,
+                longitude: -118.2437,
+                city: "Los Angeles",
+                country: "USA"
+            },
+            uploaded_by: {
+                user_id: "user456",
+                username: "user456",
+                profile_picture_url: "Avatar"
+            },
+            created_at: "2023-11-27T10:00:00Z",
+            updated_at: "2023-11-27T10:45:00Z",
+            duration: "00:05:30",
+            views_count: 10000,
+            likes: 8500,
+            dislikes: 500,
+            comments: [
+                {
+                    comment_id: "comment_1",
+                    user_id: "user123",
+                    username: "user123",
+                    comment_text: "Great video!"
+                },
+                {
+                    comment_id: "comment_2",
+                    user_id: "user789",
+                    username: "user789",
+                    comment_text: "I love this! Thanks!"
+                }
+            ],
+            thumbnail: "thumbnail_url",
+            video_resolution: "1280x720",
+            file_size: "20MB",
+            language: "English",
+            category: "Animation",
+            privacy_setting: "public"
+        }
+    ],
     post_audience: {
         public: {
             status: false,
@@ -149,6 +280,17 @@ export const fakeUserData = {
             updated_at: "2 hours",
         },
         {
+            notification_id: "",
+            user_id: "",
+            source_id: "",
+            type: "message",
+            notification_image: Avatar,
+            notification_content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            is_read: false,
+            action_url: "",
+            created_at: "2 day",
+            updated_at: "1 day",
+        },        {
             notification_id: "",
             user_id: "",
             source_id: "",
@@ -428,6 +570,174 @@ export const fakeUserData = {
             friendship_status: "connected"
         },
         {
+            user_id: "friend_user_id_1",
+            username: "Bio or description of Friend OneBio or description of Friend OneBio or description of Friend OneBio or description of Friend One",
+            full_name: "Friend One",
+            email: "friend1@example.com",
+            profile_picture_url: Avatar,
+            mutual_friends: [],
+            location: "Friend's Location",
+            bio: "Bio or description of Friend One",
+            birthdate: "1990-05-15",
+            created_at: "2021-02-28T10:00:00Z",
+            last_active: "2023-11-25T15:30:00Z",
+            friendship_status: "connected"
+        },
+        {
+            user_id: "friend_user_id_1",
+            username: "Bio or description of Friend OneBio or description of Friend OneBio or description of Friend OneBio or description of Friend One",
+            full_name: "Friend One",
+            email: "friend1@example.com",
+            profile_picture_url: Avatar,
+            mutual_friends: [],
+            location: "Friend's Location",
+            bio: "Bio or description of Friend One",
+            birthdate: "1990-05-15",
+            created_at: "2021-02-28T10:00:00Z",
+            last_active: "2023-11-25T15:30:00Z",
+            friendship_status: "connected"
+        },
+        {
+            user_id: "friend_user_id_1",
+            username: "Bio or description of Friend OneBio or description of Friend OneBio or description of Friend OneBio or description of Friend One",
+            full_name: "Friend One",
+            email: "friend1@example.com",
+            profile_picture_url: Avatar,
+            mutual_friends: [],
+            location: "Friend's Location",
+            bio: "Bio or description of Friend One",
+            birthdate: "1990-05-15",
+            created_at: "2021-02-28T10:00:00Z",
+            last_active: "2023-11-25T15:30:00Z",
+            friendship_status: "connected"
+        },
+        {
+            user_id: "friend_user_id_1",
+            username: "Bio or description of Friend OneBio or description of Friend OneBio or description of Friend OneBio or description of Friend One",
+            full_name: "Friend One",
+            email: "friend1@example.com",
+            profile_picture_url: Avatar,
+            mutual_friends: [],
+            location: "Friend's Location",
+            bio: "Bio or description of Friend One",
+            birthdate: "1990-05-15",
+            created_at: "2021-02-28T10:00:00Z",
+            last_active: "2023-11-25T15:30:00Z",
+            friendship_status: "connected"
+        },
+        {
+            user_id: "friend_user_id_1",
+            username: "Bio or description of Friend OneBio or description of Friend OneBio or description of Friend OneBio or description of Friend One",
+            full_name: "Friend One",
+            email: "friend1@example.com",
+            profile_picture_url: Avatar,
+            mutual_friends: [],
+            location: "Friend's Location",
+            bio: "Bio or description of Friend One",
+            birthdate: "1990-05-15",
+            created_at: "2021-02-28T10:00:00Z",
+            last_active: "2023-11-25T15:30:00Z",
+            friendship_status: "connected"
+        },
+        {
+            user_id: "friend_user_id_1",
+            username: "Bio or description of Friend OneBio or description of Friend OneBio or description of Friend OneBio or description of Friend One",
+            full_name: "Friend One",
+            email: "friend1@example.com",
+            profile_picture_url: Avatar,
+            mutual_friends: [],
+            location: "Friend's Location",
+            bio: "Bio or description of Friend One",
+            birthdate: "1990-05-15",
+            created_at: "2021-02-28T10:00:00Z",
+            last_active: "2023-11-25T15:30:00Z",
+            friendship_status: "connected"
+        },
+        {
+            user_id: "friend_user_id_1",
+            username: "Bio or description of Friend OneBio or description of Friend OneBio or description of Friend OneBio or description of Friend One",
+            full_name: "Friend One",
+            email: "friend1@example.com",
+            profile_picture_url: Avatar,
+            mutual_friends: [],
+            location: "Friend's Location",
+            bio: "Bio or description of Friend One",
+            birthdate: "1990-05-15",
+            created_at: "2021-02-28T10:00:00Z",
+            last_active: "2023-11-25T15:30:00Z",
+            friendship_status: "connected"
+        },
+        {
+            user_id: "friend_user_id_1",
+            username: "Bio or description of Friend OneBio or description of Friend OneBio or description of Friend OneBio or description of Friend One",
+            full_name: "Friend One",
+            email: "friend1@example.com",
+            profile_picture_url: Avatar,
+            mutual_friends: [],
+            location: "Friend's Location",
+            bio: "Bio or description of Friend One",
+            birthdate: "1990-05-15",
+            created_at: "2021-02-28T10:00:00Z",
+            last_active: "2023-11-25T15:30:00Z",
+            friendship_status: "connected"
+        },
+        {
+            user_id: "friend_user_id_1",
+            username: "Bio or description of Friend OneBio or description of Friend OneBio or description of Friend OneBio or description of Friend One",
+            full_name: "Friend One",
+            email: "friend1@example.com",
+            profile_picture_url: Avatar,
+            mutual_friends: [],
+            location: "Friend's Location",
+            bio: "Bio or description of Friend One",
+            birthdate: "1990-05-15",
+            created_at: "2021-02-28T10:00:00Z",
+            last_active: "2023-11-25T15:30:00Z",
+            friendship_status: "connected"
+        },
+        {
+            user_id: "friend_user_id_1",
+            username: "Bio or description of Friend OneBio or description of Friend OneBio or description of Friend OneBio or description of Friend One",
+            full_name: "Friend One",
+            email: "friend1@example.com",
+            profile_picture_url: Avatar,
+            mutual_friends: [],
+            location: "Friend's Location",
+            bio: "Bio or description of Friend One",
+            birthdate: "1990-05-15",
+            created_at: "2021-02-28T10:00:00Z",
+            last_active: "2023-11-25T15:30:00Z",
+            friendship_status: "connected"
+        },
+        {
+            user_id: "friend_user_id_1",
+            username: "Bio or description of Friend OneBio or description of Friend OneBio or description of Friend OneBio or description of Friend One",
+            full_name: "Friend One",
+            email: "friend1@example.com",
+            profile_picture_url: Avatar,
+            mutual_friends: [],
+            location: "Friend's Location",
+            bio: "Bio or description of Friend One",
+            birthdate: "1990-05-15",
+            created_at: "2021-02-28T10:00:00Z",
+            last_active: "2023-11-25T15:30:00Z",
+            friendship_status: "connected"
+        },
+        {
+            user_id: "friend_user_id_1",
+            username: "Bio or description of Friend OneBio or description of Friend OneBio or description of Friend OneBio or description of Friend One",
+            full_name: "Friend One",
+            email: "friend1@example.com",
+            profile_picture_url: Avatar,
+            mutual_friends: [],
+            location: "Friend's Location",
+            bio: "Bio or description of Friend One",
+            birthdate: "1990-05-15",
+            created_at: "2021-02-28T10:00:00Z",
+            last_active: "2023-11-25T15:30:00Z",
+            friendship_status: "connected"
+        },
+        {
             user_id: "friend_user_id_2",
             username: "friend2",
             full_name: "Friend Two",
@@ -458,6 +768,42 @@ export const fakeUserData = {
             last_active: "2023-11-24T18:20:00Z",
             friendship_status: "connected"
         }
+    ],
+    groups_list: [
+        {
+            group_id: "group_id_1",
+            group_name: "Suggested Group",
+            group_picture_url: Illustration01,
+            group_privacy: "Public",
+            tags: ["tag1", "tag2", "tag3"],
+            category: "Interest",
+            members: [
+                {
+                    user_id: "",
+                    username: "",
+                    profile_picture_url: Avatar,
+                }, {
+                    user_id: "",
+                    username: "",
+                    profile_picture_url: Avatar,
+                }, {
+                    user_id: "",
+                    username: "",
+                    profile_picture_url: Avatar,
+                }, {
+                    user_id: "",
+                    username: "",
+                    profile_picture_url: Avatar,
+                }, {
+                    user_id: "",
+                    username: "",
+                    profile_picture_url: Avatar,
+                },
+            ],
+            description: "A suggested group for specific interests.",
+            created_at: "2023-11-20T08:00:00Z",
+            updated_at: "2023-11-20T08:00:00Z",
+        },
     ],
     friend_requests: [
         {
@@ -506,7 +852,7 @@ export const fakeUserData = {
     suggest_group: {
         group_id: "group_id_1",
         group_name: "Suggested Group",
-        group_image: Illustration01,
+        group_picture_url: Illustration01,
         tags: ["tag1", "tag2", "tag3"],
         category: "Interest",
         members: [
@@ -975,10 +1321,10 @@ export const fakePostListData = [
         postViewNumber: 150,
         postShareNumber: 20,
         postReactions: {
-            postLikesNumber: 1200000000000000,
-            postDislikesNumber: 5,
-            postHappinessNumber: 500,
-            postUnhappinessNumber: 5,
+            postLikesNumber: 10,
+            postDislikesNumber: 25,
+            postHappinessNumber: 20,
+            postUnhappinessNumber: 35,
         },
         postTags: ["Technology", "Lorem"],
         postType: ["text"],
@@ -1020,9 +1366,9 @@ export const fakePostListData = [
         postViewNumber: 150,
         postShareNumber: 20,
         postReactions: {
-            postLikesNumber: 1200000000000000,
-            postDislikesNumber: 5,
-            postHappinessNumber: 500,
+            postLikesNumber: 35,
+            postDislikesNumber: 15,
+            postHappinessNumber: 20,
             postUnhappinessNumber: 5,
         },
         postTags: ["Technology", "Lorem"],

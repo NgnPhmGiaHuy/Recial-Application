@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-const SuggestGroup = ({userData}) => {
+const SuggestGroup = ({userProps}) => {
     return (
-        <section className="flex flex-col rounded-md bg-white shadow-md relative">
+        <section className="flex flex-col rounded-md bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
             <div className="w-full h-full p-[12px] relative">
                 <div className="w-full py-[8px] flex flex-row flex-auto items-center justify-between border-b border-solid border-zinc-200 relative">
                     <div className="flex flex-col items-center relative">
@@ -12,7 +12,7 @@ const SuggestGroup = ({userData}) => {
                             </span>
                         </span>
                     </div>
-                    <a href="" className="">
+                    <a href="" >
                         <span className="block text-[14px] text-left text-lime-500 font-semibold break-words relative leading-5 hover:text-lime-700">
                             See all
                         </span>
@@ -22,11 +22,11 @@ const SuggestGroup = ({userData}) => {
             <div className="w-full h-full p-[12px] relative">
                 <div className="w-full py-[8px] flex flex-col justify-between relative">
                     <a href="" className="w-full h-[200px] rounded-md border border-solid border-zinc-200 overflow-hidden group relative">
-                        <Image src={userData.group_image} alt={`${userData.group_image}-image`} fill className="p-[4px] object-contain"/>
+                        <Image src={userProps.group_picture_url} alt={`${userProps.group_picture_url}-image`} fill className="p-[4px] object-contain"/>
                         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-5 transition-opacity"></div>
                     </a>
                     <div className="ml-[14px] my-[12px] flex flex-row items-center relative">
-                        {userData.members.slice(0, 4).map((value, index) => {
+                        {userProps.members.slice(0, 4).map((value, index) => {
                             const zIndexValue = index;
                             return (
                                 <a href="" key={index}>
@@ -36,15 +36,15 @@ const SuggestGroup = ({userData}) => {
                                 </a>
                             );
                         })}
-                        {userData.members.length > 4 ? (
+                        {userProps.members.length > 4 ? (
                             <div className="w-[40px] h-[40px] ml-[-14px] flex items-center justify-center border-[2px] border-solid border-white rounded-full bg-zinc-200 relative cursor-pointer overflow-hidden z-10">
                                 <span className="block text-[16px] text-center text-zinc-500 font-bold break-words relative leading-5">
                                     <span className="overflow-x-hidden overflow-y-hidden relative">
-                                        +{userData.members.length - 4}
+                                        +{userProps.members.length - 4}
                                     </span>
                                 </span>
                             </div>
-                        ) : ""}
+                        ) : null}
                         <div className="flex flex-col justify-between relative">
                             <span className="block text-[14px] text-center text-zinc-700 font-bold break-words relative leading-5">
                                 <span className="overflow-x-hidden overflow-y-hidden relative">
@@ -68,7 +68,7 @@ const SuggestGroup = ({userData}) => {
                                         <div className="mx-[3px] flex flex-shrink-0 items-center justify-center relative">
                                             <span className="block text-[15px] text-black font-semibold break-words relative leading-5">
                                                 <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
-                                                    {userData.group_name}
+                                                    {userProps.group_name}
                                                 </span>
                                             </span>
                                         </div>

@@ -71,7 +71,7 @@ const FriendRequestItem = ({friendRequestData}) => {
                                             </div>
                                         </div>
                                     </div>
-                                ): ""}
+                                ): null}
                             </div>
                         </div>
                         <div className="mx-[-12px] flex flex-col grow relative">

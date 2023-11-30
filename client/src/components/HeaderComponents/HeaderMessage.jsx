@@ -5,7 +5,7 @@ import {useEffect, useRef, useState, useCallback} from "react";
 import {headerMessageQuickSettingList} from "@/constants/HeaderConstants";
 import {HeaderMessageContentItem, QuickSettingItem} from "@/components";
 
-const HeaderMessage = ({forwardedRef, userData}) => {
+const HeaderMessage = ({forwardedRef, userProps}) => {
     const messageQuickSettingButtonRef = useRef(null);
 
     const [showMessageQuickSetting, setShowMessageQuickSetting] = useState(false);
@@ -56,7 +56,7 @@ const HeaderMessage = ({forwardedRef, userData}) => {
                                                 <div ref={messageQuickSettingButtonRef}
                                                      className="w-[32px] h-[32px] mx-[4px] flex items-center justify-center relative rounded-full cursor-pointer hover:bg-zinc-100 transition-all overflow-hidden"
                                                      onClick={handleMessageQuickSettingButton}>
-                                                    <i className="">
+                                                    <i >
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>
                                                         </svg>
@@ -117,8 +117,8 @@ const HeaderMessage = ({forwardedRef, userData}) => {
                             </div>
                             <div>
                                 <ul className="flex flex-col relative">
-                                    {userData.messages.map((value, index) => (
-                                        <HeaderMessageContentItem key={index} userData={value}/>
+                                    {userProps.messages.map((value, index) => (
+                                        <HeaderMessageContentItem key={index} userProps={value}/>
                                     ))}
                                 </ul>
                             </div>
@@ -158,7 +158,7 @@ const HeaderMessage = ({forwardedRef, userData}) => {
                             </svg>
                         </div>
                     </div>
-                ) : ""}
+                ) : null}
             </div>
         </div>
     );

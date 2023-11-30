@@ -30,7 +30,7 @@ const OAuthLogin = ({isLogin, isSignup}) => {
             <div className="flex items-center justify-center mb-[16px]">
                 <button type="button"
                         className="w-full h-[40px] flex items-center px-[12px] border border-solid border-gray-200 rounded-full cursor-pointer hover:border-lime-300 hover:bg-lime-50 hover:bg-opacity-30 transition-all"
-                        onClick={() => signIn('google')}>
+                        onClick={() => signIn("google")}>
                     <div className="w-full h-full flex flex-row items-center justify-center">
                         <div className="w-[18px] h-[18px] mr-[8px] rounded-full relative overflow-hidden">
                             <Image src={Google} alt="Google-Icon" fill className="object-cover"/>
@@ -43,12 +43,12 @@ const OAuthLogin = ({isLogin, isSignup}) => {
             </div>
             {isLogin ? (
                 <div className="flex items-center justify-center">
-                    <a href="/auth/signup"
+                    <a href="/auth/register"
                        className="w-full min-h-[48px] px-[24px] py-[12px] text-center text-[16px] font-semibold leading-normal border border-solid rounded-full hover:bg-zinc-100 transition-all">
                         New to Recial? Join now
                     </a>
                 </div>
-            ) : ""}
+            ) : null}
             {isSignup ? (
                 <div className="flex items-center justify-center px-[16px] pt-[16px] pb-[24px]">
                     <p className="text-[16px] text-center font-normal leading-normal">
@@ -56,7 +56,7 @@ const OAuthLogin = ({isLogin, isSignup}) => {
                         <a href="/auth/login" className="text-lime-500 hover:text-lime-700">Sign in</a>
                     </p>
                 </div>
-            ) : ""}
+            ) : null}
         </div>
     );
 };

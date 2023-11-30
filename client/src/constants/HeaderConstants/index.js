@@ -192,7 +192,7 @@ export const headerNavigationItemList = [
     {
         navigationName: "home",
         navigationTitle: "Home",
-        navigationLink: "",
+        navigationLink: "/",
         navigationIcon: (
             <i>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" className="mercado-match" width="24" height="24" focusable="false">
@@ -205,7 +205,7 @@ export const headerNavigationItemList = [
     {
         navigationName: "mynetwork",
         navigationTitle: "My Network",
-        navigationLink: "",
+        navigationLink: "/friends",
         navigationIcon: (
             <i>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" className="mercado-match" width="24" height="24" focusable="false">

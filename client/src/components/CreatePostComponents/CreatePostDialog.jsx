@@ -5,10 +5,12 @@ import React, {useCallback, useEffect, useState, useRef} from 'react';
 import {CreatePostDialogHeader, CreatePostDialogCustomizationItem, CreatePostDialogAudience} from "@/components";
 import {createPostContentCustomizationItemList} from "@/constants/CreatePostConstants";
 
-const CreatePostDialog = ({userData, createPostRef, handleShowCreatePost}) => {
+const CreatePostDialog = ({userProps, createPostRef, handleShowCreatePost}) => {
     const createPostInputContentEditableRef = useRef(null);
+
     const [createPostInputText, setCreatePostInputText] = useState('');
     const [createPostAllowSubmit, setCreatePostAllowSubmit] = useState(false);
+
     const [showCreatPostPanel, setShowCreatPostPanel] = useState(true);
     const [showCreatePostAudience, setShowCreatePostAudience] = useState(false);
 
@@ -36,7 +38,7 @@ const CreatePostDialog = ({userData, createPostRef, handleShowCreatePost}) => {
             <div className="top-0 right-0 bottom-0 left-0 z-0 fixed bg-[rgba(0,0,0,0.75)]">
                 <div className="min-h-screen flex flex-col grow items-stretch justify-center relative">
                     <div className="min-h-[500px] px-[8px] py-[56px] flex items-start justify-center">
-                        <div className="flex flex-col rounded-lg shadow-lg overflow-x-hidden overflow-y-hidden bg-white relative">
+                        <div className="flex flex-col rounded-lg shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-x-hidden overflow-y-hidden bg-white relative">
                             <form action="" method="POST">
                                 <div ref={createPostRef} className="w-[750px] h-[600px] overflow-x-hidden overflow-y-hidden relative">
                                     <div className={`${showCreatPostPanel ? "opacity-100 visible translate-x-0" : "opacity-0 invisible -translate-x-full pointer-events-none"} top-0 left-0 absolute`}>
@@ -44,7 +46,7 @@ const CreatePostDialog = ({userData, createPostRef, handleShowCreatePost}) => {
                                             <div className="max-h-[90vh] min-h-[600px] flex flex-row overflow-x-visible overflow-y-visible">
                                                 <div className="w-[750px] max-h-[80vh] min-h-[600px] flex flex-col relative">
                                                     <div>
-                                                        <CreatePostDialogHeader userData={userData} handleShowCreatePost={handleShowCreatePost} handeShowCreatePostAudience={handeShowCreatePostAudience}/>
+                                                        <CreatePostDialogHeader userProps={userProps} handleShowCreatePost={handleShowCreatePost} handeShowCreatePostAudience={handeShowCreatePostAudience}/>
                                                     </div>
                                                     <div className="flex flex-col grow overflow-x-hidden overflow-y-auto overscroll-y-contain relative">
                                                         <div className="flex flex-col grow relative">
@@ -55,7 +57,7 @@ const CreatePostDialog = ({userData, createPostRef, handleShowCreatePost}) => {
                                                                             <div className="w-full h-full text-black select-text whitespace-pre-wrap break-words outline-none relative" contentEditable={true} onInput={handleCreatePostInputTextChange} ref={createPostInputContentEditableRef}>
                                                                             </div>
                                                                             <div className="top-[5px] overflow-x-hidden overflow-y-hidden text-zinc-500 text-ellipsis pointer-events-none absolute z-[1]">
-                                                                                {createPostInputText.length === 0 ? "What's on your mind, Nguyen Pham Gia Huy?" : ""}
+                                                                                {createPostInputText.length === 0 ? "What's on your mind, Nguyen Pham Gia Huy?" : null}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -67,7 +69,7 @@ const CreatePostDialog = ({userData, createPostRef, handleShowCreatePost}) => {
                                                         </div>
                                                     </div>
                                                     <div className="py-[16px] relative">
-                                                        <div className="mx-[16px] p-[8px] flex items-center justify-between border border-solid border-zinc-500 rounded-md shadow-md relative">
+                                                        <div className="mx-[16px] p-[8px] flex items-center justify-between border border-solid border-zinc-500 rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
                                                             <div className="px-[8px]">
                                                                 <div className="inline-flex flex-row items-stretch cursor-pointer relative">
                                                                     <span className="block text-[15px] text-black font-semibold break-words leading-5">
@@ -121,7 +123,7 @@ const CreatePostDialog = ({userData, createPostRef, handleShowCreatePost}) => {
                                         </div>
                                     </div>
                                     <div className={`${showCreatePostAudience ? "opacity-100 visible translate-x-0 animate-movePanelRightToLeft" : "opacity-0 invisible translate-x-full pointer-events-none"} top-0 left-0 absolute `}>
-                                        <CreatePostDialogAudience userData={userData} handeShowCreatePostAudience={handeShowCreatePostAudience}/>
+                                        <CreatePostDialogAudience userProps={userProps} handeShowCreatePostAudience={handeShowCreatePostAudience}/>
                                     </div>
                                 </div>
                             </form>

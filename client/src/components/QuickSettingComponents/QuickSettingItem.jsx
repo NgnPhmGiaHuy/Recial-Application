@@ -26,9 +26,9 @@ const QuickSettingItem = ({settingItemData}) => {
                                     {settingItemData.settingItemSubtitle}
                                 </span>
                             </span>
-                        ) : ""}
+                        ) : null}
                     </div>
-                    {settingItemData.hasSettingItemSwitchButton ? (<HeaderMessageSwitchButton/>) : ""}
+                    {settingItemData.hasSettingItemSwitchButton ? (<HeaderMessageSwitchButton/>) : null}
                 </div>
             </div>
         )

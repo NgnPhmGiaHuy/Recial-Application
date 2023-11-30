@@ -6,7 +6,7 @@ import React, {useCallback, useEffect, useRef, useState} from "react";
 import {QuickSettingItem} from "@/components";
 import {headerMessageQuickSettingItemList} from "@/constants/HeaderConstants";
 
-const HeaderMessageContentItem = ({userData}) => {
+const HeaderMessageContentItem = ({userProps}) => {
     const messageQuickSettingItemButtonRef = useRef();
 
     const [showHeaderMessageItemQuickSetting, setShowHeaderMessageItemQuickSetting] = useState(false);
@@ -46,7 +46,7 @@ const HeaderMessageContentItem = ({userData}) => {
                                         <div className="w-full h-full absolute">
                                             <div className="w-full h-full overflow-x-hidden overflow-y-hidden block rounded-full bg-white border border-solid border-gray-500 relative">
                                                 <div className="w-full h-full flex flex-col relative">
-                                                    <Image src={userData.message_image} alt={`${userData.message_image}-image`} fill className="object-cover"/>
+                                                    <Image src={userProps.message_image} alt={`${userProps.message_image}-image`} fill className="object-cover"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -56,14 +56,14 @@ const HeaderMessageContentItem = ({userData}) => {
                                     <div className="max-w-full flex flex-col flex-shrink-0 grow relative p-[6px]">
                                         <span className="block text-[15px] text-black text-left font-medium break-words leading-5">
                                             <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
-                                                {userData.sender_id}
+                                                {userProps.sender_id}
                                             </span>
                                         </span>
                                         <div className="min-h-[16px] flex flex-row items-center pt-[6px]">
                                             <span className="flex items-center break-words pr-[2px]">
                                                 <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
                                                     <span className="max-w-[150px] block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
-                                                        {userData.content}
+                                                        {userProps.content}
                                                     </span>
                                                 </span>
                                             </span>
@@ -77,7 +77,7 @@ const HeaderMessageContentItem = ({userData}) => {
                                             <span className="flex items-center break-words pl-[2px]">
                                                 <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
                                                     <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis line-clamp-1 relative">
-                                                        {userData.updated_at}
+                                                        {userProps.updated_at}
                                                     </span>
                                                 </span>
                                             </span>
@@ -87,12 +87,12 @@ const HeaderMessageContentItem = ({userData}) => {
                                 <div className="flex flex-col flex-shrink-0 relative p-[6px]">
                                     <div className="flex flex-row flex-nowrap items-center">
                                         <i className="w-[20px] h-[20px] flex items-center justify-center rounded-full overflow-hidden relative">
-                                            {userData.is_mute ?
+                                            {userProps.is_mute ?
                                                 (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M9.143 17.082a24.248 24.248 0 003.844.148m-3.844-.148a23.856 23.856 0 01-5.455-1.31 8.964 8.964 0 002.3-5.542m3.155 6.852a3 3 0 005.667 1.97m1.965-2.277L21 21m-4.225-4.225a23.81 23.81 0 003.536-1.003A8.967 8.967 0 0118 9.75V9A6 6 0 006.53 6.53m10.245 10.245L6.53 6.53M3 3l3.53 3.53" />
                                                 </svg>
-                                                ) : userData.is_read ?
-                                                    (<Image src={userData.message_image} alt={`${userData.message_image}-image`} fill className="object-cover"/>
+                                                ) : userProps.is_read ?
+                                                    (<Image src={userProps.message_image} alt={`${userProps.message_image}-image`} fill className="object-cover"/>
                                                     ) : " "}
                                         </i>
                                     </div>
@@ -107,7 +107,7 @@ const HeaderMessageContentItem = ({userData}) => {
                             <div>
                                 <div className="rounded-full">
                                     <div ref={messageQuickSettingItemButtonRef}
-                                         className="w-[36px] h-[36px] flex justify-center items-center text-gray-500 cursor-pointer rounded-full bg-white shadow-md border border-solid border-gray-200 relative hover:bg-zinc-100 transition-all"
+                                         className="w-[36px] h-[36px] flex justify-center items-center text-gray-500 cursor-pointer rounded-full bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] border border-solid border-gray-200 relative hover:bg-zinc-100 transition-all"
                                          onClick={handleShowHeaderMessageItemQuickSettingButton}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>
@@ -139,7 +139,7 @@ const HeaderMessageContentItem = ({userData}) => {
                             </svg>
                         </div>
                     </div>
-                ) : ""}
+                ) : null}
             </div>
         </li>
     );

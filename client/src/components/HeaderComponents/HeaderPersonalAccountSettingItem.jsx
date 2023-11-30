@@ -25,7 +25,7 @@ const HeaderPersonalAccountSettingItem = ({settingItemData}) => {
                                 </i>
                             </div>
                         </div>
-                    ) : ""}
+                    ) : null}
                 </div>
             </div>
         </div>

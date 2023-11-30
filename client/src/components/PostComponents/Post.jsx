@@ -4,7 +4,7 @@ const Post = ({postListData}) => {
     return (
         <div>
             {postListData.map((value, index) => (
-                <PostItem key={index} postData={value}/>
+                <PostItem key={index} postProps={value}/>
             ))}
         </div>
     );

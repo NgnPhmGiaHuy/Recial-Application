@@ -1,12 +1,12 @@
 "use client"
 
 import Image from "next/image";
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from "react";
 
 import {QuickSettingItem} from "@/components";
 import {postItemCommentSortList} from "@/constants/PostConstants";
 
-const PostItemComment = ({postData}) => {
+const PostItemComment = ({postProps}) => {
     const commentSortContentRef = useRef(null);
     const commentInputContentEditableRef = useRef(null);
 
@@ -64,7 +64,7 @@ const PostItemComment = ({postData}) => {
                 <div className="mr-[4px] my-[4px] flex-col justify-center relative">
                     <a href="">
                         <div className="w-[40px] h-[40px] overflow-hidden rounded-full relative">
-                            <Image src={postData.postAuthor.authorAvatar} alt={`${postData.postAuthor.authorAvatar}-image`} fill className="object-cover"/>
+                            <Image src={postProps.postAuthor.authorAvatar} alt={`${postProps.postAuthor.authorAvatar}-image`} fill className="object-cover"/>
                         </div>
                     </a>
                 </div>
@@ -76,7 +76,7 @@ const PostItemComment = ({postData}) => {
                                     <div className="w-full h-full text-left outline-none whitespace-pre-wrap break-words relative" contentEditable={true} onInput={handleCommentInputTextChange} ref={commentInputContentEditableRef}>
                                     </div>
                                     <div className="top-[7px] overflow-x-hidden overflow-y-hidden text-zinc-500 text-ellipsis pointer-events-none absolute z-[1]">
-                                        {commentInputText.length === 0 ? "Add a comment..." : ""}
+                                        {commentInputText.length === 0 ? "Add a comment..." : null}
                                     </div>
                                 </div>
                                 <div className="h-full ml-auto flex flex-row items-center justify-between relative">
@@ -132,7 +132,7 @@ const PostItemComment = ({postData}) => {
                                 </div>
                             </div>
                         </div>
-                    ) : ""}
+                    ) : null}
                 </div>
             </div>
             <div>

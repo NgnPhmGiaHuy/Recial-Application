@@ -26,7 +26,7 @@ const HeaderSearchHistoryItem = ({searchHistoryData}) => {
                         )}
                         <div className="flex flex-col flex-shrink grow relative p-[6px] z-0">
                             <div className="flex flex-col my-[-5px]">
-                                <div className="">
+                                <div >
                                     <span className="block text-[15px] text-left font-medium leading-5 break-words">
                                         <span className="overflow-x-hidden overflow-y-hidden relative">
                                             {searchHistoryData.search_query}
@@ -44,7 +44,7 @@ const HeaderSearchHistoryItem = ({searchHistoryData}) => {
                                             </span>
                                         </span>
                                     </div>
-                                ) : ""}
+                                ) : null}
                             </div>
                         </div>
                         <div className="flex flex-col flex-shrink-0 relative p-[5px] rounded-full z-30 cursor-pointer transition-all hover:bg-zinc-200">

@@ -1,6 +1,6 @@
 import {Story, CreatePost, Post, FriendRequest, SuggestGroup, SuggestPage, Event} from "@/components";
 
-const Main = ({userData, postListData, handleShowCreatePost}) => {
+const Main = ({userProps, postListData, handleShowCreatePost}) => {
     return (
         <div className="pl-[32px] flex flex-row flex-shrink flex-nowrap grow items-stretch justify-center relative">
             <div className="flex flex-col flex-shrink-0 grow relative">
@@ -8,12 +8,12 @@ const Main = ({userData, postListData, handleShowCreatePost}) => {
                     <div className="w-full flex flex-row items-start justify-center relative">
                         <div className="px-[16px] flex flex-col flex-shrink flex-grow-0">
                             <div>
-                                <Story userData={userData}/>
+                                <Story userProps={userProps}/>
                             </div>
                             <div className="flex flex-row justify-center">
                                 <div className="w-full">
                                     <div className="mb-[16px]">
-                                        <CreatePost userData={userData} handleShowCreatePost={handleShowCreatePost} />
+                                        <CreatePost userProps={userProps} handleShowCreatePost={handleShowCreatePost} />
                                     </div>
                                     <div>
                                         <Post postListData={postListData}/>
@@ -22,26 +22,26 @@ const Main = ({userData, postListData, handleShowCreatePost}) => {
                             </div>
                         </div>
                         <div className="w-[320px] min-h-screen pl-[12px] py-[8px] flex flex-col flex-shrink-0 relative">
-                            {userData.friend_requests ? (
+                            {userProps.friend_requests ? (
                                 <div className="mb-[16px]">
-                                    <FriendRequest friendRequestData={userData.friend_requests}/>
+                                    <FriendRequest friendRequestData={userProps.friend_requests}/>
                                 </div>
-                            ) : ""}
-                            {userData.suggest_group ? (
+                            ) : null}
+                            {userProps.suggest_group ? (
                                 <div className="mb-[16px]">
-                                    <SuggestGroup userData={userData.suggest_group}/>
+                                    <SuggestGroup userProps={userProps.suggest_group}/>
                                 </div>
-                            ) : ""}
-                            {userData.suggest_pages ? (
+                            ) : null}
+                            {userProps.suggest_pages ? (
                                 <div className="mb-[16px]">
-                                    <SuggestPage userData={userData.suggest_pages}/>
+                                    <SuggestPage userProps={userProps.suggest_pages}/>
                                 </div>
-                            ) : ""}
-                            {userData.event ? (
+                            ) : null}
+                            {userProps.event ? (
                                 <div className="mb-[12px]">
-                                    <Event userData={userData.event}/>
+                                    <Event userProps={userProps.event}/>
                                 </div>
-                            ) : ""}
+                            ) : null}
                         </div>
                     </div>
                 </div>

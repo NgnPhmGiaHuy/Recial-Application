@@ -1,10 +1,17 @@
+"use client"
+
 import Image from "next/image";
+import {useState, useEffect, useCallback} from 'react';
 
 import Like from "/public/images/Icon/like.png";
+import Dislike from "/public/images/Icon/dislike.png";
 import Happiness from "/public/images/Icon/happiness.png";
+import Unhappiness from "/public/images/Icon/sad.png"
 
-const PostItemFooter = ({postData, handleShowPostShareSetting, handleShowPostItemComment}) => {
-    const formatNumber = (number) => {
+const PostItemFooter = ({postProps, handleShowPostShareSetting, handleShowPostItemComment}) => {
+    const [mostReactedIcons, setMostReactedIcons] = useState([Like, Like]);
+
+    const handleFormatNumber = useCallback((number) => {
         const suffixes = ["", "K", "M", "B", "T"];
         let suffixIndex = 0;
 
@@ -14,7 +21,23 @@ const PostItemFooter = ({postData, handleShowPostShareSetting, handleShowPostIte
         }
 
         return number.toFixed(1) + suffixes[suffixIndex];
-    };
+    }, []);
+
+    useEffect(() => {
+        const { postLikesNumber, postDislikesNumber, postHappinessNumber, postUnhappinessNumber } = postProps.postReactions;
+
+        const reactions = [
+            { icon: Happiness, count: postHappinessNumber },
+            { icon: Like, count: postLikesNumber },
+            { icon: Unhappiness, count: postUnhappinessNumber },
+            { icon: Dislike, count: postDislikesNumber },
+        ];
+
+        const sortedReactions = reactions.sort((a, b) => b.count - a.count);
+        const topTwoReactions = sortedReactions.slice(0, 2).map(reaction => reaction.icon);
+
+        setMostReactedIcons(topTwoReactions);
+    }, [postProps.postReactions]);
 
     return (
         <div className="overflow-x-hidden overflow-y-hidden">
@@ -22,17 +45,16 @@ const PostItemFooter = ({postData, handleShowPostShareSetting, handleShowPostIte
                 <div className="mx-[16px] py-[10px] flex items-center justify-end text-[15px] text-zinc-500 border-b border-solid border-zinc-200 relative leading-5">
                     <div className="flex grow items-center overflow-x-hidden overflow-y-hidden">
                         <span className="pl-[4px] flex items-center ">
-                            <span className="w-[20px] h-[20px] ml-[-4px] border-[2px] border-solid border-white rounded-full relative cursor-pointer z-20">
-                                <Image src={Happiness} alt={`${Happiness}-image`} fill className="object-cover"/>
-                            </span>
-                            <span className="w-[20px] h-[20px] ml-[-4px] border-[2px] border-solid border-white rounded-full relative cursor-pointer z-10">
-                                <Image src={Like} alt={`${Like}-image`} fill className="object-cover"/>
-                            </span>
+                            {mostReactedIcons.map((icon, index) => (
+                                <span key={index} className="w-[20px] h-[20px] ml-[-4px] border-[2px] border-solid border-white rounded-full relative cursor-pointer z-20">
+                                    <Image src={icon} alt={`${icon}-image`} fill className="object-cover" />
+                                </span>
+                            ))}
                         </span>
                         <div>
                             <span className="w-[100px] overflow-x-hidden overflow-y-hidden float-left text-ellipsis">
                                 <span className="pl-[4px] cursor-pointer relative hover:underline transition-all">
-                                    {formatNumber(Object.values(postData.postReactions).reduce((sum, value) => sum + value, 0))}
+                                    {handleFormatNumber(Object.values(postProps.postReactions).reduce((sum, value) => sum + value, 0))}
                                 </span>
                             </span>
                         </div>
@@ -40,12 +62,12 @@ const PostItemFooter = ({postData, handleShowPostShareSetting, handleShowPostIte
                     <div className="m-[-6px] flex flex-row flex-shrink-0 flex-nowrap items-stretch justify-between relative">
                         <div className="p-[6px] flex flex-col flex-shrink-0 relative">
                             <span className="block text-[15px] text-zinc-500 text-left font-normal break-words relative cursor-pointer leading-5 hover:underline transition-all">
-                                {postData.postCommentNumber === 1 ? `${postData.postCommentNumber} comment` : `${postData.postCommentNumber} comments`}
+                                {postProps.postCommentNumber === 1 ? `${postProps.postCommentNumber} comment` : `${postProps.postCommentNumber} comments`}
                             </span>
                         </div>
                         <div className="p-[6px] flex flex-col flex-shrink-0 relative">
                             <span className="block text-[15px] text-zinc-500 text-left font-normal break-words relative cursor-pointer leading-5 hover:underline transition-all">
-                                {postData.postShareNumber === 1 ? `${postData.postShareNumber} share` : `${postData.postShareNumber} shares`}
+                                {postProps.postShareNumber === 1 ? `${postProps.postShareNumber} share` : `${postProps.postShareNumber} shares`}
                             </span>
                         </div>
                     </div>

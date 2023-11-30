@@ -1,13 +1,13 @@
-const AsideFriendItem = ({asideItemData}) => {
+const AsideFriendItem = ({userProps}) => {
     return (
         <li>
-            <div className="">
-                <a href={asideItemData.itemLink} className="block rounded-md hover:bg-zinc-100 transition-all">
+            <div>
+                <a href={userProps.itemLink} className="block rounded-md hover:bg-zinc-100 transition-all">
                     <div className="min-h-[48px] px-[8px] flex flex-row items-center justify-between relative">
                         <div className="my-[6px] mr-[12px] flex flex-col self-center relative">
-                            <div className={`${asideItemData.itemLink === "/friends" ? "bg-lime-500 text-white" : "bg-zinc-200"} w-[40px] h-[40px] flex flex-row items-center justify-center rounded-full overflow-hidden relative`}>
+                            <div className={`${userProps.itemLink === "/friends" ? "bg-lime-500 text-white" : "bg-zinc-200"} w-[40px] h-[40px] flex flex-row items-center justify-center rounded-full overflow-hidden relative`}>
                                 <i>
-                                    {asideItemData.itemImage}
+                                    {userProps.itemImage}
                                 </i>
                             </div>
                         </div>
@@ -17,14 +17,14 @@ const AsideFriendItem = ({asideItemData}) => {
                                     <div className="my-[5px]">
                                         <span className="block text-[16px] text-black text-left font-medium break-words leading-5">
                                             <span className="overflow-x-hidden overflow-y-hidden line-clamp-2 relative">
-                                                {asideItemData.itemTitle}
+                                                {userProps.itemTitle}
                                             </span>
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        {asideItemData.hasSettingItemChevronRight ? (
+                        {userProps.hasSettingItemChevronRight ? (
                             <div className="flex flex-row items-center relative">
                                 <div className="mr-[12px] flex flex-col self-center relative">
                                     <div className="w-[32px] h-[32px] flex flex-row items-center justify-center cursor-pointer relative transition-all">
@@ -36,7 +36,7 @@ const AsideFriendItem = ({asideItemData}) => {
                                     </div>
                                 </div>
                             </div>
-                        ) : ""}
+                        ) : null}
                     </div>
                 </a>
             </div>

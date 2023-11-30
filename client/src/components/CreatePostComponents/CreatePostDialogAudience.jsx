@@ -1,13 +1,13 @@
 "use client"
 
-import React, {useState, useCallback} from 'react';
-import {CreatePostDialogAudienceItem} from "@/components";
+import {useState, useCallback} from "react";
 
+import {CreatePostDialogAudienceItem} from "@/components";
 import {createPostAudienceItemList} from "@/constants/CreatePostConstants";
 
-const renderAudienceItems = (userData, createPostAudienceChecked, handleCreatePostAudienceChecked) => {
+const renderAudienceItems = (userProps, createPostAudienceChecked, handleCreatePostAudienceChecked) => {
     return createPostAudienceItemList.map((value, index) => {
-        const audienceOption = userData.post_audience[value.createPostAudienceOption];
+        const audienceOption = userProps.post_audience[value.createPostAudienceOption];
         const audienceStatus = audienceOption && audienceOption.status;
 
         return (
@@ -16,10 +16,10 @@ const renderAudienceItems = (userData, createPostAudienceChecked, handleCreatePo
     });
 };
 
-const CreatePostDialogAudience = ({userData, handeShowCreatePostAudience}) => {
+const CreatePostDialogAudience = ({userProps, handeShowCreatePostAudience}) => {
     const [createPostAudienceChecked, setCreatePostAudienceChecked] = useState(
         createPostAudienceItemList.findIndex(
-            (item) => userData.post_audience[item.createPostAudienceOption].status
+            (item) => userProps.post_audience[item.createPostAudienceOption].status
         )
     );
     const [setDefaultAudience, setSetDefaultAudience] = useState(false);
@@ -27,20 +27,16 @@ const CreatePostDialogAudience = ({userData, handeShowCreatePostAudience}) => {
     const handleCreatePostAudienceChecked = useCallback((index) => {
         const selectedOption = createPostAudienceItemList[index].createPostAudienceOption;
 
-        Object.keys(userData.post_audience).forEach((option) => {
-            userData.post_audience[option].status = option === selectedOption;
+        Object.keys(userProps.post_audience).forEach((option) => {
+            userProps.post_audience[option].status = option === selectedOption;
         });
 
         setCreatePostAudienceChecked(index);
-    }, [userData.post_audience]);
-
-    const handleSetDefaultAudience = useCallback(() => {
-        setSetDefaultAudience(!setDefaultAudience);
-    }, [setDefaultAudience]);
+    }, [userProps.post_audience]);
 
     return (
         <div className="min-w-[750px] relative">
-            <div className="">
+            <div>
                 <div className="h-[60px] flex items-center justify-center border-b border-solid border-zinc-200">
                     <span className="block text-[20px] text-black font-bold break-words leading-6">
                         <span className="overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
@@ -58,7 +54,7 @@ const CreatePostDialogAudience = ({userData, handeShowCreatePostAudience}) => {
                     </div>
                 </div>
             </div>
-            <div className="">
+            <div >
                 <div className="max-h-[30rem] flex flex-col">
                     <div className="min-h-[29rem] flex flex-col flex-shrink grow basis-full overflow-x-auto overflow-y-auto overscroll-x-contain overscroll-y-contain relative">
                         <div className="pt-[16px] pb-[24px] flex flex-col grow relative">
@@ -80,8 +76,8 @@ const CreatePostDialogAudience = ({userData, handeShowCreatePostAudience}) => {
                                             </span>
                                             <span className="block text-[15px] text-zinc-500 font-normal break-words leading-5">
                                                 Your default audience is set to {
-                                                    (selectedAudience => selectedAudience ? selectedAudience.title : 'None')(
-                                                        Object.values(userData.post_audience).find(
+                                                    (selectedAudience => selectedAudience ? selectedAudience.title : "None")(
+                                                        Object.values(userProps.post_audience).find(
                                                             defaultAudience => defaultAudience.status === true
                                                         )
                                                     )
@@ -92,7 +88,7 @@ const CreatePostDialogAudience = ({userData, handeShowCreatePostAudience}) => {
                                 </div>
                             </div>
                             <div className="mt-[-4px] mb-[-16px] relative">
-                                {renderAudienceItems(userData, createPostAudienceChecked, handleCreatePostAudienceChecked)}
+                                {renderAudienceItems(userProps, createPostAudienceChecked, handleCreatePostAudienceChecked)}
                             </div>
                         </div>
                     </div>

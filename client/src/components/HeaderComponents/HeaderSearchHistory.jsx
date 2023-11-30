@@ -1,6 +1,6 @@
 import {HeaderSearchHistoryItem} from "@/components";
 
-const HeaderSearchHistory = ({userData}) => {
+const HeaderSearchHistory = ({userProps}) => {
     return (
         <div className="shadow-xl bg-white rounded-b-lg">
             <div className="max-h-[calc(500px-80px)] flex flex-col grow p-[8px] scroll-smooth">
@@ -32,7 +32,7 @@ const HeaderSearchHistory = ({userData}) => {
                                         </div>
                                     </div>
                                     <ul>
-                                        {userData.search_history.map((value, index) => (
+                                        {userProps.search_history.map((value, index) => (
                                             <HeaderSearchHistoryItem key={index} searchHistoryData={value}/>
                                         ))}
                                     </ul>

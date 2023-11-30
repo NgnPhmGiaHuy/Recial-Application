@@ -1,16 +1,18 @@
 "use client"
 
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
+import {headerNotificationQuickSettingList} from "@/constants/HeaderConstants";
+import {NotificationHeaderItem, HeaderTypeButtonItem, QuickSettingItem} from "@/components";
 
-import { headerNotificationQuickSettingList } from "@/constants/HeaderConstants";
-import { HeaderTypeButtonItem, QuickSettingItem, HeaderNotificationContentItem } from "@/components";
-
-const HeaderNotification = ({ forwardedRef, userData }) => {
+const NotificationScaffold = ({userProps}) => {
+    const notificationRef = useRef(null)
     const notificationQuickSettingButtonRef = useRef(null);
 
     const [showTypeNotification, setShowTypeNotification] = useState("all");
     const [showNotificationQuickSetting, setShowNotificationQuickSetting] = useState(false);
-    const [notificationQuickSettingTranslateYValue, setNotificationQuickSettingTranslateYValue] = useState(-145)
+
+    const [notificationTranslateXValue, setNotificationTranslateXValue] = useState(0);
+    const [notificationQuickSettingTranslateYValue, setNotificationQuickSettingTranslateYValue] = useState(0);
 
     const handleTypeClick = useCallback((type) => {
         setShowTypeNotification(type);
@@ -21,6 +23,10 @@ const HeaderNotification = ({ forwardedRef, userData }) => {
     }, []);
 
     useEffect(() => {
+        if (notificationRef.current && notificationQuickSettingButtonRef.current && showNotificationQuickSetting) {
+            setNotificationTranslateXValue(notificationRef.current.clientWidth - notificationQuickSettingButtonRef.current.clientWidth - 32)
+        }
+
         if (notificationQuickSettingButtonRef.current && showNotificationQuickSetting) {
             setNotificationQuickSettingTranslateYValue(-notificationQuickSettingButtonRef.current.clientHeight);
         }
@@ -43,34 +49,27 @@ const HeaderNotification = ({ forwardedRef, userData }) => {
     }, [showNotificationQuickSetting]);
 
     return (
-        <div ref={forwardedRef} className="absolute top-0 left-0 translate-x-[-172px] translate-y-[48px]">
-            <div className="mt-[5px] mr-[8px]">
-                <div className="overflow-x-hidden overflow-y-hidden rounded-md bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
-                    <div className="w-[360px] max-h-[calc(100vh-56px-16px)] flex flex-col">
-                        <div className="flex flex-col flex-shrink grow overflow-x-hidden overflow-y-auto overscroll-y-contain basis-full relative">
+        <div ref={notificationRef} className="max-w-full w-[760px] max-h-0 min-h-[inherit] h-screen mt-[16px] flex flex-col justify-center relative">
+            <div className="w-full min-h-[inherit] flex relative">
+                <div className="w-full min-h-[inherit] rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-hidden bg-white relative">
+                    <div className="max-w-[cacl(100vw-24px)] min-h-[inherit] flex flex-col">
+                        <div className="flex flex-shrink grow overflow-x-hidden overflow-y-auto overscroll-y-contain basis-full relative">
                             <div className="flex flex-col grow relative">
                                 <div className="mx-[16px] mb-[12px] mt-[20px] flex flex-row flex-shrink-0 items-center justify-between relative">
                                     <div className="flex flex-col flex-shrink basis-0 grow relative">
-                                        <div
-                                            className="flex flex-row flex-shrink-0 flex-nowrap items-center justify-between relative">
+                                        <div className="flex flex-row flex-shrink-0 flex-nowrap items-center justify-between relative">
                                             <div className="flex flex-col">
-                                                <span
-                                                    className="block text-[22px] text-black text-left break-words font-bold leading-7">
-                                                    <h2>Notification</h2>
+                                                <span className="block text-[24px] text-black text-left break-words font-bold leading-7">
+                                                    <span className="overflow-hidden relative">
+                                                        Notification
+                                                    </span>
                                                 </span>
                                             </div>
-                                            <div
-                                                className="flex flex-col flex-shrink-0 items-end justify-center basis-auto">
-                                                <div ref={notificationQuickSettingButtonRef}
-                                                    className="w-[32px] h-[32px] flex items-center justify-center relative rounded-full cursor-pointer hover:bg-zinc-100 transition-all overflow-hidden"
-                                                    onClick={handleNotificationQuickSettingButton}>
+                                            <div className="flex flex-col flex-shrink-0 items-end justify-center basis-auto">
+                                                <div ref={notificationQuickSettingButtonRef} className="w-[32px] h-[32px] flex items-center justify-center relative rounded-full cursor-pointer hover:bg-zinc-100 transition-all overflow-hidden" onClick={handleNotificationQuickSettingButton}>
                                                     <i>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                            viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
-                                                            className="w-6 h-6">
-                                                            <path strokeLinecap="round" strokeLinejoin="round"
-                                                                strokeWidth="3"
-                                                                d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                                                         </svg>
                                                     </i>
                                                 </div>
@@ -90,30 +89,10 @@ const HeaderNotification = ({ forwardedRef, userData }) => {
                                                     <div className="flex flex-col my-[-5px]">
                                                         <div className="my-[5px]">
                                                             <div className="flex flex-row flex-nowrap items-center justify-between relative">
-                                                                <div
-                                                                    className="flex flex-col flex-shrink grow relative">
-                                                                    <h2>
-                                                                        <span
-                                                                            className="block text-[17px] text-black font-semibold break-words leading-5">
-                                                                            <span
-                                                                                className="overflow-x-hidden overflow-y-hidden relative">News</span>
-                                                                        </span>
-                                                                    </h2>
-                                                                </div>
-                                                                <div
-                                                                    className="flex flex-col flex-shrink-0 self-start justify-center relative ml-[8px]">
-                                                                    <div
-                                                                        className="flex flex-row flex-shrink-0 flex-nowrap items-center justify-between relative ">
-                                                                        <div className="flex flex-col flex-shrink-0">
-                                                                            <a href=""
-                                                                                className="text-[15px] text-lime-500 font-normal break-words leading-5 rounded-md cursor-pointer hover:text-lime-700 hover:bg-zinc-100 transition-all p-[8px]">
-                                                                                <span
-                                                                                    className="overflow-x-hidden overflow-y-hidden relative">
-                                                                                    See all
-                                                                                </span>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
+                                                                <div className="flex flex-col flex-shrink grow relative">
+                                                                    <span className="block text-[17px] text-black font-semibold break-words leading-5">
+                                                                        <span className="overflow-x-hidden overflow-y-hidden relative">News</span>
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -129,13 +108,10 @@ const HeaderNotification = ({ forwardedRef, userData }) => {
                                                     <div className="flex flex-col my-[-5px]">
                                                         <div className="my-[5px]">
                                                             <div className="flex flex-row flex-nowrap items-center justify-between relative">
-                                                                <div
-                                                                    className="flex flex-col flex-shrink grow relative">
-                                                                    <h2>
-                                                                        <span className="block text-[17px] text-black font-semibold break-words leading-5">
-                                                                            <span className="overflow-x-hidden overflow-y-hidden relative ">Before</span>
-                                                                        </span>
-                                                                    </h2>
+                                                                <div className="flex flex-col flex-shrink grow relative">
+                                                                    <span className="block text-[17px] text-black font-semibold break-words leading-5">
+                                                                        <span className="overflow-x-hidden overflow-y-hidden relative ">Before</span>
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -144,8 +120,8 @@ const HeaderNotification = ({ forwardedRef, userData }) => {
                                             </div>
                                         </div>
                                         <ul className="relative">
-                                            {userData.notifications.map((value, index) => (
-                                                <HeaderNotificationContentItem key={index} notificationData={value} />
+                                            {userProps.notifications.map((value, index) => (
+                                                <NotificationHeaderItem key={index} notificationData={value} />
                                             ))}
                                         </ul>
                                     </div>
@@ -157,7 +133,7 @@ const HeaderNotification = ({ forwardedRef, userData }) => {
             </div>
             <div>
                 {showNotificationQuickSetting ? (
-                    <div ref={notificationQuickSettingButtonRef} className="absolute top-0 left-0 translate-x-[-20px] translate-y-[60px] z-50">
+                    <div ref={notificationQuickSettingButtonRef} className="absolute top-0 left-0 translate-x-[-20px] translate-y-[60px] z-50" style={{ '--tw-translate-x': `${notificationTranslateXValue}px` }}>
                         <div className="relative mt-[15px] rounded-l-md rounded-b-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
                             <div className="overflow-x-hidden overflow-y-hidden rounded-l-md rounded-b-md bg-white">
                                 <div className="flex flex-col grow items-stretch origin-top-left relative">
@@ -175,10 +151,11 @@ const HeaderNotification = ({ forwardedRef, userData }) => {
                             </svg>
                         </div>
                     </div>
-                ) : ""}
+                ) : null}
             </div>
+
         </div>
     );
 };
 
-export default HeaderNotification;
+export default NotificationScaffold;

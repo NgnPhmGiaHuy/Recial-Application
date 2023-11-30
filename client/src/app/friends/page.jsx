@@ -1,10 +1,10 @@
 import {fakeUserData} from "@/constants";
 import {AsideFriend, FriendScaffold, Header} from "@/components";
 
-const Friend = () => {
+const FriendPage = () => {
     return (
         <div>
-            <Header navigationItem="mynetwork" userData={fakeUserData}/>
+            <Header navigationItem="mynetwork" userProps={fakeUserData}/>
             <div className="flex flex-col relative z-0 ">
                 <div className="top-[56px] min-h-[calc(100vh-88px)] flex flex-col relative">
                     <div className="min-h-[inherit] mb-[calc(-100vh-56px)] flex flex-col flex-shrink-0 items-stretch justify-start relative">
@@ -15,7 +15,7 @@ const Friend = () => {
                                 </div>
                             </div>
                             <div className="w-full min-h-[inherit] flex flex-col flex-shrink grow basis-0 relative">
-                                <FriendScaffold userData={fakeUserData}/>
+                                <FriendScaffold userProps={fakeUserData}/>
                             </div>
                         </div>
                     </div>
@@ -25,4 +25,4 @@ const Friend = () => {
     );
 };
 
-export default Friend;
+export default FriendPage;

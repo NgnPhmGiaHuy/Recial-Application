@@ -1,13 +1,16 @@
 "use client"
 
 import Image from "next/image";
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
 import {QuickSettingItem} from "@/components";
 import {notificationTypeOfColor, headerNotificationQuickSettingItemList} from "@/constants/HeaderConstants";
 
-const HeaderNotificationContentItem = ({notificationData}) => {
+const NotificationHeaderItem = ({notificationData}) => {
+    const notificationQuickSettingItemRef = useRef(null);
     const notificationQuickSettingItemButtonRef = useRef(null);
+
+    const [notificationQuickSettingItemTranslateXValue, setNotificationQuickSettingItemTranslateXValue] = useState(0);
 
     const [showHeaderNotificationItemQuickSetting, setShowHeaderNotificationItemQuickSetting] = useState(false);
     const [showHeaderNotificationContentItemMoreButton, setShowNotificationMessageContentItemMoreButton] = useState(false)
@@ -21,6 +24,10 @@ const HeaderNotificationContentItem = ({notificationData}) => {
     }, []);
 
     useEffect(() => {
+        if (notificationQuickSettingItemRef.current && notificationQuickSettingItemButtonRef.current && showHeaderNotificationItemQuickSetting) {
+            setNotificationQuickSettingItemTranslateXValue(notificationQuickSettingItemRef.current.clientWidth - notificationQuickSettingItemButtonRef.current.clientWidth - 5)
+        }
+
         const handleOutsideClick = (event) => {
             if (notificationQuickSettingItemButtonRef.current && !notificationQuickSettingItemButtonRef.current.contains(event.target)){
                 setShowHeaderNotificationItemQuickSetting(false);
@@ -39,7 +46,7 @@ const HeaderNotificationContentItem = ({notificationData}) => {
     }, [showHeaderNotificationItemQuickSetting])
 
     return (
-        <li className="relative" onMouseOver={() => setShowNotificationMessageContentItemMoreButton(true)} onMouseOut={() => setShowNotificationMessageContentItemMoreButton(false)}>
+        <li ref={notificationQuickSettingItemRef} className="relative" onMouseOver={() => setShowNotificationMessageContentItemMoreButton(true)} onMouseOut={() => setShowNotificationMessageContentItemMoreButton(false)}>
             <div className="px-[8px] relative">
                 <a href="" className="block">
                     <div className="px-[8px] flex flex-row items-center rounded-md hover:bg-zinc-100 transition-all relative">
@@ -63,7 +70,7 @@ const HeaderNotificationContentItem = ({notificationData}) => {
                             <div className="flex flex-col flex-shrink grow py-[12px] relative">
                                 <div>
                                     <div className="flex flex-col my-[-5px]">
-                                        <div className="">
+                                        <div >
                                             <span className="max-w-full block text-black text-left text-[15px] font-normal leading-5 break-words">
                                                 <span className="overflow-x-hidden overflow-y-hidden line-clamp-3 relative">
                                                     {notificationData.notification_content}
@@ -98,7 +105,7 @@ const HeaderNotificationContentItem = ({notificationData}) => {
                             <div>
                                 <div className="rounded-full">
                                     <div ref={notificationQuickSettingItemButtonRef}
-                                         className="w-[36px] h-[36px] flex justify-center items-center text-gray-500 cursor-pointer rounded-full bg-white shadow-md border border-solid border-gray-200 relative hover:bg-zinc-100 transition-all"
+                                         className="w-[36px] h-[36px] flex justify-center items-center text-gray-500 cursor-pointer rounded-full bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] border border-solid border-gray-200 relative hover:bg-zinc-100 transition-all"
                                          onClick={handleShowHeaderNotificationQuickSettingButton}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>
@@ -112,7 +119,7 @@ const HeaderNotificationContentItem = ({notificationData}) => {
             </div>
             <div>
                 {showHeaderNotificationItemQuickSetting ? (
-                    <div ref={notificationQuickSettingItemButtonRef} className="absolute top-0 left-0 translate-x-[10px] translate-y-[-145px] z-50">
+                    <div ref={notificationQuickSettingItemButtonRef} className="absolute top-0 left-0 translate-x-[10px] translate-y-[-145px] z-50" style={{ '--tw-translate-x': `${notificationQuickSettingItemTranslateXValue}px`}}>
                         <div className="relative mt-[15px] rounded-l-md rounded-b-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
                             <div className="overflow-x-hidden overflow-y-hidden rounded-l-md rounded-b-md bg-white">
                                 <div className="flex flex-col grow items-stretch origin-top-left relative">
@@ -130,10 +137,10 @@ const HeaderNotificationContentItem = ({notificationData}) => {
                             </svg>
                         </div>
                     </div>
-                ) : ""}
+                ) : null}
             </div>
         </li>
     );
 };
 
-export default HeaderNotificationContentItem;
+export default NotificationHeaderItem;

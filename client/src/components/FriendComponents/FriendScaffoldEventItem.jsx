@@ -4,19 +4,19 @@ import Illustration from "/public/images/Illustration/illustration-of-a-man-and-
 
 const formatDateTime = (startDatetime) => {
     const options = {
-        weekday: 'short',
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
         hour12: true,
     };
 
-    const formattedDate = new Date(startDatetime).toLocaleDateString('en-US', options);
+    const formattedDate = new Date(startDatetime).toLocaleDateString("en-US", options);
     return formattedDate;
 };
 
-const FriendScaffoldEventItem = ({userData}) => {
+const FriendScaffoldEventItem = ({userProps}) => {
     return (
         <li className="my-[12px] h-full flex flex-col items-center justify-center text-center align-top hyphens-auto relative hover:">
             <section className="w-full h-full relative">
@@ -33,8 +33,8 @@ const FriendScaffoldEventItem = ({userData}) => {
                         </div>
                         <div className="w-full h-full flex flex-col rounded-md overflow-hidden relative">
                             <div className="w-full h-[140px] flex items-center justify-center rounded-t-md overflow-hidden relative">
-                                {userData.cover_photo_url ? (
-                                    <Image src={userData.cover_photo_url} alt={`${userData.cover_photo_url}-image`} fill className="object-cover"/>
+                                {userProps.cover_photo_url ? (
+                                    <Image src={userProps.cover_photo_url} alt={`${userProps.cover_photo_url}-image`} fill className="object-cover"/>
                                 ) : (
                                     <Image src={Illustration} alt={`${Illustration}-image`} fill className="object-cover"/>
                                 )}
@@ -45,7 +45,7 @@ const FriendScaffoldEventItem = ({userData}) => {
                                     <div className="flex flex-col relative">
                                         <span className="max-h-[76px] block text-[16px] text-left text-black font-semibold break-words relative leading-5">
                                             <span className="overflow-x-hidden overflow-y-hidden line-clamp-2 text-ellipsis relative">
-                                                {userData.event_name}
+                                                {userProps.event_name}
                                             </span>
                                         </span>
                                     </div>
@@ -54,7 +54,7 @@ const FriendScaffoldEventItem = ({userData}) => {
                                     <div className="flex flex-col relative">
                                         <span className="block text-[14px] text-left text-black font-normal break-words relative leading-5">
                                             <span className="overflow-x-hidden overflow-y-hidden line-clamp-2 text-ellipsis relative">
-                                                {formatDateTime(userData.start_datetime)}
+                                                {formatDateTime(userProps.start_datetime)}
                                             </span>
                                         </span>
                                     </div>
@@ -74,7 +74,7 @@ const FriendScaffoldEventItem = ({userData}) => {
                                     <div className="flex flex-col relative">
                                         <span className="block text-[12px] text-left text-black font-normal break-words relative leading-5">
                                             <span className="overflow-x-hidden overflow-y-hidden line-clamp-2 text-ellipsis relative">
-                                                {userData.participants.length} attendees
+                                                {userProps.participants.length} attendees
                                             </span>
                                         </span>
                                     </div>

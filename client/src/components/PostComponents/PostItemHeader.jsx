@@ -1,23 +1,23 @@
 import Image from "next/image";
 
-const PostItemHeader = ({postData, handleShowPostItemQuickSetting}) => {
+const PostItemHeader = ({postProps, handleShowPostItemQuickSetting}) => {
     return (
         <div className="mb-[12px] px-[16px] pt-[12px] flex flex-row items-start">
             <div className="flex flex-row flex-shrink grow items-center relative">
                 <div className="mr-[8px] flex flex-col justify-center relative">
-                    <a href="" className="">
+                    <a href="">
                         <div className="w-[40px] h-[40px] overflow-hidden rounded-full relative group">
-                            <Image src={postData.postAuthor.authorAvatar} alt={`${postData.postAuthor.authorAvatar}-image`} fill className="object-cover"/>
+                            <Image src={postProps.postAuthor.authorAvatar} alt={`${postProps.postAuthor.authorAvatar}-image`} fill className="object-cover"/>
                             <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
                         </div>
                     </a>
                     {/*<a href="">*/}
                     {/*    <div className="w-[40px] h-[40px] relative">*/}
                     {/*        <div className="w-full h-full overflow-hidden rounded-md relative">*/}
-                    {/*            <Image src={postData.postAuthor.authorAvatar} alt={`${postData.postAuthor.authorAvatar}-image`} fill className="object-cover"/>*/}
+                    {/*            <Image src={postProps.postAuthor.authorAvatar} alt={`${postProps.postAuthor.authorAvatar}-image`} fill className="object-cover"/>*/}
                     {/*        </div>*/}
                     {/*        <div className="w-[30px] h-[30px] bottom-[-5px] right-[-5px] rounded-full overflow-hidden border border-solid border-lime-500 absolute">*/}
-                    {/*            <Image src={postData.postAuthor.authorAvatar} alt={`${postData.postAuthor.authorAvatar}-image`} fill className="object-cover"/>*/}
+                    {/*            <Image src={postProps.postAuthor.authorAvatar} alt={`${postProps.postAuthor.authorAvatar}-image`} fill className="object-cover"/>*/}
                     {/*        </div>*/}
                     {/*    </div>*/}
                     {/*</a>*/}
@@ -28,7 +28,7 @@ const PostItemHeader = ({postData, handleShowPostItemQuickSetting}) => {
                             <a href="" className="w-full h-full">
                                 <strong>
                                     <span className="overflow-x-hidden overflow-y-hidden text-ellipsis line-clamp-2 relative">
-                                        {postData.postAuthor.authorName}
+                                        {postProps.postAuthor.authorName}
                                     </span>
                                 </strong>
                             </a>
@@ -40,7 +40,7 @@ const PostItemHeader = ({postData, handleShowPostItemQuickSetting}) => {
                                 <span className="flex items-center break-words pr-[2px]">
                                     <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
                                         <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
-                                            {postData.postUpdateAt}
+                                            {postProps.postUpdateAt}
                                         </span>
                                     </span>
                                 </span>

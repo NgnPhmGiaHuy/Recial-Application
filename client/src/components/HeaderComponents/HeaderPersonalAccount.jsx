@@ -3,7 +3,7 @@ import Image from "next/image";
 import {HeaderPersonalAccountSettingItem} from "@/components";
 import {headerPersonalAccountSettingItemList} from "@/constants/HeaderConstants";
 
-const HeaderPersonalAccount = ({forwardedRef, userData}) => {
+const HeaderPersonalAccount = ({forwardedRef, userProps}) => {
     return (
         <div ref={forwardedRef} className="absolute top-0 left-0 translate-x-[-172px] translate-y-[48px]">
             <div className="mt-[5px]">
@@ -20,12 +20,12 @@ const HeaderPersonalAccount = ({forwardedRef, userData}) => {
                                                         <div className="my-[-4px] p-[8px] flex flex-row flex-nowrap items-center justify-between">
                                                             <div className="p-[4px] flex flex-col flex-shrink-0 items-center justify-center relative">
                                                                 <div className="w-[36px] h-[36px] flex items-center justify-center rounded-full overflow-hidden relative">
-                                                                    <Image src={userData.user.profile_picture_url} alt={`${userData.user.profile_picture_url} image`} fill className="object-cover"/>
+                                                                    <Image src={userProps.user.profile_picture_url} alt={`${userProps.user.profile_picture_url} image`} fill className="object-cover"/>
                                                                 </div>
                                                             </div>
                                                             <div className="p-[4px] flex flex-col flex-shrink grow relative">
                                                                 <span className="block text-[16px] text-left text-black font-semibold break-words leading-4">
-                                                                    {userData.user.username}
+                                                                    {userProps.user.username}
                                                                 </span>
                                                             </div>
                                                         </div>

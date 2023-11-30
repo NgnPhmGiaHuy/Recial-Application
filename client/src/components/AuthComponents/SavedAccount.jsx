@@ -10,7 +10,7 @@ const SavedAccount = ({userName, userProfilePicture, lastOnlineTime}) => {
 
     return (
         <div
-            className={`flex relative w-[145px] h-[165px] mr-[32px] bg-teal-400 bg-opacity-20 rounded-lg transition-all ${isSavedAccountHover ? "shadow-lg" : ""}`}
+            className={`flex relative w-[145px] h-[165px] mr-[32px] bg-teal-400 bg-opacity-20 rounded-lg transition-all ${isSavedAccountHover ? "shadow-lg" : null}`}
             onMouseOver={() => setIsSavedAccountHover(true)}
             onMouseOut={() => setIsSavedAccountHover(false)}>
             <div className={`absolute ${isSavedAccountHover ? "-top-1 -right-1" : " top-0 right-1"} transition-all`}>

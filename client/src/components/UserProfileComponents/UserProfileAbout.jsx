@@ -1,13 +1,22 @@
 "use client"
 
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
 const UserProfileAbout = ({userProps}) => {
+    const descriptionRef = useRef(null);
+    const [isOverflowing, setIsOverflowing] = useState(false);
     const [showMoreAboutMe, setShowMoreAboutMe] = useState(false);
 
     const handleShowMoreAboutMe = useCallback(() => {
         setShowMoreAboutMe((prevShowMoreAboutMe) => !prevShowMoreAboutMe);
     }, []);
+
+    useEffect(() => {
+        if (descriptionRef.current) {
+            const { clientHeight, scrollHeight } = descriptionRef.current;
+            setIsOverflowing(scrollHeight > clientHeight);
+        }
+    }, [userProps.user.description]);
 
     return (
         <section className="mb-[16px] bg-white rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
@@ -24,18 +33,16 @@ const UserProfileAbout = ({userProps}) => {
                 <div>
                     <div className="px-[24px] pb-[16px]">
                         <div>
-                            <span className="text-[16px] text-black font-normal break-words relative leading-5">
-                                <span className={`${showMoreAboutMe ? "" : "line-clamp-3"} overflow-hidden text-ellipsis relative`}>
-                                    {userProps.user.description}
-                                </span>
+                            <span ref={descriptionRef} className={`text-[16px] text-black font-normal break-words relative leading-5 ${showMoreAboutMe ? '' : 'line-clamp-3'}`}>
+                                {userProps.user.description}
                             </span>
-                            {showMoreAboutMe ? "" : (
+                            {!showMoreAboutMe && isOverflowing ? (
                                 <span className="text-[16px] text-zinc-500 font-semibold break-words cursor-pointer relative leading-5 hover:underline transition-all" onClick={handleShowMoreAboutMe}>
                                     <span className="overflow-hidden relative">
                                         See more
                                     </span>
                                 </span>
-                            )}
+                            ) : null}
                         </div>
                     </div>
                 </div>

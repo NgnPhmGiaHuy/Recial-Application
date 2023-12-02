@@ -81,7 +81,8 @@ const UserAboutVideoScaffoldItem = ({ userProps }) => {
                                 <div className="w-full h-0 pt-[100%] relative">
                                     <div className="top-0 right-0 bottom-0 left-0 flex flex-col absolute">
                                         <div className="w-full h-full top-0 right-0 bottom-0 left-0 absolute">
-                                            <video ref={videoRef} src={userProps.video_url} className="absolute h-full w-full object-cover" controls loop>
+                                            <video ref={videoRef} className="absolute h-full w-full object-cover" controls loop>
+                                                <source src={userProps.video_url} type="video/mp4"/>
                                                 Your browser does not support the video tag.
                                             </video>
                                         </div>

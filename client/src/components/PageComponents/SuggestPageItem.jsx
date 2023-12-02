@@ -1,11 +1,11 @@
 import Image from "next/image";
 
-const SuggestPageItem = ({userProps}) => {
+const SuggestPageItem = ({pageProps}) => {
     return (
         <div className="w-full h-full p-[12px] relative">
             <div className="w-full flex flex-col justify-between relative">
                 <a href="" className="w-full h-[200px] rounded-md border border-solid border-zinc-300 overflow-hidden group relative">
-                    <Image src={userProps.page_image} alt={`${userProps.page_image}-image`} fill className="p-[4px] object-contain"/>
+                    <Image src={pageProps.page_image} alt={`${pageProps.page_image}-image`} fill className="p-[4px] object-contain"/>
                     <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-5 transition-opacity"></div>
                 </a>
                 <div className="mt-[12px] flex flex-col items-center justify-between relative">
@@ -23,7 +23,7 @@ const SuggestPageItem = ({userProps}) => {
                                     <div className="mx-[3px] flex flex-shrink-0 items-center justify-center relative">
                                         <span className="block text-[15px] text-black font-semibold break-words relative leading-5">
                                             <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
-                                                {userProps.page_name}
+                                                {pageProps.page_name}
                                             </span>
                                         </span>
                                     </div>

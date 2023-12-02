@@ -1,6 +1,6 @@
 import {Story, CreatePost, Post, FriendRequest, SuggestGroup, SuggestPage, Event} from "@/components";
 
-const Main = ({userProps, postListData, handleShowCreatePost}) => {
+const Main = ({userProps, postListProps, handleShowCreatePost}) => {
     return (
         <div className="pl-[32px] flex flex-row flex-shrink flex-nowrap grow items-stretch justify-center relative">
             <div className="flex flex-col flex-shrink-0 grow relative">
@@ -16,31 +16,23 @@ const Main = ({userProps, postListData, handleShowCreatePost}) => {
                                         <CreatePost userProps={userProps} handleShowCreatePost={handleShowCreatePost} />
                                     </div>
                                     <div>
-                                        <Post postListData={postListData}/>
+                                        <Post postListProps={postListProps}/>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="w-[320px] min-h-screen pl-[12px] py-[8px] flex flex-col flex-shrink-0 relative">
+                        <div className="w-[320px] min-h-screen pl-[12px] py-[8px] flex flex-col gap-[16px] flex-shrink-0 relative">
                             {userProps.friend_requests ? (
-                                <div className="mb-[16px]">
-                                    <FriendRequest friendRequestData={userProps.friend_requests}/>
-                                </div>
+                                <FriendRequest friendRequestProps={userProps.friend_requests}/>
                             ) : null}
                             {userProps.suggest_group ? (
-                                <div className="mb-[16px]">
-                                    <SuggestGroup userProps={userProps.suggest_group}/>
-                                </div>
+                                <SuggestGroup groupProps={userProps.suggest_group}/>
                             ) : null}
                             {userProps.suggest_pages ? (
-                                <div className="mb-[16px]">
-                                    <SuggestPage userProps={userProps.suggest_pages}/>
-                                </div>
+                                <SuggestPage pageProps={userProps.suggest_pages}/>
                             ) : null}
                             {userProps.event ? (
-                                <div className="mb-[12px]">
-                                    <Event userProps={userProps.event}/>
-                                </div>
+                                <Event eventProps={userProps.event}/>
                             ) : null}
                         </div>
                     </div>

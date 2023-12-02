@@ -4,20 +4,22 @@ import HeaderMenuSectionItem from "@/components/HeaderComponents/HeaderMenuSecti
 import HeaderMessage from "@/components/HeaderComponents/HeaderMessage";
 import HeaderMessageContentItem from "@/components/HeaderComponents/HeaderMessageContentItem";
 import HeaderMessageSwitchButton from "@/components/HeaderComponents/HeaderMessageSwitchButton";
-import HeaderPersonalAccount from "@/components/HeaderComponents/HeaderPersonalAccount";
-import HeaderPersonalAccountSettingItem from "@/components/HeaderComponents/HeaderPersonalAccountSettingItem";
 import HeaderSearchHistory from "@/components/HeaderComponents/HeaderSearchHistory";
 import HeaderSearchHistoryItem from "@/components/HeaderComponents/HeaderSearchHistoryItem";
 import HeaderTypeButtonItem from "@/components/HeaderComponents/HeaderTypeButtonItem";
 import HeaderNavigationItem from "@/components/HeaderComponents/HeaderNavigationItem";
+import HeaderPersonalAccount from "@/components/HeaderComponents/HeaderPersonalAccount";
+import HeaderPersonalAccountSettingItem from "@/components/HeaderComponents/HeaderPersonalAccountSettingItem";
 
 import QuickSettingItem from "@/components/QuickSettingComponents/QuickSettingItem";
 
 import Aside from "@/components/AsideComponents/Aside";
 import AsideItem from "@/components/AsideComponents/AsideItem";
 import AsideUser from "@/components/AsideComponents/AsideUser";
-import AsideFriend from "@/components/AsideComponents/AsideFriend";
-import AsideFriendItem from "@/components/AsideComponents/AsideFriendItem";
+import AsideSetting from "@/components/AsideComponents/AsideSetting";
+import AsideSettingItem from "@/components/AsideComponents/AsideSettingItem";
+import AsideScaffold from "@/components/AsideComponents/AsideScaffold";
+import AsideScaffoldItem from "@/components/AsideComponents/AsideScaffoldItem";
 import AsideFollowItem from "@/components/AsideComponents/AsideFollowItem";
 import AsideShowMoreOrShowLessButton from "@/components/AsideComponents/AsideShowMoreOrShowLessButton";
 
@@ -78,7 +80,20 @@ import UserProfileIntroItem from "@/components/UserProfileComponents/UserProfile
 import UserProfileScaffold from "@/components/UserProfileComponents/UserProfileScaffold";
 import UserProfileScaffoldItem from "@/components/UserProfileComponents/UserProfileScaffoldItem";
 
-import Providers from "@/components/Providers";
+import VideoScaffold from "@/components/VideoComponents/VideoScaffold";
+import VideoScaffoldItem from "@/components/VideoComponents/VideoScaffoldItem";
+import VideoScaffoldItemInfo from "@/components/VideoComponents/VideoScaffoldItemInfo";
+import VideoScaffoldItemAside from "@/components/VideoComponents/VideoScaffoldItemAside";
+import VideoPageScaffold from "@/components/VideoComponents/VideoPageScaffold";
+import VideoPageScaffoldItem from "@/components/VideoComponents/VideoPageScaffoldItem";
+import VideoPageScaffoldHeader from "@/components/VideoComponents/VideoPageScaffoldHeader";
+import VideoPageScaffoldFooter from "@/components/VideoComponents/VideoPageScaffoldFooter";
+import VideoPageScaffoldCommentItem from "@/components/VideoComponents/VideoPageScaffoldCommentItem";
+
+import SettingScaffold from "@/components/SettingComponents/SettingScaffold";
+import SettingScaffoldItem from "@/components/SettingComponents/SettingScaffoldItem";
+
+import Providers from "@/components/ProviderComponents/Providers";;
 import AuthHeader from "@/components/AuthComponents/AuthHeader";
 import OAuthLogin from "@/components/AuthComponents/OAuthLogin";
 import SavedAccount from "@/components/AuthComponents/SavedAccount";
@@ -105,8 +120,10 @@ export {
     Aside,
     AsideItem,
     AsideUser,
-    AsideFriend,
-    AsideFriendItem,
+    AsideSetting,
+    AsideSettingItem,
+    AsideScaffold,
+    AsideScaffoldItem,
     AsideFollowItem,
     AsideShowMoreOrShowLessButton,
 
@@ -164,6 +181,19 @@ export {
     UserProfileIntroItem,
     UserProfileScaffold,
     UserProfileScaffoldItem,
+
+    VideoScaffold,
+    VideoScaffoldItem,
+    VideoScaffoldItemInfo,
+    VideoScaffoldItemAside,
+    VideoPageScaffold,
+    VideoPageScaffoldItem,
+    VideoPageScaffoldHeader,
+    VideoPageScaffoldFooter,
+    VideoPageScaffoldCommentItem,
+
+    SettingScaffold,
+    SettingScaffoldItem,
 
     Providers,
     AuthHeader,

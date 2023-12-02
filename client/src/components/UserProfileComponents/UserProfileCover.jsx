@@ -4,7 +4,7 @@ import Image from "next/image";
 import {UserProfileCoverNavigation} from "@/components";
 import {useCallback, useEffect, useRef, useState} from "react";
 
-const UserProfileCover = ({userProps, navigationItem}) => {
+const UserProfileCover = ({userProps, navigationProps}) => {
     const peopleYouMayKnowButtonRef = useRef(null);
     const [showPeopleYouMayKnow, setShowPeopleUseMayKnow] = useState(false);
 
@@ -155,7 +155,7 @@ const UserProfileCover = ({userProps, navigationItem}) => {
                         </div>
                     </div>
                     <div>
-                        <UserProfileCoverNavigation navigationItem={navigationItem}/>
+                        <UserProfileCoverNavigation navigationProps={navigationProps}/>
                     </div>
                 </div>
             </div>

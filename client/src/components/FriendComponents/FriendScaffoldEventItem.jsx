@@ -1,20 +1,7 @@
 import Image from "next/image";
 
+import {formatDateTime} from "@/utils";
 import Illustration from "/public/images/Illustration/illustration-of-a-man-and-a-woman-watering-a-plant.jpg";
-
-const formatDateTime = (startDatetime) => {
-    const options = {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true,
-    };
-
-    const formattedDate = new Date(startDatetime).toLocaleDateString("en-US", options);
-    return formattedDate;
-};
 
 const FriendScaffoldEventItem = ({userProps}) => {
     return (

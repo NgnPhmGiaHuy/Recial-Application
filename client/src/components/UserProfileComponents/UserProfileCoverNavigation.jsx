@@ -1,12 +1,12 @@
 import {UserProfileCoverNavigationItem} from "@/components";
 import {userProfileCoverNavigationItemList} from "@/constants/UserProfileConstants";
 
-const UserProfileCoverNavigation = ({navigationItem}) => {
+const UserProfileCoverNavigation = ({navigationProps}) => {
     return (
         <nav className="flex flex-row items-center justify-start relative border-t border-solid border-zinc-200">
             <ul className="flex flex-row items-center relative">
                 {userProfileCoverNavigationItemList.map((value, index) => (
-                    <UserProfileCoverNavigationItem key={index} itemProps={value} navigationItem={navigationItem}/>
+                    <UserProfileCoverNavigationItem key={index} itemProps={value} navigationProps={navigationProps}/>
                 ))}
                 <li className="ml-[6px] flex flex-col relative">
                      <div className="px-[16px] py-[12px] flex flex-row items-center cursor-pointer rounded-md gap-2 text-zinc-500 relative hover:text-black hover:bg-zinc-100 transition-all">

@@ -39,6 +39,19 @@ b, strong {
     font-weight: 600;
 }
 
+@layer utilities {
+    @layer utilities {
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    }
+}
+
 @keyframes moveIconRightToLeft {
     0% {
         transform: translateX(0);

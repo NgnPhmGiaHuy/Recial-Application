@@ -1,6 +1,6 @@
 import {EventItem} from "@/components";
 
-const Event = ({userProps}) => {
+const Event = ({eventProps}) => {
     return (
         <section className="p-[12px] flex flex-col rounded-md bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
             <div className="w-full h-full relative">
@@ -19,7 +19,7 @@ const Event = ({userProps}) => {
                     </a>
                 </div>
             </div>
-            {userProps.slice(0, 3).map((value,index) => (
+            {eventProps.slice(0, 3).map((value,index) => (
                 <EventItem key={index} eventProps={value}/>
             ))}
         </section>

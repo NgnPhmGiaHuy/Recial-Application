@@ -33,7 +33,7 @@ const HeaderSearchHistory = ({userProps}) => {
                                     </div>
                                     <ul>
                                         {userProps.search_history.map((value, index) => (
-                                            <HeaderSearchHistoryItem key={index} searchHistoryData={value}/>
+                                            <HeaderSearchHistoryItem key={index} searchHistoryProps={value}/>
                                         ))}
                                     </ul>
                                 </li>

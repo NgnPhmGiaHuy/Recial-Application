@@ -13,7 +13,7 @@ const UserVideosPage = () => {
                                 <main>
                                     <div className="my-[16px] flex flex-col gap-4 relative">
                                         <div>
-                                            <UserProfileCover userProps={fakeUserData} navigationItem="videos"/>
+                                            <UserProfileCover userProps={fakeUserData} navigationProps="videos"/>
                                         </div>
                                         <div>
                                             <UserAboutScaffold userProps={fakeUserData.videos_list} isVideoPage={true}/>

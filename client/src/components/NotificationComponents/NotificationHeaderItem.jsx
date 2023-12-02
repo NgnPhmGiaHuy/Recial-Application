@@ -6,7 +6,7 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 import {QuickSettingItem} from "@/components";
 import {notificationTypeOfColor, headerNotificationQuickSettingItemList} from "@/constants/HeaderConstants";
 
-const NotificationHeaderItem = ({notificationData}) => {
+const NotificationHeaderItem = ({notificationProps}) => {
     const notificationQuickSettingItemRef = useRef(null);
     const notificationQuickSettingItemButtonRef = useRef(null);
 
@@ -15,9 +15,9 @@ const NotificationHeaderItem = ({notificationData}) => {
     const [showHeaderNotificationItemQuickSetting, setShowHeaderNotificationItemQuickSetting] = useState(false);
     const [showHeaderNotificationContentItemMoreButton, setShowNotificationMessageContentItemMoreButton] = useState(false)
 
-    const notificationSvgIcon = notificationTypeOfColor[notificationData.type].svgIcon || notificationTypeOfColor.default.svgIcon;
-    const notificationTextColor = notificationTypeOfColor[notificationData.type].textColor || notificationTypeOfColor.default.textColor;
-    const notificationBackgroundColor = notificationTypeOfColor[notificationData.type].backgroundColor || notificationTypeOfColor.default.backgroundColor;
+    const notificationSvgIcon = notificationTypeOfColor[notificationProps.type].svgIcon || notificationTypeOfColor.default.svgIcon;
+    const notificationTextColor = notificationTypeOfColor[notificationProps.type].textColor || notificationTypeOfColor.default.textColor;
+    const notificationBackgroundColor = notificationTypeOfColor[notificationProps.type].backgroundColor || notificationTypeOfColor.default.backgroundColor;
 
     const handleShowHeaderNotificationQuickSettingButton = useCallback(() => {
         setShowHeaderNotificationItemQuickSetting((preShowNotificationQuickSetting) => !preShowNotificationQuickSetting);
@@ -53,7 +53,7 @@ const NotificationHeaderItem = ({notificationData}) => {
                         <div className="flex flex-col self-start relative my-[8px] mr-[12px]">
                             <div className="inline-block align-bottom relative">
                                 <div className="w-[56px] h-[56px] align-bottom rounded-full overflow-hidden relative">
-                                    <Image src={notificationData.notification_image} alt={notificationData.notification_image} fill className="object-cover"/>
+                                    <Image src={notificationProps.notification_image} alt={notificationProps.notification_image} fill className="object-cover"/>
                                 </div>
                                 <div className="absolute bottom-[8px] right-[8px] translate-x-1/2 translate-y-1/2 rounded-full z-10">
                                     <div className="w-full h-full relative">
@@ -73,7 +73,7 @@ const NotificationHeaderItem = ({notificationData}) => {
                                         <div >
                                             <span className="max-w-full block text-black text-left text-[15px] font-normal leading-5 break-words">
                                                 <span className="overflow-x-hidden overflow-y-hidden line-clamp-3 relative">
-                                                    {notificationData.notification_content}
+                                                    {notificationProps.notification_content}
                                                 </span>
                                             </span>
                                         </div>
@@ -81,7 +81,7 @@ const NotificationHeaderItem = ({notificationData}) => {
                                             <span className="max-w-full block text-lime-500 text-left text-[13px] font-normal break-words leading-4">
                                                 <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
                                                     <span className="font-semibold break-words">
-                                                        {notificationData.updated_at} ago
+                                                        {notificationProps.updated_at} ago
                                                     </span>
                                                 </span>
                                             </span>
@@ -92,7 +92,7 @@ const NotificationHeaderItem = ({notificationData}) => {
                             <div className="my-[8px] ml-[12px] self-center relative">
                                 <div className="flex flex-row items-center">
                                     <div className="w-[20px] pl-[4px] flex flex-row bg-transparent relative cursor-pointer">
-                                        <span className={`${notificationData.is_read ? "" : "bg-lime-500"} w-[12px] h-[12px] inline-flex items-center justify-center rounded-full`}></span>
+                                        <span className={`${notificationProps.is_read ? "" : "bg-lime-500"} w-[12px] h-[12px] inline-flex items-center justify-center rounded-full`}></span>
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@ const NotificationHeaderItem = ({notificationData}) => {
                                     <div className="w-[344px] py-[8px] overflow-x-hidden overflow-y-auto overscroll-y-contain flex flex-col relative">
                                         <div className="flex flex-col grow relative">
                                             {headerNotificationQuickSettingItemList.map((value, index) => (
-                                                <QuickSettingItem key={index} settingItemData={value}/>
+                                                <QuickSettingItem key={index} settingProps={value}/>
                                             ))}
                                         </div>
                                     </div>

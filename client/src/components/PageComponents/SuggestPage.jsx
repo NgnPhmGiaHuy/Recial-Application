@@ -1,6 +1,6 @@
 import {SuggestPageItem} from "@/components";
 
-const SuggestPage = ({userProps}) => {
+const SuggestPage = ({pageProps}) => {
     return (
         <section className="flex flex-col rounded-md bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
             <div className="w-full h-full p-[12px] relative">
@@ -19,8 +19,8 @@ const SuggestPage = ({userProps}) => {
                     </a>
                 </div>
             </div>
-            {userProps.slice(0, 3).map((value,index) => (
-                <SuggestPageItem key={index} userProps={value}/>
+            {pageProps.slice(0, 3).map((value,index) => (
+                <SuggestPageItem key={index} pageProps={value}/>
             ))}
         </section>
     );

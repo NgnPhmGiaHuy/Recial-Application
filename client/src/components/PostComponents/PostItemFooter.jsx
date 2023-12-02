@@ -1,7 +1,9 @@
 "use client"
 
 import Image from "next/image";
-import {useState, useEffect, useCallback} from 'react';
+import {useState, useEffect} from 'react';
+
+import {handleFormatNumber} from "@/utils";
 
 import Like from "/public/images/Icon/like.png";
 import Dislike from "/public/images/Icon/dislike.png";
@@ -10,18 +12,6 @@ import Unhappiness from "/public/images/Icon/sad.png"
 
 const PostItemFooter = ({postProps, handleShowPostShareSetting, handleShowPostItemComment}) => {
     const [mostReactedIcons, setMostReactedIcons] = useState([Like, Like]);
-
-    const handleFormatNumber = useCallback((number) => {
-        const suffixes = ["", "K", "M", "B", "T"];
-        let suffixIndex = 0;
-
-        while (number >= 1000 && suffixIndex < suffixes.length - 1) {
-            number /= 1000;
-            suffixIndex++;
-        }
-
-        return number.toFixed(1) + suffixes[suffixIndex];
-    }, []);
 
     useEffect(() => {
         const { postLikesNumber, postDislikesNumber, postHappinessNumber, postUnhappinessNumber } = postProps.postReactions;

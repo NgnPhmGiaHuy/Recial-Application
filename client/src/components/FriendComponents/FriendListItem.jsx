@@ -150,7 +150,7 @@ const FriendListItem = ({userProps}) => {
                                     <div className="w-[344px] py-[8px] overflow-x-hidden overflow-y-auto overscroll-y-contain flex flex-col relative">
                                         <div className="flex flex-col grow relative">
                                             {asideFriendListQuickSettingItemList.map((value, index) => (
-                                                <QuickSettingItem key={index} settingItemData={value}/>
+                                                <QuickSettingItem key={index} settingProps={value}/>
                                             ))}
                                         </div>
                                     </div>

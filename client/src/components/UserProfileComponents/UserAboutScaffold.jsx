@@ -1,4 +1,7 @@
+import dynamic from "next/dynamic";
+
 import {UserAboutPhotoScaffoldItem, UserAboutScaffoldItem, UserAboutVideoScaffoldItem} from "@/components";
+const DynamicUserAboutVideoScaffoldItem = dynamic(() => import("@/components/UserProfileComponents/UserAboutVideoScaffoldItem"), { ssr: false });
 
 const UserAboutScaffold = ({userProps, titleLabel, isFriendItem, isFriendPage, isGroup, isGroupPage, isPhoto, isPhotoPage, isVideo, isVideoPage}) => {
     return (
@@ -106,14 +109,14 @@ const UserAboutScaffold = ({userProps, titleLabel, isFriendItem, isFriendPage, i
                     {isVideo ? (
                         <div className="flex flex-row flex-wrap relative">
                             {userProps.slice(0, 8).map((value, index) => (
-                                <UserAboutVideoScaffoldItem key={index} userProps={value}/>
+                                <DynamicUserAboutVideoScaffoldItem key={index} userProps={value}/>
                             ))}
                         </div>
                     ) : null}
                     {isVideoPage ? (
                         <div className="flex flex-row flex-wrap relative">
                             {userProps.map((value, index) => (
-                                <UserAboutVideoScaffoldItem key={index} userProps={value}/>
+                                <DynamicUserAboutVideoScaffoldItem key={index} userProps={value}/>
                             ))}
                         </div>
                     ) : null}

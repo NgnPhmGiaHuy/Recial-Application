@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const SuggestGroup = ({userProps}) => {
+const SuggestGroup = ({groupProps}) => {
     return (
         <section className="flex flex-col rounded-md bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
             <div className="w-full h-full p-[12px] relative">
@@ -22,11 +22,11 @@ const SuggestGroup = ({userProps}) => {
             <div className="w-full h-full p-[12px] relative">
                 <div className="w-full py-[8px] flex flex-col justify-between relative">
                     <a href="" className="w-full h-[200px] rounded-md border border-solid border-zinc-200 overflow-hidden group relative">
-                        <Image src={userProps.group_picture_url} alt={`${userProps.group_picture_url}-image`} fill className="p-[4px] object-contain"/>
+                        <Image src={groupProps.group_picture_url} alt={`${groupProps.group_picture_url}-image`} fill className="p-[4px] object-contain"/>
                         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-5 transition-opacity"></div>
                     </a>
                     <div className="ml-[14px] my-[12px] flex flex-row items-center relative">
-                        {userProps.members.slice(0, 4).map((value, index) => {
+                        {groupProps.members.slice(0, 4).map((value, index) => {
                             const zIndexValue = index;
                             return (
                                 <a href="" key={index}>
@@ -36,11 +36,11 @@ const SuggestGroup = ({userProps}) => {
                                 </a>
                             );
                         })}
-                        {userProps.members.length > 4 ? (
+                        {groupProps.members.length > 4 ? (
                             <div className="w-[40px] h-[40px] ml-[-14px] flex items-center justify-center border-[2px] border-solid border-white rounded-full bg-zinc-200 relative cursor-pointer overflow-hidden z-10">
                                 <span className="block text-[16px] text-center text-zinc-500 font-bold break-words relative leading-5">
                                     <span className="overflow-x-hidden overflow-y-hidden relative">
-                                        +{userProps.members.length - 4}
+                                        +{groupProps.members.length - 4}
                                     </span>
                                 </span>
                             </div>
@@ -68,7 +68,7 @@ const SuggestGroup = ({userProps}) => {
                                         <div className="mx-[3px] flex flex-shrink-0 items-center justify-center relative">
                                             <span className="block text-[15px] text-black font-semibold break-words relative leading-5">
                                                 <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
-                                                    {userProps.group_name}
+                                                    {groupProps.group_name}
                                                 </span>
                                             </span>
                                         </div>

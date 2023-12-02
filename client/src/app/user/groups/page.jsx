@@ -13,7 +13,7 @@ const UserGroupsPage = () => {
                                 <main>
                                     <div className="my-[16px] flex flex-col gap-4 relative">
                                         <div>
-                                            <UserProfileCover userProps={fakeUserData} navigationItem="groups"/>
+                                            <UserProfileCover userProps={fakeUserData} navigationProps="groups"/>
                                         </div>
                                         <div>
                                             <UserAboutScaffold userProps={fakeUserData.groups_list} titleLabel="Groups" isGroupPage={true}/>

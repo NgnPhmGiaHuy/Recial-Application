@@ -1,9 +1,9 @@
 import {PostItem} from "@/components";
 
-const Post = ({postListData}) => {
+const Post = ({postListProps}) => {
     return (
         <div>
-            {postListData.map((value, index) => (
+            {postListProps.map((value, index) => (
                 <PostItem key={index} postProps={value}/>
             ))}
         </div>

@@ -120,7 +120,7 @@ const NotificationHeader = ({ forwardedRef, userProps }) => {
                                         </div>
                                         <ul className="relative">
                                             {userProps.notifications.map((value, index) => (
-                                                <NotificationHeaderItem key={index} notificationData={value} />
+                                                <NotificationHeaderItem key={index} notificationProps={value} />
                                             ))}
                                         </ul>
                                     </div>
@@ -139,7 +139,7 @@ const NotificationHeader = ({ forwardedRef, userProps }) => {
                                     <div className="w-[344px] py-[8px] overflow-x-hidden overflow-y-auto overscroll-y-contain flex flex-col relative">
                                         <div className="flex flex-col grow relative">
                                             {headerNotificationQuickSettingList.map((value, index) => (
-                                                <QuickSettingItem key={index} settingItemData={value}/>
+                                                <QuickSettingItem key={index} settingProps={value}/>
                                             ))}
                                         </div>
                                     </div>

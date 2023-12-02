@@ -5,7 +5,7 @@ const UserAbout = ({userProps}) => {
         <main>
             <div className="my-[16px] flex flex-col gap-4 relative">
                 <div>
-                    <UserProfileCover userProps={userProps} navigationItem="about"/>
+                    <UserProfileCover userProps={userProps} navigationProps="about"/>
                 </div>
                 <div>
                     <UserAboutOverview userProps={userProps}/>

@@ -90,7 +90,7 @@ const Story = ({userProps}) => {
                                 </a>
                             </div>
                             {userProps.stories.map((value, index) => (
-                                <StoryItem key={index} index={index} selected={storyItemIndex === index} storyItemSelectedRef={storyItemSelectedRef} storyItemData={value}/>
+                                <StoryItem key={index} index={index} selected={storyItemIndex === index} storyItemSelectedRef={storyItemSelectedRef} storyProps={value}/>
                             ))}
                         </div>
                     </div>

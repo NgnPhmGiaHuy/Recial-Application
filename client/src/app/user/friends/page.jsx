@@ -13,7 +13,7 @@ const UserFriendsPage = ({userProps}) => {
                                 <main>
                                     <div className="my-[16px] flex flex-col gap-4 relative">
                                         <div>
-                                            <UserProfileCover userProps={fakeUserData} navigationItem="friends"/>
+                                            <UserProfileCover userProps={fakeUserData} navigationProps="friends"/>
                                         </div>
                                         <div>
                                             <UserAboutScaffold userProps={fakeUserData.friends_list} isFriendPage={true}/>

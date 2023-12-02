@@ -33,7 +33,7 @@ const HomePage = () => {
 
     return (
         <div>
-            <Header navigationItem="home" userProps={fakeUserData}/>
+            <Header navigationProps="home" userProps={fakeUserData}/>
             <div className="flex flex-col relative z-0 ">
                 <div className="top-[56px] min-h-[calc(100vh-56px)] flex flex-col relative">
                     <div className="min-h-[inherit] mb-[calc(-100vh-56px)] flex flex-col relative">
@@ -41,7 +41,7 @@ const HomePage = () => {
                             <div className="min-h-[inherit] flex flex-row flex-shrink flex-nowrap grow items-start justify-between basis-0 relative">
                                 <Aside userProps={fakeUserData}/>
                                 <div className="w-full h-full relative">
-                                    <Main userProps={fakeUserData} postListData={fakePostListData} handleShowCreatePost={handleShowCreatePost}/>
+                                    <Main userProps={fakeUserData} postListProps={fakePostListData} handleShowCreatePost={handleShowCreatePost}/>
                                 </div>
                             </div>
                         </div>

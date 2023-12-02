@@ -147,7 +147,7 @@ const HeaderMessage = ({forwardedRef, userProps}) => {
                                                 </div>
                                             </div>
                                             {headerMessageQuickSettingList.map((value, index) => (
-                                                <QuickSettingItem key={index} settingItemData={value}/>
+                                                <QuickSettingItem key={index} settingProps={value}/>
                                             ))}
                                         </div>
                                     </div>

@@ -21,9 +21,9 @@ const FriendScaffoldEventItem = ({userProps}) => {
                         <div className="w-full h-full flex flex-col rounded-md overflow-hidden relative">
                             <div className="w-full h-[140px] flex items-center justify-center rounded-t-md overflow-hidden relative">
                                 {userProps.cover_photo_url ? (
-                                    <Image src={userProps.cover_photo_url} alt={`${userProps.cover_photo_url}-image`} fill className="object-cover"/>
+                                    <Image src={userProps.cover_photo_url} alt={`${userProps.cover_photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 ) : (
-                                    <Image src={Illustration} alt={`${Illustration}-image`} fill className="object-cover"/>
+                                    <Image src={Illustration} alt={`${Illustration}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 )}
                                 <div className="absolute inset-0 bg-black opacity-10 transition-opacity"></div>
                             </div>

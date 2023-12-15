@@ -1,36 +1,40 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const userProperties = require("./User/userProperties");
+const profileProperties = require("./User/profileProperties");
+const socialProperties = require("./User/socialProperties");
+const contactProperties = require("./User/contactProperties");
+const mediaProperties = require("./User/mediaProperties");
+const permissionsProperties = require("./User/permissionsProperties");
+
 const UserSchema = new Schema(
     {
-        email: {
-            type: String,
-            unique: true,
-            required: true,
-        },
-        username: {
-            type: String,
-        },
-        password: {
-            type: String,
-            required: true,
-        },
-        firstname: {
-            type: String,
-        },
-        lastname: {
-            type: String,
-        },
-        profile_picture_url: {
-            type: String,
-        },
-        location: {
-            type: Schema.Types.ObjectId,
-            ref: "Location",
-        }
+        ...userProperties,
+        ...profileProperties,
+        ...socialProperties,
+        ...contactProperties,
+        ...mediaProperties,
+        ...permissionsProperties,
     }, {
         timestamps: true,
     },
 );
+
+UserSchema.pre("save", async function(next) {
+   if (this.isNew && !this.roles.length) {
+       try {
+           const defaultRole = await mongoose.model("Role").findOne({ roleName: "User" });
+
+           if (defaultRole) {
+               this.roles.push(defaultRole._id);
+           }
+       } catch (error) {
+           console.error('Error while setting default role:', error);
+       }
+   }
+
+   next();
+});
 
 module.exports = mongoose.model('User', UserSchema);

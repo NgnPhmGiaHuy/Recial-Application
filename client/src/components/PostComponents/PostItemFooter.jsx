@@ -1,33 +1,26 @@
 "use client"
 
 import Image from "next/image";
-import {useState, useEffect} from 'react';
+import {useState, useEffect} from "react";
 
 import {handleFormatNumber} from "@/utils";
-
-import Like from "/public/images/Icon/like.png";
-import Dislike from "/public/images/Icon/dislike.png";
-import Happiness from "/public/images/Icon/happiness.png";
-import Unhappiness from "/public/images/Icon/sad.png"
+import {useMostReactedIcons} from "@/hooks";
 
 const PostItemFooter = ({postProps, handleShowPostShareSetting, handleShowPostItemComment}) => {
-    const [mostReactedIcons, setMostReactedIcons] = useState([Like, Like]);
+    const [totalComments, setTotalComments] = useState(0);
+
+    const mostReactedIcons = useMostReactedIcons(postProps.postReactions);
 
     useEffect(() => {
-        const { postLikesNumber, postDislikesNumber, postHappinessNumber, postUnhappinessNumber } = postProps.postReactions;
+        let commentCount = 0;
 
-        const reactions = [
-            { icon: Happiness, count: postHappinessNumber },
-            { icon: Like, count: postLikesNumber },
-            { icon: Unhappiness, count: postUnhappinessNumber },
-            { icon: Dislike, count: postDislikesNumber },
-        ];
+        postProps?.postComments?.forEach((comment) => {
+            commentCount++;
+            commentCount += comment.comment_replies?.length || 0;
+        });
 
-        const sortedReactions = reactions.sort((a, b) => b.count - a.count);
-        const topTwoReactions = sortedReactions.slice(0, 2).map(reaction => reaction.icon);
-
-        setMostReactedIcons(topTwoReactions);
-    }, [postProps.postReactions]);
+        setTotalComments(commentCount);
+    }, [postProps]);
 
     return (
         <div className="overflow-x-hidden overflow-y-hidden">
@@ -37,14 +30,14 @@ const PostItemFooter = ({postProps, handleShowPostShareSetting, handleShowPostIt
                         <span className="pl-[4px] flex items-center ">
                             {mostReactedIcons.map((icon, index) => (
                                 <span key={index} className="w-[20px] h-[20px] ml-[-4px] border-[2px] border-solid border-white rounded-full relative cursor-pointer z-20">
-                                    <Image src={icon} alt={`${icon}-image`} fill className="object-cover" />
+                                    <Image src={icon} alt={`${icon}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover" />
                                 </span>
                             ))}
                         </span>
                         <div>
                             <span className="w-[100px] overflow-x-hidden overflow-y-hidden float-left text-ellipsis">
                                 <span className="pl-[4px] cursor-pointer relative hover:underline transition-all">
-                                    {handleFormatNumber(Object.values(postProps.postReactions).reduce((sum, value) => sum + value, 0))}
+                                    {handleFormatNumber(postProps?.postReactions?.reduce((sum) => sum + 1, 0))}
                                 </span>
                             </span>
                         </div>
@@ -52,12 +45,12 @@ const PostItemFooter = ({postProps, handleShowPostShareSetting, handleShowPostIt
                     <div className="m-[-6px] flex flex-row flex-shrink-0 flex-nowrap items-stretch justify-between relative">
                         <div className="p-[6px] flex flex-col flex-shrink-0 relative">
                             <span className="block text-[15px] text-zinc-500 text-left font-normal break-words relative cursor-pointer leading-5 hover:underline transition-all">
-                                {postProps.postCommentNumber === 1 ? `${postProps.postCommentNumber} comment` : `${postProps.postCommentNumber} comments`}
+                                {totalComments === 0 ? null : totalComments === 1 ? `${totalComments} comment` : `${totalComments} comments`}
                             </span>
                         </div>
                         <div className="p-[6px] flex flex-col flex-shrink-0 relative">
                             <span className="block text-[15px] text-zinc-500 text-left font-normal break-words relative cursor-pointer leading-5 hover:underline transition-all">
-                                {postProps.postShareNumber === 1 ? `${postProps.postShareNumber} share` : `${postProps.postShareNumber} shares`}
+                                {postProps?.postData?.post_shares?.length === 0 ? null : postProps?.postData?.post_shares?.length === 1 ? `${postProps?.postData?.post_shares?.length} share` : `${postProps?.postData?.post_shares?.length} shares`}
                             </span>
                         </div>
                     </div>

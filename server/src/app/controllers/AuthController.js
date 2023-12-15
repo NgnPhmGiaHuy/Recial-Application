@@ -1,14 +1,17 @@
+const bcrypt = require("bcryptjs");
+const jwt= require("jsonwebtoken");
+
 const User = require("../models/User");
 
 class AuthController {
-    async registerUser(req, res) {
+    registerUser = async (req, res) => {
         try {
             const {session_key, hashedPassword, session_firstname, session_lastname} = req.body;
 
-            const existingUser = await User.findOne({session_key});
+            const existingUser = await User.findOne({email: session_key});
 
             if (existingUser) {
-                return res.status(400).json({ userExists: true, message: "User already exists" });
+                return res.status(409).json({ message: "This email already exists, please try again!" });
             }
 
             const newUser = new User({
@@ -20,36 +23,84 @@ class AuthController {
 
             await newUser.save();
 
-            res.status(201).json({message: 'User registered successfully'});
+            return res.status(201).json({ message: "User registered successfully" });
         } catch (error) {
-            console.log(error);
-            res.status(500).json({ error: 'Server error' });
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 
-    async loginUser(req, res) {
+    loginUser = async (req, res) => {
         try {
-            const { session_key, hashedPassword } = req.body;
+            const { session_key, session_password } = req.body;
 
             const user = await User.findOne({ email: session_key });
 
             if (!user) {
-                return res.status(401).json({ message: 'User not found' });
+                return res.status(404).json({ message: "Sorry, that email isn't registered with us. Please try another." });
             }
 
-            const isPasswordValid = await bcrypt.compare(hashedPassword, user.password);
+            const isPasswordValid = await bcrypt.compare(session_password, user.password);
 
             if (!isPasswordValid) {
-                return res.status(401).json({ message: 'Invalid password' });
+                return res.status(401).json({ message: "Invalid password. Please check and try again." });
             }
 
-            // Password is valid, authentication successful
-            res.status(200).json({ message: 'Login successful', user });
+            const accessToken = this.generateAccessToken(user);
+            const refreshToken = this.generateRefreshToken(user);
+
+            user.refreshToken = refreshToken;
+            await user.save();
+
+            const { password, ...userProps } = user._doc;
+
+            res.status(201).json({ accessToken: accessToken, refreshToken: refreshToken });
         } catch (error) {
-            console.log(error);
             res.status(500).json({ error: 'Server error' });
         }
+    };
+
+    requestRefreshToken = async (req, res) => {
+        const refreshToken = req.body.refreshToken;
+
+        if (!refreshToken) {
+            return res.status(401).json({ error: "You're not authenticated" });
+        }
+
+        try {
+            jwt.verify(refreshToken, "Hello", async (error, decoded) => {
+                if (error) {
+                    return res.status(403).json({ error: "Refresh token is not valid" });
+                }
+
+                const user = await User.findById(decoded.userId);
+
+                if (!user) {
+                    return res.status(403).json({ error: "User not found" });
+                }
+
+                const newAccessToken = this.generateAccessToken(user);
+
+                res.status(200).json({ accessToken: newAccessToken });
+            });
+        } catch (error) {
+            res.status(500).json({ error: 'Server error' });
+        }
+    };
+
+    logoutUser = async (req, res) => {
+        res.clearCookie("refreshToken");
+        // refreshTokens = refreshTokens.filter((token) => token !== req.cookies.refreshToken);
+
+        res.status(200).json({ message: "Logout" });
     }
+
+    generateAccessToken = (user) => {
+        return jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });
+    };
+
+    generateRefreshToken = (user) => {
+        return jwt.sign({ userId: user._id }, "Hello", { expiresIn: '365d' });
+    };
 }
 
 module.exports = new AuthController();

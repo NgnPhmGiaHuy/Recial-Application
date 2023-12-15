@@ -9,12 +9,16 @@ const AsideUser = ({userProps}) => {
                         <div>
                             <UserProfileIntro userProps={userProps}/>
                         </div>
-                        <div>
-                            <UserProfileScaffold userProps={userProps.photos_list} isPhotoList={true}/>
-                        </div>
-                        <div>
-                            <UserProfileScaffold userProps={userProps.friends_list} isFriendList={true}/>
-                        </div>
+                        {userProps?.photo_list ? (
+                            <div>
+                                <UserProfileScaffold userProps={userProps?.photo_list} isPhotoList={true}/>
+                            </div>
+                        ) : null}
+                        {userProps?.friends ? (
+                            <div>
+                                <UserProfileScaffold userProps={userProps?.friends} isFriendList={true}/>
+                            </div>
+                        ) : null}
                     </div>
                 </div>
             </div>

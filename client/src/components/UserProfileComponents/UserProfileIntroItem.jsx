@@ -17,7 +17,7 @@ const UserProfileIntroItem = ({userProps}) => {
                             Live in &nbsp;
                         </span>
                         <a href="" className="font-semibold hover:underline">
-                            {userProps.user.location.city + ", " + userProps.user.location.country}
+                            {userProps?.user?.location?.city + ", " + userProps?.user?.location?.country}
                         </a>
                     </span>
                 </div>

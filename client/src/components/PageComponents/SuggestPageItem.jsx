@@ -4,8 +4,8 @@ const SuggestPageItem = ({pageProps}) => {
     return (
         <div className="w-full h-full p-[12px] relative">
             <div className="w-full flex flex-col justify-between relative">
-                <a href="" className="w-full h-[200px] rounded-md border border-solid border-zinc-300 overflow-hidden group relative">
-                    <Image src={pageProps.page_image} alt={`${pageProps.page_image}-image`} fill className="p-[4px] object-contain"/>
+                <a href={pageProps?._id} className="w-full h-[200px] rounded-md border border-solid border-zinc-300 overflow-hidden group relative">
+                    <Image src={pageProps?.page_cover_picture_url} alt={`${pageProps?.page_cover_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="p-[4px] object-contain"/>
                     <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-5 transition-opacity"></div>
                 </a>
                 <div className="mt-[12px] flex flex-col items-center justify-between relative">
@@ -20,10 +20,10 @@ const SuggestPageItem = ({pageProps}) => {
                                             </svg>
                                         </span>
                                     </div>
-                                    <div className="mx-[3px] flex flex-shrink-0 items-center justify-center relative">
+                                    <div className="mx-[3px] flex flex-shrink items-center justify-center relative">
                                         <span className="block text-[15px] text-black font-semibold break-words relative leading-5">
-                                            <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
-                                                {pageProps.page_name}
+                                            <span className="overflow-x-hidden overflow-y-hidden text-ellipsis line-clamp-1 relative">
+                                                {pageProps?.page_name}
                                             </span>
                                         </span>
                                     </div>

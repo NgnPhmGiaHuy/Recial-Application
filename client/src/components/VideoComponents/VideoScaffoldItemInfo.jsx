@@ -9,7 +9,7 @@ const VideoScaffoldItemInfo = ({videoProps}) => {
                         <div className="flex flex-row items-center justify-start bg-transparent overflow-visible static">
                             <div className="mr-[12px]">
                                 <div className="w-[32px] h-[32px] flex items-center justify-center rounded-full overflow-hidden relative">
-                                    <Image src={videoProps.creator.profile_picture_url} alt={`${videoProps.creator.profile_picture_url}-image`} fill className="object-cover"/>
+                                    <Image src={videoProps.creator.profile_picture_url} alt={`${videoProps.creator.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 </div>
                             </div>
                             <div>

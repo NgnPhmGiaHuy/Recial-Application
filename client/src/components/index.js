@@ -43,6 +43,7 @@ import PostItemHeader from "@/components/PostComponents/PostItemHeader";
 import PostItemContent from "@/components/PostComponents/PostItemContent";
 import PostItemFooter from "@/components/PostComponents/PostItemFooter";
 import PostItemComment from "@/components/PostComponents/PostItemComment";
+import PostItemCommentScaffold from "@/components/PostComponents/PostItemCommentScaffold";
 
 import FriendRequest from "@/components/FriendComponents/FriendRequest";
 import FriendRequestItem from "@/components/FriendComponents/FriendRequestItem";
@@ -147,6 +148,7 @@ export {
     PostItemContent,
     PostItemFooter,
     PostItemComment,
+    PostItemCommentScaffold,
 
     FriendRequest,
     FriendRequestItem,

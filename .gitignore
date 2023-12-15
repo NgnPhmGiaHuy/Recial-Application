@@ -36,3 +36,6 @@ server/src/.env
 # typescript
 **.tsbuildinfo
 **next-env.d.ts
+
+# file
+**rock-drake-399814-9b8c1b3a2eef.json

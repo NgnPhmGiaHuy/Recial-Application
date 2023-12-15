@@ -8,7 +8,7 @@ const AsideItem = ({userProps}) => {
                     <div className="min-h-[48px] px-[8px] flex flex-row items-center justify-between relative">
                         <div className="my-[6px] mr-[12px] flex flex-col self-center relative">
                             <div className="w-[32px] h-[32px] flex flex-row items-center justify-center rounded-md overflow-hidden relative">
-                                <Image src={userProps.itemImage} alt={`${userProps.itemImage}-image`} fill className="object-cover"/>
+                                <Image src={userProps.itemImage} alt={`${userProps.itemImage}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                             </div>
                         </div>
                         <div className="flex flex-row flex-shrink grow items-center justify-between self-stretch relative">

@@ -11,7 +11,7 @@ const AsideSetting = ({userProps, navigationProps}) => {
                     <div>
                         <a href="">
                             <div className="w-[32px] h-[32px] rounded-full overflow-hidden relative">
-                                <Image src={userProps.user.profile_picture_url} alt={`${userProps.user.profile_picture_url}-image`} fill className="object-cover"/>
+                                <Image src={userProps.user.profile_picture_url} alt={`${userProps.user.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                             </div>
                         </a>
                     </div>

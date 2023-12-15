@@ -37,7 +37,7 @@ const VideoPageScaffoldHeader = ({videoProps}) => {
                     <div className="mr-[12px] flex-[0_0_40px]">
                         <a href="">
                             <div className="w-[40px] h-[40px] flex items-center justify-center rounded-full overflow-hidden relative">
-                                <Image src={videoProps.creator.profile_picture_url} alt={`${videoProps.creator.profile_picture_url}-image`} fill className="object-cover"/>
+                                <Image src={videoProps.creator.profile_picture_url} alt={`${videoProps.creator.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                             </div>
                         </a>
                     </div>

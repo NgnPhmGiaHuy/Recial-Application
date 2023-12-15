@@ -20,9 +20,9 @@ const FriendScaffoldProfileItem = ({userProps}) => {
                         <div className="w-full h-full top-0 left-0 absolute ">
                             <div className="w-full h-[62px] flex items-center justify-center rounded-t-md overflow-hidden relative">
                                 {userProps.profile_cover_photo_url ? (
-                                    <Image src={userProps.profile_cover_photo_url} alt={`${userProps.profile_cover_photo_url}-image`} fill className="object-cover"/>
+                                    <Image src={userProps.profile_cover_photo_url} alt={`${userProps.profile_cover_photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 ) : (
-                                    <Image src={Illustration} alt={`${Illustration}-image`} fill className="object-cover"/>
+                                    <Image src={Illustration} alt={`${Illustration}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 )}
                                 <div className="absolute inset-0 bg-black opacity-10 transition-opacity"></div>
                             </div>
@@ -30,7 +30,7 @@ const FriendScaffoldProfileItem = ({userProps}) => {
                         <div className="mb-[100px] flex flex-col items-center justify-center rounded-md overflow-hidden relative">
                             <div className="flex flex-col items-center justify-center relative">
                                 <div className="w-[104px] h-[104px] mb-[8px] flex items-center justify-center rounded-full overflow-hidden relative">
-                                    <Image src={userProps.profile_picture_url} alt={`${userProps.profile_picture_url}-image`} fill className="object-cover"/>
+                                    <Image src={userProps.profile_picture_url} alt={`${userProps.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 </div>
                                 <div className="flex flex-col justify-between relative">
                                     <span className="block text-[16px] text-center text-zinc-500 font-bold break-words relative leading-5">
@@ -50,7 +50,7 @@ const FriendScaffoldProfileItem = ({userProps}) => {
                                                 const zIndexValue = 10 - index;
                                                 return (
                                                     <div key={index} style={{ zIndex: zIndexValue }} className="w-[20px] h-[20px] ml-[-8px] border-[2px] border-solid border-white rounded-full relative cursor-pointer overflow-hidden">
-                                                        <Image src={value.profile_picture_url} alt={`${value.profile_picture_url}-image`} fill className="object-cover" />
+                                                        <Image src={value.profile_picture_url} alt={`${value.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover" />
                                                     </div>
                                                 );
                                             })}

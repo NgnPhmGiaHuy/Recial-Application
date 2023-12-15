@@ -1,21 +1,60 @@
 "use client"
 
-import axios from "axios";
 import bcrypt from "bcryptjs";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {NextResponse} from "next/server";
 
+import checkAccessToken from "@/hooks/checkAccessToken";
 import {AuthHeader, AuthLoginForm} from "@/components";
+import {checkPasswordStrength, validateEmail} from "@/utils";
 
 const Signup = () => {
     const router = useRouter();
+
+    const [error, setError] = useState({
+        isEmailError: false,
+        isPasswordError: false,
+        formErrorStatus: '',
+    });
     const [registerFormData, setRegisterFormData] = useState({
         session_key: '',
         session_password: '',
         session_firstname: '',
         session_lastname: '',
     });
+
+    const handleValidateForm = () => {
+        const { session_key, session_password } = registerFormData;
+        const isValidEmail = validateEmail(session_key);
+        const passwordStrength = checkPasswordStrength(session_password);
+
+        if (!isValidEmail) {
+            setError({
+                isEmailError: true,
+                isPasswordError: false,
+                formErrorStatus: 'Email is not valid, please try again!',
+            });
+            return false;
+        }
+
+        if (passwordStrength === 'weak') {
+            setError({
+                isEmailError: false,
+                isPasswordError: true,
+                formErrorStatus: 'Password is too weak. Please use a stronger password.',
+            });
+            return false;
+        }
+
+        setError({
+            isEmailError: false,
+            isPasswordError: false,
+            formErrorStatus: '',
+        });
+
+        return true;
+    };
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -25,33 +64,55 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const {session_key, session_password, session_firstname, session_lastname} = registerFormData;
+        if (!handleValidateForm()) {
+            return;
+        }
 
         try {
+            const {session_key, session_password, session_firstname, session_lastname} = registerFormData;
+
             const hashedPassword = await bcrypt.hash(session_password, 10);
 
-            const dataToSend = {session_key, hashedPassword, session_firstname, session_lastname,};
+            const dataToSend = {session_key, hashedPassword, session_firstname, session_lastname};
 
-            const response = await axios.post("/api/auth/register", dataToSend);
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/auth/register";
 
-            if (response.data.userExists) {
-                console.log("User already exists. Render component or show a message.");
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dataToSend)
+            });
+
+            if (response.ok) {
+                return router.push("/auth/login");
             } else {
-                // router.push("/auth/login");
+                if (response.status === 409) {
+                    const errorData = await response.json();
+                    setError({
+                        isEmailError: true,
+                        isPasswordError: false,
+                        formErrorStatus: errorData.message,
+                    });
+                } else {
+                    return NextResponse.json({ error: ((await response.json()).message || "Unexpected error occurred" )});
+                }
             }
         } catch (error) {
-            return NextResponse.json({error: error});
+            return NextResponse.json({ error: 'An unexpected error occurred' });
         }
     }
 
     return (
-        <div className="w-screen h-screen bg-stone-100">
+        <div className="w-full h-full bg-stone-100">
             <AuthHeader/>
             <main className="flex flex-col items-center justify-center relative overflow-hidden">
                 <section
-                    className="min-h-[560px] max-w-[1128px] flex flex-nowrap items-center justify-center w-full h-full relative">
-                    <div className="self-start relative flex-shrink-0 w-[60%] px-[42px]">
-                        <AuthLoginForm isSignup="true" action={handleSubmit} handleChange={handleChange}/>
+                    className="max-w-[1128px] min-h-[560px] w-full h-full flex flex-nowrap items-center justify-center relative">
+                    <div className="sm:w-[80%] md:w-[70%] lg:w-[60%] w-fit sm:px-[26px] md:px-[34px] lg:px-[42px] px-[18px] flex-shrink-0 self-start relative">
+                        <AuthLoginForm isSignup="true" action={handleSubmit} handleChange={handleChange} error={error} setError={setError}/>
                     </div>
                 </section>
             </main>
@@ -59,4 +120,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default checkAccessToken(Signup);

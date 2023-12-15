@@ -3,6 +3,7 @@
 import Image from "next/image";
 import {useCallback, useEffect, useRef, useState} from 'react';
 
+import {formatTimeAgoFull} from "@/utils";
 import {QuickSettingItem} from "@/components";
 import {notificationTypeOfColor, headerNotificationQuickSettingItemList} from "@/constants/HeaderConstants";
 
@@ -15,9 +16,9 @@ const NotificationHeaderItem = ({notificationProps}) => {
     const [showHeaderNotificationItemQuickSetting, setShowHeaderNotificationItemQuickSetting] = useState(false);
     const [showHeaderNotificationContentItemMoreButton, setShowNotificationMessageContentItemMoreButton] = useState(false)
 
-    const notificationSvgIcon = notificationTypeOfColor[notificationProps.type].svgIcon || notificationTypeOfColor.default.svgIcon;
-    const notificationTextColor = notificationTypeOfColor[notificationProps.type].textColor || notificationTypeOfColor.default.textColor;
-    const notificationBackgroundColor = notificationTypeOfColor[notificationProps.type].backgroundColor || notificationTypeOfColor.default.backgroundColor;
+    const notificationSvgIcon = notificationTypeOfColor[notificationProps.notification_type]?.svgIcon || notificationTypeOfColor.default.svgIcon;
+    const notificationTextColor = notificationTypeOfColor[notificationProps.notification_type]?.textColor || notificationTypeOfColor.default.textColor;
+    const notificationBackgroundColor = notificationTypeOfColor[notificationProps.notification_type]?.backgroundColor || notificationTypeOfColor.default.backgroundColor;
 
     const handleShowHeaderNotificationQuickSettingButton = useCallback(() => {
         setShowHeaderNotificationItemQuickSetting((preShowNotificationQuickSetting) => !preShowNotificationQuickSetting);
@@ -53,12 +54,14 @@ const NotificationHeaderItem = ({notificationProps}) => {
                         <div className="flex flex-col self-start relative my-[8px] mr-[12px]">
                             <div className="inline-block align-bottom relative">
                                 <div className="w-[56px] h-[56px] align-bottom rounded-full overflow-hidden relative">
-                                    <Image src={notificationProps.notification_image} alt={notificationProps.notification_image} fill className="object-cover"/>
+                                    {notificationProps.source && notificationProps.source.sourceProps && (
+                                        <Image src={notificationProps?.source.sourceProps} alt={`${notificationProps?.source.sourceProps}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                    )}
                                 </div>
                                 <div className="absolute bottom-[8px] right-[8px] translate-x-1/2 translate-y-1/2 rounded-full z-10">
                                     <div className="w-full h-full relative">
                                         <div className="flex flex-col items-center justify-center bg-transparent overflow-x-hidden overflow-y-hidden">
-                                            <i className={`${notificationTextColor.toString()} ${notificationBackgroundColor.toString()} w-[28px] h-[28px] flex items-center justify-center object-cover rounded-full`}>
+                                            <i style={{ color: notificationTextColor, backgroundColor: notificationBackgroundColor}} className={`w-[28px] h-[28px] flex items-center justify-center object-cover rounded-full`}>
                                                 {notificationSvgIcon}
                                             </i>
                                         </div>
@@ -73,7 +76,7 @@ const NotificationHeaderItem = ({notificationProps}) => {
                                         <div >
                                             <span className="max-w-full block text-black text-left text-[15px] font-normal leading-5 break-words">
                                                 <span className="overflow-x-hidden overflow-y-hidden line-clamp-3 relative">
-                                                    {notificationProps.notification_content}
+                                                    {notificationProps?.notification_content}
                                                 </span>
                                             </span>
                                         </div>
@@ -81,7 +84,7 @@ const NotificationHeaderItem = ({notificationProps}) => {
                                             <span className="max-w-full block text-lime-500 text-left text-[13px] font-normal break-words leading-4">
                                                 <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
                                                     <span className="font-semibold break-words">
-                                                        {notificationProps.updated_at} ago
+                                                        {formatTimeAgoFull(notificationProps?.updated_at)} ago
                                                     </span>
                                                 </span>
                                             </span>
@@ -92,7 +95,7 @@ const NotificationHeaderItem = ({notificationProps}) => {
                             <div className="my-[8px] ml-[12px] self-center relative">
                                 <div className="flex flex-row items-center">
                                     <div className="w-[20px] pl-[4px] flex flex-row bg-transparent relative cursor-pointer">
-                                        <span className={`${notificationProps.is_read ? "" : "bg-lime-500"} w-[12px] h-[12px] inline-flex items-center justify-center rounded-full`}></span>
+                                        <span className={`${notificationProps?.is_read ? "" : "bg-lime-500"} w-[12px] h-[12px] inline-flex items-center justify-center rounded-full`}></span>
                                     </div>
                                 </div>
                             </div>

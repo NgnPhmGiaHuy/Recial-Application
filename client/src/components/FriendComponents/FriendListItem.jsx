@@ -88,7 +88,7 @@ const FriendListItem = ({userProps}) => {
             <div className="min-h-[44px] px-[4px] flex flex-row items-center justify-between rounded-md relative cursor-pointer hover:bg-zinc-100 transition-all">
                     <div className="my-[8px] mr-[12px] flex flex-col self-start relative">
                         <div className="w-[60px] h-[60px] flex flex-col items-center rounded-full overflow-hidden relative">
-                            <Image src={userProps.profile_picture_url} alt={`${userProps.profile_picture_url}-image`} fill className="object-cover"/>
+                            <Image src={userProps.profile_picture_url} alt={`${userProps.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                         </div>
                     </div>
                     <div className="my-[-6px] py-[12px] flex flex-row flex-shrink grow items-stretch justify-between basis-0 relative">
@@ -111,7 +111,7 @@ const FriendListItem = ({userProps}) => {
                                                     const zIndexValue = 10 - index;
                                                     return (
                                                         <div key={index} style={{ zIndex: zIndexValue }} className="w-[20px] h-[20px] ml-[-8px] border-[2px] border-solid border-white rounded-full relative cursor-pointer overflow-hidden">
-                                                            <Image src={value.profile_picture_url} alt={`${value.profile_picture_url}-image`} fill className="object-cover" />
+                                                            <Image src={value.profile_picture_url} alt={`${value.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover" />
                                                         </div>
                                                     );
                                                 })}

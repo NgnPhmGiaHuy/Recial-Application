@@ -5,6 +5,7 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 
 import {formatDate} from "@/utils";
 import {VideoPageScaffoldFooter} from "@/components";
+import {useClickOutside} from "@/hooks";
 
 const VideoPageScaffoldCommentItem = ({videoProps, isReply}) => {
     const reportButtonRef = useRef(null);
@@ -33,23 +34,7 @@ const VideoPageScaffoldCommentItem = ({videoProps, isReply}) => {
         setShowMoreComments(true);
     };
 
-    useEffect(() => {
-        const handleClickOutSide = (event) => {
-            if (reportButtonRef.current && !reportButtonRef.current.contains(event.target)) {
-                setShowReportPanel(false);
-            }
-        }
-
-        if (showReportPanel) {
-            document.addEventListener("mousedown", handleClickOutSide);
-        } else {
-            document.removeEventListener("mousedown", handleClickOutSide);
-        }
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutSide);
-        }
-    }, [showReportPanel]);
+    useClickOutside(reportButtonRef, showReportPanel, setShowReportPanel)
 
     return (
         <div className={`${isReply ? null : "mb-[20px]"} w-full`} onMouseEnter={() => setShowMoreButton(true)} onMouseLeave={() => setShowMoreButton(false)}>
@@ -57,7 +42,7 @@ const VideoPageScaffoldCommentItem = ({videoProps, isReply}) => {
                 <div className="mr-[12px] flex-[0_0_40px]">
                     <a href="">
                         <div className="w-[40px] h-[40px] flex items-center justify-center bg-white rounded-full overflow-hidden relative">
-                            <Image src={videoProps.user.profile_picture_url} alt={`${videoProps.user.profile_picture_url}-image`} fill className="object-cover"/>
+                            <Image src={videoProps.user.profile_picture_url} alt={`${videoProps.user.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                         </div>
                     </a>
                 </div>

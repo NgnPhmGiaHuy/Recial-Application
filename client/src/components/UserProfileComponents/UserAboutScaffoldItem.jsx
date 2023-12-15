@@ -7,7 +7,7 @@ const UserAboutScaffoldItem = ({userProps}) => {
                 <a href="">
                     <div className="mr-[16px] rounded-md border border-solid border-zinc-100 bg-white relative">
                         <div className="w-[80px] h-[80px] rounded-md overflow-hidden relative">
-                            <Image src={userProps.profile_picture_url || userProps.group_picture_url} alt={`${userProps.profile_picture_url || userProps.group_picture_url}-image`} fill className="object-cover"/>
+                            <Image src={userProps.profile_picture_url || userProps.group_picture_url} alt={`${userProps.profile_picture_url || userProps.group_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                         </div>
                     </div>
                 </a>

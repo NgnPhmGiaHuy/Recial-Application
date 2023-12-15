@@ -119,7 +119,7 @@ const NotificationHeader = ({ forwardedRef, userProps }) => {
                                             </div>
                                         </div>
                                         <ul className="relative">
-                                            {userProps.notifications.map((value, index) => (
+                                            {userProps?.notifications.map((value, index) => (
                                                 <NotificationHeaderItem key={index} notificationProps={value} />
                                             ))}
                                         </ul>

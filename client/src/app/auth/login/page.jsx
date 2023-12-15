@@ -1,19 +1,22 @@
 "use client"
 
-import axios from "axios";
 import Image from "next/image";
-import {useState} from "react";
 import {useRouter} from "next/navigation";
-import {useSession} from "next-auth/react";
-import {signIn, signOut} from "next-auth/react";
+import {NextResponse} from "next/server";
+import {useState, useEffect} from "react";
 
 import {AuthLoginForm, AuthHeader} from "@/components";
+import checkAccessToken from "@/hooks/checkAccessToken";
 import Illustration from "/public/images/Illustration/illustration-of-a-man-and-a-woman-watering-a-plant.jpg";
-import {NextResponse} from "next/server";
 
 const Login = () => {
     const router = useRouter();
-    const {data: session} = useSession();
+
+    const [error, setError] = useState({
+        isEmailError: false,
+        isPasswordError: false,
+        formErrorStatus: '',
+    });
     const [loginFormData, setLoginFormData] = useState({
         session_key: "",
         session_password: "",
@@ -27,42 +30,76 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const {session_key, session_password} = loginFormData;
-
         try {
-            const hashedPassword = await bcrypt.hash(session_password, 10);
+            const {session_key, session_password} = loginFormData;
 
-            const dataToSend = {session_key, hashedPassword};
+            const dataToSend = {session_key, session_password};
 
-            const response = await axios.post("/api/auth/login", dataToSend);
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/auth/login";
 
-            if (response.data.userExists) {
-                router.push("/");
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dataToSend)
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                if (responseData.accessToken && responseData.refreshToken) {
+                    localStorage.setItem("accessToken", responseData.accessToken);
+                    localStorage.setItem("refreshToken", responseData.refreshToken);
+                    router.push("/");
+                    return ;
+                }
             } else {
-                console.log("User already exists. Render component or show a message.");
+                if (response.status === 404) {
+                    const errorData = await response.json();
+                    setError({
+                        isEmailError: true,
+                        isPasswordError: false,
+                        formErrorStatus: errorData.message,
+                    });
+                } else if (response.status === 401) {
+                    const errorData = await response.json();
+                    setError({
+                        isEmailError: false,
+                        isPasswordError: true,
+                        formErrorStatus: errorData.message,
+                    });
+                } else {
+                    return NextResponse.json({ error: "Login was unsuccessful or tokens missing" }, { status: 400 });
+                }
             }
-
         } catch (error) {
-            console.log(error);
-            return NextResponse.json({error: error});
+            return NextResponse.json({ error: "Server error" }, { status: 500 });
         }
     }
 
+    useEffect(() => {
+        const accessToken = localStorage.getItem("accessToken");
+        const refreshToken = localStorage.getItem("refreshToken");
+
+        if (accessToken && refreshToken) {
+            router.replace('/');
+        }
+    }, [router]);
 
     return (
-        <div className="w-screen h-screen bg-white">
+        <div className="w-full h-full bg-white">
             <AuthHeader/>
             <main className="flex flex-col items-center justify-center relative overflow-hidden">
-                <section
-                    className="min-h-[560px] max-w-[1128px] flex flex-nowrap pt-[0px] items-center justify-center w-full h-full relative">
-                    <div className="self-start relative flex-shrink-0 w-[55%] pr-[42px]">
-                        <AuthLoginForm isLogin="true" action={handleSubmit} handleChange={handleChange}/>
+                <section className="min-h-[560px] max-w-[1128px] flex flex-nowrap pt-[0px] items-center justify-center w-full h-full relative">
+                    <div className="self-start relative flex-shrink-0 sm:w-[55%] w-full sm:pr-[42px]">
+                        <AuthLoginForm isLogin="true" action={handleSubmit} handleChange={handleChange} error={error} setError={setError}/>
                     </div>
-                    <Image src={Illustration} alt="illustration-of-a-man-and-a-woman-watering-a-plant" width={600} height={560} className="hidden z-[1] relative flex-shrink object-cover lg:block"/>
+                    <Image src={Illustration} alt="illustration-of-a-man-and-a-woman-watering-a-plant" width={600} height={560} priority={true} className="w-auto h-auto hidden z-[1] relative flex-shrink object-cover lg:block"/>
                 </section>
             </main>
         </div>
     );
 };
 
-export default Login;
+export default checkAccessToken(Login);

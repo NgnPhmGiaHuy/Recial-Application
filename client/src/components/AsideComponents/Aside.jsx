@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link";
 import Image from "next/image";
 import {useCallback, useState} from "react";
 
@@ -33,28 +34,39 @@ const Aside = ({userProps}) => {
                     <div className="mt-[16px] flex flex-col grow relative">
                         <section>
                             <div className="px-[8px]">
-                                <a href={userProps.user.user_id} className="block rounded-md hover:bg-zinc-100 transition-all">
-                                    <div className="min-h-[48px] px-[8px] flex flex-row items-center justify-between relative">
-                                        <div className="my-[6px] mr-[12px] flex flex-col self-center relative">
-                                            <div className="w-[36px] h-[36px] flex flex-row rounded-full overflow-hidden relative">
-                                                <Image src={userProps.user.profile_picture_url} alt={`${userProps.user.profile_picture_url}-image`} fill className="object-cover"/>
+                                <Link href={userProps?.user?._id}>
+                                    <div className="block rounded-md hover:bg-zinc-100 transition-all">
+                                        <div
+                                            className="min-h-[48px] px-[8px] flex flex-row items-center justify-between relative">
+                                            <div className="my-[6px] mr-[12px] flex flex-col self-center relative">
+                                                <div
+                                                    className="w-[36px] h-[36px] flex flex-row rounded-full overflow-hidden relative">
+                                                    <Image src={userProps?.user?.profile_picture_url}
+                                                           alt={`${userProps?.user?.profile_picture_url}-image`}
+                                                           fill={true} sizes="(max-width: 768px) 100vw"
+                                                           className="object-cover"/>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="flex flex-row flex-shrink grow items-center justify-between self-stretch relative">
-                                            <div className="py-[8px] flex flex-col flex-shrink grow basis-0 items-stretch justify-between relative">
-                                                <div className="my-[-5px] flex flex-col">
-                                                    <div className="my-[5px]">
-                                                        <span className="block text-[16px] text-black text-left font-medium break-words leading-5">
-                                                            <span className="overflow-x-hidden overflow-y-hidden line-clamp-2 relative">
-                                                                {userProps.user.username}
+                                            <div
+                                                className="flex flex-row flex-shrink grow items-center justify-between self-stretch relative">
+                                                <div
+                                                    className="py-[8px] flex flex-col flex-shrink grow basis-0 items-stretch justify-between relative">
+                                                    <div className="my-[-5px] flex flex-col">
+                                                        <div className="my-[5px]">
+                                                        <span
+                                                            className="block text-[16px] text-black text-left font-medium break-words leading-5">
+                                                            <span
+                                                                className="overflow-x-hidden overflow-y-hidden line-clamp-2 relative">
+                                                                {userProps?.user?.username || userProps?.user?.first_name + " " + userProps?.user?.last_name}
                                                             </span>
                                                         </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </a>
+                                </Link>
                             </div>
                         </section>
                         <section>
@@ -64,9 +76,11 @@ const Aside = ({userProps}) => {
                                 ))}
                             </ul>
                             {asideNavigationItemsToShow === asideNavigationItemList.length ? (
-                                <AsideShowMoreOrShowLessButton showMore={false} onClick={() => showLessAsideNavigationItem()}/>
+                                <AsideShowMoreOrShowLessButton showMore={false}
+                                                               onClick={() => showLessAsideNavigationItem()}/>
                             ) : (
-                                <AsideShowMoreOrShowLessButton showMore={true} onClick={() => showMoreAsideNavigationItem(asideNavigationItemList)}/>
+                                <AsideShowMoreOrShowLessButton showMore={true}
+                                                               onClick={() => showMoreAsideNavigationItem(asideNavigationItemList)}/>
                             )}
                         </section>
                         <div className="mx-[16px] mt-[4px] h-[1px] bg-zinc-300"></div>
@@ -77,8 +91,10 @@ const Aside = ({userProps}) => {
                                         <div className="px-[16px] flex flex-col flex-shrink-0 relative">
                                             <div className="my-[-5px] flex flex-col relative">
                                                 <div className="my-[5px]">
-                                                    <span className="block text-[16px] text-zinc-500 text-left font-bold break-words leading-5">
-                                                        <div className="flex flex-row flex-nowrap items-center justify-between relative">
+                                                    <span
+                                                        className="block text-[16px] text-zinc-500 text-left font-bold break-words leading-5">
+                                                        <div
+                                                            className="flex flex-row flex-nowrap items-center justify-between relative">
                                                             <div className="flex flex-col flex-shrink grow relative">
                                                                 <span className="block text-[16px] text-zinc-500 text-left font-bold break-words leading-5">
                                                                     <span className="overflow-x-hidden overflow-y-hidden line-clamp-2 whitespace-normal text-ellipsis relative">
@@ -101,16 +117,20 @@ const Aside = ({userProps}) => {
                                     </div>
                                 </div>
                             </div>
-                            <ul>
-                                {userProps.follows.slice(0, asideFollowItemToShow).map((value, index) => (
-                                    <AsideFollowItem key={index} userProps={value} hasNotificationBadge={true}/>
-                                ))}
-                            </ul>
-                            {asideFollowItemToShow === userProps.follows.length ? (
-                                <AsideShowMoreOrShowLessButton showMore={false} onClick={() => showLessAsideFollowItem()}/>
-                            ) : (
-                                <AsideShowMoreOrShowLessButton showMore={true} onClick={() => showMoreAsideFollowItem(userProps.follows)}/>
-                            )}
+                            {userProps?.following?.length ? (
+                                <>
+                                    <ul>
+                                        {userProps?.following?.slice(0, asideFollowItemToShow).map((value, index) => (
+                                            <AsideFollowItem key={index} userProps={value} hasNotificationBadge={true}/>
+                                        ))}
+                                    </ul>
+                                    {asideFollowItemToShow === userProps?.following?.length ? (
+                                        <AsideShowMoreOrShowLessButton showMore={false} onClick={() => showLessAsideFollowItem()}/>
+                                    ) : (
+                                        <AsideShowMoreOrShowLessButton showMore={true} onClick={() => showMoreAsideFollowItem(userProps.following)}/>
+                                    )}
+                                </>
+                            ) : null}
                         </section>
                     </div>
                 </div>

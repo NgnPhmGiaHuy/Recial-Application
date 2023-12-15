@@ -70,7 +70,7 @@ const VideoScaffoldItemAside = ({videoProps}) => {
                         <div className="w-full pb-[100%] block overflow-hidden relative">
                             <div className="top-0 right-0 bottom-0 left-0 absolute">
                                 <div className="w-full h-full overflow-hidden relative">
-                                    <Image src={videoProps.creator.profile_picture_url} alt={`${videoProps.creator.profile_picture_url}-image`} fill className="object-cover"/>
+                                    <Image src={videoProps.creator.profile_picture_url} alt={`${videoProps.creator.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 </div>
                             </div>
                         </div>

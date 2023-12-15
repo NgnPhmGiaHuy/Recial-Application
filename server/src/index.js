@@ -2,26 +2,24 @@ const express = require("express");
 const cors = require("cors");
 
 const database = require("./config/database");
-const authRoutes = require("./app/routes/authentication/authRoutes");
+const routes = require("./app/routes");
+const generateDummyData = require("./utils/dataGenerator");
 
 const PORT = 8080;
 
 const app = express();
+
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: "50mb" }));
 
-app.use("/api/auth/", authRoutes);
-
-app.get("/", async (req, res) => {
-    res.status(200).json({
-        message: "Test Register Back-end",
-    });
-});
+routes(app);
 
 const startServer = async () => {
     try {
         await database.connect();
+        // await generateDummyData();
+
         app.listen(PORT, () => {
             console.log(`Server started on port ${PORT}`);
         });
@@ -29,6 +27,5 @@ const startServer = async () => {
         console.error('Error starting server:', error);
     }
 };
-
 
 startServer();

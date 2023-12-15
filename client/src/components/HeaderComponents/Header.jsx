@@ -74,9 +74,9 @@ const Header = ({navigationProps, userProps, disableMessage, disableNotification
 
     useEffect(() => {
         setNotificationUnreadCount(
-            userProps.notifications.filter(notification => !notification.is_read).length
+            userProps?.notifications.filter(notification => !notification.is_read).length
         );
-    }, [userProps.notifications]);
+    }, [userProps?.notifications]);
 
     return (
         <nav>
@@ -85,7 +85,7 @@ const Header = ({navigationProps, userProps, disableMessage, disableNotification
                     <div className={`${showSearchHistory ? "hidden" : "flex"} h-full flex-row relative items-center z-0 ml-[16px]`}>
                         <a href="/" className="w-full h-full flex flex-col items-center justify-center relative">
                             <div className="w-[40px] h-[40px] relative">
-                                <Image src={Favicon} alt="logo-image" fill className="object-contain"/>
+                                <Image src={Favicon} alt="logo-image" fill={true} sizes="(max-width: 768px) 100vw" className="object-contain"/>
                             </div>
                         </a>
                     </div>
@@ -168,7 +168,7 @@ const Header = ({navigationProps, userProps, disableMessage, disableNotification
                     <div className="h-full flex items-center justify-center">
                         <div ref={personalAccountButtonRef} className="w-[40px] h-[40px] relative cursor-pointer" onClick={handlePersonalAccountButtonClick}>
                             <div className="w-full h-full rounded-full overflow-hidden relative">
-                                <Image src={userProps.user.profile_picture_url} alt={`${userProps.user.profile_picture_url}-image`} fill className="object-cover"/>
+                                <Image src={userProps?.user.profile_picture_url} alt={`${userProps?.user.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                             </div>
                             <div className="w-3 h-3 top-0 right-0 absolute border border-solid border-white rounded-full bg-red-500"></div>
                         </div>

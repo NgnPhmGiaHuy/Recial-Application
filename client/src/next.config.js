@@ -16,6 +16,10 @@ const nextConfig = {
 
         return config;
     },
+    images: {
+        domains: ["storage.cloud.google.com", "storage.googleapis.com", "cloudflare-ipfs.com", "loremflickr.com", "picsum.photos", "avatars.githubusercontent.com"],
+    },
+    reactStrictMode: true,
 }
 
 module.exports = nextConfig

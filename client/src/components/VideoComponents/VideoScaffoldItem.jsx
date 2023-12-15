@@ -92,7 +92,7 @@ const VideoScaffoldItem = ({ videoProps, autoPlay = false }) => {
             <div className="max-h-[inherit] flex">
                 <div className="w-[540px] h-[960px]">
                     <div className="w-full flex justify-center relative">
-                        {/*<Image src={Demo} alt="Video" fill ref={imageRef} className="object-contain"/>*/}
+                        {/*<Image src={Demo} alt="Video" fill={true} sizes="(max-width: 768px) 100vw" ref={imageRef} className="object-contain"/>*/}
                         <div className="w-full h-full flex rounded-md overflow-hidden">
                             <div className="w-full h-full block relative">
                                 <div className="w-full h-full static" onClick={handleVideoPlayClick}>

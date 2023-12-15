@@ -10,7 +10,7 @@ const HeaderSearchHistoryItem = ({searchHistoryProps}) => {
                         {searchHistoryProps.search_image ? (
                             <div className="flex flex-col flex-shrink-0 p-[6px] z-0">
                                 <div className="w-[36px] h-[36px] rounded-full relative align-bottom z-0 overflow-hidden">
-                                    <Image src={searchHistoryProps.search_image} alt={`${searchHistoryProps.search_image}-image`} fill className="object-cover"/>
+                                    <Image src={searchHistoryProps.search_image} alt={`${searchHistoryProps.search_image}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 </div>
                             </div>
                         ) : (

@@ -12,6 +12,17 @@ const LocationSchema = new Schema(
         country: {
             type: String
         },
+        geometry: {
+            type: {
+                type: String,
+                enum: ["Point"],
+                required: true,
+            },
+            coordinates: {
+                type: [Number],
+                required: true,
+            },
+        },
     }, {
         timestamps: true,
     }

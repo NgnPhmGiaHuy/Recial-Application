@@ -33,7 +33,7 @@ const OAuthLogin = ({isLogin, isSignup}) => {
                         onClick={() => signIn("google")}>
                     <div className="w-full h-full flex flex-row items-center justify-center">
                         <div className="w-[18px] h-[18px] mr-[8px] rounded-full relative overflow-hidden">
-                            <Image src={Google} alt="Google-Icon" fill className="object-cover"/>
+                            <Image src={Google} alt="Google-Icon" fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                         </div>
                         <div className="text-[14px]">
                             <p>Sign in with Google</p>

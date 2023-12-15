@@ -13,7 +13,7 @@ const StoryItem = ({index, selected, storyItemSelectedRef, storyProps}) => {
                             <div className="w-full pt-[28px] pb-[12px] px-[16px] bottom-0 flex flex-shrink-0 justify-center absolute">
                                 <div className="w-[40px] h-[40px] top-[-20px] flex items-center justify-center rounded-full bg-lime-500 absolute">
                                     <div className="w-[32px] h-[32px] flex items-center justify-center text-white bg-lime-500 rounded-full overflow-hidden relative">
-                                        <Image src={storyProps.storyItemUserImage} alt={`${storyProps.storyItemUserImage}-image`} fill className="object-cover"/>
+                                        <Image src={storyProps.storyItemUserImage} alt={`${storyProps.storyItemUserImage}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                         <span className="w-2 h-2 -bottom-1 -right-1 rounded-full bg-lime-500 absolute z-20"></span>
                                     </div>
                                 </div>

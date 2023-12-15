@@ -30,7 +30,7 @@ const UserProfileScaffold = ({userProps, isPhotoList, isFriendList}) => {
                 <div className="m-[-6px] px-[16px] pt-[16px] flex flex-nowrap items-stretch justify-between relative">
                     <div className="p-[6px] flex flex-col flex-shrink grow basis-0 relative">
                         <div className="mb-[-4px] mr-[-4px] flex flex-wrap">
-                            {userProps.slice(0, 9).map((value, index) => (
+                            {userProps?.slice(0, 9).map((value, index) => (
                                 <UserProfileScaffoldItem key={index} userProps={value}/>
                             ))}
                         </div>

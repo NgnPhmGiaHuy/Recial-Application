@@ -117,8 +117,8 @@ const HeaderMessage = ({forwardedRef, userProps}) => {
                             </div>
                             <div>
                                 <ul className="flex flex-col relative">
-                                    {userProps.messages.map((value, index) => (
-                                        <HeaderMessageContentItem key={index} userProps={value}/>
+                                    {userProps?.messages.map((value, index) => (
+                                        <HeaderMessageContentItem key={index} messageProps={value}/>
                                     ))}
                                 </ul>
                             </div>

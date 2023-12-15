@@ -39,6 +39,30 @@ b, strong {
     font-weight: 600;
 }
 
+.masonry-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 10px;
+}
+
+.masonry-item {
+    position: relative;
+}
+
+.masonry-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid #000;
+    object-fit: cover;
+}
+
+@layer utilities {
+    .webkit-box {
+        display: -webkit-box;
+    }
+}
+
 @layer utilities {
     @layer utilities {
         .no-scrollbar::-webkit-scrollbar {

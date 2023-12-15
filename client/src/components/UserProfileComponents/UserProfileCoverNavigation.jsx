@@ -1,7 +1,44 @@
 import {UserProfileCoverNavigationItem} from "@/components";
-import {userProfileCoverNavigationItemList} from "@/constants/UserProfileConstants";
 
-const UserProfileCoverNavigation = ({navigationProps}) => {
+const UserProfileCoverNavigation = ({userProps, navigationProps}) => {
+    const userProfileCoverNavigationItemList = [
+        {
+            navigationName: "post",
+            navigationLink: `${userProps?.user?._id}`,
+            navigationTitle: "Post"
+        },
+        {
+            navigationName: "about",
+            navigationLink: `${userProps?.user?._id}/about`,
+            navigationTitle: "About"
+        },
+        {
+            navigationName: "friends",
+            navigationLink: `${userProps?.user?._id}/friends`,
+            navigationTitle: "Friends"
+        },
+        {
+            navigationName: "photos",
+            navigationLink: `${userProps?.user?._id}/photos`,
+            navigationTitle: "Photos"
+        },
+        {
+            navigationName: "videos",
+            navigationLink: `${userProps?.user?._id}/videos`,
+            navigationTitle: "Videos"
+        },
+        {
+            navigationName: "groups",
+            navigationLink: `${userProps?.user?._id}/groups`,
+            navigationTitle: "Groups"
+        },
+        {
+            navigationName: "articles",
+            navigationLink: `${userProps?.user?._id}/articles`,
+            navigationTitle: "Articles"
+        },
+    ]
+
     return (
         <nav className="flex flex-row items-center justify-start relative border-t border-solid border-zinc-200">
             <ul className="flex flex-row items-center relative">

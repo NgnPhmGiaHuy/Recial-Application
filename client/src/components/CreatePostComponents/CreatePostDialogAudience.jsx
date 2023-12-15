@@ -5,34 +5,34 @@ import {useState, useCallback} from "react";
 import {CreatePostDialogAudienceItem} from "@/components";
 import {createPostAudienceItemList} from "@/constants/CreatePostConstants";
 
-const renderAudienceItems = (userProps, createPostAudienceChecked, handleCreatePostAudienceChecked) => {
-    return createPostAudienceItemList.map((value, index) => {
-        const audienceOption = userProps.post_audience[value.createPostAudienceOption];
-        const audienceStatus = audienceOption && audienceOption.status;
-
-        return (
-            <CreatePostDialogAudienceItem key={index} createPostAudienceData={value} checked={createPostAudienceChecked === index} onSelect={() => handleCreatePostAudienceChecked(index)} disabled={!audienceStatus} />
-        );
-    });
-};
+// const renderAudienceItems = (userProps, createPostAudienceChecked, handleCreatePostAudienceChecked) => {
+//     return createPostAudienceItemList.map((value, index) => {
+//         const audienceOption = userProps?.post_audience[value.createPostAudienceOption];
+//         const audienceStatus = audienceOption && audienceOption.status;
+//
+//         return (
+//             <CreatePostDialogAudienceItem key={index} createPostAudienceData={value} checked={createPostAudienceChecked === index} onSelect={() => handleCreatePostAudienceChecked(index)} disabled={!audienceStatus} />
+//         );
+//     });
+// };
 
 const CreatePostDialogAudience = ({userProps, handeShowCreatePostAudience}) => {
     const [createPostAudienceChecked, setCreatePostAudienceChecked] = useState(
-        createPostAudienceItemList.findIndex(
-            (item) => userProps.post_audience[item.createPostAudienceOption].status
-        )
+        // createPostAudienceItemList.findIndex(
+        //     (item) => userProps?.post_audience[item.createPostAudienceOption].status
+        // )
     );
     const [setDefaultAudience, setSetDefaultAudience] = useState(false);
 
     const handleCreatePostAudienceChecked = useCallback((index) => {
         const selectedOption = createPostAudienceItemList[index].createPostAudienceOption;
 
-        Object.keys(userProps.post_audience).forEach((option) => {
+        Object.keys(userProps?.post_audience).forEach((option) => {
             userProps.post_audience[option].status = option === selectedOption;
         });
 
         setCreatePostAudienceChecked(index);
-    }, [userProps.post_audience]);
+    }, [userProps?.post_audience]);
 
     return (
         <div className="min-w-[750px] relative">
@@ -76,11 +76,11 @@ const CreatePostDialogAudience = ({userProps, handeShowCreatePostAudience}) => {
                                             </span>
                                             <span className="block text-[15px] text-zinc-500 font-normal break-words leading-5">
                                                 Your default audience is set to {
-                                                    (selectedAudience => selectedAudience ? selectedAudience.title : "None")(
-                                                        Object.values(userProps.post_audience).find(
-                                                            defaultAudience => defaultAudience.status === true
-                                                        )
-                                                    )
+                                                    // (selectedAudience => selectedAudience ? selectedAudience.title : "None")(
+                                                    //     Object.values(userProps?.post_audience).find(
+                                                    //         defaultAudience => defaultAudience.status === true
+                                                    //     )
+                                                    // )
                                                 }, but you can change the audience of this specific post.
                                             </span>
                                         </div>
@@ -88,7 +88,7 @@ const CreatePostDialogAudience = ({userProps, handeShowCreatePostAudience}) => {
                                 </div>
                             </div>
                             <div className="mt-[-4px] mb-[-16px] relative">
-                                {renderAudienceItems(userProps, createPostAudienceChecked, handleCreatePostAudienceChecked)}
+                                {/*{renderAudienceItems(userProps, createPostAudienceChecked, handleCreatePostAudienceChecked)}*/}
                             </div>
                         </div>
                     </div>

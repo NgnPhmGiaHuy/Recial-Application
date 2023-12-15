@@ -7,7 +7,7 @@ const UserAboutPhotoScaffoldItem = ({userProps}) => {
                 <div className="top-0 right-0 bottom-0 left-0 flex flex-col items-stretch justify-between absolute">
                     <a href="" className="w-full h-full block relative">
                         <div className="w-full h-full rounded-md overflow-hidden relative">
-                            <Image src={userProps.photo_url} alt={`${userProps.photo_url}-image`} fill className="object-cover"/>
+                            <Image src={userProps.photo_url} alt={`${userProps.photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                         </div>
                     </a>
                 </div>

@@ -26,7 +26,7 @@ const SavedAccount = ({userName, userProfilePicture, lastOnlineTime}) => {
             </div>
             <div className="flex flex-col items-center w-full h-full p-[16px]">
                 <div className="w-[76px] h-[76px] rounded-full relative overflow-hidden">
-                    <Image src={Avatar} alt="Avatar" fill style={{objectFit: "cover"}}/>
+                    <Image src={Avatar} alt="Avatar" fill={true} sizes="(max-width: 768px) 100vw" style={{objectFit: "cover"}}/>
                 </div>
                 <div className="flex flex-col items-center mt-[8px]">
                     <div className="text-black text-[15px] font-medium leading-normal">

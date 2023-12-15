@@ -4,8 +4,9 @@ import {useCallback, useEffect, useRef, useState} from "react";
 
 import {postItemShareSettingList} from "@/constants/PostConstants";
 import {PostItemHeader, PostItemContent, PostItemFooter, QuickSettingItem, PostItemComment} from "@/components";
+import {useClickOutside} from "@/hooks";
 
-const PostItem = ({postProps}) => {
+const PostItem = ({userProps, postProps}) => {
     const postItemQuickSettingList = [
         {
             isSettingItemBreak: false,
@@ -56,7 +57,7 @@ const PostItem = ({postProps}) => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             ),
-            settingItemTitle: `Snooze ${postProps.postAuthor.authorName} for 30 days`,
+            settingItemTitle: `Snooze ${postProps?.postAuthor?.username || postProps?.postAuthor?.first_name + " " + postProps?.postAuthor?.last_name} for 30 days`,
             settingItemSubtitle: "Temporarily stop seeing posts.",
             hasSettingItemSwitchButton: false,
         }, {
@@ -77,7 +78,7 @@ const PostItem = ({postProps}) => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                 </svg>
             ),
-            settingItemTitle: `Block ${postProps.postAuthor.authorName}'s profile`,
+            settingItemTitle: `Block ${postProps?.postAuthor?.username || postProps?.postAuthor?.first_name + " " + postProps?.postAuthor?.last_name}'s profile`,
             settingItemSubtitle: "You won't be able to see or contact each other.",
             hasSettingItemSwitchButton: false,
         },
@@ -128,26 +129,10 @@ const PostItem = ({postProps}) => {
         if (postItemShareSettingButtonRef.current && showPostItemShareSetting) {
             setPostItemShareSettingTranslateYValue(-postItemShareSettingButtonRef.current.clientHeight);
         }
-
-        const handleClickOutSide = (event) => {
-            if (postItemQuickSettingButtonRef.current && !postItemQuickSettingButtonRef.current.contains(event.target)) {
-                setShowPostItemQuickSetting(false);
-            }
-            if (postItemShareSettingButtonRef.current && !postItemShareSettingButtonRef.current.contains(event.target)) {
-                setShowPostItemShareSetting(false)
-            }
-        };
-
-        if (showPostItemQuickSetting || showPostItemShareSetting) {
-            document.addEventListener("mousedown", handleClickOutSide);
-        } else {
-            document.removeEventListener("mousedown", handleClickOutSide);
-        }
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutSide);
-        }
     }, [showPostItemQuickSetting, showPostItemShareSetting])
+
+    useClickOutside(postItemQuickSettingButtonRef, showPostItemQuickSetting, setShowPostItemQuickSetting)
+    useClickOutside(postItemShareSettingButtonRef, showPostItemShareSetting, setShowPostItemShareSetting)
 
     return (
         <div className="mb-[24px] flex flex-col justify-center rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white relative" ref={postItemRef}>
@@ -162,7 +147,7 @@ const PostItem = ({postProps}) => {
             </div>
             <div>
                 {showPostItemComment ? (
-                    <PostItemComment postProps={postProps}/>
+                    <PostItemComment userProps={userProps} postProps={postProps}/>
                 ) : null}
             </div>
             <div ref={postItemQuickSettingButtonRef}>

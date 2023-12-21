@@ -5,8 +5,8 @@ import {useRouter} from "next/navigation";
 import {NextResponse} from "next/server";
 import {useState, useEffect} from "react";
 
+import {useCheckAccessToken} from "@/hooks";
 import {AuthLoginForm, AuthHeader} from "@/components";
-import checkAccessToken from "@/hooks/checkAccessToken";
 import Illustration from "/public/images/Illustration/illustration-of-a-man-and-a-woman-watering-a-plant.jpg";
 
 const Login = () => {
@@ -51,8 +51,7 @@ const Login = () => {
                 if (responseData.accessToken && responseData.refreshToken) {
                     localStorage.setItem("accessToken", responseData.accessToken);
                     localStorage.setItem("refreshToken", responseData.refreshToken);
-                    router.push("/");
-                    return ;
+                    return router.push("/");
                 }
             } else {
                 if (response.status === 404) {
@@ -102,4 +101,4 @@ const Login = () => {
     );
 };
 
-export default checkAccessToken(Login);
+export default useCheckAccessToken(Login);

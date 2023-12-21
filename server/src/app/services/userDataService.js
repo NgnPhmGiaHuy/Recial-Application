@@ -12,9 +12,20 @@ const Photo = require("../models/Photo");
 const GroupMember = require("../models/GroupMember");
 
 async function getUserById(userId) {
-    const userProps = await User.findById(userId)
+    const user = await User.findById(userId);
 
-    return userProps;
+    return {
+        _id: user._id,
+        email: user.email,
+        username: user.username,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        profile_picture_url: user.profile_picture_url,
+    }
+}
+
+async function getFullUserById(userId) {
+    return await User.findById(userId);
 }
 
 async function getUserMessages(userId) {
@@ -49,6 +60,25 @@ async function getUserMessages(userId) {
     }));
 
     return messageProps;
+}
+
+async function getUserSocial(user) {
+    const socialProps = await Promise.all(user.map(async social => {
+        const user = await User.findById(social);
+
+        return {
+            user: {
+                _id: user._id,
+                email: user.email,
+                username: user.username,
+                firstname: user.firstname,
+                lastname: user.lastname,
+                profile_picture_url: user.profile_picture_url,
+            }
+        }
+    }))
+
+    return socialProps;
 }
 
 async function getUserNotifications(userId) {
@@ -125,6 +155,40 @@ async function getUserPhotoList(photo_list) {
     return photoListProps;
 }
 
+async function getUserGroup(userId) {
+    const groupMember = await GroupMember.find({ "user.user_id": userId });
+
+    const groupMemberProps = await Promise.all(groupMember.map(async group => {
+        const groupProps = await Group.findById(group.group_id);
+
+        const usersProps = await Promise.all(group.user.map(async user => {
+            const userProps = await User.findById(user.user_id);
+
+            return {
+                _id: userProps._id,
+                email: userProps.email,
+                username: userProps.username,
+                firstname: userProps.firstname,
+                lastname: userProps.lastname,
+                profile_picture_url: userProps.profile_picture_url,
+            }
+        }))
+
+        return {
+            _id: groupProps._id,
+            group_name: groupProps.group_name,
+            group_member: usersProps,
+            group_privacy: groupProps.group_privacy,
+            group_picture_url: groupProps.group_picture_url,
+            group_cover_picture_url: groupProps.group_cover_picture_url,
+            created_at: groupProps.createdAt,
+            updated_at: groupProps.updatedAt,
+        }
+    }))
+
+    return groupMemberProps;
+}
+
 async function getSuggestedEvents() {
     const suggestEvent = await Event.aggregate([
         { $sample: { size: 3 } },
@@ -168,4 +232,4 @@ async function getSuggestedGroup() {
     }
 }
 
-module.exports = {getUserById, getUserMessages, getUserNotifications, getUserPhotoList, getSuggestedEvents, getSuggestedPages, getSuggestedGroup};
+module.exports = {getUserById, getFullUserById, getUserMessages, getUserSocial, getUserNotifications, getUserPhotoList, getUserGroup, getSuggestedEvents, getSuggestedPages, getSuggestedGroup};

@@ -1,9 +1,9 @@
 import {asideFriendItemList, asideVideoItemList} from "@/constants/AsideConstants";
 import {AsideScaffoldItem, FriendListItem, FriendRequestItem} from "@/components";
 
-const AsideScaffold = ({navigationProps, asideTitle, asideSubtitle, asideFriendRequest, asideFriendList, asideWatch, userProps}) => {
+const AsideScaffold = ({navigationProps, asideTitle, asideSubtitle, asideFriendRequest, asideFriendList, asideWatch, userProps, action}) => {
     return (
-        <div className="my-[16px] ml-[12px] max-w-[360px] min-w-[280px] max-h-0 min-h-[inherit] top-[56px] fixed shrink-[9999] basis-[360px] bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] rounded-md">
+        <div className="my-[16px] ml-[12px] max-w-[360px] min-w-[280px] max-h-0 min-h-[inherit] top-[56px] fixed shrink-[9999] basis-[360px] bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-y-auto no-scrollbar rounded-md">
             <div className="max-h-[inherit] min-h-[inherit] flex flex-col relative">
                 <div className="flex flex-col min-h-0 flex-shrink grow basis-full relative">
                     <div className="mt-[16px] p-[8px] flex flex-col grow relative">
@@ -81,19 +81,21 @@ const AsideScaffold = ({navigationProps, asideTitle, asideSubtitle, asideFriendR
                         <section>
                             {userProps && asideFriendRequest ? (
                                 <>
-                                    <div className="mb-[5px] mt-[-8px]">
-                                        <div className="pb-[4px] pt-[20px] px-[8px] flex flex-col relative">
-                                            <div className="flex flex-col grow relative">
-                                                <span className="block text-[17px] text-black text-left font-semibold break-words leading-5 relative">
-                                                    <span className="overflow-x-hidden overflow-y-hidden relative">
-                                                        {userProps.friend_requests.length + " " + asideTitle}
+                                    {userProps?.friend_requests?.length ? (
+                                        <div className="mb-[5px] mt-[-8px]">
+                                            <div className="pb-[4px] pt-[20px] px-[8px] flex flex-col relative">
+                                                <div className="flex flex-col grow relative">
+                                                    <span className="block text-[17px] text-black text-left font-semibold break-words leading-5 relative">
+                                                        <span className="overflow-x-hidden overflow-y-hidden relative">
+                                                            {userProps?.friend_requests?.length + " " + asideTitle}
+                                                        </span>
                                                     </span>
-                                                </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    ) : null}
                                     <div className="px-[8px]">
-                                        {userProps.friend_requests.map((value, index) => (
+                                        {userProps?.friend_requests?.map((value, index) => (
                                             <FriendRequestItem key={index} friendRequestProps={value}/>
                                         ))}
                                     </div>
@@ -105,15 +107,15 @@ const AsideScaffold = ({navigationProps, asideTitle, asideSubtitle, asideFriendR
                                             <div className="flex flex-col grow relative">
                                                 <span className="block text-[17px] text-black text-left font-semibold break-words leading-5 relative">
                                                     <span className="overflow-x-hidden overflow-y-hidden relative">
-                                                        {userProps.friends_list.length + " " + asideTitle}
+                                                        {userProps?.user?.friends?.length + " " + asideTitle}
                                                     </span>
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="px-[8px]">
-                                        {userProps.friends_list.map((value, index) => (
-                                            <FriendListItem key={index} userProps={value}/>
+                                        {userProps?.user?.friends?.map((value, index) => (
+                                            <FriendListItem key={index} userProps={value} action={action}/>
                                         ))}
                                     </div>
                                 </>

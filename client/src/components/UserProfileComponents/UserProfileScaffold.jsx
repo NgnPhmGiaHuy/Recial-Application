@@ -1,6 +1,6 @@
 import {UserProfileScaffoldItem} from "@/components";
 
-const UserProfileScaffold = ({userProps, isPhotoList, isFriendList}) => {
+const UserProfileScaffold = ({userProps, mediaProps, isPhotoList, isFriendList}) => {
     return (
         <section className="mb-[16px] flex flex-col bg-white rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative overflow-hidden">
             <div className="pt-[20px] pb-[4px] flex flex-col relative">
@@ -30,9 +30,15 @@ const UserProfileScaffold = ({userProps, isPhotoList, isFriendList}) => {
                 <div className="m-[-6px] px-[16px] pt-[16px] flex flex-nowrap items-stretch justify-between relative">
                     <div className="p-[6px] flex flex-col flex-shrink grow basis-0 relative">
                         <div className="mb-[-4px] mr-[-4px] flex flex-wrap">
-                            {userProps?.slice(0, 9).map((value, index) => (
-                                <UserProfileScaffoldItem key={index} userProps={value}/>
-                            ))}
+                            {mediaProps ? (
+                                mediaProps?.slice(0, 9).map((value, index) => (
+                                    <UserProfileScaffoldItem key={index} userProps={userProps} mediaProps={value}/>
+                                ))
+                            ) : (
+                                userProps?.slice(0, 9).map((value, index) => (
+                                    <UserProfileScaffoldItem key={index} userProps={value}/>
+                                ))
+                            )}
                         </div>
                     </div>
                 </div>

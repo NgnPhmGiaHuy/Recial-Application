@@ -1,13 +1,14 @@
 const Reactions = require("../models/Reactions");
 const User = require("../models/User");
 const Type = require("../models/Type");
-const Attachment = require("../models/Attachment");
+const Photo = require("../models/Photo");
 const Comment = require("../models/Comment");
+const userDataService = require("../services/userDataService");
 
 async function getPostAuthor(post) {
     const postAuthor = await User.findOne({ post_list: post._id});
 
-    const postAuthorProps = {
+    return {
         _id: postAuthor._id,
         email: postAuthor.email,
         username: postAuthor.username,
@@ -15,80 +16,55 @@ async function getPostAuthor(post) {
         lastname: postAuthor.lastname,
         profile_picture_url: postAuthor.profile_picture_url,
     }
+}
 
-    return postAuthorProps;
-};
+async function getPostPhoto(post) {
+    const postPhoto = await Promise.all(post.post_photos.map(async (photo) => {
+        const photos = await Photo.findById(photo);
 
-async function getPostCommentAuthor(comment) {
-    const postCommentAuthor = await User.findById(comment.source_id);
-
-    const postCommentAuthorProps = {
-        _id: postCommentAuthor._id,
-        email: postCommentAuthor.email,
-        username: postCommentAuthor.username,
-        firstname: postCommentAuthor.firstname,
-        lastname: postCommentAuthor.lastname,
-        profile_picture_url: postCommentAuthor.profile_picture_url,
-    }
-
-    return postCommentAuthorProps;
-};
-
-async function getPostComment(post) {
-    const postComment = await Comment.find({"destination.destination_id": post._id}).populate("source_id");
-
-    const postCommentProps = await Promise.all(postComment.map(async (comment) => {
         return {
-                _id: comment._id,
-                user: await getPostCommentAuthor(comment),
-                comment_text: comment.comment_text,
-                comment_tags: comment.comment_tags,
-                comment_reactions: await getPostReaction(comment),
-                comment_replies: await this.getPostComment(comment),
-                created_at: comment.createdAt,
-                updated_at: comment.updatedAt,
-            };
+            ...photos._doc,
+        }
+    }))
+
+    return postPhoto;
+}
+
+async function getComment(entityId) {
+    const comment = await Comment.find({ "destination.destination_id": entityId }).populate("source_id");
+
+    const commentProps = await Promise.all(comment.map(async (comment) => {
+        return {
+            _id: comment._id,
+            user: await userDataService.getUserById(comment.source_id),
+            comment_text: comment.comment_text,
+            comment_tags: comment.comment_tags,
+            comment_reactions: await getReaction(comment),
+            comment_reply: await getComment(comment),
+            created_at: comment.createdAt,
+            updated_at: comment.updatedAt,
+        };
     }));
 
-    return postCommentProps;
-};
+    return commentProps;
+}
 
-async function getPostReaction(post) {
-    const postReaction = await Reactions.find({ "destination.destination_id": post._id }).populate("source_id");
+async function getReaction(entityId) {
+    const reaction = await Reactions.find({ "destination.destination_id": entityId }).populate("source_id");
 
-    const postReactionProps = await Promise.all(postReaction.map(async (reaction) => {
-        const reactionAuthor = await User.findById(reaction.source_id);
+    const reactionProps = await Promise.all(reaction.map(async (reaction) => {
         const reactionType = await Type.findById(reaction.reaction_type);
 
         return {
             _id: reaction._id,
-            user: {
-                _id: reactionAuthor._id,
-                email: reactionAuthor.email,
-                username: reactionAuthor.username,
-                firstname: reactionAuthor.firstname,
-                lastname: reactionAuthor.lastname,
-                profile_picture_url: reactionAuthor.profile_picture_url,
-            },
+            user: await userDataService.getUserById(reaction.source_id),
             reaction_type: reactionType.type_name,
             created_at: reaction.createdAt,
             updated_at: reaction.updatedAt,
         }
     }));
 
-    return postReactionProps;
-};
-
-async function getPostAttachment(post) {
-    const postAttachment = await Promise.all(post.post_attachments.map(async (attachment) => {
-        const attachments = await Attachment.findById(attachment);
-
-        return {
-            ...attachments._doc,
-        }
-    }))
-
-    return postAttachment;
+    return reactionProps;
 }
 
-module.exports = {getPostAuthor, getPostReaction, getPostComment, getPostAttachment}
+module.exports = {getPostAuthor, getComment, getReaction, getPostPhoto}

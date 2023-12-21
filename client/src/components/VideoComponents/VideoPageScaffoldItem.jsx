@@ -32,7 +32,7 @@ const VideoPageScaffoldItem = ({videoProps}) => {
                 <div className="w-full h-full flex items-center justify-center bg-transparent overflow-hidden relative">
                     <div className="w-full h-full top-0 left-0 absolute" onClick={handleVideoPlayClick}>
                         <video ref={videoItemRef} className="absolute h-full w-full object-cover" autoPlay={true} loop={true} controls={true} muted={true} playsInline={true} onClick={(e) => e.stopPropagation()}>
-                            <source src={videoProps.video_url} type="video/mp4"/>
+                            <source src={videoProps?.video_url} type="video/mp4"/>
                             Your browser does not support the video tag.
                         </video>
                     </div>

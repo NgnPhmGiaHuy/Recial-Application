@@ -4,37 +4,37 @@ const UserProfileCoverNavigation = ({userProps, navigationProps}) => {
     const userProfileCoverNavigationItemList = [
         {
             navigationName: "post",
-            navigationLink: `${userProps?.user?._id}`,
+            navigationLink: `/${userProps?.user?._id}`,
             navigationTitle: "Post"
         },
         {
             navigationName: "about",
-            navigationLink: `${userProps?.user?._id}/about`,
+            navigationLink: `/${userProps?.user?._id}/about`,
             navigationTitle: "About"
         },
         {
             navigationName: "friends",
-            navigationLink: `${userProps?.user?._id}/friends`,
+            navigationLink: `/${userProps?.user?._id}/friends`,
             navigationTitle: "Friends"
         },
         {
             navigationName: "photos",
-            navigationLink: `${userProps?.user?._id}/photos`,
+            navigationLink: `/${userProps?.user?._id}/photos`,
             navigationTitle: "Photos"
         },
         {
             navigationName: "videos",
-            navigationLink: `${userProps?.user?._id}/videos`,
+            navigationLink: `/${userProps?.user?._id}/videos`,
             navigationTitle: "Videos"
         },
         {
             navigationName: "groups",
-            navigationLink: `${userProps?.user?._id}/groups`,
+            navigationLink: `/${userProps?.user?._id}/groups`,
             navigationTitle: "Groups"
         },
         {
             navigationName: "articles",
-            navigationLink: `${userProps?.user?._id}/articles`,
+            navigationLink: `/${userProps?.user?._id}/articles`,
             navigationTitle: "Articles"
         },
     ]

@@ -1,9 +1,10 @@
 "use client"
 
-import { useCallback, useRef, useState } from "react";
+import {useCallback, useRef, useState} from "react";
 
 import { Header, Aside, Main, CreatePostDialog } from "@/components";
-import { useClickOutside, usePostData, useTokenRefresh, useUserData, withAuth } from "@/hooks";
+import { useClickOutside, usePostData, useTokenRefresh, useUserData, useWithAuth } from "@/hooks";
+import useStoryData from "@/hooks/useMedia/useStoryData";
 
 const HomePage = () => {
     const createPostRef = useRef(null);
@@ -15,9 +16,9 @@ const HomePage = () => {
     }, []);
 
     const userProps = useUserData();
+    const storyProps = useStoryData();
     const { postProps, postRef } = usePostData();
 
-    useTokenRefresh();
     useClickOutside(createPostRef, showCreatePost, setMainCreatePost);
 
     return (
@@ -31,7 +32,7 @@ const HomePage = () => {
                                 <div className="min-w-[320px] min-h-[inherit] flex flex-row flex-nowrap flex-shrink-0 items-stretch justify-center relative">
                                     <div className="min-h-[inherit] flex flex-row flex-shrink flex-nowrap grow items-start justify-between basis-0 relative">
                                         <Aside userProps={userProps}/>
-                                        <Main postRef={postRef} userProps={userProps}postListProps={postProps} handleShowCreatePost={handleShowCreatePost}/>
+                                        <Main postRef={postRef} storyProps={storyProps} userProps={userProps} postListProps={postProps} handleShowCreatePost={handleShowCreatePost}/>
                                     </div>
                                 </div>
                             </div>
@@ -47,4 +48,4 @@ const HomePage = () => {
     );
 };
 
-export default withAuth(HomePage);
+export default useWithAuth(HomePage);

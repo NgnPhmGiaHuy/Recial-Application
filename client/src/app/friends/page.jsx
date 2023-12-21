@@ -1,10 +1,17 @@
+"use client"
+
 import {fakeUserData} from "@/constants";
+import {useTokenRefresh, useUserData, useWithAuth} from "@/hooks";
 import {AsideScaffold, FriendScaffold, Header} from "@/components";
 
 const FriendPage = () => {
+    const userProps = useUserData();
+
+    useTokenRefresh();
+
     return (
         <div>
-            <Header navigationProps="mynetwork" userProps={fakeUserData}/>
+            <Header navigationProps="mynetwork" userProps={userProps}/>
             <div className="flex flex-col relative z-0 ">
                 <div className="top-[56px] min-h-[calc(100vh-88px)] flex flex-col relative">
                     <div className="min-h-[inherit] mb-[calc(-100vh-56px)] flex flex-col flex-shrink-0 items-stretch justify-start relative">
@@ -25,4 +32,4 @@ const FriendPage = () => {
     );
 };
 
-export default FriendPage;
+export default useWithAuth(FriendPage);

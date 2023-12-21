@@ -57,7 +57,7 @@ const PostItem = ({userProps, postProps}) => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             ),
-            settingItemTitle: `Snooze ${postProps?.postAuthor?.username || postProps?.postAuthor?.first_name + " " + postProps?.postAuthor?.last_name} for 30 days`,
+            settingItemTitle: `Snooze ${postProps?.user?.username || postProps?.user?.firstname + " " + postProps?.user?.lastname} for 30 days`,
             settingItemSubtitle: "Temporarily stop seeing posts.",
             hasSettingItemSwitchButton: false,
         }, {
@@ -78,7 +78,7 @@ const PostItem = ({userProps, postProps}) => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                 </svg>
             ),
-            settingItemTitle: `Block ${postProps?.postAuthor?.username || postProps?.postAuthor?.first_name + " " + postProps?.postAuthor?.last_name}'s profile`,
+            settingItemTitle: `Block ${postProps?.user?.username || postProps?.user?.firstname + " " + postProps?.user?.lastname}'s profile`,
             settingItemSubtitle: "You won't be able to see or contact each other.",
             hasSettingItemSwitchButton: false,
         },

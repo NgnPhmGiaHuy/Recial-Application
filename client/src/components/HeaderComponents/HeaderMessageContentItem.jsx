@@ -1,8 +1,9 @@
 "use client"
 
 import Image from "next/image";
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useRef, useState} from "react";
 
+import {useClickOutside} from "@/hooks";
 import {formatTimeAgoShort} from "@/utils";
 import {QuickSettingItem} from "@/components";
 import {headerMessageQuickSettingItemList} from "@/constants/HeaderConstants";
@@ -17,23 +18,7 @@ const HeaderMessageContentItem = ({messageProps}) => {
         setShowHeaderMessageItemQuickSetting((preShowHeaderMessageItemQuickSetting) => !preShowHeaderMessageItemQuickSetting);
     }, []);
 
-    useEffect(() => {
-        const handleOutsideClick = (event) => {
-            if (messageQuickSettingItemButtonRef.current && !messageQuickSettingItemButtonRef.current.contains(event.target)){
-                setShowHeaderMessageItemQuickSetting(false);
-            }
-        }
-
-        if (showHeaderMessageItemQuickSetting){
-            document.addEventListener("mousedown", handleOutsideClick);
-        } else {
-            document.removeEventListener("mousedown", handleOutsideClick);
-        }
-
-        return() =>{
-            document.removeEventListener("mousedown", handleOutsideClick);
-        }
-    }, [showHeaderMessageItemQuickSetting])
+    useClickOutside(messageQuickSettingItemButtonRef, showHeaderMessageItemQuickSetting, setShowHeaderMessageItemQuickSetting);
 
     return (
         <li className="relative" onMouseOver={() => setShowHeaderMessageContentItemMoreButton(true)} onMouseOut={() => setShowHeaderMessageContentItemMoreButton(false)}>
@@ -47,7 +32,7 @@ const HeaderMessageContentItem = ({messageProps}) => {
                                         <div className="w-full h-full absolute">
                                             <div className="w-full h-full overflow-x-hidden overflow-y-hidden block rounded-full bg-white border border-solid border-gray-500 relative">
                                                 <div className="w-full h-full flex flex-col relative">
-                                                    <Image src={messageProps?.source.profile_picture_url} alt={`${messageProps?.source.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                                    <Image src={messageProps?.source?.profile_picture_url} alt={`${messageProps?.source?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -57,7 +42,7 @@ const HeaderMessageContentItem = ({messageProps}) => {
                                     <div className="max-w-full flex flex-col flex-shrink-0 grow relative p-[6px]">
                                         <span className="block text-[15px] text-black text-left font-medium break-words leading-5">
                                             <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
-                                                {messageProps?.source.username || messageProps?.source.firstname + " " + messageProps?.source.lastname}
+                                                {messageProps?.source?.username || messageProps?.source?.firstname + " " + messageProps?.source?.lastname}
                                             </span>
                                         </span>
                                         <div className="min-h-[16px] flex flex-row items-center pt-[6px]">
@@ -93,7 +78,7 @@ const HeaderMessageContentItem = ({messageProps}) => {
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M9.143 17.082a24.248 24.248 0 003.844.148m-3.844-.148a23.856 23.856 0 01-5.455-1.31 8.964 8.964 0 002.3-5.542m3.155 6.852a3 3 0 005.667 1.97m1.965-2.277L21 21m-4.225-4.225a23.81 23.81 0 003.536-1.003A8.967 8.967 0 0118 9.75V9A6 6 0 006.53 6.53m10.245 10.245L6.53 6.53M3 3l3.53 3.53" />
                                                 </svg>
                                                 ) : messageProps?.is_read ? (
-                                                    <Image src={messageProps?.destination.profile_picture_url} alt={`${messageProps?.destination.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                                    <Image src={messageProps?.destination?.profile_picture_url} alt={`${messageProps?.destination?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                             ) : null}
                                         </i>
                                     </div>

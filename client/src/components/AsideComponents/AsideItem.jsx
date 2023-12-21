@@ -1,10 +1,11 @@
+import Link from "next/link";
 import Image from "next/image";
 
 const AsideItem = ({userProps}) => {
     return(
         <li>
             <div className="px-[8px]">
-                <a href={userProps.itemLink} className="block rounded-md hover:bg-zinc-200 transition-all">
+                <Link href={userProps.itemLink} className="block rounded-md hover:bg-zinc-200 transition-all">
                     <div className="min-h-[48px] px-[8px] flex flex-row items-center justify-between relative">
                         <div className="my-[6px] mr-[12px] flex flex-col self-center relative">
                             <div className="w-[32px] h-[32px] flex flex-row items-center justify-center rounded-md overflow-hidden relative">
@@ -25,7 +26,7 @@ const AsideItem = ({userProps}) => {
                             </div>
                         </div>
                     </div>
-                </a>
+                </Link>
             </div>
         </li>
     )

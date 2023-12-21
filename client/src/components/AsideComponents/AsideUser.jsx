@@ -9,14 +9,14 @@ const AsideUser = ({userProps}) => {
                         <div>
                             <UserProfileIntro userProps={userProps}/>
                         </div>
-                        {userProps?.photo_list ? (
+                        {userProps?.photo_list && userProps?.photo_list?.length ? (
                             <div>
-                                <UserProfileScaffold userProps={userProps?.photo_list} isPhotoList={true}/>
+                                <UserProfileScaffold userProps={userProps} mediaProps={userProps?.photo_list} isPhotoList={true}/>
                             </div>
                         ) : null}
-                        {userProps?.friends ? (
+                        {userProps?.user?.friends ? (
                             <div>
-                                <UserProfileScaffold userProps={userProps?.friends} isFriendList={true}/>
+                                <UserProfileScaffold userProps={userProps?.user?.friends} isFriendList={true}/>
                             </div>
                         ) : null}
                     </div>

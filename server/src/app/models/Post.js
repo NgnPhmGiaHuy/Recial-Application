@@ -40,7 +40,7 @@ const PostSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "Tag",
         }],
-        post_attachments: [{
+        post_photos: [{
             type: Schema.Types.ObjectId,
             ref: "Attachment",
         }],

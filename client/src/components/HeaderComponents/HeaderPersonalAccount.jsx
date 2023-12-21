@@ -1,9 +1,22 @@
 import Image from "next/image";
+import {useRouter} from "next/navigation";
 
+import {useLogout} from "@/hooks";
 import {HeaderPersonalAccountSettingItem} from "@/components";
 import {headerPersonalAccountSettingItemList} from "@/constants/HeaderConstants";
 
 const HeaderPersonalAccount = ({forwardedRef, userProps}) => {
+    const router = useRouter();
+
+    const handleLogout = async () => {
+        const logout = useLogout(router);
+        try {
+            await logout();
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    }
+
     return (
         <div ref={forwardedRef} className="absolute top-0 left-0 translate-x-[-172px] translate-y-[48px]">
             <div className="mt-[5px]">
@@ -20,12 +33,12 @@ const HeaderPersonalAccount = ({forwardedRef, userProps}) => {
                                                         <div className="my-[-4px] p-[8px] flex flex-row flex-nowrap items-center justify-between">
                                                             <div className="p-[4px] flex flex-col flex-shrink-0 items-center justify-center relative">
                                                                 <div className="w-[36px] h-[36px] flex items-center justify-center rounded-full overflow-hidden relative">
-                                                                    <Image src={userProps?.user.profile_picture_url} alt={`${userProps?.user.profile_picture_url} image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                                                    <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url} image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                                                 </div>
                                                             </div>
                                                             <div className="p-[4px] flex flex-col flex-shrink grow relative">
                                                                 <span className="block text-[16px] text-left text-black font-semibold break-words leading-4">
-                                                                    {userProps?.user.username || userProps?.user.firstname + " " + userProps?.user.lastname}
+                                                                    {userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname}
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -74,7 +87,7 @@ const HeaderPersonalAccount = ({forwardedRef, userProps}) => {
                                                                 </i>
                                                             </div>
                                                         </div>
-                                                        <div className="flex flex-row flex-shrink items-center justify-between grow self-stretch relative">
+                                                        <div className="flex flex-row flex-shrink items-center justify-between grow self-stretch relative" onClick={handleLogout}>
                                                             <div className="py-[8px] flex flex-col flex-shrink grow items-stretch basis-0 relative">
                                                                 <span className="block text-[14px] text-black text-left font-medium break-words leading-4">
                                                                     Log Out

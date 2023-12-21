@@ -2,6 +2,8 @@
 
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {postItemShareSettingList} from "@/constants/PostConstants";
+
+import {useClickOutside} from "@/hooks";
 import {QuickSettingItem} from "@/components";
 import {userAboutOverviewSettingList} from "@/constants/UserProfileConstants";
 
@@ -14,18 +16,11 @@ const UserAboutOverview = ({userProps}) => {
     const [userAboutOverviewSettingTranslateXValue, setUserAboutOverviewSettingTranslateXValue] = useState(0);
     const [userAboutOverviewSettingTranslateYValue, setUserAboutOverviewSettingTranslateYValue] = useState(0);
 
-
     const handleShowUserAboutOverviewSetting = useCallback(() => {
         setShowUserAboutOverviewSetting((prevShowUserAboutOverviewSetting) => !prevShowUserAboutOverviewSetting);
     }, []);
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (userAboutOverviewSettingButtonRef.current && !userAboutOverviewSettingButtonRef.current.contains(event.target)) {
-                setShowUserAboutOverviewSetting(false);
-            }
-        }
-
         if (userAboutOverviewRef.current && userAboutOverviewSettingButtonRef.current && showUserAboutOverviewSetting) {
             setUserAboutOverviewTranslateXValue(userAboutOverviewRef.current.clientWidth - userAboutOverviewSettingButtonRef.current.clientWidth + 80)
         }
@@ -34,17 +29,9 @@ const UserAboutOverview = ({userProps}) => {
             setUserAboutOverviewSettingTranslateXValue(-userAboutOverviewSettingButtonRef.current.clientWidth + 225);
             setUserAboutOverviewSettingTranslateYValue(-userAboutOverviewSettingButtonRef.current.clientHeight);
         }
-
-        if (showUserAboutOverviewSetting){
-            document.addEventListener("mousedown", handleClickOutside)
-        } else {
-            document.removeEventListener("mousedown", handleClickOutside);
-        }
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside)
-        }
     }, [showUserAboutOverviewSetting]);
+
+    useClickOutside(userAboutOverviewSettingButtonRef, showUserAboutOverviewSetting, setShowUserAboutOverviewSetting);
 
     return (
         <section className="bg-white rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative" ref={userAboutOverviewRef}>
@@ -73,37 +60,41 @@ const UserAboutOverview = ({userProps}) => {
                     <div>
                         <span className="text-[16px] text-zinc-500 font-normal break-words relative leading-5">
                             <span className="overflow-hidden relative">
-                                {userProps.user.description}
+                                {userProps?.user?.description}
                             </span>
                         </span>
                     </div>
                 </div>
                 <div>
                     <dl className="flex flex-col gap-4 overflow-hidden relative">
-                        <div>
-                            <dt className="mb-[4px] text-[16px] text-black text-left font-bold relative leading-5">
-                                <span className="overflow-hidden relative">
-                                    Job
-                                </span>
-                            </dt>
-                            <dd className="text-[16px] text-zinc-500 text-left font-normal relative leading-5">
-                                <span className="overflow-hidden relative">
-                                    {userProps.user.job_title}
-                                </span>
-                            </dd>
-                        </div>
-                        <div>
-                            <dt className="mb-[4px] text-[16px] text-black text-left font-bold relative leading-5">
-                                <span className="overflow-hidden relative">
-                                    Location
-                                </span>
-                            </dt>
-                            <dd className="text-[16px] text-zinc-500 text-left font-normal relative leading-5">
-                                <span className="overflow-hidden relative">
-                                    {userProps.user.location.city} city, {userProps.user.location.country}
-                                </span>
-                            </dd>
-                        </div>
+                        {userProps?.user?.job_title ? (
+                            <div>
+                                <dt className="mb-[4px] text-[16px] text-black text-left font-bold relative leading-5">
+                                    <span className="overflow-hidden relative">
+                                        Job
+                                    </span>
+                                </dt>
+                                <dd className="text-[16px] text-zinc-500 text-left font-normal relative leading-5">
+                                    <span className="overflow-hidden relative">
+                                        {userProps?.user?.job_title}
+                                    </span>
+                                </dd>
+                            </div>
+                        ) : null}
+                        {userProps?.user?.location ? (
+                            <div>
+                                <dt className="mb-[4px] text-[16px] text-black text-left font-bold relative leading-5">
+                                    <span className="overflow-hidden relative">
+                                        Location
+                                    </span>
+                                </dt>
+                                <dd className="text-[16px] text-zinc-500 text-left font-normal relative leading-5">
+                                    <span className="overflow-hidden relative">
+                                        {userProps?.user?.location?.city} city, {userProps?.user?.location?.country}
+                                    </span>
+                                </dd>
+                            </div>
+                        ) : null}
                     </dl>
                 </div>
             </div>

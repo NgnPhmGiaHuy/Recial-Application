@@ -43,6 +43,7 @@ import PostItemHeader from "@/components/PostComponents/PostItemHeader";
 import PostItemContent from "@/components/PostComponents/PostItemContent";
 import PostItemFooter from "@/components/PostComponents/PostItemFooter";
 import PostItemComment from "@/components/PostComponents/PostItemComment";
+import PostItemCommentInput from "@/components/PostComponents/PostItemCommentInput";
 import PostItemCommentScaffold from "@/components/PostComponents/PostItemCommentScaffold";
 
 import FriendRequest from "@/components/FriendComponents/FriendRequest";
@@ -85,11 +86,12 @@ import VideoScaffold from "@/components/VideoComponents/VideoScaffold";
 import VideoScaffoldItem from "@/components/VideoComponents/VideoScaffoldItem";
 import VideoScaffoldItemInfo from "@/components/VideoComponents/VideoScaffoldItemInfo";
 import VideoScaffoldItemAside from "@/components/VideoComponents/VideoScaffoldItemAside";
-import VideoPageScaffold from "@/components/VideoComponents/VideoPageScaffold";
+import MediaPageScaffold from "@/components/VideoComponents/MediaPageScaffold";
 import VideoPageScaffoldItem from "@/components/VideoComponents/VideoPageScaffoldItem";
-import VideoPageScaffoldHeader from "@/components/VideoComponents/VideoPageScaffoldHeader";
-import VideoPageScaffoldFooter from "@/components/VideoComponents/VideoPageScaffoldFooter";
+import MediaPageScaffoldHeader from "@/components/VideoComponents/MediaPageScaffoldHeader";
+import MediaPageScaffoldFooter from "@/components/VideoComponents/MediaPageScaffoldFooter";
 import VideoPageScaffoldCommentItem from "@/components/VideoComponents/VideoPageScaffoldCommentItem";
+import MediaPhotoPageScaffoldItem from "@/components/VideoComponents/MediaPhotoPageScaffoldItem";
 
 import SettingScaffold from "@/components/SettingComponents/SettingScaffold";
 import SettingScaffoldItem from "@/components/SettingComponents/SettingScaffoldItem";
@@ -148,6 +150,7 @@ export {
     PostItemContent,
     PostItemFooter,
     PostItemComment,
+    PostItemCommentInput,
     PostItemCommentScaffold,
 
     FriendRequest,
@@ -188,11 +191,12 @@ export {
     VideoScaffoldItem,
     VideoScaffoldItemInfo,
     VideoScaffoldItemAside,
-    VideoPageScaffold,
+    MediaPageScaffold,
     VideoPageScaffoldItem,
-    VideoPageScaffoldHeader,
-    VideoPageScaffoldFooter,
+    MediaPageScaffoldHeader,
+    MediaPageScaffoldFooter,
     VideoPageScaffoldCommentItem,
+    MediaPhotoPageScaffoldItem,
 
     SettingScaffold,
     SettingScaffoldItem,

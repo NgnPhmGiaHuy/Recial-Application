@@ -28,7 +28,7 @@ const Aside = ({userProps}) => {
     }, [setAsideNavigationItemsToShow]);
 
     return (
-        <div className="max-w-[360px] min-w-[280px] max-h-0 min-h-[inherit] top-[56px] sticky shrink-[9999] basis-[360px] overflow-x-hidden overflow-y-hidden ">
+        <div className="max-w-[360px] min-w-[280px] max-h-0 min-h-[inherit] top-[56px] sm:block hidden sticky shrink-[9999] basis-[360px] overflow-x-hidden overflow-y-hidden ">
             <div className="max-h-[inherit] min-h-[inherit] flex flex-col relative">
                 <div className="flex flex-col min-h-0 flex-shrink grow basis-full overflow-x-hidden overflow-y-auto overscroll-y-contain relative">
                     <div className="mt-[16px] flex flex-col grow relative">
@@ -57,7 +57,7 @@ const Aside = ({userProps}) => {
                                                             className="block text-[16px] text-black text-left font-medium break-words leading-5">
                                                             <span
                                                                 className="overflow-x-hidden overflow-y-hidden line-clamp-2 relative">
-                                                                {userProps?.user?.username || userProps?.user?.first_name + " " + userProps?.user?.last_name}
+                                                                {userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname}
                                                             </span>
                                                         </span>
                                                         </div>
@@ -117,17 +117,17 @@ const Aside = ({userProps}) => {
                                     </div>
                                 </div>
                             </div>
-                            {userProps?.following?.length ? (
+                            {userProps?.user?.following?.length ? (
                                 <>
                                     <ul>
-                                        {userProps?.following?.slice(0, asideFollowItemToShow).map((value, index) => (
+                                        {userProps?.user?.following?.slice(0, asideFollowItemToShow).map((value, index) => (
                                             <AsideFollowItem key={index} userProps={value} hasNotificationBadge={true}/>
                                         ))}
                                     </ul>
-                                    {asideFollowItemToShow === userProps?.following?.length ? (
+                                    {asideFollowItemToShow === userProps?.user?.following?.length ? (
                                         <AsideShowMoreOrShowLessButton showMore={false} onClick={() => showLessAsideFollowItem()}/>
                                     ) : (
-                                        <AsideShowMoreOrShowLessButton showMore={true} onClick={() => showMoreAsideFollowItem(userProps.following)}/>
+                                        <AsideShowMoreOrShowLessButton showMore={true} onClick={() => showMoreAsideFollowItem(userProps?.user?.following)}/>
                                     )}
                                 </>
                             ) : null}

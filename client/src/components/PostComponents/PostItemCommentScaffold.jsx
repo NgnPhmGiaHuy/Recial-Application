@@ -2,24 +2,30 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 
 import {useMostReactedIcons, useOverflowText} from "@/hooks";
 import {formatTimeAgoShort, handleFormatNumber} from "@/utils";
+import {PostItemCommentInput} from "@/components";
 
-const PostItemCommentScaffold = ({postProps, isRely}) => {
+const PostItemCommentScaffold = ({userProps, postProps, isRely}) => {
     const mostReactedIcons = useMostReactedIcons(postProps.comment_reactions);
 
     const {textRef, showMoreText, isOverflowing, handleShowMoreText} = useOverflowText();
 
     const [visibleComments, setVisibleComments] = useState(3);
     const [loadMoreClicked, setLoadMoreClicked] = useState(false);
+    const [showCommentInput, setShowCommentInput] = useState(false);
+
+    const handleShowCommentInput = useCallback(() => {
+        setShowCommentInput((prevState) => !prevState)
+    }, []);
 
     const loadMoreComments = () => {
-        const remainingComments = postProps.comment_replies.length - visibleComments;
+        const remainingComments = postProps.comment_reply.length - visibleComments;
         const loadMore = remainingComments > 3 ? 3 : remainingComments;
         setVisibleComments((prevVisible) => prevVisible + loadMore);
-        if (visibleComments + loadMore >= postProps.comment_replies.length) {
+        if (visibleComments + loadMore >= postProps.comment_reply.length) {
             setLoadMoreClicked(true);
         }
     };
@@ -39,7 +45,7 @@ const PostItemCommentScaffold = ({postProps, isRely}) => {
                         <div className="min-h-[22px] flex flex-col items-start justify-center">
                             <span className="text-[16px] text-black text-left font-semibold break-words relative leading-5">
                                 <span className="overflow-hidden whitespace-nowrap text-ellipsis">
-                                    {postProps?.user?.username || postProps?.user?.first_name + " " + postProps?.user?.last_name}
+                                    {postProps?.user?.username || postProps?.user?.firstname + " " + postProps?.user?.lastname}
                                 </span>
                             </span>
                         </div>
@@ -91,8 +97,7 @@ const PostItemCommentScaffold = ({postProps, isRely}) => {
                 <div className="ml-[44px] pl-[8px]">
                     <div className="mt-[4px] flex items-center">
                         <div className="pr-[8px] text-[12px] flex items-center">
-                            <div
-                                className="px-[4px] flex flex-wrap items-center justify-center rounded-md overflow-hidden cursor-pointer hover:bg-zinc-200">
+                            <div className="px-[4px] flex flex-wrap items-center justify-center rounded-md overflow-hidden cursor-pointer hover:bg-zinc-200">
                                 <span className="text-zinc-500 text-left font-semibold break-words relative">
                                     <span className="overflow-hidden relative">
                                         Like
@@ -127,22 +132,21 @@ const PostItemCommentScaffold = ({postProps, isRely}) => {
                         </div>
                         <div className="w-[1px] h-[12px] bg-zinc-500"></div>
                         <div className="px-[8px] text-[12px] flex items-center">
-                            <div className="px-[4px] flex flex-wrap items-center justify-center rounded-md overflow-hidden cursor-pointer hover:bg-zinc-200">
-                                <span
-                                    className="text-zinc-500 text-left font-semibold break-words relative leading-5">
+                            <div className="px-[4px] flex flex-wrap items-center justify-center rounded-md overflow-hidden cursor-pointer hover:bg-zinc-200" onClick={handleShowCommentInput}>
+                                <span className="text-zinc-500 text-left font-semibold break-words relative leading-5">
                                     <span className="overflow-hidden relative">
                                         Reply
                                     </span>
                                 </span>
                             </div>
-                            {postProps?.comment_replies && postProps?.comment_replies.length ? (
+                            {postProps?.comment_reply && postProps?.comment_reply.length ? (
                                 <>
-                                <div className="pl-[4px] pr-[8px] flex">
+                                    <div className="pl-[4px] pr-[8px] flex">
                                         <span className="w-[2px] h-[2px] bg-zinc-700 rounded-full overflow-hidden"></span>
                                     </div>
                                     <div>
                                         <span className="text-zinc-500 text-left font-normal break-words relative leading-5 transition-all">
-                                            {postProps?.comment_replies.length > 1 ? `${postProps?.comment_replies.length} replies`: `${postProps?.comment_replies.length} reply`}
+                                            {postProps?.comment_reply.length > 1 ? `${postProps?.comment_reply.length} replies`: `${postProps?.comment_reply.length} reply`}
                                         </span>
                                     </div>
                                 </>
@@ -150,12 +154,17 @@ const PostItemCommentScaffold = ({postProps, isRely}) => {
                         </div>
                     </div>
                 </div>
+                <div>
+                    {showCommentInput ? (
+                        <PostItemCommentInput userProps={userProps} isReply={true}/>
+                    ) : null}
+                </div>
                 <div className="ml-[44px] mt-[8px] pl-[8px]">
-                    {postProps?.comment_replies?.slice(0, 3).map((value, index) => (
-                        <PostItemCommentScaffold key={index} postProps={value} isRely={true}/>
+                    {postProps?.comment_reply?.slice(0, 3).map((value, index) => (
+                        <PostItemCommentScaffold key={index} userProps={userProps} postProps={value} isRely={true}/>
                     ))}
                 </div>
-                {!loadMoreClicked && visibleComments < postProps.comment_replies.length && (
+                {!loadMoreClicked && visibleComments < postProps.comment_reply.length && (
                     <div className="mx-[16px] mb-[8px] relative">
                         <div className="px-[8px] py-[2px] w-fit flex flex-col rounded-md cursor-pointer relative hover:bg-zinc-200 transition-all" onClick={loadMoreComments}>
                             <span className="text-[16px] text-zinc-500 text-left font-bold break-words relative leading-5">

@@ -22,9 +22,11 @@ const UserProfileCover = ({userProps, navigationProps, isCurrentUser}) => {
                 <div className="w-full h-[134px] flex flex-col relative">
                     <div className="top-0 right-0 bottom-0 left-0 absolute">
                         <figure className="w-full h-[134px] rounded-t-md overflow-hidden relative">
-                            <div className="w-full h-full bg-white relative">
-                                <Image src={userProps?.user?.profile_cover_photo_url} alt={`${userProps?.user?.profile_cover_photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
-                            </div>
+                            {userProps?.user?.profile_cover_photo_url ? (
+                                <div className="w-full h-full bg-white relative">
+                                    <Image src={userProps?.user?.profile_cover_photo_url} alt={`${userProps?.user?.profile_cover_photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                </div>
+                            ) : null}
                         </figure>
                     </div>
                 </div>
@@ -40,7 +42,7 @@ const UserProfileCover = ({userProps, navigationProps, isCurrentUser}) => {
                                 <div className="flex flex-col relative">
                                     <span className="block text-[32px] text-black text-left font-semibold break-words leading-10">
                                         <span className="overflow-hidden text-ellipsis relative">
-                                            {userProps?.user?.username || userProps?.user?.first_name + " " + userProps?.user?.last_name}
+                                            {userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname}
                                         </span>
                                     </span>
                                 </div>
@@ -65,7 +67,7 @@ const UserProfileCover = ({userProps, navigationProps, isCurrentUser}) => {
                                     ) : null}
                                     <div className="flex flex-row items-center relative">
                                         {userProps?.user?.location ? (
-                                            <div className="pr-[4px] flex items-center before:mr-[4px] before:w-[2px] before:h-[2px] before:rounded-full before:bg-zinc-500">
+                                            <div className="pr-[4px] flex items-center after:ml-[4px] after:w-[2px] after:h-[2px] after:rounded-full after:bg-zinc-500">
                                                 <span className="block text-[14px] text-zinc-500 text-left font-normal break-words leading-5">
                                                     <span className="overflow-hidden relative">
                                                         {userProps?.user?.location?.city}, {userProps?.user?.location?.state}, {userProps?.user?.location?.country}
@@ -73,20 +75,20 @@ const UserProfileCover = ({userProps, navigationProps, isCurrentUser}) => {
                                                 </span>
                                             </div>
                                         ) : null}
-                                        {userProps?.user?.followers && userProps.user?.followers?.length ? (
-                                            <div className="pr-[4px] flex items-center before:mr-[4px] before:w-[2px] before:h-[2px] before:rounded-full before:bg-zinc-500">
+                                        {userProps?.user?.followers && userProps.user?.followers.length ? (
+                                            <div className="pr-[4px] flex items-center after:ml-[4px] after:w-[2px] after:h-[2px] after:rounded-full after:bg-zinc-500">
                                                 <span className="block text-[14px] text-zinc-500 text-left font-normal break-words leading-5">
                                                     <span className="overflow-hidden relative">
-                                                        {userProps?.user?.followers?.length} follower
+                                                        {userProps?.user?.followers.length} follower
                                                     </span>
                                                 </span>
                                             </div>
                                         ) : null}
-                                        {userProps?.user?.following && userProps.user?.following?.length ? (
-                                            <div className="pr-[4px] flex items-center before:mr-[4px] before:w-[2px] before:h-[2px] before:rounded-full before:bg-zinc-500">
+                                        {userProps?.user?.following && userProps.user?.following.length ? (
+                                            <div className="pr-[4px] flex items-center after:bg-zinc-500">
                                                 <span className="block text-[14px] text-zinc-500 text-left font-normal break-words leading-5">
                                                     <span className="overflow-hidden relative">
-                                                        {userProps?.user?.following?.length} following
+                                                        {userProps?.user?.following.length} following
                                                     </span>
                                                 </span>
                                             </div>

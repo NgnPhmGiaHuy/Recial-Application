@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import {UserAboutPhotoScaffoldItem, UserAboutScaffoldItem, UserAboutVideoScaffoldItem} from "@/components";
 const DynamicUserAboutVideoScaffoldItem = dynamic(() => import("@/components/UserProfileComponents/UserAboutVideoScaffoldItem"), { ssr: false });
 
-const UserAboutScaffold = ({userProps, titleLabel, isFriendItem, isFriendPage, isGroup, isGroupPage, isPhoto, isPhotoPage, isVideo, isVideoPage}) => {
+const UserAboutScaffold = ({userProps, mediaProps, titleLabel, isCurrentUser, isFriendItem, isFriendPage, isGroup, isGroupPage, isPhoto, isPhotoPage, isVideo, isVideoPage}) => {
     return (
         <div className="flex flex-col rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white overflow-hidden relative">
             <div className="p-[16px]">
@@ -27,7 +27,7 @@ const UserAboutScaffold = ({userProps, titleLabel, isFriendItem, isFriendPage, i
                         </div>
                     </div>
                     <div className="m-[-4px] flex flex-row flex-shrink-0 items-center justify-between relative">
-                        {isFriendItem || isFriendPage? (
+                        {isCurrentUser && (isFriendItem || isFriendPage) ? (
                             <>
                                 <div className="p-[4px] flex flex-col flex-shrink-0 relative">
                                     <a href="/friends/requests">
@@ -53,7 +53,7 @@ const UserAboutScaffold = ({userProps, titleLabel, isFriendItem, isFriendPage, i
                                 </div>
                             </>
                         ) : null}
-                        {isPhotoPage || isVideoPage? (
+                        {isCurrentUser && (isPhotoPage || isVideoPage) ? (
                             <div className="p-[4px] flex flex-col flex-shrink-0 relative">
                                 <div className="px-[12px] py-[10px] flex flex-row flex-nowrap items-center justify-center rounded-md cursor-pointer relative hover:bg-zinc-100 transition-all">
                                     <span className="text-[15px] text-lime-500 text-left font-semibold break-words relative leading-5">
@@ -80,42 +80,42 @@ const UserAboutScaffold = ({userProps, titleLabel, isFriendItem, isFriendPage, i
                 <section>
                     {isFriendItem || isGroup ? (
                         <div className="flex flex-row flex-wrap justify-between relative">
-                            {userProps.slice(0, 8).map((value, index) => (
+                            {mediaProps?.slice(0, 8).map((value, index) => (
                                 <UserAboutScaffoldItem key={index} userProps={value}/>
                             ))}
                         </div>
                     ) : null}
                     {isFriendPage || isGroupPage ? (
                         <div className="flex flex-row flex-wrap justify-between relative">
-                            {userProps.map((value, index) => (
+                            {mediaProps?.map((value, index) => (
                                 <UserAboutScaffoldItem key={index} userProps={value}/>
                             ))}
                         </div>
                     ) : null}
                     {isPhoto ? (
                         <div className="flex flex-row flex-wrap relative">
-                            {userProps.slice(0, 8).map((value, index) => (
-                                <UserAboutPhotoScaffoldItem key={index} userProps={value}/>
+                            {mediaProps?.slice(0, 8).map((value, index) => (
+                                <UserAboutPhotoScaffoldItem key={index} userProps={userProps} mediaProps={value}/>
                             ))}
                         </div>
                     ) : null}
                     {isPhotoPage ? (
                         <div className="flex flex-row flex-wrap relative">
-                            {userProps.map((value, index) => (
-                                <UserAboutPhotoScaffoldItem key={index} userProps={value}/>
+                            {mediaProps?.map((value, index) => (
+                                <UserAboutPhotoScaffoldItem key={index} userProps={userProps} mediaProps={value}/>
                             ))}
                         </div>
                     ) : null}
                     {isVideo ? (
                         <div className="flex flex-row flex-wrap relative">
-                            {userProps.slice(0, 8).map((value, index) => (
+                            {mediaProps?.slice(0, 8).map((value, index) => (
                                 <DynamicUserAboutVideoScaffoldItem key={index} userProps={value}/>
                             ))}
                         </div>
                     ) : null}
                     {isVideoPage ? (
                         <div className="flex flex-row flex-wrap relative">
-                            {userProps.map((value, index) => (
+                            {mediaProps?.map((value, index) => (
                                 <DynamicUserAboutVideoScaffoldItem key={index} userProps={value}/>
                             ))}
                         </div>

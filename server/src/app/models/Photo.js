@@ -11,6 +11,12 @@ const PhotoSchema = new Schema(
             type: String,
             required: true,
         },
+        photo_privacy: {
+            type: String,
+            required: true,
+            default: "Public",
+            enum: ["Public", "Private", "Friends", "OnlyMe"],
+        },
         photo_description: {
             type: String,
         },

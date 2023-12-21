@@ -775,7 +775,7 @@ export const fakeUserData = {
             friendship_status: "connected"
         }
     ],
-    groups_list: [
+    group_list: [
         {
             group_id: "group_id_1",
             group_name: "Suggested Group",
@@ -1334,7 +1334,7 @@ export const fakePostListData = [
         },
         postTags: ["Technology", "Lorem"],
         postType: ["text"],
-        postComments: [
+        comment: [
             {
                 postCommentAuthor: "Gia Huy",
                 postCommentAuthorImage: Avatar,
@@ -1379,7 +1379,7 @@ export const fakePostListData = [
         },
         postTags: ["Technology", "Lorem"],
         postType: ["text"],
-        postComments: [
+        comment: [
             {
                 postCommentContent: "Great post!",
             },
@@ -1422,7 +1422,7 @@ export const fakePostListData = [
         },
         postTags: ["Technology", "Lorem"],
         postType: ["text"],
-        postComments: [
+        comment: [
             {
                 postCommentContent: "Great post!",
             },
@@ -1465,7 +1465,7 @@ export const fakePostListData = [
         },
         postTags: ["Technology", "Lorem"],
         postType: ["text"],
-        postComments: [
+        comment: [
             {
                 postCommentContent: "Great post!",
             },
@@ -1508,7 +1508,7 @@ export const fakePostListData = [
         },
         postTags: ["Technology", "Lorem"],
         postType: ["text"],
-        postComments: [
+        comment: [
             {
                 postCommentContent: "Great post!",
             },
@@ -1551,7 +1551,7 @@ export const fakePostListData = [
         },
         postTags: ["Technology", "Lorem"],
         postType: ["text"],
-        postComments: [
+        comment: [
             {
                 postCommentContent: "Great post!",
             },

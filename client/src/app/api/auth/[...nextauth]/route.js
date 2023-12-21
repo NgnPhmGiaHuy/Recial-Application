@@ -81,7 +81,7 @@ const authOptions = {
                     const userDetails = await userRes.json();
 
                     session.user = userDetails;
-                    session.user.name = `${userDetails.first_name} ${userDetails.last_name}`;
+                    session.user.name = `${userDetails.firstname} ${userDetails.lastname}`;
                 }
             }
 

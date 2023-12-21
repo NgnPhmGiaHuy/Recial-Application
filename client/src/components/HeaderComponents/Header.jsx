@@ -3,6 +3,7 @@
 import Image from "next/image";
 import {useEffect, useRef, useState, useCallback} from "react";
 
+import {useClickOutside} from "@/hooks";
 import {headerNavigationItemList} from "@/constants/HeaderConstants";
 import {HeaderMenu, HeaderMessage, NotificationHeader, HeaderPersonalAccount, HeaderSearchHistory, HeaderNavigationItem} from "@/components";
 
@@ -41,40 +42,16 @@ const Header = ({navigationProps, userProps, disableMessage, disableNotification
     const handlePersonalAccountButtonClick = useCallback(() => {
         setShowPersonalAccount((prevShowPersonalAccount) => !prevShowPersonalAccount);
     }, []);
-    
-    useEffect(() => {
-        const handleOutsideClick = (event) => {
-            if (menuButtonRef.current && !menuButtonRef.current.contains(event.target)) {
-                setShowMenu(false);
-            }
-            if (messageButtonRef.current && !messageButtonRef.current.contains(event.target)) {
-                setShowMessage(false);
-            }
-            if (notificationButtonRef.current && !notificationButtonRef.current.contains(event.target)) {
-                setShowNotification(false);
-            }
-            if (searchHistoryButtonRef.current && !searchHistoryButtonRef.current.contains(event.target)) {
-                setShowSearchHistory(false);
-            }
-            if (personalAccountButtonRef.current && !personalAccountButtonRef.current.contains(event.target)) {
-                setShowPersonalAccount(false);
-            }
-        };
 
-        if (showMenu || showMessage || showNotification || showSearchHistory || showPersonalAccount) {
-            document.addEventListener("mousedown", handleOutsideClick);
-        } else {
-            document.removeEventListener("mousedown", handleOutsideClick);
-        }
-
-        return () => {
-            document.removeEventListener("mousedown", handleOutsideClick);
-        };
-    }, [showMenu, showMessage, showNotification, showSearchHistory, showPersonalAccount]);
+    useClickOutside(menuButtonRef, showMenu, setShowMenu);
+    useClickOutside(messageButtonRef, showMessage, setShowMessage);
+    useClickOutside(notificationButtonRef, showNotification, setShowNotification);
+    useClickOutside(searchHistoryButtonRef, showSearchHistory, setShowSearchHistory);
+    useClickOutside(personalAccountButtonRef, showPersonalAccount, setShowPersonalAccount);
 
     useEffect(() => {
         setNotificationUnreadCount(
-            userProps?.notifications.filter(notification => !notification.is_read).length
+            userProps?.notifications?.filter(notification => !notification.is_read).length
         );
     }, [userProps?.notifications]);
 
@@ -89,22 +66,22 @@ const Header = ({navigationProps, userProps, disableMessage, disableNotification
                             </div>
                         </a>
                     </div>
-                    <div className="w-[320px] h-full">
+                    <div className="sm:w-[320px] w-[48px] flex h-full">
                         <div className="w-full h-full relative before:shadow-md">
-                            <div className={`${showSearchHistory ? "shadow-xl" : null} w-full h-full flex items-center px-[16px] mb-[-8px]`}>
+                            <div className={`${showSearchHistory ? "shadow-xl" : null} w-full h-full sm:px-[16px] px-[4px] mb-[-8px] flex items-center `}>
                                 <div className="w-full flex items-center">
                                     <div className={`${showSearchHistory ? "flex w-[34px] h-[34px] p-[8px]" : "hidden"} items-center justify-center rounded-full hover:bg-zinc-200 cursor-pointer transition-all duration-500 ease-in-out animate-moveIconRightToLeft`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
                                         </svg>
                                     </div>
-                                    <label className={`${showSearchHistory ? "w-full" : null} h-full min-w-[40px] min-h-[40px] flex items-center relative rounded-full bg-zinc-100 z-10`} htmlFor="headerSearchInput">
-                                        <span className={`${showSearchHistory ? "animate-moveIconRightToLeft hidden" : "flex"} items-center pl-[12px] transition-all duration-500`}>
+                                    <label className={`${showSearchHistory ? "w-full" : null} h-full min-w-[40px] min-h-[40px] flex items-center justify-center relative rounded-full bg-zinc-100 z-10`} htmlFor="headerSearchInput">
+                                        <span className={`${showSearchHistory ? "animate-moveIconRightToLeft hidden" : "flex"} w-auto items-center sm:pl-[12px] transition-all duration-500`}>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
                                             </svg>
                                         </span>
                                         <span className={`${showSearchHistory ? "flex" : "hidden"} w-[22px]`}></span>
-                                        <input type="text" name="headerSearchInput" id="headerSearchInput" placeholder="Search in Recial" ref={searchHistoryButtonRef} className="px-[8px] pt-[7px] pb-[9px] w-full h-full outline-none bg-zinc-100 rounded-r-full" onClick={handleSearchHistoryButtonClick}/>
+                                        <input type="text" name="headerSearchInput" id="headerSearchInput" placeholder="Search in Recial" ref={searchHistoryButtonRef} className="w-full h-full px-[8px] pt-[7px] pb-[9px] sm:flex hidden outline-none bg-zinc-100 rounded-r-full" onClick={handleSearchHistoryButtonClick}/>
                                     </label>
                                 </div>
                             </div>
@@ -117,7 +94,7 @@ const Header = ({navigationProps, userProps, disableMessage, disableNotification
             </div>
             <div className="w-full h-[56px] top-0 right-0 fixed shadow z-20 bg-white">
                 <div className="w-full h-full flex flex-col justify-end relative z-0">
-                    <ul className="w-full h-full flex flex-nowrap list-none items-center justify-center grow px-[110px]">
+                    <ul className="w-full h-full sm:flex hidden flex-nowrap list-none items-center justify-center grow px-[110px]">
                         {headerNavigationItemList.map((value, index) => (
                             <HeaderNavigationItem key={index} itemProps={value} navigationProps={navigationProps}/>
                         ))}
@@ -158,17 +135,19 @@ const Header = ({navigationProps, userProps, disableMessage, disableNotification
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M10.5 8.25h3l-3 4.5h3"/>
                                 </svg>
                             </i>
-                            <span className="absolute h-[19px] min-w-[19px] flex items-center justify-center -top-1 -right-1 bg-red-500 rounded-full">
-                                <span className="text-white text-[13px] font-medium">
-                                    {notificationUnreadCount}
+                            {userProps?.notifications?.length ? (
+                                <span className="absolute h-[19px] min-w-[19px] flex items-center justify-center -top-1 -right-1 bg-red-500 rounded-full">
+                                    <span className="text-white text-[13px] font-medium">
+                                        {notificationUnreadCount}
+                                    </span>
                                 </span>
-                            </span>
+                            ) : null}
                         </div>
                     </div>
                     <div className="h-full flex items-center justify-center">
                         <div ref={personalAccountButtonRef} className="w-[40px] h-[40px] relative cursor-pointer" onClick={handlePersonalAccountButtonClick}>
                             <div className="w-full h-full rounded-full overflow-hidden relative">
-                                <Image src={userProps?.user.profile_picture_url} alt={`${userProps?.user.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                             </div>
                             <div className="w-3 h-3 top-0 right-0 absolute border border-solid border-white rounded-full bg-red-500"></div>
                         </div>

@@ -7,12 +7,24 @@ const StorySchema = new Schema(
             type: String,
             required: true,
         },
+        story_title: {
+            type: String,
+        },
+        story_description: {
+            type: String,
+        },
         story_type: {
             type: Schema.Types.ObjectId,
             ref: "Type",
         },
         story_duration: {
             type: Number,
+        },
+        story_privacy: {
+            type: String,
+            required: true,
+            default: "Public",
+            enum: ["Public", "Private", "Friends", "OnlyMe"],
         },
         story_views: [{
             user: {

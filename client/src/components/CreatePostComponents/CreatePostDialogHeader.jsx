@@ -33,7 +33,7 @@ const CreatePostDialogHeader = ({userProps, handleShowCreatePost, handeShowCreat
                             <div className="flex flex-row flex-shrink-0 relative">
                                 <span className="block text-[20px] text-black font-semibold break-words leading-5">
                                     <span className="overflow-x-hidden overflow-y-hidden relative">
-                                        {userProps?.user?.username || userProps?.user?.first_name + " " + userProps?.user?.last_name}
+                                        {userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname}
                                     </span>
                                 </span>
                             </div>

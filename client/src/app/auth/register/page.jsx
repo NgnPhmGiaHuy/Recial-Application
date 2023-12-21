@@ -5,7 +5,7 @@ import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {NextResponse} from "next/server";
 
-import checkAccessToken from "@/hooks/checkAccessToken";
+import {useCheckAccessToken} from "@/hooks";
 import {AuthHeader, AuthLoginForm} from "@/components";
 import {checkPasswordStrength, validateEmail} from "@/utils";
 
@@ -120,4 +120,4 @@ const Signup = () => {
     );
 };
 
-export default checkAccessToken(Signup);
+export default useCheckAccessToken(Signup);

@@ -2,6 +2,7 @@
 
 import {useEffect, useRef, useState, useCallback} from "react";
 
+import {useClickOutside} from "@/hooks";
 import {headerMessageQuickSettingList} from "@/constants/HeaderConstants";
 import {HeaderMessageContentItem, QuickSettingItem} from "@/components";
 
@@ -19,23 +20,9 @@ const HeaderMessage = ({forwardedRef, userProps}) => {
         if (messageQuickSettingButtonRef.current && showMessageQuickSetting) {
             setMessageQuickSettingTranslateYValue(-messageQuickSettingButtonRef.current.clientHeight);
         }
-
-        const handleOutsideClick = (event) => {
-            if (messageQuickSettingButtonRef.current && !messageQuickSettingButtonRef.current.contains(event.target)) {
-                setShowMessageQuickSetting(false);
-            };
-        };
-
-        if (showMessageQuickSetting) {
-            document.addEventListener("mousedown", handleOutsideClick);
-        } else {
-            document.removeEventListener("mousedown", handleOutsideClick);
-        }
-
-        return () => {
-            document.removeEventListener("mousedown", handleOutsideClick);
-        };
     }, [showMessageQuickSetting]);
+
+    useClickOutside(messageQuickSettingButtonRef, showMessageQuickSetting, setShowMessageQuickSetting);
 
     return (
         <div ref={forwardedRef} className="absolute top-0 left-0 translate-x-[-172px] translate-y-[48px]">
@@ -109,15 +96,17 @@ const HeaderMessage = ({forwardedRef, userProps}) => {
                                 </div>
                             </div>
                             <div>
-                                <div className="px-[16px] py-[12px]">
-                                    <div className="flex flex-row items-center text-left text-[16px] font-normal leading-5">
-                                        <span>Messages</span>
+                                {userProps?.message ? (
+                                    <div className="px-[16px] py-[12px]">
+                                        <div className="flex flex-row items-center text-left text-[16px] font-normal leading-5">
+                                            <span>Messages</span>
+                                        </div>
                                     </div>
-                                </div>
+                                ) : null}
                             </div>
                             <div>
                                 <ul className="flex flex-col relative">
-                                    {userProps?.messages.map((value, index) => (
+                                    {userProps?.messages?.map((value, index) => (
                                         <HeaderMessageContentItem key={index} messageProps={value}/>
                                     ))}
                                 </ul>

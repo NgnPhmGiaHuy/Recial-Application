@@ -4,10 +4,10 @@ import Image from "next/image";
 import {useCallback, useEffect, useRef, useState} from 'react';
 
 import {formatDate} from "@/utils";
-import {VideoPageScaffoldFooter} from "@/components";
+import {MediaPageScaffoldFooter} from "@/components";
 import {useClickOutside} from "@/hooks";
 
-const VideoPageScaffoldCommentItem = ({videoProps, isReply}) => {
+const VideoPageScaffoldCommentItem = ({mediaProps, isReply}) => {
     const reportButtonRef = useRef(null);
 
     const [displayedComments, setDisplayedComments] = useState(5);
@@ -30,7 +30,7 @@ const VideoPageScaffoldCommentItem = ({videoProps, isReply}) => {
     }, []);
 
     const handleShowAllComments = () => {
-        setDisplayedComments(videoProps.replies.length);
+        setDisplayedComments(mediaProps?.comment_reply?.length);
         setShowMoreComments(true);
     };
 
@@ -42,7 +42,7 @@ const VideoPageScaffoldCommentItem = ({videoProps, isReply}) => {
                 <div className="mr-[12px] flex-[0_0_40px]">
                     <a href="">
                         <div className="w-[40px] h-[40px] flex items-center justify-center bg-white rounded-full overflow-hidden relative">
-                            <Image src={videoProps.user.profile_picture_url} alt={`${videoProps.user.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                            <Image src={mediaProps?.user?.profile_picture_url} alt={`${mediaProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                         </div>
                     </a>
                 </div>
@@ -51,7 +51,7 @@ const VideoPageScaffoldCommentItem = ({videoProps, isReply}) => {
                         <a href="">
                             <span className="block text-[14px] text-black text-left font-semibold break-words relative leading-5 hover:underline transition-all">
                                 <span className="overflow-hidden text-ellipsis line-clamp-1 relative">
-                                    {videoProps.user.username}
+                                    {mediaProps?.user?.username || mediaProps?.user?.firstname + " " + mediaProps?.user?.lastname}
                                 </span>
                             </span>
                         </a>
@@ -59,14 +59,14 @@ const VideoPageScaffoldCommentItem = ({videoProps, isReply}) => {
                     <div className="flex flex-row items-center">
                         <span className="block text-[16px] text-black text-left font-normal break-words relative leading-5">
                             <span className="overflow-hidden text-ellipsis line-clamp-3 relative">
-                                {videoProps.comment_text || videoProps.replies_text}
+                                {mediaProps?.comment_text}
                             </span>
                         </span>
                     </div>
                     <div className="flex flex-row items-center">
                         <span className="w-[64px] text-[14px] text-zinc-500 text-left font-normal break-words relative leading-5">
                             <span className="overflow-hidden whitespace-nowrap text-ellipsis relative">
-                                {formatDate(videoProps.updated_at)}
+                                {formatDate(mediaProps?.updated_at)}
                             </span>
                         </span>
                         <div className="ml-[4px] flex cursor-pointer" onClick={handleShowReplyPanel}>
@@ -114,7 +114,7 @@ const VideoPageScaffoldCommentItem = ({videoProps, isReply}) => {
                     <div className="flex items-center">
                         <span className="block text-[12px] text-left font-normal break-words relative leading-5">
                             <span className="overflow-hidden relative">
-                                {videoProps.likes_count}
+                                {mediaProps?.likes_count}
                             </span>
                         </span>
                     </div>
@@ -123,24 +123,24 @@ const VideoPageScaffoldCommentItem = ({videoProps, isReply}) => {
             {showReplyPanel ? (
                 <div className="pl-[52px]">
                     <div className="mb-[16px]">
-                        <VideoPageScaffoldFooter isComment={true} handleShowReplyPanel={handleShowReplyPanel}/>
+                        <MediaPageScaffoldFooter isComment={true} handleShowReplyPanel={handleShowReplyPanel}/>
                     </div>
                 </div>
             ) : null}
-            {videoProps.replies && videoProps.replies.length ? (
+            {mediaProps?.comment_reply && mediaProps?.comment_reply?.length ? (
                 <div className="pl-[52px] flex flex-row items-center justify-between relative">
                     {showMoreComments ? (
                         <>
                             <div className="w-full h-full flex flex-col relative">
-                                {videoProps.replies.slice(0, displayedComments).map((value, index) => (
-                                    <VideoPageScaffoldCommentItem key={index} videoProps={value} isReply={true}/>
+                                {mediaProps?.comment_reply?.slice(0, displayedComments).map((value, index) => (
+                                    <VideoPageScaffoldCommentItem key={index} mediaProps={value} isReply={true}/>
                                 ))}
-                                {displayedComments < videoProps.replies.length && (
+                                {displayedComments < mediaProps?.comment_reply?.length && (
                                     <div className="pl-[52px] flex flex-row items-center justify-between relative">
                                         <div className="flex flex-row items-center justify-center cursor-pointer group relative" onClick={handleShowAllComments}>
                                             <span className="text-[14px] text-zinc-500 text-left font-semibold break-words relative leading-5 group-hover:underline">
                                                 <span className="overflow-hidden relative">
-                                                    See more {videoProps.replies.length - displayedComments} comments
+                                                    See more {mediaProps?.comment_reply?.length - displayedComments} comments
                                                 </span>
                                             </span>
                                             <div className="w-[14px] h-[14px] ml-[6px] flex items-center justify-center overflow-hidden relative">
@@ -159,7 +159,7 @@ const VideoPageScaffoldCommentItem = ({videoProps, isReply}) => {
                         <div className="flex flex-row items-center justify-center cursor-pointer group relative" onClick={handleShowMoreComment}>
                             <span className="text-[14px] text-zinc-500 text-left font-semibold break-words relative leading-5 group-hover:underline">
                                 <span className="overflow-hidden relative">
-                                    See more {videoProps.replies.length} comments
+                                    See more {mediaProps?.comment_reply?.length} comments
                                 </span>
                             </span>
                             <div className="w-[14px] h-[14px] ml-[6px] flex items-center justify-center overflow-hidden relative">

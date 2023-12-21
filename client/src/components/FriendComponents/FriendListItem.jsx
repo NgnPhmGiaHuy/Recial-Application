@@ -3,9 +3,10 @@
 import Image from "next/image";
 import {useCallback, useEffect, useRef, useState} from "react";
 
+import {useClickOutside} from "@/hooks";
 import {QuickSettingItem} from "@/components";
 
-const FriendListItem = ({userProps}) => {
+const FriendListItem = ({userProps, action}) => {
     const asideFriendListQuickSettingItemList = [
         {
             isSettingItemBreak: false,
@@ -14,7 +15,7 @@ const FriendListItem = ({userProps}) => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z" />
                 </svg>
             ),
-            settingItemTitle: `Message ${userProps.username}`,
+            settingItemTitle: `Message ${userProps?.user?.username}`,
             hasSettingItemSwitchButton: false,
         }, {
             isSettingItemBreak: false,
@@ -23,8 +24,8 @@ const FriendListItem = ({userProps}) => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z" />
                 </svg>
             ),
-            settingItemTitle: `Follow ${userProps.username}`,
-            settingItemSubtitle: `See posts from ${userProps.username}.`,
+            settingItemTitle: `Follow ${userProps?.user?.username}`,
+            settingItemSubtitle: `See posts from ${userProps?.user?.username}.`,
             hasSettingItemSwitchButton: false,
         },{
             isSettingItemBreak: false,
@@ -33,8 +34,8 @@ const FriendListItem = ({userProps}) => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                 </svg>
             ),
-            settingItemTitle: `Block ${userProps.username}'s profile`,
-            settingItemSubtitle: `${userProps.username} won't be able to see you or contact you on Recial.`,
+            settingItemTitle: `Block ${userProps?.user?.username}'s profile`,
+            settingItemSubtitle: `${userProps?.user?.username} won't be able to see you or contact you on Recial.`,
             hasSettingItemSwitchButton: false,
         },{
             isSettingItemBreak: false,
@@ -46,8 +47,8 @@ const FriendListItem = ({userProps}) => {
                     <line x1="23" y1="8" x2="18" y2="13"></line>
                 </svg>
             ),
-            settingItemTitle: `Unfriend ${userProps.username}`,
-            settingItemSubtitle: `Remove ${userProps.username} as a friend.`,
+            settingItemTitle: `Unfriend ${userProps?.user?.username}`,
+            settingItemSubtitle: `Remove ${userProps?.user?.username} as a friend.`,
             hasSettingItemSwitchButton: false,
         },
     ]
@@ -57,7 +58,8 @@ const FriendListItem = ({userProps}) => {
     const [showFriendListQuickSettingItem, setShowFriendListQuickSettingItem] = useState(false)
     const [friendListQuickSettingItemTranslateYValue, setFriendListQuickSettingItemTranslateYValue] = useState(-270);
 
-    const handleShowFriendListQuickSettingItem = useCallback(() => {
+    const handleShowFriendListQuickSettingItem = useCallback((e) => {
+        e.stopPropagation();
         setShowFriendListQuickSettingItem((prevShowFriendListQuickSettingItem) => !prevShowFriendListQuickSettingItem)
     }, []);
 
@@ -65,30 +67,16 @@ const FriendListItem = ({userProps}) => {
         if (friendListQuickSettingItemButtonRef.current && showFriendListQuickSettingItem) {
             setFriendListQuickSettingItemTranslateYValue(-friendListQuickSettingItemButtonRef.current.clientHeight);
         }
-
-        const handleClickOutside = (event) => {
-            if (friendListQuickSettingItemButtonRef.current && !friendListQuickSettingItemButtonRef.current.contains(event.target)) {
-                setShowFriendListQuickSettingItem(false)
-            }
-        }
-
-        if (showFriendListQuickSettingItem) {
-            document.addEventListener("mousedown", handleClickOutside);
-        } else {
-            document.removeEventListener("mousedown", handleClickOutside);
-        }
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        }
     }, [showFriendListQuickSettingItem]);
 
+    useClickOutside(friendListQuickSettingItemButtonRef, showFriendListQuickSettingItem, setShowFriendListQuickSettingItem)
+
     return (
-        <div className="pt-[12px] mx-[-4px] flex flex-col flex-auto justify-between relative">
+        <div className="pt-[12px] mx-[-4px] flex flex-col flex-auto justify-between relative" onClick={() => action(userProps?.user?._id)}>
             <div className="min-h-[44px] px-[4px] flex flex-row items-center justify-between rounded-md relative cursor-pointer hover:bg-zinc-100 transition-all">
                     <div className="my-[8px] mr-[12px] flex flex-col self-start relative">
                         <div className="w-[60px] h-[60px] flex flex-col items-center rounded-full overflow-hidden relative">
-                            <Image src={userProps.profile_picture_url} alt={`${userProps.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                            <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                         </div>
                     </div>
                     <div className="my-[-6px] py-[12px] flex flex-row flex-shrink grow items-stretch justify-between basis-0 relative">
@@ -98,16 +86,16 @@ const FriendListItem = ({userProps}) => {
                                     <div className="flex flex-col flex-shrink grow basis-0 relative">
                                         <span className="block text-[14px] text-black font-bold break-words relative leading-5">
                                             <span className="overflow-x-hidden overflow-y-hidden line-clamp-1 relative">
-                                                {userProps.username}
+                                                {userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname}
                                             </span>
                                         </span>
                                     </div>
                                 </div>
-                                {userProps.mutual_friends.length ? (
+                                {userProps?.mutual_friends?.length ? (
                                     <div className="flex flex-row flex-nowrap items-center justify-between relative">
                                         <div className="flex flex-row items-center justify-between relative">
                                             <div className="ml-[8px] flex flex-row items-center justify-center relative">
-                                                {userProps.mutual_friends.slice(0, 3).map((value, index) => {
+                                                {userProps?.mutual_friends?.slice(0, 3).map((value, index) => {
                                                     const zIndexValue = 10 - index;
                                                     return (
                                                         <div key={index} style={{ zIndex: zIndexValue }} className="w-[20px] h-[20px] ml-[-8px] border-[2px] border-solid border-white rounded-full relative cursor-pointer overflow-hidden">
@@ -119,7 +107,7 @@ const FriendListItem = ({userProps}) => {
                                             <div className="flex flex-col items-center relative">
                                                 <span className="block text-[14px] text-zinc-500 font-medium break-words relative leading-5">
                                                     <span className="overflow-x-hidden overflow-y-hidden relative">
-                                                        {userProps.mutual_friends.length} mutual friends
+                                                        {userProps?.mutual_friends?.length} mutual friends
                                                     </span>
                                                 </span>
                                             </div>

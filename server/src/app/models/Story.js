@@ -24,7 +24,7 @@ const StorySchema = new Schema(
             type: String,
             required: true,
             default: "Public",
-            enum: ["Public", "Private", "Friends", "OnlyMe"],
+            enum: ["Public", "Private", "Friends", "Specific_Friends"],
         },
         story_views: [{
             user: {

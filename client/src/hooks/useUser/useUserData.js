@@ -4,11 +4,19 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 import {useTokenRefresh} from "@/hooks";
-import {fetchUserData, fetchUserFollower, fetchUserFollowing, fetchUserFriend, fetchUserGroupList, fetchUserMessage, fetchUserNotification, fetchUserPhotoList} from "@/app/api/fetchUserData";
+import {
+    fetchUserData,
+    fetchUserFollower,
+    fetchUserFollowing,
+    fetchUserFriend,
+    fetchUserGroupList,
+    fetchUserMessage,
+    fetchUserNotification,
+    fetchUserPhotoList,
+    fetchUserSearchQuery, fetchUserSetting
+} from "@/app/api/fetchUserData";
 
 const useUserData = () => {
-    useTokenRefresh();
-
     const router = useRouter();
     const [userProps, setUserProps] = useState(null);
 
@@ -42,6 +50,16 @@ const useUserData = () => {
                         ...prevData,
                         user: { ...prevData.user, friends: [...userFriend] }
                     }));
+                }
+
+                const userSearch = await fetchUserSearchQuery();
+                if (userSearch && !userSearch.error) {
+                    setUserProps((prevData) => ({ ...prevData, search: [...userSearch] }));
+                }
+
+                const userSetting = await fetchUserSetting();
+                if (userSetting && !userSetting.error) {
+                    setUserProps((prevData) => ({ ...prevData, setting: userSetting }));
                 }
 
                 const userFollowing = await fetchUserFollowing()
@@ -79,7 +97,7 @@ const useUserData = () => {
         fetchData();
     }, [router]);
 
-    return userProps;
+    return {userProps, setUserProps};
 };
 
 export default useUserData;

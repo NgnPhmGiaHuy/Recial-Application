@@ -1,7 +1,10 @@
+import {useTokenRefresh} from "@/hooks";
 import {fakeUserData} from "@/constants";
 import {AsideSetting, Header, SettingScaffold} from "@/components";
 
 const AdsSettingPage = () => {
+    useTokenRefresh();
+
     const asideAdsDataItemList = [
         {
             itemTitle: "Advertising preferences",
@@ -91,13 +94,6 @@ const AdsSettingPage = () => {
                     itemImage: "",
                     itemTitle: "Content language",
                     itemNavigation: "content_language",
-                    hasSettingItemChevronRight: false,
-                },
-                {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Autoplay videos",
-                    itemNavigation: "autoplay_videos",
                     hasSettingItemChevronRight: false,
                 },
                 {

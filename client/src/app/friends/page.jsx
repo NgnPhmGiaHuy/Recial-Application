@@ -5,10 +5,10 @@ import {useTokenRefresh, useUserData, useWithAuth} from "@/hooks";
 import {AsideScaffold, FriendScaffold, Header} from "@/components";
 
 const FriendPage = () => {
-    const userProps = useUserData();
-
     useTokenRefresh();
-
+    
+    const { userProps } = useUserData();
+    
     return (
         <div>
             <Header navigationProps="mynetwork" userProps={userProps}/>

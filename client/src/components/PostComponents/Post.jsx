@@ -4,7 +4,7 @@ const Post = ({postRef, userProps, postListProps}) => {
     return (
         <div ref={postRef}>
             {postListProps?.map((value, index) => (
-                <PostItem key={index} userProps={userProps} postProps={value}/>
+                <PostItem key={index} userProps={userProps} postProps={value} />
             ))}
         </div>
     );

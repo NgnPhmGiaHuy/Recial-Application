@@ -1,16 +1,19 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import {useOverflowText} from "@/hooks";
 import {calculateAttachmentStyles} from "@/utils";
 
 const PostItemContent = ({ postProps }) => {
+    const {textRef, showMoreText, isOverflowing, handleShowMoreText} = useOverflowText();
+
     return (
         <div>
             <div className="px-[16px] pb-[16px] pt-[4px]">
                 <div className="flex flex-col relative">
                     <span className="block text-[15px] text-black text-left font-normal break-words leading-5 relative">
                         <div>
-                            <span className="overflow-hidden line-clamp-5 break-words">
+                            <span ref={textRef} className={`${showMoreText ? "" : "line-clamp-5"} webkit-box`}>
                                 {postProps?.post?.post_content}
                             </span>
                         </div>
@@ -23,11 +26,26 @@ const PostItemContent = ({ postProps }) => {
                                 ))}
                             </span>
                         </div>
+                        {!showMoreText && isOverflowing ? (
+                            <span
+                                className="text-[16px] text-zinc-500 font-semibold break-words cursor-pointer relative leading-5 hover:underline transition-all" onClick={handleShowMoreText}>
+                                    <span className="overflow-hidden relative">
+                                        See more
+                                    </span>
+                                </span>
+                        ) : showMoreText && isOverflowing ? (
+                            <span className="text-[16px] text-zinc-500 font-semibold break-words cursor-pointer relative leading-5 hover:underline transition-all"
+                                  onClick={handleShowMoreText}>
+                                    <span className="overflow-hidden relative">
+                                        See less
+                                    </span>
+                                </span>
+                        ) : null}
                     </span>
                 </div>
             </div>
             <div className="mt-[8px]">
-                {postProps?.photo ? (
+                {postProps?.photo && postProps?.photo?.length ? (
                     <div className="w-full h-0 pt-[75%] block overflow-x-hidden overflow-y-hidden bg-white border-t border-b border-solid border-zinc-200  relative">
                         {postProps?.photo?.length === 1 ? (
                             <Link href={`/post/?user=${postProps?.user?._id}&post=${postProps?.post?._id}&photo=${postProps?.photo[0]._id}`}>

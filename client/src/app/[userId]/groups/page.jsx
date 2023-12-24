@@ -1,9 +1,11 @@
 "use client"
 
-import {useUserIdLayout} from "@/hooks";
+import {useTokenRefresh, useUserIdLayout} from "@/hooks";
 import {Header, UserAboutScaffold, UserProfileCover} from "@/components";
 
 const UserGroupsPage = ({params}) => {
+    useTokenRefresh();
+
     const {userData, userProps, isCurrentUser} = useUserIdLayout(params.userId);
 
     return (

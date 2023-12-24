@@ -15,7 +15,7 @@ const VideoSchema = new Schema(
             type: String,
             required: true,
             default: "Public",
-            enum: ["Public", "Private", "Friends", "OnlyMe"],
+            enum: ["Public", "Private", "Friends", "Specific_Friends"],
         },
         video_description: {
             type: String,

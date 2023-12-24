@@ -1,7 +1,10 @@
+import {useTokenRefresh} from "@/hooks";
 import {fakeUserData} from "@/constants";
 import {AsideSetting, Header, SettingScaffold} from "@/components";
 
 const NotificationSettingPage = () => {
+    useTokenRefresh();
+
     const asideNotificationItemList = [
         {
             itemTitle: "Notifications you receive",

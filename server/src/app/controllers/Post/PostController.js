@@ -1,4 +1,7 @@
 const Post = require("../../models/Post");
+const Type = require("../../models/Type");
+const User = require("../../models/User");
+const Comment = require("../../models/Comment");
 const userDataService = require("../../services/userDataService");
 const postDataService = require("../../services/postDataService");
 
@@ -23,6 +26,79 @@ class PostController {
             const postsWithUserData = await this.enhancePostsWithUserData(posts);
 
             res.status(200).json(postsWithUserData)
+        } catch (error) {
+            if (error.name === 'TokenExpiredError') {
+                return res.status(401).json({ error: 'Token expired' });
+            }
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    setPostData = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await User.findById(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const postData = req.body;
+
+            const newPost = new Post({
+                post_content: postData.post.post_content,
+                post_privacy: postData.post.post_privacy,
+            })
+
+            await newPost.save();
+
+            user.post_list.unshift(newPost._id);
+            user.post_list.sort(async (postIdA, postIdB) => {
+                const postA = await Post.findById(postIdA);
+                const postB = await Post.findById(postIdB);
+                return postB.updatedAt - postA.updatedAt;
+            });
+
+            await user.save();
+
+            res.status(200).json(newPost);
+        } catch (error) {
+            if (error.name === 'TokenExpiredError') {
+                return res.status(401).json({ error: 'Token expired' });
+            }
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    setPostComment = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await userDataService.getUserById(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const postComment = req.body;
+
+            const typeId = await Type.findOne({ type_name: postComment.destination.type })
+
+            const newComment = new Comment({
+                source_id: postComment.source_id,
+                destination: {
+                    type: typeId._id,
+                    destination_id: postComment.destination.destination_id,
+                },
+                comment_text: postComment.comment_text,
+            });
+
+            await newComment.save();
+
+            res.status(200).json(newComment);
         } catch (error) {
             if (error.name === 'TokenExpiredError') {
                 return res.status(401).json({ error: 'Token expired' });

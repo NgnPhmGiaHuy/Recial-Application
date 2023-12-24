@@ -2,35 +2,28 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {useCallback, useState, useEffect, useRef} from "react";
+import { useEffect } from "react";
 
-const PostItemCommentInput = ({userProps, isReply}) => {
-    const [commentInputText, setCommentInputText] = useState('');
-    const [commentAllowSubmit, setCommentAllowSubmit] = useState(false);
+import {useContentEditable, useCommentData} from "@/hooks";
 
-    const commentInputContentEditableRef = useRef(null);
+const PostItemCommentInput = ({userProps, postProps, isReply}) => {
+    const { inputContentEditableRef, inputText, setCreatePostInputText, setCreatePostAllowSubmit, allowSubmit, handleInputTextChange } = useContentEditable()
 
-    const handleCommentInputTextChange = useCallback(() => {
-        const inputText = commentInputContentEditableRef.current.innerText.trim();
-        const wordCount = inputText.split(/\s+/).length;
-
-        const isOverLimit = wordCount > 255;
-
-        setCommentInputText(commentInputContentEditableRef.current.innerHTML);
-        setCommentAllowSubmit(commentInputContentEditableRef.current.innerText.trim().length > 0);
-
-        commentInputContentEditableRef.current.contentEditable = !isOverLimit;
-    }, []);
+    const { commentSubmitStatus, handleSetCommentData } = useCommentData();
+    const handleSubmitComment = async () => {
+        await handleSetCommentData(inputText, userProps, postProps, isReply);
+    }
 
     useEffect(() => {
-        const range = document.createRange();
-        const selection = window.getSelection();
+        const resetInput = () => {
+            setCreatePostInputText('');
+            setCreatePostAllowSubmit(false);
+            inputContentEditableRef.current.innerText = '';
+        };
 
-        range.selectNodeContents(commentInputContentEditableRef.current);
-        range.collapse(false);
-        selection.removeAllRanges();
-        selection.addRange(range);
-    }, [commentInputText])
+        resetInput();
+    }, [commentSubmitStatus]);
+
 
     return (
         <div className={`${isReply ? "ml-[44px]" : "mx-[16px]"} pt-[4px] pb-[8px] flex flex-row flex-shrink-0 items-start`}>
@@ -41,14 +34,14 @@ const PostItemCommentInput = ({userProps, isReply}) => {
                     </div>
                 </Link>
             </div>
-            <div className="max-w-[700px] max-h-[50vh] min-h-[40px] my-[4px] flex flex-row flex-shrink flex-grow relative">
+            <div className="w-full max-h-[50vh] min-h-[40px] my-[4px] flex flex-row flex-shrink flex-grow relative">
                 <form action="" className="w-full h-full grow cursor-text relative">
                     <div className="w-full h-full px-[16px] py-[2px] rounded-3xl border-2 border-solid border-zinc-200 bg-white relative">
                         <div className="w-full h-full flex flex-wrap items-center relative">
                             <div className="w-auto max-h-[40vh] h-full pb-[8px] pt-[6px] text-[14px] text-black text-ellipsis flex flex-auto overflow-x-hidden overflow-y-scroll font-normal leading-5">
-                                <div className="w-full h-full text-left outline-none whitespace-pre-wrap break-words relative" contentEditable={true} onInput={handleCommentInputTextChange} ref={commentInputContentEditableRef}>
+                                <div className="w-full h-full text-left outline-none whitespace-pre-wrap break-words relative" contentEditable={true} spellCheck={false} onInput={handleInputTextChange} ref={inputContentEditableRef}>
                                 </div>
-                                <div className="top-[7px] overflow-x-hidden overflow-y-hidden text-zinc-500 text-ellipsis pointer-events-none absolute z-[1]">{commentInputText.length === 0 ? "Add a comment..." : null}
+                                <div className="top-[7px] overflow-x-hidden overflow-y-hidden text-zinc-500 text-ellipsis pointer-events-none absolute z-[1]">{inputText.length === 0 ? "Add a comment..." : null}
                                 </div>
                             </div>
                             <div className="h-full ml-auto flex flex-row items-center justify-between relative">
@@ -66,6 +59,16 @@ const PostItemCommentInput = ({userProps, isReply}) => {
                                         </svg>
                                     </i>
                                 </div>
+                                {allowSubmit ? (
+                                    <div className="w-[44px] h-[36px] flex flex-col items-center justify-center text-zinc-500 rounded-full cursor-pointer relative hover:bg-zinc-200 transition-all" onClick={handleSubmitComment}>
+                                        <i>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-9 h-9">
+                                                <path
+                                                    d="M9 9H6M9 12H4M9 15H6M12.9825 7.61408L20 12L12.9825 16.3859C12.6108 16.6183 12.1412 16.2938 12.2272 15.8639L13 12L12.2272 8.13613C12.1412 7.70625 12.6108 7.38173 12.9825 7.61408Z"/>
+                                            </svg>
+                                        </i>
+                                    </div>
+                                ) : null}
                             </div>
                         </div>
                     </div>

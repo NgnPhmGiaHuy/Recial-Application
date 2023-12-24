@@ -22,6 +22,8 @@ const useCountComment = (entity) => {
         if (entity && entity.comment && entity.comment.length > 0) {
             const commentCount = countComments(entity.comment);
             setTotalComments(commentCount);
+        } else {
+            setTotalComments(0);
         }
     }, [entity]);
 

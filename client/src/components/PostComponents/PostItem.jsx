@@ -131,6 +131,10 @@ const PostItem = ({userProps, postProps}) => {
         }
     }, [showPostItemQuickSetting, showPostItemShareSetting])
 
+    useEffect(() => {
+
+    }, [postProps]);
+
     useClickOutside(postItemQuickSettingButtonRef, showPostItemQuickSetting, setShowPostItemQuickSetting)
     useClickOutside(postItemShareSettingButtonRef, showPostItemShareSetting, setShowPostItemShareSetting)
 
@@ -147,7 +151,7 @@ const PostItem = ({userProps, postProps}) => {
             </div>
             <div>
                 {showPostItemComment ? (
-                    <PostItemComment userProps={userProps} postProps={postProps}/>
+                    <PostItemComment userProps={userProps} postProps={postProps} />
                 ) : null}
             </div>
             <div ref={postItemQuickSettingButtonRef}>

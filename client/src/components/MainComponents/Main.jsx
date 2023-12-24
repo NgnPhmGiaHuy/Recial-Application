@@ -3,7 +3,7 @@
 import {useSuggestEventData, useSuggestGroupData, useSuggestPageData} from "@/hooks";
 import {Story, CreatePost, Post, FriendRequest, SuggestGroup, SuggestPage, Event} from "@/components";
 
-const Main = ({postRef, userProps, storyProps, postListProps, handleShowCreatePost}) => {
+const Main = ({postRef, userProps, storyProps, postProps, setPostProps, handleShowCreatePost}) => {
     const suggestEventProps = useSuggestEventData();
     const suggestGroupProps = useSuggestGroupData();
     const suggestPageProps = useSuggestPageData();
@@ -23,7 +23,7 @@ const Main = ({postRef, userProps, storyProps, postListProps, handleShowCreatePo
                                         <CreatePost userProps={userProps} handleShowCreatePost={handleShowCreatePost}/>
                                     </div>
                                     <div>
-                                        <Post postRef={postRef} userProps={userProps} postListProps={postListProps}/>
+                                        <Post postRef={postRef} userProps={userProps} postListProps={postProps} setPostListProps={setPostProps}/>
                                     </div>
                                 </div>
                             </div>

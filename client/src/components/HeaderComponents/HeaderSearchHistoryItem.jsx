@@ -3,14 +3,14 @@ import Image from "next/image";
 
 const HeaderSearchHistoryItem = ({searchHistoryProps}) => {
     return (
-        <li className="w-full">
+        <li className="w-full mb-[4px]">
             <div className="flex items-center overflow-x-hidden overflow-y-hidden p-[8px] m-0 rounded-[8px] relative hover:bg-zinc-100">
                 <a href="" className="w-full">
                     <div className="flex flex-row items-center relative m-[-6px] z-0">
-                        {searchHistoryProps.search_image ? (
+                        {searchHistoryProps?.search_image ? (
                             <div className="flex flex-col flex-shrink-0 p-[6px] z-0">
                                 <div className="w-[36px] h-[36px] rounded-full relative align-bottom z-0 overflow-hidden">
-                                    <Image src={searchHistoryProps.search_image} alt={`${searchHistoryProps.search_image}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                    <Image src={searchHistoryProps?.search_image} alt={`${searchHistoryProps?.search_image}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 </div>
                             </div>
                         ) : (
@@ -28,18 +28,18 @@ const HeaderSearchHistoryItem = ({searchHistoryProps}) => {
                             <div className="flex flex-col my-[-5px]">
                                 <div >
                                     <span className="block text-[15px] text-left font-medium leading-5 break-words">
-                                        <span className="overflow-x-hidden overflow-y-hidden relative">
-                                            {searchHistoryProps.search_query}
+                                        <span className="line-clamp-2 overflow-hidden relative">
+                                            {searchHistoryProps?.search_query}
                                         </span>
                                     </span>
                                 </div>
-                                {searchHistoryProps.search_image && searchHistoryProps.user_news? (
+                                {searchHistoryProps?.search_image && searchHistoryProps?.user_news? (
                                     <div className="mt-[5px]">
                                         <span className="block text-[13px] text-left text-gray-500 font-normal leading-4 break-words">
                                             <span className="overflow-x-hidden overflow-y-hidden flex flex-row items-center text-ellipsis whitespace-nowrap relative">
                                                 <span className="w-[8px] h-[8px] flex items-center justify-center rounded-full mr-[8px] bg-lime-500"></span>
                                                 <span>
-                                                    {searchHistoryProps.user_news_number === 1 ? `${searchHistoryProps.user_news_number} new information` : `${searchHistoryProps.searchHistoryNewsNumber} news information`}
+                                                    {searchHistoryProps?.user_news_number === 1 ? `${searchHistoryProps?.user_news_number} new information` : `${searchHistoryProps?.searchHistoryNewsNumber} news information`}
                                                 </span>
                                             </span>
                                         </span>

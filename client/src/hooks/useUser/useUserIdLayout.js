@@ -3,14 +3,12 @@
 import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 
-import {useTokenRefresh, useUserData} from "@/hooks";
+import {useUserData} from "@/hooks";
 import {fetchUserIdData, fetchUserIdFollower, fetchUserIdFollowing, fetchUserIdFriend, fetchUserIdGroupList, fetchUserIdPhotoList} from "@/app/api/fetchUserIdData";
 
 const useUserIdLayout = (userId) => {
-    useTokenRefresh();
-
-    const userData = useUserData();
     const router = useRouter();
+    const { userProps: userData, setUserProps: setUserData } = useUserData();
 
     const [userProps, setUserProps] = useState(null);
     const [isCurrentUser, setIsCurrentUser] = useState(false);
@@ -88,7 +86,7 @@ const useUserIdLayout = (userId) => {
         return () => { isCancelled = true };
     }, [userData, router, userId]);
 
-    return {userData, userProps, isCurrentUser};
+    return {userData, setUserData, userProps, isCurrentUser};
 }
 
 export default useUserIdLayout;

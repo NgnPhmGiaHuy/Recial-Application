@@ -20,7 +20,6 @@ const useTokenRefresh = () => {
                         "Content-Type": "application/json",
                         "Authorization": `Bearer ${refreshToken}`,
                     },
-                    body: JSON.stringify({refreshToken})
                 });
 
                 if (response.ok) {
@@ -28,6 +27,8 @@ const useTokenRefresh = () => {
                     const newAccessToken = responseData.accessToken;
 
                     return localStorage.setItem('accessToken', newAccessToken);
+                } else {
+                    return router.push("/auth/login")
                 }
             } catch (error) {
                 throw error;

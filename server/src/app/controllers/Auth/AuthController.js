@@ -61,14 +61,16 @@ class AuthController {
     };
 
     requestRefreshToken = async (req, res) => {
-        const refreshToken = req.body.refreshToken;
+        const refreshToken = req.headers.authorization;
 
         if (!refreshToken) {
             return res.status(401).json({ error: "You're not authenticated" });
         }
 
+        const token = refreshToken.split(' ')[1];
+
         try {
-            jwt.verify(refreshToken, "Hello", async (error, decoded) => {
+            jwt.verify(token, "Hello", async (error, decoded) => {
                 if (error) {
                     return res.status(403).json({ error: "Refresh token is not valid" });
                 }

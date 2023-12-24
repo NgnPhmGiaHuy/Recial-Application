@@ -1,37 +1,30 @@
 "use client"
 
-import React, {useCallback, useEffect, useState, useRef} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import {CreatePostDialogHeader, CreatePostDialogCustomizationItem, CreatePostDialogAudience} from "@/components";
+import {useContentEditable, useSetPostData} from "@/hooks";
 import {createPostContentCustomizationItemList} from "@/constants/CreatePostConstants";
+import {CreatePostDialogHeader, CreatePostDialogCustomizationItem, CreatePostDialogAudience} from "@/components";
 
-const CreatePostDialog = ({userProps, createPostRef, handleShowCreatePost}) => {
-    const createPostInputContentEditableRef = useRef(null);
-
-    const [createPostInputText, setCreatePostInputText] = useState('');
-    const [createPostAllowSubmit, setCreatePostAllowSubmit] = useState(false);
-
+const CreatePostDialog = ({userProps, setUserProps, createPostRef, handleShowCreatePost}) => {
     const [showCreatPostPanel, setShowCreatPostPanel] = useState(true);
     const [showCreatePostAudience, setShowCreatePostAudience] = useState(false);
-
-    const handleCreatePostInputTextChange = useCallback(() => {
-        setCreatePostInputText(createPostInputContentEditableRef.current.innerHTML);
-        setCreatePostAllowSubmit(createPostInputContentEditableRef.current.innerText.trim().length > 0)
-    }, []);
 
     const handeShowCreatePostAudience = useCallback(() => {
         setShowCreatPostPanel((prevShowCreatPostPanel) => !prevShowCreatPostPanel);
         setShowCreatePostAudience((prevShowCreatePostAudience) => !prevShowCreatePostAudience);
     }, []);
 
+    const { postSubmitStatus, handleSetPostData } = useSetPostData();
+    const { inputContentEditableRef, inputText, allowSubmit, handleInputTextChange } = useContentEditable()
+
+    const handleSubmitPost = async () => {
+        await handleSetPostData(inputText, userProps);
+    }
+
     useEffect(() => {
-        const range = document.createRange();
-        const selection = window.getSelection();
-        range.selectNodeContents(createPostInputContentEditableRef.current);
-        range.collapse(false);
-        selection.removeAllRanges();
-        selection.addRange(range);
-    }, [createPostInputText]);
+        handleShowCreatePost();
+    }, [postSubmitStatus]);
 
     return (
         <div className="z-10 relative">
@@ -50,14 +43,14 @@ const CreatePostDialog = ({userProps, createPostRef, handleShowCreatePost}) => {
                                                     </div>
                                                     <div className="flex flex-col grow overflow-x-hidden overflow-y-auto overscroll-y-contain relative">
                                                         <div className="flex flex-col grow relative">
-                                                            <div className="w-full h-full grow cursor-text relative">
+                                                            <div className="w-full max-h-[20vh] grow cursor-text relative">
                                                                 <div className="w-full h-fit px-[16px] pb-[40px] relative">
                                                                     <div className="flex items-center relative">
                                                                         <div className="w-full h-full pb-[8px] pt-[4px] text-[24px] text-black text-ellipsis overflow-x-hidden overflow-y-hidden font-normal leading-7">
-                                                                            <div className="w-full h-full text-black select-text whitespace-pre-wrap break-words outline-none relative" contentEditable={true} onInput={handleCreatePostInputTextChange} ref={createPostInputContentEditableRef}>
+                                                                            <div className="w-full h-full text-black select-text whitespace-pre-wrap break-words outline-none relative" contentEditable={true} spellCheck={false} onInput={handleInputTextChange} ref={inputContentEditableRef}>
                                                                             </div>
                                                                             <div className="top-[5px] overflow-x-hidden overflow-y-hidden text-zinc-500 text-ellipsis pointer-events-none absolute z-[1]">
-                                                                                {createPostInputText.length === 0 ? "What's on your mind, Nguyen Pham Gia Huy?" : null}
+                                                                                {inputText.length === 0 ? "What's on your mind, Nguyen Pham Gia Huy?" : null}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -102,12 +95,12 @@ const CreatePostDialog = ({userProps, createPostRef, handleShowCreatePost}) => {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="w-full px-[16px] pt-[16px] flex items-center justify-between relative">
-                                                            <div className={`${createPostAllowSubmit ? "cursor-pointer" : "cursor-not-allowed" } w-full inline-flex flex-col justify-center relative`}>
-                                                                <div className={`${createPostAllowSubmit ? "bg-lime-300 hover:bg-lime-500" : "bg-zinc-200"} h-[36px] px-[12px] flex flex-row flex-nowrap flex-shrink-0 items-center justify-center rounded-md relative`}>
+                                                        <div className="w-full px-[16px] pt-[16px] flex items-center justify-between relative" onClick={handleSubmitPost}>
+                                                            <div className={`${allowSubmit ? "cursor-pointer" : "cursor-not-allowed" } w-full inline-flex flex-col justify-center relative`}>
+                                                                <div className={`${allowSubmit ? "bg-lime-300 hover:bg-lime-500" : "bg-zinc-200"} h-[36px] px-[12px] flex flex-row flex-nowrap flex-shrink-0 items-center justify-center rounded-md relative`}>
                                                                     <div className="flex items-center justify-center">
                                                                         <div className="mx-[4px] flex flex-shrink-0 items-center relative">
-                                                                            <span className={`${createPostAllowSubmit ? "text-white" : "text-zinc-700"} block text-[15px] font-semibold break-words leading-5`}>
+                                                                            <span className={`${allowSubmit ? "text-white" : "text-zinc-700"} block text-[15px] font-semibold break-words leading-5`}>
                                                                                 <span className="overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
                                                                                     Post
                                                                                 </span>
@@ -123,7 +116,7 @@ const CreatePostDialog = ({userProps, createPostRef, handleShowCreatePost}) => {
                                         </div>
                                     </div>
                                     <div className={`${showCreatePostAudience ? "opacity-100 visible translate-x-0 animate-movePanelRightToLeft" : "opacity-0 invisible translate-x-full pointer-events-none"} top-0 left-0 absolute `}>
-                                        <CreatePostDialogAudience userProps={userProps} handeShowCreatePostAudience={handeShowCreatePostAudience}/>
+                                        <CreatePostDialogAudience userProps={userProps} setUserProps={setUserProps} handeShowCreatePostAudience={handeShowCreatePostAudience}/>
                                     </div>
                                 </div>
                             </form>

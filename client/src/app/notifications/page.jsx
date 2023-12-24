@@ -4,7 +4,9 @@ import {Header, NotificationScaffold} from "@/components";
 import {useTokenRefresh, useUserData, useWithAuth} from "@/hooks";
 
 const NotificationsPage = () => {
-    const userProps = useUserData();
+    useTokenRefresh();
+
+    const { userProps } = useUserData();
 
     return (
         <div>

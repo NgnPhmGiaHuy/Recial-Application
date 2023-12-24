@@ -3,10 +3,11 @@
 import {useCallback, useRef, useState} from "react";
 
 import { Header, Aside, Main, CreatePostDialog } from "@/components";
-import { useClickOutside, usePostData, useTokenRefresh, useUserData, useWithAuth } from "@/hooks";
-import useStoryData from "@/hooks/useMedia/useStoryData";
+import { useClickOutside, useStoryData, useGetPostData, useTokenRefresh, useUserData, useWithAuth } from "@/hooks";
 
 const HomePage = () => {
+    useTokenRefresh();
+
     const createPostRef = useRef(null);
 
     const [showCreatePost, setMainCreatePost] = useState(false);
@@ -15,9 +16,9 @@ const HomePage = () => {
         setMainCreatePost((prevShowMainCreatePost) => !prevShowMainCreatePost);
     }, []);
 
-    const userProps = useUserData();
     const storyProps = useStoryData();
-    const { postProps, postRef } = usePostData();
+    const { userProps, setUserProps } = useUserData();
+    const { postRef, postProps, setPostProps } = useGetPostData();
 
     useClickOutside(createPostRef, showCreatePost, setMainCreatePost);
 
@@ -32,7 +33,7 @@ const HomePage = () => {
                                 <div className="min-w-[320px] min-h-[inherit] flex flex-row flex-nowrap flex-shrink-0 items-stretch justify-center relative">
                                     <div className="min-h-[inherit] flex flex-row flex-shrink flex-nowrap grow items-start justify-between basis-0 relative">
                                         <Aside userProps={userProps}/>
-                                        <Main postRef={postRef} storyProps={storyProps} userProps={userProps} postListProps={postProps} handleShowCreatePost={handleShowCreatePost}/>
+                                        <Main postRef={postRef} storyProps={storyProps} userProps={userProps} postProps={postProps} setPostProps={setPostProps} handleShowCreatePost={handleShowCreatePost}/>
                                     </div>
                                 </div>
                             </div>
@@ -40,7 +41,7 @@ const HomePage = () => {
                     </div>
                     <div>
                         {showCreatePost ? (
-                            <CreatePostDialog userProps={userProps} createPostRef={createPostRef} handleShowCreatePost={handleShowCreatePost}/>
+                            <CreatePostDialog userProps={userProps} setUserProps={setUserProps} setPostProps={setPostProps} createPostRef={createPostRef} handleShowCreatePost={handleShowCreatePost}/>
                         ) : null}
                     </div>
                 </div>

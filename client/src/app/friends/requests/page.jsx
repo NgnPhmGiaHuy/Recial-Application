@@ -8,15 +8,15 @@ import {AsideScaffold, Header} from "@/components";
 import {useTokenRefresh, useUserData, useWithAuth} from "@/hooks";
 
 const FriendRequestPage = () => {
-    const userProps = useUserData();
+    useTokenRefresh();
+    
+    const { userProps } = useUserData();
 
     const [friendRequestId, setFriendRequestId] = useState(null);
 
     useEffect(() => {
     }, [friendRequestId]);
-
-    useTokenRefresh();
-
+    
     return (
         <div>
             <Header navigationProps="mynetwork" userProps={userProps}/>

@@ -8,7 +8,9 @@ const Post = require("../models/Post");
 const Group = require("../models/Group");
 const Page = require("../models/Page");
 const Video = require("../models/Video");
+const SearchHistory = require("../models/SearchHistory");
 const Photo = require("../models/Photo");
+const Setting = require("../models/Setting");
 const GroupMember = require("../models/GroupMember");
 
 async function getUserById(userId) {
@@ -79,6 +81,12 @@ async function getUserSocial(user) {
     }))
 
     return socialProps;
+}
+
+async function getUserSearchQuery(userId) {
+    const searchProps = await SearchHistory.find({ source_id: userId});
+
+    return searchProps;
 }
 
 async function getUserNotifications(userId) {
@@ -189,6 +197,12 @@ async function getUserGroup(userId) {
     return groupMemberProps;
 }
 
+async function getUserSetting(userId) {
+    const settingProps = await Setting.findOne({source_id: userId});
+
+    return settingProps;
+}
+
 async function getSuggestedEvents() {
     const suggestEvent = await Event.aggregate([
         { $sample: { size: 3 } },
@@ -232,4 +246,4 @@ async function getSuggestedGroup() {
     }
 }
 
-module.exports = {getUserById, getFullUserById, getUserMessages, getUserSocial, getUserNotifications, getUserPhotoList, getUserGroup, getSuggestedEvents, getSuggestedPages, getSuggestedGroup};
+module.exports = {getUserById, getFullUserById, getUserSetting, getUserMessages, getUserSearchQuery, getUserSocial, getUserNotifications, getUserPhotoList, getUserGroup, getSuggestedEvents, getSuggestedPages, getSuggestedGroup};

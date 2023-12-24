@@ -31,7 +31,7 @@ const PostItemComment = ({userProps, postProps}) => {
 
     return (
         <div className="flex flex-col justify-center relative">
-            <PostItemCommentInput userProps={userProps}/>
+            <PostItemCommentInput userProps={userProps} postProps={postProps} />
             <div className="mx-[16px] mb-[8px] relative">
                 <div className="w-fit flex flex-col cursor-pointer relative" onClick={handleShowCommentSortContent}>
                     <span className="flex flex-row items-center justify-between text-[16px] text-zinc-500 text-left font-semibold break-words relative leading-5">

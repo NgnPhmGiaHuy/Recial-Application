@@ -5,7 +5,6 @@ const PostSchema = new Schema(
     {
         post_title: {
             type: String,
-            required: true,
         },
         post_content: {
             type: String,
@@ -14,7 +13,7 @@ const PostSchema = new Schema(
             type: String,
             required: true,
             default: "Public",
-            enum: ["Public", "Private", "Friends", "OnlyMe"],
+            enum: ["Public", "Private", "Friends", "Specific_Friends"],
         },
         post_views: [{
             user: {

@@ -10,6 +10,7 @@ const usePostDataById = (userId) => {
 
     const [page, setPage] = useState(0);
     const [loading, setLoading] = useState(false);
+    const [hasChanged, setHasChanged] = useState(false);
     const [postByUserIdProps, setPostByUserIdProps] = useState([]);
 
     const debounce = (func, delay) => {
@@ -30,7 +31,12 @@ const usePostDataById = (userId) => {
             }
 
             if (Array.isArray(postProps)) {
-                setPostByUserIdProps((prevPosts) => [...prevPosts, ...postProps]);
+                const isDifferent = JSON.stringify(postByUserIdProps) !== JSON.stringify(postProps);
+
+                if (isDifferent) {
+                    setPostByUserIdProps(postProps);
+                    setHasChanged(true);
+                }
             }
         } catch (error) {
             throw error;
@@ -39,10 +45,22 @@ const usePostDataById = (userId) => {
         }
     };
 
+    const pollForChanges = () => {
+        const intervalId = setInterval(async () => {
+            await fetchPostData();
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+    };
+
     useEffect(() => {
-        setPostByUserIdProps([])
-        return () => {};
-    }, [userId])
+        setPostByUserIdProps([]);
+        const stopPolling = pollForChanges();
+
+        return () => {
+            stopPolling();
+        };
+    }, [userId]);
 
     useEffect(() => {
         fetchPostData();
@@ -62,7 +80,8 @@ const usePostDataById = (userId) => {
         };
     }, [loading]);
 
-    return { postByIdRef, postByUserIdProps };
+    return { postByIdRef, postByUserIdProps, setPostByUserIdProps, hasChanged };
 };
 
 export default usePostDataById;
+

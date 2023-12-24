@@ -22,6 +22,7 @@ const Tag = require("../app/models/Tag");
 const Type = require("../app/models/Type");
 const User = require("../app/models/User");
 const Video = require("../app/models/Video");
+const Setting = require("../app/models/Setting");
 
 const generateRoles = () => [
     { role_name: 'User', role_permissions: 'user_permissions_here' },
@@ -84,7 +85,7 @@ const generateMediaData = () => {
             _id: new mongoose.Types.ObjectId(),
             post_title: faker.lorem.text(),
             post_content: faker.lorem.paragraph(),
-            post_privacy: faker.helpers.arrayElement(["Public", "Private", "Friends", "OnlyMe"]),
+            post_privacy: faker.helpers.arrayElement(["Public", "Private", "Friends", "Specific_Friends"]),
             post_photos: postPhotos,
         };
     });
@@ -319,6 +320,30 @@ const generateSearchQuery = (allUsers) => Array.from({ length: 50000 }, () => {
     }
 })
 
+const generateSetting = async (allUser) => {
+    const settingProps = await Promise.all(allUser.map(async (user) => {
+        return {
+            source_id: user._id,
+            account: {
+                security: {
+                    two_factor_auth: faker.datatype.boolean(),
+                    login_alerts: faker.datatype.boolean(),
+                }
+            },
+            content: {
+                auto_play_video: faker.datatype.boolean(),
+            },
+            privacy: {
+                friend_request: faker.helpers.arrayElement(["Everyone", "Friends_of_friends", "None"]),
+                post_visibility: faker.helpers.arrayElement(["Public", "Private", "Friends", "Specific_Friends"]),
+                profile_privacy: faker.helpers.arrayElement(["Public", "Private", "Friends", "Specific_Friends"]),
+            }
+        }
+    }))
+
+    return settingProps;
+}
+
 const generateNotifications = (allUsers, typesWithCommentFiltered, allPages, allGroups, allComments, allStory) => Array.from({ length: 5000 }, () => {
     const randomUser = faker.helpers.objectValue(allUsers);
     const randomType = typesWithCommentFiltered[Math.floor(Math.random() * typesWithCommentFiltered.length)];
@@ -489,6 +514,8 @@ const generateDummyData = async () => {
 
         await generateFollower(allUsers);
         await generateFollowing(allUsers);
+        const settingProps = await generateSetting(allUsers)
+        await Setting.insertMany(settingProps)
         console.log('Dummy data generated successfully.');
     } catch (error) {
         console.error('Error generating dummy data:', error);

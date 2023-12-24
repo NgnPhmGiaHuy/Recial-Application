@@ -31,7 +31,7 @@ async function getPostPhoto(post) {
 }
 
 async function getComment(entityId) {
-    const comment = await Comment.find({ "destination.destination_id": entityId }).populate("source_id");
+    const comment = await Comment.find({ "destination.destination_id": entityId }).populate("source_id").sort({ updatedAt: -1 });
 
     const commentProps = await Promise.all(comment.map(async (comment) => {
         return {
@@ -50,7 +50,7 @@ async function getComment(entityId) {
 }
 
 async function getReaction(entityId) {
-    const reaction = await Reactions.find({ "destination.destination_id": entityId }).populate("source_id");
+    const reaction = await Reactions.find({ "destination.destination_id": entityId }).populate("source_id").sort({ updatedAt: -1 });
 
     const reactionProps = await Promise.all(reaction.map(async (reaction) => {
         const reactionType = await Type.findById(reaction.reaction_type);

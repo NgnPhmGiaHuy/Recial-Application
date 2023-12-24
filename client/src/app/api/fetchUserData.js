@@ -70,6 +70,80 @@ export const fetchUserFriend = async () => {
     }
 }
 
+export const fetchUserSearchQuery = async () => {
+    try {
+        const cachedUserSearchProps = localStorage.getItem("userSearchProps")
+
+        if (cachedUserSearchProps) {
+            return JSON.parse(cachedUserSearchProps);
+        } else  {
+            const accessToken = localStorage.getItem("accessToken");
+
+            if (!accessToken) {
+                return { error: "Access token not found" };
+            }
+
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/secure/user/search";
+
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                localStorage.setItem("userSearchProps", JSON.stringify(responseData));
+                return responseData;
+            } else {
+                return { error: "Error fetching user search data" };
+            }
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const fetchUserSetting = async () => {
+    try {
+        const cachedUserSettingProps = localStorage.getItem("userSettingProps")
+
+        if (cachedUserSettingProps) {
+            return JSON.parse(cachedUserSettingProps);
+        } else  {
+            const accessToken = localStorage.getItem("accessToken");
+
+            if (!accessToken) {
+                return { error: "Access token not found" };
+            }
+
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/secure/user/setting";
+
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                localStorage.setItem("userSettingProps", JSON.stringify(responseData));
+                return responseData;
+            } else {
+                return { error: "Error fetching user setting data" };
+            }
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+
 export const fetchUserFollowing = async () => {
     try {
         const cachedUserFollowingProps = localStorage.getItem("userFollowingProps")

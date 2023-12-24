@@ -6,6 +6,7 @@ const postIdRoutes = require("../routes/post/postIdRoutes");
 const userRoutes = require("../routes/user/userRoutes");
 const userIdRouter = require("../routes/user/userIdRoutes");
 const suggestRoutes = require("../routes/suggestRoutes");
+const settingRoutes = require("../routes/setting/settingRoutes");
 
 const MiddlewareController = require("../controllers/Auth/MiddlewareController");
 
@@ -14,6 +15,7 @@ const routes = (app) => {
     app.use("/api/secure/post/", MiddlewareController.verifyToken, postRoutes);
     app.use("/api/public/post/", postIdRoutes);
     app.use("/api/media/", mediaRoutes);
+    app.use("/api/setting/", MiddlewareController.verifyToken, settingRoutes);
     app.use("/api/story/", MiddlewareController.verifyToken, storyRouter);
     app.use("/api/suggest/", MiddlewareController.verifyToken, suggestRoutes);
     app.use("/api/public/user/", userIdRouter);

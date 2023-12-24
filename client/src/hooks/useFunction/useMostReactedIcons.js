@@ -14,7 +14,7 @@ const useMostReactedIcons = (reactionProps) => {
         const reactionCounts = {};
         const reactionsData = reactionProps;
 
-        reactionsData.forEach(reaction => {
+        reactionsData?.forEach(reaction => {
             const {reaction_type} = reaction;
             if (reactionCounts[reaction_type]) {
                 reactionCounts[reaction_type]++;

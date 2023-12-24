@@ -59,6 +59,28 @@ class UserController {
         }
     }
 
+    getUserSetting = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await userDataService.getFullUserById(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const settingProps = await userDataService.getUserSetting(user._id);
+
+            return res.status(200).json(settingProps);
+        } catch (error) {
+            if (error.name === 'TokenExpiredError') {
+                return res.status(401).json({ error: 'Token expired' });
+            }
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
     getUserFollowing = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
@@ -103,20 +125,20 @@ class UserController {
         }
     }
 
-    getUserNotification = async (req, res) => {
+    getUserSearchQuery = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await userDataService.getUserById(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const notificationProps = await userDataService.getUserNotifications(user._id);
+            const searchProps = await userDataService.getUserSearchQuery(user._id);
 
-            return res.status(200).json(notificationProps);
+            return res.status(200).json(searchProps);
         } catch (error) {
             if (error.name === 'TokenExpiredError') {
                 return res.status(401).json({ error: 'Token expired' });
@@ -184,6 +206,29 @@ class UserController {
             throw error;
         }
     }
+
+    getUserNotification = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await userDataService.getFullUserById(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const notificationProps = await userDataService.getUserNotifications(user._id);
+
+            return res.status(200).json(notificationProps);
+        } catch (error) {
+            if (error.name === 'TokenExpiredError') {
+                return res.status(401).json({ error: 'Token expired' });
+            }
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
 }
 
 module.exports = new UserController();

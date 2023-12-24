@@ -1,38 +1,58 @@
 "use client"
 
-import {useState, useCallback} from "react";
+import {useState, useCallback, useEffect} from "react";
 
 import {CreatePostDialogAudienceItem} from "@/components";
 import {createPostAudienceItemList} from "@/constants/CreatePostConstants";
 
-// const renderAudienceItems = (userProps, createPostAudienceChecked, handleCreatePostAudienceChecked) => {
-//     return createPostAudienceItemList.map((value, index) => {
-//         const audienceOption = userProps?.post_audience[value.createPostAudienceOption];
-//         const audienceStatus = audienceOption && audienceOption.status;
-//
-//         return (
-//             <CreatePostDialogAudienceItem key={index} createPostAudienceData={value} checked={createPostAudienceChecked === index} onSelect={() => handleCreatePostAudienceChecked(index)} disabled={!audienceStatus} />
-//         );
-//     });
-// };
+const renderAudienceItems = (userProps, handleCreatePostAudienceChecked) => {
+    return createPostAudienceItemList.map((value, index) => {
+        return (
+            <CreatePostDialogAudienceItem key={index} createPostAudienceData={value} checked={userProps?.setting?.privacy?.post_visibility === value.createPostAudienceOption} onSelect={() => handleCreatePostAudienceChecked(index)} />
+        );
+    });
+};
 
-const CreatePostDialogAudience = ({userProps, handeShowCreatePostAudience}) => {
-    const [createPostAudienceChecked, setCreatePostAudienceChecked] = useState(
-        // createPostAudienceItemList.findIndex(
-        //     (item) => userProps?.post_audience[item.createPostAudienceOption].status
-        // )
-    );
-    const [setDefaultAudience, setSetDefaultAudience] = useState(false);
+const CreatePostDialogAudience = ({userProps, setUserProps, handeShowCreatePostAudience}) => {
+    const [previousVisibility, setPreviousVisibility] = useState(null);
 
     const handleCreatePostAudienceChecked = useCallback((index) => {
-        const selectedOption = createPostAudienceItemList[index].createPostAudienceOption;
+        const newPostSettingPrivacy = createPostAudienceItemList[index].createPostAudienceOption;
 
-        Object.keys(userProps?.post_audience).forEach((option) => {
-            userProps.post_audience[option].status = option === selectedOption;
-        });
+        setPreviousVisibility(userProps?.setting?.privacy?.post_visibility);
+        setUserProps((prevProps) => ({
+            ...prevProps,
+            setting: {
+                ...prevProps.setting,
+                privacy: {
+                    ...prevProps.setting.privacy,
+                    post_visibility: newPostSettingPrivacy
+                }
+            }
+        }));
 
-        setCreatePostAudienceChecked(index);
-    }, [userProps?.post_audience]);
+    }, [userProps?.setting?.privacy?.post_visibility]);
+
+    const handleCancel = () => {
+        if (previousVisibility !== null) {
+            setUserProps((prevProps) => ({
+                ...prevProps,
+                setting: {
+                    ...prevProps.setting,
+                    privacy: {
+                        ...prevProps.setting.privacy,
+                        post_visibility: previousVisibility,
+                    }
+                }
+            }));
+        }
+
+        return handeShowCreatePostAudience();
+    }
+
+    useEffect(() => {
+
+    }, [userProps?.setting?.privacy?.post_visibility]);
 
     return (
         <div className="min-w-[750px] relative">
@@ -75,20 +95,14 @@ const CreatePostDialogAudience = ({userProps, handeShowCreatePostAudience}) => {
                                                 Your post will show up in Feed, on your profile and in search results.
                                             </span>
                                             <span className="block text-[15px] text-zinc-500 font-normal break-words leading-5">
-                                                Your default audience is set to {
-                                                    // (selectedAudience => selectedAudience ? selectedAudience.title : "None")(
-                                                    //     Object.values(userProps?.post_audience).find(
-                                                    //         defaultAudience => defaultAudience.status === true
-                                                    //     )
-                                                    // )
-                                                }, but you can change the audience of this specific post.
+                                                Your audience now is set to {`${userProps?.setting?.privacy?.post_visibility}`}, but you can change the audience default on the setting.
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="mt-[-4px] mb-[-16px] relative">
-                                {/*{renderAudienceItems(userProps, createPostAudienceChecked, handleCreatePostAudienceChecked)}*/}
+                                {renderAudienceItems(userProps, handleCreatePostAudienceChecked)}
                             </div>
                         </div>
                     </div>
@@ -96,7 +110,7 @@ const CreatePostDialogAudience = ({userProps, handeShowCreatePostAudience}) => {
                         <div className="px-[16px] py-[8px] flex flex-row flex-nowrap items-stretch justify-end relative">
                             <div className="p-[6px] flex flex-col relative">
                                 <div className="w-full h-full inline-flex flex-col justify-center cursor-pointer relative">
-                                    <div className="w-[120px] h-[36px] px-[12px] flex flex-row flex-nowrap items-center justify-center rounded-md relative hover:bg-zinc-100 transition-all">
+                                    <div className="w-[120px] h-[36px] px-[12px] flex flex-row flex-nowrap items-center justify-center rounded-md relative hover:bg-zinc-100 transition-all" onClick={handleCancel}>
                                         <span className="block text-[15px] text-lime-700 font-semibold break-words leading-5">
                                             <span className="overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
                                                 Cancel
@@ -107,7 +121,7 @@ const CreatePostDialogAudience = ({userProps, handeShowCreatePostAudience}) => {
                             </div>
                             <div className="p-[6px] flex flex-col relative">
                                 <div className="w-full h-full inline-flex flex-col justify-center cursor-pointer relative">
-                                    <div className="w-[120px] h-[36px] px-[12px] flex flex-row flex-nowrap items-center justify-center rounded-md bg-lime-500 relative hover:bg-lime-700 transition-all">
+                                    <div className="w-[120px] h-[36px] px-[12px] flex flex-row flex-nowrap items-center justify-center rounded-md bg-lime-500 relative hover:bg-lime-700 transition-all" onClick={handeShowCreatePostAudience}>
                                         <span className="block text-[15px] text-white font-semibold break-words leading-5">
                                             <span className="overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
                                                 Done

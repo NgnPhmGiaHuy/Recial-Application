@@ -8,8 +8,9 @@ import {useTokenRefresh, useUserData, useWithAuth} from "@/hooks";
 
 const FriendListPage = () => {
     useTokenRefresh();
-
-    const userProps = useUserData();
+    
+    const { userProps } = useUserData();
+    
     const [friendId, setFriendId] = useState(null);
 
     const handleFriendClick = (clickedFriendId) => {

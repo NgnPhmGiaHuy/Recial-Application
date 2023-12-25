@@ -5,11 +5,11 @@ const postDataService = require("../../services/postDataService");
 class PostIdController {
     getPostByUserId = async (req, res) => {
         try {
-            const userId = req.query.user;
+            const userQueryId = req.query.user;
             const postsPerPage = 5;
             const page = parseInt(req.query.page) || 1;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await userDataService.getFullUserById(userQueryId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
@@ -35,6 +35,35 @@ class PostIdController {
             }));
 
             res.status(200).json(postsWithUserData);
+        } catch (error) {
+            if (error.name === 'TokenExpiredError') {
+                return res.status(401).json({ error: 'Token expired' });
+            }
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    getPostByPostId = async (req, res) => {
+        try {
+            const postId = req.query.post;
+
+            const postData = await Post.findById(postId);
+
+            const {createdAt, updatedAt, ...otherPostProps} = postData._doc;
+
+            const postProps = {
+                post: {
+                    ...otherPostProps,
+                    created_at: postData.createdAt,
+                    updated_at: postData.updatedAt,
+                },
+                photo: await postDataService.getPostPhoto(postData),
+                user: await postDataService.getPostAuthor(postData),
+                comment: await postDataService.getComment(postData._id),
+                reaction: await postDataService.getReaction(postData._id),
+            };
+
+            res.status(200).json(postProps)
         } catch (error) {
             if (error.name === 'TokenExpiredError') {
                 return res.status(401).json({ error: 'Token expired' });

@@ -14,7 +14,7 @@ const useStoryData = () => {
             try {
                 const storyData = await fetchStoryData();
 
-                if (!storyData && storyData.error === "Access token not found" ) {
+                if (!storyData && storyData.error ) {
                     return router.push("/auth/login");
                 }
 

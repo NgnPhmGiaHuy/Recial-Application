@@ -6,7 +6,7 @@ export const fetchPostData = async () => {
             return { error: "Access token not found" };
         }
 
-        const url = process.env.NEXT_PUBLIC_API_URL + "/api/secure/post";
+        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/post";
 
         const response = await fetch(url, {
             method: "GET",
@@ -34,7 +34,7 @@ export const createPostData = async (postData) => {
             return {error: "Access token not found"};
         }
 
-        const url = process.env.NEXT_PUBLIC_API_URL + "/api/secure/post";
+        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/post";
 
         const response = await fetch(url, {
             method: "POST",

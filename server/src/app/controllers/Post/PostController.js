@@ -1,3 +1,5 @@
+const { WebSocket } = require("ws");
+
 const Post = require("../../models/Post");
 const Type = require("../../models/Type");
 const User = require("../../models/User");
@@ -34,7 +36,7 @@ class PostController {
         }
     }
 
-    setPostData = async (req, res) => {
+    createPostData = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
@@ -63,42 +65,21 @@ class PostController {
 
             await user.save();
 
+            const wss = req.app.get("wss");
+            if (wss) {
+                const message = {
+                    type: 'create_new_post',
+                    postId: newPost._id,
+                };
+
+                wss.clients.forEach((client) => {
+                    if (client.readyState === WebSocket.OPEN) {
+                        client.send(JSON.stringify(message));
+                    }
+                });
+            }
+
             res.status(200).json(newPost);
-        } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
-            return res.status(500).json({ error: 'Server error' });
-        }
-    }
-
-    setPostComment = async (req, res) => {
-        try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
-
-            const user = await userDataService.getUserById(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: 'User not found' });
-            }
-
-            const postComment = req.body;
-
-            const typeId = await Type.findOne({ type_name: postComment.destination.type })
-
-            const newComment = new Comment({
-                source_id: postComment.source_id,
-                destination: {
-                    type: typeId._id,
-                    destination_id: postComment.destination.destination_id,
-                },
-                comment_text: postComment.comment_text,
-            });
-
-            await newComment.save();
-
-            res.status(200).json(newComment);
         } catch (error) {
             if (error.name === 'TokenExpiredError') {
                 return res.status(401).json({ error: 'Token expired' });

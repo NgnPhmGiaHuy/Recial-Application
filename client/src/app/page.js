@@ -2,8 +2,9 @@
 
 import {useCallback, useRef, useState} from "react";
 
+import { handleNewData } from "@/utils/handleNewData";
 import { Header, Aside, Main, CreatePostDialog } from "@/components";
-import { useClickOutside, useStoryData, useGetPostData, useTokenRefresh, useUserData, useWithAuth } from "@/hooks";
+import { useClickOutside, useStoryData, useGetPostData, useTokenRefresh, useUserData, useWithAuth, useWebSocket } from "@/hooks";
 
 const HomePage = () => {
     useTokenRefresh();
@@ -20,6 +21,12 @@ const HomePage = () => {
     const { userProps, setUserProps } = useUserData();
     const { postRef, postProps, setPostProps } = useGetPostData();
 
+    const onDataReceived = async (data) => {
+        await handleNewData(data, postProps, setPostProps);
+    };
+
+    useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
+
     useClickOutside(createPostRef, showCreatePost, setMainCreatePost);
 
     return (
@@ -33,7 +40,7 @@ const HomePage = () => {
                                 <div className="min-w-[320px] min-h-[inherit] flex flex-row flex-nowrap flex-shrink-0 items-stretch justify-center relative">
                                     <div className="min-h-[inherit] flex flex-row flex-shrink flex-nowrap grow items-start justify-between basis-0 relative">
                                         <Aside userProps={userProps}/>
-                                        <Main postRef={postRef} storyProps={storyProps} userProps={userProps} postProps={postProps} setPostProps={setPostProps} handleShowCreatePost={handleShowCreatePost}/>
+                                        <Main postRef={postRef} userData={userProps} userProps={userProps} postProps={postProps} storyProps={storyProps} setPostProps={setPostProps} handleShowCreatePost={handleShowCreatePost}/>
                                     </div>
                                 </div>
                             </div>

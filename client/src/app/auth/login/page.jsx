@@ -35,7 +35,7 @@ const Login = () => {
 
             const dataToSend = {session_key, session_password};
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/auth/login";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/auth/login";
 
             const response = await fetch(url, {
                 method: "POST",

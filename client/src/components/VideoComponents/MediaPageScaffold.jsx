@@ -3,10 +3,10 @@
 import dynamic from "next/dynamic";
 
 import {useCountComment} from "@/hooks";
-import {MediaPhotoPageScaffoldItem, VideoPageScaffoldCommentItem, MediaPageScaffoldFooter, MediaPageScaffoldHeader} from "@/components";
+import {MediaPhotoPageScaffoldItem, MediaPageScaffoldCommentItem, MediaPageScaffoldFooter, MediaPageScaffoldHeader} from "@/components";
 const DynamicVideoPageScaffoldItem = dynamic(() => import("@/components/VideoComponents/VideoPageScaffoldItem"), { ssr: false });
 
-const MediaPageScaffold = ({mediaProps, videoProps}) => {
+const MediaPageScaffold = ({userProps, mediaProps, videoProps, mediaType}) => {
     const totalComment = useCountComment(mediaProps?.media)
 
     return (
@@ -44,13 +44,13 @@ const MediaPageScaffold = ({mediaProps, videoProps}) => {
                         </div>
                         <div>
                             {mediaProps?.media?.comment?.map((value, index) => (
-                                <VideoPageScaffoldCommentItem key={index} mediaProps={value}/>
+                                <MediaPageScaffoldCommentItem key={index} userProps={userProps} mediaProps={value}/>
                             ))}
                         </div>
                     </div>
                 </div>
                 <div className="mx-[32px] py-[20px] flex-[0_0_auto] bg-white relative">
-                    <MediaPageScaffoldFooter/>
+                    <MediaPageScaffoldFooter userProps={userProps} mediaProps={mediaProps} mediaType={mediaType}/>
                 </div>
             </div>
         </div>

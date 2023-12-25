@@ -6,12 +6,13 @@ import { useEffect } from "react";
 
 import {useContentEditable, useCommentData} from "@/hooks";
 
-const PostItemCommentInput = ({userProps, postProps, isReply}) => {
+const PostItemCommentInput = ({userData, postProps, isReply}) => {
     const { inputContentEditableRef, inputText, setCreatePostInputText, setCreatePostAllowSubmit, allowSubmit, handleInputTextChange } = useContentEditable()
 
     const { commentSubmitStatus, handleSetCommentData } = useCommentData();
+
     const handleSubmitComment = async () => {
-        await handleSetCommentData(inputText, userProps, postProps, isReply);
+        await handleSetCommentData(inputText, userData, postProps, isReply);
     }
 
     useEffect(() => {
@@ -28,9 +29,9 @@ const PostItemCommentInput = ({userProps, postProps, isReply}) => {
     return (
         <div className={`${isReply ? "ml-[44px]" : "mx-[16px]"} pt-[4px] pb-[8px] flex flex-row flex-shrink-0 items-start`}>
             <div className="mr-[4px] sm:my-[4px] my-[6px] flex-col justify-center relative">
-                <Link href={userProps?.user?._id}>
+                <Link href={userData?.user?._id}>
                     <div className="sm:w-[44px] w-[40px] sm:h-[44px] h-[40px] overflow-hidden rounded-full relative">
-                        <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                        <Image src={userData?.user?.profile_picture_url} alt={`${userData?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                     </div>
                 </Link>
             </div>

@@ -75,7 +75,7 @@ const Signup = () => {
 
             const dataToSend = {session_key, hashedPassword, session_firstname, session_lastname};
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/auth/register";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/auth/register";
 
             const response = await fetch(url, {
                 method: "POST",

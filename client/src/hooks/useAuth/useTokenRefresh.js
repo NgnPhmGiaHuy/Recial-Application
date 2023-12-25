@@ -12,7 +12,7 @@ const useTokenRefresh = () => {
             try {
                 const refreshToken = localStorage.getItem("refreshToken");
 
-                const url = process.env.NEXT_PUBLIC_API_URL + "/api/auth/refresh";
+                const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/auth/refresh";
 
                 const response = await fetch(url, {
                     method: "POST",

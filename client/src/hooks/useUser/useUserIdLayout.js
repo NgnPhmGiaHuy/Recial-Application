@@ -28,7 +28,7 @@ const useUserIdLayout = (userId) => {
 
                     const userIdData = await fetchUserIdData(userId);
 
-                    if (!userIdData || userIdData.error === "Access token not found") {
+                    if (!userIdData || userIdData.error) {
                         return router.push("/auth/login");
                     }
 

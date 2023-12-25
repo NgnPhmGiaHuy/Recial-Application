@@ -1,7 +1,7 @@
 "use client"
 
-import {useTokenRefresh, useUserIdLayout} from "@/hooks";
 import {Header, UserAbout} from "@/components";
+import {useTokenRefresh, useUserIdLayout} from "@/hooks";
 
 const UserAboutPage = ({params}) => {
     useTokenRefresh();

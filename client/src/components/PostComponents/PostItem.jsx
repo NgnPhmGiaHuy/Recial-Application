@@ -6,7 +6,7 @@ import {postItemShareSettingList} from "@/constants/PostConstants";
 import {PostItemHeader, PostItemContent, PostItemFooter, QuickSettingItem, PostItemComment} from "@/components";
 import {useClickOutside} from "@/hooks";
 
-const PostItem = ({userProps, postProps}) => {
+const PostItem = ({userData, userProps, postProps}) => {
     const postItemQuickSettingList = [
         {
             isSettingItemBreak: false,
@@ -151,7 +151,7 @@ const PostItem = ({userProps, postProps}) => {
             </div>
             <div>
                 {showPostItemComment ? (
-                    <PostItemComment userProps={userProps} postProps={postProps} />
+                    <PostItemComment userData={userData} userProps={userProps} postProps={postProps} />
                 ) : null}
             </div>
             <div ref={postItemQuickSettingButtonRef}>

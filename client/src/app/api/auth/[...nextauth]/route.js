@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const refreshTokenAPICall = async (token) => {
-    const url = process.env.NEXT_PUBLIC_API_URL + "/api/auth/refresh";
+    const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/auth/refresh";
 
     const res = await fetch(url, {
         method: "POST",
@@ -35,7 +35,7 @@ const authOptions = {
         CredentialsProvider({
             name: "Credentials",
             async authorize(credentials, req) {
-                const url = process.env.NEXT_PUBLIC_API_URL + "/api/auth/login";
+                const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/auth/login";
                 const formData = new URLSearchParams();
 
                 formData.append("session_key", credentials.session_key);

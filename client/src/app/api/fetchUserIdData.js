@@ -6,7 +6,7 @@ export const fetchUserIdData = async (userId) => {
         if (parsedCachedUserIdData && parsedCachedUserIdData.user && parsedCachedUserIdData.user._id === userId) {
             return parsedCachedUserIdData;
         } else {
-            const url = process.env.NEXT_PUBLIC_API_URL + `/api/public/user/${userId}`;
+            const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}`;
 
             const response = await fetch(url, {
                 method: "GET",
@@ -36,7 +36,7 @@ export const fetchUserIdFriend = async (userId) => {
         if (parsedCachedUserIdFriendData && parsedCachedUserIdFriendData.user && parsedCachedUserIdFriendData.user._id === userId) {
             return parsedCachedUserIdFriendData.friendProps;
         } else {
-            const url = process.env.NEXT_PUBLIC_API_URL + `/api/public/user/${userId}/friend`;
+            const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}/friend`;
 
             const response = await fetch(url, {
                 method: "GET",
@@ -66,7 +66,7 @@ export const fetchUserIdFollowing = async (userId) => {
         if (parsedCachedUserIdFollowingData && parsedCachedUserIdFollowingData.user && parsedCachedUserIdFollowingData.user._id === userId) {
             return parsedCachedUserIdFollowingData.followingProps;
         } else {
-            const url = process.env.NEXT_PUBLIC_API_URL + `/api/public/user/${userId}/following`;
+            const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}/following`;
 
             const response = await fetch(url, {
                 method: "GET",
@@ -96,7 +96,7 @@ export const fetchUserIdFollower = async (userId) => {
         if (parsedCachedUserIdFollowerData && parsedCachedUserIdFollowerData.user && parsedCachedUserIdFollowerData.user._id === userId) {
             return parsedCachedUserIdFollowerData.followerProps;
         } else {
-            const url = process.env.NEXT_PUBLIC_API_URL + `/api/public/user/${userId}/follower`;
+            const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}/follower`;
 
             const response = await fetch(url, {
                 method: "GET",
@@ -126,7 +126,7 @@ export const fetchUserIdPhotoList = async (userId) => {
         if (parsedCachedUserIdPhotoData && parsedCachedUserIdPhotoData.user && parsedCachedUserIdPhotoData.user._id === userId) {
             return parsedCachedUserIdPhotoData.photoListProps;
         } else {
-            const url = process.env.NEXT_PUBLIC_API_URL + `/api/public/user/${userId}/photo-list`;
+            const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}/photo-list`;
 
             const response = await fetch(url, {
                 method: "GET",
@@ -156,7 +156,7 @@ export const fetchUserIdGroupList = async (userId) => {
         if (parsedCachedUserIdGroupData && parsedCachedUserIdGroupData.user && parsedCachedUserIdGroupData.user._id === userId) {
             return parsedCachedUserIdGroupData.groupListProps;
         } else {
-            const url = process.env.NEXT_PUBLIC_API_URL + `/api/public/user/${userId}/group-list`;
+            const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}/group-list`;
 
             const response = await fetch(url, {
                 method: "GET",

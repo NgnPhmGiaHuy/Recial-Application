@@ -2,23 +2,28 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 import {handleFormatNumber, formatDate} from "@/utils";
-import {useCountComment, useOverflowText} from "@/hooks";
-import useCountLikeReaction from "@/hooks/useFunction/useCountLikeReaction";
+import {useCountComment, useCountLikeReaction, useOverflowText} from "@/hooks";
 
 const MediaPageScaffoldHeader = ({mediaProps}) => {
     const totalLike = useCountLikeReaction(mediaProps?.media);
     const totalComment = useCountComment(mediaProps?.media);
 
+    const [currentURL, setCurrentURL] = useState("");
     const [copyLinkSuccess, setCopyLinkSuccess] = useState("");
 
     const {textRef, showMoreText, isOverflowing, handleShowMoreText} = useOverflowText(mediaProps?.media_text);
 
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setCurrentURL(window.location.href);
+        }
+    }, []);
+
     const handleCopyToClipboard = useCallback(() => {
-        const linkToCopy = `https://www.recial.com/${mediaProps?.media?.media_type.toLowerCase()}/?user=${mediaProps?.user?._id}&set=${mediaProps?.media?._id}`;
-        navigator.clipboard.writeText(linkToCopy)
+        navigator.clipboard.writeText(currentURL)
             .then(() => setCopyLinkSuccess('Copied!'))
             .catch((error) => console.error('Failed to copy:', error));
     }, [mediaProps?.media?._id]);
@@ -212,7 +217,7 @@ const MediaPageScaffoldHeader = ({mediaProps}) => {
                 <div className="mt-[16px] flex flex-row rounded-md border border-solid border-zinc-200 bg-zinc-100 overflow-hidden relative">
                     <div className="w-full flex flex-row items-center text-[14px] text-zinc-500 text-left font-normal break-words relative overflow-hidden leading-5">
                         <p className="pt-[7px] pb-[5px] pl-[12px] flex-[1_1_auto] text-ellipsis whitespace-nowrap overflow-hidden relative">
-                            https://www.recial.com/{mediaProps?.media?.media_type.toLowerCase()}/?user={mediaProps?.user?._id}&set={mediaProps?.media?._id}
+                            {currentURL}
                         </p>
                         <div className="px-[18px] py-[7px] flex-[0_0_auto] cursor-pointer relative hover:bg-white/75 transition-all" onClick={handleCopyToClipboard}>
                             <span className="text-black font-bold relative">

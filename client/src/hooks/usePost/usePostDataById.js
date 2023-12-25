@@ -4,39 +4,43 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import fetchPostByUserId from "@/app/api/fetchPostByUserId";
 
-const usePostDataById = (userId) => {
+const usePostDataByUserId = (userId) => {
     const router = useRouter();
     const postByIdRef = useRef(null);
 
     const [page, setPage] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [hasChanged, setHasChanged] = useState(false);
     const [postByUserIdProps, setPostByUserIdProps] = useState([]);
 
     const debounce = (func, delay) => {
         let timeoutId;
         return function (...args) {
             clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => { func.apply(this, args) }, delay);
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
         };
     };
 
     const fetchPostData = async () => {
+        if (loading) return;
+
         setLoading(true);
+
         try {
             const postProps = await fetchPostByUserId({ userId, page });
 
-            if (!postProps || postProps.error === "Access token not found") {
+            if (!postProps || postProps.error) {
                 return router.push("/auth/login");
             }
 
             if (Array.isArray(postProps)) {
-                const isDifferent = JSON.stringify(postByUserIdProps) !== JSON.stringify(postProps);
-
-                if (isDifferent) {
+                if (page <= 1) {
                     setPostByUserIdProps(postProps);
-                    setHasChanged(true);
+                } else {
+                    setPostByUserIdProps((prevPosts) => [...prevPosts, ...postProps]);
                 }
+                setPage((prevPage) => prevPage + 1);
             }
         } catch (error) {
             throw error;
@@ -45,31 +49,21 @@ const usePostDataById = (userId) => {
         }
     };
 
-    const pollForChanges = () => {
-        const intervalId = setInterval(async () => {
-            await fetchPostData();
-        }, 1000);
-
-        return () => clearInterval(intervalId);
-    };
-
     useEffect(() => {
+        setPage(0);
         setPostByUserIdProps([]);
-        const stopPolling = pollForChanges();
 
-        return () => {
-            stopPolling();
-        };
+        return () => { };
     }, [userId]);
 
     useEffect(() => {
         fetchPostData();
-    }, [userId, page, router]);
+    }, [userId, router]);
 
     useEffect(() => {
-        const handleScroll = debounce(() => {
+        const handleScroll = debounce(async () => {
             if (postByIdRef.current && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight * 0.9 && !loading) {
-                setPage((prevPage) => prevPage + 1);
+                await fetchPostData();
             }
         }, 200);
 
@@ -78,10 +72,10 @@ const usePostDataById = (userId) => {
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };
-    }, [loading]);
+    }, [userId, loading, fetchPostData]);
 
-    return { postByIdRef, postByUserIdProps, setPostByUserIdProps, hasChanged };
+    return { postByIdRef, postByUserIdProps, setPostByUserIdProps };
 };
 
-export default usePostDataById;
 
+export default usePostDataByUserId;

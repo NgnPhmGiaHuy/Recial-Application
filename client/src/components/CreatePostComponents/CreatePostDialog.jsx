@@ -49,8 +49,8 @@ const CreatePostDialog = ({userProps, setUserProps, createPostRef, handleShowCre
                                                                         <div className="w-full h-full pb-[8px] pt-[4px] text-[24px] text-black text-ellipsis overflow-x-hidden overflow-y-hidden font-normal leading-7">
                                                                             <div className="w-full h-full text-black select-text whitespace-pre-wrap break-words outline-none relative" contentEditable={true} spellCheck={false} onInput={handleInputTextChange} ref={inputContentEditableRef}>
                                                                             </div>
-                                                                            <div className="top-[5px] overflow-x-hidden overflow-y-hidden text-zinc-500 text-ellipsis pointer-events-none absolute z-[1]">
-                                                                                {inputText.length === 0 ? "What's on your mind, Nguyen Pham Gia Huy?" : null}
+                                                                            <div className="top-[5px] overflow-hidden text-zinc-500 text-ellipsis pointer-events-none absolute z-[1]">
+                                                                                {inputText.length === 0 ? `What's on your mind, ${userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname}?` : null}
                                                                             </div>
                                                                         </div>
                                                                     </div>

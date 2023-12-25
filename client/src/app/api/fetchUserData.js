@@ -11,7 +11,7 @@ export const fetchUserData = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/secure/user/";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -47,7 +47,7 @@ export const fetchUserFriend = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/secure/user/friend";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/friend";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -83,7 +83,7 @@ export const fetchUserSearchQuery = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/secure/user/search";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/search";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -119,7 +119,7 @@ export const fetchUserSetting = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/secure/user/setting";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/setting";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -157,7 +157,7 @@ export const fetchUserFollowing = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/secure/user/following";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/following";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -193,7 +193,7 @@ export const fetchUserFollower = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/secure/user/follower";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/follower";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -229,7 +229,7 @@ export const fetchUserMessage = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/secure/user/message";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/message";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -265,7 +265,7 @@ export const fetchUserPhotoList = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/secure/user/photo-list";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/photo-list";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -301,7 +301,7 @@ export const fetchUserGroupList = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/secure/user/group-list";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/group-list";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -337,7 +337,7 @@ export const fetchUserNotification = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/secure/user/notification";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/notification";
 
             const response = await fetch(url, {
                 method: "GET",

@@ -6,7 +6,7 @@ const fetchStoryData = async () => {
             return { error: "Access token not found" };
         }
 
-        const url = process.env.NEXT_PUBLIC_API_URL + "/api/story";
+        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/story/";
 
         const response = await fetch(url, {
             method: "GET",

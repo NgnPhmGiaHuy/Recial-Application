@@ -7,7 +7,7 @@ const useLogout = (router) => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/auth/logout";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/auth/logout";
 
             const response = await fetch(url, {
                 method: "GET",

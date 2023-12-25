@@ -2,7 +2,6 @@
 
 import {useTokenRefresh, useUserIdLayout} from "@/hooks";
 import {Header, UserAboutScaffold, UserProfileCover} from "@/components";
-import {useState} from "react";
 
 const UserPhotosPage = ({params}) => {
     useTokenRefresh();

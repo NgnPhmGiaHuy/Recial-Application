@@ -18,7 +18,7 @@ const useMediaData = (url) => {
 
                 const mediaData = await fetchMediaData(url);
 
-                if (!mediaData && mediaData.error === "Access token not found") {
+                if (!mediaData && mediaData.error) {
                     return router.push("/auth/login");
                 }
 
@@ -35,7 +35,7 @@ const useMediaData = (url) => {
         return () => { isCancelled = true };
     }, [url, router]);
 
-    return mediaProps;
+    return {mediaProps, setMediaProps};
 }
 
 export default useMediaData;

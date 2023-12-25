@@ -16,7 +16,7 @@ const useSuggestPageData = () => {
                     return router.push("/auth/login");
                 }
 
-                const url = process.env.NEXT_PUBLIC_API_URL + "/api/suggest/event";
+                const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/suggest/event";
 
                 const response = await fetch(url, {
                     method: "GET",

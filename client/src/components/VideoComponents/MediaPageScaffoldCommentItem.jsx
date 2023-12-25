@@ -4,10 +4,10 @@ import Image from "next/image";
 import {useCallback, useEffect, useRef, useState} from 'react';
 
 import {formatDate} from "@/utils";
-import {MediaPageScaffoldFooter} from "@/components";
 import {useClickOutside} from "@/hooks";
+import {MediaPageScaffoldFooter} from "@/components";
 
-const VideoPageScaffoldCommentItem = ({mediaProps, isReply}) => {
+const MediaPageScaffoldCommentItem = ({userProps, mediaProps, isReply}) => {
     const reportButtonRef = useRef(null);
 
     const [displayedComments, setDisplayedComments] = useState(5);
@@ -123,7 +123,7 @@ const VideoPageScaffoldCommentItem = ({mediaProps, isReply}) => {
             {showReplyPanel ? (
                 <div className="pl-[52px]">
                     <div className="mb-[16px]">
-                        <MediaPageScaffoldFooter isComment={true} handleShowReplyPanel={handleShowReplyPanel}/>
+                        <MediaPageScaffoldFooter userProps={userProps} mediaProps={mediaProps} mediaType="Comment" isComment={true} handleShowReplyPanel={handleShowReplyPanel}/>
                     </div>
                 </div>
             ) : null}
@@ -133,7 +133,7 @@ const VideoPageScaffoldCommentItem = ({mediaProps, isReply}) => {
                         <>
                             <div className="w-full h-full flex flex-col relative">
                                 {mediaProps?.comment_reply?.slice(0, displayedComments).map((value, index) => (
-                                    <VideoPageScaffoldCommentItem key={index} mediaProps={value} isReply={true}/>
+                                    <MediaPageScaffoldCommentItem key={index} userProps={userProps} mediaProps={value} isReply={true}/>
                                 ))}
                                 {displayedComments < mediaProps?.comment_reply?.length && (
                                     <div className="pl-[52px] flex flex-row items-center justify-between relative">
@@ -177,4 +177,4 @@ const VideoPageScaffoldCommentItem = ({mediaProps, isReply}) => {
     );
 };
 
-export default VideoPageScaffoldCommentItem;
+export default MediaPageScaffoldCommentItem;

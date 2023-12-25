@@ -6,7 +6,7 @@ import {useClickOutside} from "@/hooks";
 import {postItemCommentSortList} from "@/constants/PostConstants";
 import {PostItemCommentInput, PostItemCommentScaffold, QuickSettingItem} from "@/components";
 
-const PostItemComment = ({userProps, postProps}) => {
+const PostItemComment = ({userData, userProps, postProps}) => {
     const commentSortContentRef = useRef(null);
 
     const [showCommentSortContent, setShowCommentSortContent] = useState(false);
@@ -31,7 +31,7 @@ const PostItemComment = ({userProps, postProps}) => {
 
     return (
         <div className="flex flex-col justify-center relative">
-            <PostItemCommentInput userProps={userProps} postProps={postProps} />
+            <PostItemCommentInput userData={userData} postProps={postProps}/>
             <div className="mx-[16px] mb-[8px] relative">
                 <div className="w-fit flex flex-col cursor-pointer relative" onClick={handleShowCommentSortContent}>
                     <span className="flex flex-row items-center justify-between text-[16px] text-zinc-500 text-left font-semibold break-words relative leading-5">
@@ -72,7 +72,7 @@ const PostItemComment = ({userProps, postProps}) => {
             </div>
             <div>
                 {postProps?.comment?.slice(0, visibleComments).map((value, index) => (
-                    <PostItemCommentScaffold key={index} userProps={userProps} postProps={value} />
+                    <PostItemCommentScaffold key={index} userData={userData} userProps={userProps} postProps={value} />
                 ))}
             </div>
             {!loadMoreClicked && visibleComments < postProps?.comment?.length && (

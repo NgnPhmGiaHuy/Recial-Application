@@ -1,27 +1,47 @@
-const MediaPageScaffoldFooter = ({isComment, handleShowReplyPanel}) => {
+"use client"
+
+import { useEffect } from "react";
+
+import {useCommentMediaData, useContentEditable} from "@/hooks";
+
+const MediaPageScaffoldFooter = ({userProps, mediaProps, mediaType, isComment, handleShowReplyPanel}) => {
+    const { inputContentEditableRef, inputText, setCreatePostInputText, setCreatePostAllowSubmit, allowSubmit, handleInputTextChange } = useContentEditable()
+
+    const { commentSubmitStatus, handleSetCommentData } = useCommentMediaData();
+
+    const handleSubmitComment = async () => {
+        await handleSetCommentData(inputText, userProps, mediaProps, mediaType, isComment);
+    }
+
+    useEffect(() => {
+        const resetInput = () => {
+            setCreatePostInputText('');
+            setCreatePostAllowSubmit(false);
+            inputContentEditableRef.current.innerText = '';
+        };
+
+        resetInput();
+    }, [commentSubmitStatus]);
+
     return (
         <div className="flex flex-row items-center">
             <div className="flex-[1_1_auto]">
                 <div className="px-[8px] flex flex-row items-end rounded-md bg-zinc-100 border border-solid border-transparent">
                     <div className="h-auto mr-[8px] my-[10px] flex-[1_1_auto]">
                         <div className="max-h-[68px] min-h-[17px] text-[14px] text-black text-left break-words overflow-y-auto leading-4">
-                            <div>
-                                <div className="text-[14px] text-zinc-500 absolute leading-4">
-                                    <div className="whitespace-pre-wrap">
-                                        Write a comment...
-                                    </div>
+                            <div className="flex items-center relative">
+                                <div className="w-full h-full select-text whitespace-pre-wrap break-words outline-none relative" contentEditable={true} spellCheck={false} onInput={handleInputTextChange} ref={inputContentEditableRef}>
                                 </div>
-                                <div>
-                                    {/*<div className="outline-none select-text whitespace-pre-wrap break-words" contentEditable={true} role="textbox" spellCheck={false}>*/}
-                                    {/*    <div>*/}
-
-                                    {/*    </div>*/}
-                                    {/*</div>*/}
+                                <div className="top-[1px] text-[14px] text-zinc-500 text-ellipsis pointer-events-none absolute leading-4">
+                                    <div className="whitespace-pre-wrap">
+                                        {inputText.length === 0 ? "Write a comment..." : null}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="w-[32px] h-[32px] m-[3px] p-[5px] flex flex-[0_0_32px] items-center justify-center rounded-md cursor-pointer bg-transparent hover:bg-zinc-300">
+                    <div
+                        className="w-[32px] h-[32px] m-[3px] p-[5px] flex flex-[0_0_32px] items-center justify-center rounded-md cursor-pointer bg-transparent hover:bg-zinc-300">
                         <i>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25" />
@@ -40,8 +60,8 @@ const MediaPageScaffoldFooter = ({isComment, handleShowReplyPanel}) => {
                     </div>
                 </div>
             </div>
-            <div className="mr-[4px] flex-[0_0_48px]">
-                <span className="block text-[14px] text-zinc-300 text-right font-semibold break-words relative leading-10 pointer-events-none">
+            <div className="mr-[4px] flex-[0_0_48px]" onClick={handleSubmitComment}>
+                <span className={`${allowSubmit ? "text-black cursor-pointer" : "text-zinc-300 cursor-not-allowed"} block text-[14px] text-right font-semibold break-words relative leading-10`}>
                     Post
                 </span>
             </div>

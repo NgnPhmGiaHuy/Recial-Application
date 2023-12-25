@@ -16,7 +16,7 @@ export const useGetPostData = () => {
         try {
             const postProps = await fetchPostData();
 
-            if (!postProps && postProps.error === "Access token not found") {
+            if (!postProps && postProps.error) {
                 return router.push("/auth/login");
             }
 

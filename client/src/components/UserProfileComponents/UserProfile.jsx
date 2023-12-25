@@ -1,6 +1,6 @@
 import {CreatePost, Post, UserProfileAbout, UserProfileCover} from "@/components";
 
-const UserProfile = ({userProps, postProps, postByIdRef, isCurrentUser, handleShowCreatePost}) => {
+const UserProfile = ({userData, userProps, postProps, postByIdRef, isCurrentUser, handleShowCreatePost}) => {
     return (
         <main>
             <div className="my-[16px] flex flex-col gap-4 relative">
@@ -19,7 +19,7 @@ const UserProfile = ({userProps, postProps, postByIdRef, isCurrentUser, handleSh
                 ) : null}
                 {postProps ? (
                     <div>
-                        <Post postRef={postByIdRef} userProps={userProps} postListProps={postProps}/>
+                        <Post postRef={postByIdRef} userData={userData} userProps={userProps} postListProps={postProps}/>
                     </div>
                 ) : null}
             </div>

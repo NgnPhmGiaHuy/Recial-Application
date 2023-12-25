@@ -4,11 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import {useCallback, useState} from "react";
 
+import {PostItemCommentInput} from "@/components";
 import {useMostReactedIcons, useOverflowText} from "@/hooks";
 import {formatTimeAgoShort, handleFormatNumber} from "@/utils";
-import {PostItemCommentInput} from "@/components";
 
-const PostItemCommentScaffold = ({userProps, postProps, isRely}) => {
+const PostItemCommentScaffold = ({userData, userProps, postProps, isRely}) => {
     const mostReactedIcons = useMostReactedIcons(postProps?.comment_reactions);
 
     const {textRef, showMoreText, isOverflowing, handleShowMoreText} = useOverflowText();
@@ -156,12 +156,12 @@ const PostItemCommentScaffold = ({userProps, postProps, isRely}) => {
                 </div>
                 <div>
                     {showCommentInput ? (
-                        <PostItemCommentInput userProps={userProps} postProps={postProps} isReply={true}/>
+                        <PostItemCommentInput userData={userData} postProps={postProps} isReply={true}/>
                     ) : null}
                 </div>
                 <div className="ml-[44px] mt-[8px] pl-[8px]">
                     {postProps?.comment_reply?.slice(0, 3).map((value, index) => (
-                        <PostItemCommentScaffold key={index} userProps={userProps} postProps={value} isRely={true}/>
+                        <PostItemCommentScaffold key={index} userData={userData} userProps={userProps} postProps={value} isRely={true}/>
                     ))}
                 </div>
                 {!loadMoreClicked && visibleComments < postProps?.comment_reply?.length && (

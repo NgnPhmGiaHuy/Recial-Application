@@ -1,7 +1,7 @@
 "use client"
 
 import {useEffect, useState} from "react";
-import {fetchUserIdData, fetchUserIdFollower, fetchUserIdFollowing, fetchUserIdFriend, fetchUserIdGroupList, fetchUserIdPhotoList} from "@/app/api/fetchUserIdData";
+import {fetchUserDataById, fetchUserIdFollower, fetchUserIdFollowing, fetchUserIdFriend, fetchUserIdGroupList, fetchUserIdPhotoList} from "@/app/api/fetchUserDataById";
 
 const useUserIdData = ({ userId, router }) => {
     const [userIdProps, setUserIdProps] = useState(null);
@@ -9,7 +9,7 @@ const useUserIdData = ({ userId, router }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const userIdData = await fetchUserIdData(userId);
+                const userIdData = await fetchUserDataById(userId);
 
                 if (!userIdData || userIdData.error) {
                     return router.push("/auth/login");

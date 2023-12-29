@@ -2,10 +2,12 @@
 
 import { useRef, useState, useEffect } from 'react';
 
+import { calculateTimeDifference, formatTime } from "@/utils";
+
 const UserAboutVideoScaffoldItem = ({ userProps }) => {
     const videoRef = useRef(null);
+    const [updatedAtText, setUpdatedAtText] = useState("");
     const [totalDuration, setTotalDuration] = useState(0);
-    const [updatedAtText, setUpdatedAtText] = useState('');
 
     useEffect(() => {
         const video = videoRef.current;
@@ -15,39 +17,15 @@ const UserAboutVideoScaffoldItem = ({ userProps }) => {
         };
 
         if (video) {
-            video.addEventListener('durationchange', updateDuration);
+            video.addEventListener("durationchange", updateDuration);
 
             return () => {
-                video.removeEventListener('durationchange', updateDuration);
+                video.removeEventListener("durationchange", updateDuration);
             };
         }
     }, []);
 
     useEffect(() => {
-        const calculateTimeDifference = (date) => {
-            const currentDate = new Date();
-            const updatedDate = new Date(date);
-            const timeDifference = currentDate.getTime() - updatedDate.getTime();
-            const secondsDifference = Math.floor(timeDifference / 1000);
-
-            let text = '';
-            if (secondsDifference < 60) {
-                text = `${secondsDifference} seconds ago`;
-            } else if (secondsDifference < 3600) {
-                text = `${Math.floor(secondsDifference / 60)} minutes ago`;
-            } else if (secondsDifference < 86400) {
-                text = `${Math.floor(secondsDifference / 3600)} hours ago`;
-            } else if (secondsDifference < 259200) {
-                text = `${Math.floor(secondsDifference / 86400)} days ago`;
-            } else if (secondsDifference < 2592000) {
-                text = `${Math.floor(secondsDifference / 86400 / 30)} months ago`;
-            } else {
-                text = `${Math.floor(secondsDifference / 86400 / 365)} years ago`;
-            }
-
-            return text;
-        };
-
         const formattedTime = calculateTimeDifference(userProps.updated_at);
         setUpdatedAtText(formattedTime);
     }, [userProps.updated_at]);
@@ -63,12 +41,6 @@ const UserAboutVideoScaffoldItem = ({ userProps }) => {
             videoRef.current.pause();
             videoRef.current.currentTime = 0;
         }
-    };
-
-    const formatTime = (time) => {
-        const minutes = Math.floor(time / 60);
-        const seconds = Math.floor(time % 60);
-        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     };
 
     return (

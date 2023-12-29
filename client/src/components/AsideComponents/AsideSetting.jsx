@@ -3,7 +3,7 @@ import Image from "next/image";
 import {AsideSettingItem} from "@/components";
 import {asideSettingItemList} from "@/constants/AsideConstants";
 
-const AsideSetting = ({userProps, navigationProps}) => {
+const AsideSetting = ({ userProps, navigationProps }) => {
     return (
         <aside className="lg:w-[280px] w-fit h-[calc(100vh-52px)] block bg-white overflow-y-auto fixed">
             <section className="block">

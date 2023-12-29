@@ -2,16 +2,16 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 
-import {useClickOutside, useFilteredNotification} from "@/hooks";
 import { headerNotificationQuickSettingList } from "@/constants/HeaderConstants";
+import { useClickOutside, useFilteredNotification, useToggleState } from "@/hooks";
 import { HeaderTypeButtonItem, QuickSettingItem, NotificationHeaderItem } from "@/components";
 
 const NotificationHeader = ({ forwardedRef, userProps }) => {
     const notificationQuickSettingButtonRef = useRef(null);
 
     const [showTypeNotification, setShowTypeNotification] = useState("all");
-    const [showNotificationQuickSetting, setShowNotificationQuickSetting] = useState(false);
     const [notificationQuickSettingTranslateYValue, setNotificationQuickSettingTranslateYValue] = useState(0)
+    const [showNotificationQuickSetting, setShowNotificationQuickSetting, handleNotificationQuickSettingButton] = useToggleState(false);
 
     const {filteredNotifications, showUnreadNotification, setShowUnreadNotification} = useFilteredNotification(userProps);
 
@@ -23,10 +23,6 @@ const NotificationHeader = ({ forwardedRef, userProps }) => {
         }
 
         setShowTypeNotification(type);
-    }, []);
-
-    const handleNotificationQuickSettingButton = useCallback(() => {
-        setShowNotificationQuickSetting((prevShowNotificationQuickSetting) => !prevShowNotificationQuickSetting);
     }, []);
 
     useEffect(() => {

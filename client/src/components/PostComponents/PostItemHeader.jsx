@@ -1,8 +1,9 @@
-import Image from "next/image";
-import {formatTimeAgoFull} from "@/utils";
 import Link from "next/link";
+import Image from "next/image";
 
-const PostItemHeader = ({postProps, handleShowPostItemQuickSetting}) => {
+import { formatTimeAgoFull } from "@/utils";
+
+const PostItemHeader = ({ postProps, handleShowPostItemQuickSetting }) => {
     return (
         <div className="mb-[12px] px-[16px] pt-[12px] flex flex-row items-start">
             <div className="flex flex-row flex-shrink grow items-center relative">

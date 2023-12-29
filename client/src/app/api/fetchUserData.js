@@ -36,7 +36,7 @@ export const fetchUserData = async () => {
 
 export const fetchUserFriend = async () => {
     try {
-        const cachedUserFriendProps = localStorage.getItem("userFriendProps")
+        const cachedUserFriendProps = localStorage.getItem("userFriendProps");
 
         if (cachedUserFriendProps) {
             return JSON.parse(cachedUserFriendProps);
@@ -47,7 +47,7 @@ export const fetchUserFriend = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/friend";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/friend/";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -72,7 +72,7 @@ export const fetchUserFriend = async () => {
 
 export const fetchUserSearchQuery = async () => {
     try {
-        const cachedUserSearchProps = localStorage.getItem("userSearchProps")
+        const cachedUserSearchProps = localStorage.getItem("userSearchProps");
 
         if (cachedUserSearchProps) {
             return JSON.parse(cachedUserSearchProps);
@@ -83,7 +83,7 @@ export const fetchUserSearchQuery = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/search";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/search/";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -108,7 +108,7 @@ export const fetchUserSearchQuery = async () => {
 
 export const fetchUserSetting = async () => {
     try {
-        const cachedUserSettingProps = localStorage.getItem("userSettingProps")
+        const cachedUserSettingProps = localStorage.getItem("userSettingProps");
 
         if (cachedUserSettingProps) {
             return JSON.parse(cachedUserSettingProps);
@@ -119,7 +119,7 @@ export const fetchUserSetting = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/setting";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/setting/";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -146,7 +146,7 @@ export const fetchUserSetting = async () => {
 
 export const fetchUserFollowing = async () => {
     try {
-        const cachedUserFollowingProps = localStorage.getItem("userFollowingProps")
+        const cachedUserFollowingProps = localStorage.getItem("userFollowingProps");
 
         if (cachedUserFollowingProps) {
             return JSON.parse(cachedUserFollowingProps);
@@ -157,7 +157,7 @@ export const fetchUserFollowing = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/following";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/following/";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -172,7 +172,7 @@ export const fetchUserFollowing = async () => {
                 localStorage.setItem("userFollowingProps", JSON.stringify(responseData));
                 return responseData;
             } else {
-                return { error: "Error fetching user friend data" };
+                return { error: "Error fetching user following data" };
             }
         }
     } catch (error) {
@@ -182,7 +182,7 @@ export const fetchUserFollowing = async () => {
 
 export const fetchUserFollower = async () => {
     try {
-        const cachedUserFollowerProps = localStorage.getItem("userFollowerProps")
+        const cachedUserFollowerProps = localStorage.getItem("userFollowerProps");
 
         if (cachedUserFollowerProps) {
             return JSON.parse(cachedUserFollowerProps);
@@ -193,7 +193,7 @@ export const fetchUserFollower = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/follower";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/follower/";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -208,7 +208,7 @@ export const fetchUserFollower = async () => {
                 localStorage.setItem("userFollowerProps", JSON.stringify(responseData));
                 return responseData;
             } else {
-                return { error: "Error fetching user friend data" };
+                return { error: "Error fetching user follower data" };
             }
         }
     } catch (error) {
@@ -218,7 +218,7 @@ export const fetchUserFollower = async () => {
 
 export const fetchUserMessage = async () => {
     try {
-        const cachedUserMessageProps = localStorage.getItem("userMessageProps")
+        const cachedUserMessageProps = localStorage.getItem("userMessageProps");
 
         if (cachedUserMessageProps) {
             return JSON.parse(cachedUserMessageProps);
@@ -229,7 +229,7 @@ export const fetchUserMessage = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/message";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/message/";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -254,7 +254,7 @@ export const fetchUserMessage = async () => {
 
 export const fetchUserPhotoList = async () => {
     try {
-        const cachedUserPhotoListProps = localStorage.getItem("userPhotoListProps")
+        const cachedUserPhotoListProps = localStorage.getItem("userPhotoListProps");
 
         if (cachedUserPhotoListProps) {
             return JSON.parse(cachedUserPhotoListProps);
@@ -265,7 +265,7 @@ export const fetchUserPhotoList = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/photo-list";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/photo-list/";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -290,7 +290,7 @@ export const fetchUserPhotoList = async () => {
 
 export const fetchUserGroupList = async () => {
     try {
-        const cachedUserGroupListProps = localStorage.getItem("userGroupListProps")
+        const cachedUserGroupListProps = localStorage.getItem("userGroupListProps");
 
         if (cachedUserGroupListProps) {
             return JSON.parse(cachedUserGroupListProps);
@@ -301,7 +301,7 @@ export const fetchUserGroupList = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/group-list";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/group-list/";
 
             const response = await fetch(url, {
                 method: "GET",
@@ -316,7 +316,7 @@ export const fetchUserGroupList = async () => {
                 localStorage.setItem("userGroupListProps", JSON.stringify(responseData));
                 return responseData;
             } else {
-                return { error: "Error fetching user photo data" };
+                return { error: "Error fetching user group data" };
             }
         }
     } catch (error) {
@@ -326,7 +326,7 @@ export const fetchUserGroupList = async () => {
 
 export const fetchUserNotification = async () => {
     try {
-        const cachedUserNotificationProps = localStorage.getItem("userNotificationProps")
+        const cachedUserNotificationProps = localStorage.getItem("userNotificationProps");
 
         if (cachedUserNotificationProps) {
             return JSON.parse(cachedUserNotificationProps);
@@ -337,7 +337,7 @@ export const fetchUserNotification = async () => {
                 return { error: "Access token not found" };
             }
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/notification";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/notification/";
 
             const response = await fetch(url, {
                 method: "GET",

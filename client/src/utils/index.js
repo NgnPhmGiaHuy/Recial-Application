@@ -8,16 +8,16 @@ export const checkPasswordStrength = (password) => {
     const mediumRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
 
     if (strongRegex.test(password)) {
-        return 'strong';
+        return "strong";
     } else if (mediumRegex.test(password)) {
-        return 'medium';
+        return "medium";
     } else {
-        return 'weak';
+        return "weak";
     }
 };
 
 export const handleFormatNumber = (number) => {
-    if (number === 0) return '';
+    if (number === 0) return "";
 
     const suffixes = ["", "K", "M", "B", "T"];
     let suffixIndex = 0;
@@ -27,15 +27,21 @@ export const handleFormatNumber = (number) => {
         suffixIndex++;
     }
 
-    const formattedNumber = typeof number === 'number' ? number.toFixed(1) : number;
+    const formattedNumber = typeof number === "number" ? number.toFixed(1) : number;
 
     return suffixIndex === 0 ? parseInt(formattedNumber, 10) : formattedNumber + suffixes[suffixIndex];
 };
 
+export const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+};
+
 export const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const month = date.toLocaleString('en', { month: 'numeric' });
-    const day = date.toLocaleString('en', { day: '2-digit' });
+    const month = date.toLocaleString("en", { month: "numeric" });
+    const day = date.toLocaleString("en", { day: "2-digit" });
 
     return `${month}-${day}`;
 };
@@ -118,6 +124,30 @@ export const formatTimeAgoFull = (timestamp) => {
     }
 };
 
+export const calculateTimeDifference = (date) => {
+    const currentDate = new Date();
+    const updatedDate = new Date(date);
+    const timeDifference = currentDate.getTime() - updatedDate.getTime();
+    const secondsDifference = Math.floor(timeDifference / 1000);
+
+    let text = '';
+    if (secondsDifference < 60) {
+        text = `${secondsDifference} seconds ago`;
+    } else if (secondsDifference < 3600) {
+        text = `${Math.floor(secondsDifference / 60)} minutes ago`;
+    } else if (secondsDifference < 86400) {
+        text = `${Math.floor(secondsDifference / 3600)} hours ago`;
+    } else if (secondsDifference < 259200) {
+        text = `${Math.floor(secondsDifference / 86400)} days ago`;
+    } else if (secondsDifference < 2592000) {
+        text = `${Math.floor(secondsDifference / 86400 / 30)} months ago`;
+    } else {
+        text = `${Math.floor(secondsDifference / 86400 / 365)} years ago`;
+    }
+
+    return text;
+};
+
 export const getMonthAndDay = (startDateTime) => {
     const months = [
         "Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -131,6 +161,48 @@ export const getMonthAndDay = (startDateTime) => {
     return { month, day };
 };
 
+export const calculateGridProperties = (selectedImages) => {
+    let imageGridAreas = [];
+    let gridTemplateRowsValue = "";
+    let gridTemplateColumnsValue = "";
+
+    if (selectedImages.length === 1) {
+        gridTemplateRowsValue = "100%";
+        gridTemplateColumnsValue = "100%";
+    } else if (selectedImages.length === 2) {
+        gridTemplateColumnsValue = "1fr 1fr";
+    } else if (selectedImages.length === 3) {
+        gridTemplateRowsValue = "repeat(6, 1fr)";
+        gridTemplateColumnsValue = "repeat(4, 1fr) 0fr 1fr";
+        imageGridAreas = [
+            "1 / 1 / 7 / 4",
+            "1 / 4 / 4 / 7",
+            "4 / 4 / 7 / 7",
+        ];
+    } else if (selectedImages.length === 4) {
+        gridTemplateRowsValue = "repeat(6, 1fr)";
+        gridTemplateColumnsValue = "repeat(4, 1fr) 0fr 1fr";
+        imageGridAreas = [
+            "1 / 1 / 7 / 4",
+            "1 / 4 / 3 / 7",
+            "3 / 4 / 5 / 7",
+            "5 / 4 / 7 / 7",
+        ];
+    } else {
+        gridTemplateRowsValue = "repeat(7, 1fr)";
+        gridTemplateColumnsValue = "repeat(4, 1fr) 0fr repeat(2, 1fr)";
+        imageGridAreas = [
+            "1 / 1 / 5 / 4",
+            "1 / 4 / 5 / 8",
+            "5 / 1 / 8 / 3",
+            "5 / 3 / 8 / 5",
+            "5 / 6 / 8 / 8",
+        ];
+    }
+
+    return { gridTemplateRowsValue, gridTemplateColumnsValue, imageGridAreas };
+};
+
 export const calculateAttachmentStyles = (attachmentsLength, index) => {
     let insetStyles = {};
     let width = "none";
@@ -139,21 +211,21 @@ export const calculateAttachmentStyles = (attachmentsLength, index) => {
     switch (attachmentsLength) {
         case 2:
             if (index === 0) {
-                width = '50%';
-                height = '100%';
-                insetStyles = { top: '0', left: '0' };
+                width = "50%";
+                height = "100%";
+                insetStyles = { top: "0", left: "0" };
             } else if (index === 1) {
-                width = '50%';
-                height = '100%';
-                insetStyles = { top: '0', right: '0' };
+                width = "50%";
+                height = "100%";
+                insetStyles = { top: "0", right: "0" };
             }
             break;
         case 3:
             switch (index) {
                 case 0:
-                    width = '50%';
-                    height = '100%';
-                    insetStyles = { top: '0', left: '0' };
+                    width = "50%";
+                    height = "100%";
+                    insetStyles = { top: "0", left: "0" };
                     break;
                 case 1:
                     width = '50%';

@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-import {formatDateTime} from "@/utils";
+import { formatDateTime } from "@/utils";
 import Illustration from "/public/images/Illustration/illustration-of-a-man-and-a-woman-watering-a-plant.jpg";
 
-const FriendScaffoldEventItem = ({userProps}) => {
+const FriendScaffoldEventItem = ({ userProps }) => {
     return (
         <li className="my-[12px] h-full flex flex-col items-center justify-center text-center align-top hyphens-auto relative hover:">
             <section className="w-full h-full relative">

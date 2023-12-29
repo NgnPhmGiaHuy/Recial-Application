@@ -1,6 +1,6 @@
-import {PostItem} from "@/components";
+import { PostItem } from "@/components";
 
-const Post = ({postRef, userData, userProps, postListProps}) => {
+const Post = ({ postRef, userData, userProps, postListProps }) => {
     return (
         <div ref={postRef}>
             {postListProps?.map((value, index) => (

@@ -1,6 +1,7 @@
+import Link from "next/link";
 import Image from "next/image";
 
-const SuggestGroup = ({groupProps}) => {
+const SuggestGroup = ({ groupProps }) => {
     return (
         <section className="flex flex-col rounded-md bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
             <div className="w-full h-full p-[12px] relative">
@@ -12,28 +13,28 @@ const SuggestGroup = ({groupProps}) => {
                             </span>
                         </span>
                     </div>
-                    <a href="/group/suggest-group">
+                    <Link href="/group/suggest-group">
                         <span className="block text-[14px] text-left text-lime-500 font-semibold break-words relative leading-5 hover:text-lime-700">
                             See all
                         </span>
-                    </a>
+                    </Link>
                 </div>
             </div>
             <div className="w-full h-full p-[12px] relative">
                 <div className="w-full py-[8px] flex flex-col justify-between relative">
-                    <a href={`/group/${groupProps?._id}`} className="w-full h-[200px] rounded-md border border-solid border-zinc-200 overflow-hidden group relative">
+                    <Link href={`/group/${groupProps?._id}`} className="w-full h-[200px] rounded-md border border-solid border-zinc-200 overflow-hidden group relative">
                         <Image src={groupProps?.group_picture_url} alt={`${groupProps?.group_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="p-[4px] object-contain"/>
                         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-5 transition-opacity"></div>
-                    </a>
+                    </Link>
                     <div className="ml-[14px] my-[12px] flex flex-row items-center relative">
                         {groupProps?.members?.slice(0, 4).map((value, index) => {
                             const zIndexValue = index;
                             return (
-                                <a href={value._id} key={index}>
+                                <Link href={value._id} key={index}>
                                     <div style={{ zIndex: zIndexValue }} className="w-[40px] h-[40px] ml-[-14px] border-[2px] border-solid border-white rounded-full relative cursor-pointer overflow-hidden">
                                         <Image src={value.profile_picture_url} alt={`${value.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover" />
                                     </div>
-                                </a>
+                                </Link>
                             );
                         })}
                         {groupProps?.members?.length > 4 ? (
@@ -56,7 +57,7 @@ const SuggestGroup = ({groupProps}) => {
                     <div className="flex flex-col items-center justify-between relative">
                         <div className="w-full h-full flex flex-col flex-shrink grow basis-auto relative">
                             <div className="flex flex-col justify-center cursor-pointer">
-                                <a href={`/group/${groupProps?._id}`}>
+                                <Link href={`/group/${groupProps?._id}`}>
                                     <div className="h-[36px] px-[12px] flex flex-row flex-nowrap items-center justify-center rounded-md bg-zinc-200 relative hover:bg-zinc-300 transition-all">
                                         <div className="mx-[3px] flex flex-shrink-0 items-center justify-center relative">
                                             <span className="block text-[15px] text-black font-semibold break-words relative leading-5">
@@ -73,7 +74,7 @@ const SuggestGroup = ({groupProps}) => {
                                             </span>
                                         </div>
                                     </div>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>

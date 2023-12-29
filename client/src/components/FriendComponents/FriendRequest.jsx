@@ -1,6 +1,6 @@
-import {FriendRequestItem} from "@/components";
+import { FriendRequestItem } from "@/components";
 
-const FriendRequest = ({friendRequestProps}) => {
+const FriendRequest = ({ friendRequestProps }) => {
     return (
         <section className="flex flex-col rounded-md bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
             <div className="w-full h-full p-[12px] relative">

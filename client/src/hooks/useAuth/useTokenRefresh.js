@@ -26,7 +26,7 @@ const useTokenRefresh = () => {
                     const responseData = await response.json();
                     const newAccessToken = responseData.accessToken;
 
-                    return localStorage.setItem('accessToken', newAccessToken);
+                    return localStorage.setItem("accessToken", newAccessToken);
                 } else {
                     return router.push("/auth/login")
                 }
@@ -42,6 +42,10 @@ const useTokenRefresh = () => {
 
                 if (!accessToken && !refreshToken) {
                     return router.push("/auth/login");
+                }
+
+                if (!accessToken && refreshToken) {
+                    return await refreshAccessToken();
                 }
 
                 const token = accessToken ? accessToken : refreshToken;

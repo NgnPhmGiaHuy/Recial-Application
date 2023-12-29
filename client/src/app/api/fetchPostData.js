@@ -6,7 +6,7 @@ export const fetchPostData = async () => {
             return { error: "Access token not found" };
         }
 
-        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/post";
+        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/post/";
 
         const response = await fetch(url, {
             method: "GET",
@@ -19,7 +19,7 @@ export const fetchPostData = async () => {
         if (response.ok) {
             return await response.json();
         } else {
-            return { error: "Error fetching user data" }
+            return { error: "Error fetching post data" };
         }
     } catch (error) {
         throw error;
@@ -31,10 +31,10 @@ export const createPostData = async (postData) => {
         const accessToken = localStorage.getItem("accessToken");
 
         if (!accessToken) {
-            return {error: "Access token not found"};
+            return { error: "Access token not found" };
         }
 
-        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/post";
+        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/post/";
 
         const response = await fetch(url, {
             method: "POST",
@@ -46,9 +46,9 @@ export const createPostData = async (postData) => {
         });
 
         if (response.ok) {
-            return await response.json()
+            return await response.json();
         } else {
-            return { error: "Error creating post" }
+            return { error: "Error creating post" };
         }
     } catch (error) {
         throw error;

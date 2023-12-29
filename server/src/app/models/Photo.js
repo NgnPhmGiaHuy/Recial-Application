@@ -9,7 +9,7 @@ const PhotoSchema = new Schema(
         },
         photo_title: {
             type: String,
-            required: true,
+            // required: true,
         },
         photo_privacy: {
             type: String,

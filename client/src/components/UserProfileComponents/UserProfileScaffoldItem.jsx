@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 
-const UserProfileScaffoldItem = ({userProps, mediaProps}) => {
+const UserProfileScaffoldItem = ({ userProps, mediaProps }) => {
     return (
         <div className="w-4/12 mb-[4px] flex relative">
             <div className="w-[calc(100%-4px)] h-full mr-[4px] relative">

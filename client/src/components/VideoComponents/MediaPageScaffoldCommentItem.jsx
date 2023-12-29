@@ -1,33 +1,21 @@
 "use client"
 
 import Image from "next/image";
-import {useCallback, useEffect, useRef, useState} from 'react';
+import { useRef, useState } from 'react';
 
-import {formatDate} from "@/utils";
-import {useClickOutside} from "@/hooks";
-import {MediaPageScaffoldFooter} from "@/components";
+import { formatDate } from "@/utils";
+import { MediaPageScaffoldFooter } from "@/components";
+import { useClickOutside, useToggleState } from "@/hooks";
 
-const MediaPageScaffoldCommentItem = ({userProps, mediaProps, isReply}) => {
+const MediaPageScaffoldCommentItem = ({ userProps, mediaProps, isReply }) => {
     const reportButtonRef = useRef(null);
 
     const [displayedComments, setDisplayedComments] = useState(5);
 
-    const [showReplyPanel, setShowReplyPanel] = useState(false);
     const [showMoreButton, setShowMoreButton] = useState(false);
-    const [showReportPanel, setShowReportPanel] = useState(false);
-    const [showMoreComments, setShowMoreComments] = useState(false);
-
-    const handleShowMoreComment = useCallback(() => {
-        setShowMoreComments((prevShowMoreComments) => !prevShowMoreComments);
-    }, []);
-
-    const handleShowReportPanel = useCallback(() => {
-        setShowReportPanel((prevShowReportPanel) => !prevShowReportPanel);
-    }, []);
-
-    const handleShowReplyPanel = useCallback(() => {
-        setShowReplyPanel((prevShowReplyPanel) => !prevShowReplyPanel);
-    }, []);
+    const [showReplyPanel, setShowReplyPanel, handleShowReplyPanel] = useToggleState(false);
+    const [showReportPanel, setShowReportPanel, handleShowReportPanel] = useToggleState(false);
+    const [showMoreComments, setShowMoreComments, handleShowMoreComment] = useToggleState(false);
 
     const handleShowAllComments = () => {
         setDisplayedComments(mediaProps?.comment_reply?.length);

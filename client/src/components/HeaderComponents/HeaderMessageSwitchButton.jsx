@@ -1,13 +1,9 @@
 "use client"
 
-import React, {useCallback, useState} from 'react';
+import { useToggleState } from "@/hooks";
 
 const HeaderMessageSwitchButton = () =>{
-    const [isHeaderMessageSwitchButtonChecked, setIsHeaderMessageSwitchButtonChecked] = useState(false);
-
-    const handleHeaderMessageSwitchButton = useCallback(() => {
-        setIsHeaderMessageSwitchButtonChecked((preHeaderMessageSwitchButton) => !preHeaderMessageSwitchButton);
-    }, [])
+    const [isHeaderMessageSwitchButtonChecked, setIsHeaderMessageSwitchButtonChecked, handleHeaderMessageSwitchButton] = useToggleState(false);
 
     return(
         <div className="ml-[12px] flex items-center justify-start">

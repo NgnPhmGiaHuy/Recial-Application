@@ -1,13 +1,13 @@
 "use client"
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 const useWebSocket = (url, onDataReceived) => {
     useEffect(() => {
         const socket = new WebSocket(url);
 
         socket.onopen = () => {
-            console.log('Connected to WebSocket server');
+            console.log("Connected to WebSocket server");
         };
 
         socket.onmessage = async (event) => {

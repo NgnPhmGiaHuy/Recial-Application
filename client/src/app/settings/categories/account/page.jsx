@@ -1,6 +1,7 @@
-import {useTokenRefresh} from "@/hooks";
 import {fakeUserData} from "@/constants";
-import {AsideSetting, Header, SettingScaffold} from "@/components";
+
+import { useTokenRefresh } from "@/hooks";
+import { AsideSetting, Header, SettingScaffold } from "@/components";
 
 const AccountSettingPage = () => {
     useTokenRefresh();

@@ -1,4 +1,4 @@
-const UserProfileIntroItem = ({userProps}) => {
+const UserProfileIntroItem = ({ userProps }) => {
     return (
         <li>
             <div className="m-[-6px] flex flex-row flex-nowrap items-stretch justify-start relative">

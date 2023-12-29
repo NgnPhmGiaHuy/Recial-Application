@@ -1,4 +1,4 @@
-const SettingScaffoldItem = ({settingProps, isBorderBottom}) => {
+const SettingScaffoldItem = ({ settingProps, isBorderBottom }) => {
     return (
         <li className={`${isBorderBottom ? "after:w-full after:border-b after:border-solid after:border-zinc-200 after:absolute" : null}`}>
             <a href={settingProps.itemLink}>

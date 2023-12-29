@@ -1,18 +1,14 @@
 "use client"
 
 import Image from "next/image";
-import {useCallback, useRef, useState} from "react";
+import { useRef } from "react";
 
-import {useClickOutside} from "@/hooks";
-import {UserProfileCoverNavigation} from "@/components";
+import { UserProfileCoverNavigation } from "@/components";
+import { useClickOutside, useToggleState } from "@/hooks";
 
-const UserProfileCover = ({userProps, navigationProps, isCurrentUser}) => {
+const UserProfileCover = ({ userProps, navigationProps, isCurrentUser }) => {
     const peopleYouMayKnowButtonRef = useRef(null);
-    const [showPeopleYouMayKnow, setShowPeopleUseMayKnow] = useState(false);
-
-    const handleShowPeopleYouMayKnow = useCallback(() => {
-        setShowPeopleUseMayKnow((prevShowPeopleYouMayKnow) => !prevShowPeopleYouMayKnow);
-    }, []);
+    const [showPeopleYouMayKnow, setShowPeopleUseMayKnow, handleShowPeopleYouMayKnow] = useToggleState(false);
 
     useClickOutside(peopleYouMayKnowButtonRef, showPeopleYouMayKnow, setShowPeopleUseMayKnow)
 

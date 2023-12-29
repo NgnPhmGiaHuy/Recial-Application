@@ -1,6 +1,6 @@
-import {CreatePost, Post, UserProfileAbout, UserProfileCover} from "@/components";
+import { CreatePost, Post, UserProfileAbout, UserProfileCover } from "@/components";
 
-const UserProfile = ({userData, userProps, postProps, postByIdRef, isCurrentUser, handleShowCreatePost}) => {
+const UserProfile = ({ userData, userProps, postProps, postByIdRef, isCurrentUser, handleShowCreatePost }) => {
     return (
         <main>
             <div className="my-[16px] flex flex-col gap-4 relative">

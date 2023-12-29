@@ -1,15 +1,15 @@
 import Image from "next/image";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
-import {useLogout} from "@/hooks";
-import {HeaderPersonalAccountSettingItem} from "@/components";
-import {headerPersonalAccountSettingItemList} from "@/constants/HeaderConstants";
+import { useLogout } from "@/hooks";
+import { HeaderPersonalAccountSettingItem } from "@/components";
+import { headerPersonalAccountSettingItemList } from "@/constants/HeaderConstants";
 
 const HeaderPersonalAccount = ({forwardedRef, userProps}) => {
     const router = useRouter();
 
     const handleLogout = async () => {
-        const logout = useLogout(router);
+        const logout = await useLogout(router);
         try {
             await logout();
         } catch (error) {

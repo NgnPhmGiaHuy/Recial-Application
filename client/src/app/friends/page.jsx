@@ -1,8 +1,8 @@
 "use client"
 
 import {fakeUserData} from "@/constants";
-import {useTokenRefresh, useUserData, useWithAuth} from "@/hooks";
-import {AsideScaffold, FriendScaffold, Header} from "@/components";
+import { AsideScaffold, FriendScaffold, Header } from "@/components";
+import { useTokenRefresh, useUserData, useWithAuth } from "@/hooks";
 
 const FriendPage = () => {
     useTokenRefresh();

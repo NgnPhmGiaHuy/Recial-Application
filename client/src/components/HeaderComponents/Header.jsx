@@ -1,47 +1,28 @@
 "use client"
 
 import Image from "next/image";
-import {useEffect, useRef, useState, useCallback} from "react";
+import { useEffect, useRef, useState } from "react";
 
-import {useClickOutside} from "@/hooks";
-import {headerNavigationItemList} from "@/constants/HeaderConstants";
-import {HeaderMenu, HeaderMessage, NotificationHeader, HeaderPersonalAccount, HeaderSearchHistory, HeaderNavigationItem} from "@/components";
+import { useClickOutside, useToggleState } from "@/hooks";
+import { headerNavigationItemList } from "@/constants/HeaderConstants";
+import { HeaderMenu, HeaderMessage, NotificationHeader, HeaderPersonalAccount, HeaderSearchHistory, HeaderNavigationItem } from "@/components";
 
 import Favicon from "/public/images/Metadata/favicon.ico";
 
-const Header = ({navigationProps, userProps, disableMessage, disableNotification}) => {
+const Header = ({ userProps, navigationProps, disableMessage, disableNotification }) => {
     const menuButtonRef = useRef(null);
     const messageButtonRef = useRef(null);
     const notificationButtonRef = useRef(null);
     const searchHistoryButtonRef = useRef(null);
     const personalAccountButtonRef = useRef(null);
 
-    const [showMenu, setShowMenu] = useState(false);
-    const [showMessage, setShowMessage] = useState(false);
-    const [showNotification, setShowNotification] = useState(false);
-    const [showSearchHistory, setShowSearchHistory] = useState(false);
-    const [showPersonalAccount, setShowPersonalAccount] = useState(false);
+    const [showMenu, setShowMenu, handleMenuButtonClick] = useToggleState(false);
+    const [showMessage, setShowMessage, handleMessageButtonClick] = useToggleState(false);
+    const [showNotification, setShowNotification, handleNotificationButtonClick] = useToggleState(false);
+    const [showSearchHistory, setShowSearchHistory, handleSearchHistoryButtonClick] = useToggleState(false);
+    const [showPersonalAccount, setShowPersonalAccount, handlePersonalAccountButtonClick] = useToggleState(false);
+
     const [notificationUnreadCount, setNotificationUnreadCount] = useState(0);
-
-    const handleMenuButtonClick = useCallback(() => {
-        setShowMenu((prevShowMenu) => !prevShowMenu);
-    }, []);
-
-    const handleMessageButtonClick = useCallback(() => {
-        setShowMessage((prevShowMessage) => !prevShowMessage);
-    }, []);
-
-    const handleNotificationButtonClick = useCallback(() => {
-        setShowNotification((prevShowNotification) => !prevShowNotification);
-    }, []);
-
-    const handleSearchHistoryButtonClick = useCallback(() => {
-        setShowSearchHistory((prevShowSearchHistory) => !prevShowSearchHistory);
-    }, []);
-
-    const handlePersonalAccountButtonClick = useCallback(() => {
-        setShowPersonalAccount((prevShowPersonalAccount) => !prevShowPersonalAccount);
-    }, []);
 
     useClickOutside(menuButtonRef, showMenu, setShowMenu);
     useClickOutside(messageButtonRef, showMessage, setShowMessage);

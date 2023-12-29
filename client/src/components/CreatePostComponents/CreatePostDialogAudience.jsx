@@ -1,9 +1,9 @@
 "use client"
 
-import {useState, useCallback, useEffect} from "react";
+import { useState, useCallback, useEffect } from "react";
 
-import {CreatePostDialogAudienceItem} from "@/components";
-import {createPostAudienceItemList} from "@/constants/CreatePostConstants";
+import { CreatePostDialogAudienceItem } from "@/components";
+import { createPostAudienceItemList } from "@/constants/CreatePostConstants";
 
 const renderAudienceItems = (userProps, handleCreatePostAudienceChecked) => {
     return createPostAudienceItemList.map((value, index) => {
@@ -75,8 +75,8 @@ const CreatePostDialogAudience = ({userProps, setUserProps, handeShowCreatePostA
                 </div>
             </div>
             <div >
-                <div className="max-h-[30rem] flex flex-col">
-                    <div className="min-h-[29rem] flex flex-col flex-shrink grow basis-full overflow-x-auto overflow-y-auto overscroll-x-contain overscroll-y-contain relative">
+                <div className="max-h-full flex flex-col">
+                    <div className="min-h-[35rem] flex flex-col flex-shrink grow basis-full overflow-x-auto overflow-y-auto overscroll-x-contain overscroll-y-contain relative">
                         <div className="pt-[16px] pb-[24px] flex flex-col grow relative">
                             <div className="mt-[-16px] mb-[16px]">
                                 <div className="pt-[20px] pb-[4px] flex flex-col relative">

@@ -1,6 +1,6 @@
-import {FriendScaffoldItem} from "@/components";
+import { FriendScaffoldItem } from "@/components";
 
-const FriendScaffold = ({userProps}) => {
+const FriendScaffold = ({ userProps }) => {
     return (
         <div className="flex flex-col grow items-stretch justify-center relative">
             <div className="flex flex-col flex-shrink-0 grow relative">

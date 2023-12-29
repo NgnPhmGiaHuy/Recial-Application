@@ -1,12 +1,12 @@
 "use client"
 
 import Image from "next/image";
-import {flushSync} from "react-dom";
-import {useRef, useState} from "react";
+import { flushSync } from "react-dom";
+import { useRef, useState } from "react";
 
-import {StoryItem} from "@/components";
+import { StoryItem } from "@/components";
 
-const Story = ({userProps, storyProps}) => {
+const Story = ({ userProps, storyProps }) => {
     const storyItemSelectedRef = useRef(null);
     const [storyItemIndex, setStoryItemIndex] = useState(0);
 

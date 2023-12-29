@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const VideoScaffoldItemInfo = ({videoProps}) => {
+const VideoScaffoldItemInfo = ({ videoProps }) => {
     return (
         <div className="w-full p-[16px] flex flex-row grow items-end justify-start self-auto bg-transparent overflow-visible static">
             <div className="mr-[8px] max-h-[100px] flex flex-col grow items-stretch justify-start self-auto bg-transparent overflow-hidden static transition-all duration-300">

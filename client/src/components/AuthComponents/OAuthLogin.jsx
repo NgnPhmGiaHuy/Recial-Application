@@ -6,7 +6,7 @@ import {signIn, useSession} from "next-auth/react";
 
 import Google from "/public/images/Brands/Google.png";
 
-const OAuthLogin = ({isLogin, isSignup}) => {
+const OAuthLogin = ({ isLogin, isSignup }) => {
     const {data: session} = useSession();
 
     return (

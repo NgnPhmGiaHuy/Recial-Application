@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const SuggestPageItem = ({pageProps}) => {
+const SuggestPageItem = ({ pageProps }) => {
     return (
         <div className="w-full h-full p-[12px] relative">
             <div className="w-full flex flex-col justify-between relative">

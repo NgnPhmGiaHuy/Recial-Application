@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import {useOverflowText} from "@/hooks";
-import {calculateAttachmentStyles} from "@/utils";
+import { useOverflowText } from "@/hooks";
+import { calculateAttachmentStyles } from "@/utils";
 
 const PostItemContent = ({ postProps }) => {
     const {textRef, showMoreText, isOverflowing, handleShowMoreText} = useOverflowText();

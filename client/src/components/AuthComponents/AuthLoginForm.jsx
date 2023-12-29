@@ -1,15 +1,10 @@
 "use client"
 
-import {useCallback, useState} from "react";
+import { OAuthLogin } from "@/components";
+import { useToggleState } from "@/hooks";
 
-import {OAuthLogin} from "@/components";
-
-const AuthLoginForm = ({action, handleChange, isLogin, isSignup, error, setError}) => {
-    const [showPassword, setShowPassword] = useState(false);
-
-    const handleShowPassword = useCallback(() => {
-        setShowPassword((prevShowPassword) => !prevShowPassword);
-    }, []);
+const AuthLoginForm = ({ action, handleChange, isLogin, isSignup, error, setError }) => {
+    const [showPassword, setShowPassword, handleShowPassword] = useToggleState(false);
 
     return (
         <>

@@ -1,6 +1,6 @@
-import {HeaderMessageSwitchButton} from "@/components";
+import { HeaderMessageSwitchButton } from "@/components";
 
-const QuickSettingItem = ({settingProps}) => {
+const QuickSettingItem = ({ settingProps }) => {
     if (settingProps.isSettingItemBreak) {
         return (
             <div className="mx-[16px] mt-[4px] h-[1px] bg-zinc-300"></div>

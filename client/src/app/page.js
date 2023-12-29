@@ -1,21 +1,17 @@
 "use client"
 
-import {useCallback, useRef, useState} from "react";
+import { useRef } from "react";
 
 import { handleNewData } from "@/utils/handleNewData";
 import { Header, Aside, Main, CreatePostDialog } from "@/components";
-import { useClickOutside, useStoryData, useGetPostData, useTokenRefresh, useUserData, useWithAuth, useWebSocket } from "@/hooks";
+import { useClickOutside, useStoryData, useGetPostData, useTokenRefresh, useUserData, useWithAuth, useWebSocket, useToggleState } from "@/hooks";
 
 const HomePage = () => {
     useTokenRefresh();
 
     const createPostRef = useRef(null);
 
-    const [showCreatePost, setMainCreatePost] = useState(false);
-
-    const handleShowCreatePost = useCallback(() => {
-        setMainCreatePost((prevShowMainCreatePost) => !prevShowMainCreatePost);
-    }, []);
+    const [showCreatePost, setMainCreatePost, handleShowCreatePost] = useToggleState(false);
 
     const storyProps = useStoryData();
     const { userProps, setUserProps } = useUserData();

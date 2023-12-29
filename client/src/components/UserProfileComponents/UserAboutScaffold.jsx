@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import {UserAboutPhotoScaffoldItem, UserAboutScaffoldItem, UserAboutVideoScaffoldItem} from "@/components";
 const DynamicUserAboutVideoScaffoldItem = dynamic(() => import("@/components/UserProfileComponents/UserAboutVideoScaffoldItem"), { ssr: false });
 
-const UserAboutScaffold = ({userProps, mediaProps, titleLabel, isCurrentUser, isFriendItem, isFriendPage, isGroup, isGroupPage, isPhoto, isPhotoPage, isVideo, isVideoPage}) => {
+const UserAboutScaffold = ({ userProps, mediaProps, titleLabel, isCurrentUser, isFriendItem, isFriendPage, isGroup, isGroupPage, isPhoto, isPhotoPage, isVideo, isVideoPage }) => {
     return (
         <div className="flex flex-col rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white overflow-hidden relative">
             <div className="p-[16px]">

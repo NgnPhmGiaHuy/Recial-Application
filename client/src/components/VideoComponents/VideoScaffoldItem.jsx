@@ -1,9 +1,9 @@
 "use client"
 
-import {useState, useRef, useEffect} from "react";
+import { useState, useRef, useEffect } from "react";
 
-import {useGlobalMute} from "@/components/ProviderComponents/GlobalMuteProvider";
-import {VideoScaffoldItemAside, VideoScaffoldItemInfo} from "@/components";
+import { useGlobalMute } from "@/components/ProviderComponents/GlobalMuteProvider";
+import { VideoScaffoldItemAside, VideoScaffoldItemInfo } from "@/components";
 
 const VideoScaffoldItem = ({ videoProps, autoPlay = false }) => {
     const { globalMute, setGlobalMute } = useGlobalMute();

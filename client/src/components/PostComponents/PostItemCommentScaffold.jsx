@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {useCallback, useState} from "react";
+import { useState } from "react";
 
-import {PostItemCommentInput} from "@/components";
-import {useMostReactedIcons, useOverflowText} from "@/hooks";
-import {formatTimeAgoShort, handleFormatNumber} from "@/utils";
+import { PostItemCommentInput } from "@/components";
+import { formatTimeAgoShort, handleFormatNumber } from "@/utils";
+import { useMostReactedIcons, useOverflowText, useToggleState } from "@/hooks";
 
 const PostItemCommentScaffold = ({userData, userProps, postProps, isRely}) => {
     const mostReactedIcons = useMostReactedIcons(postProps?.comment_reactions);
@@ -15,11 +15,7 @@ const PostItemCommentScaffold = ({userData, userProps, postProps, isRely}) => {
 
     const [visibleComments, setVisibleComments] = useState(3);
     const [loadMoreClicked, setLoadMoreClicked] = useState(false);
-    const [showCommentInput, setShowCommentInput] = useState(false);
-
-    const handleShowCommentInput = useCallback(() => {
-        setShowCommentInput((prevState) => !prevState)
-    }, []);
+    const [showCommentInput, setShowCommentInput, handleShowCommentInput] = useToggleState(false);
 
     const loadMoreComments = () => {
         const remainingComments = postProps?.comment_reply?.length - visibleComments;

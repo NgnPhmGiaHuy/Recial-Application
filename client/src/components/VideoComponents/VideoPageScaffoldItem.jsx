@@ -1,8 +1,8 @@
 "use client"
 
-import {useRef, useState} from 'react';
+import { useRef, useState } from 'react';
 
-const VideoPageScaffoldItem = ({videoProps}) => {
+const VideoPageScaffoldItem = ({ videoProps }) => {
     const videoItemRef = useRef(null);
 
     const [videoMuted, setVideoMuted] = useState(true);

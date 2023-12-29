@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {useCallback, useEffect, useState} from "react";
+import { useCallback, useEffect, useState } from "react";
 
-import {handleFormatNumber, formatDate} from "@/utils";
-import {useCountComment, useCountLikeReaction, useOverflowText} from "@/hooks";
+import { handleFormatNumber, formatDate } from "@/utils";
+import { useCountComment, useCountLikeReaction, useOverflowText } from "@/hooks";
 
-const MediaPageScaffoldHeader = ({mediaProps}) => {
+const MediaPageScaffoldHeader = ({ mediaProps }) => {
     const totalLike = useCountLikeReaction(mediaProps?.media);
     const totalComment = useCountComment(mediaProps?.media);
 

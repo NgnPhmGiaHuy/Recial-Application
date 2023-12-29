@@ -1,20 +1,16 @@
 "use client"
 
-import {useEffect, useRef, useState, useCallback} from "react";
+import { useEffect, useRef, useState } from "react";
 
-import {useClickOutside} from "@/hooks";
-import {headerMessageQuickSettingList} from "@/constants/HeaderConstants";
-import {HeaderMessageContentItem, QuickSettingItem} from "@/components";
+import { useClickOutside, useToggleState } from "@/hooks";
+import { headerMessageQuickSettingList } from "@/constants/HeaderConstants";
+import { HeaderMessageContentItem, QuickSettingItem } from "@/components";
 
 const HeaderMessage = ({forwardedRef, userProps}) => {
     const messageQuickSettingButtonRef = useRef(null);
 
-    const [showMessageQuickSetting, setShowMessageQuickSetting] = useState(false);
     const [messageQuickSettingTranslateYValue, setMessageQuickSettingTranslateYValue] = useState(-415);
-
-    const handleMessageQuickSettingButton = useCallback(() => {
-        setShowMessageQuickSetting((prevShowMessageQuickSetting) => !prevShowMessageQuickSetting);
-    }, []);
+    const [showMessageQuickSetting, setShowMessageQuickSetting, handleMessageQuickSettingButton] = useToggleState(false);
 
     useEffect(() => {
         if (messageQuickSettingButtonRef.current && showMessageQuickSetting) {

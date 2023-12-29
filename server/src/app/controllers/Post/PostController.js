@@ -1,11 +1,10 @@
-const { WebSocket } = require("ws");
-
 const Post = require("../../models/Post");
-const Type = require("../../models/Type");
 const User = require("../../models/User");
-const Comment = require("../../models/Comment");
+const Photo = require("../../models/Photo");
 const userDataService = require("../../services/userDataService");
 const postDataService = require("../../services/postDataService");
+const imageDataService = require("../../services/imageDataService");
+const websocketService = require("../../services/websocketService");
 
 class PostController {
     getPostData = async (req, res) => {
@@ -54,30 +53,35 @@ class PostController {
                 post_privacy: postData.post.post_privacy,
             })
 
+            /*
+                Using when you want to store it in your local computer
+                const resolvedImageData = await Promise.all(postData.post.post_image.map(async (imageData) => {
+                    const newPhoto = await imageDataService.saveImage(imageData, user, postData.post.post_privacy);
+                    user.photo_list.unshift(newPhoto._id);
+                    newPost.post_photos.unshift(newPhoto._id);
+                    return newPhoto._id;
+                }));
+            */
+
+            const imagesData = await Promise.all(postData.post.post_image.map(async (image) => {
+                const newPhoto = new Photo({
+                    photo_url: image,
+                    photo_privacy: postData.post.post_privacy,
+                })
+
+                await newPhoto.save()
+
+                user.photo_list.unshift(newPhoto._id);
+                newPost.post_photos.unshift(newPhoto._id);
+            }))
+
             await newPost.save();
 
             user.post_list.unshift(newPost._id);
-            user.post_list.sort(async (postIdA, postIdB) => {
-                const postA = await Post.findById(postIdA);
-                const postB = await Post.findById(postIdB);
-                return postB.updatedAt - postA.updatedAt;
-            });
 
             await user.save();
 
-            const wss = req.app.get("wss");
-            if (wss) {
-                const message = {
-                    type: 'create_new_post',
-                    postId: newPost._id,
-                };
-
-                wss.clients.forEach((client) => {
-                    if (client.readyState === WebSocket.OPEN) {
-                        client.send(JSON.stringify(message));
-                    }
-                });
-            }
+            await websocketService.sendNewPostMessage(req.app.get('wss'), newPost._id);
 
             res.status(200).json(newPost);
         } catch (error) {

@@ -4,7 +4,7 @@ import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 
 import {useUserData} from "@/hooks";
-import {fetchUserIdData, fetchUserIdFollower, fetchUserIdFollowing, fetchUserIdFriend, fetchUserIdGroupList, fetchUserIdPhotoList} from "@/app/api/fetchUserIdData";
+import {fetchUserDataById, fetchUserIdFollower, fetchUserIdFollowing, fetchUserIdFriend, fetchUserIdGroupList, fetchUserIdPhotoList} from "@/app/api/fetchUserDataById";
 
 const useUserIdLayout = (userId) => {
     const router = useRouter();
@@ -26,7 +26,7 @@ const useUserIdLayout = (userId) => {
                 } else {
                     setUserProps(null);
 
-                    const userIdData = await fetchUserIdData(userId);
+                    const userIdData = await fetchUserDataById(userId);
 
                     if (!userIdData || userIdData.error) {
                         return router.push("/auth/login");

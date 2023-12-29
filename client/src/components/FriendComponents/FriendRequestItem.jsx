@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-import {formatTimeAgoShort} from "@/utils";
+import { formatTimeAgoShort } from "@/utils";
 
-const FriendRequestItem = ({friendRequestProps}) => {
+const FriendRequestItem = ({ friendRequestProps }) => {
     return (
         <div className="pt-[12px] flex flex-col flex-auto justify-between relative">
             <a href="">

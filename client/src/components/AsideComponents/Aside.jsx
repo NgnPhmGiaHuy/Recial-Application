@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {useCallback, useState} from "react";
+import { useCallback, useState } from "react";
 
-import {asideNavigationItemList} from "@/constants/AsideConstants";
-import {AsideFollowItem, AsideItem, AsideShowMoreOrShowLessButton} from "@/components";
+import { asideNavigationItemList } from "@/constants/AsideConstants";
+import { AsideFollowItem, AsideItem, AsideShowMoreOrShowLessButton } from "@/components";
 
-const Aside = ({userProps}) => {
+const Aside = ({ userProps }) => {
     const [asideFollowItemToShow, setAsideFollowItemToShow] = useState(3);
     const [asideNavigationItemsToShow, setAsideNavigationItemsToShow] = useState(6);
 
@@ -36,30 +36,22 @@ const Aside = ({userProps}) => {
                             <div className="px-[8px]">
                                 <Link href={userProps?.user?._id}>
                                     <div className="block rounded-md hover:bg-zinc-100 transition-all">
-                                        <div
-                                            className="min-h-[48px] px-[8px] flex flex-row items-center justify-between relative">
+                                        <div className="min-h-[48px] px-[8px] flex flex-row items-center justify-between relative">
                                             <div className="my-[6px] mr-[12px] flex flex-col self-center relative">
-                                                <div
-                                                    className="w-[36px] h-[36px] flex flex-row rounded-full overflow-hidden relative">
-                                                    <Image src={userProps?.user?.profile_picture_url}
-                                                           alt={`${userProps?.user?.profile_picture_url}-image`}
-                                                           fill={true} sizes="(max-width: 768px) 100vw"
-                                                           className="object-cover"/>
+                                                <div className="w-[36px] h-[36px] flex flex-row rounded-full overflow-hidden relative">
+                                                    <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                                 </div>
                                             </div>
-                                            <div
-                                                className="flex flex-row flex-shrink grow items-center justify-between self-stretch relative">
-                                                <div
-                                                    className="py-[8px] flex flex-col flex-shrink grow basis-0 items-stretch justify-between relative">
+                                            <div className="flex flex-row flex-shrink grow items-center justify-between self-stretch relative">
+                                                <div className="py-[8px] flex flex-col flex-shrink grow basis-0 items-stretch justify-between relative">
                                                     <div className="my-[-5px] flex flex-col">
                                                         <div className="my-[5px]">
-                                                        <span
-                                                            className="block text-[16px] text-black text-left font-medium break-words leading-5">
-                                                            <span
-                                                                className="overflow-x-hidden overflow-y-hidden line-clamp-2 relative">
-                                                                {userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname}
+                                                            <span className="block text-[16px] text-black text-left font-medium break-words leading-5">
+                                                                <span
+                                                                    className="overflow-x-hidden overflow-y-hidden line-clamp-2 relative">
+                                                                    {userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname}
+                                                                </span>
                                                             </span>
-                                                        </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -91,10 +83,8 @@ const Aside = ({userProps}) => {
                                         <div className="px-[16px] flex flex-col flex-shrink-0 relative">
                                             <div className="my-[-5px] flex flex-col relative">
                                                 <div className="my-[5px]">
-                                                    <span
-                                                        className="block text-[16px] text-zinc-500 text-left font-bold break-words leading-5">
-                                                        <div
-                                                            className="flex flex-row flex-nowrap items-center justify-between relative">
+                                                    <span className="block text-[16px] text-zinc-500 text-left font-bold break-words leading-5">
+                                                        <div className="flex flex-row flex-nowrap items-center justify-between relative">
                                                             <div className="flex flex-col flex-shrink grow relative">
                                                                 <span className="block text-[16px] text-zinc-500 text-left font-bold break-words leading-5">
                                                                     <span className="overflow-x-hidden overflow-y-hidden line-clamp-2 whitespace-normal text-ellipsis relative">

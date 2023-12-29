@@ -4,7 +4,7 @@ import {MediaPageScaffold} from "@/components";
 import {handleNewData} from "@/utils/handleNewData";
 import {useMediaData, useTokenRefresh, useUserData, useWebSocket} from "@/hooks";
 
-const StoryPage = ({searchParams}) => {
+const StoryPage = ({ searchParams }) => {
     useTokenRefresh();
 
     const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/media/story/?" + new URLSearchParams(searchParams).toString();

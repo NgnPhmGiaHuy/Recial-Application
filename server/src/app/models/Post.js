@@ -41,7 +41,7 @@ const PostSchema = new Schema(
         }],
         post_photos: [{
             type: Schema.Types.ObjectId,
-            ref: "Attachment",
+            ref: "Photo",
         }],
         post_location: {
             type: Schema.Types.ObjectId,

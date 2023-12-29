@@ -1,6 +1,6 @@
-import {FriendScaffoldEventItem, FriendScaffoldProfileItem} from "@/components";
+import { FriendScaffoldEventItem, FriendScaffoldProfileItem } from "@/components";
 
-const FriendScaffoldItem = ({userProps}) => {
+const FriendScaffoldItem = ({ userProps }) => {
     return (
         <div className="w-full h-full mb-[32px]">
             <div className="min-h-[32px] flex flex-row items-center justify-between relative">

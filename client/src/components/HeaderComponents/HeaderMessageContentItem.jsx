@@ -1,22 +1,18 @@
 "use client"
 
 import Image from "next/image";
-import {useCallback, useRef, useState} from "react";
+import { useRef, useState } from "react";
 
-import {useClickOutside} from "@/hooks";
-import {formatTimeAgoShort} from "@/utils";
-import {QuickSettingItem} from "@/components";
-import {headerMessageQuickSettingItemList} from "@/constants/HeaderConstants";
+import { formatTimeAgoShort } from "@/utils";
+import { QuickSettingItem } from "@/components";
+import { useClickOutside, useToggleState } from "@/hooks";
+import { headerMessageQuickSettingItemList } from "@/constants/HeaderConstants";
 
 const HeaderMessageContentItem = ({messageProps}) => {
     const messageQuickSettingItemButtonRef = useRef();
 
-    const [showHeaderMessageItemQuickSetting, setShowHeaderMessageItemQuickSetting] = useState(false);
     const [showHeaderMessageContentItemMoreButton, setShowHeaderMessageContentItemMoreButton] = useState(false);
-
-    const handleShowHeaderMessageItemQuickSettingButton = useCallback(()=> {
-        setShowHeaderMessageItemQuickSetting((preShowHeaderMessageItemQuickSetting) => !preShowHeaderMessageItemQuickSetting);
-    }, []);
+    const [showHeaderMessageItemQuickSetting, setShowHeaderMessageItemQuickSetting, handleShowHeaderMessageItemQuickSettingButton] = useToggleState(false);
 
     useClickOutside(messageQuickSettingItemButtonRef, showHeaderMessageItemQuickSetting, setShowHeaderMessageItemQuickSetting);
 

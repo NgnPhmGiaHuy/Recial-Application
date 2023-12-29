@@ -1,7 +1,7 @@
 import {asideFriendItemList, asideVideoItemList} from "@/constants/AsideConstants";
 import {AsideScaffoldItem, FriendListItem, FriendRequestItem} from "@/components";
 
-const AsideScaffold = ({navigationProps, asideTitle, asideSubtitle, asideFriendRequest, asideFriendList, asideWatch, userProps, action}) => {
+const AsideScaffold = ({ userProps, navigationProps, asideTitle, asideSubtitle, asideFriendRequest, asideFriendList, asideWatch, action }) => {
     return (
         <div className="my-[16px] ml-[12px] max-w-[360px] min-w-[280px] max-h-0 min-h-[inherit] top-[56px] fixed shrink-[9999] basis-[360px] bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-y-auto no-scrollbar rounded-md">
             <div className="max-h-[inherit] min-h-[inherit] flex flex-col relative">

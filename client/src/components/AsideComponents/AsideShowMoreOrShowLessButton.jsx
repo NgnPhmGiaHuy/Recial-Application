@@ -1,4 +1,4 @@
-const AsideShowMoreOrShowLessButton = ({showMore, onClick}) => {
+const AsideShowMoreOrShowLessButton = ({ showMore, onClick }) => {
     return(
         <div className="px-[8px]">
             <div className="block rounded-md hover:bg-zinc-200 cursor-pointer transition-all" onClick={onClick}>

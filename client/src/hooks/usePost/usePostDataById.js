@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import fetchPostByUserId from "@/app/api/fetchPostByUserId";
+import fetchPostDataById from "@/app/api/fetchPostDataById";
 
 const usePostDataByUserId = (userId) => {
     const router = useRouter();
@@ -28,7 +28,7 @@ const usePostDataByUserId = (userId) => {
         setLoading(true);
 
         try {
-            const postProps = await fetchPostByUserId({ userId, page });
+            const postProps = await fetchPostDataById({ userId, page });
 
             if (!postProps || postProps.error) {
                 return router.push("/auth/login");

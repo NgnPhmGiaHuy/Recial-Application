@@ -1,6 +1,6 @@
 import {UserProfileIntro, UserProfileScaffold} from "@/components";
 
-const AsideUser = ({userProps}) => {
+const AsideUser = ({ userProps }) => {
     return (
         <div className="my-[16px] ml-[12px] max-w-[360px] min-w-[280px] max-h-0 min-h-[inherit] basis-[360px] rounded-md">
             <div className="max-h-[inherit] min-h-[inherit] flex flex-col relative">

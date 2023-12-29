@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-import {handleFormatNumber} from "@/utils";
+import { handleFormatNumber } from "@/utils";
 
-const VideoScaffoldItemAside = ({videoProps}) => {
+const VideoScaffoldItemAside = ({ videoProps }) => {
     return (
         <div className="w-[60px] ml-[12px] mb-[4px] flex flex-col flex-shrink-0 grow-0 items-center justify-end overflow-visible static">
             <div className="mb-[20px] flex flex-col items-center cursor-pointer hover:text-zinc-500 transition-all">

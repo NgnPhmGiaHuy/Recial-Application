@@ -1,28 +1,19 @@
 "use client"
 
 import bcrypt from "bcryptjs";
-import {useState} from "react";
-import {useRouter} from "next/navigation";
-import {NextResponse} from "next/server";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { NextResponse } from "next/server";
 
-import {useCheckAccessToken} from "@/hooks";
-import {AuthHeader, AuthLoginForm} from "@/components";
-import {checkPasswordStrength, validateEmail} from "@/utils";
+import { useCheckAccessToken } from "@/hooks";
+import { AuthHeader, AuthLoginForm } from "@/components";
+import { checkPasswordStrength, validateEmail } from "@/utils";
 
 const Signup = () => {
     const router = useRouter();
 
-    const [error, setError] = useState({
-        isEmailError: false,
-        isPasswordError: false,
-        formErrorStatus: '',
-    });
-    const [registerFormData, setRegisterFormData] = useState({
-        session_key: '',
-        session_password: '',
-        session_firstname: '',
-        session_lastname: '',
-    });
+    const [error, setError] = useState({ isEmailError: false, isPasswordError: false, formErrorStatus: "" });
+    const [registerFormData, setRegisterFormData] = useState({ session_key: "", session_password: "", session_firstname: "", session_lastname: "" });
 
     const handleValidateForm = () => {
         const { session_key, session_password } = registerFormData;
@@ -30,50 +21,34 @@ const Signup = () => {
         const passwordStrength = checkPasswordStrength(session_password);
 
         if (!isValidEmail) {
-            setError({
-                isEmailError: true,
-                isPasswordError: false,
-                formErrorStatus: 'Email is not valid, please try again!',
-            });
-            return false;
+            return setError({ isEmailError: true, isPasswordError: false, formErrorStatus: "" });
         }
 
-        if (passwordStrength === 'weak') {
-            setError({
-                isEmailError: false,
-                isPasswordError: true,
-                formErrorStatus: 'Password is too weak. Please use a stronger password.',
-            });
-            return false;
+        if (passwordStrength === "weak") {
+            return setError({ isEmailError: false, isPasswordError: true, formErrorStatus: "Password is too weak. Please use a stronger password." });
         }
 
-        setError({
-            isEmailError: false,
-            isPasswordError: false,
-            formErrorStatus: '',
-        });
-
-        return true;
+        return setError({ isEmailError: false, isPasswordError: false, formErrorStatus: "" });
     };
 
     const handleChange = (e) => {
-        const {name, value} = e.target;
-        setRegisterFormData({...registerFormData, [name]: value});
+        const { name, value } = e.target;
+        setRegisterFormData({ ...registerFormData, [name]: value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!handleValidateForm()) {
+        if (!handleValidateForm) {
             return;
         }
 
         try {
-            const {session_key, session_password, session_firstname, session_lastname} = registerFormData;
+            const { session_key, session_password, session_firstname, session_lastname } = registerFormData;
 
             const hashedPassword = await bcrypt.hash(session_password, 10);
 
-            const dataToSend = {session_key, hashedPassword, session_firstname, session_lastname};
+            const dataToSend = { session_key, hashedPassword, session_firstname, session_lastname };
 
             const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/auth/register";
 
@@ -83,7 +58,7 @@ const Signup = () => {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(dataToSend)
+                body: JSON.stringify(dataToSend),
             });
 
             if (response.ok) {
@@ -91,17 +66,13 @@ const Signup = () => {
             } else {
                 if (response.status === 409) {
                     const errorData = await response.json();
-                    setError({
-                        isEmailError: true,
-                        isPasswordError: false,
-                        formErrorStatus: errorData.message,
-                    });
+                    return setError({ isEmailError: true, isPasswordError: false, formErrorStatus: errorData.message });
                 } else {
                     return NextResponse.json({ error: ((await response.json()).message || "Unexpected error occurred" )});
                 }
             }
         } catch (error) {
-            return NextResponse.json({ error: 'An unexpected error occurred' });
+            return NextResponse.json({ error: "An unexpected error occurred" });
         }
     }
 

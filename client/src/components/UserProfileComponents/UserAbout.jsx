@@ -1,6 +1,6 @@
-import {UserAboutOverview, UserAboutScaffold, UserProfileCover} from "@/components";
+import { UserAboutOverview, UserAboutScaffold, UserProfileCover } from "@/components";
 
-const UserAbout = ({userProps, isCurrentUser}) => {
+const UserAbout = ({ userProps, isCurrentUser }) => {
     return (
         <main>
             <div className="my-[16px] flex flex-col gap-4 relative">

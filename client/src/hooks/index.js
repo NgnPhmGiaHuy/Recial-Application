@@ -1,6 +1,6 @@
 import useCheckAccessToken from "@/hooks/useAuth/useCheckAccessToken";
 import useClickOutside from "@/hooks/useFunction/useClickOutside";
-import useCountComment from "@/hooks/useFunction/useCountCommnet";
+import useCountComment from "@/hooks/useFunction/useCountComment";
 import {useCommentData} from "@/hooks/useComment/useCommentData";
 import {useCommentMediaData} from "@/hooks/useComment/useCommentData";
 import useCountLikeReaction from "@/hooks/useFunction/useCountLikeReaction";
@@ -18,6 +18,7 @@ import useSuggestEventData from "@/hooks/useSuggest/useSuggestEventData";
 import useSuggestGroupData from "@/hooks/useSuggest/useSuggestGroupData";
 import useSuggestPageData from "@/hooks/useSuggest/useSuggestPageData";
 import useTokenRefresh from "@/hooks/useAuth/useTokenRefresh";
+import useToggleState from "@/hooks/useFunction/useToggleState";
 import useUserData from "@/hooks/useUser/useUserData";
 import useUserIdLayout from "@/hooks/useUser/useUserIdLayout";
 import useWithAuth from "@/hooks/useAuth/useWithAuth";
@@ -44,6 +45,7 @@ export {
     useSuggestGroupData,
     useSuggestPageData,
     useTokenRefresh,
+    useToggleState,
     useUserData,
     useUserIdLayout,
     useWithAuth,

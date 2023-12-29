@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 
-import {useOverflowText} from "@/hooks";
+import { useOverflowText } from "@/hooks";
 
-const UserProfileAbout = ({userProps}) => {
-    const {textRef, showMoreText, isOverflowing, handleShowMoreText} = useOverflowText();
+const UserProfileAbout = ({ userProps }) => {
+    const { textRef, showMoreText, isOverflowing, handleShowMoreText } = useOverflowText();
 
     return (
             <section className="mb-[16px] bg-white rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">

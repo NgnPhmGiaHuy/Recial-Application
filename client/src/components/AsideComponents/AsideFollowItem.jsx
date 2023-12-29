@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const AsideFollowItem = ({userProps, hasNotificationBadge}) => {
+const AsideFollowItem = ({ userProps, hasNotificationBadge }) => {
     return(
         <li>
             <div className="px-[8px]">

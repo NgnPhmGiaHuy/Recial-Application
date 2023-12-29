@@ -1,24 +1,19 @@
 "use client"
 
-import {useCallback, useEffect, useRef, useState} from 'react';
-import {postItemShareSettingList} from "@/constants/PostConstants";
+import { useEffect, useRef, useState } from 'react';
 
-import {useClickOutside} from "@/hooks";
-import {QuickSettingItem} from "@/components";
-import {userAboutOverviewSettingList} from "@/constants/UserProfileConstants";
+import { QuickSettingItem } from "@/components";
+import { useClickOutside, useToggleState } from "@/hooks";
+import { userAboutOverviewSettingList } from "@/constants/UserProfileConstants";
 
-const UserAboutOverview = ({userProps}) => {
+const UserAboutOverview = ({ userProps }) => {
     const userAboutOverviewRef = useRef(null);
     const userAboutOverviewSettingButtonRef = useRef(null);
 
-    const [showUserAboutOverviewSetting, setShowUserAboutOverviewSetting] = useState(false);
     const [userAboutOverviewTranslateXValue, setUserAboutOverviewTranslateXValue] = useState(0);
     const [userAboutOverviewSettingTranslateXValue, setUserAboutOverviewSettingTranslateXValue] = useState(0);
     const [userAboutOverviewSettingTranslateYValue, setUserAboutOverviewSettingTranslateYValue] = useState(0);
-
-    const handleShowUserAboutOverviewSetting = useCallback(() => {
-        setShowUserAboutOverviewSetting((prevShowUserAboutOverviewSetting) => !prevShowUserAboutOverviewSetting);
-    }, []);
+    const [showUserAboutOverviewSetting, setShowUserAboutOverviewSetting, handleShowUserAboutOverviewSetting] = useToggleState(false);
 
     useEffect(() => {
         if (userAboutOverviewRef.current && userAboutOverviewSettingButtonRef.current && showUserAboutOverviewSetting) {

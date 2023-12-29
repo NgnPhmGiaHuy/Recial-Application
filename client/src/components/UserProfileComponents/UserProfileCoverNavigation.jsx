@@ -1,6 +1,6 @@
-import {UserProfileCoverNavigationItem} from "@/components";
+import { UserProfileCoverNavigationItem } from "@/components";
 
-const UserProfileCoverNavigation = ({userProps, navigationProps}) => {
+const UserProfileCoverNavigation = ({ userProps, navigationProps }) => {
     const userProfileCoverNavigationItemList = [
         {
             navigationName: "post",

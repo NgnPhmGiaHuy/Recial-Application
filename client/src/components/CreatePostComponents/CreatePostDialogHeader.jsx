@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const CreatePostDialogHeader = ({userProps, handleShowCreatePost, handeShowCreatePostAudience}) => {
+const CreatePostDialogHeader = ({ userProps, handleShowCreatePost, handeShowCreatePostAudience }) => {
     return(
         <div>
             <div className="relative">

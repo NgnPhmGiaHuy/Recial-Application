@@ -1,6 +1,6 @@
-import {SettingScaffoldItem} from "@/components";
+import { SettingScaffoldItem } from "@/components";
 
-const SettingScaffold = ({settingProps}) => {
+const SettingScaffold = ({ settingProps }) => {
     return (
         <div className="max-w-[780px] mx-auto mt-[16px]">
             <div className="bg-[#F3F2EF]">

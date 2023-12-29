@@ -3,7 +3,7 @@ import Image from "next/image";
 import {CreatePostOptionItem} from "@/components";
 import {createPostOptionItemList} from "@/constants/CreatePostConstants";
 
-const CreatePost = ({userProps, handleShowCreatePost}) => {
+const CreatePost = ({ userProps, handleShowCreatePost }) => {
     return (
         <div className="w-full flex flex-col relative">
             <div className="w-full rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white overflow-x-hidden overflow-y-hidden relative">

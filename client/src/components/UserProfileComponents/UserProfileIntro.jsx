@@ -1,6 +1,6 @@
-import {UserProfileIntroItem} from "@/components";
+import { UserProfileIntroItem } from "@/components";
 
-const UserProfileIntro = ({userProps}) => {
+const UserProfileIntro = ({ userProps }) => {
     return (
         <section className="mb-[16px] flex flex-col bg-white rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative overflow-hidden">
             <div className="pt-[20px] pb-[4px] flex flex-col relative">

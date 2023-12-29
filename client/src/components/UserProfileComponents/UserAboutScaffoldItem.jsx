@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const UserAboutScaffoldItem = ({userProps}) => {
+const UserAboutScaffoldItem = ({ userProps }) => {
     return (
         <div className="w-[calc(50%-4px)] mb-[8px] p-[16px] flex items-center rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)]">
             <div>

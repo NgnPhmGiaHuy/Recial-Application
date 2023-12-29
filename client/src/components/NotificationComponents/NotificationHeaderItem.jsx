@@ -1,12 +1,12 @@
 "use client"
 
 import Image from "next/image";
-import {useCallback, useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import {useClickOutside} from "@/hooks";
-import {formatTimeAgoFull} from "@/utils";
-import {QuickSettingItem} from "@/components";
-import {notificationTypeOfColor, headerNotificationQuickSettingItemList} from "@/constants/HeaderConstants";
+import { formatTimeAgoFull } from "@/utils";
+import { QuickSettingItem } from "@/components";
+import { useClickOutside, useToggleState } from "@/hooks";
+import { notificationTypeOfColor, headerNotificationQuickSettingItemList } from "@/constants/HeaderConstants";
 
 const NotificationHeaderItem = ({notificationProps}) => {
     const notificationQuickSettingItemRef = useRef(null);
@@ -14,16 +14,12 @@ const NotificationHeaderItem = ({notificationProps}) => {
 
     const [notificationQuickSettingItemTranslateXValue, setNotificationQuickSettingItemTranslateXValue] = useState(0);
 
-    const [showHeaderNotificationItemQuickSetting, setShowHeaderNotificationItemQuickSetting] = useState(false);
     const [showHeaderNotificationContentItemMoreButton, setShowNotificationMessageContentItemMoreButton] = useState(false)
+    const [showHeaderNotificationItemQuickSetting, setShowHeaderNotificationItemQuickSetting, handleShowHeaderNotificationQuickSettingButton] = useToggleState(false);
 
     const notificationSvgIcon = notificationTypeOfColor[notificationProps.notification_type]?.svgIcon || notificationTypeOfColor.default.svgIcon;
     const notificationTextColor = notificationTypeOfColor[notificationProps.notification_type]?.textColor || notificationTypeOfColor.default.textColor;
     const notificationBackgroundColor = notificationTypeOfColor[notificationProps.notification_type]?.backgroundColor || notificationTypeOfColor.default.backgroundColor;
-
-    const handleShowHeaderNotificationQuickSettingButton = useCallback(() => {
-        setShowHeaderNotificationItemQuickSetting((preShowNotificationQuickSetting) => !preShowNotificationQuickSetting);
-    }, []);
 
     useEffect(() => {
         if (notificationQuickSettingItemRef.current && notificationQuickSettingItemButtonRef.current && showHeaderNotificationItemQuickSetting) {

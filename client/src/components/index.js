@@ -32,6 +32,7 @@ import CreatePost from "@/components/CreatePostComponents/CreatePost";
 import CreatePostDialog from "@/components/CreatePostComponents/CreatePostDialog";
 import CreatePostDialogHeader from "@/components/CreatePostComponents/CreatePostDialogHeader";
 import CreatePostOptionItem from "@/components/CreatePostComponents/CreatePostOptionItem";
+import CreatePostDialogImageInput from "@/components/CreatePostComponents/CreatePostDialogImageInput";
 import CreatePostDialogAudience from "@/components/CreatePostComponents/CreatePostDialogAudience";
 import CreatePostDialogAudienceItem from "@/components/CreatePostComponents/CreatePostDialogAudienceItem";
 import CreatePostDialogCustomizationItem from "@/components/CreatePostComponents/CreatePostDialogCustomizationItem";
@@ -139,6 +140,7 @@ export {
     CreatePostDialog,
     CreatePostDialogHeader,
     CreatePostOptionItem,
+    CreatePostDialogImageInput,
     CreatePostDialogAudience,
     CreatePostDialogAudienceItem,
     CreatePostDialogCustomizationItem,

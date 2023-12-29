@@ -1,12 +1,12 @@
 "use client"
 
 import Image from "next/image";
-import {useCallback, useEffect, useRef, useState} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-import {useClickOutside} from "@/hooks";
-import {QuickSettingItem} from "@/components";
+import { useClickOutside } from "@/hooks";
+import { QuickSettingItem } from "@/components";
 
-const FriendListItem = ({userProps, action}) => {
+const FriendListItem = ({ userProps, action }) => {
     const asideFriendListQuickSettingItemList = [
         {
             isSettingItemBreak: false,
@@ -60,7 +60,7 @@ const FriendListItem = ({userProps, action}) => {
 
     const handleShowFriendListQuickSettingItem = useCallback((e) => {
         e.stopPropagation();
-        setShowFriendListQuickSettingItem((prevShowFriendListQuickSettingItem) => !prevShowFriendListQuickSettingItem)
+        setShowFriendListQuickSettingItem((prevState) => !prevState)
     }, []);
 
     useEffect(() => {

@@ -1,12 +1,12 @@
 "use client"
 
-import {useCallback, useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 
-import {postItemShareSettingList} from "@/constants/PostConstants";
-import {PostItemHeader, PostItemContent, PostItemFooter, QuickSettingItem, PostItemComment} from "@/components";
-import {useClickOutside} from "@/hooks";
+import { useClickOutside, useToggleState } from "@/hooks";
+import { postItemShareSettingList } from "@/constants/PostConstants";
+import { PostItemHeader, PostItemContent, PostItemFooter, QuickSettingItem, PostItemComment } from "@/components";
 
-const PostItem = ({userData, userProps, postProps}) => {
+const PostItem = ({ userData, userProps, postProps }) => {
     const postItemQuickSettingList = [
         {
             isSettingItemBreak: false,
@@ -88,26 +88,14 @@ const PostItem = ({userData, userProps, postProps}) => {
     const postItemShareSettingButtonRef = useRef(null);
     const postItemQuickSettingButtonRef = useRef(null);
 
-    const [showPostItemComment, setShowPostItemComment] = useState(false);
-    const [showPostItemQuickSetting, setShowPostItemQuickSetting] = useState(false);
-    const [showPostItemShareSetting, setShowPostItemShareSetting] = useState(false);
+    const [showPostItemComment, setShowPostItemComment, handleShowPostItemComment] = useToggleState(false);
+    const [showPostItemShareSetting, setShowPostItemShareSetting, handleShowPostShareSetting] = useToggleState(false);
+    const [showPostItemQuickSetting, setShowPostItemQuickSetting, handleShowPostItemQuickSetting] = useToggleState(false);
 
     const [postItemTranslateXValue, setPostItemTranslateXValue] = useState(0);
     const [postItemTranslateYValue, setPostItemTranslateYValue] = useState(0);
     const [postItemShareSettingTranslateYValue, setPostItemShareSettingTranslateYValue] = useState(0);
     const [postItemQuickSettingTranslateYValue, setPostItemQuickSettingTranslateYValue] = useState(0);
-
-    const handleShowPostItemComment = useCallback(() => {
-        setShowPostItemComment((prevShowPostItemComment) => !prevShowPostItemComment);
-    }, []);
-
-    const handleShowPostItemQuickSetting = useCallback(() => {
-        setShowPostItemQuickSetting((prevShowPostItemQuickSetting) => !prevShowPostItemQuickSetting);
-    }, []);
-
-    const handleShowPostShareSetting = useCallback(() => {
-        setShowPostItemShareSetting((prevShowPostItemShareSetting) => !prevShowPostItemShareSetting);
-    }, []);
 
     useEffect(() => {
         if (postItemRef.current && postItemQuickSettingButtonRef.current && showPostItemQuickSetting){

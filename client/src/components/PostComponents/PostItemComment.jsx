@@ -1,22 +1,17 @@
 "use client"
 
-import {useCallback, useRef, useState} from "react";
+import { useRef, useState } from "react";
 
-import {useClickOutside} from "@/hooks";
-import {postItemCommentSortList} from "@/constants/PostConstants";
-import {PostItemCommentInput, PostItemCommentScaffold, QuickSettingItem} from "@/components";
+import { useClickOutside, useToggleState } from "@/hooks";
+import { postItemCommentSortList } from "@/constants/PostConstants";
+import { PostItemCommentInput, PostItemCommentScaffold, QuickSettingItem } from "@/components";
 
 const PostItemComment = ({userData, userProps, postProps}) => {
     const commentSortContentRef = useRef(null);
 
-    const [showCommentSortContent, setShowCommentSortContent] = useState(false);
-
     const [visibleComments, setVisibleComments] = useState(3);
     const [loadMoreClicked, setLoadMoreClicked] = useState(false);
-
-    const handleShowCommentSortContent = useCallback(() => {
-        setShowCommentSortContent((prevShowCommentSortContent) => !prevShowCommentSortContent);
-    }, []);
+    const [showCommentSortContent, setShowCommentSortContent, handleShowCommentSortContent] = useToggleState(false);
 
     const loadMoreComments = () => {
         const remainingComments = postProps.comment.length - visibleComments;

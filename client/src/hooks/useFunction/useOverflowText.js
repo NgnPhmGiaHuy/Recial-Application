@@ -1,15 +1,13 @@
 "use client"
 
-import {useCallback, useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
+
+import { useToggleState } from "@/hooks";
 
 const useOverflowText = (depends) => {
     const textRef = useRef(null);
-    const [showMoreText, setShowMoreText] = useState(false);
     const [isOverflowing, setIsOverflowing] = useState(false);
-
-    const handleShowMoreText = useCallback(() => {
-        setShowMoreText((prevShowMoreText) => !prevShowMoreText);
-    }, []);
+    const [showMoreText, setShowMoreText, handleShowMoreText] = useToggleState(false);
 
     useEffect(() => {
         if (textRef.current) {
@@ -18,7 +16,7 @@ const useOverflowText = (depends) => {
         }
     }, [depends]);
 
-    return {textRef, showMoreText, isOverflowing, handleShowMoreText};
+    return { textRef, showMoreText, isOverflowing, handleShowMoreText };
 }
 
 export default useOverflowText;

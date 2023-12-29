@@ -1,14 +1,12 @@
 "use client"
 
 import Image from "next/image";
-import {useState, useEffect} from "react";
 
-import {handleFormatNumber} from "@/utils";
-import {useMostReactedIcons} from "@/hooks";
-import useCountCommnet from "@/hooks/useFunction/useCountCommnet";
+import { handleFormatNumber } from "@/utils";
+import { useMostReactedIcons, useCountComment } from "@/hooks";
 
-const PostItemFooter = ({postProps, handleShowPostShareSetting, handleShowPostItemComment}) => {
-    const totalComments = useCountCommnet(postProps);
+const PostItemFooter = ({ postProps, handleShowPostShareSetting, handleShowPostItemComment }) => {
+    const totalComments = useCountComment(postProps);
     const mostReactedIcons = useMostReactedIcons(postProps?.reaction);
 
     return (

@@ -1,9 +1,9 @@
-const fetchPostByUserId = async ({userId, page}) => {
+const fetchPostDataById = async ({ userId, page }) => {
     try {
         const accessToken = localStorage.getItem("accessToken");
 
         if (!accessToken) {
-            return {error: "Access token not found"};
+            return { error: "Access token not found" };
         }
 
         const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/post/?user=${userId}&page=${page}`;
@@ -19,7 +19,7 @@ const fetchPostByUserId = async ({userId, page}) => {
         if (response.ok) {
             return await response.json();
         } else {
-            throw new Error("Error fetching post data");
+            return { error: "Error fetching post data" };
         }
     } catch (error) {
         throw error;
@@ -40,11 +40,11 @@ export const fetchPostByPostId = async ({ postId }) => {
         if (response.ok) {
             return await response.json();
         } else {
-            throw new Error("Error fetching post data");
+            return { error: "Error fetching post data" };
         }
     } catch (error) {
         throw error;
     }
 }
 
-export default fetchPostByUserId;
+export default fetchPostDataById;

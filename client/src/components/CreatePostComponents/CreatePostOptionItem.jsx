@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const CreatePostOptionItem = ({createPostItemData}) => {
+const CreatePostOptionItem = ({ createPostItemData }) => {
     return (
         <div className="sm:min-w-fit w-full sm:p-[8px] p-[2px] flex flex-row flex-shrink grow basis-0 items-center justify-center rounded-md cursor-pointer bg-transparent relative hover:bg-zinc-200">
             <div className="flex items-center justify-center overflow-x-hidden overflow-y-hidden leading-3">

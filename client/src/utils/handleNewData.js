@@ -1,5 +1,5 @@
 import {fetchCommentData} from "@/app/api/fetchCommentData";
-import {fetchPostByPostId} from "@/app/api/fetchPostByUserId";
+import {fetchPostByPostId} from "@/app/api/fetchPostDataById";
 
 const updateNestedComments = (comments, destinationId, newComment) => {
     return comments.map(comment => {
@@ -21,14 +21,14 @@ const updateNestedComments = (comments, destinationId, newComment) => {
 };
 
 export const handleNewData = async (data, props, setProps) => {
-    if (data.type === 'create_new_post') {
+    if (data.type === "create_new_post") {
         const newPostId = data.postId;
 
         try {
             const newPostProps = await fetchPostByPostId({ postId: newPostId });
             setProps((prevProps) => [newPostProps, ...prevProps]);
         } catch (error) {
-            console.error('Error fetching post data:', error);
+            console.error("Error fetching post data:", error);
         }
     } else if (data.type === "create_comment") {
         const newCommentId = data.commentId;
@@ -104,7 +104,7 @@ export const handleNewData = async (data, props, setProps) => {
                 }
             }
         } catch (error) {
-            console.error('Error fetching comment data:', error);
+            console.error("Error fetching comment data:", error);
         }
     }
 };

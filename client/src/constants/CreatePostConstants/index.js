@@ -64,19 +64,3 @@ export const createPostAudienceItemList = [
         createPostAudienceOptionTitle: "Only me",
     },
 ]
-
-export const createPostContentCustomizationItemList = [
-    {
-        postContentCustomizationIcon: Image,
-    }, {
-        postContentCustomizationIcon: Gif,
-    }, {
-        postContentCustomizationIcon: Happiness,
-    }, {
-        postContentCustomizationIcon: Location,
-    }, {
-        postContentCustomizationIcon: TagPeople,
-    }, {
-        postContentCustomizationIcon: Image,
-    },
-]

@@ -1,26 +1,20 @@
 "use client"
 
 import Image from "next/image";
-import {useRouter} from "next/navigation";
-import {useCallback, useEffect, useState} from 'react';
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from 'react';
 
-const MediaPhotoPageScaffoldItem = ({mediaProps}) => {
+import { useToggleState } from "@/hooks";
+
+const MediaPhotoPageScaffoldItem = ({ mediaProps }) => {
     const router = useRouter()
     const handleExistClick = () => {
         router.back()
     }
 
-    const [showPrevButton, setShowPrevButton] = useState(false);
-    const [showNextButton, setShowNextButton] = useState(false);
     const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
-
-    const handleShowPrevButton = useCallback(() => {
-        setShowPrevButton((prevState) => !prevState)
-    },[]);
-
-    const handleShowNextButton = useCallback(() => {
-        setShowNextButton((prevState) => !prevState)
-    },[]);
+    const [showPrevButton, setShowPrevButton, handleShowPrevButton] = useToggleState(false);
+    const [showNextButton, setShowNextButton, handleShowNextButton] = useToggleState(false);
 
     useEffect(() => {
         const currentIndex = mediaProps?.media?.media_recent?.indexOf(mediaProps?.media?._id);
@@ -63,7 +57,6 @@ const MediaPhotoPageScaffoldItem = ({mediaProps}) => {
             setCurrentMediaIndex(nextIndex);
         }
     };
-
 
     return (
         <>

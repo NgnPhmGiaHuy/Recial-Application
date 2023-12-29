@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const StoryItem = ({index, selected, storyItemSelectedRef, storyProps}) => {
+const StoryItem = ({ index, selected, storyItemSelectedRef, storyProps }) => {
     return (
         <div key={index} ref={selected ? storyItemSelectedRef : null} className="mr-[12px] flex flex-shrink-0 grow-0 sm:basis-[160px] basis-[100px] relative">
             <Link href={`/story/?user=${storyProps?.user?._id}&set=${storyProps?.stories[0]?.story._id}`} className="w-full block overflow-x-hidden overflow-y-hidden cursor-pointer shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] rounded-md relative">

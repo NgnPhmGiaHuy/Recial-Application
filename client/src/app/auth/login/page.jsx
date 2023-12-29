@@ -1,41 +1,34 @@
 "use client"
 
 import Image from "next/image";
-import {useRouter} from "next/navigation";
-import {NextResponse} from "next/server";
-import {useState, useEffect} from "react";
+import { useRouter } from "next/navigation";
+import { NextResponse } from "next/server";
+import { useState, useEffect } from "react";
 
-import {useCheckAccessToken} from "@/hooks";
-import {AuthLoginForm, AuthHeader} from "@/components";
+import { useCheckAccessToken } from "@/hooks";
+import { AuthLoginForm, AuthHeader } from "@/components";
 import Illustration from "/public/images/Illustration/illustration-of-a-man-and-a-woman-watering-a-plant.jpg";
 
 const Login = () => {
     const router = useRouter();
 
-    const [error, setError] = useState({
-        isEmailError: false,
-        isPasswordError: false,
-        formErrorStatus: '',
-    });
-    const [loginFormData, setLoginFormData] = useState({
-        session_key: "",
-        session_password: "",
-    });
+    const [error, setError] = useState({ isEmailError: false, isPasswordError: false, formErrorStatus: "" });
+    const [loginFormData, setLoginFormData] = useState({ session_key: "", session_password: "" });
 
     const handleChange = (e) => {
-        const {name, value} = e.target;
-        setLoginFormData({...loginFormData, [name]: value});
+        const { name, value } = e.target;
+        setLoginFormData({ ...loginFormData, [name]: value });
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const {session_key, session_password} = loginFormData;
+            const { session_key, session_password } = loginFormData;
 
-            const dataToSend = {session_key, session_password};
+            const dataToSend = { session_key, session_password };
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/auth/login";
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/auth/login/";
 
             const response = await fetch(url, {
                 method: "POST",
@@ -56,18 +49,10 @@ const Login = () => {
             } else {
                 if (response.status === 404) {
                     const errorData = await response.json();
-                    setError({
-                        isEmailError: true,
-                        isPasswordError: false,
-                        formErrorStatus: errorData.message,
-                    });
+                    return setError({ isEmailError: true, isPasswordError: false, formErrorStatus: errorData.message });
                 } else if (response.status === 401) {
                     const errorData = await response.json();
-                    setError({
-                        isEmailError: false,
-                        isPasswordError: true,
-                        formErrorStatus: errorData.message,
-                    });
+                    return setError({ isEmailError: false, isPasswordError: true, formErrorStatus: errorData.message });
                 } else {
                     return NextResponse.json({ error: "Login was unsuccessful or tokens missing" }, { status: 400 });
                 }
@@ -82,7 +67,7 @@ const Login = () => {
         const refreshToken = localStorage.getItem("refreshToken");
 
         if (accessToken && refreshToken) {
-            router.replace('/');
+            router.push("/");
         }
     }, [router]);
 

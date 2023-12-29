@@ -1,10 +1,10 @@
 "use client"
 
-import {MediaPageScaffold} from "@/components";
-import {useMediaData, useTokenRefresh, useUserData, useWebSocket} from "@/hooks";
-import {handleNewData} from "@/utils/handleNewData";
+import { MediaPageScaffold } from "@/components";
+import { handleNewData } from "@/utils/handleNewData";
+import { useMediaData, useTokenRefresh, useUserData, useWebSocket } from "@/hooks";
 
-const PostPage = ({searchParams}) => {
+const PostPage = ({ searchParams }) => {
     useTokenRefresh();
 
     const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/media/post/?" + new URLSearchParams(searchParams).toString();

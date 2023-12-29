@@ -1,6 +1,6 @@
 import {getMonthAndDay} from "@/utils";
 
-const EventItem = ({eventProps}) => {
+const EventItem = ({ eventProps }) => {
     const { month, day } = getMonthAndDay(eventProps?.event_start_datetime);
 
     return (

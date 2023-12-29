@@ -1,24 +1,20 @@
 "use client"
 
-import { useCallback, useRef, useState } from "react";
+import { useRef } from "react";
 
 import { handleNewData } from "@/utils/handleNewData";
 import { AsideUser, CreatePostDialog, Header, UserProfile } from "@/components";
-import { usePostDataByUserId, useTokenRefresh, useUserIdLayout, useWebSocket } from "@/hooks";
+import { usePostDataByUserId, useToggleState, useTokenRefresh, useUserIdLayout, useWebSocket } from "@/hooks";
 
-const UserPage = ({params, asAProps}) => {
+const UserPage = ({ params, asAProps }) => {
     useTokenRefresh();
 
     const createPostRef = useRef(null);
 
-    const [showCreatePost, setMainCreatePost] = useState(false);
+    const [showCreatePost, setMainCreatePost, handleShowCreatePost] = useToggleState(false);
 
     const { userData, setUserData, userProps, isCurrentUser } = useUserIdLayout(params.userId);
     const { postByIdRef, postByUserIdProps, setPostByUserIdProps } = usePostDataByUserId(params.userId);
-
-    const handleShowCreatePost = useCallback(() => {
-        setMainCreatePost((prevShowMainCreatePost) => !prevShowMainCreatePost);
-    }, []);
 
     const onDataReceived = async (data) => {
         await handleNewData(data, postByUserIdProps, setPostByUserIdProps)

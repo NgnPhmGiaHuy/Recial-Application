@@ -1,10 +1,10 @@
 "use client"
 
-import {MediaPageScaffold} from "@/components";
-import {handleNewData} from "@/utils/handleNewData";
-import {useMediaData, useTokenRefresh, useUserData, useWebSocket} from "@/hooks";
+import { MediaPageScaffold } from "@/components";
+import { handleNewData } from "@/utils/handleNewData";
+import { useMediaData, useTokenRefresh, useUserData, useWebSocket } from "@/hooks";
 
-const PhotoPage = ({searchParams}) => {
+const PhotoPage = ({ searchParams }) => {
     useTokenRefresh();
 
     const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/media/photo/?" + new URLSearchParams(searchParams).toString();

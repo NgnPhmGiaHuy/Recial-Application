@@ -1,10 +1,10 @@
 "use client"
 
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 import UserPage from "@/app/[userId]/page";
-import {AsideScaffold, Header} from "@/components";
-import {useTokenRefresh, useUserData, useWithAuth} from "@/hooks";
+import { AsideScaffold, Header } from "@/components";
+import { useTokenRefresh, useUserData, useWithAuth } from "@/hooks";
 
 const FriendListPage = () => {
     useTokenRefresh();
@@ -40,7 +40,7 @@ const FriendListPage = () => {
                             </div>
                             {friendId ? (
                                 <div className="w-full min-h-[inherit] flex flex-col flex-shrink grow basis-0 relative">
-                                    <UserPage params={{userId: friendId}} asAProps={true}/>
+                                    <UserPage params={{ userId: friendId }} asAProps={true}/>
                                 </div>
                             ) : null}
                         </div>

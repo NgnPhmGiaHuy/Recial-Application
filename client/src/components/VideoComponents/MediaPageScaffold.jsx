@@ -2,11 +2,11 @@
 
 import dynamic from "next/dynamic";
 
-import {useCountComment} from "@/hooks";
-import {MediaPhotoPageScaffoldItem, MediaPageScaffoldCommentItem, MediaPageScaffoldFooter, MediaPageScaffoldHeader} from "@/components";
+import { useCountComment } from "@/hooks";
+import { MediaPhotoPageScaffoldItem, MediaPageScaffoldCommentItem, MediaPageScaffoldFooter, MediaPageScaffoldHeader } from "@/components";
 const DynamicVideoPageScaffoldItem = dynamic(() => import("@/components/VideoComponents/VideoPageScaffoldItem"), { ssr: false });
 
-const MediaPageScaffold = ({userProps, mediaProps, videoProps, mediaType}) => {
+const MediaPageScaffold = ({ userProps, mediaProps, videoProps, mediaType }) => {
     const totalComment = useCountComment(mediaProps?.media)
 
     return (

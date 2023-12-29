@@ -1,22 +1,22 @@
 "use client"
 
-import {useCallback, useEffect, useRef, useState} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-import {useClickOutside, useFilteredNotification} from "@/hooks";
-import {headerNotificationQuickSettingList} from "@/constants/HeaderConstants";
-import {NotificationHeaderItem, HeaderTypeButtonItem, QuickSettingItem} from "@/components";
+import { headerNotificationQuickSettingList } from "@/constants/HeaderConstants";
+import { useClickOutside, useFilteredNotification, useToggleState } from "@/hooks";
+import { NotificationHeaderItem, HeaderTypeButtonItem, QuickSettingItem } from "@/components";
 
-const NotificationScaffold = ({userProps}) => {
+const NotificationScaffold = ({ userProps }) => {
     const notificationRef = useRef(null)
     const notificationQuickSettingButtonRef = useRef(null);
 
     const [showTypeNotification, setShowTypeNotification] = useState("all");
-    const [showNotificationQuickSetting, setShowNotificationQuickSetting] = useState(false);
+    const [showNotificationQuickSetting, setShowNotificationQuickSetting, handleNotificationQuickSettingButton] = useToggleState(false);
 
     const [notificationTranslateXValue, setNotificationTranslateXValue] = useState(0);
     const [notificationQuickSettingTranslateYValue, setNotificationQuickSettingTranslateYValue] = useState(0);
 
-    const {filteredNotifications, showUnreadNotification, setShowUnreadNotification} = useFilteredNotification(userProps);
+    const { filteredNotifications, showUnreadNotification, setShowUnreadNotification } = useFilteredNotification(userProps);
 
     const handleTypeClick = useCallback((type) => {
         if (type === "unread") {
@@ -26,10 +26,6 @@ const NotificationScaffold = ({userProps}) => {
         }
 
         setShowTypeNotification(type);
-    }, []);
-
-    const handleNotificationQuickSettingButton = useCallback(() => {
-        setShowNotificationQuickSetting((prevShowNotificationQuickSetting) => !prevShowNotificationQuickSetting);
     }, []);
 
     useEffect(() => {

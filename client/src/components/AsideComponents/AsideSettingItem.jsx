@@ -1,4 +1,4 @@
-const AsideSettingItem = ({itemProps, navigationProps}) => {
+const AsideSettingItem = ({ itemProps, navigationProps }) => {
     return (
         <li>
             <a href={itemProps.itemLink}>

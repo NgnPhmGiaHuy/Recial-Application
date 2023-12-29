@@ -8,9 +8,9 @@ const fetchMediaData = async (url) => {
         });
 
         if (response.ok) {
-            return await response.json()
+            return await response.json();
         } else {
-            return { error: "Error fetching media data" }
+            return { error: "Error fetching media data" };
         }
     } catch (error) {
         throw error;

@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 
-import {useCommentMediaData, useContentEditable} from "@/hooks";
+import { useCommentMediaData, useContentEditable } from "@/hooks";
 
-const MediaPageScaffoldFooter = ({userProps, mediaProps, mediaType, isComment, handleShowReplyPanel}) => {
+const MediaPageScaffoldFooter = ({ userProps, mediaProps, mediaType, isComment, handleShowReplyPanel }) => {
     const { inputContentEditableRef, inputText, setCreatePostInputText, setCreatePostAllowSubmit, allowSubmit, handleInputTextChange } = useContentEditable()
 
     const { commentSubmitStatus, handleSetCommentData } = useCommentMediaData();

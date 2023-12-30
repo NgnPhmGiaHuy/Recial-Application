@@ -86,7 +86,7 @@ const useUserIdLayout = (userId) => {
         return () => { isCancelled = true };
     }, [userData, router, userId]);
 
-    return {userData, setUserData, userProps, isCurrentUser};
+    return {userData, setUserData, userProps, setUserProps, isCurrentUser};
 }
 
 export default useUserIdLayout;

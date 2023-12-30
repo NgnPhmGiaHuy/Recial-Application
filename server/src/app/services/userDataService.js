@@ -2,6 +2,7 @@ const User = require("../models/User");
 const Message = require("../models/Message");
 const Event = require("../models/Event");
 const EventMember = require("../models/EventMember");
+const FriendRequest = require("../models/FriendRequest");
 const Notification = require("../models/Notification");
 const Type = require("../models/Type");
 const Post = require("../models/Post");
@@ -27,7 +28,7 @@ async function getUserById(userId) {
 }
 
 async function getFullUserById(userId) {
-    return await User.findById(userId);
+    return User.findById(userId);
 }
 
 async function getUserMessages(userId) {
@@ -65,34 +66,34 @@ async function getUserMessages(userId) {
 }
 
 async function getUserSocial(user) {
-    const socialProps = await Promise.all(user.map(async social => {
-        const user = await User.findById(social);
-
+    return await Promise.all(user.map(async social => {
         return {
-            user: {
-                _id: user._id,
-                email: user.email,
-                username: user.username,
-                firstname: user.firstname,
-                lastname: user.lastname,
-                profile_picture_url: user.profile_picture_url,
-            }
+            user: await this.getUserById(social),
         }
-    }))
+    }));
+};
 
-    return socialProps;
+async function getUserFriendRequest(user) {
+    const userFriendRequestData = await FriendRequest.find({ destination_id: user._id });
+
+    return await Promise.all(userFriendRequestData.map(async request => {
+        return {
+            _id: request._id,
+            user: await this.getUserById(request.source_id),
+            created_at: request.createdAt,
+            updated_at: request.updatedAt,
+        };
+    }));
 }
 
 async function getUserSearchQuery(userId) {
-    const searchProps = await SearchHistory.find({ source_id: userId});
-
-    return searchProps;
+    return SearchHistory.find({ source_id: userId});
 }
 
 async function getUserNotifications(userId) {
     const notifications = await Notification.find({ destination_id: userId });
 
-    const notificationProps = await Promise.all(notifications.map(async notification => {
+    return await Promise.all(notifications.map(async notification => {
         const sourceType = await Type.findById(notification.source.type);
         const notificationType = await Type.findById(notification.notification_type);
 
@@ -139,13 +140,11 @@ async function getUserNotifications(userId) {
             created_at: notification.createdAt,
             updated_at: notification.updatedAt,
         }
-    }))
-
-    return notificationProps;
-}
+    }));
+};
 
 async function getUserPhotoList(photo_list) {
-    const photoListProps = await Promise.all(photo_list.map(async photo => {
+    return await Promise.all(photo_list.map(async photo => {
         const photoProps = await Photo.findById(photo);
 
         return {
@@ -158,15 +157,13 @@ async function getUserPhotoList(photo_list) {
             created_at: photoProps.createdAt,
             updated_at: photoProps.updatedAt,
         };
-    }))
-
-    return photoListProps;
-}
+    }));
+};
 
 async function getUserGroup(userId) {
     const groupMember = await GroupMember.find({ "user.user_id": userId });
 
-    const groupMemberProps = await Promise.all(groupMember.map(async group => {
+    return await Promise.all(groupMember.map(async group => {
         const groupProps = await Group.findById(group.group_id);
 
         const usersProps = await Promise.all(group.user.map(async user => {
@@ -192,34 +189,26 @@ async function getUserGroup(userId) {
             created_at: groupProps.createdAt,
             updated_at: groupProps.updatedAt,
         }
-    }))
-
-    return groupMemberProps;
-}
+    }));
+};
 
 async function getUserSetting(userId) {
-    const settingProps = await Setting.findOne({source_id: userId});
-
-    return settingProps;
-}
+    return Setting.findOne({source_id: userId});
+};
 
 async function getSuggestedEvents() {
-    const suggestEvent = await Event.aggregate([
+    return Event.aggregate([
         { $sample: { size: 3 } },
         { $sort: { createdAt: -1 } }
     ]);
-
-    return suggestEvent;
-}
+};
 
 async function getSuggestedPages() {
-    const suggestPages = await Page.aggregate([
+    return Page.aggregate([
         { $sample: { size: 3 } },
         { $sort: { createdAt: -1 } }
     ]);
-
-    return suggestPages;
-}
+};
 
 async function getSuggestedGroup() {
     const suggestGroups = await Group.aggregate([
@@ -246,4 +235,4 @@ async function getSuggestedGroup() {
     }
 }
 
-module.exports = {getUserById, getFullUserById, getUserSetting, getUserMessages, getUserSearchQuery, getUserSocial, getUserNotifications, getUserPhotoList, getUserGroup, getSuggestedEvents, getSuggestedPages, getSuggestedGroup};
+module.exports = {getUserById, getFullUserById, getUserSetting, getUserMessages, getUserFriendRequest, getUserSearchQuery, getUserSocial, getUserNotifications, getUserPhotoList, getUserGroup, getSuggestedEvents, getSuggestedPages, getSuggestedGroup};

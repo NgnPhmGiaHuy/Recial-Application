@@ -20,6 +20,7 @@ const SearchHistory = require("../app/models/SearchHistory");
 const Story = require("../app/models/Story");
 const Tag = require("../app/models/Tag");
 const Type = require("../app/models/Type");
+const FriendRequest = require("../app/models/FriendRequest");
 const User = require("../app/models/User");
 const Video = require("../app/models/Video");
 const Setting = require("../app/models/Setting");
@@ -100,7 +101,7 @@ const generateMediaData = () => {
     return { photos, videos, posts, stories };
 };
 
-const generateUserProps = (roles, insertedRoles) => Array.from({ length: 100 }, () => {
+const generateUserProps = (roles, insertedRoles) => Array.from({ length: 1000 }, () => {
     const { photos, videos, posts, stories } = generateMediaData();
     const userPhotos = photos.slice(0, 50);
     const userPhotoIds = userPhotos.map(photo => photo._id);
@@ -320,8 +321,8 @@ const generateSearchQuery = (allUsers) => Array.from({ length: 50000 }, () => {
     }
 })
 
-const generateSetting = async (allUser) => {
-    const settingProps = await Promise.all(allUser.map(async (user) => {
+const generateSetting = async (allUsers) => {
+    const settingProps = await Promise.all(allUsers.map(async (user) => {
         return {
             source_id: user._id,
             account: {
@@ -341,8 +342,28 @@ const generateSetting = async (allUser) => {
         }
     }))
 
-    return settingProps;
+    return await Setting.insertMany(settingProps);
 }
+
+const generateFriendRequest = async (allUsers) => {
+    const friendRequests = Array.from({ length: 10000 }, () => {
+        const randomSourceUser = allUsers[Math.floor(Math.random() * allUsers.length)];
+
+        const sourceUserFriendIDs = randomSourceUser.friends.map(friend => friend.toString());
+
+        const potentialDestinationUsers = allUsers.filter(user => !sourceUserFriendIDs.includes(user._id.toString()));
+
+        const filteredDestinationUser = potentialDestinationUsers[Math.floor(Math.random() * potentialDestinationUsers.length)];
+
+        return {
+            source_id: randomSourceUser._id,
+            destination_id: filteredDestinationUser._id
+        };
+    });
+
+    return await FriendRequest.insertMany(friendRequests);
+}
+
 
 const generateNotifications = (allUsers, typesWithCommentFiltered, allPages, allGroups, allComments, allStory) => Array.from({ length: 5000 }, () => {
     const randomUser = faker.helpers.objectValue(allUsers);
@@ -458,6 +479,7 @@ const generateDummyData = async () => {
             photo_title: faker.lorem.text(),
             photo_description: faker.lorem.paragraph(),
         }))));
+
         await Video.insertMany(userProps.flatMap(user => user.video_list));
         await Story.insertMany(userProps.flatMap(user => user.story_list));
         await Post.insertMany(userProps.flatMap(user => user.post_list));
@@ -511,11 +533,11 @@ const generateDummyData = async () => {
         await Reactions.insertMany(reactionsProps);
 
         await generateFriendships(allUsers)
-
         await generateFollower(allUsers);
         await generateFollowing(allUsers);
-        const settingProps = await generateSetting(allUsers)
-        await Setting.insertMany(settingProps)
+        await generateSetting(allUsers);
+        await generateFriendRequest(allUsers);
+
         console.log('Dummy data generated successfully.');
     } catch (error) {
         console.error('Error generating dummy data:', error);

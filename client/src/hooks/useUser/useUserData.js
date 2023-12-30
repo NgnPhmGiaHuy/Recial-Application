@@ -8,7 +8,7 @@ import {
     fetchUserData,
     fetchUserFollower,
     fetchUserFollowing,
-    fetchUserFriend,
+    fetchUserFriend, fetchUserFriendRequest,
     fetchUserGroupList,
     fetchUserMessage,
     fetchUserNotification,
@@ -43,15 +43,6 @@ const useUserData = () => {
                     setUserProps((prevData) => ({ ...prevData, messages: [...userMessage] }));
                 }
 
-                const userFriend = await fetchUserFriend();
-
-                if (userFriend && !userFriend.error) {
-                    setUserProps((prevData) => ({
-                        ...prevData,
-                        user: { ...prevData.user, friends: [...userFriend] }
-                    }));
-                }
-
                 const userSearch = await fetchUserSearchQuery();
                 if (userSearch && !userSearch.error) {
                     setUserProps((prevData) => ({ ...prevData, search: [...userSearch] }));
@@ -66,7 +57,7 @@ const useUserData = () => {
                 if (userFollowing && !userFollowing.error) {
                     setUserProps((prevData) => ({
                         ...prevData,
-                        user: { ...prevData.user, following: [...userFriend] }
+                        user: { ...prevData.user, following: [...userFollowing] }
                     }));
                 }
 
@@ -74,8 +65,22 @@ const useUserData = () => {
                 if (userFollower && !userFollower.error) {
                     setUserProps((prevData) => ({
                         ...prevData,
-                        user: { ...prevData.user, followers: [...userFriend] }
+                        user: { ...prevData.user, followers: [...userFollower] }
                     }));
+                }
+
+                const userFriend = await fetchUserFriend();
+
+                if (userFriend && !userFriend.error) {
+                    setUserProps((prevData) => ({
+                        ...prevData,
+                        user: { ...prevData.user, friends: [...userFriend] }
+                    }));
+                }
+
+                const userFriendRequest = await fetchUserFriendRequest();
+                if (userFriendRequest && !userFriendRequest.error) {
+                    setUserProps((prevData) => ({ ...prevData, friend_request: [...userFriendRequest] }));
                 }
 
                 const userPhotoList = await fetchUserPhotoList();

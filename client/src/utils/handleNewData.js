@@ -1,5 +1,6 @@
 import {fetchCommentData} from "@/app/api/fetchCommentData";
 import {fetchPostByPostId} from "@/app/api/fetchPostDataById";
+import {fetchUserDataById} from "@/app/api/fetchUserDataById";
 
 const updateNestedComments = (comments, destinationId, newComment) => {
     return comments.map(comment => {
@@ -108,3 +109,32 @@ export const handleNewData = async (data, props, setProps) => {
         }
     }
 };
+
+export const handeNewUserData = async (data, props, setProps) => {
+    if (data.type === "friend_request_update") {
+        const status = data.status;
+        const friendId = data.friendId;
+        const friendRequestId = data.friendRequestId;
+
+        try {
+            const newFriendProps = await fetchUserDataById(friendId);
+
+            const updatedFriends = status === "Confirm" ? [newFriendProps, ...props.user.friends] : [...props.user.friends];
+            const updatedUser = { ...props.user, friends: updatedFriends };
+
+            const updatedFriendRequests = props.friend_request.filter(
+                request => request._id !== friendRequestId
+            );
+
+            const updatedProps = {
+                ...props,
+                user: updatedUser,
+                friend_request: updatedFriendRequests
+            };
+
+            setProps(updatedProps);
+        } catch (error) {
+            console.error("Error fetching friend request data:", error);
+        }
+    }
+}

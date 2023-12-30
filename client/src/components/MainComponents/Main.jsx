@@ -29,8 +29,8 @@ const Main = ({postRef, userData, userProps, storyProps, postProps, setPostProps
                             </div>
                         </div>
                         <div className="w-[320px] min-h-screen px-[12px] py-[8px] sm:flex hidden flex-col gap-[16px] flex-shrink-0 relative">
-                            {userProps?.friend_requests ? (
-                                <FriendRequest friendRequestProps={userProps?.friend_requests}/>
+                            {userProps?.friend_request && userProps.friend_request?.length ? (
+                                <FriendRequest userProps={userProps?.friend_request}/>
                             ) : null}
                             {suggestGroupProps ? (
                                 <SuggestGroup groupProps={suggestGroupProps}/>

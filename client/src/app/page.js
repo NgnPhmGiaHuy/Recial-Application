@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 
-import { handleNewData } from "@/utils/handleNewData";
+import { handeNewUserData, handleNewData } from "@/utils/handleNewData";
 import { Header, Aside, Main, CreatePostDialog } from "@/components";
 import { useClickOutside, useStoryData, useGetPostData, useTokenRefresh, useUserData, useWithAuth, useWebSocket, useToggleState } from "@/hooks";
 
@@ -19,6 +19,7 @@ const HomePage = () => {
 
     const onDataReceived = async (data) => {
         await handleNewData(data, postProps, setPostProps);
+        await handeNewUserData(data, userProps, setUserProps);
     };
 
     useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);

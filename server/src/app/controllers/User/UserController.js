@@ -1,3 +1,6 @@
+const { WebSocket } = require("ws");
+
+const FriendRequest = require("../../models/FriendRequest");
 const userDataService = require("../../services/userDataService");
 
 class UserController {
@@ -51,6 +54,77 @@ class UserController {
             const friendProps = await userDataService.getUserSocial(user.friends);
 
             return res.status(200).json(friendProps);
+        } catch (error) {
+            if (error.name === 'TokenExpiredError') {
+                return res.status(401).json({ error: 'Token expired' });
+            }
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    getUserFriendRequest = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await userDataService.getUserById(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const friendRequestProps = await userDataService.getUserFriendRequest(user);
+
+            return res.status(200).json(friendRequestProps);
+        } catch (error) {
+            if (error.name === 'TokenExpiredError') {
+                return res.status(401).json({ error: 'Token expired' });
+            }
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    setUserFriendRequest = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await userDataService.getFullUserById(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const requestData = req.body;
+            const userFriendRequestData = await FriendRequest.findOne({ source_id: requestData.user._id, destination_id: user._id });
+
+            if (requestData.status === "Confirm") {
+                user.friends.unshift(userFriendRequestData.source_id);
+                await user.save();
+            }
+
+            if (requestData.status === "Confirm" || requestData.status === "Delete") {
+                await FriendRequest.deleteOne({ _id: userFriendRequestData._id });
+            }
+
+            const wss = req.app.get("wss");
+
+            if (wss) {
+                const comment = {
+                    type: "friend_request_update",
+                    status: requestData.status,
+                    friendId: userFriendRequestData.source_id,
+                    friendRequestId: userFriendRequestData._id,
+                }
+
+                wss.clients.forEach((client) => {
+                    if (client.readyState === WebSocket.OPEN) {
+                        client.send(JSON.stringify(comment));
+                    }
+                })
+            }
+
+            return res.status(200).json({ message: 'Request processed successfully' });
         } catch (error) {
             if (error.name === 'TokenExpiredError') {
                 return res.status(401).json({ error: 'Token expired' });

@@ -1,12 +1,19 @@
 "use client"
 
-import { useTokenRefresh, useUserIdLayout } from "@/hooks";
+import { handeNewUserData } from "@/utils/handleNewData";
+import { useTokenRefresh, useUserIdLayout, useWebSocket } from "@/hooks";
 import { Header, UserAboutScaffold, UserProfileCover } from "@/components";
 
 const UserFriendsPage = ({ params }) => {
     useTokenRefresh();
 
-    const { userData, userProps, isCurrentUser } = useUserIdLayout(params.userId);
+    const { userData, setUserData, userProps, setUserProps, isCurrentUser } = useUserIdLayout(params.userId);
+
+    const onDataReceived = async (data) => {
+        isCurrentUser ? await handeNewUserData(data, userData, setUserData) : await handeNewUserData(data, userProps, setUserProps);
+    };
+
+    useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
     return (
         <div>

@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 
 import UserPage from "@/app/[userId]/page";
 import { AsideScaffold, Header } from "@/components";
-import { useTokenRefresh, useUserData, useWithAuth } from "@/hooks";
+import { handeNewUserData } from "@/utils/handleNewData";
+import { useTokenRefresh, useUserData, useWebSocket, useWithAuth } from "@/hooks";
 
 const FriendListPage = () => {
     useTokenRefresh();
     
-    const { userProps } = useUserData();
+    const { userProps, setUserProps } = useUserData();
     
     const [friendId, setFriendId] = useState(null);
 
@@ -22,6 +23,12 @@ const FriendListPage = () => {
         localStorage.removeItem("userIdPhotoProps")
         localStorage.removeItem("userIdGroupProps")
     }
+
+    const onDataReceived = async (data) => {
+        await handeNewUserData(data, userProps, setUserProps);
+    };
+
+    useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
     useEffect(() => {
     }, [friendId]);

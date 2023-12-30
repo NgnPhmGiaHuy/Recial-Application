@@ -70,6 +70,42 @@ export const fetchUserFriend = async () => {
     }
 }
 
+export const fetchUserFriendRequest = async () => {
+    try {
+        const cachedUserFriendRequestProps = localStorage.getItem("userFriendRequestProps");
+
+        if (cachedUserFriendRequestProps) {
+            return JSON.parse(cachedUserFriendRequestProps);
+        } else  {
+            const accessToken = localStorage.getItem("accessToken");
+
+            if (!accessToken) {
+                return { error: "Access token not found" };
+            }
+
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/friend-request/";
+
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                localStorage.setItem("userFriendRequestProps", JSON.stringify(responseData));
+                return responseData;
+            } else {
+                return { error: "Error fetching user friend request data" };
+            }
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const fetchUserSearchQuery = async () => {
     try {
         const cachedUserSearchProps = localStorage.getItem("userSearchProps");
@@ -141,8 +177,6 @@ export const fetchUserSetting = async () => {
         throw error;
     }
 }
-
-
 
 export const fetchUserFollowing = async () => {
     try {
@@ -360,3 +394,33 @@ export const fetchUserNotification = async () => {
     }
 }
 
+export const setUserFriendRequest = async (status, friendRequestUser) => {
+    try {
+        const accessToken = localStorage.getItem("accessToken");
+
+        if (!accessToken) {
+            return { error: "Access token not found" };
+        }
+
+        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/friend-request/";
+
+        const dataToSend = { status, ...friendRequestUser };
+
+        const response = await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify(dataToSend),
+        });
+
+        if (response.ok) {
+            return await response.json();
+        } else {
+            return { error: "Error set user friend request data" };
+        }
+    } catch (error) {
+        throw error;
+    }
+}

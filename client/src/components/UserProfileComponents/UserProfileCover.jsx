@@ -1,17 +1,8 @@
-"use client"
-
 import Image from "next/image";
-import { useRef } from "react";
 
-import { UserProfileCoverNavigation } from "@/components";
-import { useClickOutside, useToggleState } from "@/hooks";
+import { UserProfileCoverFooter, UserProfileCoverNavigation } from "@/components";
 
-const UserProfileCover = ({ userProps, navigationProps, isCurrentUser }) => {
-    const peopleYouMayKnowButtonRef = useRef(null);
-    const [showPeopleYouMayKnow, setShowPeopleUseMayKnow, handleShowPeopleYouMayKnow] = useToggleState(false);
-
-    useClickOutside(peopleYouMayKnowButtonRef, showPeopleYouMayKnow, setShowPeopleUseMayKnow)
-
+const UserProfileCover = ({ userProps, navigationProps, isFriend, isCurrentUser }) => {
     return (
         <section className="flex flex-col bg-white rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
             <div className="flex flex-col relative">
@@ -93,62 +84,7 @@ const UserProfileCover = ({ userProps, navigationProps, isCurrentUser }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex flex-col relative">
-                            {isCurrentUser ? (
-                                <div className="pt-[12px] flex flex-row items-center relative">
-                                    <div className="ml-[-8px] flex flex-row flex-wrap items-center justify-center relative">
-                                        <div className="min-w-[135px] min-h-[12px] ml-[8px] px-[16px] py-[6px] flex grow rounded-full cursor-pointer outline outline-lime-500 bg-lime-500 relative hover:outline-lime-700 hover:bg-lime-700 transition-all">
-                                            <div className="flex items-center justify-center gap-1 text-white">
-                                                <i>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                                    </svg>
-                                                </i>
-                                                <span className="block text-[16px] text-center font-semibold break-words leading-5">
-                                                    <span className="overflow-hidden relative">
-                                                        Add to story
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div className="min-w-[135px] min-h-[12px] ml-[8px] px-[16px] py-[6px] flex grow rounded-full cursor-pointer outline outline-lime-700 relative hover:outline-2 hover:outline-lime-700 hover:bg-lime-100 transition-all">
-                                            <div className="flex items-center justify-center gap-1 text-lime-700">
-                                                <i>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-                                                    </svg>
-                                                </i>
-                                                <span className="block text-[16px] text-center font-semibold break-words leading-5">
-                                                    <span className="overflow-hidden relative">
-                                                        Edit profile
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div className="min-h-[12px] ml-[8px] px-[16px] py-[6px] flex items-center justify-center rounded-full cursor-pointer outline outline-zinc-500 relative hover:outline-black hover:outline-2 hover:bg-zinc-200 transition-all" onClick={handleShowPeopleYouMayKnow}>
-                                            <div className="flex items-center justify-center gap-1 text-black">
-                                                {showPeopleYouMayKnow ? (
-                                                    <i>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-                                                        </svg>
-                                                    </i>
-                                                ) : (
-                                                    <i>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                                        </svg>
-                                                    </i>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ) : null}
-                            <div>
-
-                            </div>
-                        </div>
+                        <UserProfileCoverFooter userProps={userProps} isFriend={isFriend} isCurrentUser={isCurrentUser}/>
                     </div>
                     <div>
                         <UserProfileCoverNavigation userProps={userProps} navigationProps={navigationProps}/>

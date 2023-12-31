@@ -16,5 +16,6 @@ router.route("/notification").get(UserController.getUserNotification);
 
 router.route("/friend-request").get(UserController.getUserFriendRequest);
 router.route("/friend-request").put(UserController.setUserFriendRequest);
+router.route("/friend-request").post(UserController.createUserFriendRequest);
 
 module.exports = router;

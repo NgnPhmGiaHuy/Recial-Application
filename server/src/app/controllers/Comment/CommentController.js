@@ -77,14 +77,15 @@ class CommentController {
             if (wss) {
                 const comment = {
                     type: "create_comment",
-                    commentId: newComment._id,
+                    userId: user._id.toString(),
+                    commentId: newComment._id.toString(),
                 }
 
                 wss.clients.forEach((client) => {
-                    if (client.readyState === WebSocket.OPEN) {
+                    if (client.readyState === WebSocket.OPEN && client.userId.toString() === user._id.toString()) {
                         client.send(JSON.stringify(comment));
                     }
-                })
+                });
             }
 
             res.status(200).json(newComment);

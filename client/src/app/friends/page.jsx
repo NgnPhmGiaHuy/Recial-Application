@@ -2,11 +2,9 @@
 
 import {fakeUserData} from "@/constants";
 import { AsideScaffold, FriendScaffold, Header } from "@/components";
-import { useTokenRefresh, useUserData, useWithAuth } from "@/hooks";
+import { useUserData, useWithAuth } from "@/hooks";
 
 const FriendPage = () => {
-    useTokenRefresh();
-    
     const { userProps } = useUserData();
     
     return (

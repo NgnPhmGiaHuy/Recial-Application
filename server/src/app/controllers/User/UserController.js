@@ -84,6 +84,71 @@ class UserController {
         }
     }
 
+    createUserFriendRequest = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await userDataService.getFullUserById(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const { friendId } = req.body;
+
+            if (!friendId) {
+                return res.status(400).json({ error: 'Friend ID is missing' });
+            }
+
+            const existFriendRequest = await FriendRequest.findOne({ source_id: user._id, destination_id: friendId });
+
+            if (existFriendRequest) {
+                existFriendRequest.updatedAt = new Date();
+                await existFriendRequest.save();
+
+                return res.status(200).json(existFriendRequest);
+            }
+
+            const newFriendRequest = new FriendRequest({
+                source_id: user._id,
+                destination_id: friendId,
+            });
+
+            await newFriendRequest.save();
+
+            const wss = req.app.get("wss");
+
+            if (wss) {
+                const friendRequestMessage = {
+                    type: "friend_request_create",
+                    friendRequestId: newFriendRequest._id.toString() || existFriendRequest._id.toString(),
+                }
+
+                const friendRequestStatus = {
+
+                }
+
+                wss.clients.forEach((client) => {
+                    if (client.readyState === WebSocket.OPEN && client.userId.toString() === friendId.toString()) {
+                        client.send(JSON.stringify(friendRequestMessage));
+                    }
+
+                    if (client.readyState === WebSocket.OPEN && client.userId.toString() === user._id.toString()) {
+
+                    }
+                });
+            }
+
+            return res.status(200).json(newFriendRequest);
+        } catch (error) {
+            if (error.name === 'TokenExpiredError') {
+                return res.status(401).json({ error: 'Token expired' });
+            }
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
     setUserFriendRequest = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
@@ -110,7 +175,7 @@ class UserController {
             const wss = req.app.get("wss");
 
             if (wss) {
-                const comment = {
+                const friendRequestUpdateMessage = {
                     type: "friend_request_update",
                     status: requestData.status,
                     friendId: userFriendRequestData.source_id,
@@ -118,8 +183,8 @@ class UserController {
                 }
 
                 wss.clients.forEach((client) => {
-                    if (client.readyState === WebSocket.OPEN) {
-                        client.send(JSON.stringify(comment));
+                    if (client.readyState === WebSocket.OPEN && client.userId.toString() === user._id.toString()) {
+                        client.send(JSON.stringify(friendRequestUpdateMessage));
                     }
                 })
             }

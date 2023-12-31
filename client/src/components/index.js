@@ -75,6 +75,7 @@ import UserAboutVideoScaffoldItem from "@/components/UserProfileComponents/UserA
 import UserAboutPhotoScaffoldItem from "@/components/UserProfileComponents/UserAboutPhotoScaffoldItem";
 import UserProfile from "@/components/UserProfileComponents/UserProfile";
 import UserProfileCover from "@/components/UserProfileComponents/UserProfileCover";
+import UserProfileCoverFooter from "@/components/UserProfileComponents/UserProfileCoverFooter";
 import UserProfileCoverNavigation from "@/components/UserProfileComponents/UserProfileCoverNavigation";
 import UserProfileCoverNavigationItem from "@/components/UserProfileComponents/UserProfileCoverNavigationItem";
 import UserProfileAbout from "@/components/UserProfileComponents/UserProfileAbout";
@@ -181,6 +182,7 @@ export {
     UserAboutPhotoScaffoldItem,
     UserProfile,
     UserProfileCover,
+    UserProfileCoverFooter,
     UserProfileCoverNavigation,
     UserProfileCoverNavigationItem,
     UserProfileAbout,

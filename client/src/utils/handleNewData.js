@@ -1,6 +1,8 @@
 import {fetchCommentData} from "@/app/api/fetchCommentData";
 import {fetchPostByPostId} from "@/app/api/fetchPostDataById";
 import {fetchUserDataById} from "@/app/api/fetchUserDataById";
+import {fetchFriendRequestData} from "@/app/api/fetchFriendRequestData";
+import {fetchUserFriendRequest} from "@/app/api/fetchUserData";
 
 const updateNestedComments = (comments, destinationId, newComment) => {
     return comments.map(comment => {
@@ -21,22 +23,41 @@ const updateNestedComments = (comments, destinationId, newComment) => {
     });
 };
 
-export const handleNewData = async (data, props, setProps) => {
-    if (data.type === "create_new_post") {
-        const newPostId = data.postId;
-
+export const handleNewPostData = async (data, props, setProps) => {
+    const handleCreateNewPost = async () => {
         try {
-            const newPostProps = await fetchPostByPostId({ postId: newPostId });
-            setProps((prevProps) => [newPostProps, ...prevProps]);
+            const { postId } = data;
+            const newPostProps = await fetchPostByPostId({ postId });
+            setProps(prevProps => [newPostProps, ...prevProps]);
         } catch (error) {
-            console.error("Error fetching post data:", error);
+            throw error;
         }
-    } else if (data.type === "create_comment") {
-        const newCommentId = data.commentId;
+    };
 
+    const handleCreateComment = async () => {
         try {
-            const newCommentProps = await fetchCommentData({ commentId: newCommentId });
+            const { commentId } = data;
+            const newCommentProps = await fetchCommentData({ commentId });
             const { destination_id } = newCommentProps.destination;
+
+            const updateComment = (comment) => {
+                if (comment._id === destination_id) {
+                    const updatedReplies = [
+                        ...comment.comment_reply,
+                        newCommentProps.comment
+                    ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                    return { ...comment, comment_reply: updatedReplies };
+                } else {
+                    return {
+                        ...comment,
+                        comment_reply: updateNestedComments(
+                            comment.comment_reply,
+                            destination_id,
+                            newCommentProps.comment
+                        )
+                    };
+                }
+            };
 
             if (Array.isArray(props)) {
                 const updatedArrayProps = props.map(post => {
@@ -44,28 +65,10 @@ export const handleNewData = async (data, props, setProps) => {
                         const updatedComments = [...post.comment, newCommentProps.comment].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
                         return { ...post, comment: updatedComments };
                     } else {
-                        const updatedComments = post.comment.map(comment => {
-                            if (comment._id === destination_id) {
-                                const updatedReplies = [
-                                    ...comment.comment_reply,
-                                    newCommentProps.comment
-                                ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-                                return { ...comment, comment_reply: updatedReplies };
-                            } else {
-                                return {
-                                    ...comment,
-                                    comment_reply: updateNestedComments(
-                                        comment.comment_reply,
-                                        destination_id,
-                                        newCommentProps.comment
-                                    )
-                                };
-                            }
-                        }).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-
+                        const updatedComments = post.comment.map(updateComment);
                         return { ...post, comment: updatedComments };
                     }
-                });
+                }).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
                 setProps(updatedArrayProps);
             } else {
@@ -79,25 +82,7 @@ export const handleNewData = async (data, props, setProps) => {
                         const updatedComments = [newCommentProps.comment, ...commentsList.filter(comment => comment._id !== destination_id)];
                         updatedObjectProps.media.comment = updatedComments;
                     } else if (Array.isArray(commentsList)) {
-                        const updatedComments = commentsList.map(comment => {
-                            if (comment._id === destination_id) {
-                                const updatedReplies = [
-                                    ...comment.comment_reply,
-                                    newCommentProps.comment
-                                ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-                                return { ...comment, comment_reply: updatedReplies };
-                            } else {
-                                return {
-                                    ...comment,
-                                    comment_reply: updateNestedComments(
-                                        comment.comment_reply,
-                                        destination_id,
-                                        newCommentProps.comment
-                                    )
-                                };
-                            }
-                        });
-
+                        const updatedComments = commentsList.map(updateComment);
                         updatedObjectProps.media.comment = updatedComments;
                     }
 
@@ -107,24 +92,34 @@ export const handleNewData = async (data, props, setProps) => {
         } catch (error) {
             console.error("Error fetching comment data:", error);
         }
+    };
+
+    if (data.type === "create_new_post") {
+        await handleCreateNewPost();
+    }
+
+    if (data.type === "create_comment") {
+        await handleCreateComment();
     }
 };
 
-export const handeNewUserData = async (data, props, setProps) => {
-    if (data.type === "friend_request_update") {
-        const status = data.status;
-        const friendId = data.friendId;
-        const friendRequestId = data.friendRequestId;
+export const handleNewUserData = async (data, props, setProps) => {
+    const { type } = data;
 
+    const fetchAndSetUserFriendRequest = async () => {
+        localStorage.removeItem("userFriendRequestProps");
+        await fetchUserFriendRequest();
+    };
+
+    const updateFriendRequest = async () => {
         try {
+            const { status, friendId, friendRequestId } = data;
             const newFriendProps = await fetchUserDataById(friendId);
 
             const updatedFriends = status === "Confirm" ? [newFriendProps, ...props.user.friends] : [...props.user.friends];
             const updatedUser = { ...props.user, friends: updatedFriends };
 
-            const updatedFriendRequests = props.friend_request.filter(
-                request => request._id !== friendRequestId
-            );
+            const updatedFriendRequests = props.friend_request.filter(request => request._id !== friendRequestId);
 
             const updatedProps = {
                 ...props,
@@ -134,7 +129,44 @@ export const handeNewUserData = async (data, props, setProps) => {
 
             setProps(updatedProps);
         } catch (error) {
-            console.error("Error fetching friend request data:", error);
+            throw error;
         }
+    };
+
+    const createFriendRequest = async () => {
+        try {
+            const { friendRequestId } = data;
+            const friendRequestProps = await fetchFriendRequestData(friendRequestId);
+
+            const updatedProps = {
+                ...props,
+                friend_request: [
+                    {
+                        _id: friendRequestProps._id,
+                        user: friendRequestProps.source,
+                        created_at: friendRequestProps.created_at,
+                        updated_at: friendRequestProps.updated_at,
+                    },
+                    ...props.friend_request,
+                ],
+            };
+
+            setProps(updatedProps);
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    if (type === "friend_request_create" || type === "friend_request_update") {
+        await fetchAndSetUserFriendRequest();
     }
-}
+
+    if (type === "friend_request_update") {
+        await updateFriendRequest();
+    }
+
+    if (type === "friend_request_create") {
+        await createFriendRequest();
+    }
+};
+

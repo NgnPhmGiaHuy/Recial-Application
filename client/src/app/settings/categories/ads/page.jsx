@@ -1,10 +1,7 @@
-import {useTokenRefresh} from "@/hooks";
 import {fakeUserData} from "@/constants";
 import {AsideSetting, Header, SettingScaffold} from "@/components";
 
 const AdsSettingPage = () => {
-    useTokenRefresh();
-
     const asideAdsDataItemList = [
         {
             itemTitle: "Advertising preferences",

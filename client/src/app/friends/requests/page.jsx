@@ -4,12 +4,10 @@ import { useState, useEffect } from "react";
 
 import UserPage from "@/app/[userId]/page";
 import { AsideScaffold, Header } from "@/components";
-import { handeNewUserData } from "@/utils/handleNewData";
-import { useTokenRefresh, useUserData, useWebSocket, useWithAuth } from "@/hooks";
+import { handleNewUserData } from "@/utils/handleNewData";
+import { useUserData, useWebSocket, useWithAuth } from "@/hooks";
 
 const FriendRequestPage = () => {
-    useTokenRefresh();
-
     const { userProps, setUserProps } = useUserData();
 
     const [friendRequestId, setFriendRequestId] = useState(null);
@@ -25,7 +23,7 @@ const FriendRequestPage = () => {
     }
 
     const onDataReceived = async (data) => {
-        await handeNewUserData(data, userProps, setUserProps);
+        await handleNewUserData(data, userProps, setUserProps);
     };
 
     useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);

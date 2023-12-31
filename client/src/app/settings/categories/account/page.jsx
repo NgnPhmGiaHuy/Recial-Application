@@ -1,11 +1,8 @@
 import {fakeUserData} from "@/constants";
 
-import { useTokenRefresh } from "@/hooks";
 import { AsideSetting, Header, SettingScaffold } from "@/components";
 
 const AccountSettingPage = () => {
-    useTokenRefresh();
-
     const asideAccountPreferenceItemList = [
         {
             itemTitle: "Profile information",

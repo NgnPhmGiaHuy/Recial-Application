@@ -2,22 +2,21 @@
 
 import { useRef } from "react";
 
-import { handleNewData } from "@/utils/handleNewData";
+import {handleNewUserData, handleNewPostData} from "@/utils/handleNewData";
 import { AsideUser, CreatePostDialog, Header, UserProfile } from "@/components";
-import { usePostDataByUserId, useToggleState, useTokenRefresh, useUserIdLayout, useWebSocket } from "@/hooks";
+import { usePostDataByUserId, useToggleState, useUserIdLayout, useWebSocket } from "@/hooks";
 
 const UserPage = ({ params, asAProps }) => {
-    useTokenRefresh();
-
     const createPostRef = useRef(null);
 
     const [showCreatePost, setMainCreatePost, handleShowCreatePost] = useToggleState(false);
 
-    const { userData, setUserData, userProps, isCurrentUser } = useUserIdLayout(params.userId);
+    const { userData, setUserData, userProps, setUserProps, isFriend, isCurrentUser } = useUserIdLayout(params.userId);
     const { postByIdRef, postByUserIdProps, setPostByUserIdProps } = usePostDataByUserId(params.userId);
 
     const onDataReceived = async (data) => {
-        await handleNewData(data, postByUserIdProps, setPostByUserIdProps)
+        await handleNewPostData(data, postByUserIdProps, setPostByUserIdProps);
+        await handleNewUserData(data, userData, setUserData);
     };
 
     useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
@@ -34,7 +33,7 @@ const UserPage = ({ params, asAProps }) => {
                             <div className="min-h-[inherit] mb-[calc(-100vh-56px)] flex flex-col flex-shrink-0 items-stretch justify-start relative">
                                 <div className="min-w-[900px] min-h-[inherit] flex flex-row flex-nowrap flex-shrink-0 grow items-stretch justify-start relative">
                                     <div className="w-full min-h-[inherit] flex flex-col flex-shrink grow basis-0 relative">
-                                        <UserProfile userData={userData} userProps={userProps} postProps={postByUserIdProps} postByIdRef={postByIdRef} isCurrentUser={isCurrentUser} handleShowCreatePost={handleShowCreatePost}/>
+                                        <UserProfile userData={userData} userProps={userProps} postProps={postByUserIdProps} postByIdRef={postByIdRef} isFriend={isFriend} isCurrentUser={isCurrentUser} handleShowCreatePost={handleShowCreatePost}/>
                                     </div>
                                     <div className="w-[320px] min-h-[inherit] flex flex-col flex-nowrap flex-shrink-0 items-stretch justify-center relative">
                                         <div className="min-h-[inherit] flex flex-row flex-shrink flex-nowrap grow items-start justify-between basis-0 relative">

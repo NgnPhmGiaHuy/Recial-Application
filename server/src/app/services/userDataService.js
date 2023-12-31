@@ -76,7 +76,7 @@ async function getUserSocial(user) {
 async function getUserFriendRequest(user) {
     const userFriendRequestData = await FriendRequest.find({ destination_id: user._id });
 
-    return await Promise.all(userFriendRequestData.map(async request => {
+    const requests = await Promise.all(userFriendRequestData.map(async request => {
         return {
             _id: request._id,
             user: await this.getUserById(request.source_id),
@@ -84,6 +84,12 @@ async function getUserFriendRequest(user) {
             updated_at: request.updatedAt,
         };
     }));
+
+    const sortedRequests = requests.sort((a, b) => {
+        return new Date(b.updated_at) - new Date(a.updated_at);
+    });
+
+    return sortedRequests;
 }
 
 async function getUserSearchQuery(userId) {

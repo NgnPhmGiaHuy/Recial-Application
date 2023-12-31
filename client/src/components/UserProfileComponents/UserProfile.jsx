@@ -1,11 +1,11 @@
 import { CreatePost, Post, UserProfileAbout, UserProfileCover } from "@/components";
 
-const UserProfile = ({ userData, userProps, postProps, postByIdRef, isCurrentUser, handleShowCreatePost }) => {
+const UserProfile = ({ userData, userProps, postProps, postByIdRef, isFriend, isCurrentUser, handleShowCreatePost }) => {
     return (
         <main>
             <div className="my-[16px] flex flex-col gap-4 relative">
                 <div>
-                    <UserProfileCover userProps={userProps} navigationProps="post" isCurrentUser={isCurrentUser}/>
+                    <UserProfileCover userProps={userProps} navigationProps="post" isFriend={isFriend} isCurrentUser={isCurrentUser}/>
                 </div>
                 {isCurrentUser ? (
                     <div>

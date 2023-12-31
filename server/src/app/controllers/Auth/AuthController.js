@@ -1,5 +1,5 @@
-const bcrypt = require("bcryptjs");
 const jwt= require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const User = require("../../models/User");
 const userDataService = require("../../services/userDataService");
@@ -111,7 +111,7 @@ class AuthController {
     }
 
     generateAccessToken = (user) => {
-        return jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1m' });
+        return jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
     };
 
     generateRefreshToken = (user) => {

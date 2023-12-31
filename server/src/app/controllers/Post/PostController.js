@@ -81,7 +81,7 @@ class PostController {
 
             await user.save();
 
-            await websocketService.sendNewPostMessage(req.app.get('wss'), newPost._id);
+            await websocketService.sendNewPostMessage(req.app.get('wss'), user._id, newPost._id);
 
             res.status(200).json(newPost);
         } catch (error) {

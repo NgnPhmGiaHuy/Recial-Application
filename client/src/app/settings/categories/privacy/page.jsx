@@ -1,10 +1,7 @@
-import {useTokenRefresh} from "@/hooks";
 import {fakeUserData} from "@/constants";
 import {AsideSetting, Header, SettingScaffold} from "@/components";
 
 const PrivacySettingPage = () => {
-    useTokenRefresh();
-
     const asideDataPrivacyItemList = [
         {
             itemTitle: "How Recial uses your data",

@@ -1,24 +1,60 @@
 "use client"
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useAccessTokenContext } from "@/components/ProviderComponents/Providers";
 
 const useWebSocket = (url, onDataReceived) => {
+    const { accessToken } = useAccessTokenContext();
+
+    const socketRef = useRef(null);
+    const onDataReceivedCallback = useRef(onDataReceived);
+
     useEffect(() => {
-        const socket = new WebSocket(url);
+        onDataReceivedCallback.current = onDataReceived;
+    }, [onDataReceived]);
 
-        socket.onopen = () => {
-            console.log("Connected to WebSocket server");
+    useEffect(() => {
+        const createWebSocket = () => {
+            const newSocket = new WebSocket(url + `?token=${accessToken.toString()}`);
+
+            newSocket.onopen = () => {
+                console.log("Connected to WebSocket server");
+            };
+
+            newSocket.onmessage = async (event) => {
+                const data = JSON.parse(event.data);
+                onDataReceivedCallback.current(data);
+            };
+
+            newSocket.onerror = (error) => {
+                console.error("WebSocket error:", error);
+            };
+
+            newSocket.onclose = () => {
+                console.log("WebSocket connection closed");
+            };
+
+            socketRef.current = newSocket;
         };
 
-        socket.onmessage = async (event) => {
-            const data = JSON.parse(event.data);
-            onDataReceived(data);
-        };
+        if (socketRef.current) {
+            socketRef.current.close();
+        }
+
+        if (accessToken) {
+            createWebSocket();
+        }
 
         return () => {
-            socket.close();
+            if (socketRef.current) {
+                socketRef.current.close();
+                socketRef.current = null;
+            }
         };
-    }, [url, onDataReceived]);
+    }, [accessToken]);
+
+    return socketRef.current;
 };
 
 export default useWebSocket;
+

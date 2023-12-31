@@ -3,18 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
-import {useTokenRefresh} from "@/hooks";
-import {
-    fetchUserData,
-    fetchUserFollower,
-    fetchUserFollowing,
-    fetchUserFriend, fetchUserFriendRequest,
-    fetchUserGroupList,
-    fetchUserMessage,
-    fetchUserNotification,
-    fetchUserPhotoList,
-    fetchUserSearchQuery, fetchUserSetting
-} from "@/app/api/fetchUserData";
+import { fetchUserData, fetchUserFollower, fetchUserFollowing, fetchUserFriend, fetchUserFriendRequest, fetchUserGroupList, fetchUserMessage, fetchUserNotification, fetchUserPhotoList, fetchUserSearchQuery, fetchUserSetting } from "@/app/api/fetchUserData";
 
 const useUserData = () => {
     const router = useRouter();

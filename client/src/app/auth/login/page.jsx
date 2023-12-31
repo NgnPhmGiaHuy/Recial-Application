@@ -7,10 +7,12 @@ import { useState, useEffect } from "react";
 
 import { useCheckAccessToken } from "@/hooks";
 import { AuthLoginForm, AuthHeader } from "@/components";
+import { useAccessTokenContext } from "@/components/ProviderComponents/Providers";
 import Illustration from "/public/images/Illustration/illustration-of-a-man-and-a-woman-watering-a-plant.jpg";
 
 const Login = () => {
     const router = useRouter();
+    const { accessToken, setAccessToken } = useAccessTokenContext();
 
     const [error, setError] = useState({ isEmailError: false, isPasswordError: false, formErrorStatus: "" });
     const [loginFormData, setLoginFormData] = useState({ session_key: "", session_password: "" });
@@ -44,6 +46,9 @@ const Login = () => {
                 if (responseData.accessToken && responseData.refreshToken) {
                     localStorage.setItem("accessToken", responseData.accessToken);
                     localStorage.setItem("refreshToken", responseData.refreshToken);
+
+                    setAccessToken(responseData.accessToken);
+
                     return router.push("/");
                 }
             } else {
@@ -61,15 +66,6 @@ const Login = () => {
             return NextResponse.json({ error: "Server error" }, { status: 500 });
         }
     }
-
-    useEffect(() => {
-        const accessToken = localStorage.getItem("accessToken");
-        const refreshToken = localStorage.getItem("refreshToken");
-
-        if (accessToken && refreshToken) {
-            router.push("/");
-        }
-    }, [router]);
 
     return (
         <div className="w-full h-full bg-white">

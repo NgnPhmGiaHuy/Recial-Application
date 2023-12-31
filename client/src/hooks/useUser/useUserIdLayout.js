@@ -11,6 +11,7 @@ const useUserIdLayout = (userId) => {
     const { userProps: userData, setUserProps: setUserData } = useUserData();
 
     const [userProps, setUserProps] = useState(null);
+    const [isFriend, setIsFriend] = useState(false);
     const [isCurrentUser, setIsCurrentUser] = useState(false);
 
     useEffect(() => {
@@ -86,7 +87,20 @@ const useUserIdLayout = (userId) => {
         return () => { isCancelled = true };
     }, [userData, router, userId]);
 
-    return {userData, setUserData, userProps, setUserProps, isCurrentUser};
+    useEffect(() => {
+        const checkFriendship = () => {
+            const user = userData.user;
+            const friendIds = user.friends.map(friend => friend.user._id);
+            const isFriend = friendIds.includes(userProps.user._id);
+            setIsFriend(isFriend);
+        };
+
+        if (userData && userData.user && userData.user.friends && userProps && userProps.user) {
+            checkFriendship();
+        }
+    }, [userData, userProps]);
+
+    return {userData, setUserData, userProps, setUserProps, isFriend, isCurrentUser};
 }
 
 export default useUserIdLayout;

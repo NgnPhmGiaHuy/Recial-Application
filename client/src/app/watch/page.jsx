@@ -1,12 +1,9 @@
 "use client"
 
-import {useTokenRefresh} from "@/hooks";
-import {fakeUserData, fakeVideoListData} from "@/constants";
-import {AsideScaffold, Header, VideoScaffold} from "@/components";
+import { fakeUserData, fakeVideoListData } from "@/constants";
+import { AsideScaffold, Header, VideoScaffold } from "@/components";
 
 const MoviePage = ({videoProps}) => {
-    useTokenRefresh();
-
     return (
         <div>
             <Header navigationProps="video" userProps={fakeUserData}/>

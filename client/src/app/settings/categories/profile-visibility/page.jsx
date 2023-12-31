@@ -1,10 +1,7 @@
 import {fakeUserData} from "@/constants";
 import {AsideSetting, Header, SettingScaffold} from "@/components";
-import {useTokenRefresh} from "@/hooks";
 
 const ProfileVisibilitySettingPage = () => {
-    useTokenRefresh();
-
     const asideProfileVisibilityItemList = [
         {
             itemTitle: "Visibility of your profile & network",

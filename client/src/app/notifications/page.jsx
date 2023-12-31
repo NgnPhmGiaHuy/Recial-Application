@@ -1,11 +1,9 @@
 "use client"
 
 import { Header, NotificationScaffold } from "@/components";
-import { useTokenRefresh, useUserData, useWithAuth } from "@/hooks";
+import { useUserData, useWithAuth } from "@/hooks";
 
 const NotificationsPage = () => {
-    useTokenRefresh();
-
     const { userProps } = useUserData();
 
     return (

@@ -2,13 +2,11 @@
 
 import { useRef } from "react";
 
-import { handeNewUserData, handleNewData } from "@/utils/handleNewData";
+import { handleNewUserData, handleNewPostData } from "@/utils/handleNewData";
 import { Header, Aside, Main, CreatePostDialog } from "@/components";
-import { useClickOutside, useStoryData, useGetPostData, useTokenRefresh, useUserData, useWithAuth, useWebSocket, useToggleState } from "@/hooks";
+import { useClickOutside, useStoryData, useGetPostData, useUserData, useWithAuth, useWebSocket, useToggleState } from "@/hooks";
 
 const HomePage = () => {
-    useTokenRefresh();
-
     const createPostRef = useRef(null);
 
     const [showCreatePost, setMainCreatePost, handleShowCreatePost] = useToggleState(false);
@@ -18,8 +16,8 @@ const HomePage = () => {
     const { postRef, postProps, setPostProps } = useGetPostData();
 
     const onDataReceived = async (data) => {
-        await handleNewData(data, postProps, setPostProps);
-        await handeNewUserData(data, userProps, setUserProps);
+        await handleNewPostData(data, postProps, setPostProps);
+        await handleNewUserData(data, userProps, setUserProps);
     };
 
     useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);

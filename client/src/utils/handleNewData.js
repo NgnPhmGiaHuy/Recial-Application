@@ -1,8 +1,8 @@
-import {fetchCommentData} from "@/app/api/fetchCommentData";
-import {fetchPostByPostId} from "@/app/api/fetchPostDataById";
-import {fetchUserDataById} from "@/app/api/fetchUserDataById";
-import {fetchFriendRequestData} from "@/app/api/fetchFriendRequestData";
-import {fetchUserFriendRequest} from "@/app/api/fetchUserData";
+import { fetchCommentData } from "@/app/api/fetchCommentData";
+import { fetchUserDataById } from "@/app/api/fetchUserDataById";
+import { fetchFriendRequestData } from "@/app/api/fetchFriendRequestData";
+import { fetchUserFriendRequest } from "@/app/api/fetchUserData";
+import fetchPostDataById, { fetchPostByPostId } from "@/app/api/fetchPostDataById";
 
 const updateNestedComments = (comments, destinationId, newComment) => {
     return comments.map(comment => {
@@ -33,6 +33,16 @@ export const handleNewPostData = async (data, props, setProps) => {
             throw error;
         }
     };
+
+    const handleDeletePost = async () => {
+        try {
+            const { userId } = data;
+            const newPostData = await fetchPostDataById({ userId, page: 0 });
+            setProps(newPostData);
+        } catch (error) {
+            throw error;
+        }
+    }
 
     const handleCreateComment = async () => {
         try {
@@ -96,6 +106,10 @@ export const handleNewPostData = async (data, props, setProps) => {
 
     if (data.type === "create_new_post") {
         await handleCreateNewPost();
+    }
+
+    if (data.type === "delete_post") {
+        await handleDeletePost();
     }
 
     if (data.type === "create_comment") {

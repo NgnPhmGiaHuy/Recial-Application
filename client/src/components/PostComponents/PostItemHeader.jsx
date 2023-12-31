@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { formatTimeAgoFull } from "@/utils";
 
-const PostItemHeader = ({ postProps, handleShowPostItemQuickSetting }) => {
+const PostItemHeader = ({ postProps, handleShowPostItemDelete, handleShowPostItemQuickSetting }) => {
     return (
         <div className="mb-[12px] px-[16px] pt-[12px] flex flex-row items-start">
             <div className="flex flex-row flex-shrink grow items-center relative">
@@ -92,7 +92,7 @@ const PostItemHeader = ({ postProps, handleShowPostItemQuickSetting }) => {
                         </svg>
                     </div>
                 </div>
-                <div className="w-[40px] h-[40px] mx-[4px] p-[8px] flex self-start rounded-full cursor-pointer relative hover:bg-zinc-200">
+                <div className="w-[40px] h-[40px] mx-[4px] p-[8px] flex self-start rounded-full cursor-pointer relative hover:bg-zinc-200" onClick={handleShowPostItemDelete}>
                     <div className="w-full h-full inline-flex flex-row items-stretch ">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />

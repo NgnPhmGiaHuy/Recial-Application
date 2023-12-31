@@ -1,3 +1,5 @@
+const { WebSocket } = require("ws");
+
 const Post = require("../../models/Post");
 const User = require("../../models/User");
 const Photo = require("../../models/Photo");
@@ -84,6 +86,50 @@ class PostController {
             await websocketService.sendNewPostMessage(req.app.get('wss'), user._id, newPost._id);
 
             res.status(200).json(newPost);
+        } catch (error) {
+            if (error.name === 'TokenExpiredError') {
+                return res.status(401).json({ error: 'Token expired' });
+            }
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    deletePostData = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await User.findByIdAndUpdate(
+                userId,
+                { $pull: { post_list: req.body.postId } },
+                { new: true }
+            );
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const deletedPost = await Post.findOneAndDelete({ _id: req.body.postId });
+
+            if (!deletedPost) {
+                return res.status(404).json({ error: 'Post not found' });
+            }
+
+            const wss = req.app.get('wss')
+            if (wss) {
+                const message = {
+                    type: 'delete_post',
+                    userId: user._id.toString(),
+                };
+
+                wss.clients.forEach((client) => {
+                    if (client.readyState === WebSocket.OPEN && client.userId.toString() === userId.toString()) {
+                        client.send(JSON.stringify(message));
+                    }
+                });
+            }
+
+            return res.status(200).json({ message: 'Post deleted successfully' });
         } catch (error) {
             if (error.name === 'TokenExpiredError') {
                 return res.status(401).json({ error: 'Token expired' });

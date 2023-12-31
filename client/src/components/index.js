@@ -42,10 +42,13 @@ import PostDialog from "@/components/PostComponents/PostDialog";
 import PostItem from "@/components/PostComponents/PostItem";
 import PostItemHeader from "@/components/PostComponents/PostItemHeader";
 import PostItemContent from "@/components/PostComponents/PostItemContent";
+import PostItemDelete from "@/components/PostComponents/PostItemDelete";
 import PostItemFooter from "@/components/PostComponents/PostItemFooter";
 import PostItemComment from "@/components/PostComponents/PostItemComment";
 import PostItemCommentInput from "@/components/PostComponents/PostItemCommentInput";
 import PostItemCommentScaffold from "@/components/PostComponents/PostItemCommentScaffold";
+import PostItemQuickSetting from "@/components/PostComponents/PostItemQuickSetting";
+import PostItemShareSetting from "@/components/PostComponents/PostItemShareSetting";
 
 import FriendRequest from "@/components/FriendComponents/FriendRequest";
 import FriendRequestItem from "@/components/FriendComponents/FriendRequestItem";
@@ -151,10 +154,13 @@ export {
     PostItem,
     PostItemHeader,
     PostItemContent,
+    PostItemDelete,
     PostItemFooter,
     PostItemComment,
     PostItemCommentInput,
     PostItemCommentScaffold,
+    PostItemQuickSetting,
+    PostItemShareSetting,
 
     FriendRequest,
     FriendRequestItem,

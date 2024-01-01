@@ -6,6 +6,7 @@ import UserPage from "@/app/[userId]/page";
 import { AsideScaffold, Header } from "@/components";
 import { handleNewUserData } from "@/utils/handleNewData";
 import { useUserData, useWebSocket, useWithAuth } from "@/hooks";
+import { handleRemoveUserIdLocalStorage } from "@/utils/handleAuth";
 
 const FriendRequestPage = () => {
     const { userProps, setUserProps } = useUserData();
@@ -14,12 +15,7 @@ const FriendRequestPage = () => {
 
     const handleFriendClick = (clickedFriendId) => {
         setFriendRequestId(clickedFriendId);
-        localStorage.removeItem("userIdProps")
-        localStorage.removeItem("userIdFriendProps")
-        localStorage.removeItem("userIdFollowingProps")
-        localStorage.removeItem("userIdFollowerProps")
-        localStorage.removeItem("userIdPhotoProps")
-        localStorage.removeItem("userIdGroupProps")
+        handleRemoveUserIdLocalStorage();
     }
 
     const onDataReceived = async (data) => {

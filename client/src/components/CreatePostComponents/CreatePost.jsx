@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-import {CreatePostOptionItem} from "@/components";
-import {createPostOptionItemList} from "@/constants/CreatePostConstants";
+import { CreatePostOptionItem } from "@/components";
+import { createPostOptionItemList } from "@/constants/CreatePostConstants";
 
 const CreatePost = ({ userProps, handleShowCreatePost }) => {
     return (

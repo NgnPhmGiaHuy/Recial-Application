@@ -1,13 +1,41 @@
 "use client"
 
 import Image from "next/image";
-import React, {useState} from "react";
-import {signIn, useSession} from "next-auth/react";
+import { useEffect } from "react";
+import { signIn, useSession } from "next-auth/react";
 
 import Google from "/public/images/Brands/Google.png";
+import { useRouter } from "next/navigation";
+import { fetchLoginData } from "@/app/api/fetchAuthData";
+import { useAccessTokenContext } from "@/components/ProviderComponents/Providers";
 
-const OAuthLogin = ({ isLogin, isSignup }) => {
-    const {data: session} = useSession();
+const OAuthLogin = ({ isLogin, isSignup, setError }) => {
+    const router = useRouter();
+
+    const { setAccessToken } = useAccessTokenContext();
+
+    const { data: session, status} = useSession()
+
+    const handleSignIn = async () => {
+        try {
+            await signIn("google", { redirect: false });
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    const handleGoogleLogin = async () => {
+        const session_key = session.user.email;
+        const session_password = "";
+
+        await fetchLoginData({ router, session_key, session_password, setError, setAccessToken });
+    }
+
+    useEffect(() => {
+        if (session) {
+            handleGoogleLogin();
+        }
+    }, [session]);
 
     return (
         <div className="flex flex-col px-[10px] py-[2px]">
@@ -30,7 +58,7 @@ const OAuthLogin = ({ isLogin, isSignup }) => {
             <div className="flex items-center justify-center mb-[16px]">
                 <button type="button"
                         className="w-full h-[40px] flex items-center px-[12px] border border-solid border-gray-200 rounded-full cursor-pointer hover:border-lime-300 hover:bg-lime-50 hover:bg-opacity-30 transition-all"
-                        onClick={() => signIn("google")}>
+                        onClick={handleSignIn}>
                     <div className="w-full h-full flex flex-row items-center justify-center">
                         <div className="w-[18px] h-[18px] mr-[8px] rounded-full relative overflow-hidden">
                             <Image src={Google} alt="Google-Icon" fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>

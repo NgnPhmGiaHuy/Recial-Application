@@ -1,13 +1,12 @@
 "use client"
 
-import bcrypt from "bcryptjs";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { NextResponse } from "next/server";
 
 import { useCheckAccessToken } from "@/hooks";
+import { handleValidateForm } from "@/utils/handleAuth";
 import { AuthHeader, AuthLoginForm } from "@/components";
-import { checkPasswordStrength, validateEmail } from "@/utils";
+import { fetchRegisterData } from "@/app/api/fetchAuthData";
 
 const Signup = () => {
     const router = useRouter();
@@ -15,65 +14,23 @@ const Signup = () => {
     const [error, setError] = useState({ isEmailError: false, isPasswordError: false, formErrorStatus: "" });
     const [registerFormData, setRegisterFormData] = useState({ session_key: "", session_password: "", session_firstname: "", session_lastname: "" });
 
-    const handleValidateForm = () => {
-        const { session_key, session_password } = registerFormData;
-        const isValidEmail = validateEmail(session_key);
-        const passwordStrength = checkPasswordStrength(session_password);
-
-        if (!isValidEmail) {
-            return setError({ isEmailError: true, isPasswordError: false, formErrorStatus: "" });
-        }
-
-        if (passwordStrength === "weak") {
-            return setError({ isEmailError: false, isPasswordError: true, formErrorStatus: "Password is too weak. Please use a stronger password." });
-        }
-
-        return setError({ isEmailError: false, isPasswordError: false, formErrorStatus: "" });
-    };
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setRegisterFormData({ ...registerFormData, [name]: value });
+
+        handleValidateForm({ ...registerFormData, [name]: value }, setError);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!handleValidateForm) {
+        handleValidateForm(registerFormData, setError);
+
+        if (error.isEmailError || error.isPasswordError) {
             return;
         }
 
-        try {
-            const { session_key, session_password, session_firstname, session_lastname } = registerFormData;
-
-            const hashedPassword = await bcrypt.hash(session_password, 10);
-
-            const dataToSend = { session_key, hashedPassword, session_firstname, session_lastname };
-
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/auth/register";
-
-            const response = await fetch(url, {
-                method: "POST",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dataToSend),
-            });
-
-            if (response.ok) {
-                return router.push("/auth/login");
-            } else {
-                if (response.status === 409) {
-                    const errorData = await response.json();
-                    return setError({ isEmailError: true, isPasswordError: false, formErrorStatus: errorData.message });
-                } else {
-                    return NextResponse.json({ error: ((await response.json()).message || "Unexpected error occurred" )});
-                }
-            }
-        } catch (error) {
-            return NextResponse.json({ error: "An unexpected error occurred" });
-        }
+        await fetchRegisterData({ router, registerFormData, setError });
     }
 
     return (

@@ -1,6 +1,6 @@
-import {HeaderSearchHistoryItem} from "@/components";
+import { HeaderSearchHistoryItem } from "@/components";
 
-const HeaderSearchHistory = ({userProps}) => {
+const HeaderSearchHistory = ({ userProps }) => {
     return (
         <div className="shadow-xl bg-white rounded-b-lg">
             <div className="max-h-[calc(500px-80px)] flex flex-col grow p-[8px] scroll-smooth">

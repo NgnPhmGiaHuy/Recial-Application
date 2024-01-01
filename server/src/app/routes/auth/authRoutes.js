@@ -8,6 +8,8 @@ router.route("/login").post(AuthController.loginUser);
 
 router.route("/register").post(AuthController.registerUser);
 
+router.route("/google").post(AuthController.handleGoogleSignIn);
+
 router.route("/refresh").post(AuthController.requestRefreshToken);
 
 router.route("/logout").get(MiddlewareController.verifyToken, AuthController.logoutUser);

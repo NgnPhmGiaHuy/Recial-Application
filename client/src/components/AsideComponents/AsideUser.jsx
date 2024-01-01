@@ -1,4 +1,4 @@
-import {UserProfileIntro, UserProfileScaffold} from "@/components";
+import { UserProfileIntro, UserProfileScaffold } from "@/components";
 
 const AsideUser = ({ userProps }) => {
     return (
@@ -14,7 +14,7 @@ const AsideUser = ({ userProps }) => {
                                 <UserProfileScaffold userProps={userProps} mediaProps={userProps?.photo_list} isPhotoList={true}/>
                             </div>
                         ) : null}
-                        {userProps?.user?.friends ? (
+                        {userProps?.user?.friends && userProps?.user?.friends.length ? (
                             <div>
                                 <UserProfileScaffold userProps={userProps?.user?.friends} isFriendList={true}/>
                             </div>

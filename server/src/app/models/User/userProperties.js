@@ -7,9 +7,13 @@ const userProperties = {
     username: {
         type: String,
     },
+    isOAuthUser: {
+        type: Boolean,
+        default: false,
+    },
     password: {
         type: String,
-        required: true,
+        required: function() { return !this.isOAuthUser; },
     },
     refreshToken: {
         type: String,

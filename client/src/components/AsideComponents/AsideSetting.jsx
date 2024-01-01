@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-import {AsideSettingItem} from "@/components";
-import {asideSettingItemList} from "@/constants/AsideConstants";
+import { AsideSettingItem } from "@/components";
+import { asideSettingItemList } from "@/constants/AsideConstants";
 
 const AsideSetting = ({ userProps, navigationProps }) => {
     return (

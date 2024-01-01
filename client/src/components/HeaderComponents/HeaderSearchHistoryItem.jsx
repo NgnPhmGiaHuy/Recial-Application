@@ -32,7 +32,7 @@ const HeaderSearchHistoryItem = ({searchHistoryProps}) => {
                                         </span>
                                     </span>
                                 </div>
-                                {searchHistoryProps?.search_image && searchHistoryProps?.user_news? (
+                                {(searchHistoryProps?.search_image && searchHistoryProps?.user_news) && (
                                     <div className="mt-[5px]">
                                         <span className="block text-[13px] text-left text-gray-500 font-normal leading-4 break-words">
                                             <span className="overflow-x-hidden overflow-y-hidden flex flex-row items-center text-ellipsis whitespace-nowrap relative">
@@ -43,7 +43,7 @@ const HeaderSearchHistoryItem = ({searchHistoryProps}) => {
                                             </span>
                                         </span>
                                     </div>
-                                ) : null}
+                                )}
                             </div>
                         </div>
                         <div className="flex flex-col flex-shrink-0 relative p-[5px] rounded-full z-30 cursor-pointer transition-all hover:bg-zinc-200">

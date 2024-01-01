@@ -5,6 +5,7 @@ import {useCommentData} from "@/hooks/useComment/useCommentData";
 import {useCommentMediaData} from "@/hooks/useComment/useCommentData";
 import useCountLikeReaction from "@/hooks/useFunction/useCountLikeReaction";
 import useFilteredNotification from "@/hooks/useFunction/useFilteredNotification";
+import useLoginOAuth from "@/hooks/useAuth/useLoginOAuth";
 import useLogout from "@/hooks/useAuth/useLogout";
 import useMediaData from "@/hooks/useMedia/useMediaData";
 import useStoryData from "@/hooks/useMedia/useStoryData";
@@ -32,6 +33,7 @@ export {
     useCommentMediaData,
     useCountLikeReaction,
     useFilteredNotification,
+    useLoginOAuth,
     useLogout,
     useMediaData,
     useStoryData,

@@ -1,4 +1,4 @@
-const HeaderPersonalAccountSettingItem = ({settingProps}) => {
+const HeaderPersonalAccountSettingItem = ({ settingProps }) => {
     return (
         <div className="px-[8px]">
             <a href={settingProps.settingItemLink}>
@@ -16,7 +16,7 @@ const HeaderPersonalAccountSettingItem = ({settingProps}) => {
                                 {settingProps.settingItemTitle}
                             </span>
                         </div>
-                        {settingProps.hasSettingItemChevronRight? (
+                        {settingProps.hasSettingItemChevronRight && (
                             <div className="m-[12px] mr-[0px] self-start relative">
                                 <div className="w-[24px] h-[24px] flex flex-row items-center justify-center relative">
                                     <i>
@@ -26,7 +26,7 @@ const HeaderPersonalAccountSettingItem = ({settingProps}) => {
                                     </i>
                                 </div>
                             </div>
-                        ) : null}
+                        )}
                     </div>
                 </div>
             </a>

@@ -17,7 +17,7 @@ const nextConfig = {
         return config;
     },
     images: {
-        domains: ["storage.cloud.google.com", "storage.googleapis.com", "firebasestorage.googleapis.com","cloudflare-ipfs.com", "loremflickr.com", "picsum.photos", "avatars.githubusercontent.com"],
+        domains: ["storage.cloud.google.com", "storage.googleapis.com", "firebasestorage.googleapis.com", "lh3.googleusercontent.com", "cloudflare-ipfs.com", "loremflickr.com", "picsum.photos", "avatars.githubusercontent.com"],
     },
     reactStrictMode: true,
 }

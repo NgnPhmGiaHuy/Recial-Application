@@ -51,7 +51,7 @@ const FriendRequestItem = ({ userProps, action }) => {
                                     </div>
                                 </div>
                             </div>
-                            {userProps?.mutual_friends?.length ? (
+                            {userProps?.mutual_friends?.length && (
                                 <div className="flex flex-row flex-nowrap items-center justify-between relative">
                                     <div className="flex flex-row items-center justify-between relative">
                                         <div className="ml-[8px] flex flex-row items-center justify-center relative">
@@ -73,7 +73,7 @@ const FriendRequestItem = ({ userProps, action }) => {
                                         </div>
                                     </div>
                                 </div>
-                            ) : null}
+                            )}
                         </div>
                     </div>
                     <div className="mx-[-12px] flex flex-col grow relative">

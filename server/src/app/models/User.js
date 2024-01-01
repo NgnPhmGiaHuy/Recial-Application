@@ -35,6 +35,12 @@ UserSchema.pre("save", async function(next) {
    }
 
    next();
+
+   if (this.isOAuthUser) {
+        this.password = '';
+   }
+
+   next();
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -134,7 +134,7 @@ const AuthLoginForm = ({ action, handleChange, isLogin, isSignup, error, setErro
                         </div>
                     </div>
                     <div>
-                        <OAuthLogin isLogin={isLogin} isSignup={isSignup}/>
+                        <OAuthLogin isLogin={isLogin} isSignup={isSignup} setError={setError}/>
                     </div>
                 </div>
             </div>

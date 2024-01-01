@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import Avatar from "/public/images/Avatars/Avatar.png";
 

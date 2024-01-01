@@ -1,3 +1,5 @@
+import { signOut } from "next-auth/react";
+
 const useLogout = (router) => {
     const logout = async () => {
         try {
@@ -18,6 +20,7 @@ const useLogout = (router) => {
             });
 
             if (response.ok) {
+                await signOut();
                 localStorage.clear();
                 return router.push("/auth/login")
             } else {

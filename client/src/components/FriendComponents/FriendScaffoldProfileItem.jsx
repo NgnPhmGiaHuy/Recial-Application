@@ -19,8 +19,8 @@ const FriendScaffoldProfileItem = ({ userProps }) => {
                         </div>
                         <div className="w-full h-full top-0 left-0 absolute ">
                             <div className="w-full h-[62px] flex items-center justify-center rounded-t-md overflow-hidden relative">
-                                {userProps.profile_cover_photo_url ? (
-                                    <Image src={userProps.profile_cover_photo_url} alt={`${userProps.profile_cover_photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                {userProps?.profile_cover_photo_url ? (
+                                    <Image src={userProps?.profile_cover_photo_url} alt={`${userProps?.profile_cover_photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 ) : (
                                     <Image src={Illustration} alt={`${Illustration}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 )}
@@ -30,23 +30,23 @@ const FriendScaffoldProfileItem = ({ userProps }) => {
                         <div className="mb-[100px] flex flex-col items-center justify-center rounded-md overflow-hidden relative">
                             <div className="flex flex-col items-center justify-center relative">
                                 <div className="w-[104px] h-[104px] mb-[8px] flex items-center justify-center rounded-full overflow-hidden relative">
-                                    <Image src={userProps.profile_picture_url} alt={`${userProps.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                    <Image src={userProps?.profile_picture_url} alt={`${userProps?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 </div>
                                 <div className="flex flex-col justify-between relative">
                                     <span className="block text-[16px] text-center text-zinc-500 font-bold break-words relative leading-5">
                                         <span className="overflow-x-hidden overflow-y-hidden relative">
-                                            {userProps.username}
+                                            {userProps?.username}
                                         </span>
                                     </span>
                                 </div>
                             </div>
                         </div>
                         <div className="p-[12px] bottom-0 left-0 right-0 absolute">
-                            {userProps.mutual_friends.length ? (
+                            {userProps?.mutual_friends?.length && (
                                 <div className="min-h-[32px] flex flex-row flex-nowrap items-center justify-center relative">
                                     <div className="flex flex-row items-center justify-between relative">
                                         <div className="ml-[8px] flex flex-row items-center justify-center relative">
-                                            {userProps.mutual_friends.slice(0, 3).map((value, index) => {
+                                            {userProps?.mutual_friends?.slice(0, 3).map((value, index) => {
                                                 const zIndexValue = 10 - index;
                                                 return (
                                                     <div key={index} style={{ zIndex: zIndexValue }} className="w-[20px] h-[20px] ml-[-8px] border-[2px] border-solid border-white rounded-full relative cursor-pointer overflow-hidden">
@@ -58,13 +58,13 @@ const FriendScaffoldProfileItem = ({ userProps }) => {
                                         <div className="flex flex-col items-center relative">
                                             <span className="block text-[14px] text-zinc-500 font-medium break-words relative leading-5">
                                                 <span className="overflow-x-hidden overflow-y-hidden relative">
-                                                    {userProps.mutual_friends.length} mutual friends
+                                                    {userProps?.mutual_friends?.length} mutual friends
                                                 </span>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
-                            ): null}
+                            )}
                             <div className="mt-[8px]">
                                 <div className="w-full px-[16px] py-[6px] flex items-center justify-center gap-2 cursor-pointer outline text-lime-700 rounded-md relative hover:outline-[2px] hover:bg-lime-100 transition-all">
                                     <div className="flex flex-col items-center relative">

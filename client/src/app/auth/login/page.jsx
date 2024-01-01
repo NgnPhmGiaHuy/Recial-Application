@@ -1,70 +1,32 @@
 "use client"
 
 import Image from "next/image";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { NextResponse } from "next/server";
-import { useState, useEffect } from "react";
 
 import { useCheckAccessToken } from "@/hooks";
 import { AuthLoginForm, AuthHeader } from "@/components";
+import { fetchLoginData } from "@/app/api/fetchAuthData";
 import { useAccessTokenContext } from "@/components/ProviderComponents/Providers";
 import Illustration from "/public/images/Illustration/illustration-of-a-man-and-a-woman-watering-a-plant.jpg";
 
 const Login = () => {
     const router = useRouter();
-    const { accessToken, setAccessToken } = useAccessTokenContext();
+
+    const { setAccessToken } = useAccessTokenContext();
 
     const [error, setError] = useState({ isEmailError: false, isPasswordError: false, formErrorStatus: "" });
     const [loginFormData, setLoginFormData] = useState({ session_key: "", session_password: "" });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setLoginFormData({ ...loginFormData, [name]: value });
-    }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try {
-            const { session_key, session_password } = loginFormData;
+        await fetchLoginData({ router, session_key: loginFormData.session_key, session_password: loginFormData.session_password, setError, setAccessToken })
+    }
 
-            const dataToSend = { session_key, session_password };
-
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/auth/login/";
-
-            const response = await fetch(url, {
-                method: "POST",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dataToSend)
-            });
-
-            if (response.ok) {
-                const responseData = await response.json();
-                if (responseData.accessToken && responseData.refreshToken) {
-                    localStorage.setItem("accessToken", responseData.accessToken);
-                    localStorage.setItem("refreshToken", responseData.refreshToken);
-
-                    setAccessToken(responseData.accessToken);
-
-                    return router.push("/");
-                }
-            } else {
-                if (response.status === 404) {
-                    const errorData = await response.json();
-                    return setError({ isEmailError: true, isPasswordError: false, formErrorStatus: errorData.message });
-                } else if (response.status === 401) {
-                    const errorData = await response.json();
-                    return setError({ isEmailError: false, isPasswordError: true, formErrorStatus: errorData.message });
-                } else {
-                    return NextResponse.json({ error: "Login was unsuccessful or tokens missing" }, { status: 400 });
-                }
-            }
-        } catch (error) {
-            return NextResponse.json({ error: "Server error" }, { status: 500 });
-        }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setLoginFormData({ ...loginFormData, [name]: value });
     }
 
     return (

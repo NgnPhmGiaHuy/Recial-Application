@@ -1,5 +1,6 @@
 const jwt= require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { OAuth2Client } = require('google-auth-library');
 
 const User = require("../../models/User");
 const userDataService = require("../../services/userDataService");
@@ -40,10 +41,12 @@ class AuthController {
                 return res.status(404).json({ message: "Sorry, that email isn't registered with us. Please try another." });
             }
 
-            const isPasswordValid = await bcrypt.compare(session_password, user.password);
+            if (!user.isOAuthUser) {
+                const isPasswordValid = await bcrypt.compare(session_password, user.password);
 
-            if (!isPasswordValid) {
-                return res.status(401).json({ message: "Invalid password. Please check and try again." });
+                if (!isPasswordValid) {
+                    return res.status(401).json({ message: "Invalid password. Please check and try again." });
+                }
             }
 
             const accessToken = this.generateAccessToken(user);
@@ -54,11 +57,63 @@ class AuthController {
 
             const { password, ...userProps } = user._doc;
 
-            res.status(201).json({ accessToken: accessToken, refreshToken: refreshToken });
+            return res.status(201).json({ accessToken: accessToken, refreshToken: refreshToken });
         } catch (error) {
-            res.status(500).json({ error: 'Server error' });
+            return res.status(500).json({ error: 'Server error' });
         }
     };
+
+    handleGoogleSignIn = async (req, res) => {
+        try {
+            const googleToken = req.headers.authorization;
+
+            if (!googleToken) {
+                return res.status(401).json({ error: "Google token missing" });
+            }
+
+            const token = googleToken.split(' ')[1];
+
+            const client = new OAuth2Client();
+
+            const ticket = await client.verifyIdToken({
+                idToken: token,
+            })
+
+            const { payload } = ticket;
+
+            const user = payload;
+
+            const existingUser = await User.findOne({ email: user.email });
+
+            if (existingUser) {
+                const accessToken = this.generateAccessToken(existingUser);
+                const refreshToken = this.generateRefreshToken(existingUser);
+
+                existingUser.refreshToken = refreshToken;
+                await existingUser.save();
+
+                return res.status(201).json({ accessToken, refreshToken });
+            }
+
+            const newUser = new User({
+                email: user.email,
+                isOAuthUser: true,
+                username: user.name,
+                firstname: user.family_name,
+                lastname: user.given_name,
+                profile_picture_url: user.picture,
+            });
+
+            await newUser.save();
+
+            const accessToken = this.generateAccessToken(newUser);
+            const refreshToken = this.generateRefreshToken(newUser);
+
+            return res.status(201).json({ accessToken, refreshToken });
+        } catch (error) {
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
 
     requestRefreshToken = async (req, res) => {
         const refreshToken = req.headers.authorization;

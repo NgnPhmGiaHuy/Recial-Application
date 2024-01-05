@@ -15,27 +15,16 @@ class UserController {
                 return res.status(404).json({ error: 'User not found' });
             }
 
+            const { isOAuthUser, password, refreshToken, friends, followers, following, photo_list, video_list, story_list, post_list, roles, ...otherUserProps} = user._doc;
+
             const userProps = {
                 user: {
-                    _id: user._id,
-                    email: user.email,
-                    username: user.username,
-                    firstname: user.firstname,
-                    lastname: user.lastname,
-                    phone_number: user.phone_number,
-                    description: user.description,
-                    short_description: user.short_description,
-                    profile_picture_url: user.profile_picture_url,
-                    profile_cover_photo_url: user.profile_cover_photo_url,
-                    location: user.location,
+                   ...otherUserProps,
                 },
             };
 
             return res.status(200).json(userProps);
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     };
@@ -55,9 +44,6 @@ class UserController {
 
             return res.status(200).json(friendProps);
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }
@@ -73,13 +59,162 @@ class UserController {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const friendRequestProps = await userDataService.getUserFriendRequest(user);
+            const friendRequestProps = await userDataService.getUserFriendRequest(user._id);
 
             return res.status(200).json(friendRequestProps);
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    getUserSetting = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await userDataService.getFullUserById(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
             }
+
+            const settingProps = await userDataService.getUserSetting(user._id);
+
+            return res.status(200).json(settingProps);
+        } catch (error) {
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    getUserFollowing = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await userDataService.getFullUserById(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const followingProps = await userDataService.getUserSocial(user.following);
+
+            return res.status(200).json(followingProps);
+        } catch (error) {
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    getUserFollower = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await userDataService.getFullUserById(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const followerProps = await userDataService.getUserSocial(user.followers);
+
+            return res.status(200).json(followerProps);
+        } catch (error) {
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    getUserSearchQuery = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await userDataService.getUserById(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const searchProps = await userDataService.getUserSearchQuery(user._id);
+
+            return res.status(200).json(searchProps);
+        } catch (error) {
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    getUserMessage = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await userDataService.getFullUserById(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const messageProps = await userDataService.getUserMessages(user._id);
+
+            return res.status(200).json(messageProps);
+        } catch (error) {
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    getUserPhotoList = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await userDataService.getFullUserById(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const photoListProps = await userDataService.getUserPhotoList(user.photo_list);
+
+            return res.status(200).json(photoListProps);
+        } catch (error) {
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    getUserGroupList = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await userDataService.getFullUserById(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const groupListProps = await userDataService.getUserGroup(user._id);
+
+            return res.status(200).json(groupListProps);
+        } catch (error) {
+            return res.status(500).json({ error: 'Server error' });
+        }
+    }
+
+    getUserNotification = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
+
+            const user = await userDataService.getFullUserById(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const notificationProps = await userDataService.getUserNotifications(user._id);
+
+            return res.status(200).json(notificationProps);
+        } catch (error) {
             return res.status(500).json({ error: 'Server error' });
         }
     }
@@ -142,9 +277,6 @@ class UserController {
 
             return res.status(200).json(newFriendRequest);
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }
@@ -191,14 +323,11 @@ class UserController {
 
             return res.status(200).json({ message: 'Request processed successfully' });
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }
 
-    getUserSetting = async (req, res) => {
+    setUserProfile = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
@@ -209,165 +338,44 @@ class UserController {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const settingProps = await userDataService.getUserSetting(user._id);
+            const { session_username, session_firstname, session_lastname, session_description, session_location } = req.body;
 
-            return res.status(200).json(settingProps);
-        } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
+            if (session_username) {
+                user.username = session_username;
             }
+            if (session_firstname) {
+                user.firstname = session_firstname;
+            }
+            if (session_lastname) {
+                user.lastname = session_lastname;
+            }
+            if (session_description) {
+                user.description = session_description;
+            }
+            // if (session_location) {
+            //     user.location = session_location;
+            // }
+
+            await user.save();
+
+            const wss = req.app.get("wss");
+
+            if (wss) {
+                const userProfileUpdateMessage = {
+                    type: "user_profile_update",
+                }
+
+                wss.clients.forEach((client) => {
+                    if (client.readyState === WebSocket.OPEN && client.userId.toString() === user._id.toString()) {
+                        client.send(JSON.stringify(userProfileUpdateMessage));
+                    }
+                })
+            }
+            return res.status(200).json({ message: 'User profile updated successfully' });
+        } catch (error) {
             return res.status(500).json({ error: 'Server error' });
         }
     }
-
-    getUserFollowing = async (req, res) => {
-        try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
-
-            const user = await userDataService.getFullUserById(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: 'User not found' });
-            }
-
-            const followingProps = await userDataService.getUserSocial(user.following);
-
-            return res.status(200).json(followingProps);
-        } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
-            return res.status(500).json({ error: 'Server error' });
-        }
-    }
-
-    getUserFollower = async (req, res) => {
-        try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
-
-            const user = await userDataService.getFullUserById(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: 'User not found' });
-            }
-
-            const followerProps = await userDataService.getUserSocial(user.followers);
-
-            return res.status(200).json(followerProps);
-        } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
-            return res.status(500).json({ error: 'Server error' });
-        }
-    }
-
-    getUserSearchQuery = async (req, res) => {
-        try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
-
-            const user = await userDataService.getUserById(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: 'User not found' });
-            }
-
-            const searchProps = await userDataService.getUserSearchQuery(user._id);
-
-            return res.status(200).json(searchProps);
-        } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
-            return res.status(500).json({ error: 'Server error' });
-        }
-    }
-
-    getUserMessage = async (req, res) => {
-        try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
-
-            const user = await userDataService.getFullUserById(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: 'User not found' });
-            }
-
-            const messageProps = await userDataService.getUserMessages(user._id);
-
-            return res.status(200).json(messageProps);
-        } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
-            return res.status(500).json({ error: 'Server error' });
-        }
-    }
-
-    getUserPhotoList = async (req, res) => {
-        try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
-
-            const user = await userDataService.getFullUserById(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: 'User not found' });
-            }
-
-            const photoListProps = await userDataService.getUserPhotoList(user.photo_list);
-
-            return res.status(200).json(photoListProps);
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    getUserGroupList = async (req, res) => {
-        try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
-
-            const user = await userDataService.getFullUserById(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: 'User not found' });
-            }
-
-            const groupListProps = await userDataService.getUserGroup(user._id);
-
-            return res.status(200).json(groupListProps);
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    getUserNotification = async (req, res) => {
-        try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
-
-            const user = await userDataService.getFullUserById(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: 'User not found' });
-            }
-
-            const notificationProps = await userDataService.getUserNotifications(user._id);
-
-            return res.status(200).json(notificationProps);
-        } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
-            return res.status(500).json({ error: 'Server error' });
-        }
-    }
-
 }
 
 module.exports = new UserController();

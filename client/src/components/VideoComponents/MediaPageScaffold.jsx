@@ -19,9 +19,9 @@ const MediaPageScaffold = ({ userProps, mediaProps, videoProps, mediaType }) => 
             </div>
             <div className="w-[544px] flex flex-col flex-[0_0_544px]">
                 <div className="w-full flex flex-col grow border-b border-solid border-zinc-300 overflow-hidden relative">
-                    <div className="w-full px-[32px] py-[24px] block grow overflow-x-hidden overflow-y-auto relative">
+                    <div className="w-full px-[32px] py-[24px] block grow overflow-x-hidden overflow-y-auto no-scrollbar relative">
                         <div>
-                            <MediaPageScaffoldHeader mediaProps={mediaProps}/>
+                            <MediaPageScaffoldHeader userProps={userProps} mediaProps={mediaProps}/>
                         </div>
                         <div className="mb-[24px] top-[-28px] bg-white sticky z-10">
                             <div className="h-[50px] pt-[18px] flex flex-row items-center relative">

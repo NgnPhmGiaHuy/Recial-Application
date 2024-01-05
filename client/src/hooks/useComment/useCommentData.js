@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react";
-import {createCommentData} from "@/app/api/fetchCommentData";
+import { useState } from "react";
+import { createCommentData } from "@/app/api/fetchCommentData";
 
 export const useCommentData = () => {
     const [commentSubmitStatus, setCommentSubmitStatus] = useState(false);

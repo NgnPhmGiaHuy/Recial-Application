@@ -1,15 +1,15 @@
 import { CreatePost, Post, UserProfileAbout, UserProfileCover } from "@/components";
 
-const UserProfile = ({ userData, userProps, postProps, postByIdRef, isFriend, isFriendRequest, isCurrentUser, handleShowCreatePost }) => {
+const UserProfile = ({ userData, userProps, userCheck, postProps, postByIdRef, handleState,  }) => {
     return (
         <main>
             <div className="my-[16px] flex flex-col gap-4 relative">
                 <div>
-                    <UserProfileCover userProps={userProps} navigationProps="post" isFriend={isFriend} isFriendRequest={isFriendRequest} isCurrentUser={isCurrentUser}/>
+                    <UserProfileCover userProps={userProps} navigationProps="post" handleState={handleState} userCheck={userCheck} />
                 </div>
-                {isCurrentUser ? (
+                {userCheck.isCurrentUser ? (
                     <div>
-                        <CreatePost userProps={userProps} handleShowCreatePost={handleShowCreatePost}/>
+                        <CreatePost userProps={userProps} handleShowCreatePost={handleState.handleShowCreatePost}/>
                     </div>
                 ) : null}
                 {userProps && userProps?.user?.description ? (
@@ -19,7 +19,7 @@ const UserProfile = ({ userData, userProps, postProps, postByIdRef, isFriend, is
                 ) : null}
                 {postProps ? (
                     <div>
-                        <Post postRef={postByIdRef} userData={userData} userProps={userProps} isCurrentUser={isCurrentUser} postListProps={postProps}/>
+                        <Post postRef={postByIdRef} userData={userData} userProps={userProps} isCurrentUser={userCheck.isCurrentUser} postListProps={postProps}/>
                     </div>
                 ) : null}
             </div>

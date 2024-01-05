@@ -4,7 +4,7 @@ const userDataService = require("../services/userDataService");
 class FriendRequestController {
     getFriendRequestById = async (req, res) => {
         try {
-            const {requestId} = req.params;
+            const { requestId } = req.params;
 
             const friendRequestData = await FriendRequest.findById(requestId);
 
@@ -22,9 +22,6 @@ class FriendRequestController {
 
             return res.status(200).json(friendRequestProps);
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }

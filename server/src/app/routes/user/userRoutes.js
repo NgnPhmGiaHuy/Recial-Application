@@ -14,6 +14,8 @@ router.route("/photo-list").get(UserController.getUserPhotoList);
 router.route("/group-list").get(UserController.getUserGroupList);
 router.route("/notification").get(UserController.getUserNotification);
 
+router.route("/profile").put(UserController.setUserProfile);
+
 router.route("/friend-request").get(UserController.getUserFriendRequest);
 router.route("/friend-request").put(UserController.setUserFriendRequest);
 router.route("/friend-request").post(UserController.createUserFriendRequest);

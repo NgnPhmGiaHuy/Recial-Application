@@ -8,7 +8,7 @@ const userDataService = require("../../services/userDataService");
 class AuthController {
     registerUser = async (req, res) => {
         try {
-            const {session_key, hashedPassword, session_firstname, session_lastname} = req.body;
+            const { session_key, hashedPassword, session_firstname, session_lastname } = req.body;
 
             const existingUser = await User.findOne({email: session_key});
 
@@ -53,9 +53,8 @@ class AuthController {
             const refreshToken = this.generateRefreshToken(user);
 
             user.refreshToken = refreshToken;
-            await user.save();
 
-            const { password, ...userProps } = user._doc;
+            await user.save();
 
             return res.status(201).json({ accessToken: accessToken, refreshToken: refreshToken });
         } catch (error) {
@@ -90,9 +89,10 @@ class AuthController {
                 const refreshToken = this.generateRefreshToken(existingUser);
 
                 existingUser.refreshToken = refreshToken;
+
                 await existingUser.save();
 
-                return res.status(201).json({ accessToken, refreshToken });
+                return res.status(201).json({ accessToken: accessToken, refreshToken: refreshToken });
             }
 
             const newUser = new User({
@@ -109,23 +109,23 @@ class AuthController {
             const accessToken = this.generateAccessToken(newUser);
             const refreshToken = this.generateRefreshToken(newUser);
 
-            return res.status(201).json({ accessToken, refreshToken });
+            return res.status(201).json({ accessToken: accessToken, refreshToken: refreshToken });
         } catch (error) {
             return res.status(500).json({ error: 'Server error' });
         }
     }
 
     requestRefreshToken = async (req, res) => {
-        const refreshToken = req.headers.authorization;
-
-        if (!refreshToken) {
-            return res.status(401).json({ error: "You're not authenticated" });
-        }
-
-        const token = refreshToken.split(' ')[1];
-
         try {
-            jwt.verify(token, "Hello", async (error, decoded) => {
+            const refreshToken = req.headers.authorization;
+
+            if (!refreshToken) {
+                return res.status(401).json({ error: "You're not authenticated" });
+            }
+
+            const token = refreshToken.split(' ')[1];
+
+            jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (error, decoded) => {
                 if (error) {
                     return res.status(403).json({ error: "Refresh token is not valid" });
                 }
@@ -138,10 +138,10 @@ class AuthController {
 
                 const newAccessToken = this.generateAccessToken(user);
 
-                res.status(200).json({ accessToken: newAccessToken });
+                return res.status(200).json({ accessToken: newAccessToken });
             });
         } catch (error) {
-            res.status(500).json({ error: 'Server error' });
+            return res.status(500).json({ error: 'Server error' });
         }
     };
 
@@ -157,11 +157,12 @@ class AuthController {
             }
 
             user.refreshToken = null;
+
             await user.save();
 
-            res.status(200).json({ message: "Logout" });
+            return res.status(200).json({ message: "Logout" });
         } catch (error) {
-            res.status(500).json({ error: 'Server error' });
+            return res.status(500).json({ error: 'Server error' });
         }
     }
 
@@ -170,7 +171,7 @@ class AuthController {
     };
 
     generateRefreshToken = (user) => {
-        return jwt.sign({ userId: user._id }, "Hello", { expiresIn: '365d' });
+        return jwt.sign({ userId: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '365d' });
     };
 }
 

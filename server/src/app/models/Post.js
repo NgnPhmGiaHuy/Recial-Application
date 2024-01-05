@@ -15,26 +15,6 @@ const PostSchema = new Schema(
             default: "Public",
             enum: ["Public", "Private", "Friends", "Specific_Friends"],
         },
-        post_views: [{
-            user: {
-                type: Schema.Types.ObjectId,
-                ref: "User",
-            },
-            viewed_at: {
-                type: Date,
-                default: null,
-            },
-        }],
-        post_shares: [{
-            user: {
-                type: Schema.Types.ObjectId,
-                ref: "User",
-            },
-            shared_at: {
-                type: Date,
-                default: null,
-            },
-        }],
         post_tags: [{
             type: Schema.Types.ObjectId,
             ref: "Tag",
@@ -47,6 +27,14 @@ const PostSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "Location",
         },
+        page: {
+            type: Schema.Types.ObjectId,
+            ref: "Page",
+        },
+        group: {
+            type: Schema.Types.ObjectId,
+            ref: "Group"
+        }
     }, {
         timestamps: true,
     },

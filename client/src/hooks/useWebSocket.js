@@ -1,9 +1,12 @@
 "use client"
 
 import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+
 import { useAccessTokenContext } from "@/components/ProviderComponents/Providers";
 
 const useWebSocket = (url, onDataReceived) => {
+    const router = useRouter();
     const { accessToken } = useAccessTokenContext();
 
     const socketRef = useRef(null);
@@ -51,7 +54,7 @@ const useWebSocket = (url, onDataReceived) => {
                 socketRef.current = null;
             }
         };
-    }, [accessToken]);
+    }, [accessToken, router]);
 
     return socketRef.current;
 };

@@ -1,7 +1,7 @@
 import { fetchCommentData } from "@/app/api/fetchCommentData";
 import { fetchUserDataById } from "@/app/api/fetchUserDataById";
 import { fetchFriendRequestData } from "@/app/api/fetchFriendRequestData";
-import { fetchUserFriendRequest } from "@/app/api/fetchUserData";
+import {fetchUserData, fetchUserFriendRequest} from "@/app/api/fetchUserData";
 import fetchPostDataById, { fetchPostByPostId } from "@/app/api/fetchPostDataById";
 
 const updateNestedComments = (comments, destinationId, newComment) => {
@@ -28,7 +28,7 @@ export const handleNewPostData = async (data, props, setProps) => {
         try {
             const { postId } = data;
             const newPostProps = await fetchPostByPostId({ postId });
-            setProps(prevProps => [newPostProps, ...prevProps]);
+            return setProps(prevProps => [newPostProps, ...prevProps]);
         } catch (error) {
             throw error;
         }
@@ -38,7 +38,7 @@ export const handleNewPostData = async (data, props, setProps) => {
         try {
             const { userId } = data;
             const newPostData = await fetchPostDataById({ userId, page: 0 });
-            setProps(newPostData);
+            return setProps(newPostData);
         } catch (error) {
             throw error;
         }
@@ -80,7 +80,7 @@ export const handleNewPostData = async (data, props, setProps) => {
                     }
                 }).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-                setProps(updatedArrayProps);
+                return setProps(updatedArrayProps);
             } else {
                 const updatedObjectProps = { ...props };
                 const { media } = updatedObjectProps;
@@ -96,7 +96,7 @@ export const handleNewPostData = async (data, props, setProps) => {
                         updatedObjectProps.media.comment = updatedComments;
                     }
 
-                    setProps(updatedObjectProps);
+                    return setProps(updatedObjectProps);
                 }
             }
         } catch (error) {
@@ -122,8 +122,23 @@ export const handleNewUserData = async (data, props, setProps) => {
 
     const fetchAndSetUserFriendRequest = async () => {
         localStorage.removeItem("userFriendRequestProps");
-        await fetchUserFriendRequest();
+         await fetchUserFriendRequest();
     };
+
+    const fetchAndSetUserData = async () => {
+        localStorage.removeItem("userProps");
+        return await fetchUserData();
+    }
+
+    const updateUserProfile = async () => {
+        try {
+            const userData = await fetchUserData();
+
+            setProps((prevData) => ({ ...prevData, ...userData }));
+        } catch (error) {
+            throw error;
+        }
+    }
 
     const updateFriendRequest = async () => {
         try {
@@ -181,6 +196,11 @@ export const handleNewUserData = async (data, props, setProps) => {
 
     if (type === "friend_request_create") {
         await createFriendRequest();
+    }
+
+    if (type === "user_profile_update") {
+        await fetchAndSetUserData();
+        await updateUserProfile();
     }
 };
 

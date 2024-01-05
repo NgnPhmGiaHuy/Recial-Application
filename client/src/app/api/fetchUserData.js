@@ -439,7 +439,7 @@ export const setUserFriendRequest = async (status, friendRequestUser) => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${accessToken}`,
+                "Authorization": `Bearer ${accessToken}`,
             },
             body: JSON.stringify(dataToSend),
         });
@@ -451,5 +451,34 @@ export const setUserFriendRequest = async (status, friendRequestUser) => {
         }
     } catch (error) {
         throw error;
+    }
+}
+
+export const setUserProfile = async (dataToSend) => {
+    try {
+        const accessToken = localStorage.getItem("accessToken");
+
+        if (!accessToken) {
+            return { error: "Access token not found" };
+        }
+
+        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/profile/";
+
+        const response = await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify(dataToSend)
+        });
+
+        if (response.ok) {
+            return await response.json()
+        } else {
+            return { error: "Error set user friend request data" };
+        }
+    } catch (error) {
+        throw  error;
     }
 }

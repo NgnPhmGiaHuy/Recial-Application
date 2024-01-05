@@ -3,6 +3,8 @@ const { WebSocket } = require("ws");
 const Post = require("../../models/Post");
 const User = require("../../models/User");
 const Photo = require("../../models/Photo");
+const PostShare = require("../../models/PostShare");
+const generalDataService = require("../../services/generalDataService");
 const userDataService = require("../../services/userDataService");
 const postDataService = require("../../services/postDataService");
 const imageDataService = require("../../services/imageDataService");
@@ -27,12 +29,8 @@ class PostController {
             ]);
 
             const postsWithUserData = await this.enhancePostsWithUserData(posts);
-
             res.status(200).json(postsWithUserData)
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }
@@ -85,11 +83,8 @@ class PostController {
 
             await websocketService.sendNewPostMessage(req.app.get('wss'), user._id, newPost._id);
 
-            res.status(200).json(newPost);
+            return res.status(200).json(newPost);
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }
@@ -99,9 +94,15 @@ class PostController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
+            const deletedPost = await Post.findById(req.body.postId);
+
+            if (!deletedPost) {
+                return res.status(404).json({ error: 'Post not found' });
+            }
+
             const user = await User.findByIdAndUpdate(
                 userId,
-                { $pull: { post_list: req.body.postId } },
+                { $pull: { post_list: req.body.postId, photo_list: { $in: deletedPost.post_photos } } },
                 { new: true }
             );
 
@@ -109,11 +110,7 @@ class PostController {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const deletedPost = await Post.findOneAndDelete({ _id: req.body.postId });
-
-            if (!deletedPost) {
-                return res.status(404).json({ error: 'Post not found' });
-            }
+            await postDataService.deletePost(req, deletedPost);
 
             const wss = req.app.get('wss')
             if (wss) {
@@ -131,9 +128,6 @@ class PostController {
 
             return res.status(200).json({ message: 'Post deleted successfully' });
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }
@@ -152,9 +146,10 @@ class PostController {
                         updated_at: post.updatedAt,
                     },
                     photo: await postDataService.getPostPhoto(post),
-                    user: await postDataService.getPostAuthor(post),
-                    comment: await postDataService.getComment(post._id),
-                    reaction: await postDataService.getReaction(post._id),
+                    user: await postDataService.getPostAuthor(post._id),
+                    comment: await generalDataService.getComment(post._id),
+                    reaction: await generalDataService.getReaction(post._id),
+                    share: await generalDataService.getUsersByInteractionType(PostShare, "post_id", post._id),
                 };
 
                 enhancedPosts.push(postWithUserData);

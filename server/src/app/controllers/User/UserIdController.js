@@ -11,26 +11,16 @@ class UserIdController {
                 return res.status(404).json({ error: 'User not found' });
             }
 
+            const { isOAuthUser, password, refreshToken, friends, followers, following, photo_list, video_list, story_list, post_list, roles, ...otherUserProps} = user._doc;
+
             const userProps = {
                 user: {
-                    _id: user._id,
-                    email: user.email,
-                    username: user.username,
-                    firstname: user.firstname,
-                    lastname: user.lastname,
-                    phone_number: user.phone_number,
-                    description: user.description,
-                    short_description: user.short_description,
-                    profile_picture_url: user.profile_picture_url,
-                    profile_cover_photo_url: user.profile_cover_photo_url,
+                    ...otherUserProps,
                 },
             }
 
-            res.status(200).json(userProps);
+            return res.status(200).json(userProps);
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }
@@ -47,11 +37,8 @@ class UserIdController {
 
             const followerProps = await userDataService.getUserSocial(user.followers);
 
-            res.status(200).json({ user: { _id: user._id }, followerProps })
+            return res.status(200).json({ user: { _id: user._id }, followerProps })
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }
@@ -68,11 +55,8 @@ class UserIdController {
 
             const followingProps = await userDataService.getUserSocial(user.following);
 
-            res.status(200).json({ user: { _id: user._id }, followingProps })
+            return res.status(200).json({ user: { _id: user._id }, followingProps })
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }
@@ -91,9 +75,6 @@ class UserIdController {
 
             return res.status(200).json({user: {_id: user._id}, friendProps});
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }
@@ -112,7 +93,7 @@ class UserIdController {
 
             return res.status(200).json({user: {_id: user._id}, photoListProps});
         } catch (error) {
-            throw error;
+            return res.status(500).json({ error: 'Server error' });
         }
     }
 
@@ -130,7 +111,7 @@ class UserIdController {
 
             return res.status(200).json({user: {_id: user._id}, groupListProps});
         } catch (error) {
-            throw error;
+            return res.status(500).json({ error: 'Server error' });
         }
     }
 }

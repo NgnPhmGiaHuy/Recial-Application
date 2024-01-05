@@ -9,7 +9,6 @@ const VideoSchema = new Schema(
         },
         video_title: {
             type: String,
-            required: true,
         },
         video_privacy: {
             type: String,
@@ -29,26 +28,6 @@ const VideoSchema = new Schema(
         video_resolution: {
             type: String,
         },
-        video_views: [{
-            user: {
-                type: Schema.Types.ObjectId,
-                ref: "User",
-            },
-            viewed_at: {
-                type: Date,
-                default: null,
-            }
-        }],
-        video_shares: [{
-            user: {
-                type: Schema.Types.ObjectId,
-                ref: "User",
-            },
-            shared_at: {
-                type: Date,
-                default: null,
-            },
-        }],
         video_tags: [{
             type: Schema.Types.ObjectId,
             ref: "Tag",

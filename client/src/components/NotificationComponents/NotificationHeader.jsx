@@ -66,7 +66,7 @@ const NotificationHeader = ({ forwardedRef, userProps }) => {
                                     </div>
                                     <div className="mt-[-12px] mb-[20px] flex flex-col">
                                         {filteredNotifications?.newNotifications?.length ? (
-                                            <NotificationHeaderContent title="News" props={filteredNotifications?.newNotifications} hasNews={filteredNotifications?.newNotifications.length}/>
+                                            <NotificationHeaderContent title="News" props={filteredNotifications?.newNotifications} hasNews={false}/>
                                         ) : null}
                                         {filteredNotifications?.otherNotifications?.length ? (
                                             <NotificationHeaderContent title="Before" props={filteredNotifications?.otherNotifications} hasNews={filteredNotifications?.newNotifications.length}/>

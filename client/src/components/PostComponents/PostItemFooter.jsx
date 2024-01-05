@@ -38,7 +38,7 @@ const PostItemFooter = ({ postProps, handleShowPostShareSetting, handleShowPostI
                             </div>
                             <div className="p-[6px] flex flex-col flex-shrink-0 relative">
                                 <span className="block text-[15px] text-zinc-500 text-left font-normal break-words relative cursor-pointer leading-5 hover:underline transition-all">
-                                    {postProps?.post?.post_shares?.length === 0 ? null : postProps?.post?.post_shares?.length === 1 ? `${postProps?.post?.post_shares?.length} share` : `${postProps?.post?.post_shares?.length} shares`}
+                                    {postProps?.share?.length === 0 ? null : postProps?.share?.length === 1 ? `${postProps?.share?.length} share` : `${postProps?.share?.length} shares`}
                                 </span>
                             </div>
                         </div>

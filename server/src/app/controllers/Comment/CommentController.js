@@ -3,7 +3,7 @@ const {WebSocket} = require("ws");
 const Type = require("../../models/Type");
 const Comment = require("../../models/Comment");
 const userDataService = require("../../services/userDataService");
-const postDataService = require("../../services/postDataService");
+const generalDataService = require("../../services/generalDataService");
 
 class CommentController {
     getCommentData = async (req, res) => {
@@ -21,27 +21,24 @@ class CommentController {
 
             const commentData = await Comment.findById(commentId);
 
+            const { createdAt, updatedAt, ...otherCommentProps } = commentData._doc;
+
             const commentProps = {
                 comment: {
-                    _id: commentData._id,
+                    ...otherCommentProps,
                     user: await userDataService.getUserById(commentData.source_id),
-                    comment_text: commentData.comment_text,
-                    comment_tags: commentData.comment_tags,
-                    comment_reactions: await postDataService.getReaction(commentData),
-                    comment_reply: await postDataService.getComment(commentData),
-                    created_at: commentData.createdAt,
-                    updated_at: commentData.updatedAt,
+                    comment_reactions: await generalDataService.getReaction(commentData._id),
+                    comment_reply: await generalDataService.getComment(commentData._id),
+                    created_at: createdAt,
+                    updated_at: updatedAt,
                 },
                 destination: {
                     destination_id: commentData.destination.destination_id,
                 }
             }
 
-            res.status(200).json(commentProps);
+            return res.status(200).json(commentProps);
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     };
@@ -82,17 +79,14 @@ class CommentController {
                 }
 
                 wss.clients.forEach((client) => {
-                    if (client.readyState === WebSocket.OPEN && client.userId.toString() === user._id.toString()) {
+                    if (client.readyState === WebSocket.OPEN) {
                         client.send(JSON.stringify(comment));
                     }
                 });
             }
 
-            res.status(200).json(newComment);
+            return res.status(200).json(newComment);
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }

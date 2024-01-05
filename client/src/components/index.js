@@ -84,8 +84,14 @@ import UserAboutScaffoldItem from "@/components/UserProfileComponents/UserAboutS
 import UserAboutVideoScaffoldItem from "@/components/UserProfileComponents/UserAboutVideoScaffoldItem";
 import UserAboutPhotoScaffoldItem from "@/components/UserProfileComponents/UserAboutPhotoScaffoldItem";
 import UserProfile from "@/components/UserProfileComponents/UserProfile";
+import UserProfileEdit from "@/components/UserProfileComponents/UserProfileEdit";
+import UserProfileEditHeader from "@/components/UserProfileComponents/UserProfileEditHeader";
+import UserProfileEditImage from "@/components/UserProfileComponents/UserProfileEditImage";
+import UserProfileEditInput from "@/components/UserProfileComponents/UserProfileEditInput";
+import UserProfileEditInputItem, from "@/components/UserProfileComponents/UserProfileEditInputItem";
 import UserProfileCover from "@/components/UserProfileComponents/UserProfileCover";
 import UserProfileCoverFooter from "@/components/UserProfileComponents/UserProfileCoverFooter";
+import UserProfileCoverFooterFriendRequest from "@/components/UserProfileComponents/UserProfileCoverFooterFriendRequest";
 import UserProfileCoverNavigation from "@/components/UserProfileComponents/UserProfileCoverNavigation";
 import UserProfileCoverNavigationItem from "@/components/UserProfileComponents/UserProfileCoverNavigationItem";
 import UserProfileAbout from "@/components/UserProfileComponents/UserProfileAbout";
@@ -201,8 +207,14 @@ export {
     UserAboutVideoScaffoldItem,
     UserAboutPhotoScaffoldItem,
     UserProfile,
+    UserProfileEdit,
+    UserProfileEditHeader,
+    UserProfileEditImage,
+    UserProfileEditInput,
+    UserProfileEditInputItem,
     UserProfileCover,
     UserProfileCoverFooter,
+    UserProfileCoverFooterFriendRequest,
     UserProfileCoverNavigation,
     UserProfileCoverNavigationItem,
     UserProfileAbout,

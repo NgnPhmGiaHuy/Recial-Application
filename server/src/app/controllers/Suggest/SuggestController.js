@@ -16,9 +16,6 @@ class SuggestController {
 
             return res.status(200).json(suggestEvent);
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }
@@ -38,9 +35,6 @@ class SuggestController {
 
             return res.status(200).json(suggestGroup);
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }
@@ -60,9 +54,6 @@ class SuggestController {
 
             return res.status(200).json(suggestPage);
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }

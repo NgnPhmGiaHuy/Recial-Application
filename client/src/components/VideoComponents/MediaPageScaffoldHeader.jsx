@@ -7,10 +7,11 @@ import { useCallback, useEffect, useState } from "react";
 import { handleFormatNumber, formatDate } from "@/utils";
 import { useCountComment, useCountLikeReaction, useOverflowText } from "@/hooks";
 
-const MediaPageScaffoldHeader = ({ mediaProps }) => {
+const MediaPageScaffoldHeader = ({ userProps, mediaProps }) => {
     const totalLike = useCountLikeReaction(mediaProps?.media);
     const totalComment = useCountComment(mediaProps?.media);
 
+    const [hasFollow, setHasFollow] = useState(false);
     const [currentURL, setCurrentURL] = useState("");
     const [copyLinkSuccess, setCopyLinkSuccess] = useState("");
 
@@ -21,6 +22,19 @@ const MediaPageScaffoldHeader = ({ mediaProps }) => {
             setCurrentURL(window.location.href);
         }
     }, []);
+
+    useEffect(() => {
+        const updateFollowStatus = () => {
+            userProps?.user?.following.map((value) => {
+                const foundUser = value?.user?._id === mediaProps?.user?._id;
+                if (foundUser) {
+                    setHasFollow(foundUser);
+                }
+            })
+        };
+
+        updateFollowStatus();
+    }, [userProps, mediaProps]);
 
     const handleCopyToClipboard = useCallback(() => {
         navigator.clipboard.writeText(currentURL)
@@ -71,7 +85,7 @@ const MediaPageScaffoldHeader = ({ mediaProps }) => {
                             ) : null}
                         </div>
                     </div>
-                    {mediaProps?.user?.hasFollow ? null : (
+                    {hasFollow ? null : (
                         <div>
                             <div className="min-w-[96px] h-[36px] px-[15px] flex items-center justify-center rounded-md bg-lime-500 cursor-pointer relative hover:bg-lime-700 transition-all">
                                 <span className="text-[16px] text-white text-left font-normal relative leading-5">

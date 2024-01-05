@@ -12,17 +12,28 @@ const Notification = require("../app/models/Notification");
 const Page = require("../app/models/Page");
 const PageMember = require("../app/models/PageMember");
 const Photo = require("../app/models/Photo");
+const PhotoView = require("../app/models/PhotoView");
+const PhotoSaved = require("../app/models/PhotoSaved");
+const PhotoShare = require("../app/models/PhotoShare");
 const Post = require("../app/models/Post");
-const Reactions = require("../app/models/Reactions");
+const PostView = require("../app/models/PostView");
+const PostSaved = require("../app/models/PostSaved");
+const PostShare = require("../app/models/PostShare");
+const Reaction = require("../app/models/Reaction");
 const Role = require("../app/models/Role");
-const Saved = require("../app/models/Saved");
 const SearchHistory = require("../app/models/SearchHistory");
 const Story = require("../app/models/Story");
+const StoryView = require("../app/models/StoryView");
+const StorySaved = require("../app/models/StorySaved");
+const StoryShare = require("../app/models/StoryShare");
 const Tag = require("../app/models/Tag");
 const Type = require("../app/models/Type");
 const FriendRequest = require("../app/models/FriendRequest");
 const User = require("../app/models/User");
 const Video = require("../app/models/Video");
+const VideoView = require("../app/models/VideoView");
+const VideoSaved = require("../app/models/VideoSaved");
+const VideoShare = require("../app/models/VideoShare");
 const Setting = require("../app/models/Setting");
 
 const generateRoles = () => [
@@ -138,84 +149,108 @@ const generateUserProps = (roles, insertedRoles) => Array.from({ length: 1000 },
     };
 });
 
-const generatePages = () => Array.from({ length: 100 }, () => ({
-    _id: new mongoose.Types.ObjectId(),
-    page_name: faker.lorem.text(),
-    page_description: faker.lorem.paragraph(),
-    page_privacy: faker.helpers.arrayElement(["Public", "Private"]),
-    page_picture_url: faker.image.url(),
-    page_cover_picture_url: faker.image.urlLoremFlickr({ category: 'abstract' }),
-}));
+const generatePages = async () => {
+    const pageProps = Array.from({ length: 100 }, () => ({
+        _id: new mongoose.Types.ObjectId(),
+        page_name: faker.lorem.text(),
+        page_description: faker.lorem.paragraph(),
+        page_privacy: faker.helpers.arrayElement(["Public", "Private"]),
+        page_picture_url: faker.image.url(),
+        page_cover_picture_url: faker.image.urlLoremFlickr({ category: 'abstract' }),
+    }));
 
-const generatePageMembers = (allPages, allUsers, insertedRoles) => allPages.flatMap(page => {
-    const usersForPage = Array.from({ length: 20 }, () => {
-        const randomUser = faker.helpers.objectValue(allUsers);
+    return await Page.insertMany(pageProps);
+};
+
+const generatePageMembers = async (allPages, allUsers, insertedRoles) => {
+    const pageMemberProps = allPages.flatMap(page => {
+        const usersForPage = Array.from({ length: 20 }, () => {
+            const randomUser = faker.helpers.objectValue(allUsers);
+
+            return {
+                page_id: page._id,
+                user_id: randomUser._id,
+                user_role: [insertedRoles[3]._id],
+            };
+        });
 
         return {
             page_id: page._id,
-            user_id: randomUser._id,
-            user_role: [insertedRoles[3]._id],
+            user: usersForPage,
         };
-    });
+    })
 
-    return {
-        page_id: page._id,
-        user: usersForPage,
-    };
-});
+    return await PageMember.insertMany(pageMemberProps);
+};
 
-const generateGroups = () => Array.from({ length: 100 }, () => ({
-    _id: new mongoose.Types.ObjectId(),
-    group_name: faker.lorem.text(),
-    group_description: faker.lorem.paragraph(),
-    group_privacy: faker.helpers.arrayElement(["Public", "Private"]),
-    group_picture_url: faker.image.url(),
-    group_cover_picture_url: faker.image.urlLoremFlickr({ category: 'abstract' }),
-}));
+const generateGroups = async () => {
+    const groupProps = Array.from({ length: 100 }, () => ({
+        _id: new mongoose.Types.ObjectId(),
+        group_name: faker.lorem.text(),
+        group_description: faker.lorem.paragraph(),
+        group_privacy: faker.helpers.arrayElement(["Public", "Private"]),
+        group_picture_url: faker.image.url(),
+        group_cover_picture_url: faker.image.urlLoremFlickr({ category: 'abstract' }),
+    }));
 
-const generateGroupMembers = (allGroups, allUsers, insertedRoles) => allGroups.flatMap(group => {
-    const usersForGroup = Array.from({ length: 20 }, () => {
-        const randomUser = faker.helpers.objectValue(allUsers);
+    return await Group.insertMany(groupProps);
+};
+
+const generateGroupMembers = async (allGroups, allUsers, insertedRoles) => {
+    const groupMemberProps = allGroups.flatMap(group => {
+        const usersForGroup = Array.from({ length: 20 }, () => {
+            const randomUser = faker.helpers.objectValue(allUsers);
+
+            return {
+                group_id: group._id,
+                user_id: randomUser._id,
+                user_role: [insertedRoles[3]._id],
+            };
+        });
 
         return {
             group_id: group._id,
-            user_id: randomUser._id,
-            user_role: [insertedRoles[3]._id],
+            user: usersForGroup,
         };
     });
 
-    return {
-        group_id: group._id,
-        user: usersForGroup,
-    };
-});
+    return await GroupMember.insertMany(groupMemberProps);
+};
 
-const generateEvents = () => Array.from({ length: 100 }, () => ({
-    event_name: faker.lorem.text(),
-    event_color: faker.color.human(),
-    event_privacy: faker.helpers.arrayElement(["Public", "Private"]),
-    event_description: faker.lorem.paragraph(),
-    event_start_datetime: faker.date.recent(),
-    event_end_datetime: faker.date.future(),
-    event_cover_picture_url: faker.image.urlLoremFlickr({ category: 'abstract' }),
-}));
+const generateEvents = async () => {
+    const eventProps = Array.from({ length: 100 }, () => ({
+        event_name: faker.lorem.text(),
+        event_color: faker.color.human(),
+        event_privacy: faker.helpers.arrayElement(["Public", "Private"]),
+        event_description: faker.lorem.paragraph(),
+        event_start_datetime: faker.date.recent(),
+        event_end_datetime: faker.date.future(),
+        event_cover_picture_url: faker.image.urlLoremFlickr({ category: 'abstract' }),
+    }));
 
-const generateEventMembers = (allEvents, allUsers, insertedRoles) => allEvents.flatMap(event => {
-    const usersForEvent = Array.from({ length: 20 }, () => {
-        const randomUser = faker.helpers.objectValue(allUsers);
+    return await Event.insertMany(eventProps);
+};
+
+const generateEventMembers = async (allEvents, allUsers, insertedRoles) => {
+    const eventMemberProps = allEvents.flatMap(event => {
+        const usersForEvent = Array.from({ length: 20 }, () => {
+            const randomUser = faker.helpers.objectValue(allUsers);
+
+            return {
+                event_id: event._id,
+                user_id: randomUser._id,
+                user_role: [insertedRoles[3]._id],
+            };
+        });
 
         return {
             event_id: event._id,
-            user_id: randomUser._id,
-            user_role: [insertedRoles[3]._id],
+            user: usersForEvent,
         };
     });
 
-    return {
-        event_id: event._id,
-        user: usersForEvent,
-    };
-});
+    return await EventMember.insertMany(eventMemberProps);
+};
 
 const generateFriendships = (allUsers) => {
     return Promise.all(allUsers.map(async (user) => {
@@ -250,76 +285,92 @@ const generateFollower = (allUsers) => {
     }));
 }
 
-const generateMessages = (allUsers) => Array.from({ length: 5000 }, () => ({
-    source: faker.helpers.objectValue(allUsers),
-    destination_id: faker.helpers.objectValue(allUsers),
-    message_content: faker.lorem.paragraph(),
-    is_read: faker.helpers.arrayElement([true, false]),
-    is_mute: faker.helpers.arrayElement([true, false]),
-}));
+const generateMessages = async (allUsers) => {
+    const messageProp = Array.from({ length: 5000 }, () => ({
+        source_id: faker.helpers.objectValue(allUsers),
+        destination_id: faker.helpers.objectValue(allUsers),
+        message_content: faker.lorem.paragraph(),
+        is_read: faker.helpers.arrayElement([true, false]),
+        is_mute: faker.helpers.arrayElement([true, false]),
+    }));
 
-const generateComments = (allUsers, interestedFilteredTypes, allPages, allGroups, allStory) => Array.from({ length: 100000 }, () => {
-    const randomUser = faker.helpers.objectValue(allUsers);
-    const randomType = interestedFilteredTypes[Math.floor(Math.random() * interestedFilteredTypes.length)];
+    return await Message.insertMany(messageProp);
+};
 
-    let randomSourceId;
-    switch (randomType.type_name) {
-        case 'Post':
-            randomSourceId = faker.helpers.objectValue(randomUser.post_list)._id;
-            break;
-        case 'Video':
-            randomSourceId = faker.helpers.objectValue(randomUser.video_list)._id;
-            break;
-        case 'Photo':
-            randomSourceId = faker.helpers.objectValue(randomUser.photo_list)._id;
-            break;
-        case 'Page':
-            randomSourceId = faker.helpers.objectValue(allPages)._id;
-            break;
-        case 'Group':
-            randomSourceId = faker.helpers.objectValue(allGroups)._id;
-            break;
-        case 'Story':
-            randomSourceId = faker.helpers.objectValue(allStory)._id;
-            break;
-        default:
-            break;
-    }
+const generateComments = async (allUsers, interestedFilteredTypes, allPages, allGroups, allStories) => {
+    const commentProps = Array.from({ length: 50000 }, () => {
+        const randomUser = faker.helpers.objectValue(allUsers);
+        const randomType = interestedFilteredTypes[Math.floor(Math.random() * interestedFilteredTypes.length)];
 
-    return {
-        _id: new mongoose.Types.ObjectId(),
-        source_id: randomUser._id,
-        destination: {
-            type: randomType._id,
-            destination_id: randomSourceId,
-        },
-        comment_text: faker.lorem.paragraph(),
-    }
-});
+        let randomSourceId;
+        switch (randomType.type_name) {
+            case 'Post':
+                randomSourceId = faker.helpers.objectValue(randomUser.post_list)._id;
+                break;
+            case 'Video':
+                randomSourceId = faker.helpers.objectValue(randomUser.video_list)._id;
+                break;
+            case 'Photo':
+                randomSourceId = faker.helpers.objectValue(randomUser.photo_list)._id;
+                break;
+            case 'Page':
+                randomSourceId = faker.helpers.objectValue(allPages)._id;
+                break;
+            case 'Group':
+                randomSourceId = faker.helpers.objectValue(allGroups)._id;
+                break;
+            case 'Story':
+                randomSourceId = faker.helpers.objectValue(allStories)._id;
+                break;
+            default:
+                break;
+        }
 
-const generateReplyComment = (allUsers, allComments, commentType) => Array.from({ length: 50000 }, () => {
-    const randomUser = faker.helpers.objectValue(allUsers);
+        return {
+            _id: new mongoose.Types.ObjectId(),
+            source_id: randomUser._id,
+            destination: {
+                type: randomType._id,
+                destination_id: randomSourceId,
+            },
+            comment_text: faker.lorem.paragraph(),
+        }
+    });
 
-    return {
-        _id: new mongoose.Types.ObjectId(),
-        source_id: randomUser._id,
-        destination: {
-            type: commentType._id,
-            destination_id: faker.helpers.objectValue(allComments)._id,
-        },
-        comment_text: faker.lorem.paragraph(),
-    }
-});
+    return await Comment.insertMany(commentProps);
+};
 
-const generateSearchQuery = (allUsers) => Array.from({ length: 50000 }, () => {
-    const randomUser = faker.helpers.objectValue(allUsers);
+const generateReplyComment = async (allUsers, allComments, commentType) => {
+    const replyComment = Array.from({ length: 50000 }, () => {
+        const randomUser = faker.helpers.objectValue(allUsers);
 
-    return {
-        _id: new mongoose.Types.ObjectId(),
-        source_id: randomUser._id,
-        search_query: faker.lorem.paragraph(),
-    }
-})
+        return {
+            _id: new mongoose.Types.ObjectId(),
+            source_id: randomUser._id,
+            destination: {
+                type: commentType._id,
+                destination_id: faker.helpers.objectValue(allComments)._id,
+            },
+            comment_text: faker.lorem.paragraph(),
+        }
+    })
+
+    return await Comment.insertMany(replyComment);
+};
+
+const generateSearchQuery = async (allUsers) => {
+    const searchQuery = Array.from({ length: 50000 }, () => {
+        const randomUser = faker.helpers.objectValue(allUsers);
+
+        return {
+            _id: new mongoose.Types.ObjectId(),
+            source_id: randomUser._id,
+            search_query: faker.lorem.paragraph(),
+        }
+    });
+
+    return await SearchHistory.insertMany(searchQuery);
+};
 
 const generateSetting = async (allUsers) => {
     const settingProps = await Promise.all(allUsers.map(async (user) => {
@@ -365,114 +416,134 @@ const generateFriendRequest = async (allUsers) => {
 }
 
 
-const generateNotifications = (allUsers, typesWithCommentFiltered, allPages, allGroups, allComments, allStory) => Array.from({ length: 5000 }, () => {
-    const randomUser = faker.helpers.objectValue(allUsers);
-    const randomType = typesWithCommentFiltered[Math.floor(Math.random() * typesWithCommentFiltered.length)];
+const generateNotifications = async (allUsers, typesWithCommentFiltered, allPages, allGroups, allComments, allStories) => {
+    const notificationProps = Array.from({ length: 10000 }, () => {
+        const randomUser = faker.helpers.objectValue(allUsers);
+        const randomType = typesWithCommentFiltered[Math.floor(Math.random() * typesWithCommentFiltered.length)];
 
-    let randomSourceId;
+        let randomSourceId;
 
-    switch (randomType.type_name) {
-        case 'Post':
-            randomSourceId = faker.helpers.objectValue(randomUser.post_list)._id;
-            break;
-        case 'Video':
-            randomSourceId = faker.helpers.objectValue(randomUser.video_list)._id;
-            break;
-        case 'Photo':
-            randomSourceId = faker.helpers.objectValue(randomUser.photo_list)._id;
-            break;
-        case 'Page':
-            randomSourceId = faker.helpers.objectValue(allPages)._id;
-            break;
-        case 'Group':
-            randomSourceId = faker.helpers.objectValue(allGroups)._id;
-            break;
-        case 'Comment':
-            randomSourceId = faker.helpers.objectValue(allComments)._id;
-            break;
-        case 'Story':
-            randomSourceId = faker.helpers.objectValue(allStory)._id;
-            break;
-        default:
-            break;
-    }
+        switch (randomType.type_name) {
+            case 'Post':
+                randomSourceId = faker.helpers.objectValue(randomUser.post_list)._id;
+                break;
+            case 'Video':
+                randomSourceId = faker.helpers.objectValue(randomUser.video_list)._id;
+                break;
+            case 'Photo':
+                randomSourceId = faker.helpers.objectValue(randomUser.photo_list)._id;
+                break;
+            case 'Page':
+                randomSourceId = faker.helpers.objectValue(allPages)._id;
+                break;
+            case 'Group':
+                randomSourceId = faker.helpers.objectValue(allGroups)._id;
+                break;
+            case 'Comment':
+                randomSourceId = faker.helpers.objectValue(allComments)._id;
+                break;
+            case 'Story':
+                randomSourceId = faker.helpers.objectValue(allStories)._id;
+                break;
+            default:
+                break;
+        }
 
-    return {
-        _id: new mongoose.Types.ObjectId(),
-        source: {
-            type: randomType._id,
-            source_id: randomSourceId,
-        },
-        destination_id: randomUser._id,
-        notification_content: faker.lorem.paragraph(),
-        notification_type: randomType._id,
-        is_read: faker.helpers.arrayElement([true, false]),
-        is_mute: faker.helpers.arrayElement([true, false]),
-    };
-});
+        return {
+            _id: new mongoose.Types.ObjectId(),
+            source: {
+                type: randomType._id,
+                source_id: randomSourceId,
+            },
+            destination_id: randomUser._id,
+            notification_content: faker.lorem.paragraph(),
+            notification_type: randomType._id,
+            is_read: faker.helpers.arrayElement([true, false]),
+            is_mute: faker.helpers.arrayElement([true, false]),
+        };
+    })
 
-const generateReactions = (allUsers, typesWithCommentFiltered, reactionsFilteredTypes, allPages, allGroups, allComments, allStory) => Array.from({ length: 100000 }, () => {
-    const randomUser = faker.helpers.objectValue(allUsers);
-    const randomType = typesWithCommentFiltered[Math.floor(Math.random() * typesWithCommentFiltered.length)];
-    const randomReactionType = reactionsFilteredTypes[Math.floor(Math.random() * reactionsFilteredTypes.length)];
+    return await Notification.insertMany(notificationProps);
+};
 
-    let randomSourceId;
+const generateReactions = async (allUsers, typesWithCommentFiltered, reactionsFilteredTypes, allPages, allGroups, allComments, allStories) => {
+    const reactionProps = Array.from({ length: 100000 }, () => {
+        const randomUser = faker.helpers.objectValue(allUsers);
+        const randomType = typesWithCommentFiltered[Math.floor(Math.random() * typesWithCommentFiltered.length)];
+        const randomReactionType = reactionsFilteredTypes[Math.floor(Math.random() * reactionsFilteredTypes.length)];
 
-    switch (randomType.type_name) {
-        case 'Post':
-            randomSourceId = faker.helpers.objectValue(randomUser.post_list)._id;
-            break;
-        case 'Video':
-            randomSourceId = faker.helpers.objectValue(randomUser.video_list)._id;
-            break;
-        case 'Photo':
-            randomSourceId = faker.helpers.objectValue(randomUser.photo_list)._id;
-            break;
-        case 'Page':
-            randomSourceId = faker.helpers.objectValue(allPages)._id;
-            break;
-        case 'Group':
-            randomSourceId = faker.helpers.objectValue(allGroups)._id;
-            break;
-        case 'Comment':
-            randomSourceId = faker.helpers.objectValue(allComments)._id;
-            break;
-        case 'Story':
-            randomSourceId = faker.helpers.objectValue(allStory)._id;
-            break;
-        default:
-            break;
-    }
+        let randomSourceId;
 
-    return {
-        _id: new mongoose.Types.ObjectId,
-        source_id: randomUser._id,
-        destination: {
-            type: randomType._id,
-            destination_id: randomSourceId,
-        },
-        reaction_type: randomReactionType._id,
-    };
-})
+        switch (randomType.type_name) {
+            case 'Post':
+                randomSourceId = faker.helpers.objectValue(randomUser.post_list)._id;
+                break;
+            case 'Video':
+                randomSourceId = faker.helpers.objectValue(randomUser.video_list)._id;
+                break;
+            case 'Photo':
+                randomSourceId = faker.helpers.objectValue(randomUser.photo_list)._id;
+                break;
+            case 'Page':
+                randomSourceId = faker.helpers.objectValue(allPages)._id;
+                break;
+            case 'Group':
+                randomSourceId = faker.helpers.objectValue(allGroups)._id;
+                break;
+            case 'Comment':
+                randomSourceId = faker.helpers.objectValue(allComments)._id;
+                break;
+            case 'Story':
+                randomSourceId = faker.helpers.objectValue(allStories)._id;
+                break;
+            default:
+                break;
+        }
+
+        return {
+            _id: new mongoose.Types.ObjectId,
+            source_id: randomUser._id,
+            destination: {
+                type: randomType._id,
+                destination_id: randomSourceId,
+            },
+            reaction_type: randomReactionType._id,
+        };
+    })
+
+    return await Reaction.insertMany(reactionProps);
+};
+
+const generateViewShareSaved = async (name, model, allModels, allUsers) => {
+    const viewShareSavedProps = Array.from({ length: 10000 }, () => {
+        const randomUser = allUsers[Math.floor(Math.random() * allUsers.length)];
+
+        const randomModel = allModels[Math.floor(Math.random() * allModels.length)];
+
+        return {
+            [`${name.toString().toLowerCase()}_id`]: randomModel._id,
+            user_id: randomUser._id,
+        };
+    });
+
+    return model.insertMany(viewShareSavedProps);
+}
 
 const generateDummyData = async () => {
     try {
-        const roles = generateRoles();
-        const insertedRoles = await Role.insertMany(roles);
-
         const types = generateTypes();
         const insertedTypes = await Type.insertMany(types);
 
+        const roles = generateRoles();
+        const insertedRoles = await Role.insertMany(roles);
+
         const userProps = generateUserProps(roles, insertedRoles);
 
-        const pageProps = generatePages();
-        const groupProps = generateGroups();
-        const eventProps = generateEvents();
+        await generatePages();
+        await generateGroups();
+        await generateEvents();
 
         await User.insertMany(userProps);
-        await Page.insertMany(pageProps);
-        await Group.insertMany(groupProps);
-        await Event.insertMany(eventProps);
         await Photo.insertMany(userProps.flatMap(user => user.photo_list.map(photoId => ({
             _id: photoId,
             photo_url: faker.image.url(),
@@ -487,15 +558,15 @@ const generateDummyData = async () => {
         const allUsers = await User.find({});
         const allPages = await Page.find({});
         const allGroups = await Group.find({});
+        const allPhotos = await Photo.find({});
         const allEvents = await Event.find({});
+        const allStories = await Story.find({});
+        const allPosts = await Post.find({});
+        const allVideos = await Video.find({});
 
-        const pageMembersProps = generatePageMembers(allPages, allUsers, insertedRoles);
-        const groupMembersProps = generateGroupMembers(allGroups, allUsers, insertedRoles);
-        const eventMemberProps = generateEventMembers(allEvents, allUsers, insertedRoles);
-
-        await PageMember.insertMany(pageMembersProps);
-        await GroupMember.insertMany(groupMembersProps);
-        await EventMember.insertMany(eventMemberProps);
+        await generatePageMembers(allPages, allUsers, insertedRoles);
+        await generateGroupMembers(allGroups, allUsers, insertedRoles);
+        await generateEventMembers(allEvents, allUsers, insertedRoles);
 
         const interestedTypes = ['Post', "Story", 'Video', 'Photo', "Page", "Group"];
         const typesWithComment = ['Post', "Story", 'Video', 'Photo', "Page", "Group", "Comment"];
@@ -505,39 +576,39 @@ const generateDummyData = async () => {
         const reactionsFilteredTypes = insertedTypes.filter(type => reactionTypes.includes(type.type_name));
         const typesWithCommentFiltered = insertedTypes.filter(type => typesWithComment.includes(type.type_name))
 
-        const allStory = await Story.find({})
-
-        const messageProps = generateMessages(allUsers);
-        await Message.insertMany(messageProps);
-
-        const commentProps = generateComments(allUsers, interestedFilteredTypes, allPages, allGroups, allStory);
-        await Comment.insertMany(commentProps);
+        await generateComments(allUsers, interestedFilteredTypes, allPages, allGroups, allStories);
 
         const allComments = await Comment.find({});
 
+        await generateNotifications(allUsers, typesWithCommentFiltered, allPages, allGroups, allComments, allStories);
+        await generateReactions(allUsers, typesWithCommentFiltered, reactionsFilteredTypes, allPages, allGroups, allComments, allStories);
+
         const commentTypePhoto = await Type.find({ "type_name": "Photo" });
-        const replyCommentProps = generateReplyComment(allUsers, allComments, commentTypePhoto[0]);
-        await Comment.insertMany(replyCommentProps);
+        await generateReplyComment(allUsers, allComments, commentTypePhoto[0]);
 
         const commentTypeComment = await Type.find({ "type_name": "Comment" });
-        const replyCommentAProps = generateReplyComment(allUsers, allComments, commentTypeComment[0]);
-        await Comment.insertMany(replyCommentAProps);
+        await generateReplyComment(allUsers, allComments, commentTypeComment[0]);
 
-        const searchProps = generateSearchQuery(allUsers);
-        await SearchHistory.insertMany(searchProps);
-
-        const notificationProps = generateNotifications(allUsers, typesWithCommentFiltered, allPages, allGroups, allComments, allStory);
-        await Notification.insertMany(notificationProps);
-
-        const reactionsProps = generateReactions(allUsers, typesWithCommentFiltered, reactionsFilteredTypes, allPages, allGroups, allComments, allStory);
-        await Reactions.insertMany(reactionsProps);
-
-        await generateFriendships(allUsers)
-        await generateFollower(allUsers);
-        await generateFollowing(allUsers);
         await generateSetting(allUsers);
+        await generateFollower(allUsers);
+        await generateMessages(allUsers);
+        await generateFollowing(allUsers);
+        await generateFriendships(allUsers)
+        await generateSearchQuery(allUsers);
         await generateFriendRequest(allUsers);
 
+        await generateViewShareSaved("Photo", PhotoView, allPhotos, allUsers);
+        await generateViewShareSaved("Photo", PhotoShare, allPhotos, allUsers);
+        await generateViewShareSaved("Photo", PhotoSaved, allPhotos, allUsers);
+        await generateViewShareSaved("Post", PostView, allPosts, allUsers);
+        await generateViewShareSaved("Post", PostShare, allPosts, allUsers);
+        await generateViewShareSaved("Post", PostSaved, allPosts, allUsers);
+        await generateViewShareSaved("Story", StoryView, allStories, allUsers);
+        await generateViewShareSaved("Story", StoryShare, allStories, allUsers);
+        await generateViewShareSaved("Story", StorySaved, allStories, allUsers);
+        await generateViewShareSaved("Video", VideoView, allVideos, allUsers);
+        await generateViewShareSaved("Video", VideoShare, allVideos, allUsers);
+        await generateViewShareSaved("Video", VideoSaved, allVideos, allUsers);
         console.log('Dummy data generated successfully.');
     } catch (error) {
         console.error('Error generating dummy data:', error);

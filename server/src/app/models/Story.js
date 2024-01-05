@@ -26,26 +26,6 @@ const StorySchema = new Schema(
             default: "Public",
             enum: ["Public", "Private", "Friends", "Specific_Friends"],
         },
-        story_views: [{
-            user: {
-                type: Schema.Types.ObjectId,
-                ref: "User",
-            },
-            viewed_at: {
-                type: Date,
-                default: null,
-            }
-        }],
-        story_shares: [{
-            user: {
-                type: Schema.Types.ObjectId,
-                ref: "User",
-            },
-            shared_at: {
-                type: Date,
-                default: null,
-            },
-        }],
         story_tags: [{
             type: Schema.Types.ObjectId,
             ref: "Tag",

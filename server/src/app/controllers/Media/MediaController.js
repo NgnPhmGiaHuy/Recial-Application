@@ -3,7 +3,7 @@ const Photo = require("../../models/Photo");
 const Story = require("../../models/Story");
 
 const userDataService = require("../../services/userDataService");
-const postDataService = require("../../services/postDataService");
+const generalDataService = require("../../services/generalDataService");
 
 class MediaController {
     getPhotoData = async (req, res) => {
@@ -25,18 +25,15 @@ class MediaController {
                     media_type: "Photo",
                     media_text: photoProps.photo_description,
                     media_url: photoProps.photo_url,
-                    comment: await postDataService.getComment(photoProps._id),
-                    reaction: await postDataService.getReaction(photoProps._id),
+                    comment: await generalDataService.getComment(photoProps._id),
+                    reaction: await generalDataService.getReaction(photoProps._id),
                     created_at: photoProps.createdAt,
                     updated_at: photoProps.updatedAt,
                 }
             }
 
-            res.status(200).json(mediaProps)
+            return res.status(200).json(mediaProps)
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }
@@ -63,19 +60,16 @@ class MediaController {
                     media_type: "Photo",
                     media_text: photoProps.photo_description,
                     media_url: photoProps.photo_url,
-                    comment: await postDataService.getComment(photoProps._id),
-                    reaction: await postDataService.getReaction(photoProps._id),
+                    comment: await generalDataService.getComment(photoProps._id),
+                    reaction: await generalDataService.getReaction(photoProps._id),
                     media_recent: postProps.post_photos,
                     created_at: photoProps.createdAt,
                     updated_at: photoProps.updatedAt,
                 }
             }
 
-            res.status(200).json(mediaProps)
+            return res.status(200).json(mediaProps)
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }
@@ -115,19 +109,16 @@ class MediaController {
                     media_type: "Story",
                     media_text: storyProps.story_description,
                     media_url: storyProps.story_media_url,
-                    comment:  await postDataService.getComment(storyProps._id),
-                    reaction: await postDataService.getReaction(storyProps._id),
+                    comment:  await generalDataService.getComment(storyProps._id),
+                    reaction: await generalDataService.getReaction(storyProps._id),
                     created_at: storyProps.createdAt,
                     updated_at: storyProps.updatedAt,
                     media_recent: recentUserStoryProps,
                 }
             }
 
-            res.status(200).json(mediaProps)
+            return res.status(200).json(mediaProps)
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }

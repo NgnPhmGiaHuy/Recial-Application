@@ -15,11 +15,8 @@ class StoryController {
 
             const story = await storyDataService.getStory(user);
             
-            res.status(200).json(story);
+            return res.status(200).json(story);
         } catch (error) {
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ error: 'Token expired' });
-            }
             return res.status(500).json({ error: 'Server error' });
         }
     }

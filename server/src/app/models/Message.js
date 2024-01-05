@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const MessageSchema = new Schema(
     {
-        source: {
+        source_id: {
             type: Schema.Types.ObjectId,
             ref: "User",
             required: true,

@@ -5,17 +5,17 @@ import { useState } from 'react';
 
 import { calculateGridProperties } from "@/utils";
 
-const CreatePostDialogImageInputSelected = ({ fileInputRef, handleFileUpload, handleTriggerClick, selectedImages }) => {
+const CreatePostDialogImageInputSelected = ({ selectedImagesFunction }) => {
     const [selectedImageHover, setSelectedImageHover] = useState(false);
 
-    const containerStyle = selectedImages ? { height: `${(2 / 3) * 900}px` } : { height: "900px" };
-    const { gridTemplateRowsValue, gridTemplateColumnsValue, imageGridAreas } = calculateGridProperties(selectedImages)
+    const containerStyle = selectedImagesFunction.selectedImages ? { height: `${(2 / 3) * 900}px` } : { height: "900px" };
+    const { gridTemplateRowsValue, gridTemplateColumnsValue, imageGridAreas } = calculateGridProperties(selectedImagesFunction.selectedImages)
 
     return (
         <div className="w-full rounded-md overflow-hidden relative">
             <div style={containerStyle}>
                 <div className="w-full h-full grid gap-2" style={{gridTemplateColumns: gridTemplateColumnsValue, gridTemplateRows: gridTemplateRowsValue}}>
-                    {selectedImages.map((imageUrl, index) => (
+                    {selectedImagesFunction.selectedImages.map((imageUrl, index) => (
                         <div key={index} className="relative rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-hidden" style={{gridArea: imageGridAreas[index] || "auto"}}
                              onMouseEnter={() => setSelectedImageHover(true)}
                              onMouseLeave={() => setSelectedImageHover(false)}>
@@ -49,8 +49,8 @@ const CreatePostDialogImageInputSelected = ({ fileInputRef, handleFileUpload, ha
                         </div>
                     </div>
                     <div className="p-[6px] flex flex-col flex-shrink-0 relative">
-                        <input ref={fileInputRef} type="file" className="hidden" accept="image/*,image/heif,image/heic,video/*,video/mp4,video/x-m4v,video/x-matroska,.mkv" multiple={true} onChange={handleFileUpload}/>
-                        <div className="h-[36px] px-[12px] flex flex-row flex-shrink-0 items-center justify-center rounded-md cursor-pointer bg-white" onClick={handleTriggerClick}>
+                        <input ref={selectedImagesFunction.fileInputRef} type="file" className="hidden" accept="image/*,image/heif,image/heic,video/*,video/mp4,video/x-m4v,video/x-matroska,.mkv" multiple={true} onChange={selectedImagesFunction.handleFileUpload}/>
+                        <div className="h-[36px] px-[12px] flex flex-row flex-shrink-0 items-center justify-center rounded-md cursor-pointer bg-white" onClick={selectedImagesFunction.handleTriggerClick}>
                             <div className="flex flex-row items-center relative">
                                 <div className="mx-[3px] flex flex-shrink-0 items-center relative">
                                     <i>

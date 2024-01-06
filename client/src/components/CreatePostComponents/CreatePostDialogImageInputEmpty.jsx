@@ -1,8 +1,8 @@
-const CreatePostDialogImageInputEmpty = ({ fileInputRef, handleFileUpload, handleTriggerClick }) => {
+const CreatePostDialogImageInputEmpty = ({ selectedImagesFunction }) => {
     return (
         <>
-            <input ref={fileInputRef} type="file" className="hidden" accept="image/*,image/heif,image/heic,video/*,video/mp4,video/x-m4v,video/x-matroska,.mkv" multiple={true} onChange={handleFileUpload}/>
-            <div className="inline-flex flex-row flex-shrink-0 items-stretch basis-auto cursor-pointer relative" onClick={handleTriggerClick}>
+            <input ref={selectedImagesFunction.fileInputRef} type="file" className="hidden" accept="image/*,image/heif,image/heic,video/*,video/mp4,video/x-m4v,video/x-matroska,.mkv" multiple={true} onChange={selectedImagesFunction.handleFileUpload}/>
+            <div className="inline-flex flex-row flex-shrink-0 items-stretch basis-auto cursor-pointer relative" onClick={selectedImagesFunction.handleTriggerClick}>
                 <div className="w-full flex relative">
                     <div className="max-h-[221px] min-h-[150px] w-full h-[25vh] rounded-md overflow-hidden bg-zinc-100 relative hover:bg-zinc-300 transition-all">
                         <div className="h-full flex flex-col relative">

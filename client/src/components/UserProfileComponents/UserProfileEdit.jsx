@@ -1,28 +1,25 @@
 "use client"
-import {useEffect, useState} from "react";
 
-import { setUserProfile } from "@/app/api/fetchUserData";
+import { useEffect } from "react";
+
+import { useUpdateUserProfile } from "@/hooks";
 import { UserProfileEditHeader, UserProfileEditImage, UserProfileEditInput } from "@/components";
 
 const UserProfileEdit = ({ userProps, editProfileRef, handleState }) => {
-    const [formData, setFormData] = useState({ session_username: userProps?.user?.username, session_firstname: userProps?.user?.firstname || "", session_lastname: userProps?.user?.lastname || "", session_description: userProps?.user?.description || "", session_location: userProps?.user?.location || "" })
+    const { formData, setFormData, submitStatus, handleSetUserProfile } = useUpdateUserProfile(userProps);
 
     const handleFormChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     }
 
-    const handleSetUserProfile = async () => {
-        try {
-            const response = await setUserProfile(formData);
-
-            if (response && !response.error) {
-                return handleState.handleShowEditProfile();
-            }
-        } catch (error) {
-            console.error('Error handling friend request:', error);
-        }
+    const handleSubmitForm = async () => {
+        await handleSetUserProfile();
     }
+
+    useEffect(() => {
+        handleState.handleShowEditProfile();
+    }, [submitStatus]);
 
     return (
         <div className="w-screen h-full top-0 left-0 flex flex-row items-center justify-center fixed bg-black/25 z-[999]">
@@ -30,10 +27,10 @@ const UserProfileEdit = ({ userProps, editProfileRef, handleState }) => {
                 <div className="flex flex-col flex-shrink grow items-stretch basis-auto bg-white rounded-md relative">
                     <div className="max-w-[600px] min-h-0 w-full mx-auto flex flex-col flex-shrink grow items-stretch relative">
                         <div className="flex flex-col flex-shrink grow items-stretch rounded-md overflow-auto no-scrollbar basis-auto relative">
-                            <UserProfileEditHeader handleState={handleState} handleSetUserProfile={handleSetUserProfile}/>
+                            <UserProfileEditHeader handleState={handleState} handleSubmitForm={handleSubmitForm}/>
                             <div className="pb-[64px] flex flex-col flex-shrink-0 items-stretch basis-auto relative">
-                                <UserProfileEditImage userProps={userProps}/>
-                                <UserProfileEditInput userProps={userProps} formData={formData} handleFormChange={handleFormChange} setFormData={setFormData}/>
+                                <UserProfileEditImage userProps={userProps} formData={formData} setFormData={setFormData}/>
+                                <UserProfileEditInput formData={formData} setFormData={setFormData} handleFormChange={handleFormChange}/>
                                 <a href="/settings/categories/account">
                                     <div className="min-h-[48px] px-[16px] py-[12px] flex flex-col items-stretch justify-center cursor-pointer outline-none relative hover:bg-zinc-100 transition-all">
                                         <div className="flex flex-row grow relative">

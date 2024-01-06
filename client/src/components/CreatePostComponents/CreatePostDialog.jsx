@@ -8,23 +8,25 @@ import Happiness from "/public/images/Icon/happiness.png";
 import Location from "/public/images/Icon/location.png";
 import TagPeople from "/public/images/Icon/tag-people.png";
 
-import { useContentEditable, useSetPostData, useToggleState } from "@/hooks";
+import { useContentEditable, useMultipleImagesData, useSetPostData, useToggleState } from "@/hooks";
 import { CreatePostDialogHeader, CreatePostDialogCustomizationItem, CreatePostDialogAudience, CreatePostDialogImageInput } from "@/components";
 
 const CreatePostDialog = ({ userProps, setUserProps, createPostRef, handleShowCreatePost }) => {
-    const [selectedImages, setSelectedImages] = useState([]);
-
-    const [showCreatPostPanel, setShowCreatPostPanel] = useState(true);
     const [showCreatePostAudience, setShowCreatePostAudience] = useState(false);
+
+    const { selectedImagesFunction } = useMultipleImagesData();
+    const { postSubmitStatus, handleSetPostData } = useSetPostData();
+
+    const [showCreatPostPanel, setShowCreatPostPanel, handleShowCreatPostPanel] = useToggleState(true);
     const [showCreatePostMediaInput, setShowCreatePostMediaInput, handleShowCreatePostMediaInput] = useToggleState(false);
 
+    const { inputContentEditableRef, inputText, allowSubmit, handleInputTextChange } = useContentEditable()
+
+
     const handeShowCreatePostAudience = useCallback(() => {
-        setShowCreatPostPanel((prevState) => !prevState);
+        handleShowCreatPostPanel();
         setShowCreatePostAudience((prevState) => !prevState);
     }, []);
-
-    const { postSubmitStatus, handleSetPostData } = useSetPostData();
-    const { inputContentEditableRef, inputText, allowSubmit, handleInputTextChange } = useContentEditable()
 
     const createPostContentCustomizationItemList = [
         {
@@ -44,7 +46,7 @@ const CreatePostDialog = ({ userProps, setUserProps, createPostRef, handleShowCr
     ]
 
     const handleSubmitPost = async () => {
-        await handleSetPostData({ inputText: inputText, inputImage: selectedImages, userProps: userProps });
+        await handleSetPostData({ inputText: inputText, inputImage: selectedImagesFunction.selectedImages, userProps: userProps });
     }
 
     useEffect(() => {
@@ -82,7 +84,7 @@ const CreatePostDialog = ({ userProps, setUserProps, createPostRef, handleShowCr
                                                                 </div>
                                                             </div>
                                                             {showCreatePostMediaInput ? (
-                                                                <CreatePostDialogImageInput handleShowCreatePostMediaInput={handleShowCreatePostMediaInput} selectedImages={selectedImages} setSelectedImages={setSelectedImages}/>
+                                                                <CreatePostDialogImageInput handleShowCreatePostMediaInput={handleShowCreatePostMediaInput} selectedImagesFunction={selectedImagesFunction}/>
                                                             ) : null}
                                                             {/*    Use for display pannel below*/}
                                                         </div>
@@ -122,11 +124,11 @@ const CreatePostDialog = ({ userProps, setUserProps, createPostRef, handleShowCr
                                                             </div>
                                                         </div>
                                                         <div className="w-full px-[16px] pt-[16px] flex items-center justify-between relative" onClick={handleSubmitPost}>
-                                                            <div className={`${allowSubmit || selectedImages.length ? "cursor-pointer" : "cursor-not-allowed" } w-full inline-flex flex-col justify-center relative`}>
-                                                                <div className={`${allowSubmit || selectedImages.length ? "bg-lime-300 hover:bg-lime-500" : "bg-zinc-200"} h-[36px] px-[12px] flex flex-row flex-nowrap flex-shrink-0 items-center justify-center rounded-md relative`}>
+                                                            <div className={`${allowSubmit || selectedImagesFunction.selectedImages.length ? "cursor-pointer" : "cursor-not-allowed" } w-full inline-flex flex-col justify-center relative`}>
+                                                                <div className={`${allowSubmit || selectedImagesFunction.selectedImages.length ? "bg-lime-300 hover:bg-lime-500" : "bg-zinc-200"} h-[36px] px-[12px] flex flex-row flex-nowrap flex-shrink-0 items-center justify-center rounded-md relative`}>
                                                                     <div className="flex items-center justify-center">
                                                                         <div className="mx-[4px] flex flex-shrink-0 items-center relative">
-                                                                            <span className={`${allowSubmit || selectedImages.length ? "text-white" : "text-zinc-700"} block text-[15px] font-semibold break-words leading-5`}>
+                                                                            <span className={`${allowSubmit || selectedImagesFunction.selectedImages.length ? "text-white" : "text-zinc-700"} block text-[15px] font-semibold break-words leading-5`}>
                                                                                 <span className="overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
                                                                                     Post
                                                                                 </span>

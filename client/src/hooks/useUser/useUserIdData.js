@@ -1,7 +1,7 @@
 "use client"
 
-import {useEffect, useState} from "react";
-import {fetchUserDataById, fetchUserIdFollower, fetchUserIdFollowing, fetchUserIdFriend, fetchUserIdGroupList, fetchUserIdPhotoList} from "@/app/api/fetchUserDataById";
+import { useEffect, useState } from "react";
+import { fetchUserDataById, fetchUserIdFollower, fetchUserIdFollowing, fetchUserIdFriend, fetchUserIdGroupList, fetchUserIdPhotoList } from "@/app/api/fetchUserDataById";
 
 const useUserIdData = ({ userId, router }) => {
     const [userIdProps, setUserIdProps] = useState(null);

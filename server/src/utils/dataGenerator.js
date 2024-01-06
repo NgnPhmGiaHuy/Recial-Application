@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { faker} = require('@faker-js/faker');
+const { faker } = require('@faker-js/faker');
 
 const Comment = require("../app/models/Comment");
 const Event = require("../app/models/Event");
@@ -139,6 +139,8 @@ const generateUserProps = (roles, insertedRoles) => Array.from({ length: 1000 },
         phone_number: faker.phone.number(),
         description: faker.lorem.paragraph(),
         short_description: faker.lorem.text(),
+        date_of_birth: faker.date.birthdate({ min: 10, max: 65, mode: 'age' }),
+        gender: faker.helpers.arrayElement(["Male", "Female", "Other"]),
         roles: [insertedRoles[0]._id],
         profile_picture_url: faker.internet.avatar(),
         profile_cover_photo_url: faker.image.urlLoremFlickr({ category: 'abstract' }),

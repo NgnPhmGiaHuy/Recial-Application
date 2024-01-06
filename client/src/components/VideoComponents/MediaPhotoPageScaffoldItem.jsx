@@ -7,10 +7,11 @@ import { useEffect, useState } from 'react';
 import { useToggleState } from "@/hooks";
 
 const MediaPhotoPageScaffoldItem = ({ mediaProps }) => {
-    const router = useRouter()
+    const router = useRouter();
+
     const handleExistClick = () => {
-        router.back()
-    }
+        return router.back();
+    };
 
     const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
     const [showPrevButton, setShowPrevButton, handleShowPrevButton] = useToggleState(false);
@@ -19,7 +20,7 @@ const MediaPhotoPageScaffoldItem = ({ mediaProps }) => {
     useEffect(() => {
         const currentIndex = mediaProps?.media?.media_recent?.indexOf(mediaProps?.media?._id);
         if (currentIndex !== -1) {
-            setCurrentMediaIndex(currentIndex);
+            return setCurrentMediaIndex(currentIndex);
         }
     }, [mediaProps]);
 

@@ -338,7 +338,7 @@ class UserController {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const { session_username, session_firstname, session_lastname, session_description, session_location } = req.body;
+            const { session_username, session_firstname, session_lastname, session_description, session_location, session_date_of_birth, session_profile_picture_url, session_profile_cover_photo_url } = req.body;
 
             if (session_username) {
                 user.username = session_username;
@@ -346,11 +346,22 @@ class UserController {
             if (session_firstname) {
                 user.firstname = session_firstname;
             }
-            if (session_lastname) {
+            if (session_lastname || session_lastname === "") {
                 user.lastname = session_lastname;
             }
-            if (session_description) {
+            if (session_description || session_description === "") {
                 user.description = session_description;
+            }
+
+            if (session_date_of_birth) {
+                user.date_of_birth = session_date_of_birth;
+            }
+            if (session_profile_picture_url) {
+                user.profile_picture_url = session_profile_picture_url;
+            }
+
+            if (session_profile_cover_photo_url) {
+                user.profile_cover_photo_url = session_profile_cover_photo_url;
             }
             // if (session_location) {
             //     user.location = session_location;

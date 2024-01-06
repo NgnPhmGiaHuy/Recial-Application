@@ -1,6 +1,26 @@
-import Image from "next/image";
+"use client"
 
-const UserProfileEditImage = ({ userProps }) => {
+import Image from "next/image";
+import { useEffect } from "react";
+
+import { useSingleImageData } from "@/hooks";
+
+const UserProfileEditImage = ({ userProps, formData, setFormData }) => {
+    const [coverImageFileInputRef, selectedCoverImage, setSelectedCoverImage, handleCoverImageFileUpload, handleCoverImageTriggerClick] = useSingleImageData();
+    const [profileImageFileInputRef, selectedProfileImage, setSelectedProfileImage, handleProfileImageFileUpload, handleProfileImageTriggerClick] = useSingleImageData();
+
+    const updateFormData = (key, value) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            [key]: value,
+        }));
+    };
+
+    useEffect(() => {
+        updateFormData("session_profile_picture_url", selectedProfileImage || formData.session_profile_picture_url);
+        updateFormData("session_profile_cover_photo_url", selectedCoverImage || formData.session_profile_cover_photo_url);
+    }, [selectedCoverImage, selectedProfileImage]);
+
     return (
         <>
             <div className="max-h-[200px] flex flex-col flex-shrink-0 items-stretch justify-center overflow-hidden relative">
@@ -9,14 +29,24 @@ const UserProfileEditImage = ({ userProps }) => {
                         <div className="w-full pb-[calc(100%/3)] relative">
                             <div className="w-full h-full top-0 bottom-0 left-0 absolute">
                                 <div className="w-full h-full overflow-hidden relative">
-                                    <Image src={userProps?.user?.profile_cover_photo_url} alt={`${userProps?.user?.profile_cover_photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                    {formData.session_profile_cover_photo_url && (
+                                        <Image src={formData.session_profile_cover_photo_url}
+                                               alt={`${formData.session_profile_cover_photo_url}-image`} fill={true}
+                                               sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                    )}
+                                    {selectedCoverImage && (
+                                        <Image src={selectedCoverImage} alt={`${selectedCoverImage}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                    )}
                                 </div>
                                 <div className="w-full h-full inset-0 absolute bg-black/20 z-10"></div>
+                                <input ref={coverImageFileInputRef} type="file" className="hidden" accept="image/*,image/heif,image/heic,video/*,video/mp4,video/x-m4v,video/x-matroska,.mkv"
+                                       multiple={false} onChange={handleCoverImageFileUpload}/>
                             </div>
                         </div>
-                        <div className="w-full h-full top-0 flex flex-col items-center justify-center opacity-75 absolute z-30">
+                        <div
+                            className="w-full h-full top-0 flex flex-col items-center justify-center opacity-75 absolute z-30">
                             <div className="flex flex-row gap-6 items-center justify-center relative">
-                                <div className="w-[44px] h-[44px] rounded-full overflow-hidden bg-black/50 hover:bg-black/80 transition-all">
+                                <div className="w-[44px] h-[44px] rounded-full overflow-hidden bg-black/50 hover:bg-black/80 transition-all" onClick={handleCoverImageTriggerClick}>
                                     <div className="w-full h-full flex items-center justify-center text-white cursor-pointer relative">
                                         <i>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -26,7 +56,7 @@ const UserProfileEditImage = ({ userProps }) => {
                                         </i>
                                     </div>
                                 </div>
-                                <div className="w-[44px] h-[44px] rounded-full overflow-hidden bg-black/50 hover:bg-black/80 transition-all">
+                                <div className="w-[44px] h-[44px] rounded-full overflow-hidden bg-black/50 hover:bg-black/80 transition-all" onClick={() => setSelectedCoverImage(userProps?.user?.profile_cover_photo_url)}>
                                     <div className="w-full h-full flex items-center justify-center text-white cursor-pointer relative">
                                         <i>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
@@ -45,15 +75,20 @@ const UserProfileEditImage = ({ userProps }) => {
                     <div className="w-full pb-[100%] relative">
                         <div className="w-full h-full top-0 bottom-0 left-0 absolute">
                             <div className="w-full h-full overflow-hidden relative">
-                                <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                <Image src={selectedProfileImage || formData.session_profile_picture_url}
+                                       alt={`${selectedProfileImage || formData.session_profile_picture_url}-image`} fill={true}
+                                       sizes="(max-width: 768px) 100vw" className="object-cover"/>
                             </div>
                             <div className="w-full h-full inset-0 absolute bg-black/30 z-10"></div>
+                            <input ref={profileImageFileInputRef} type="file" className="hidden"
+                                   accept="image/*,image/heif,image/heic,video/*,video/mp4,video/x-m4v,video/x-matroska,.mkv"
+                                   multiple={false} onChange={handleProfileImageFileUpload}/>
                         </div>
                     </div>
                 </div>
                 <div className="w-full h-full top-0 flex flex-col items-center justify-center opacity-75 absolute z-30">
                     <div className="flex flex-row items-center justify-center relative">
-                        <div className="w-[44px] h-[44px] rounded-full overflow-hidden bg-black/50 hover:bg-black/80 transition-all">
+                        <div className="w-[44px] h-[44px] rounded-full overflow-hidden bg-black/50 hover:bg-black/80 transition-all" onClick={handleProfileImageTriggerClick}>
                             <div className="w-full h-full flex items-center justify-center text-white cursor-pointer relative">
                                 <i>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

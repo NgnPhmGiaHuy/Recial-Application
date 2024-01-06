@@ -3,7 +3,7 @@
 import { useRef } from "react";
 
 import { handleNewUserData, handleNewPostData } from "@/utils/handleNewData";
-import {AsideUser, CreatePostDialog, Header, UserProfile, UserProfileEdit} from "@/components";
+import { AsideUser, CreatePostDialog, Header, UserProfile, UserProfileEdit } from "@/components";
 import { useClickOutside, usePostDataByUserId, useToggleState, useUserIdLayout, useWebSocket } from "@/hooks";
 
 const UserPage = ({ params, asAProps }) => {

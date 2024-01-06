@@ -24,6 +24,8 @@ class UserDataService {
             username: user.username,
             firstname: user.firstname,
             lastname: user.lastname,
+            gender: user.gender,
+            date_of_birth: user.date_of_birth,
             profile_picture_url: user.profile_picture_url,
         }
     }

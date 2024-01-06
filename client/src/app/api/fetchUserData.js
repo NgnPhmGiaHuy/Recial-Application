@@ -454,7 +454,7 @@ export const setUserFriendRequest = async (status, friendRequestUser) => {
     }
 }
 
-export const setUserProfile = async (dataToSend) => {
+export const setUserProfile = async (formData) => {
     try {
         const accessToken = localStorage.getItem("accessToken");
 
@@ -470,7 +470,7 @@ export const setUserProfile = async (dataToSend) => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${accessToken}`,
             },
-            body: JSON.stringify(dataToSend)
+            body: JSON.stringify(formData)
         });
 
         if (response.ok) {

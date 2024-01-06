@@ -8,6 +8,9 @@ const accountProperties = {
             type: String,
             default: "UTC",
         },
+        zip_code: {
+            type: Number,
+        },
         security: {
             two_factor_auth: {
                 type: Boolean,

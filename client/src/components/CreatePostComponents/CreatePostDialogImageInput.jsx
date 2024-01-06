@@ -1,65 +1,16 @@
-"use client"
+import { CreatePostDialogImageInputEmpty, CreatePostDialogImageInputSelected } from "@/components";
 
-import Image from "next/image";
-import { useRef, useEffect, useState } from "react";
-
-import {calculateGridProperties} from "@/utils";
-import {CreatePostDialogImageInputEmpty, CreatePostDialogImageInputSelected} from "@/components";
-
-const CreatePostDialogImageInput = ({ handleShowCreatePostMediaInput, selectedImages, setSelectedImages }) => {
-    const fileInputRef = useRef(null);
-
-    const readFileAsDataURL = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                resolve(event.target.result);
-            };
-            reader.onerror = (error) => {
-                reject(error);
-            };
-            reader.readAsDataURL(file);
-        });
-    };
-
-    const handleFileUpload = async (event) => {
-        const uploadedFiles = event.target.files;
-        const validFiles = Array.from(uploadedFiles).filter(
-            (file) => file.type.includes("image/") || file.type.includes("video/")
-        );
-
-        const imageFiles = validFiles
-            .filter((file, index) => index < 5 && file.type.includes("image/"));
-
-        const imageDataPromises = imageFiles.map(async (file) => {
-            return await readFileAsDataURL(file);
-        });
-
-        const imageDatas = await Promise.all(imageDataPromises);
-
-        setSelectedImages((prevImages) => [...prevImages, ...imageDatas]);
-    };
-
-    const handleTriggerClick = () => {
-        fileInputRef.current.click();
-    };
-
-    useEffect(() => {
-        return () => {
-            selectedImages.forEach((url) => URL.revokeObjectURL(url));
-        };
-    }, [selectedImages]);
-
+const CreatePostDialogImageInput = ({ handleShowCreatePostMediaInput, selectedImagesFunction }) => {
     return (
         <div className="px-[8px]">
             <div className="mx-[8px] mt-[32px] flex items-center justify-center border border-solid border-zinc-500 rounded-md overflow-hidden relative">
                 <div className="max-w-full my-[8px] flex flex-col flex-shrink grow basis-full relative">
                     <div className="flex flex-col grow relative">
                         <div className="max-w-full mb-[4px] px-[8px] flex flex-col flex-shrink-0 relative">
-                            {selectedImages && selectedImages.length ? (
-                                <CreatePostDialogImageInputSelected fileInputRef={fileInputRef} handleFileUpload={handleFileUpload} handleTriggerClick={handleTriggerClick} selectedImages={selectedImages}/>
+                            {selectedImagesFunction.selectedImages && selectedImagesFunction.selectedImages.length ? (
+                                <CreatePostDialogImageInputSelected selectedImagesFunction={selectedImagesFunction} />
                             ) : (
-                                <CreatePostDialogImageInputEmpty fileInputRef={fileInputRef} handleFileUpload={handleFileUpload} handleTriggerClick={handleTriggerClick}/>
+                                <CreatePostDialogImageInputEmpty selectedImagesFunction={selectedImagesFunction} />
                             )}
                         </div>
                         <div className="max-w-full mt-[4px] px-[8px] flex flex-col flex-shrink-0 relative">
@@ -84,7 +35,7 @@ const CreatePostDialogImageInput = ({ handleShowCreatePostMediaInput, selectedIm
                                         </div>
                                         <div className="max-w-full p-[4px] flex flex-col flex-shrink-0 relative">
                                             <div className="w-full inline-flex flex-col justify-center cursor-pointer relative">
-                                                <div className="h-[36px] px-[12px] flex flex-row items-center justify-center rounded-md bg-zinc-200 relative hover:bg-zinc-300 transition-all" onClick={handleTriggerClick}>
+                                                <div className="h-[36px] px-[12px] flex flex-row items-center justify-center rounded-md bg-zinc-200 relative hover:bg-zinc-300 transition-all" onClick={selectedImagesFunction.handleTriggerClick}>
                                                     <span className="text-[15px] text-left text-black font-semibold relative leading-5">
                                                         <span className="overflow-hidden relative">
                                                             Add

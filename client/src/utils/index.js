@@ -1,21 +1,3 @@
-export const validateEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-};
-
-export const checkPasswordStrength = (password) => {
-    const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
-    const mediumRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
-
-    if (strongRegex.test(password)) {
-        return "strong";
-    } else if (mediumRegex.test(password)) {
-        return "medium";
-    } else {
-        return "weak";
-    }
-};
-
 export const handleFormatNumber = (number) => {
     if (number === 0) return "";
 
@@ -146,6 +128,20 @@ export const calculateTimeDifference = (date) => {
     }
 
     return text;
+};
+
+export const convertDateFormat = (inputDate) => {
+    const months = [
+        'January', 'February', 'March', 'April', 'May', 'June', 'July',
+        'August', 'September', 'October', 'November', 'December'
+    ];
+
+    const dateObj = new Date(inputDate);
+    const month = months[dateObj.getMonth()] || "MM";
+    const day = dateObj.getDate() || "DD";
+    const year = dateObj.getFullYear() || "YYYY";
+
+    return `${month} ${day}, ${year}`;
 };
 
 export const getMonthAndDay = (startDateTime) => {

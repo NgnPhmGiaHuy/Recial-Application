@@ -1,4 +1,4 @@
-const UserProfileEditHeader = ({ handleState, handleSetUserProfile }) => {
+const UserProfileEditHeader = ({ handleState, handleSubmitForm }) => {
     return (
         <div className="top-0 sticky z-[9999]">
             <div className="h-[56px] bg-white/90 rounded-t-md backdrop-blur-md">
@@ -20,7 +20,7 @@ const UserProfileEditHeader = ({ handleState, handleSetUserProfile }) => {
                             </span>
                         </span>
                     </div>
-                    <div className="min-w-[56px] min-h-[32px] flex flex-col items-end justify-center self-stretch relative" onClick={handleSetUserProfile}>
+                    <div className="min-w-[56px] min-h-[32px] flex flex-col items-end justify-center self-stretch relative" onClick={handleSubmitForm}>
                         <div className="min-w-[32px] min-h-[32px] px-[16px] flex flex-col items-center justify-center bg-lime-500 rounded-full cursor-pointer relative hover:bg-lime-700 transition-all">
                             <span className="block text-[15px] text-white text-center font-semibold break-words relative leading-5">
                                 <span className="overflow-hidden relative">

@@ -89,6 +89,7 @@ import UserProfileEditHeader from "@/components/UserProfileComponents/UserProfil
 import UserProfileEditImage from "@/components/UserProfileComponents/UserProfileEditImage";
 import UserProfileEditInput from "@/components/UserProfileComponents/UserProfileEditInput";
 import UserProfileEditInputItem, from "@/components/UserProfileComponents/UserProfileEditInputItem";
+import UserProfileEditInputBirthdate from "@/components/UserProfileComponents/UserProfileEditInputBirthdate";
 import UserProfileCover from "@/components/UserProfileComponents/UserProfileCover";
 import UserProfileCoverFooter from "@/components/UserProfileComponents/UserProfileCoverFooter";
 import UserProfileCoverFooterFriendRequest from "@/components/UserProfileComponents/UserProfileCoverFooterFriendRequest";
@@ -212,6 +213,7 @@ export {
     UserProfileEditImage,
     UserProfileEditInput,
     UserProfileEditInputItem,
+    UserProfileEditInputBirthdate,
     UserProfileCover,
     UserProfileCoverFooter,
     UserProfileCoverFooterFriendRequest,

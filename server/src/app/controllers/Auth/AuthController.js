@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const { OAuth2Client } = require('google-auth-library');
 
 const User = require("../../models/User");
+const Setting = require("../../models/Setting");
 const userDataService = require("../../services/userDataService");
 
 class AuthController {
@@ -24,6 +25,12 @@ class AuthController {
             })
 
             await newUser.save();
+
+            const newUserSetting = new Setting({
+                source_id: newUser._id,
+            });
+
+            await newUserSetting.save();
 
             return res.status(201).json({ message: "User registered successfully" });
         } catch (error) {
@@ -105,6 +112,12 @@ class AuthController {
             });
 
             await newUser.save();
+
+            const newUserSetting = new Setting({
+                source_id: newUser._id,
+            });
+
+            await newUserSetting.save();
 
             const accessToken = this.generateAccessToken(newUser);
             const refreshToken = this.generateRefreshToken(newUser);

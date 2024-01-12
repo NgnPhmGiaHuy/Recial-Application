@@ -8,7 +8,7 @@ const PageMemberSchema = new Schema(
             ref: "Page",
             required: true,
         },
-        user: [{
+        user: {
             user_id: {
                 type: Schema.Types.ObjectId,
                 ref: "User",
@@ -19,7 +19,7 @@ const PageMemberSchema = new Schema(
                 ref: "Role",
                 required: true,
             }],
-        }],
+        },
     }, {
         timestamps: true,
     }

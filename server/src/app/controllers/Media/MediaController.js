@@ -34,7 +34,7 @@ class MediaController {
 
             return res.status(200).json(mediaProps)
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -70,7 +70,7 @@ class MediaController {
 
             return res.status(200).json(mediaProps)
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -119,7 +119,7 @@ class MediaController {
 
             return res.status(200).json(mediaProps)
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 }

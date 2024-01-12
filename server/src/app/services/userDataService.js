@@ -13,6 +13,7 @@ const SearchHistory = require("../models/SearchHistory");
 const Photo = require("../models/Photo");
 const Setting = require("../models/Setting");
 const GroupMember = require("../models/GroupMember");
+const Role = require("../models/Role");
 
 class UserDataService {
     getUserById = async (userId) => {
@@ -146,20 +147,24 @@ class UserDataService {
     };
 
     getUserGroup = async (userId) => {
-        const groupMember = await GroupMember.find({ "user.user_id": userId });
+        const groupMembers = await GroupMember.find({ "user.user_id": userId });
 
-        return await Promise.all(groupMember.map(async group => {
+        return await Promise.all(groupMembers.map(async group => {
             const groupProps = await Group.findById(group.group_id);
-
-            const usersProps = await Promise.all(group.user.map(async user => {
-                return this.getUserById(user.user_id);
-            }))
+            const groupMemberProps = await GroupMember.find({ group_id: groupProps._id });
 
             const { createdAt, updatedAt, ...otherGroupProps } = groupProps._doc;
 
+            const groupMember = await Promise.all(groupMemberProps.map(async (member) => {
+                return {
+                    user: await this.getUserById(member.user.user_id),
+                    role: (await Role.findById(member.user.user_role)).role_name,
+                }
+            }))
+
             return {
                 ...otherGroupProps,
-                group_member: usersProps,
+                group_member: groupMember,
                 created_at: createdAt,
                 updated_at: updatedAt,
             }
@@ -169,37 +174,6 @@ class UserDataService {
     getUserSetting = async (userId) => {
         return Setting.findOne({source_id: userId});
     };
-
-    getSuggestedEvents = async () => {
-        return Event.aggregate([
-            { $sample: { size: 3 } },
-            { $sort: { createdAt: -1 } }
-        ]);
-    };
-
-    getSuggestedPages = async () => {
-        return Page.aggregate([
-            { $sample: { size: 3 } },
-            { $sort: { createdAt: -1 } }
-        ]);
-    };
-
-    getSuggestedGroup = async () => {
-        const suggestGroups = await Group.aggregate([
-            { $sample: { size: 1 } },
-        ]);
-
-        const suggestGroupMembers = await GroupMember.find({ group_id: suggestGroups[0]._id })
-
-        const suggestGroupMembersProps = await Promise.all(suggestGroupMembers[0].user.map(async user => {
-            return this.getUserById(user.user_id);
-        }))
-
-        return {
-            ...suggestGroups[0],
-            members: suggestGroupMembersProps,
-        }
-    }
 }
 
 module.exports = new UserDataService();

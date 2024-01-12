@@ -17,7 +17,7 @@ class StoryController {
             
             return res.status(200).json(story);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 }

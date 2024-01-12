@@ -5,7 +5,7 @@ import { useUserIdLayout } from "@/hooks";
 import { Header, UserAboutScaffold, UserProfileCover } from "@/components";
 
 const UserVideosPage = ({ params }) => {
-    const { userData, userProps, isCurrentUser } = useUserIdLayout(params.userId);
+    const { userData, userProps, userCheck } = useUserIdLayout(params.userId);
 
     return (
         <div>
@@ -21,10 +21,10 @@ const UserVideosPage = ({ params }) => {
                                     <main>
                                         <div className="my-[16px] flex flex-col gap-4 relative">
                                             <div>
-                                                <UserProfileCover userProps={userProps} navigationProps="videos" isCurrentUser={isCurrentUser}/>
+                                                <UserProfileCover userProps={userProps} navigationProps="videos" isCurrentUser={userCheck.isCurrentUser}/>
                                             </div>
                                             <div>
-                                                <UserAboutScaffold mediaProps={fakeUserData.videos_list} isVideoPage={true} isCurrentUser={isCurrentUser}/>
+                                                <UserAboutScaffold mediaProps={fakeUserData.videos_list} isVideoPage={true} isCurrentUser={userCheck.isCurrentUser}/>
                                             </div>
                                         </div>
                                     </main>

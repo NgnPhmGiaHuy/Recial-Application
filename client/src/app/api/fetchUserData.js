@@ -53,7 +53,7 @@ export const fetchUserFriend = async () => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${accessToken}`,
+                    "Authorization": `Bearer ${accessToken}`,
                 },
             });
 
@@ -89,7 +89,7 @@ export const fetchUserFriendRequest = async () => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${accessToken}`,
+                    "Authorization": `Bearer ${accessToken}`,
                 },
             });
 
@@ -125,7 +125,7 @@ export const fetchUserSearchQuery = async () => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${accessToken}`,
+                    "Authorization": `Bearer ${accessToken}`,
                 },
             });
 
@@ -161,7 +161,7 @@ export const fetchUserSetting = async () => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${accessToken}`,
+                    "Authorization": `Bearer ${accessToken}`,
                 },
             });
 
@@ -197,7 +197,7 @@ export const fetchUserFollowing = async () => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${accessToken}`,
+                    "Authorization": `Bearer ${accessToken}`,
                 },
             });
 
@@ -233,7 +233,7 @@ export const fetchUserFollower = async () => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${accessToken}`,
+                    "Authorization": `Bearer ${accessToken}`,
                 },
             });
 
@@ -269,7 +269,7 @@ export const fetchUserMessage = async () => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${accessToken}`,
+                    "Authorization": `Bearer ${accessToken}`,
                 },
             });
 
@@ -305,7 +305,7 @@ export const fetchUserPhotoList = async () => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${accessToken}`,
+                    "Authorization": `Bearer ${accessToken}`,
                 },
             });
 
@@ -341,7 +341,7 @@ export const fetchUserGroupList = async () => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${accessToken}`,
+                    "Authorization": `Bearer ${accessToken}`,
                 },
             });
 
@@ -377,7 +377,7 @@ export const fetchUserNotification = async () => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${accessToken}`,
+                    "Authorization": `Bearer ${accessToken}`,
                 },
             });
 

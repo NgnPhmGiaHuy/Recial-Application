@@ -8,18 +8,18 @@ const GroupMemberSchema = new Schema(
             ref: "Group",
             required: true,
         },
-        user: [{
+        user: {
             user_id: {
                 type: Schema.Types.ObjectId,
                 ref: "User",
                 required: true,
             },
-            user_role: [{
+            user_role: {
                 type: Schema.Types.ObjectId,
                 ref: "Role",
                 required: true,
-            }],
-        }],
+            },
+        },
     }, {
         timestamps: true,
     }

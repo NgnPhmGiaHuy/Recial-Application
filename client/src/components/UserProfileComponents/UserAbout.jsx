@@ -1,11 +1,11 @@
 import { UserAboutOverview, UserAboutScaffold, UserProfileCover } from "@/components";
 
-const UserAbout = ({ userProps, isCurrentUser }) => {
+const UserAbout = ({ userProps, userCheck, handleState }) => {
     return (
         <main>
             <div className="my-[16px] flex flex-col gap-4 relative">
                 <div>
-                    <UserProfileCover userProps={userProps} navigationProps="about" isCurrentUser={isCurrentUser}/>
+                    <UserProfileCover userProps={userProps} navigationProps="about" userCheck={userCheck} handleState={handleState}/>
                 </div>
                 <div>
                     <UserAboutOverview userProps={userProps}/>

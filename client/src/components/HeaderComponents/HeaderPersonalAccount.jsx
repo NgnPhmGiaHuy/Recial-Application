@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -19,7 +20,7 @@ const HeaderPersonalAccount = ({forwardedRef, userProps}) => {
 
     return (
         <div ref={forwardedRef} className="absolute top-0 left-0 translate-x-[-172px] translate-y-[48px]">
-            <div className="mt-[5px]">
+            <div className="mt-[5px] animate-slideInTop">
                 <div className="overflow-x-hidden overflow-y-hidden rounded-md bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
                     <div className="w-[360px] max-w-[calc(100vw-24px] max-h-[calc(100vh-56px-16px)] flex flex-col overflow-x-auto overscroll-x-contain overflow-y-auto overscroll-y-contain relative">
                         <div className="flex flex-col grow relative">
@@ -29,7 +30,7 @@ const HeaderPersonalAccount = ({forwardedRef, userProps}) => {
                                         <div className="flex flex-col flex-shrink-0 relative">
                                             <div className="mx-[16px] mb-[16px] mt-[4px]">
                                                 <div className="w-full flex flex-col rounded-md shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] relative">
-                                                    <a href="" className="mx-[4px] my-[8px] rounded-md relative hover:bg-zinc-100 transition-all cursor-pointer">
+                                                    <Link href={userProps?.user?._id} className="mx-[4px] my-[8px] rounded-md relative hover:bg-zinc-100 transition-all cursor-pointer">
                                                         <div className="my-[-4px] p-[8px] flex flex-row flex-nowrap items-center justify-between">
                                                             <div className="p-[4px] flex flex-col flex-shrink-0 items-center justify-center relative">
                                                                 <div className="w-[36px] h-[36px] flex items-center justify-center rounded-full overflow-hidden relative">
@@ -42,7 +43,7 @@ const HeaderPersonalAccount = ({forwardedRef, userProps}) => {
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                    </a>
+                                                    </Link>
                                                     {userProps?.userProfile ? (
                                                         <>
                                                             <hr className=" h-[1px] mx-[16px] bg-zinc-300"/>

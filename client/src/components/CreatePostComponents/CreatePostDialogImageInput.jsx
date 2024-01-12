@@ -2,7 +2,7 @@ import { CreatePostDialogImageInputEmpty, CreatePostDialogImageInputSelected } f
 
 const CreatePostDialogImageInput = ({ handleShowCreatePostMediaInput, selectedImagesFunction }) => {
     return (
-        <div className="px-[8px]">
+        <div className="px-[8px] animate-float">
             <div className="mx-[8px] mt-[32px] flex items-center justify-center border border-solid border-zinc-500 rounded-md overflow-hidden relative">
                 <div className="max-w-full my-[8px] flex flex-col flex-shrink grow basis-full relative">
                     <div className="flex flex-col grow relative">

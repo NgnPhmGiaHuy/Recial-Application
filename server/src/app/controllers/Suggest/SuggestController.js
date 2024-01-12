@@ -1,4 +1,5 @@
 const userDataService = require("../../services/userDataService");
+const suggestDataService = require("../../services/suggestDataService");
 
 class SuggestController {
     getSuggestEventData = async (req, res) => {
@@ -12,11 +13,11 @@ class SuggestController {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const suggestEvent = await userDataService.getSuggestedEvents();
+            const suggestEvent = await suggestDataService.getSuggestedEvents();
 
             return res.status(200).json(suggestEvent);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -31,11 +32,11 @@ class SuggestController {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const suggestGroup = await userDataService.getSuggestedGroup();
+            const suggestGroup = await suggestDataService.getSuggestedGroup();
 
             return res.status(200).json(suggestGroup);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -50,11 +51,11 @@ class SuggestController {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const suggestPage = await userDataService.getSuggestedPages();
+            const suggestPage = await suggestDataService.getSuggestedPages();
 
             return res.status(200).json(suggestPage);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 }

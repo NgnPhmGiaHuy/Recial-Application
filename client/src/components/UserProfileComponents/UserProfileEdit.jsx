@@ -22,7 +22,7 @@ const UserProfileEdit = ({ userProps, editProfileRef, handleState }) => {
     }, [submitStatus]);
 
     return (
-        <div className="w-screen h-full top-0 left-0 flex flex-row items-center justify-center fixed bg-black/25 z-[999]">
+        <div className="w-screen h-full top-0 left-0 flex flex-row items-center justify-center fixed bg-black/25 animate-float z-[999]">
             <div ref={editProfileRef} className="max-w-[80vw] max-h-[90vh] min-w-[600px] min-h-[400px] h-[650px] flex flex-shrink items-stretch basis-auto overflow-hidden relative">
                 <div className="flex flex-col flex-shrink grow items-stretch basis-auto bg-white rounded-md relative">
                     <div className="max-w-[600px] min-h-0 w-full mx-auto flex flex-col flex-shrink grow items-stretch relative">

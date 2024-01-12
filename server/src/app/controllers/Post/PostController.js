@@ -3,8 +3,6 @@ const { WebSocket } = require("ws");
 const Post = require("../../models/Post");
 const User = require("../../models/User");
 const Photo = require("../../models/Photo");
-const PostShare = require("../../models/PostShare");
-const generalDataService = require("../../services/generalDataService");
 const userDataService = require("../../services/userDataService");
 const postDataService = require("../../services/postDataService");
 const imageDataService = require("../../services/imageDataService");
@@ -23,15 +21,15 @@ class PostController {
             }
 
             const posts = await Post.aggregate([
+                { $match: { post_privacy: "Public" } },
                 { $sample: { size: 5 } },
                 { $sort: { createdAt: -1 } },
-                { $match: { post_privacy: "Public" } }
             ]);
 
-            const postsWithUserData = await this.enhancePostsWithUserData(posts);
-            res.status(200).json(postsWithUserData)
+            const postsWithUserData = await postDataService.enhancePostsWithUserData(posts);
+            return res.status(200).json(postsWithUserData)
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -85,7 +83,7 @@ class PostController {
 
             return res.status(200).json(newPost);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -128,36 +126,7 @@ class PostController {
 
             return res.status(200).json({ message: 'Post deleted successfully' });
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
-        }
-    }
-
-    enhancePostsWithUserData = async (posts) => {
-        try {
-            const enhancedPosts = [];
-
-            for (const post of posts) {
-                const {createdAt, updatedAt, ...postProps} = post;
-
-                const postWithUserData = {
-                    post: {
-                        ...postProps,
-                        created_at: post.createdAt,
-                        updated_at: post.updatedAt,
-                    },
-                    photo: await postDataService.getPostPhoto(post),
-                    user: await postDataService.getPostAuthor(post._id),
-                    comment: await generalDataService.getComment(post._id),
-                    reaction: await generalDataService.getReaction(post._id),
-                    share: await generalDataService.getUsersByInteractionType(PostShare, "post_id", post._id),
-                };
-
-                enhancedPosts.push(postWithUserData);
-            }
-
-            return enhancedPosts;
-        } catch (error) {
-            throw error;
+            return res.status(500).json(error);
         }
     }
 }

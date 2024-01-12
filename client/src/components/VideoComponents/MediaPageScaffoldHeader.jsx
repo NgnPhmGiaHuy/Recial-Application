@@ -25,12 +25,16 @@ const MediaPageScaffoldHeader = ({ userProps, mediaProps }) => {
 
     useEffect(() => {
         const updateFollowStatus = () => {
-            userProps?.user?.following.map((value) => {
-                const foundUser = value?.user?._id === mediaProps?.user?._id;
-                if (foundUser) {
-                    setHasFollow(foundUser);
-                }
-            })
+            if (userProps?.user?._id === mediaProps?.user?._id) {
+                return setHasFollow(true);
+            } else {
+                userProps?.user?.following.map((value) => {
+                    const foundUser = value?.user?._id === mediaProps?.user?._id;
+                    if (foundUser) {
+                        setHasFollow(foundUser);
+                    }
+                })
+            }
         };
 
         updateFollowStatus();

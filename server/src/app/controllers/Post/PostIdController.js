@@ -38,7 +38,7 @@ class PostIdController {
 
             res.status(200).json(postsWithUserData);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -65,7 +65,7 @@ class PostIdController {
 
             res.status(200).json(postProps)
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 }

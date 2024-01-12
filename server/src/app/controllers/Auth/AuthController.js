@@ -65,7 +65,7 @@ class AuthController {
 
             return res.status(201).json({ accessToken: accessToken, refreshToken: refreshToken });
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     };
 
@@ -124,7 +124,7 @@ class AuthController {
 
             return res.status(201).json({ accessToken: accessToken, refreshToken: refreshToken });
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -154,7 +154,7 @@ class AuthController {
                 return res.status(200).json({ accessToken: newAccessToken });
             });
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     };
 
@@ -175,7 +175,7 @@ class AuthController {
 
             return res.status(200).json({ message: "Logout" });
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 

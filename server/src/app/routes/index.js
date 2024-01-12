@@ -4,24 +4,31 @@ const storyRouter = require("../routes/media/storyRoutes");
 const mediaRoutes = require("../routes/media/mediaRoutes");
 const postRoutes = require("../routes/post/postRoutes");
 const postIdRoutes = require("../routes/post/postIdRoutes");
+const groupRoutes = require("../routes/group/groupRoutes");
 const friendRequestRoutes = require("../routes/friendRequestRoutes");
 const userRoutes = require("../routes/user/userRoutes");
 const userIdRouter = require("../routes/user/userIdRoutes");
 const suggestRoutes = require("../routes/suggestRoutes");
+const reactionRoutes = require("../routes/reaction/reactionRoutes");
 const settingRoutes = require("../routes/setting/settingRoutes");
 
 const MiddlewareController = require("../controllers/Auth/MiddlewareController");
 
 const routes = (app) => {
     app.use("/api/v1/auth/", authRoutes);
-    app.use("/api/v1/public/post/", postIdRoutes);
+    app.use("/api/v1/public/media/", mediaRoutes);
+    app.use("/api/v1/public/group/", groupRoutes);
     app.use("/api/v1/public/friend-request/", friendRequestRoutes);
-    app.use("/api/v1/secure/post/", MiddlewareController.verifyToken, postRoutes);
+
     app.use("/api/v1/secure/comment/", MiddlewareController.verifyToken, commentRoutes);
-    app.use("/api/v1/media/", mediaRoutes);
     app.use("/api/v1/secure/setting/", MiddlewareController.verifyToken, settingRoutes);
     app.use("/api/v1/secure/story/", MiddlewareController.verifyToken, storyRouter);
     app.use("/api/v1/secure/suggest/", MiddlewareController.verifyToken, suggestRoutes);
+    app.use("/api/v1/secure/reaction/", MiddlewareController.verifyToken, reactionRoutes);
+
+    app.use("/api/v1/public/post/", postIdRoutes);
+    app.use("/api/v1/secure/post/", MiddlewareController.verifyToken, postRoutes);
+    
     app.use("/api/v1/public/user/", userIdRouter);
     app.use("/api/v1/secure/user/", MiddlewareController.verifyToken, userRoutes);
 

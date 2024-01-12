@@ -25,7 +25,7 @@ const HomePage = () => {
     useClickOutside(createPostRef, showCreatePost, setMainCreatePost);
 
     return (
-        userProps ?
+        userProps &&
             <>
                 <div>
                     <Header navigationProps="home" userProps={userProps}/>
@@ -47,7 +47,7 @@ const HomePage = () => {
                         ) : null}
                     </div>
                 </div>
-            </> : null
+            </>
     );
 };
 

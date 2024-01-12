@@ -6,7 +6,7 @@ import { useClickOutside, useToggleState } from "@/hooks";
 import { postItemCommentSortList } from "@/constants/PostConstants";
 import { PostItemCommentInput, PostItemCommentScaffold, QuickSettingItem } from "@/components";
 
-const PostItemComment = ({userData, userProps, postProps}) => {
+const PostItemComment = ({ commentRef, props }) => {
     const commentSortContentRef = useRef(null);
 
     const [visibleComments, setVisibleComments] = useState(3);
@@ -14,10 +14,10 @@ const PostItemComment = ({userData, userProps, postProps}) => {
     const [showCommentSortContent, setShowCommentSortContent, handleShowCommentSortContent] = useToggleState(false);
 
     const loadMoreComments = () => {
-        const remainingComments = postProps.comment.length - visibleComments;
+        const remainingComments = props.postProps.comment.length - visibleComments;
         const loadMore = remainingComments > 3 ? 3 : remainingComments;
         setVisibleComments((prevVisible) => prevVisible + loadMore);
-        if (visibleComments + loadMore >= postProps.comment.length) {
+        if (visibleComments + loadMore >= props.postProps.comment.length) {
             setLoadMoreClicked(true);
         }
     };
@@ -25,8 +25,8 @@ const PostItemComment = ({userData, userProps, postProps}) => {
     useClickOutside(commentSortContentRef, showCommentSortContent, setShowCommentSortContent);
 
     return (
-        <div className="flex flex-col justify-center relative">
-            <PostItemCommentInput userData={userData} postProps={postProps}/>
+        <div ref={commentRef} className="flex flex-col justify-center relative">
+            <PostItemCommentInput userData={props.userData} postProps={props.postProps}/>
             <div className="mx-[16px] mb-[8px] relative">
                 <div className="w-fit flex flex-col cursor-pointer relative" onClick={handleShowCommentSortContent}>
                     <span className="flex flex-row items-center justify-between text-[16px] text-zinc-500 text-left font-semibold break-words relative leading-5">
@@ -66,11 +66,11 @@ const PostItemComment = ({userData, userProps, postProps}) => {
                 </div>
             </div>
             <div>
-                {postProps?.comment?.slice(0, visibleComments).map((value, index) => (
-                    <PostItemCommentScaffold key={index} userData={userData} userProps={userProps} postProps={value} />
+                {props.postProps?.comment?.slice(0, visibleComments).map((value, index) => (
+                    <PostItemCommentScaffold key={index} userData={props.userData} userProps={props.userProps} postProps={value} />
                 ))}
             </div>
-            {!loadMoreClicked && visibleComments < postProps?.comment?.length && (
+            {!loadMoreClicked && visibleComments < props.postProps?.comment?.length && (
                 <div className="mx-[16px] mb-[8px] relative">
                     <div className="px-[8px] py-[2px] w-fit flex flex-col rounded-md cursor-pointer relative hover:bg-zinc-200 transition-all" onClick={loadMoreComments}>
                         <span className="text-[16px] text-zinc-500 text-left font-bold break-words relative leading-5">

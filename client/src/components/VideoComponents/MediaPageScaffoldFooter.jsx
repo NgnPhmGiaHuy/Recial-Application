@@ -28,7 +28,7 @@ const MediaPageScaffoldFooter = ({ userProps, mediaProps, mediaType, isComment, 
             <div className="flex-[1_1_auto]">
                 <div className="px-[8px] flex flex-row items-end rounded-md bg-zinc-100 border border-solid border-transparent">
                     <div className="h-auto mr-[8px] my-[10px] flex-[1_1_auto]">
-                        <div className="max-h-[68px] min-h-[17px] text-[14px] text-black text-left break-words overflow-y-auto leading-4">
+                        <div className="max-h-[68px] min-h-[17px] text-[14px] no-scrollbar text-black text-left break-words overflow-y-auto leading-4">
                             <div className="flex items-center relative">
                                 <div className="w-full h-full select-text whitespace-pre-wrap break-words outline-none relative" contentEditable={true} spellCheck={false} onInput={handleInputTextChange} ref={inputContentEditableRef}>
                                 </div>

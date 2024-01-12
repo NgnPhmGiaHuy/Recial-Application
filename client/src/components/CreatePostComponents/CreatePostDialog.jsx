@@ -22,7 +22,6 @@ const CreatePostDialog = ({ userProps, setUserProps, createPostRef, handleShowCr
 
     const { inputContentEditableRef, inputText, allowSubmit, handleInputTextChange } = useContentEditable()
 
-
     const handeShowCreatePostAudience = useCallback(() => {
         handleShowCreatPostPanel();
         setShowCreatePostAudience((prevState) => !prevState);
@@ -54,9 +53,9 @@ const CreatePostDialog = ({ userProps, setUserProps, createPostRef, handleShowCr
     }, [postSubmitStatus]);
 
     return (
-        <div className="z-10 relative">
+        <div className="z-[9999] relative">
             <div className="top-0 right-0 bottom-0 left-0 z-0 fixed bg-[rgba(0,0,0,0.75)]">
-                <div className="min-h-screen flex flex-col grow items-stretch justify-center relative">
+                <div className="min-h-screen flex flex-col grow items-stretch justify-center animate-float relative">
                     <div className="min-h-[500px] px-[8px] pt-[56px] flex items-start justify-center">
                         <div className="flex flex-col rounded-lg shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-x-hidden overflow-y-hidden bg-white relative">
                             <form action="" method="POST">

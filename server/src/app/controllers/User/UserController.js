@@ -25,7 +25,7 @@ class UserController {
 
             return res.status(200).json(userProps);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     };
 
@@ -44,7 +44,7 @@ class UserController {
 
             return res.status(200).json(friendProps);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -63,7 +63,7 @@ class UserController {
 
             return res.status(200).json(friendRequestProps);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -82,7 +82,7 @@ class UserController {
 
             return res.status(200).json(settingProps);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -101,7 +101,7 @@ class UserController {
 
             return res.status(200).json(followingProps);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -120,7 +120,7 @@ class UserController {
 
             return res.status(200).json(followerProps);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -139,7 +139,7 @@ class UserController {
 
             return res.status(200).json(searchProps);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -158,7 +158,7 @@ class UserController {
 
             return res.status(200).json(messageProps);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -177,7 +177,7 @@ class UserController {
 
             return res.status(200).json(photoListProps);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -196,7 +196,7 @@ class UserController {
 
             return res.status(200).json(groupListProps);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -215,7 +215,7 @@ class UserController {
 
             return res.status(200).json(notificationProps);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -277,7 +277,7 @@ class UserController {
 
             return res.status(200).json(newFriendRequest);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -323,7 +323,7 @@ class UserController {
 
             return res.status(200).json({ message: 'Request processed successfully' });
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -384,7 +384,7 @@ class UserController {
             }
             return res.status(200).json({ message: 'User profile updated successfully' });
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 }

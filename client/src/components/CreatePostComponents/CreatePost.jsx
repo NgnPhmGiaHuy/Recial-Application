@@ -1,9 +1,18 @@
 import Image from "next/image";
 
 import { CreatePostOptionItem } from "@/components";
-import { createPostOptionItemList } from "@/constants/CreatePostConstants";
+
+import Video from "/public/images/Icon/video.png";
+import Photo from "/public/images/Icon/image.png";
+import Happiness from "/public/images/Icon/happiness.png";
 
 const CreatePost = ({ userProps, handleShowCreatePost }) => {
+    const createPostOptionItemList = [
+        { icon: Video, title: "Live video", onclick: "" },
+        { icon: Photo, title: "Photo/video", onclick: handleShowCreatePost },
+        { icon: Happiness, title: "Feeling/activity", onclick: "" },
+    ]
+
     return (
         <div className="w-full flex flex-col relative">
             <div className="w-full rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white overflow-x-hidden overflow-y-hidden relative">

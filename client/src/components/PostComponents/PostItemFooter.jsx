@@ -4,16 +4,28 @@ import Image from "next/image";
 
 import { handleFormatNumber } from "@/utils";
 import { useMostReactedIcons, useCountComment } from "@/hooks";
+import { createReactionData } from "@/app/api/fetchReactionData";
 
-const PostItemFooter = ({ postProps, handleShowPostShareSetting, handleShowPostItemComment }) => {
-    const totalComments = useCountComment(postProps);
-    const mostReactedIcons = useMostReactedIcons(postProps?.reaction);
+const PostItemFooter = ({ footerRef, footerCommentRef, timeoutRef, handleState, props }) => {
+    const totalComments = useCountComment(props.postProps);
+    const totalShares = props.postProps?.share?.length;
+    const mostReactedIcons = useMostReactedIcons(props.postProps?.reaction);
+
+    const handleReaction = async (reactionType) => {
+        try {
+            await createReactionData(reactionType, props.postProps?.post?._id, "Post");
+
+            return handleState.handleShowPostReactionButton();
+        } catch (error) {
+            throw error;
+        }
+    }
 
     return (
-        <div className="overflow-x-hidden overflow-y-hidden">
+        <div ref={footerRef} className="overflow-x-hidden overflow-y-hidden">
             <div className="flex flex-col justify-center relative">
-                {totalComments || mostReactedIcons.length ? (
-                    <div className="mx-[16px] py-[10px] flex items-center justify-end text-[15px] text-zinc-500 relative leading-5">
+                {totalComments || totalShares || mostReactedIcons.length ? (
+                    <div ref={footerCommentRef} className="mx-[16px] py-[10px] flex items-center justify-end text-[15px] text-zinc-500 relative leading-5">
                         <div className="flex grow items-center overflow-x-hidden overflow-y-hidden">
                             <span className="pl-[4px] flex items-center ">
                                 {mostReactedIcons.map((icon, index) => (
@@ -25,7 +37,7 @@ const PostItemFooter = ({ postProps, handleShowPostShareSetting, handleShowPostI
                             <div>
                                 <span className="w-[100px] overflow-x-hidden overflow-y-hidden float-left text-ellipsis">
                                     <span className="pl-[4px] cursor-pointer relative hover:underline transition-all">
-                                        {handleFormatNumber(postProps?.reaction?.reduce((sum) => sum + 1, 0))}
+                                        {handleFormatNumber(props.postProps?.reaction?.reduce((sum) => sum + 1, 0))}
                                     </span>
                                 </span>
                             </div>
@@ -38,7 +50,7 @@ const PostItemFooter = ({ postProps, handleShowPostShareSetting, handleShowPostI
                             </div>
                             <div className="p-[6px] flex flex-col flex-shrink-0 relative">
                                 <span className="block text-[15px] text-zinc-500 text-left font-normal break-words relative cursor-pointer leading-5 hover:underline transition-all">
-                                    {postProps?.share?.length === 0 ? null : postProps?.share?.length === 1 ? `${postProps?.share?.length} share` : `${postProps?.share?.length} shares`}
+                                    {totalShares === 0 ? null : totalShares === 1 ? `${totalShares} share` : `${totalShares} shares`}
                                 </span>
                             </div>
                         </div>
@@ -46,9 +58,9 @@ const PostItemFooter = ({ postProps, handleShowPostShareSetting, handleShowPostI
                 ) : null}
                 <div className="mx-[12px] border-t border-solid border-zinc-200">
                     <div className="mx-[-2px] my-[-4px] px-[4px] flex flex-row flex-nowrap items-stretch justify-between relative">
-                        <div className="px-[2px] py-[6px] flex flex-col flex-shrink grow relative">
+                        <div ref={timeoutRef} className="px-[2px] py-[6px] flex flex-col flex-shrink grow relative" onMouseEnter={handleState.handleMouseEnter} onMouseLeave={handleState.handleMouseLeave}>
                             <div className="flex flex-row basis-auto relative">
-                                <div className="sm:h-[36px] h-[30px] mx-[-4px] my-[2px] sm:px-[12px] px-[6px] flex flex-row flex-shrink flex-nowrap basis-0 grow items-center justify-center whitespace-nowrap rounded-md cursor-pointer relative hover:bg-zinc-200">
+                                <div className="sm:h-[36px] h-[30px] mx-[-4px] my-[2px] sm:px-[12px] px-[6px] flex flex-row flex-shrink flex-nowrap basis-0 grow items-center justify-center whitespace-nowrap rounded-md cursor-pointer relative hover:bg-zinc-200" onClick={() => handleReaction("Like")}>
                                     <div className="px-[4px] py-[6px] flex flex-col flex-shrink-0 relative">
                                         <i>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="smw-6 w-5 sm:h-6 h-5">
@@ -66,7 +78,7 @@ const PostItemFooter = ({ postProps, handleShowPostShareSetting, handleShowPostI
                         </div>
                         <div className="px-[2px] py-[6px] flex flex-col flex-shrink grow relative">
                             <div className="flex flex-row basis-auto relative">
-                                <div className="sm:h-[36px] h-[30px] mx-[-4px] my-[2px] sm:px-[12px] px-[6px] flex flex-row flex-shrink flex-nowrap basis-0 grow items-center justify-center whitespace-nowrap rounded-md cursor-pointer relative hover:bg-zinc-200" onClick={handleShowPostItemComment}>
+                                <div className="sm:h-[36px] h-[30px] mx-[-4px] my-[2px] sm:px-[12px] px-[6px] flex flex-row flex-shrink flex-nowrap basis-0 grow items-center justify-center whitespace-nowrap rounded-md cursor-pointer relative hover:bg-zinc-200" onClick={handleState.handleShowPostItemComment}>
                                     <div className="px-[4px] py-[6px] flex flex-col flex-shrink-0 relative">
                                         <i>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="smw-6 w-5 sm:h-6 h-5">
@@ -84,7 +96,7 @@ const PostItemFooter = ({ postProps, handleShowPostShareSetting, handleShowPostI
                         </div>
                         <div className="px-[2px] py-[6px] flex flex-col flex-shrink grow relative">
                             <div className="flex flex-row basis-auto relative">
-                                <div className="sm:h-[36px] h-[30px] mx-[-4px] my-[2px] sm:px-[12px] px-[6px] flex flex-row flex-shrink flex-nowrap basis-0 grow items-center justify-center whitespace-nowrap rounded-md cursor-pointer relative hover:bg-zinc-200" onClick={handleShowPostShareSetting}>
+                                <div className="sm:h-[36px] h-[30px] mx-[-4px] my-[2px] sm:px-[12px] px-[6px] flex flex-row flex-shrink flex-nowrap basis-0 grow items-center justify-center whitespace-nowrap rounded-md cursor-pointer relative hover:bg-zinc-200" onClick={handleState.handleShowPostShareSetting}>
                                     <div className="px-[4px] py-[6px] flex flex-col flex-shrink-0 relative">
                                         <i>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="sm:w-6 w-5 sm:h-6 h-5">

@@ -1,95 +1,54 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 
-import { useClickOutside, useToggleState } from "@/hooks";
-import { postItemShareSettingList } from "@/constants/PostConstants";
-import {
-    PostItemHeader,
-    PostItemContent,
-    PostItemFooter,
-    QuickSettingItem,
-    PostItemComment,
-    PostItemDelete, PostItemShareSetting, PostItemQuickSetting
-} from "@/components";
+import { usePostItemData } from "@/hooks";
+import { PostItemHeader, PostItemContent, PostItemFooter, PostItemComment, PostItemDelete, PostItemShareSetting, PostItemQuickSetting, PostItemReactionButton } from "@/components";
 
 const PostItem = ({ userData, userProps, postProps, isCurrentUser }) => {
-    const postItemRef = useRef(null);
-    const postItemDeleteRef = useRef(null);
-    const postItemShareSettingButtonRef = useRef(null);
-    const postItemQuickSettingButtonRef = useRef(null);
+    const props = { userData: userData, userProps: userProps, postProps: postProps }
 
-
-    const [deletePostStatus, setDeletePostStatus, handleDeletePostStatus] = useToggleState(false);
-    const [showPostItemDelete, setShowPostItemDelete, handleShowPostItemDelete] = useToggleState(false);
-    const [showPostItemComment, setShowPostItemComment, handleShowPostItemComment] = useToggleState(false);
-    const [showPostItemShareSetting, setShowPostItemShareSetting, handleShowPostShareSetting] = useToggleState(false);
-    const [showPostItemQuickSetting, setShowPostItemQuickSetting, handleShowPostItemQuickSetting] = useToggleState(false);
-
-    const [postItemTranslateXValue, setPostItemTranslateXValue] = useState(0);
-    const [postItemTranslateYValue, setPostItemTranslateYValue] = useState(0);
-    const [postItemShareSettingTranslateYValue, setPostItemShareSettingTranslateYValue] = useState(0);
-    const [postItemQuickSettingTranslateYValue, setPostItemQuickSettingTranslateYValue] = useState(0);
+    const { ref, state, setState, handleState, translateX, translateY } = usePostItemData();
 
     useEffect(() => {
-        if (postItemRef.current && postItemQuickSettingButtonRef.current && showPostItemQuickSetting){
-            setPostItemTranslateXValue(postItemRef.current.clientWidth - postItemQuickSettingButtonRef.current.clientWidth - 25);
-        }
-
-        if (postItemRef.current && postItemShareSettingButtonRef.current && showPostItemShareSetting){
-            setPostItemTranslateXValue(postItemRef.current.clientWidth * 46 / 55 - postItemShareSettingButtonRef.current.clientWidth *  105 / 253);
-        }
-
-        if (postItemRef.current && postItemShareSettingButtonRef.current && showPostItemShareSetting){
-            setPostItemTranslateYValue(postItemRef.current.clientHeight);
-        }
-
-        if (postItemQuickSettingButtonRef.current && showPostItemQuickSetting) {
-            setPostItemQuickSettingTranslateYValue(-postItemQuickSettingButtonRef.current.clientHeight);
-        }
-
-        if (postItemShareSettingButtonRef.current && showPostItemShareSetting) {
-            setPostItemShareSettingTranslateYValue(-postItemShareSettingButtonRef.current.clientHeight);
-        }
-    }, [showPostItemQuickSetting, showPostItemShareSetting])
-
-    useClickOutside(postItemDeleteRef, showPostItemDelete, handleShowPostItemDelete);
-    useClickOutside(postItemQuickSettingButtonRef, showPostItemQuickSetting, setShowPostItemQuickSetting);
-    useClickOutside(postItemShareSettingButtonRef, showPostItemShareSetting, setShowPostItemShareSetting);
-
-    useEffect(() => {
-        handleShowPostItemDelete();
-    }, [deletePostStatus]);
+        return handleState.handleShowPostItemDelete();
+    }, [state.deletePostStatus]);
 
     return (
-        <div className="mb-[24px] flex flex-col justify-center rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white relative" ref={postItemRef}>
+        <div ref={ref.postRef} className="mb-[24px] flex flex-col justify-center rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white relative">
             <div>
-                <PostItemHeader postProps={postProps} handleShowPostItemDelete={handleShowPostItemDelete} handleShowPostItemQuickSetting={handleShowPostItemQuickSetting}/>
+                <PostItemHeader headerRef={ref.headerRef} props={props} handleState={handleState}/>
             </div>
             <div>
-                <PostItemContent postProps={postProps}/>
+                <PostItemContent contentRef={ref.contentRef} props={props}/>
             </div>
             <div>
-                <PostItemFooter postProps={postProps} handleShowPostShareSetting={handleShowPostShareSetting} handleShowPostItemComment={handleShowPostItemComment}/>
+                <PostItemFooter footerRef={ref.footerRef} footerCommentRef={ref.footerCommentRef} timeoutRef={ref.timeoutRef} props={props} handleState={handleState}/>
             </div>
             <div>
-                {showPostItemComment ? (
-                    <PostItemComment userData={userData} userProps={userProps} postProps={postProps} />
-                ) : null}
-            </div>
-            <div>
-                {(showPostItemDelete && isCurrentUser) && (
-                    <PostItemDelete postProps={postProps} postItemDeleteRef={postItemDeleteRef} handleDeletePostStatus={handleDeletePostStatus} handleShowPostItemDelete={handleShowPostItemDelete}/>
+                {state.showPostItemComment && (
+                    <PostItemComment commentRef={ref.commentRef} props={props}/>
                 )}
             </div>
-            <div ref={postItemQuickSettingButtonRef}>
-                {(showPostItemQuickSetting && !isCurrentUser) && (
-                    <PostItemQuickSetting postProps={postProps} postItemQuickSettingButtonRef={postItemQuickSettingButtonRef} postItemTranslateXValue={postItemTranslateXValue} postItemQuickSettingTranslateYValue={postItemQuickSettingTranslateYValue}/>
+            <div>
+                {(state.showPostItemDelete && isCurrentUser) && (
+                    <PostItemDelete props={props} postDeleteRef={ref.postDeleteRef} handleState={handleState}/>
                 )}
             </div>
-            <div ref={postItemShareSettingButtonRef}>
-                {showPostItemShareSetting && (
-                    <PostItemShareSetting postItemShareSettingButtonRef={postItemShareSettingButtonRef} postItemTranslateXValue={postItemTranslateXValue} postItemTranslateYValue={postItemTranslateYValue} postItemShareSettingTranslateYValue={postItemShareSettingTranslateYValue} />
+            <div>
+                {state.showPostReactionButton && (
+                    <PostItemReactionButton props={props} timeoutRef={ref.timeoutRef} translateX={translateX} translateY={translateY}
+                                            postReactionButtonRef={ref.postReactionButtonRef} handleState={handleState}/>
+                )}
+            </div>
+            <div ref={ref.postQuickSettingButtonRef}>
+                {(state.showPostItemQuickSetting && !isCurrentUser) && (
+                    <PostItemQuickSetting props={props} translateX={translateX} translateY={translateY} postQuickSettingButtonRef={ref.postQuickSettingButtonRef}/>
+                )}
+            </div>
+            <div ref={ref.postShareButtonRef}>
+                {state.showPostItemShareSetting && (
+                    <PostItemShareSetting translateX={translateX} translateY={translateY} postShareButtonRef={ref.postShareButtonRef}/>
                 )}
             </div>
         </div>

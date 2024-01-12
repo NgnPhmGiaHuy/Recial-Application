@@ -21,7 +21,7 @@ class UserIdController {
 
             return res.status(200).json(userProps);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -39,7 +39,7 @@ class UserIdController {
 
             return res.status(200).json({ user: { _id: user._id }, followerProps })
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -57,7 +57,7 @@ class UserIdController {
 
             return res.status(200).json({ user: { _id: user._id }, followingProps })
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -75,7 +75,7 @@ class UserIdController {
 
             return res.status(200).json({user: {_id: user._id}, friendProps});
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -93,7 +93,7 @@ class UserIdController {
 
             return res.status(200).json({user: {_id: user._id}, photoListProps});
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 
@@ -111,7 +111,7 @@ class UserIdController {
 
             return res.status(200).json({user: {_id: user._id}, groupListProps});
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 }

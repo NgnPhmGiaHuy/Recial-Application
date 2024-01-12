@@ -6,6 +6,7 @@ const PostSaved = require("../models/PostSaved");
 const Comment = require("../models/Comment");
 const Reaction = require("../models/Reaction");
 const Post = require("../models/Post");
+const generalDataService = require("./generalDataService");
 
 class PostDataService {
     getPostData = async (postId) => {
@@ -33,6 +34,37 @@ class PostDataService {
                 ...photos._doc,
             }
         }));
+    }
+
+    enhancePostsWithUserData = async (posts) => {
+        try {
+            const enhancedPosts = [];
+
+            for (const post of posts) {
+                let postProps = post._doc || post;
+
+                const { createdAt, updatedAt, ...otherPostProps } = postProps;
+
+                const postWithUserData = {
+                    post: {
+                        ...otherPostProps,
+                        created_at: createdAt,
+                        updated_at: updatedAt,
+                    },
+                    photo: await this.getPostPhoto(post),
+                    user: await this.getPostAuthor(post._id),
+                    comment: await generalDataService.getComment(post._id),
+                    reaction: await generalDataService.getReaction(post._id),
+                    share: await generalDataService.getUsersByInteractionType(PostShare, "post_id", post._id),
+                };
+
+                enhancedPosts.push(postWithUserData);
+            }
+
+            return enhancedPosts;
+        } catch (error) {
+            throw error;
+        }
     }
 
     deletePost = async (req, post) => {

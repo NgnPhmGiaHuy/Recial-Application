@@ -16,6 +16,11 @@ const GroupSchema = new Schema(
             default: "Public",
             enum: ["Public", "Private"],
         },
+        group_visible: {
+            type: Boolean,
+            default: true,
+            required: true,
+        },
         group_picture_url: {
             type: String,
             required: true,

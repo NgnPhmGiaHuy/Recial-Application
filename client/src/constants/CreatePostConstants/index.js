@@ -1,23 +1,3 @@
-import Gif from "/public/images/Icon/gif.png"
-import Image from "/public/images/Icon/image.png";
-import Video from "/public/images/Icon/video.png";
-import Location from "/public/images/Icon/location.png";
-import Happiness from "/public/images/Icon/happiness.png";
-import TagPeople from "/public/images/Icon/tag-people.png";
-
-export const createPostOptionItemList = [
-    {
-        createPostItemImage: Video,
-        createPostItemTitle: "Live video",
-    }, {
-        createPostItemImage: Image,
-        createPostItemTitle: "Photo/video",
-    }, {
-        createPostItemImage: Happiness,
-        createPostItemTitle: "Feeling/activity",
-    },
-]
-
 export const createPostAudienceItemList = [
     {
         createPostAudienceIcon: (

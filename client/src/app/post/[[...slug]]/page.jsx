@@ -5,7 +5,7 @@ import { handleNewPostData } from "@/utils/handleNewData";
 import { useMediaData, useUserData, useWebSocket } from "@/hooks";
 
 const PostPage = ({ searchParams }) => {
-    const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/media/post/?" + new URLSearchParams(searchParams).toString();
+    const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/public/media/post/?" + new URLSearchParams(searchParams).toString();
 
     const { userProps } = useUserData();
     const { mediaProps, setMediaProps } = useMediaData(url);

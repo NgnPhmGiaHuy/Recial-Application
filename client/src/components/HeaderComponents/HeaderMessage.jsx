@@ -21,10 +21,10 @@ const HeaderMessage = ({forwardedRef, userProps}) => {
 
     return (
         <div ref={forwardedRef} className="absolute top-0 left-0 translate-x-[-172px] translate-y-[48px]">
-            <div className="mt-[5px] mr-[8px]">
+            <div className="mt-[5px] mr-[8px] animate-slideInTop">
                 <div className="overflow-x-hidden overflow-y-hidden rounded-md bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
                     <div className="w-[360px] max-h-[calc(100vh-56px-16px)] flex flex-col">
-                        <div className="flex flex-col flex-shrink grow overflow-x-hidden overflow-y-auto overscroll-y-contain basis-full relative">
+                        <div className="flex flex-col flex-shrink grow no-scrollbar overflow-x-hidden overflow-y-auto overscroll-y-contain basis-full relative">
                             <div className="flex flex-col grow relative">
                                 <div className="mx-[16px] mb-[12px] mt-[20px] flex flex-row flex-shrink-0 items-center justify-between relative">
                                     <div className="flex flex-col flex-shrink basis-0 grow relative">

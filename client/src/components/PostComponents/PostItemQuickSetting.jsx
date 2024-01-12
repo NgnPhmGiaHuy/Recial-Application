@@ -1,6 +1,6 @@
 import { QuickSettingItem } from "@/components";
 
-const PostItemQuickSetting = ({ postProps, postItemQuickSettingButtonRef, postItemTranslateXValue, postItemQuickSettingTranslateYValue }) => {
+const PostItemQuickSetting = ({ props, postQuickSettingButtonRef, translateX, translateY }) => {
     const postItemQuickSettingList = [
         {
             isSettingItemBreak: false,
@@ -51,7 +51,7 @@ const PostItemQuickSetting = ({ postProps, postItemQuickSettingButtonRef, postIt
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             ),
-            settingItemTitle: `Snooze ${postProps?.user?.username || postProps?.user?.firstname + " " + postProps?.user?.lastname} for 30 days`,
+            settingItemTitle: `Snooze ${props.postProps?.user?.username || props.postProps?.user?.firstname + " " + props.postProps?.user?.lastname} for 30 days`,
             settingItemSubtitle: "Temporarily stop seeing posts.",
             hasSettingItemSwitchButton: false,
         }, {
@@ -72,16 +72,16 @@ const PostItemQuickSetting = ({ postProps, postItemQuickSettingButtonRef, postIt
                     <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                 </svg>
             ),
-            settingItemTitle: `Block ${postProps?.user?.username || postProps?.user?.firstname + " " + postProps?.user?.lastname}'s profile`,
+            settingItemTitle: `Block ${props.postProps?.user?.username || props.postProps?.user?.firstname + " " + props.postProps?.user?.lastname}'s profile`,
             settingItemSubtitle: "You won't be able to see or contact each other.",
             hasSettingItemSwitchButton: false,
         },
     ]
 
     return (
-        <div ref={postItemQuickSettingButtonRef}
+        <div ref={postQuickSettingButtonRef}
              className="absolute top-0 left-0 translate-x-[400px] translate-y-[50px] z-50"
-             style={{"--tw-translate-x": `${postItemTranslateXValue}px`}}>
+             style={{"--tw-translate-x": `${translateX.postItemTranslateXValue}px`}}>
             <div
                 className="relative mt-[15px] rounded-l-md rounded-r-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
                 <div className="overflow-x-hidden overflow-y-hidden rounded-l-md rounded-r-md bg-white">
@@ -98,7 +98,7 @@ const PostItemQuickSetting = ({ postProps, postItemQuickSettingButtonRef, postIt
                 </div>
                 <svg height="12" viewBox="0 0 21 12" width="21"
                      className="absolute right-0 bottom-[calc(100%-1)] scale-x-[-1] scale-y-[-1] translate-x-[-60px]"
-                     style={{"--tw-translate-y": `${postItemQuickSettingTranslateYValue + 5}px`}} fill="white">
+                     style={{"--tw-translate-y": `${translateY.postItemQuickSettingTranslateYValue + 5}px`}} fill="white">
                     <path
                         d="M20.685.12c-2.229.424-4.278 1.914-6.181 3.403L5.4 10.94c-2.026 2.291-5.434.62-5.4-2.648V.12h20.684z"></path>
                 </svg>

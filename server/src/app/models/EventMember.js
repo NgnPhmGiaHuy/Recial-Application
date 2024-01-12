@@ -8,7 +8,7 @@ const EventMemberSchema = new Schema(
             ref: "Event",
             required: true,
         },
-        user: [{
+        user: {
             user_id: {
                 type: Schema.Types.ObjectId,
                 ref: "User",
@@ -19,7 +19,7 @@ const EventMemberSchema = new Schema(
                 ref: "Role",
                 required: true,
             }],
-        }],
+        },
     }, {
         timestamps: true,
     }

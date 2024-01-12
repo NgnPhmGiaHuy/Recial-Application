@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { faker } = require('@faker-js/faker');
+const { faker } = require("@faker-js/faker");
 
 const Comment = require("../app/models/Comment");
 const Event = require("../app/models/Event");
@@ -37,36 +37,48 @@ const VideoShare = require("../app/models/VideoShare");
 const Setting = require("../app/models/Setting");
 
 const generateRoles = () => [
-    { role_name: 'User', role_permissions: 'user_permissions_here' },
-    { role_name: 'Admin', role_permissions: 'admin_permissions_here' },
-    { role_name: 'Viewer', role_permissions: 'viewer_permissions_here' },
-    { role_name: 'Member', role_permissions: 'member_permissions_here' },
-    { role_name: 'Moderator', role_permissions: 'moderator_permissions_here' },
+    { role_name: "User", role_permissions: "user_permissions_here" },
+    { role_name: "Admin", role_permissions: "admin_permissions_here" },
+    { role_name: "Viewer", role_permissions: "viewer_permissions_here" },
+    { role_name: "Member", role_permissions: "member_permissions_here" },
+    { role_name: "Moderator", role_permissions: "moderator_permissions_here" },
+    { role_name: "Group_Owner", role_permissions: "group_owner_permissions_here" },
+    { role_name: "Group_Moderator", role_permissions: "group_moderator_permissions_here" },
+    { role_name: "Group_Contributor", role_permissions: "group_contributor_permissions_here" },
+    { role_name: "Group_Administrator", role_permissions: "group_administrator_permissions_here" },
+    { role_name: "Page_Owner", role_permissions: "page_owner_permissions_here" },
+    { role_name: "Page_Moderator", role_permissions: "page_moderator_permissions_here" },
+    { role_name: "Page_Contributor", role_permissions: "page_contributor_permissions_here" },
+    { role_name: "Page_Administrator", role_permissions: "page_administrator_permissions_here" },
+    { role_name: "Event_Owner", role_permissions: "event_owner_permissions_here" },
+    { role_name: "Event_Moderator", role_permissions: "event_moderator_permissions_here" },
+    { role_name: "Event_Contributor", role_permissions: "event_contributor_permissions_here" },
+    { role_name: "Event_Administrator", role_permissions: "event_administrator_permissions_here" },
 ];
 
 const generateTypes = () => [
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Video', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Post', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Comment', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Photo', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Story', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Page', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Group', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Like', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Dislike', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Happiness', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Unhappiness', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Message', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Announcement', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Security', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Setting', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Share', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Friend-Request', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Mention', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Follower', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Event', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Trending', type_description: 'description_here' },
-    { _id: new mongoose.Types.ObjectId(), type_name: 'Report', type_description: 'description_here' },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Video", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Post", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Comment", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Photo", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Story", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Page", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Group", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Like", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Dislike", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Happiness", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Unhappiness", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Message", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Announcement", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Security", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Setting", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Share", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Friend-Request", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Mention", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Follower", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Event", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Trending", type_description: "description_here" },
+    { _id: new mongoose.Types.ObjectId(), type_name: "Report", type_description: "description_here" },
 ];
 
 const generateMediaData = () => {
@@ -139,11 +151,11 @@ const generateUserProps = (roles, insertedRoles) => Array.from({ length: 1000 },
         phone_number: faker.phone.number(),
         description: faker.lorem.paragraph(),
         short_description: faker.lorem.text(),
-        date_of_birth: faker.date.birthdate({ min: 10, max: 65, mode: 'age' }),
+        date_of_birth: faker.date.birthdate({ min: 10, max: 65, mode: "age" }),
         gender: faker.helpers.arrayElement(["Male", "Female", "Other"]),
         roles: [insertedRoles[0]._id],
         profile_picture_url: faker.internet.avatar(),
-        profile_cover_photo_url: faker.image.urlLoremFlickr({ category: 'abstract' }),
+        profile_cover_photo_url: faker.image.urlLoremFlickr({ category: "abstract" }),
         photo_list: userPhotoIds,
         video_list: videos,
         post_list: postList,
@@ -158,29 +170,30 @@ const generatePages = async () => {
         page_description: faker.lorem.paragraph(),
         page_privacy: faker.helpers.arrayElement(["Public", "Private"]),
         page_picture_url: faker.image.url(),
-        page_cover_picture_url: faker.image.urlLoremFlickr({ category: 'abstract' }),
+        page_cover_picture_url: faker.image.urlLoremFlickr({ category: "abstract" }),
     }));
+
+    console.log("Pages generated successfully.");
 
     return await Page.insertMany(pageProps);
 };
 
 const generatePageMembers = async (allPages, allUsers, insertedRoles) => {
     const pageMemberProps = allPages.flatMap(page => {
-        const usersForPage = Array.from({ length: 20 }, () => {
+        return Array.from({ length: 50 }, () => {
             const randomUser = faker.helpers.objectValue(allUsers);
 
             return {
                 page_id: page._id,
-                user_id: randomUser._id,
-                user_role: [insertedRoles[3]._id],
+                user: {
+                    user_id: randomUser._id,
+                    user_role: insertedRoles[faker.helpers.arrayElement([3, 9, 10, 11, 12])]._id,
+                },
             };
         });
-
-        return {
-            page_id: page._id,
-            user: usersForPage,
-        };
     })
+
+    console.log("Page Members generated successfully.");
 
     return await PageMember.insertMany(pageMemberProps);
 };
@@ -191,30 +204,32 @@ const generateGroups = async () => {
         group_name: faker.lorem.text(),
         group_description: faker.lorem.paragraph(),
         group_privacy: faker.helpers.arrayElement(["Public", "Private"]),
+        group_visible: faker.datatype.boolean(),
         group_picture_url: faker.image.url(),
-        group_cover_picture_url: faker.image.urlLoremFlickr({ category: 'abstract' }),
+        group_cover_picture_url: faker.image.urlLoremFlickr({ category: "abstract" }),
     }));
+
+    console.log("Groups generated successfully.");
 
     return await Group.insertMany(groupProps);
 };
 
 const generateGroupMembers = async (allGroups, allUsers, insertedRoles) => {
     const groupMemberProps = allGroups.flatMap(group => {
-        const usersForGroup = Array.from({ length: 20 }, () => {
+        return Array.from({ length: 50 }, () => {
             const randomUser = faker.helpers.objectValue(allUsers);
 
             return {
                 group_id: group._id,
-                user_id: randomUser._id,
-                user_role: [insertedRoles[3]._id],
+                user: {
+                    user_id: randomUser._id,
+                    user_role: insertedRoles[faker.helpers.arrayElement([3, 5, 6, 7, 8])]._id,
+                },
             };
         });
-
-        return {
-            group_id: group._id,
-            user: usersForGroup,
-        };
     });
+
+    console.log("Group Members generated successfully.");
 
     return await GroupMember.insertMany(groupMemberProps);
 };
@@ -227,29 +242,30 @@ const generateEvents = async () => {
         event_description: faker.lorem.paragraph(),
         event_start_datetime: faker.date.recent(),
         event_end_datetime: faker.date.future(),
-        event_cover_picture_url: faker.image.urlLoremFlickr({ category: 'abstract' }),
+        event_cover_picture_url: faker.image.urlLoremFlickr({ category: "abstract" }),
     }));
+
+    console.log("Events generated successfully.");
 
     return await Event.insertMany(eventProps);
 };
 
 const generateEventMembers = async (allEvents, allUsers, insertedRoles) => {
     const eventMemberProps = allEvents.flatMap(event => {
-        const usersForEvent = Array.from({ length: 20 }, () => {
+        return Array.from({ length: 50 }, () => {
             const randomUser = faker.helpers.objectValue(allUsers);
 
             return {
                 event_id: event._id,
-                user_id: randomUser._id,
-                user_role: [insertedRoles[3]._id],
+                user: {
+                    user_id: randomUser._id,
+                    user_role: insertedRoles[faker.helpers.arrayElement([3, 13, 14, 15, 16])]._id,
+                },
             };
         });
-
-        return {
-            event_id: event._id,
-            user: usersForEvent,
-        };
     });
+
+    console.log("Event Members generated successfully.");
 
     return await EventMember.insertMany(eventMemberProps);
 };
@@ -288,7 +304,7 @@ const generateFollower = (allUsers) => {
 }
 
 const generateMessages = async (allUsers) => {
-    const messageProp = Array.from({ length: 5000 }, () => ({
+    const messageProp = Array.from({ length: 50000 }, () => ({
         source_id: faker.helpers.objectValue(allUsers),
         destination_id: faker.helpers.objectValue(allUsers),
         message_content: faker.lorem.paragraph(),
@@ -296,32 +312,34 @@ const generateMessages = async (allUsers) => {
         is_mute: faker.helpers.arrayElement([true, false]),
     }));
 
+    console.log("Messages generated successfully.");
+
     return await Message.insertMany(messageProp);
 };
 
 const generateComments = async (allUsers, interestedFilteredTypes, allPages, allGroups, allStories) => {
-    const commentProps = Array.from({ length: 50000 }, () => {
+    const commentProps = Array.from({ length: 100000 }, () => {
         const randomUser = faker.helpers.objectValue(allUsers);
         const randomType = interestedFilteredTypes[Math.floor(Math.random() * interestedFilteredTypes.length)];
 
         let randomSourceId;
         switch (randomType.type_name) {
-            case 'Post':
+            case "Post":
                 randomSourceId = faker.helpers.objectValue(randomUser.post_list)._id;
                 break;
-            case 'Video':
+            case "Video":
                 randomSourceId = faker.helpers.objectValue(randomUser.video_list)._id;
                 break;
-            case 'Photo':
+            case "Photo":
                 randomSourceId = faker.helpers.objectValue(randomUser.photo_list)._id;
                 break;
-            case 'Page':
+            case "Page":
                 randomSourceId = faker.helpers.objectValue(allPages)._id;
                 break;
-            case 'Group':
+            case "Group":
                 randomSourceId = faker.helpers.objectValue(allGroups)._id;
                 break;
-            case 'Story':
+            case "Story":
                 randomSourceId = faker.helpers.objectValue(allStories)._id;
                 break;
             default:
@@ -339,11 +357,13 @@ const generateComments = async (allUsers, interestedFilteredTypes, allPages, all
         }
     });
 
+    console.log("Comment generated successfully.");
+
     return await Comment.insertMany(commentProps);
 };
 
 const generateReplyComment = async (allUsers, allComments, commentType) => {
-    const replyComment = Array.from({ length: 50000 }, () => {
+    const replyComment = Array.from({ length: 100000 }, () => {
         const randomUser = faker.helpers.objectValue(allUsers);
 
         return {
@@ -356,6 +376,8 @@ const generateReplyComment = async (allUsers, allComments, commentType) => {
             comment_text: faker.lorem.paragraph(),
         }
     })
+
+    console.log("Comment Replies generated successfully.");
 
     return await Comment.insertMany(replyComment);
 };
@@ -370,6 +392,8 @@ const generateSearchQuery = async (allUsers) => {
             search_query: faker.lorem.paragraph(),
         }
     });
+
+    console.log("Search History generated successfully.");
 
     return await SearchHistory.insertMany(searchQuery);
 };
@@ -395,6 +419,8 @@ const generateSetting = async (allUsers) => {
         }
     }))
 
+    console.log("Setting generated successfully.");
+
     return await Setting.insertMany(settingProps);
 }
 
@@ -414,37 +440,39 @@ const generateFriendRequest = async (allUsers) => {
         };
     });
 
+    console.log("Friend Request generated successfully.");
+
     return await FriendRequest.insertMany(friendRequests);
 }
 
 
 const generateNotifications = async (allUsers, typesWithCommentFiltered, allPages, allGroups, allComments, allStories) => {
-    const notificationProps = Array.from({ length: 10000 }, () => {
+    const notificationProps = Array.from({ length: 100000 }, () => {
         const randomUser = faker.helpers.objectValue(allUsers);
         const randomType = typesWithCommentFiltered[Math.floor(Math.random() * typesWithCommentFiltered.length)];
 
         let randomSourceId;
 
         switch (randomType.type_name) {
-            case 'Post':
+            case "Post":
                 randomSourceId = faker.helpers.objectValue(randomUser.post_list)._id;
                 break;
-            case 'Video':
+            case "Video":
                 randomSourceId = faker.helpers.objectValue(randomUser.video_list)._id;
                 break;
-            case 'Photo':
+            case "Photo":
                 randomSourceId = faker.helpers.objectValue(randomUser.photo_list)._id;
                 break;
-            case 'Page':
+            case "Page":
                 randomSourceId = faker.helpers.objectValue(allPages)._id;
                 break;
-            case 'Group':
+            case "Group":
                 randomSourceId = faker.helpers.objectValue(allGroups)._id;
                 break;
-            case 'Comment':
+            case "Comment":
                 randomSourceId = faker.helpers.objectValue(allComments)._id;
                 break;
-            case 'Story':
+            case "Story":
                 randomSourceId = faker.helpers.objectValue(allStories)._id;
                 break;
             default:
@@ -465,11 +493,13 @@ const generateNotifications = async (allUsers, typesWithCommentFiltered, allPage
         };
     })
 
+    console.log("Notification generated successfully.");
+
     return await Notification.insertMany(notificationProps);
 };
 
 const generateReactions = async (allUsers, typesWithCommentFiltered, reactionsFilteredTypes, allPages, allGroups, allComments, allStories) => {
-    const reactionProps = Array.from({ length: 100000 }, () => {
+    const reactionProps = Array.from({ length: 500000 }, () => {
         const randomUser = faker.helpers.objectValue(allUsers);
         const randomType = typesWithCommentFiltered[Math.floor(Math.random() * typesWithCommentFiltered.length)];
         const randomReactionType = reactionsFilteredTypes[Math.floor(Math.random() * reactionsFilteredTypes.length)];
@@ -477,25 +507,25 @@ const generateReactions = async (allUsers, typesWithCommentFiltered, reactionsFi
         let randomSourceId;
 
         switch (randomType.type_name) {
-            case 'Post':
+            case "Post":
                 randomSourceId = faker.helpers.objectValue(randomUser.post_list)._id;
                 break;
-            case 'Video':
+            case "Video":
                 randomSourceId = faker.helpers.objectValue(randomUser.video_list)._id;
                 break;
-            case 'Photo':
+            case "Photo":
                 randomSourceId = faker.helpers.objectValue(randomUser.photo_list)._id;
                 break;
-            case 'Page':
+            case "Page":
                 randomSourceId = faker.helpers.objectValue(allPages)._id;
                 break;
-            case 'Group':
+            case "Group":
                 randomSourceId = faker.helpers.objectValue(allGroups)._id;
                 break;
-            case 'Comment':
+            case "Comment":
                 randomSourceId = faker.helpers.objectValue(allComments)._id;
                 break;
-            case 'Story':
+            case "Story":
                 randomSourceId = faker.helpers.objectValue(allStories)._id;
                 break;
             default:
@@ -513,11 +543,13 @@ const generateReactions = async (allUsers, typesWithCommentFiltered, reactionsFi
         };
     })
 
+    console.log("Reaction generated successfully.");
+
     return await Reaction.insertMany(reactionProps);
 };
 
 const generateViewShareSaved = async (name, model, allModels, allUsers) => {
-    const viewShareSavedProps = Array.from({ length: 10000 }, () => {
+    const viewShareSavedProps = Array.from({ length: 100000 }, () => {
         const randomUser = allUsers[Math.floor(Math.random() * allUsers.length)];
 
         const randomModel = allModels[Math.floor(Math.random() * allModels.length)];
@@ -530,6 +562,20 @@ const generateViewShareSaved = async (name, model, allModels, allUsers) => {
 
     return model.insertMany(viewShareSavedProps);
 }
+
+const generateGroupPost = async (allGroups, allPosts) => {
+    const promises = Array.from({ length: 15000 }, () => {
+        const randomPost = allPosts[Math.floor(Math.random() * allPosts.length)];
+        const randomGroup = allGroups[Math.floor(Math.random() * allGroups.length)];
+
+        randomPost.group = randomGroup._id;
+
+        return randomPost.save().then(savedPost => savedPost);
+    });
+
+    return Promise.all(promises);
+};
+
 
 const generateDummyData = async () => {
     try {
@@ -570,8 +616,8 @@ const generateDummyData = async () => {
         await generateGroupMembers(allGroups, allUsers, insertedRoles);
         await generateEventMembers(allEvents, allUsers, insertedRoles);
 
-        const interestedTypes = ['Post', "Story", 'Video', 'Photo', "Page", "Group"];
-        const typesWithComment = ['Post', "Story", 'Video', 'Photo', "Page", "Group", "Comment"];
+        const interestedTypes = ["Post", "Story", "Video", "Photo", "Page", "Group"];
+        const typesWithComment = ["Post", "Story", "Video", "Photo", "Page", "Group", "Comment"];
         const reactionTypes = ["Like", "Dislike", "Happiness", "Unhappiness"];
 
         const interestedFilteredTypes = insertedTypes.filter(type => interestedTypes.includes(type.type_name));
@@ -611,9 +657,11 @@ const generateDummyData = async () => {
         await generateViewShareSaved("Video", VideoView, allVideos, allUsers);
         await generateViewShareSaved("Video", VideoShare, allVideos, allUsers);
         await generateViewShareSaved("Video", VideoSaved, allVideos, allUsers);
-        console.log('Dummy data generated successfully.');
+
+        await generateGroupPost(allGroups, allPosts)
+        console.log("Dummy data generated successfully.");
     } catch (error) {
-        console.error('Error generating dummy data:', error);
+        console.error("Error generating dummy data:", error);
     }
 }
 

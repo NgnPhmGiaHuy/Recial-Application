@@ -1,8 +1,9 @@
 import { fetchCommentData } from "@/app/api/fetchCommentData";
+import { fetchReactionData } from "@/app/api/fetchReactionData";
 import { fetchUserDataById } from "@/app/api/fetchUserDataById";
 import { fetchFriendRequestData } from "@/app/api/fetchFriendRequestData";
-import { fetchUserData, fetchUserFriendRequest } from "@/app/api/fetchUserData";
 import fetchPostDataById, { fetchPostByPostId } from "@/app/api/fetchPostDataById";
+import { fetchUserData, fetchUserFriendRequest, fetchUserPhotoList } from "@/app/api/fetchUserData";
 
 const updateNestedComments = (comments, destinationId, newComment) => {
     return comments.map(comment => {
@@ -27,6 +28,9 @@ const handleDeletePost = async (data, props, setProps) => {
     try {
         const { userId } = data;
         const newPostData = await fetchPostDataById({ userId, page: 0 });
+
+        await fetchAndSetUserPhoto();
+
         return setProps(newPostData);
     } catch (error) {
         throw error;
@@ -37,6 +41,11 @@ const handleCreateNewPost = async (data, props, setProps) => {
     try {
         const { postId } = data;
         const newPostProps = await fetchPostByPostId({ postId });
+
+        if (newPostProps && newPostProps.photo) {
+            await fetchAndSetUserPhoto();
+        }
+
         return setProps(prevProps => [newPostProps, ...prevProps]);
     } catch (error) {
         throw error;
@@ -103,17 +112,41 @@ const handleCreateComment = async (data, props, setProps) => {
     }
 };
 
-const updateUserProfile = async (data, props, setProps) => {
+const updatePostReaction = async (data, props, setProps) => {
     try {
-        const userData = await fetchUserData();
+        const { reactionId } = data;
 
-        setProps((prevData) => ({ ...prevData, ...userData }));
+        const reactionData = await fetchReactionData(reactionId);
+
+        const updatePostReaction = props.map(post => {
+            if (post.post._id === reactionData.destination.destination_id) {
+                post.reaction = post.reaction.map(reaction => {
+                    if (reaction._id === reactionData._id) {
+                        return reactionData;
+                    }
+                    return reaction;
+                })
+            }
+            return post;
+        });
+
+        return setProps(updatePostReaction);
     } catch (error) {
         throw error;
     }
 }
 
-const updateFriendRequest = async (data, props, setProps) => {
+const updateUserProfile = async (data, props, setProps) => {
+    try {
+        const userData = await fetchUserData();
+
+        return setProps((prevData) => ({ ...prevData, ...userData }));
+    } catch (error) {
+        throw error;
+    }
+}
+
+const updateUserFriendRequest = async (data, props, setProps) => {
     try {
         const { status, friendId, friendRequestId } = data;
         const newFriendProps = await fetchUserDataById(friendId);
@@ -129,13 +162,35 @@ const updateFriendRequest = async (data, props, setProps) => {
             friend_request: updatedFriendRequests
         };
 
-        setProps(updatedProps);
+        return setProps(updatedProps);
     } catch (error) {
         throw error;
     }
 };
 
-const createFriendRequest = async (data, props, setProps) => {
+const createPostReaction = async (data, props, setProps) => {
+    try {
+        const { reactionId } = data;
+
+        const reactionData = await fetchReactionData(reactionId);
+
+        const updatePostReaction = props.map(post => {
+            if (post.post._id === reactionData.destination.destination_id) {
+                return {
+                    ...post,
+                    reaction: [reactionData, ...post.reaction],
+                };
+            }
+            return post;
+        })
+
+        return setProps(updatePostReaction);
+    } catch (error) {
+        throw error;
+    }
+}
+
+const createUserFriendRequest = async (data, props, setProps) => {
     try {
         const { friendRequestId } = data;
         const friendRequestProps = await fetchFriendRequestData(friendRequestId);
@@ -153,7 +208,7 @@ const createFriendRequest = async (data, props, setProps) => {
             ],
         };
 
-        setProps(updatedProps);
+        return setProps(updatedProps);
     } catch (error) {
         throw error;
     }
@@ -164,9 +219,14 @@ const fetchAndSetUserData = async () => {
     return await fetchUserData();
 }
 
+const fetchAndSetUserPhoto = async () => {
+    localStorage.removeItem("userPhotoListProps");
+    return await fetchUserPhotoList();
+}
+
 const fetchAndSetUserFriendRequest = async () => {
     localStorage.removeItem("userFriendRequestProps");
-    await fetchUserFriendRequest();
+    return await fetchUserFriendRequest();
 };
 
 export const handleNewPostData = async (data, props, setProps) => {
@@ -181,6 +241,14 @@ export const handleNewPostData = async (data, props, setProps) => {
     if (data.type === "create_comment") {
         await handleCreateComment(data, props, setProps);
     }
+
+    if (data.type === "create_post_reaction") {
+        await createPostReaction(data, props, setProps);
+    }
+
+    if (data.type === "update_post_reaction") {
+        await updatePostReaction(data, props, setProps);
+    }
 };
 
 export const handleNewUserData = async (data, props, setProps) => {
@@ -191,11 +259,11 @@ export const handleNewUserData = async (data, props, setProps) => {
     }
 
     if (type === "friend_request_update") {
-        await updateFriendRequest(data, props, setProps);
+        await updateUserFriendRequest(data, props, setProps);
     }
 
     if (type === "friend_request_create") {
-        await createFriendRequest(data, props, setProps);
+        await createUserFriendRequest(data, props, setProps);
     }
 
     if (type === "user_profile_update") {

@@ -39,7 +39,7 @@ class CommentController {
 
             return res.status(200).json(commentProps);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     };
 
@@ -87,7 +87,7 @@ class CommentController {
 
             return res.status(200).json(newComment);
         } catch (error) {
-            return res.status(500).json({ error: 'Server error' });
+            return res.status(500).json(error);
         }
     }
 }

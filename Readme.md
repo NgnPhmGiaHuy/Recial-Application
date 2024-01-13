@@ -118,44 +118,44 @@ Once you have successfully started the Node.js server and connected to the datab
 2. **Comment the dataGenerator Function Again:**
 Once the data generation is complete, comment the dataGenerator function again in the server/src/index.js file to prevent accidental re-generation in the future. Now, your database should be populated with random data, and you can proceed to use the application with the generated data.
 
-## Image
-![Login_Interface.png](..%2F..%2FDownloads%2FThesis%2Fimg%2FUI%2FLogin_Interface.png)
+## Images
+![Login_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/a46f0f30-dc25-4399-aa17-9f37b1cfdc17)
 <p align="center"><b>Figure 01:</b> Login Interface</p>
 
-![Register_Interface.png](..%2F..%2FDownloads%2FThesis%2Fimg%2FUI%2FRegister_Interface.png)
+![Register_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/43acd1d5-e478-416f-a1a4-9939babac001)
 <p align="center"><b>Figure 02:</b> Register Interface</p>
 
-![Landing_Interface.png](..%2F..%2FDownloads%2FThesis%2Fimg%2FUI%2FLanding_Interface.png)
+![Landing_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/a71e92df-fe77-4d0c-8082-90b57fdcb2bb)
 <p align="center"><b>Figure 03:</b> Landing Interface</p>
 
-![User_Landing_Interface.png](..%2F..%2FDownloads%2FThesis%2Fimg%2FUI%2FUser_Landing_Interface.png)
+![User_Landing_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/66f1ea03-867d-494e-b692-94bd1cc9818a)
 <p align="center"><b>Figure 04:</b> User Landing Interface</p>
 
-![Profile_Setting_Interface.png](..%2F..%2FDownloads%2FThesis%2Fimg%2FUI%2FProfile_Setting_Interface.png)
+![Profile_Setting_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/66431085-53e2-4e8c-bd19-a5ef6971c7c2)
 <p align="center"><b>Figure 05:</b> Profile Setting Interface</p>
 
-![Create_Post_With_Images.png](..%2F..%2FDownloads%2FThesis%2Fimg%2FUI%2FCreate_Post_With_Images.png)
+![Create_Post_With_Images](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/5ed81a32-7d77-4b45-a247-16bf9897b6f7)
 <p align="center"><b>Figure 06:</b> Create Post With Images</p>
 
-![Friend_Interface.png](..%2F..%2FDownloads%2FThesis%2Fimg%2FUI%2FFriend_Interface.png)
+![Friend_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/dd7d0603-3cf4-43a2-a8d1-951d045692fa)
 <p align="center"><b>Figure 07:</b> Friend Interface</p>
 
-![Friend_Request_Interface.png](..%2F..%2FDownloads%2FThesis%2Fimg%2FUI%2FFriend_Request_Interface.png)
+![Friend_Request_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/94615be9-bcd1-414b-9d84-d5a20c943dc1)
 <p align="center"><b>Figure 08:</b> Friend Request Interface</p>
 
-![Media_Interface.png](..%2F..%2FDownloads%2FThesis%2Fimg%2FUI%2FMedia_Interface.png)
+![Media_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/4382b5ea-1ae4-4c81-9825-e50c2b67f259)
 <p align="center"><b>Figure 09:</b> Media Interface</p>
 
-![Group_Feed_Interface.png](..%2F..%2FDownloads%2FThesis%2Fimg%2FUI%2FGroup_Feed_Interface.png)
+![Group_Feed_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/4fa33277-4202-46c8-a1fd-f7a8b181679e)
 <p align="center"><b>Figure 10:</b> Group Feed Interface</p>
 
-![Group_Join_Interface.png](..%2F..%2FDownloads%2FThesis%2Fimg%2FUI%2FGroup_Join_Interface.png)
+![Group_Join_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/5137dc2e-d45e-40a7-87ec-658782bd3d5e)
 <p align="center"><b>Figure 11:</b> Group Join Interface</p>
 
-![Group_Interface.png](..%2F..%2FDownloads%2FThesis%2Fimg%2FUI%2FGroup_Interface.png)
+![Group_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/84b92831-3658-4327-9506-cc01d4b5cb9b)
 <p align="center"><b>Figure 12:</b> Group Interface</p>
 
-![Setting_Interface.png](..%2F..%2FDownloads%2FThesis%2Fimg%2FUI%2FSetting_Interface.png)
+![Setting_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/10fdfb6c-b432-4c23-be12-5639b2f8339b)
 <p align="center"><b>Figure 13:</b> Setting Interface</p>
 
 ## License

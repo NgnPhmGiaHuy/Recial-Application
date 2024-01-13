@@ -1,144 +1,132 @@
-import {fakeUserData} from "@/constants";
-import {AsideSetting, Header, SettingScaffold} from "@/components";
+"use client"
+
+import { useUserData } from "@/hooks";
+import { AsideSetting, Header, SettingScaffold } from "@/components";
 
 const AdsSettingPage = () => {
     const asideAdsDataItemList = [
         {
-            itemTitle: "Advertising preferences",
+            title: "Advertising preferences",
             itemProps: [
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Profile data for personalizing ads",
-                    itemNavigation: "profile_data_for_personalizing_ads",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Profile data for personalizing ads",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Interest categories",
-                    itemNavigation: "interest_categories",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Interest categories",
+                    chevronRight: false,
                 },
             ]
         },
         {
-            itemTitle: "Data collected on Recial",
+            title: "Data collected on Recial",
             itemProps: [
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Connections",
-                    itemNavigation: "connections",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Connections",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Location",
-                    itemNavigation: "location",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Location",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Demographics",
-                    itemNavigation: "demographics",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Demographics",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Companies you follow",
-                    itemNavigation: "companies_you_follow",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Companies you follow",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Groups",
-                    itemNavigation: "groups",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Groups",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Education",
-                    itemNavigation: "education",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Education",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Job Information",
-                    itemNavigation: "job_information",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Job Information",
+                    chevronRight: false,
                 },
             ]
         },
         {
-            itemTitle: "General preferences",
+            title: "General preferences",
             itemProps: [
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Language",
-                    itemNavigation: "language",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Language",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Content language",
-                    itemNavigation: "content_language",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Content language",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Autoplay videos",
-                    itemNavigation: "autoplay_videos",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Autoplay videos",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Showing profile photos",
-                    itemNavigation: "showing_profile_photos",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Showing profile photos",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Feed preferences",
-                    itemNavigation: "feed_preferences",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Feed preferences",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "People also viewed",
-                    itemNavigation: "people_also_viewed",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "People also viewed",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "People you unfollowed",
-                    itemNavigation: "people_you_unfollowed",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "People you unfollowed",
+                    chevronRight: false,
                 },
             ]
         },
     ]
 
+    const { userProps, setUserProps } = useUserData();
+
     return (
         <div>
-            <Header userProps={fakeUserData}/>
+            <Header userProps={userProps}/>
             <div className="mt-[56px] mr-[24px] mb-[24px]">
                 <div className="min-h-[calc(100vh-76px)] my-[24px] grid lg:grid-cols-[minmax(280px,3fr)_minmax(0,21fr)] grid-cols-[minmax(100px,3fr)_minmax(0,21fr)] grid-rows-[1fr_auto] gap-x-[2.4rem] gap-y-[2.4rem]">
                     <div>
-                        <AsideSetting userProps={fakeUserData} navigationProps="advertising_data"/>
+                        <AsideSetting userProps={userProps}/>
                     </div>
                     <main>
                         {asideAdsDataItemList.map((value, index) => (

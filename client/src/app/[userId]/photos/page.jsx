@@ -38,7 +38,7 @@ const UserPhotosPage = ({ params }) => {
                                         <main>
                                             <div className="my-[16px] flex flex-col gap-4 relative">
                                                 <div>
-                                                    <UserProfileCover userProps={userProps} navigationProps="photos" handleState={handleState} userCheck={userCheck}/>
+                                                    <UserProfileCover userProps={userProps} handleState={handleState} userCheck={userCheck}/>
                                                 </div>
                                                 <div>
                                                     <UserAboutScaffold userProps={userProps} mediaProps={userProps?.photo_list} isPhotoPage={true} isCurrentUser={userCheck.isCurrentUser}/>

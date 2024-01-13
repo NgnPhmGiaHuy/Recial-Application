@@ -6,17 +6,17 @@ const HeaderPersonalAccountSettingItem = ({ settingProps }) => {
                     <div className="my-[6px] mr-[12px] flex flex-col self-start relative">
                         <div className="w-[36px] h-[36px] flex items-center justify-center rounded-full bg-zinc-200 relative">
                             <i>
-                                {settingProps.settingItemIcon}
+                                {settingProps.icon}
                             </i>
                         </div>
                     </div>
                     <div className="flex flex-row flex-shrink items-center justify-between grow self-stretch relative">
                         <div className="py-[8px] flex flex-col flex-shrink grow items-stretch basis-0 relative">
                             <span className="block text-[14px] text-black text-left font-medium break-words leading-4">
-                                {settingProps.settingItemTitle}
+                                {settingProps.title}
                             </span>
                         </div>
-                        {settingProps.hasSettingItemChevronRight && (
+                        {settingProps.chevronRight && (
                             <div className="m-[12px] mr-[0px] self-start relative">
                                 <div className="w-[24px] h-[24px] flex flex-row items-center justify-center relative">
                                     <i>

@@ -1,5 +1,5 @@
 import { QuickSettingItem } from "@/components";
-import { headerMessageQuickSettingList } from "@/constants/HeaderConstants";
+import { headerMessageSetting } from "@/constants/HeaderConstants";
 
 const HeaderMessageQuickSetting = ({ messageQuickSettingButtonRef, messageQuickSettingTranslateYValue}) => {
     return (
@@ -21,7 +21,7 @@ const HeaderMessageQuickSetting = ({ messageQuickSettingButtonRef, messageQuickS
                                         </div>
                                     </div>
                                 </div>
-                                {headerMessageQuickSettingList.map((value, index) => (
+                                {headerMessageSetting.map((value, index) => (
                                     <QuickSettingItem key={index} settingProps={value}/>
                                 ))}
                             </div>

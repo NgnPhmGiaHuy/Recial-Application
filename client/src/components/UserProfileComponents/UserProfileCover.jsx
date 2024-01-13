@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { UserProfileCoverFooter, UserProfileCoverNavigation } from "@/components";
 
-const UserProfileCover = ({ userProps, userCheck, navigationProps, handleState }) => {
+const UserProfileCover = ({ userProps, userCheck, handleState }) => {
     return (
         <section className="flex flex-col bg-white rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
             <div className="flex flex-col relative">
@@ -87,7 +87,7 @@ const UserProfileCover = ({ userProps, userCheck, navigationProps, handleState }
                         <UserProfileCoverFooter handleState={handleState} userProps={userProps} userCheck={userCheck}/>
                     </div>
                     <div>
-                        <UserProfileCoverNavigation userProps={userProps} navigationProps={navigationProps}/>
+                        <UserProfileCoverNavigation userProps={userProps}/>
                     </div>
                 </div>
             </div>

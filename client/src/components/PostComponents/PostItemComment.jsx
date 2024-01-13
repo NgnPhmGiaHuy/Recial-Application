@@ -25,7 +25,7 @@ const PostItemComment = ({ commentRef, props }) => {
     useClickOutside(commentSortContentRef, showCommentSortContent, setShowCommentSortContent);
 
     return (
-        <div ref={commentRef} className="flex flex-col justify-center relative">
+        <div ref={commentRef} className="flex flex-col justify-center relative animate-slideInTop">
             <PostItemCommentInput userData={props.userData} postProps={props.postProps}/>
             <div className="mx-[16px] mb-[8px] relative">
                 <div className="w-fit flex flex-col cursor-pointer relative" onClick={handleShowCommentSortContent}>
@@ -47,7 +47,7 @@ const PostItemComment = ({ commentRef, props }) => {
                         <div ref={commentSortContentRef}
                              className="absolute top-0 left-0 translate-x-[0px] translate-y-[20px] z-50">
                             <div
-                                className="relative mt-[15px] rounded-b-md rounded-r-md shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
+                                className="animate-slideInTop relative mt-[15px] rounded-b-md rounded-r-md shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
                                 <div className="overflow-x-hidden overflow-y-hidden rounded-b-md rounded-r-md bg-white">
                                     <div className="flex flex-col grow items-stretch origin-top-left relative">
                                         <div

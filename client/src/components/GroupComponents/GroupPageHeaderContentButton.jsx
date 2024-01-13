@@ -1,4 +1,4 @@
-const GroupScaffoldHeaderContentButton = ({ buttonProps }) => {
+const GroupPageHeaderContentButton = ({ buttonProps }) => {
     return (
         <div className="p-[4px] flex flex-col flex-shrink-0 relative">
             <div className="w-full flex flex-col justify-center cursor-pointer" onClick={buttonProps?.onClick}>
@@ -27,4 +27,4 @@ const GroupScaffoldHeaderContentButton = ({ buttonProps }) => {
     )
 }
 
-export default GroupScaffoldHeaderContentButton;
+export default GroupPageHeaderContentButton;

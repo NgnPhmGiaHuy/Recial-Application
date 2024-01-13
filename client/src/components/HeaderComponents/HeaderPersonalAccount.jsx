@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 
 import { useLogout } from "@/hooks";
 import { HeaderPersonalAccountSettingItem } from "@/components";
-import { headerPersonalAccountSettingItemList } from "@/constants/HeaderConstants";
+import { headerPersonalAccount } from "@/constants/HeaderConstants";
 
-const HeaderPersonalAccount = ({forwardedRef, userProps}) => {
+const HeaderPersonalAccount = ({ forwardedRef, userProps }) => {
     const router = useRouter();
 
     const handleLogout = async () => {
@@ -34,7 +34,7 @@ const HeaderPersonalAccount = ({forwardedRef, userProps}) => {
                                                         <div className="my-[-4px] p-[8px] flex flex-row flex-nowrap items-center justify-between">
                                                             <div className="p-[4px] flex flex-col flex-shrink-0 items-center justify-center relative">
                                                                 <div className="w-[36px] h-[36px] flex items-center justify-center rounded-full overflow-hidden relative">
-                                                                    <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url} image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                                                    <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-    image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                                                 </div>
                                                             </div>
                                                             <div className="p-[4px] flex flex-col flex-shrink grow relative">
@@ -69,7 +69,7 @@ const HeaderPersonalAccount = ({forwardedRef, userProps}) => {
                                         </div>
                                         <div className="pt-[4px] pb-[8px]">
                                             <div className="mt-[-4px] mb-[-16px]">
-                                                {headerPersonalAccountSettingItemList.map((value, index) => (
+                                                {headerPersonalAccount.map((value, index) => (
                                                     <HeaderPersonalAccountSettingItem key={index} settingProps={value}/>
                                                 ))}
                                                 <div className="px-[8px]">

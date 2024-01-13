@@ -17,7 +17,7 @@ const NotificationHeaderItem = ({notificationProps}) => {
     const [showHeaderNotificationContentItemMoreButton, setShowNotificationMessageContentItemMoreButton] = useState(false)
     const [showHeaderNotificationItemQuickSetting, setShowHeaderNotificationItemQuickSetting, handleShowHeaderNotificationQuickSettingButton] = useToggleState(false);
 
-    const notificationSvgIcon = notificationTypeOfColor[notificationProps.notification_type]?.svgIcon || notificationTypeOfColor.default.svgIcon;
+    const notificationSvgIcon = notificationTypeOfColor[notificationProps.notification_type]?.icon || notificationTypeOfColor.default.icon;
     const notificationTextColor = notificationTypeOfColor[notificationProps.notification_type]?.textColor || notificationTypeOfColor.default.textColor;
     const notificationBackgroundColor = notificationTypeOfColor[notificationProps.notification_type]?.backgroundColor || notificationTypeOfColor.default.backgroundColor;
 

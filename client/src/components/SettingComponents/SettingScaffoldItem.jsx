@@ -1,13 +1,13 @@
 const SettingScaffoldItem = ({ settingProps, isBorderBottom }) => {
     return (
-        <li className={`${isBorderBottom ? "after:w-full after:border-b after:border-solid after:border-zinc-200 after:absolute" : null}`}>
-            <a href={settingProps.itemLink}>
+        <li className={`${isBorderBottom && "after:w-full after:border-b after:border-solid after:border-zinc-200 after:absolute"}`}>
+            <a href={settingProps.link}>
                 <section className="px-[24px] py-[16px] flex bg-white">
                     <div className="flex flex-1">
                         <div className="flex-[1_1_auto]">
                             <span className="text-[16px] text-black text-left font-normal break-words relative leading-5">
                                 <span className="overflow-hidden relative">
-                                    {settingProps.itemTitle}
+                                    {settingProps.title}
                                 </span>
                             </span>
                         </div>

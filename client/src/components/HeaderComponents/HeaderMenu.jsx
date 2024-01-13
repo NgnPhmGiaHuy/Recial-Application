@@ -1,7 +1,7 @@
-import {HeaderMenuSectionItem} from "@/components";
-import {headerMenuSocialSectionItemList, headerMenuPersonalSectionItemList} from "@/constants/HeaderConstants";
+import { HeaderMenuSectionItem } from "@/components";
+import { headerMenuSocial, headerMenuPersonal } from "@/constants/HeaderConstants";
 
-const HeaderMenu = ({forwardedRef, handleMenuButtonClick}) => {
+const HeaderMenu = ({ forwardedRef, handleMenuButtonClick }) => {
     return (
         <div className="w-screen h-screen mt-[56px] fixed top-0 left-0 bg-black/75 z-50">
             <div ref={forwardedRef} className={`w-[380px] h-[calc(100vh-56px)] max-w-full max-h-screen absolute top-0 right-0 flex flex-col rounded-md bg-white shadow-lg border border-solid border-black transform-none overflow-hidden animate-movePanelRightToLeft`}>
@@ -25,7 +25,7 @@ const HeaderMenu = ({forwardedRef, handleMenuButtonClick}) => {
                             </div>
                         </header>
                         <ul className="flex flex-row flex-wrap p-[8px]">
-                            {headerMenuSocialSectionItemList.map((value, index) => (
+                            {headerMenuSocial.map((value, index) => (
                                 <HeaderMenuSectionItem key={index} sectionItemData={value}/>
                             ))}
                         </ul>
@@ -37,7 +37,7 @@ const HeaderMenu = ({forwardedRef, handleMenuButtonClick}) => {
                             </div>
                         </header>
                         <ul className="flex flex-row flex-wrap p-[8px]">
-                            {headerMenuPersonalSectionItemList.map((value, index) => (
+                            {headerMenuPersonal.map((value, index) => (
                                 <HeaderMenuSectionItem key={index} sectionItemData={value}/>
                             ))}
                         </ul>

@@ -1,41 +1,34 @@
 import { UserProfileCoverNavigationItem } from "@/components";
 
-const UserProfileCoverNavigation = ({ userProps, navigationProps }) => {
+const UserProfileCoverNavigation = ({ userProps }) => {
     const userProfileCoverNavigationItemList = [
         {
-            navigationName: "post",
-            navigationLink: `/${userProps?.user?._id}`,
-            navigationTitle: "Post"
+            link: `/${userProps?.user?._id}`,
+            title: "Post"
         },
         {
-            navigationName: "about",
-            navigationLink: `/${userProps?.user?._id}/about`,
-            navigationTitle: "About"
+            link: `/${userProps?.user?._id}/about`,
+            title: "About"
         },
         {
-            navigationName: "friends",
-            navigationLink: `/${userProps?.user?._id}/friends`,
-            navigationTitle: "Friends"
+            link: `/${userProps?.user?._id}/friends`,
+            title: "Friends"
         },
         {
-            navigationName: "photos",
-            navigationLink: `/${userProps?.user?._id}/photos`,
-            navigationTitle: "Photos"
+            link: `/${userProps?.user?._id}/photos`,
+            title: "Photos"
         },
         {
-            navigationName: "videos",
-            navigationLink: `/${userProps?.user?._id}/videos`,
-            navigationTitle: "Videos"
+            link: `/${userProps?.user?._id}/videos`,
+            title: "Videos"
         },
         {
-            navigationName: "groups",
-            navigationLink: `/${userProps?.user?._id}/groups`,
-            navigationTitle: "Groups"
+            link: `/${userProps?.user?._id}/groups`,
+            title: "Groups"
         },
         {
-            navigationName: "articles",
-            navigationLink: `/${userProps?.user?._id}/articles`,
-            navigationTitle: "Articles"
+            link: `/${userProps?.user?._id}/articles`,
+            title: "Articles"
         },
     ]
 
@@ -43,7 +36,7 @@ const UserProfileCoverNavigation = ({ userProps, navigationProps }) => {
         <nav className="flex flex-row items-center justify-start relative border-t border-solid border-zinc-200">
             <ul className="flex flex-row items-center relative">
                 {userProfileCoverNavigationItemList.map((value, index) => (
-                    <UserProfileCoverNavigationItem key={index} itemProps={value} navigationProps={navigationProps}/>
+                    <UserProfileCoverNavigationItem key={index} itemProps={value}/>
                 ))}
                 <li className="ml-[6px] flex flex-col relative">
                      <div className="px-[16px] py-[12px] flex flex-row items-center cursor-pointer rounded-md gap-2 text-zinc-500 relative hover:text-black hover:bg-zinc-100 transition-all">

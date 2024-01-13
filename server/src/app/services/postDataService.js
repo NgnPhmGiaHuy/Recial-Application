@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Photo = require("../models/Photo");
+const Group = require("../models/Group");
 const PostView = require("../models/PostView");
 const PostShare = require("../models/PostShare");
 const PostSaved = require("../models/PostSaved");
@@ -10,7 +11,23 @@ const generalDataService = require("./generalDataService");
 
 class PostDataService {
     getPostData = async (postId) => {
-        return Post.findById(postId);
+        const postProps = await Post.findById(postId);
+
+        const { group, createdAt, updatedAt, ...otherPostProps } = postProps._doc;
+
+        return {
+            post: {
+                ...otherPostProps,
+                group: await Group.findById(group),
+                created_at: createdAt,
+                updated_at: updatedAt,
+            },
+            photo: await this.getPostPhoto(postProps),
+            user: await this.getPostAuthor(postProps._id),
+            comment: await generalDataService.getComment(postProps._id),
+            reaction: await generalDataService.getReaction(postProps._id),
+            share: await generalDataService.getUsersByInteractionType(PostShare, "post_id", postProps._id),
+        }
     }
 
     getPostAuthor = async (postId) => {
@@ -43,11 +60,12 @@ class PostDataService {
             for (const post of posts) {
                 let postProps = post._doc || post;
 
-                const { createdAt, updatedAt, ...otherPostProps } = postProps;
+                const { group, createdAt, updatedAt, ...otherPostProps } = postProps;
 
                 const postWithUserData = {
                     post: {
                         ...otherPostProps,
+                        group: await Group.findById(group),
                         created_at: createdAt,
                         updated_at: updatedAt,
                     },

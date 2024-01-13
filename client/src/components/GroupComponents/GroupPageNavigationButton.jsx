@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const GroupScaffoldNavigationButton = ({ buttonProps }) => {
+const GroupPageNavigationButton = ({ buttonProps }) => {
     return (
         <Link href={buttonProps.link} className="group relative">
             <div className={`${buttonProps.active && "after:w-full after:h-[3px] after:absolute after:bottom-0 after:left-0 after:bg-lime-500"} h-[60px] min-h-[16px] px-[16px] inline-flex items-center float-left relative`}>
@@ -17,4 +17,4 @@ const GroupScaffoldNavigationButton = ({ buttonProps }) => {
     )
 };
 
-export default GroupScaffoldNavigationButton;
+export default GroupPageNavigationButton;

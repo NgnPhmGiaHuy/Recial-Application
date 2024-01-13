@@ -5,7 +5,7 @@ const UserProfile = ({ userData, userProps, userCheck, postProps, postByIdRef, h
         <main>
             <div className="my-[16px] flex flex-col gap-4 relative">
                 <div>
-                    <UserProfileCover userProps={userProps} navigationProps="post" handleState={handleState} userCheck={userCheck} />
+                    <UserProfileCover userProps={userProps} handleState={handleState} userCheck={userCheck} />
                 </div>
                 {userCheck.isCurrentUser ? (
                     <div>

@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import { formatTimeAgoShort } from "@/utils";
 import { QuickSettingItem } from "@/components";
 import { useClickOutside, useToggleState } from "@/hooks";
-import { headerMessageQuickSettingItemList } from "@/constants/HeaderConstants";
+import { headerMessageQuickSetting } from "@/constants/HeaderConstants";
 
 const HeaderMessageContentItem = ({messageProps}) => {
     const messageQuickSettingItemButtonRef = useRef();
@@ -109,7 +109,7 @@ const HeaderMessageContentItem = ({messageProps}) => {
                                 <div className="flex flex-col grow items-stretch origin-top-left relative">
                                     <div className="w-[344px] py-[8px] overflow-x-hidden overflow-y-auto overscroll-y-contain flex flex-col relative">
                                         <div className="flex flex-col grow relative">
-                                            {headerMessageQuickSettingItemList.map((value, index) => (
+                                            {headerMessageQuickSetting.map((value, index) => (
                                                 <QuickSettingItem key={index} settingProps={value}/>
                                             ))}
                                         </div>

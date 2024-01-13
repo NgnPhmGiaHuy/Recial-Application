@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { handleFormatNumber } from "@/utils";
-import { GroupScaffoldHeaderContentButton } from "@/components";
+import { GroupPageHeaderContentButton } from "@/components";
 
-const GroupScaffoldHeaderContent = ({ userRole, groupProps, groupMemberProps }) => {
+const GroupPageHeaderContent = ({ userRole, groupProps, groupMemberProps }) => {
     const button = [
         userRole.length
             ? {
@@ -81,7 +81,7 @@ const GroupScaffoldHeaderContent = ({ userRole, groupProps, groupMemberProps }) 
                             <div className="mt-[16px] flex flex-col grow relative">
                                 <div className="my-[-8px] flex flex-col flex-shrink-0 relative">
                                     <div className="my-[8px]">
-                                        <Link href={`/group/${groupProps?._id}`}>
+                                        <Link href={`/groups/${groupProps?._id}`}>
                                             <span
                                                 className="block text-[28px] text-black text-left font-bold break-words relative leading-8 hover:underline transition-all">
                                                 <span className="overflow-hidden line-clamp-2 text-ellipsis relative">
@@ -154,7 +154,7 @@ const GroupScaffoldHeaderContent = ({ userRole, groupProps, groupMemberProps }) 
                         <div className="min-w-[320px] px-[6px] pt-[6px] pb-[16px] flex flex-col flex-shrink-0 grow justify-end basis-auto relative">
                             <div className="m-[-4px] flex flex-row flex-shrink-0 flex-nowrap items-center justify-end relative">
                                 {button.map((value, index) => (
-                                    <GroupScaffoldHeaderContentButton key={index} buttonProps={value}/>
+                                    <GroupPageHeaderContentButton key={index} buttonProps={value}/>
                                 ))}
                             </div>
                         </div>
@@ -169,4 +169,4 @@ const GroupScaffoldHeaderContent = ({ userRole, groupProps, groupMemberProps }) 
     );
 };
 
-export default GroupScaffoldHeaderContent;
+export default GroupPageHeaderContent;

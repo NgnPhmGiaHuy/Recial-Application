@@ -1,10 +1,10 @@
-import { GroupScaffoldContentAsideAbout } from "@/components";
+import { GroupPageContentAsideAbout } from "@/components";
 
-const GroupScaffoldContentAside = ({ groupProps }) => {
+const GroupPageContentAside = ({ groupProps }) => {
     return (
         <div className="max-w-[680px] m-[8px] flex flex-shrink grow-[18] basis-[360px] relative z-0">
             <div className="top-[132px] sticky">
-                <GroupScaffoldContentAsideAbout groupProps={groupProps}/>
+                <GroupPageContentAsideAbout groupProps={groupProps}/>
                 <div>
 
                 </div>
@@ -13,4 +13,4 @@ const GroupScaffoldContentAside = ({ groupProps }) => {
     );
 };
 
-export default GroupScaffoldContentAside;
+export default GroupPageContentAside;

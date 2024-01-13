@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCallback, useState } from "react";
 
-import { asideNavigationItemList } from "@/constants/AsideConstants";
+import { asideNavigation } from "@/constants/AsideConstants";
 import { AsideFollowItem, AsideItem, AsideShowMoreOrShowLessButton } from "@/components";
 
 const Aside = ({ userProps }) => {
@@ -63,16 +63,16 @@ const Aside = ({ userProps }) => {
                         </section>
                         <section>
                             <ul>
-                                {asideNavigationItemList.slice(0, asideNavigationItemsToShow).map((value, index) => (
+                                {asideNavigation.slice(0, asideNavigationItemsToShow).map((value, index) => (
                                     <AsideItem key={index} userProps={value}/>
                                 ))}
                             </ul>
-                            {asideNavigationItemsToShow === asideNavigationItemList.length ? (
+                            {asideNavigationItemsToShow === asideNavigation.length ? (
                                 <AsideShowMoreOrShowLessButton showMore={false}
                                                                onClick={() => showLessAsideNavigationItem()}/>
                             ) : (
                                 <AsideShowMoreOrShowLessButton showMore={true}
-                                                               onClick={() => showMoreAsideNavigationItem(asideNavigationItemList)}/>
+                                                               onClick={() => showMoreAsideNavigationItem(asideNavigation)}/>
                             )}
                         </section>
                         <div className="mx-[16px] mt-[4px] h-[1px] bg-zinc-300"></div>

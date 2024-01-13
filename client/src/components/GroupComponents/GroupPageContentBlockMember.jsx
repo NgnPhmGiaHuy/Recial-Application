@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { handleFormatNumber } from "@/utils";
 
-const GroupScaffoldContentBlockMember = ({ groupData }) => {
+const GroupPageContentBlockMember = ({ groupData }) => {
     return (
         <div className="mb-[16px]">
             <div className="w-full flex bg-white rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-hidden relative">
@@ -60,4 +60,4 @@ const GroupScaffoldContentBlockMember = ({ groupData }) => {
     );
 };
 
-export default GroupScaffoldContentBlockMember;
+export default GroupPageContentBlockMember;

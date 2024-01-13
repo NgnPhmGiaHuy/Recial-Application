@@ -39,7 +39,7 @@ const UserGroupsPage = ({ params }) => {
                                         <main>
                                             <div className="my-[16px] flex flex-col gap-4 relative">
                                                 <div>
-                                                    <UserProfileCover userProps={userProps} navigationProps="groups" handleState={handleState} userCheck={userCheck}/>
+                                                    <UserProfileCover userProps={userProps} handleState={handleState} userCheck={userCheck}/>
                                                 </div>
                                                 <div>
                                                     <UserAboutScaffold mediaProps={userProps?.group_list} titleLabel="Groups" isGroupPage={true}/>

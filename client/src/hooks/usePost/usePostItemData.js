@@ -128,7 +128,7 @@ const usePostItemToggleState = (ref) => {
             clearTimeout(ref.timeoutRef.current);
             ref.timeoutRef.current = setTimeout(() => {
                 setShowPostReactionButton(true);
-            }, 150);
+            }, 0);
         },
         handleMouseLeave: async () => {
             ref.timeoutRef.current = setTimeout(() => {

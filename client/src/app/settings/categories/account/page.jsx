@@ -1,98 +1,90 @@
-import {fakeUserData} from "@/constants";
+"use client"
 
+import { useUserData } from "@/hooks";
 import { AsideSetting, Header, SettingScaffold } from "@/components";
 
 const AccountSettingPage = () => {
+    const { userProps, setUserProps } = useUserData();
+
     const asideAccountPreferenceItemList = [
         {
-            itemTitle: "Profile information",
+            title: "Profile information",
             itemProps: [
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Name, location, and industry",
-                    itemNavigation: "name_location_industry",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Name, location, and industry",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Personal demographic information",
-                    itemNavigation: "personal_demographic_information",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Personal demographic information",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Verifications",
-                    itemNavigation: "verifications",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Verifications",
+                    chevronRight: false,
                 },
             ]
         },
         {
-            itemTitle: "Display",
+            title: "Display",
             itemProps: [
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Dark mode",
-                    itemNavigation: "dark_mode",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Dark mode",
+                    chevronRight: false,
                 },
             ]
         },
         {
-            itemTitle: "General preferences",
+            title: "General preferences",
             itemProps: [
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Language",
-                    itemNavigation: "language",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Language",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Content language",
-                    itemNavigation: "content_language",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Content language",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Autoplay videos",
-                    itemNavigation: "autoplay_videos",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Autoplay videos",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Showing profile photos",
-                    itemNavigation: "showing_profile_photos",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Showing profile photos",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Feed preferences",
-                    itemNavigation: "feed_preferences",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Feed preferences",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "People also viewed",
-                    itemNavigation: "people_also_viewed",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "People also viewed",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "People you unfollowed",
-                    itemNavigation: "people_you_unfollowed",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "People you unfollowed",
+                    chevronRight: false,
                 },
             ]
         },
@@ -100,11 +92,11 @@ const AccountSettingPage = () => {
 
     return (
         <div>
-            <Header userProps={fakeUserData}/>
+            <Header userProps={userProps}/>
             <div className="mt-[56px] mr-[24px] mb-[24px]">
                 <div className="min-h-[calc(100vh-76px)] my-[24px] grid lg:grid-cols-[minmax(280px,3fr)_minmax(0,21fr)] grid-cols-[minmax(100px,3fr)_minmax(0,21fr)] grid-rows-[1fr_auto] gap-x-[2.4rem] gap-y-[2.4rem]">
                     <div>
-                        <AsideSetting userProps={fakeUserData} navigationProps="account_preferences"/>
+                        <AsideSetting userProps={userProps}/>
                     </div>
                     <main>
                         {asideAccountPreferenceItemList.map((value, index) => (

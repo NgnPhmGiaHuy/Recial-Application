@@ -319,7 +319,7 @@ export const fakeUserData = {
             follow_message: "Jane Smith wants to follow you",
             is_approved: false,
             created_at: "",
-            itemTitle: "Nguyen Pham Gia Huy",
+            title: "Nguyen Pham Gia Huy",
         }, {
             follower_id: "", // user_id
             following_id: "Nguyen Pham Gia Huy",

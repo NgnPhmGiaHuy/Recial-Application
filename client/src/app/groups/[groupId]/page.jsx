@@ -1,11 +1,11 @@
 "use client"
 
-import React, {useRef} from 'react';
+import { useRef } from 'react';
 
-import {CreatePostDialog, GroupScaffold, Header} from "@/components";
-import {useGroupData, useToggleState, useUserData, useWithAuth} from "@/hooks";
+import { CreatePostDialog, GroupPage, Header } from "@/components";
+import { useGroupData, useToggleState, useUserData, useWithAuth } from "@/hooks";
 
-const GroupPage = ({ params }) => {
+const GroupScaffoldPage = ({ params }) => {
     const groupId = params.groupId;
 
     const createPostRef = useRef();
@@ -20,12 +20,12 @@ const GroupPage = ({ params }) => {
     };
 
     return (
-        userProps &&
+        userProps && (
             <>
                 <div>
                     <Header userProps={userProps}/>
                     <div className="flex flex-col relative">
-                        <GroupScaffold postRef={postRef} userProps={userProps} userRole={userRole} groupData={groupData} handleState={handleState}/>
+                        <GroupPage postRef={postRef} userProps={userProps} userRole={userRole} groupData={groupData} handleState={handleState}/>
                     </div>
                 </div>
                 <div>
@@ -34,7 +34,8 @@ const GroupPage = ({ params }) => {
                     )}
                 </div>
             </>
+        )
     );
 };
 
-export default useWithAuth(GroupPage);
+export default useWithAuth(GroupScaffoldPage);

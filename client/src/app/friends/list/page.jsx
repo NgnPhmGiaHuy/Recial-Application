@@ -15,7 +15,7 @@ const FriendListPage = () => {
 
     const handleFriendClick = (clickedFriendId) => {
         setFriendId(clickedFriendId);
-        handleRemoveUserIdLocalStorage();
+        return handleRemoveUserIdLocalStorage();
     }
 
     const onDataReceived = async (data) => {
@@ -29,21 +29,21 @@ const FriendListPage = () => {
 
     return (
         <div>
-            <Header navigationProps="mynetwork" userProps={userProps}/>
+            <Header userProps={userProps}/>
             <div className="flex flex-col relative z-0 ">
                 <div className="top-[56px] min-h-[calc(100vh-88px)] flex flex-col relative">
                     <div className="min-h-[inherit] mb-[calc(-100vh-56px)] flex flex-col flex-shrink-0 items-stretch justify-start relative">
                         <div className="min-w-[900px] min-h-[inherit] flex flex-row flex-nowrap flex-shrink-0 grow items-stretch justify-start relative">
                             <div className="w-[360px] min-h-[inherit] flex flex-col flex-nowrap flex-shrink-0 items-stretch justify-center relative">
                                 <div className="min-h-[inherit] flex flex-row flex-shrink flex-nowrap grow items-start justify-between basis-0 relative">
-                                    <AsideScaffold asideTitle="All friends" asideSubtitle="Friends" asideFriendList={true} userProps={userProps} action={handleFriendClick}/>
+                                    <AsideScaffold aside={{ title: "All friends", subtitle: "Friends", role: { friends_list: true } }} userProps={userProps} action={handleFriendClick}/>
                                 </div>
                             </div>
-                            {friendId ? (
+                            {friendId && (
                                 <div className="w-full min-h-[inherit] flex flex-col flex-shrink grow basis-0 relative">
                                     <UserPage params={{ userId: friendId }} asAProps={true}/>
                                 </div>
-                            ) : null}
+                            )}
                         </div>
                     </div>
                 </div>

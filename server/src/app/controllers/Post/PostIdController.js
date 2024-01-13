@@ -1,7 +1,5 @@
-const PostShare = require("../../models/PostShare");
 const userDataService = require("../../services/userDataService");
 const postDataService = require("../../services/postDataService");
-const generalDataService = require("../../services/generalDataService");
 
 class PostIdController {
     getPostByUserId = async (req, res) => {
@@ -19,24 +17,10 @@ class PostIdController {
             const postList = user.post_list.slice((page - 1) * postsPerPage, page * postsPerPage);
 
             const postsWithUserData = await Promise.all(postList.map(async (post) => {
-                const postData = await postDataService.getPostData(post);
-                const { createdAt, updatedAt, ...postProps } = postData._doc;
-
-                return {
-                    post: {
-                        ...postProps,
-                        created_at: createdAt,
-                        updated_at: updatedAt,
-                    },
-                    photo: await postDataService.getPostPhoto(postData),
-                    user: await postDataService.getPostAuthor(postData._id),
-                    comment: await generalDataService.getComment(postData._id),
-                    reaction: await generalDataService.getReaction(postData._id),
-                    share: await generalDataService.getUsersByInteractionType(PostShare, "post_id", postData._id),
-                };
+                return await postDataService.getPostData(post);
             }));
 
-            res.status(200).json(postsWithUserData);
+            return res.status(200).json(postsWithUserData);
         } catch (error) {
             return res.status(500).json(error);
         }
@@ -46,24 +30,9 @@ class PostIdController {
         try {
             const postId = req.query.post;
 
-            const postData = await postDataService.getPostData(postId);
+            const postProps = await postDataService.getPostData(postId);
 
-            const { createdAt, updatedAt, ...otherPostProps } = postData._doc;
-
-            const postProps = {
-                post: {
-                    ...otherPostProps,
-                    created_at: createdAt,
-                    updated_at: updatedAt,
-                },
-                photo: await postDataService.getPostPhoto(postData),
-                user: await postDataService.getPostAuthor(postData._id),
-                comment: await generalDataService.getComment(postData._id),
-                reaction: await generalDataService.getReaction(postData._id),
-                share: await generalDataService.getUsersByInteractionType(PostShare, "post_id", postData._id),
-            };
-
-            res.status(200).json(postProps)
+            return res.status(200).json(postProps)
         } catch (error) {
             return res.status(500).json(error);
         }

@@ -1,6 +1,6 @@
-import { GroupScaffoldNavigationButton } from "@/components";
+import { GroupPageNavigationButton } from "@/components";
 
-const GroupScaffoldNavigation = ({ groupData, userRole }) => {
+const GroupPageNavigation = ({ groupData, userRole }) => {
     const button = [
         ...(!userRole.length && (groupData?.groupProps?.group_privacy === "Private")
                 ? [
@@ -57,7 +57,7 @@ const GroupScaffoldNavigation = ({ groupData, userRole }) => {
                                         <div className="w-full h-[60px] overflow-hidden relative">
                                             <div className="flex flex-row items-center relative">
                                                 {button.map((value, index) => (
-                                                    <GroupScaffoldNavigationButton key={index} buttonProps={value}/>
+                                                    <GroupPageNavigationButton key={index} buttonProps={value}/>
                                                 ))}
                                                 <div>
 
@@ -106,4 +106,4 @@ const GroupScaffoldNavigation = ({ groupData, userRole }) => {
     );
 };
 
-export default GroupScaffoldNavigation;
+export default GroupPageNavigation;

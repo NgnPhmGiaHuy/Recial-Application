@@ -21,6 +21,12 @@ import AsideSetting from "@/components/AsideComponents/AsideSetting";
 import AsideSettingItem from "@/components/AsideComponents/AsideSettingItem";
 import AsideScaffold from "@/components/AsideComponents/AsideScaffold";
 import AsideScaffoldItem from "@/components/AsideComponents/AsideScaffoldItem";
+import AsideScaffoldHeader from "@/components/AsideComponents/AsideScaffoldHeader";
+import AsideScaffoldGroup from "@/components/AsideComponents/AsideScaffoldGroup";
+import AsideScaffoldGroupItem from "@/components/AsideComponents/AsideScaffoldGroupItem";
+import AsideScaffoldGroupNavigation from "@/components/AsideComponents/AsideScaffoldGroupNavigation";
+import AsideScaffoldFriendList from "@/components/AsideComponents/AsideScaffoldFriendList";
+import AsideScaffoldFriendRequest from "@/components/AsideComponents/AsideScaffoldFriendRequest";
 import AsideFollowItem from "@/components/AsideComponents/AsideFollowItem";
 import AsideShowMoreOrShowLessButton from "@/components/AsideComponents/AsideShowMoreOrShowLessButton";
 
@@ -63,22 +69,25 @@ import FriendScaffoldItem from "@/components/FriendComponents/FriendScaffoldItem
 import FriendScaffoldEventItem from "@/components/FriendComponents/FriendScaffoldEventItem";
 import FriendScaffoldProfileItem from "@/components/FriendComponents/FriendScaffoldProfileItem";
 
-import GroupScaffold from "@/components/GroupComponents/GroupScaffold";
-import GroupScaffoldHeader from "@/components/GroupComponents/GroupScaffoldHeader";
-import GroupScaffoldHeaderCover from "@/components/GroupComponents/GroupScaffoldHeaderCover";
-import GroupScaffoldHeaderContent from "@/components/GroupComponents/GroupScaffoldHeaderContent";
-import GroupScaffoldHeaderContentButton from "@/components/GroupComponents/GroupScaffoldHeaderContentButton";
-import GroupScaffoldNavigation from "@/components/GroupComponents/GroupScaffoldNavigation";
-import GroupScaffoldNavigationButton from "@/components/GroupComponents/GroupScaffoldNavigationButton";
-import GroupScaffoldContent from "@/components/GroupComponents/GroupScaffoldContent";
-import GroupScaffoldContentBlock from "@/components/GroupComponents/GroupScaffoldContentBlock";
-import GroupScaffoldContentBlockAbout from "@/components/GroupComponents/GroupScaffoldContentBlockAbout";
-import GroupScaffoldContentBlockMember from "@/components/GroupComponents/GroupScaffoldContentBlockMember";
-import GroupScaffoldContentBlockActivity from "@/components/GroupComponents/GroupScaffoldContentBlockActivity";
-import GroupScaffoldContentPost from "@/components/GroupComponents/GroupScaffoldContentPost";
-import GroupScaffoldContentAside from "@/components/GroupComponents/GroupScaffoldContentAside";
-import GroupScaffoldContentAsideAbout from "@/components/GroupComponents/GroupScaffoldContentAsideAbout";
-import GroupScaffoldContentAsideAboutItem from "@/components/GroupComponents/GroupScaffoldContentAsideAboutItem";
+import GroupPage from "@/components/GroupComponents/GroupPage";
+import GroupPageHeader from "@/components/GroupComponents/GroupPageHeader";
+import GroupPageHeaderCover from "@/components/GroupComponents/GroupPageHeaderCover";
+import GroupPageHeaderContent from "@/components/GroupComponents/GroupPageHeaderContent";
+import GroupPageHeaderContentButton from "@/components/GroupComponents/GroupPageHeaderContentButton";
+import GroupPageNavigation from "@/components/GroupComponents/GroupPageNavigation";
+import GroupPageNavigationButton from "@/components/GroupComponents/GroupPageNavigationButton";
+import GroupPageContent from "@/components/GroupComponents/GroupPageContent";
+import GroupPageContentBlock from "@/components/GroupComponents/GroupPageContentBlock";
+import GroupPageContentBlockAbout from "@/components/GroupComponents/GroupPageContentBlockAbout";
+import GroupPageContentBlockMember from "@/components/GroupComponents/GroupPageContentBlockMember";
+import GroupPageContentBlockActivity from "@/components/GroupComponents/GroupPageContentBlockActivity";
+import GroupPageContentPost from "@/components/GroupComponents/GroupPageContentPost";
+import GroupPageContentAside from "@/components/GroupComponents/GroupPageContentAside";
+import GroupPageContentAsideAbout from "@/components/GroupComponents/GroupPageContentAsideAbout";
+import GroupPageContentAsideAboutItem from "@/components/GroupComponents/GroupPageContentAsideAboutItem";
+import GroupScaffoldPost from "@/components/GroupComponents/GroupScaffoldPost";
+import GroupScaffoldJoin from "@/components/GroupComponents/GroupScaffoldJoin";
+import GroupScaffoldJoinItem from "@/components/GroupComponents/GroupScaffoldJoinItem";
 import SuggestGroup from "@/components/GroupComponents/SuggestGroup";
 
 import SuggestPage from "@/components/PageComponents/SuggestPage";
@@ -132,7 +141,7 @@ import MediaPhotoPageScaffoldItem from "@/components/VideoComponents/MediaPhotoP
 import SettingScaffold from "@/components/SettingComponents/SettingScaffold";
 import SettingScaffoldItem from "@/components/SettingComponents/SettingScaffoldItem";
 
-import Providers from "@/components/ProviderComponents/Providers";;
+import Providers from "@/components/ProviderComponents/Providers";
 import AuthHeader from "@/components/AuthComponents/AuthHeader";
 import OAuthLogin from "@/components/AuthComponents/OAuthLogin";
 import SavedAccount from "@/components/AuthComponents/SavedAccount";
@@ -169,6 +178,12 @@ export {
     AsideSettingItem,
     AsideScaffold,
     AsideScaffoldItem,
+    AsideScaffoldHeader,
+    AsideScaffoldGroup,
+    AsideScaffoldGroupItem,
+    AsideScaffoldGroupNavigation,
+    AsideScaffoldFriendList,
+    AsideScaffoldFriendRequest,
     AsideFollowItem,
     AsideShowMoreOrShowLessButton,
 
@@ -211,22 +226,25 @@ export {
     FriendScaffoldEventItem,
     FriendScaffoldProfileItem,
 
-    GroupScaffold,
-    GroupScaffoldHeader,
-    GroupScaffoldHeaderCover,
-    GroupScaffoldHeaderContent,
-    GroupScaffoldHeaderContentButton,
-    GroupScaffoldNavigation,
-    GroupScaffoldNavigationButton,
-    GroupScaffoldContent,
-    GroupScaffoldContentBlock,
-    GroupScaffoldContentBlockAbout,
-    GroupScaffoldContentBlockMember,
-    GroupScaffoldContentBlockActivity,
-    GroupScaffoldContentPost,
-    GroupScaffoldContentAside,
-    GroupScaffoldContentAsideAbout,
-    GroupScaffoldContentAsideAboutItem,
+    GroupPage,
+    GroupPageHeader,
+    GroupPageHeaderCover,
+    GroupPageHeaderContent,
+    GroupPageHeaderContentButton,
+    GroupPageNavigation,
+    GroupPageNavigationButton,
+    GroupPageContent,
+    GroupPageContentBlock,
+    GroupPageContentBlockAbout,
+    GroupPageContentBlockMember,
+    GroupPageContentBlockActivity,
+    GroupPageContentPost,
+    GroupPageContentAside,
+    GroupPageContentAsideAbout,
+    GroupPageContentAsideAboutItem,
+    GroupScaffoldPost,
+    GroupScaffoldJoin,
+    GroupScaffoldJoinItem,
     SuggestGroup,
 
     SuggestPage,

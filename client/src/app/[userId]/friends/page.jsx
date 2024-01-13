@@ -38,7 +38,7 @@ const UserFriendsPage = ({ params }) => {
                                         <main>
                                             <div className="my-[16px] flex flex-col gap-4 relative">
                                                 <div>
-                                                    <UserProfileCover userProps={userProps} navigationProps="friends" handleState={handleState} userCheck={userCheck} />
+                                                    <UserProfileCover userProps={userProps} handleState={handleState} userCheck={userCheck} />
                                                 </div>
                                                 <div>
                                                     <UserAboutScaffold mediaProps={userProps?.user?.friends} isFriendPage={true} isCurrentUser={userCheck.isCurrentUser}/>

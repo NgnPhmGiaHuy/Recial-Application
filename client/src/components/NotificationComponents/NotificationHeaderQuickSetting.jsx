@@ -1,5 +1,5 @@
 import { QuickSettingItem } from "@/components";
-import { headerNotificationQuickSettingList } from "@/constants/HeaderConstants";
+import { headerNotificationSetting } from "@/constants/HeaderConstants";
 
 const NotificationHeaderQuickSetting = ({ notificationQuickSettingButtonRef, notificationTranslateXValue, notificationQuickSettingTranslateYValue }) => {
     return (
@@ -9,7 +9,7 @@ const NotificationHeaderQuickSetting = ({ notificationQuickSettingButtonRef, not
                     <div className="flex flex-col grow items-stretch origin-top-left relative">
                         <div className="w-[344px] py-[8px] overflow-x-hidden overflow-y-auto overscroll-y-contain flex flex-col relative">
                             <div className="flex flex-col grow relative">
-                                {headerNotificationQuickSettingList.map((value, index) => (
+                                {headerNotificationSetting.map((value, index) => (
                                     <QuickSettingItem key={index} settingProps={value}/>
                                 ))}
                             </div>

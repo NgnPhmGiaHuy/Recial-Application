@@ -1,9 +1,9 @@
 import Image from "next/image";
 
 import { AsideSettingItem } from "@/components";
-import { asideSettingItemList } from "@/constants/AsideConstants";
+import { asideSettingNavigation } from "@/constants/AsideConstants";
 
-const AsideSetting = ({ userProps, navigationProps }) => {
+const AsideSetting = ({ userProps }) => {
     return (
         <aside className="lg:w-[280px] w-fit h-[calc(100vh-52px)] block bg-white overflow-y-auto fixed">
             <section className="block">
@@ -11,7 +11,7 @@ const AsideSetting = ({ userProps, navigationProps }) => {
                     <div>
                         <a href="">
                             <div className="w-[32px] h-[32px] rounded-full overflow-hidden relative">
-                                <Image src={userProps.user.profile_picture_url} alt={`${userProps.user.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                             </div>
                         </a>
                     </div>
@@ -24,8 +24,8 @@ const AsideSetting = ({ userProps, navigationProps }) => {
                     </div>
                 </div>
                 <ul>
-                    {asideSettingItemList.map((value, index) => (
-                        <AsideSettingItem key={index} itemProps={value} navigationProps={navigationProps}/>
+                    {asideSettingNavigation.map((value, index) => (
+                        <AsideSettingItem key={index} itemProps={value}/>
                     ))}
                 </ul>
             </section>

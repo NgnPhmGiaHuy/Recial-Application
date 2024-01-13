@@ -3,8 +3,8 @@
 import { useRef } from "react";
 
 import { useClickOutside, useToggleState } from "@/hooks";
-import {createUserFriendRequest, setUserFriendRequest} from "@/app/api/fetchUserData";
-import {UserProfileCoverFooterFriendRequest, UserProfileEdit} from "@/components";
+import { createUserFriendRequest } from "@/app/api/fetchUserData";
+import { UserProfileCoverFooterFriendRequest } from "@/components";
 
 const UserProfileCoverFooter = ({ userProps, userCheck, handleState }) => {
     const peopleYouMayKnowButtonRef = useRef(null);
@@ -63,10 +63,9 @@ const UserProfileCoverFooter = ({ userProps, userCheck, handleState }) => {
                                 <div className="flex items-center justify-center gap-1 text-lime-700">
                                     {userCheck?.isCurrentUser ? (
                                         <i>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                 strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                <path strokeLinecap="round" strokeLinejoin="round"
-                                                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"/>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 576 512"
+                                                 strokeWidth={1.5} stroke="none" className="w-5 h-5">
+                                                <path d="m402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1 0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6m156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7 0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8M460.1 174L402 115.9L216.2 301.8l-7.3 65.3l65.3-7.3zm64.8-79.7l-43.2-43.2c-4.1-4.1-10.8-4.1-14.8 0L436 82l58.1 58.1l30.9-30.9c4-4.2 4-10.8-.1-14.9"/>
                                             </svg>
                                         </i>
                                     ) : (userCheck?.isFriendRequest || !userCheck?.isFriend) && (

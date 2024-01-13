@@ -1,130 +1,120 @@
-import {fakeUserData} from "@/constants";
-import {AsideSetting, Header, SettingScaffold} from "@/components";
+"use client"
+
+import { useUserData } from "@/hooks";
+import { AsideSetting, Header, SettingScaffold } from "@/components";
 
 const PrivacySettingPage = () => {
     const asideDataPrivacyItemList = [
         {
-            itemTitle: "How Recial uses your data",
+            title: "How Recial uses your data",
             itemProps: [
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Manage your data and activity",
-                    itemNavigation: "manage_your_data_and_activity",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Manage your data and activity",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Get a copy of your data",
-                    itemNavigation: "get_a_copy_of_your_data",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Get a copy of your data",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Search history",
-                    itemNavigation: "search_history",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Search history",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Personal demographic information",
-                    itemNavigation: "personal_demographic_information",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Personal demographic information",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Social, economic, and workplace research",
-                    itemNavigation: "social_economic_and_workplace_research",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Social, economic, and workplace research",
+                    chevronRight: false,
                 },
             ]
         },
         {
-            itemTitle: "Who can reach you",
+            title: "Who can reach you",
             itemProps: [
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Invitations to connect",
-                    itemNavigation: "invitations_to_connect",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Invitations to connect",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Invitations from your network",
-                    itemNavigation: "invitations_from_your_network",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Invitations from your network",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Messages",
-                    itemNavigation: "messages",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Messages",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Research invites",
-                    itemNavigation: "research_invites",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Research invites",
+                    chevronRight: false,
                 },
             ]
         },
         {
-            itemTitle: "Messaging experience",
+            title: "Messaging experience",
             itemProps: [
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Focused Inbox",
-                    itemNavigation: "focused_inbox",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Focused Inbox",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Read receipts and typing indicators",
-                    itemNavigation: "read_receipts_and_typing_indicators",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Read receipts and typing indicators",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Messaging suggestions",
-                    itemNavigation: "messaging_suggestions",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Messaging suggestions",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Message nudges",
-                    itemNavigation: "message_nudges",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Message nudges",
+                    chevronRight: false,
                 },
                 {
-                    itemLink: "",
-                    itemImage: "",
-                    itemTitle: "Automated detection of harmful content",
-                    itemNavigation: "automated_detection_of_harmful_content",
-                    hasSettingItemChevronRight: false,
+                    link: "",
+                    icon: "",
+                    title: "Automated detection of harmful content",
+                    chevronRight: false,
                 },
             ]
         },
     ]
 
+    const { userProps, setUserProps } = useUserData();
+
     return (
         <div>
-            <Header userProps={fakeUserData}/>
+            <Header userProps={userProps}/>
             <div className="mt-[56px] mr-[24px] mb-[24px]">
                 <div className="min-h-[calc(100vh-76px)] my-[24px] grid lg:grid-cols-[minmax(280px,3fr)_minmax(0,21fr)] grid-cols-[minmax(100px,3fr)_minmax(0,21fr)] grid-rows-[1fr_auto] gap-x-[2.4rem] gap-y-[2.4rem]">
                     <div>
-                        <AsideSetting userProps={fakeUserData} navigationProps="data_privacy"/>
+                        <AsideSetting userProps={userProps}/>
                     </div>
                     <main>
                         {asideDataPrivacyItemList.map((value, index) => (

@@ -1,6 +1,6 @@
 "use client"
 
-import {useMemo, useState} from "react";
+import { useMemo, useState } from "react";
 
 const useFilteredNotification = (entity) => {
     const [showUnreadNotification, setShowUnreadNotification] = useState(false);

@@ -5,6 +5,7 @@ import {useCommentData} from "@/hooks/useComment/useCommentData";
 import {useCommentMediaData} from "@/hooks/useComment/useCommentData";
 import useCountLikeReaction from "@/hooks/useFunction/useCountLikeReaction";
 import useFilteredNotification from "@/hooks/useFunction/useFilteredNotification";
+import {useFilterUserGroupsByRole} from "@/hooks/useGroup/useGroupData";
 import useLoginOAuth from "@/hooks/useAuth/useLoginOAuth";
 import useLogout from "@/hooks/useAuth/useLogout";
 import {useGroupData} from "@/hooks/useGroup/useGroupData";
@@ -39,6 +40,7 @@ export {
     useCommentMediaData,
     useCountLikeReaction,
     useFilteredNotification,
+    useFilterUserGroupsByRole,
     useLoginOAuth,
     useLogout,
     useGroupData,

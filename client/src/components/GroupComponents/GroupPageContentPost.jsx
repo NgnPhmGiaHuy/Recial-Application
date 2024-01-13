@@ -1,6 +1,6 @@
 import {CreatePost, Post} from "@/components";
 
-const GroupScaffoldContentPost = ({ postRef, userProps, groupPostProps, handleState }) => {
+const GroupPageContentPost = ({ postRef, userProps, groupPostProps, handleState }) => {
     return (
         <div className="max-w-[680px] m-[8px] flex flex-col flex-shrink grow-[25] basis-[500px] relative">
             <div>
@@ -44,4 +44,4 @@ const GroupScaffoldContentPost = ({ postRef, userProps, groupPostProps, handleSt
     );
 };
 
-export default GroupScaffoldContentPost;
+export default GroupPageContentPost;

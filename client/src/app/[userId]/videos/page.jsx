@@ -21,7 +21,7 @@ const UserVideosPage = ({ params }) => {
                                     <main>
                                         <div className="my-[16px] flex flex-col gap-4 relative">
                                             <div>
-                                                <UserProfileCover userProps={userProps} navigationProps="videos" isCurrentUser={userCheck.isCurrentUser}/>
+                                                <UserProfileCover userProps={userProps} isCurrentUser={userCheck.isCurrentUser}/>
                                             </div>
                                             <div>
                                                 <UserAboutScaffold mediaProps={fakeUserData.videos_list} isVideoPage={true} isCurrentUser={userCheck.isCurrentUser}/>

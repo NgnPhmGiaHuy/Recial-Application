@@ -10,7 +10,7 @@ const SettingScaffold = ({ settingProps }) => {
                             <div>
                                 <span className="text-[20px] text-black text-left font-semibold break-words relative leading-6">
                                     <span className="overflow-hidden relative">
-                                        {settingProps.itemTitle}
+                                        {settingProps.title}
                                     </span>
                                 </span>
                             </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 const useCountLikeReaction = (entity) => {
     const [totalLike, setTotalLike] = useState(0);
@@ -10,7 +10,7 @@ const useCountLikeReaction = (entity) => {
 
         like.map((like) => {
             if (like.reaction_type === "Like") {
-                countLike += 1;
+                return countLike += 1;
             }
         })
 
@@ -20,7 +20,8 @@ const useCountLikeReaction = (entity) => {
     useEffect(() => {
         if (entity && entity.reaction && entity.reaction.length > 0) {
             const likeCount = countLike(entity.reaction);
-            setTotalLike(likeCount);
+
+            return setTotalLike(likeCount);
         }
     }, [entity]);
 

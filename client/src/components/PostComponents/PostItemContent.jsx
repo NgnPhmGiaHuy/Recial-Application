@@ -45,7 +45,7 @@ const PostItemContent = ({ contentRef, props }) => {
                 </div>
             )}
             <div className="mt-[8px]">
-                {(props.postProps?.photo && props.postProps?.photo?.length) && (
+                {(props.postProps?.photo && props.postProps?.photo?.length) ? (
                     <div className="w-full h-0 pt-[75%] block overflow-x-hidden overflow-y-hidden bg-white border-t border-b border-solid border-zinc-200  relative">
                         {props.postProps?.photo?.length === 1 ? (
                             <Link href={`/post/?user=${props.postProps?.user?._id}&post=${props.postProps?.post?._id}&photo=${props.postProps?.photo[0]._id}`}>
@@ -82,7 +82,7 @@ const PostItemContent = ({ contentRef, props }) => {
                             })
                         )}
                     </div>
-                )}
+                ) : null}
             </div>
         </div>
     )

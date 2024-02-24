@@ -2,7 +2,7 @@ const Type = require("../models/Type");
 const Comment = require("../models/Comment");
 const Reaction = require("../models/Reaction");
 
-const userDataService = require("./userDataService");
+const getUserDataService = require("./userService/getUserDataService");
 
 class GeneralDataService {
     getUsersByInteractionType = async (model, modelId, interactId) => {
@@ -19,7 +19,7 @@ class GeneralDataService {
         return Promise.all(comment.map(async (comment) => {
             return {
                 _id: comment._id,
-                user: await userDataService.getUserById(comment.source_id),
+                user: await getUserDataService.getFormattedUserData(comment.source_id),
                 comment_text: comment.comment_text,
                 comment_tags: comment.comment_tags,
                 comment_reply: await this.getComment(comment),
@@ -38,7 +38,7 @@ class GeneralDataService {
 
             return {
                 _id: reaction._id,
-                user: await userDataService.getUserById(reaction.source_id),
+                user: await getUserDataService.getFormattedUserData(reaction.source_id),
                 reaction_type: reactionType.type_name,
                 created_at: reaction.createdAt,
                 updated_at: reaction.updatedAt,

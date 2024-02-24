@@ -1,9 +1,9 @@
-export const fetchPostData = async () => {
+export const getPostData = async () => {
     try {
         const accessToken = localStorage.getItem("accessToken");
 
         if (!accessToken) {
-            return { error: "Access token not found" };
+            return console.error("Access token not found.");
         }
 
         const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/post/";
@@ -19,10 +19,11 @@ export const fetchPostData = async () => {
         if (response.ok) {
             return await response.json();
         } else {
-            return { error: "Error fetching post data" };
+            const errorData = await response.json();
+            return { error: errorData.message || "Error fetching post data" };
         }
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
 };
 
@@ -31,7 +32,7 @@ export const createPostData = async (postData) => {
         const accessToken = localStorage.getItem("accessToken");
 
         if (!accessToken) {
-            return { error: "Access token not found" };
+            return console.error("Access token not found.");
         }
 
         const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/post/";
@@ -48,19 +49,20 @@ export const createPostData = async (postData) => {
         if (response.ok) {
             return await response.json();
         } else {
-            return { error: "Error creating post" };
+            const errorData = await response.json();
+            return { error: errorData.message || "Error creating post data" };
         }
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
-}
+};
 
 export const deletePostData = async (postId) => {
     try {
         const accessToken = localStorage.getItem("accessToken");
 
         if (!accessToken) {
-            return { error: "Access token not found" };
+            return console.error("Access token not found.");
         }
 
         const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/post/";
@@ -77,9 +79,10 @@ export const deletePostData = async (postId) => {
         if (response.ok) {
             return await response.json();
         } else {
-            return { error: "Error creating post" };
+            const errorData = await response.json();
+            return { error: errorData.message || "Error deleting post data" };
         }
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
-}
+};

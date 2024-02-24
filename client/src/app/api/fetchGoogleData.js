@@ -8,15 +8,16 @@ const fetchGoogleData = async (account) => {
                 "Content-Type": "application/json",
                 "Authorization": `${account.token_type} ${account.id_token}`,
             },
-        })
+        });
 
         if (response.ok) {
             return await response.json();
         } else {
-            return { error: "Error fetching user data" };
+            const errorData = await response.json();
+            return { error: errorData.message || "Error fetching user data using Google OAuth" };
         }
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
 };
 

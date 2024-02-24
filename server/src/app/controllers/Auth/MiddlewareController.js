@@ -17,7 +17,7 @@ class MiddlewareController {
         } catch (error) {
             return res.status(500).json(error);
         }
-    }
+    };
 }
 
 module.exports = new MiddlewareController();

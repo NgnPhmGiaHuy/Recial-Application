@@ -1,9 +1,9 @@
 const { WebSocket } = require("ws");
 
-const Type = require("../../models/Type");
-const Reaction = require("../../models/Reaction");
-
-const userDataService = require("../../services/userDataService");
+const getUserDataService = require("../../services/userService/getUserDataService");
+const getTypeDataService = require("../../services/typeService/getTypeDataService");
+const getReactionDataService = require("../../services/reactionService/getReactionDataService");
+const createReactionDataService = require("../../services/reactionService/createReactionDataService");
 
 class ReactionController {
     getReactionData = async (req, res) => {
@@ -11,7 +11,7 @@ class ReactionController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getUserById(userId);
+            const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
@@ -19,23 +19,13 @@ class ReactionController {
 
             const reactionId = req.query.reaction;
 
-            const reactionData = await Reaction.findById(reactionId);
+            const reactionData = await getReactionDataService.getRawReactionData(reactionId);
 
             if (!reactionData) {
                 return res.status(404).json({ error: "Reaction not found" });
             }
 
-            const reactionProps = {
-                _id: reactionData._id,
-                user: await userDataService.getUserById(reactionData.source_id),
-                destination: {
-                    type: (await Type.findById(reactionData.destination.type)).type_name,
-                    destination_id: reactionData.destination.destination_id,
-                },
-                reaction_type: (await Type.findById(reactionData.reaction_type)).type_name,
-                created_at: reactionData.createdAt,
-                updated_at: reactionData.updatedAt,
-            };
+            const reactionProps = await getReactionDataService.getFormattedReactionData(reactionData);
 
             return res.status(200).json(reactionProps);
         } catch (error) {
@@ -48,7 +38,7 @@ class ReactionController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getUserById(userId);
+            const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
@@ -56,10 +46,12 @@ class ReactionController {
 
             const data = req.body;
 
-            const reactionType = await Type.findOne({ type_name: data.reaction_type });
-            const destinationType = await Type.findOne({ type_name: data.destination.type });
+            const reactionType = await getTypeDataService.getTypeByTypeName(data.destination.type);
 
-            const existReaction = await Reaction.findOne({ "source_id": user._id, "destination.destination_id": data.destination.destination_id });
+            const destinationId = data.destination.destination_id;
+            const destinationType = await getTypeDataService.getTypeByTypeName(data.destination.type);
+
+            const existReaction = await getReactionDataService.getReactionBySourceAndDestination(user._id, data.destination.destination_id);
 
             const wss = req.app.get("wss");
 
@@ -84,16 +76,7 @@ class ReactionController {
 
                 return res.status(200).json({ message: 'Reaction update/create successfully' });
             } else {
-                const newReaction = new Reaction({
-                    source_id: user._id,
-                    destination: {
-                        type: destinationType._id,
-                        destination_id: data.destination.destination_id,
-                    },
-                    reaction_type: reactionType._id,
-                });
-
-                await newReaction.save();
+                const newReaction = await createReactionDataService.createReactionData(user, destinationType, destinationId, reactionType);
 
                 if (wss) {
                     const reactionMessage = {

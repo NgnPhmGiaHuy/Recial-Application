@@ -12,9 +12,9 @@ const HeaderPersonalAccount = ({ forwardedRef, userProps }) => {
     const handleLogout = async () => {
         const logout = await useLogout(router);
         try {
-            await logout();
+            return await logout();
         } catch (error) {
-            console.error("Logout failed:", error);
+            return console.error("Logout failed:", error);
         }
     }
 

@@ -4,7 +4,7 @@ const { OAuth2Client } = require('google-auth-library');
 
 const User = require("../../models/User");
 const Setting = require("../../models/Setting");
-const userDataService = require("../../services/userDataService");
+const getUserDataService = require("../../services/userService/getUserDataService");
 
 class AuthController {
     registerUser = async (req, res) => {
@@ -36,7 +36,7 @@ class AuthController {
         } catch (error) {
             return res.status(500).json({ error: "Internal Server Error" });
         }
-    }
+    };
 
     loginUser = async (req, res) => {
         try {
@@ -111,6 +111,11 @@ class AuthController {
                 profile_picture_url: user.picture,
             });
 
+            const accessToken = this.generateAccessToken(newUser);
+            const refreshToken = this.generateRefreshToken(newUser);
+
+            newUser.refreshToken = refreshToken;
+
             await newUser.save();
 
             const newUserSetting = new Setting({
@@ -119,14 +124,11 @@ class AuthController {
 
             await newUserSetting.save();
 
-            const accessToken = this.generateAccessToken(newUser);
-            const refreshToken = this.generateRefreshToken(newUser);
-
             return res.status(201).json({ accessToken: accessToken, refreshToken: refreshToken });
         } catch (error) {
             return res.status(500).json(error);
         }
-    }
+    };
 
     requestRefreshToken = async (req, res) => {
         try {
@@ -163,7 +165,7 @@ class AuthController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
@@ -177,7 +179,7 @@ class AuthController {
         } catch (error) {
             return res.status(500).json(error);
         }
-    }
+    };
 
     generateAccessToken = (user) => {
         return jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });

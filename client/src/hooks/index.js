@@ -6,7 +6,6 @@ import {useCommentMediaData} from "@/hooks/useComment/useCommentData";
 import useCountLikeReaction from "@/hooks/useFunction/useCountLikeReaction";
 import useFilteredNotification from "@/hooks/useFunction/useFilteredNotification";
 import {useFilterUserGroupsByRole} from "@/hooks/useGroup/useGroupData";
-import useLoginOAuth from "@/hooks/useAuth/useLoginOAuth";
 import useLogout from "@/hooks/useAuth/useLogout";
 import {useGroupData} from "@/hooks/useGroup/useGroupData";
 import useMediaData from "@/hooks/useMedia/useMediaData";
@@ -21,9 +20,7 @@ import useDateOfBirth from "@/hooks/useFunction/useDateOfBirth";
 import {useGetPostData} from "@/hooks/usePost/usePostData";
 import {useSetPostData} from "@/hooks/usePost/usePostData";
 import usePostDataByUserId from "@/hooks/usePost/usePostDataById";
-import useSuggestEventData from "@/hooks/useSuggest/useSuggestEventData";
-import useSuggestGroupData from "@/hooks/useSuggest/useSuggestGroupData";
-import useSuggestPageData from "@/hooks/useSuggest/useSuggestPageData";
+import {useSuggestEventData, useSuggestGroupData, useSuggestPageData} from "@/hooks/useSuggest/useSuggestData";
 import useTokenRefresh from "@/hooks/useAuth/useTokenRefresh";
 import useToggleState from "@/hooks/useFunction/useToggleState";
 import {useUserData} from "@/hooks/useUser/useUserData";
@@ -41,7 +38,6 @@ export {
     useCountLikeReaction,
     useFilteredNotification,
     useFilterUserGroupsByRole,
-    useLoginOAuth,
     useLogout,
     useGroupData,
     useMediaData,

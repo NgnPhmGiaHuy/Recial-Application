@@ -1,7 +1,7 @@
 "use client"
 
-import {useSuggestEventData, useSuggestGroupData, useSuggestPageData} from "@/hooks";
-import {Story, CreatePost, Post, FriendRequest, SuggestGroup, SuggestPage, Event} from "@/components";
+import { useSuggestEventData, useSuggestGroupData, useSuggestPageData } from "@/hooks";
+import { Story, CreatePost, Post, FriendRequest, SuggestGroup, SuggestPage, Event } from "@/components";
 
 const Main = ({postRef, userData, userProps, storyProps, postProps, setPostProps, handleShowCreatePost}) => {
     const suggestEventProps = useSuggestEventData();

@@ -11,7 +11,7 @@ const useCountComment = (entity) => {
         comments.forEach((comment) => {
             commentCount++;
             if (comment.comment_reply && comment.comment_reply.length > 0) {
-                commentCount += countComments(comment.comment_reply);
+                return commentCount += countComments(comment.comment_reply);
             }
         });
 
@@ -21,9 +21,10 @@ const useCountComment = (entity) => {
     useEffect(() => {
         if (entity && entity.comment && entity.comment.length > 0) {
             const commentCount = countComments(entity.comment);
-            setTotalComments(commentCount);
+            
+            return setTotalComments(commentCount);
         } else {
-            setTotalComments(0);
+            return setTotalComments(0);
         }
     }, [entity]);
 

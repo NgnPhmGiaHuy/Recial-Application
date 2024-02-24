@@ -2,7 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import fetchPostDataById from "@/app/api/fetchPostDataById";
+
+import { getPostDataByUserId } from "@/app/api/fetchPostDataById";
 
 const usePostDataByUserId = (userId) => {
     const router = useRouter();
@@ -28,7 +29,7 @@ const usePostDataByUserId = (userId) => {
         setLoading(true);
 
         try {
-            const postProps = await fetchPostDataById({ userId, page });
+            const postProps = await getPostDataByUserId({ userId, page });
 
             if (!postProps || postProps.error) {
                 return router.push("/auth/login");
@@ -43,7 +44,7 @@ const usePostDataByUserId = (userId) => {
                 setPage((prevPage) => prevPage + 1);
             }
         } catch (error) {
-            throw error;
+            return console.error(error);
         } finally {
             setLoading(false);
         }

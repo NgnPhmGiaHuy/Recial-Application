@@ -11,18 +11,20 @@ import { useMostReactedIcons, useOverflowText, useToggleState } from "@/hooks";
 const PostItemCommentScaffold = ({userData, userProps, postProps, isRely}) => {
     const mostReactedIcons = useMostReactedIcons(postProps?.comment_reactions);
 
-    const {textRef, showMoreText, isOverflowing, handleShowMoreText} = useOverflowText();
-
     const [visibleComments, setVisibleComments] = useState(3);
     const [loadMoreClicked, setLoadMoreClicked] = useState(false);
     const [showCommentInput, setShowCommentInput, handleShowCommentInput] = useToggleState(false);
 
+    const { textRef, showMoreText, isOverflowing, handleShowMoreText } = useOverflowText();
+
     const loadMoreComments = () => {
         const remainingComments = postProps?.comment_reply?.length - visibleComments;
         const loadMore = remainingComments > 3 ? 3 : remainingComments;
+
         setVisibleComments((prevVisible) => prevVisible + loadMore);
+
         if (visibleComments + loadMore >= postProps?.comment_reply?.length) {
-            setLoadMoreClicked(true);
+            return setLoadMoreClicked(true);
         }
     };
 

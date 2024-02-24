@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { ref, uploadBytes, getDownloadURL, list, listAll } from "firebase/storage";
 
 import { storage } from "@/utils/firebaseConfig";
-import { createPostData, fetchPostData } from "@/app/api/fetchPostData";
+import { createPostData, getPostData } from "@/app/api/fetchPostData";
 
 export const useGetPostData = () => {
     const router = useRouter();
@@ -16,19 +16,19 @@ export const useGetPostData = () => {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const postProps = await fetchPostData();
+            const postProps = await getPostData();
 
             if (!postProps && postProps.error) {
                 return router.push("/auth/login");
             }
 
             if (Array.isArray(postProps)) {
-                setPostProps((prevPosts) => [...prevPosts, ...postProps]);
+                return setPostProps((prevPosts) => [...prevPosts, ...postProps]);
             } else {
-                throw new Error("Post data is not iterable");
+                return console.error("Post data is not iterable");
             }
         } catch (error) {
-            throw error;
+            return console.error(error);
         } finally {
             setLoading(false);
         }
@@ -57,7 +57,7 @@ export const useGetPostData = () => {
 export const useSetPostData = () => {
     const [postSubmitStatus, setPostSubmitStatus] = useState(false);
 
-    const handleSetPostData = async ({ inputText, inputImage, userProps }) => {
+    const handleSetPostData = async ({ inputText, inputImage, userProps, groupProps }) => {
         try {
             const uploadTasks = inputImage.map(async (base64String) => {
                 const block = base64String.split(";");
@@ -86,6 +86,7 @@ export const useSetPostData = () => {
                 post: {
                     post_content: inputText,
                     post_image: uploadedURLs,
+                    post_group: groupProps?.groupProps?._id,
                     post_privacy: userProps?.setting?.privacy?.post_visibility,
                 },
             };

@@ -31,9 +31,9 @@ export const useSingleImageData = () => {
 
         if (imageFiles.length > 0) {
             const imageData = await readFileAsDataURL(imageFiles[0]);
-            setSelectedImage(imageData);
+            return setSelectedImage(imageData);
         } else {
-            setSelectedImage(null);
+            return setSelectedImage(null);
         }
     };
 

@@ -1,23 +1,27 @@
-const User = require("../models/User");
-const Message = require("../models/Message");
-const Event = require("../models/Event");
-const EventMember = require("../models/EventMember");
-const FriendRequest = require("../models/FriendRequest");
-const Notification = require("../models/Notification");
-const Type = require("../models/Type");
-const Post = require("../models/Post");
-const Group = require("../models/Group");
-const Page = require("../models/Page");
-const Video = require("../models/Video");
-const SearchHistory = require("../models/SearchHistory");
-const Photo = require("../models/Photo");
-const Setting = require("../models/Setting");
-const GroupMember = require("../models/GroupMember");
-const Role = require("../models/Role");
+const User = require("../../models/User");
+const Role = require("../../models/Role");
+const Type = require("../../models/Type");
+const Post = require("../../models/Post");
+const Page = require("../../models/Page");
+const Group = require("../../models/Group");
+const Photo = require("../../models/Photo");
+const Video = require("../../models/Video");
+const Event = require("../../models/Event");
+const Message = require("../../models/Message");
+const Setting = require("../../models/Setting");
+const EventMember = require("../../models/EventMember");
+const GroupMember = require("../../models/GroupMember");
+const Notification = require("../../models/Notification");
+const FriendRequest = require("../../models/FriendRequest");
+const SearchHistory = require("../../models/SearchHistory");
 
-class UserDataService {
-    getUserById = async (userId) => {
-        const user = await User.findById(userId);
+class GetUserDataService {
+    getRawUserData = async (userId) => {
+        return User.findById(userId);
+    }
+
+    getFormattedUserData = async (userId) => {
+        const user = await this.getRawUserData(userId);
 
         return {
             _id: user._id,
@@ -31,10 +35,6 @@ class UserDataService {
         }
     }
 
-    getFullUserById = async (userId) => {
-        return User.findById(userId);
-    }
-
     getUserMessages = async (userId) => {
         const messages = await Message.find({ destination_id: userId });
 
@@ -43,8 +43,8 @@ class UserDataService {
 
             return {
                 ...otherMessageProps,
-                source: await this.getUserById(source_id),
-                destination: await this.getUserById(message.destination_id),
+                source: await this.getFormattedUserData(source_id),
+                destination: await this.getFormattedUserData(message.destination_id),
                 created_at: createdAt,
                 updated_at: updatedAt,
             }
@@ -54,7 +54,7 @@ class UserDataService {
     getUserSocial = async (user) => {
         return await Promise.all(user.map(async social => {
             return {
-                user: await this.getUserById(social),
+                user: await this.getFormattedUserData(social),
             }
         }));
     }
@@ -62,17 +62,15 @@ class UserDataService {
     getUserFriendRequest = async (userId) => {
         const userFriendRequestData = await FriendRequest.find({ destination_id: userId });
 
-        const requests = await Promise.all(userFriendRequestData.map(async request => {
+        return await Promise.all(userFriendRequestData.map(async request => {
             return {
                 _id: request._id,
-                user: await this.getUserById(request.source_id),
+                user: await this.getFormattedUserData(request.source_id),
                 created_at: request.createdAt,
                 updated_at: request.updatedAt,
             };
-        }));
-
-        return requests.sort((a, b) => {
-            return new Date(b.updated_at) - new Date(a.updated_at);
+        })).then(requests => {
+            return requests.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
         });
     }
 
@@ -114,7 +112,7 @@ class UserDataService {
                 default:
                     console.log(`Type ${sourceType.type_name} not handled`);
                     break;
-            };
+            }
 
             return {
                 _id: notification._id,
@@ -157,7 +155,7 @@ class UserDataService {
 
             const groupMember = await Promise.all(groupMemberProps.map(async (member) => {
                 return {
-                    user: await this.getUserById(member.user.user_id),
+                    user: await this.getFormattedUserData(member.user.user_id),
                     role: (await Role.findById(member.user.user_role)).role_name,
                 }
             }))
@@ -176,4 +174,4 @@ class UserDataService {
     };
 }
 
-module.exports = new UserDataService();
+module.exports = new GetUserDataService();

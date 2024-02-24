@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link";
 import Image from "next/image";
 import { useEffect } from "react";
 import { signIn, useSession } from "next-auth/react";
@@ -14,13 +15,13 @@ const OAuthLogin = ({ isLogin, isSignup, setError }) => {
 
     const { setAccessToken } = useAccessTokenContext();
 
-    const { data: session, status} = useSession()
+    const { data: session, status} = useSession();
 
     const handleSignIn = async () => {
         try {
-            await signIn("google", { redirect: false });
+            return await signIn("google", { redirect: false });
         } catch (error) {
-            throw error;
+            return console.error(error);
         }
     };
 
@@ -28,7 +29,7 @@ const OAuthLogin = ({ isLogin, isSignup, setError }) => {
         const session_key = session.user.email;
         const session_password = "";
 
-        await fetchLoginData({ router, session_key, session_password, setError, setAccessToken });
+        return await fetchLoginData(router, session_key, session_password, setError, setAccessToken);
     }
 
     useEffect(() => {
@@ -42,17 +43,17 @@ const OAuthLogin = ({ isLogin, isSignup, setError }) => {
             <div className="mb-[16px]">
                 <p className="text-[12px] text-gray-500">
                     By clicking Continue, you agree to Recial’s &nbsp;
-                    <a href="" className="text-lime-500 hover:text-lime-700 transition-all">
+                    <Link href="" className="text-lime-500 hover:text-lime-700 transition-all">
                         User Agreement
-                    </a>
+                    </Link>
                     , &nbsp;
-                    <a href="" className="text-lime-500 hover:text-lime-700 transition-all">
+                    <Link href="" className="text-lime-500 hover:text-lime-700 transition-all">
                         Privacy Policy
-                    </a>
+                    </Link>
                     , and &nbsp;
-                    <a href="" className="text-lime-500 hover:text-lime-700 transition-all">
+                    <Link href="" className="text-lime-500 hover:text-lime-700 transition-all">
                         Cookie Policy
-                    </a>.
+                    </Link>.
                 </p>
             </div>
             <div className="flex items-center justify-center mb-[16px]">
@@ -71,17 +72,17 @@ const OAuthLogin = ({ isLogin, isSignup, setError }) => {
             </div>
             {isLogin ? (
                 <div className="flex items-center justify-center">
-                    <a href="/auth/register"
+                    <Link href="/auth/register"
                        className="w-full min-h-[48px] px-[24px] py-[12px] text-center text-[16px] font-semibold leading-normal border border-solid rounded-full hover:bg-zinc-100 transition-all">
                         New to Recial? Join now
-                    </a>
+                    </Link>
                 </div>
             ) : null}
             {isSignup ? (
                 <div className="flex items-center justify-center px-[16px] pt-[16px] pb-[24px]">
                     <p className="text-[16px] text-center font-normal leading-normal">
                         Already on Recial? &nbsp;
-                        <a href="/auth/login" className="text-lime-500 hover:text-lime-700">Sign in</a>
+                        <Link href="/auth/login" className="text-lime-500 hover:text-lime-700">Sign in</Link>
                     </p>
                 </div>
             ) : null}

@@ -1,10 +1,10 @@
-const Page = require("../models/Page");
-const Event = require("../models/Event");
-const Group = require("../models/Group");
-const GroupMember = require("../models/GroupMember");
-const userDataService = require("./userDataService");
+const Page = require("../../models/Page");
+const Event = require("../../models/Event");
+const Group = require("../../models/Group");
+const GroupMember = require("../../models/GroupMember");
+const getUserDataService = require("../userService/getUserDataService");
 
-class SuggestDataService {
+class GetSuggestDataService {
     getSuggestedEvents = async () => {
         return Event.aggregate([
             { $match: { event_privacy: "Public" } },
@@ -32,7 +32,7 @@ class SuggestDataService {
         const suggestGroupMembers = await GroupMember.find({ group_id: suggestGroups[0]._id });
 
         const suggestGroupMembersProps = await Promise.all(suggestGroupMembers.map(async member => {
-            return await userDataService.getUserById(member.user.user_id);
+            return await getUserDataService.getFormattedUserData(member.user.user_id);
         }));
 
         return {
@@ -42,4 +42,4 @@ class SuggestDataService {
     }
 }
 
-module.exports = new SuggestDataService();
+module.exports = new GetSuggestDataService();

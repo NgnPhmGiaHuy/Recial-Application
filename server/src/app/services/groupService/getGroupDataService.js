@@ -1,14 +1,18 @@
-const Post = require("../models/Post");
-const Role = require("../models/Role");
-const Group = require("../models/Group");
-const GroupMember = require("../models/GroupMember");
+const Post = require("../../models/Post");
+const Group = require("../../models/Group");
+const GroupMember = require("../../models/GroupMember");
 
-const postDataService = require("./postDataService");
-const userDataService = require("./userDataService");
+const getRoleDataService = require("../roleService/getRoleDataService");
+const getUserDataService = require("../userService/getUserDataService");
+const enhancePostDataService = require("../postService/enhancePostDataService");
 
-class GroupDataService {
+class GetGroupDataService {
+    getRawGroupData = async (groupId) => {
+        return Group.findById(groupId);
+    }
+
     getGroupDataById = async (groupId) => {
-        const groupProps = await Group.findById(groupId);
+        const groupProps = await this.getRawGroupData(groupId);
 
         const { createdAt, updatedAt, ...otherGroupProps } = groupProps._doc;
 
@@ -21,20 +25,25 @@ class GroupDataService {
 
     getGroupPostProps = async (groupId, page, postsPerPage) => {
         const skipPosts = (page - 1) * postsPerPage;
+
         const groupPostProps = await Post.find({ group: groupId })
+            .sort({ createdAt: -1 })
             .skip(skipPosts)
             .limit(postsPerPage);
 
-        return await postDataService.enhancePostsWithUserData(groupPostProps);
+        return await enhancePostDataService.enhancePostsWithUserData(groupPostProps);
     }
 
     getGroupMemberDataById = async (groupId) => {
         const groupMemberProps = await GroupMember.find({ group_id: groupId });
 
         return Promise.all(groupMemberProps.map(async (member) => {
+            const userData = await getUserDataService.getFormattedUserData(member.user.user_id)
+            const roleData = await getRoleDataService.getRawRoleData(member.user.user_role);
+
             return {
-                user: await userDataService.getUserById(member.user.user_id),
-                role: (await Role.findById(member.user.user_role)).role_name,
+                user: userData,
+                role: roleData.role_name,
             }
         }))
     }
@@ -68,4 +77,4 @@ class GroupDataService {
     }
 }
 
-module.exports = new GroupDataService();
+module.exports = new GetGroupDataService();

@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { storage } from "@/utils/firebaseConfig";
-import { fetchUserData, fetchUserFollower, fetchUserFollowing, fetchUserFriend, fetchUserFriendRequest, fetchUserGroupList, fetchUserMessage, fetchUserNotification, fetchUserPhotoList, fetchUserSearchQuery, fetchUserSetting, setUserProfile } from "@/app/api/fetchUserData";
+import { getUserData, getUserFollower, getUserFollowing, getUserFriend, getUserFriendRequest, getUserGroupList, getUserMessage, getUserNotification, getUserPhotoList, getUserSearchQuery, getUserSetting, setUserProfile } from "@/app/api/fetchUserData";
 
 export const useUserData = () => {
     const router = useRouter();
@@ -14,7 +14,7 @@ export const useUserData = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const userData = await fetchUserData();
+                const userData = await getUserData();
 
                 if (!userData || userData.error) {
                     return router.push("/auth/login");
@@ -22,29 +22,29 @@ export const useUserData = () => {
 
                 setUserProps((prevData) => ({ ...prevData, ...userData }));
 
-                const userNotification = await fetchUserNotification();
+                const userNotification = await getUserNotification();
 
                 if (userNotification && !userNotification.error) {
                     setUserProps((prevData) => ({ ...prevData, notifications: [...userNotification] }));
                 }
 
-                const userMessage = await fetchUserMessage();
+                const userMessage = await getUserMessage();
 
                 if (userMessage && !userMessage.error) {
                     setUserProps((prevData) => ({ ...prevData, messages: [...userMessage] }));
                 }
 
-                const userSearch = await fetchUserSearchQuery();
+                const userSearch = await getUserSearchQuery();
                 if (userSearch && !userSearch.error) {
                     setUserProps((prevData) => ({ ...prevData, search: [...userSearch] }));
                 }
 
-                const userSetting = await fetchUserSetting();
+                const userSetting = await getUserSetting();
                 if (userSetting && !userSetting.error) {
                     setUserProps((prevData) => ({ ...prevData, setting: userSetting }));
                 }
 
-                const userFollowing = await fetchUserFollowing()
+                const userFollowing = await getUserFollowing()
                 if (userFollowing && !userFollowing.error) {
                     setUserProps((prevData) => ({
                         ...prevData,
@@ -52,7 +52,7 @@ export const useUserData = () => {
                     }));
                 }
 
-                const userFollower = await fetchUserFollower()
+                const userFollower = await getUserFollower()
                 if (userFollower && !userFollower.error) {
                     setUserProps((prevData) => ({
                         ...prevData,
@@ -60,7 +60,7 @@ export const useUserData = () => {
                     }));
                 }
 
-                const userFriend = await fetchUserFriend();
+                const userFriend = await getUserFriend();
 
                 if (userFriend && !userFriend.error) {
                     setUserProps((prevData) => ({
@@ -69,24 +69,24 @@ export const useUserData = () => {
                     }));
                 }
 
-                const userFriendRequest = await fetchUserFriendRequest();
+                const userFriendRequest = await getUserFriendRequest();
                 if (userFriendRequest && !userFriendRequest.error) {
                     setUserProps((prevData) => ({ ...prevData, friend_request: [...userFriendRequest] }));
                 }
 
-                const userPhotoList = await fetchUserPhotoList();
+                const userPhotoList = await getUserPhotoList();
 
                 if (userPhotoList && !userPhotoList.error) {
                     setUserProps((prevData) => ({ ...prevData, photo_list: [...userPhotoList] }));
                 }
 
-                const userGroupList = await fetchUserGroupList();
+                const userGroupList = await getUserGroupList();
 
                 if (userGroupList && !userGroupList.error) {
                     setUserProps((prevData) => ({ ...prevData, group_list: [...userGroupList] }));
                 }
             } catch (error) {
-                throw error;
+                return console.error(error);
             }
         };
 

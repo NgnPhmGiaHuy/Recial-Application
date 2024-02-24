@@ -1,5 +1,6 @@
 export const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     return regex.test(email);
 };
 
@@ -18,8 +19,8 @@ export const checkPasswordStrength = (password) => {
 
 export const handleValidateForm = (registerFormData, setError) => {
     const { session_key, session_password } = registerFormData;
-    const isValidEmail = this.validateEmail(session_key);
-    const passwordStrength = this.checkPasswordStrength(session_password);
+    const isValidEmail = validateEmail(session_key);
+    const passwordStrength = checkPasswordStrength(session_password);
 
     if (!isValidEmail) {
         return setError({ isEmailError: true, isPasswordError: false, formErrorStatus: "Your email is not valid." });
@@ -33,10 +34,7 @@ export const handleValidateForm = (registerFormData, setError) => {
 };
 
 export const handleRemoveUserIdLocalStorage = () => {
-    localStorage.removeItem("userIdProps")
-    localStorage.removeItem("userIdFriendProps")
-    localStorage.removeItem("userIdFollowingProps")
-    localStorage.removeItem("userIdFollowerProps")
-    localStorage.removeItem("userIdPhotoProps")
-    localStorage.removeItem("userIdGroupProps")
-}
+    const keysToRemove = ["userIdProps", "userIdFriendProps", "userIdFollowingProps", "userIdFollowerProps", "userIdPhotoProps", "userIdGroupProps"];
+
+    return keysToRemove.forEach(key => localStorage.removeItem(key));
+};

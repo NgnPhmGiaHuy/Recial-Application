@@ -12,7 +12,8 @@ const useOverflowText = (depends) => {
     useEffect(() => {
         if (textRef.current) {
             const { clientHeight, scrollHeight } = textRef.current;
-            setIsOverflowing(scrollHeight > clientHeight);
+
+            return setIsOverflowing(scrollHeight > clientHeight);
         }
     }, [depends]);
 

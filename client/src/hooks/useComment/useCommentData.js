@@ -19,7 +19,7 @@ export const useCommentData = () => {
         const createComment = await createCommentData(commentData);
 
         if (createComment && !createComment.error) {
-            setCommentSubmitStatus(true);
+            return setCommentSubmitStatus(true);
         }
     }
 
@@ -42,7 +42,7 @@ export const useCommentMediaData = () => {
         const createComment = await createCommentData(commentData);
 
         if (createComment && !createComment.error) {
-            setCommentSubmitStatus(true);
+            return setCommentSubmitStatus(true);
         }
     }
 

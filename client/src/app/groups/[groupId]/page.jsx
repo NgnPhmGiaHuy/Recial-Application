@@ -30,7 +30,7 @@ const GroupScaffoldPage = ({ params }) => {
                 </div>
                 <div>
                     {showCreatePost && (
-                        <CreatePostDialog userProps={userProps} setUserProps={setUserProps} createPostRef={createPostRef} handleShowCreatePost={handleShowCreatePost}/>
+                        <CreatePostDialog userProps={userProps} setUserProps={setUserProps} groupProps={groupData} createPostRef={createPostRef} handleShowCreatePost={handleShowCreatePost}/>
                     )}
                 </div>
             </>

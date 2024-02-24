@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { useUserData } from "@/hooks";
-import { fetchUserDataById, fetchUserIdFollower, fetchUserIdFollowing, fetchUserIdFriend, fetchUserIdGroupList, fetchUserIdPhotoList } from "@/app/api/fetchUserDataById";
+import { getUserDataById, getUserIdFollower, getUserIdFollowing, getUserIdFriend, getUserIdGroupList, getUserIdPhotoList } from "@/app/api/fetchUserDataById";
 
 const useUserIdLayout = (userId) => {
     const { userProps: userData, setUserProps: setUserData } = useUserData();
@@ -13,6 +13,7 @@ const useUserIdLayout = (userId) => {
     const { userProps, setUserProps } = useFetchUserData(userId, userData, isCurrentUser);
     const { isFriend, isFriendRequest } = useCheckUserFriend(userData, userProps);
 
+    console.log(userProps)
     const userCheck = {
         isFriend: isFriend,
         isCurrentUser: isCurrentUser,
@@ -35,7 +36,7 @@ const useFetchUserData = (userId, userData, isCurrentUser) => {
             } else {
                 setUserProps(null);
 
-                const userIdData = await fetchUserDataById(userId);
+                const userIdData = await getUserDataById(userId);
 
                 if (!userIdData || userIdData.error) {
                     return router.push("/auth/login");
@@ -69,24 +70,24 @@ const useFetchUserData = (userId, userData, isCurrentUser) => {
                     }
                 };
 
-                await fetchAndSetData(fetchUserIdPhotoList, (data) =>
+                await fetchAndSetData(getUserIdPhotoList, (data) =>
                     updateProps((prevData) => ({ ...prevData, photo_list: [...data] }))
                 );
-                await fetchAndSetData(fetchUserIdGroupList, (data) =>
+                await fetchAndSetData(getUserIdGroupList, (data) =>
                     updateProps((prevData) => ({ ...prevData, group_list: [...data] }))
                 );
-                await fetchAndSetData(fetchUserIdFollowing, (data) =>
+                await fetchAndSetData(getUserIdFollowing, (data) =>
                     updateUserProps(() => ({following: [...data] }))
                 );
-                await fetchAndSetData(fetchUserIdFollower, (data) =>
+                await fetchAndSetData(getUserIdFollower, (data) =>
                     updateUserProps(() => ({followers: [...data] }))
                 );
-                await fetchAndSetData(fetchUserIdFriend, (data) =>
+                await fetchAndSetData(getUserIdFriend, (data) =>
                     updateUserProps(() => ({friends: [...data] }))
                 );
             }
         } catch (error) {
-            throw error;
+            return console.error(error);
         }
     };
 

@@ -1,10 +1,10 @@
 "use client"
 
-import {useRouter} from "next/navigation";
-import {useState, useEffect} from "react";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 const useCheckAccessToken = (WrappedComponent) => {
-    const CheckAccess = (props) => {
+    const ControlledComponent = (props) => {
         const router = useRouter();
         const [loading, setLoading] = useState(true);
 
@@ -14,12 +14,14 @@ const useCheckAccessToken = (WrappedComponent) => {
                     const accessToken = localStorage.getItem("accessToken");
 
                     if (accessToken) {
-                        router.push("/");
+                        return router.push("/");
                     } else {
-                        setLoading(false);
+                        return setLoading(false);
                     }
                 } catch (error) {
-                    router.push("/");
+                    console.error("Error checking access token:", error);
+
+                    return router.push("/");
                 }
             }
 
@@ -29,7 +31,7 @@ const useCheckAccessToken = (WrappedComponent) => {
         return loading ? null : <WrappedComponent {...props} />;
     };
 
-    return CheckAccess;
+    return ControlledComponent;
 };
 
 export default useCheckAccessToken;

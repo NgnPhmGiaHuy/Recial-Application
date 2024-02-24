@@ -1,4 +1,4 @@
-const fetchMediaData = async (url) => {
+export const getMediaData = async (url) => {
     try {
         const response = await fetch(url, {
             method: "GET",
@@ -10,11 +10,10 @@ const fetchMediaData = async (url) => {
         if (response.ok) {
             return await response.json();
         } else {
-            return { error: "Error fetching media data" };
+            const errorData = await response.json();
+            return { error: errorData.message || "Error fetch media data" };
         }
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
-}
-
-export default fetchMediaData;
+};

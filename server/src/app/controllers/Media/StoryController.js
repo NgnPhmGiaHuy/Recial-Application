@@ -1,5 +1,5 @@
-const userDataService = require("../../services/userDataService");
-const storyDataService = require("../../services/storyDataService");
+const getUserDataService = require("../../services/userService/getUserDataService");
+const storyDataService = require("../../services/mediaService/storyDataService");
 
 class StoryController {
     getStory = async (req, res) => {
@@ -7,13 +7,13 @@ class StoryController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getUserById(userId);
+            const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const story = await storyDataService.getStory(user);
+            const story = await storyDataService.getUserFeedStoryData(user);
             
             return res.status(200).json(story);
         } catch (error) {

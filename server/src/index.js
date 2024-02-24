@@ -59,11 +59,11 @@ const startServer = async () => {
                     console.log(`Client disconnected. Total clients: ${connectedClients}`);
                 });
             } catch (error) {
-                ws.terminate();
+                return ws.terminate();
             }
         })
     } catch (error) {
-        console.error('Error starting server:', error);
+        return console.error('Error starting server:', error);
     }
 };
 

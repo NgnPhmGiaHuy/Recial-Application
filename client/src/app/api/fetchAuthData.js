@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
-export const fetchLoginData = async ({ router, session_key, session_password, setError, setAccessToken }) => {
+export const fetchLoginData = async (router, session_key, session_password, setError, setAccessToken) => {
     try {
         const dataToSend = { session_key, session_password };
 
@@ -38,13 +38,13 @@ export const fetchLoginData = async ({ router, session_key, session_password, se
             }
         }
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
-}
+};
 
-export const fetchRegisterData = async ({ router, registerFormData, setError }) => {
+export const fetchRegisterData = async (router, session, setError) => {
     try {
-        const { session_key, session_password, session_firstname, session_lastname } = registerFormData;
+        const { session_key, session_password, session_firstname, session_lastname } = session;
 
         const hashedPassword = await bcrypt.hash(session_password, 10);
 
@@ -74,4 +74,60 @@ export const fetchRegisterData = async ({ router, registerFormData, setError }) 
     } catch (error) {
         return NextResponse.json({ error: "An unexpected error occurred" });
     }
-}
+};
+
+export const fetchLogoutData = async () => {
+    try {
+        const accessToken = localStorage.getItem("accessToken");
+
+        if (!accessToken) {
+            return console.error("Access token not found.");
+        }
+
+        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/auth/logout";
+
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${accessToken}`,
+            },
+        });
+
+        if (response.ok) {
+            return await response.json();
+        } else {
+            const errorData = await response.json();
+            return { error: errorData.message || "Logout failed" };
+        }
+    } catch (error) {
+        return console.error(error);
+    }
+};
+
+export const fetchTokenRefresh = async () => {
+    try {
+        const refreshToken = localStorage.getItem("refreshToken");
+
+        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/auth/refresh";
+
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${refreshToken}`,
+            },
+        });
+
+        if (response.ok) {
+            const responseData = await response.json();
+
+            return responseData.accessToken;
+        } else {
+            const errorData = await response.json();
+            return { error: errorData.message || "Get Token refresh failed" };
+        }
+    } catch (error) {
+        return console.error(error);
+    }
+};

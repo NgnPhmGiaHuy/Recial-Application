@@ -1,4 +1,4 @@
-const userDataService = require("../../services/userDataService");
+const getUserDataService = require("../../services/userService/getUserDataService");
 
 class SettingController {
     setPostVisibilitySetting = async (req, res) => {
@@ -6,7 +6,7 @@ class SettingController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });

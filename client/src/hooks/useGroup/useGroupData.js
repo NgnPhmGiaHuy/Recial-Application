@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-import { fetchGroupActivityData, fetchGroupData, fetchGroupMemberData, fetchGroupPostData } from "@/app/api/fetchGroupData";
+import { getGroupData, getGroupMemberData, getGroupActivityData, getGroupPostData } from "@/app/api/fetchGroupData";
 
 export const useGroupData = (groupId, userId) => {
     const { groupProps, setGroupProps } = useGetGroupData(groupId);
@@ -84,7 +84,7 @@ const useGetGroupData = (groupId) => {
         setLoading(true);
 
         try {
-            const groupData = await fetchGroupData(groupId);
+            const groupData = await getGroupData(groupId);
 
             if (groupData && !groupData.error) {
                 return setGroupProps(groupData);
@@ -92,7 +92,7 @@ const useGetGroupData = (groupId) => {
                 return { error: "Error fetch group data" };
             }
         } catch (error) {
-            throw error;
+            return console.error(error);
         } finally {
             setLoading(false);
         }
@@ -115,7 +115,7 @@ const useGetGroupMemberData = (groupId) => {
         setLoading(true);
 
         try {
-            const groupMemberData = await fetchGroupMemberData(groupId);
+            const groupMemberData = await getGroupMemberData(groupId);
 
             if (groupMemberData && !groupMemberData.error) {
                 return setGroupMemberProps(groupMemberData);
@@ -123,7 +123,7 @@ const useGetGroupMemberData = (groupId) => {
                 return { error: "Error fetch group member data" };
             }
         } catch (error) {
-            throw error;
+            return console.error(error);
         } finally {
             setLoading(false);
         }
@@ -146,7 +146,7 @@ const useGetGroupActivityData = (groupId) => {
         setLoading(true);
 
         try {
-            const groupActivityData = await fetchGroupActivityData(groupId);
+            const groupActivityData = await getGroupActivityData(groupId);
 
             if (groupActivityData && !groupActivityData.error) {
                 return setGroupActivityProps(groupActivityData);
@@ -154,7 +154,7 @@ const useGetGroupActivityData = (groupId) => {
                 return { error: "Error fetch group member data" };
             }
         } catch (error) {
-            throw error;
+            return console.error(error);
         } finally {
             setLoading(false);
         }
@@ -192,7 +192,7 @@ const useGetGroupPostData = (groupId) => {
         setLoading(true);
 
         try {
-            const groupPostData = await fetchGroupPostData({ groupId, page });
+            const groupPostData = await getGroupPostData({ groupId, page });
 
             if (!groupPostData || groupPostData.error) {
                 return { error: "Error fetch group post data" };
@@ -207,7 +207,7 @@ const useGetGroupPostData = (groupId) => {
                 setPage((prevPage) => prevPage + 1);
             }
         } catch (error) {
-            throw error;
+            return console.error(error);
         } finally {
             setLoading(false);
         }
@@ -288,7 +288,7 @@ const useUserGetGroupPostData = (user) => {
             const groupId = getRandomGroupId();
 
             if (groupId) {
-                const groupPostData = await fetchGroupPostData({ groupId, page });
+                const groupPostData = await getGroupPostData({ groupId, page });
 
                 if (!groupPostData || groupPostData.error) {
                     return { error: "Error fetch group post data" };
@@ -306,7 +306,7 @@ const useUserGetGroupPostData = (user) => {
                 setFetchedGroupIds((prevGroupIds) => [...prevGroupIds, groupId]);
             }
         } catch (error) {
-            throw error;
+            return console.error(error);
         } finally {
             setLoading(false);
         }

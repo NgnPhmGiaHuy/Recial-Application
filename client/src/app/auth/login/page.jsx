@@ -21,7 +21,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        await fetchLoginData({ router, session_key: loginFormData.session_key, session_password: loginFormData.session_password, setError, setAccessToken })
+        return await fetchLoginData(router, loginFormData.session_key, loginFormData.session_password, setError, setAccessToken)
     }
 
     const handleChange = (e) => {

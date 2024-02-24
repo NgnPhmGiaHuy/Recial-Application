@@ -1,7 +1,9 @@
 const { WebSocket } = require("ws");
 
-const FriendRequest = require("../../models/FriendRequest");
-const userDataService = require("../../services/userDataService");
+const getUserDataService = require("../../services/userService/getUserDataService");
+const getFriendRequestDataService = require("../../services/friendRequestService/getFriendRequestDataService");
+const deleteFriendRequestDataService = require("../../services/friendRequestService/deleteFriendRequestDataService");
+const createFriendRequestDataService = require("../../services/friendRequestService/createFriendRequestDataService");
 
 class UserController {
     getUserData = async (req, res) => {
@@ -9,7 +11,7 @@ class UserController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
@@ -34,13 +36,13 @@ class UserController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const friendProps = await userDataService.getUserSocial(user.friends);
+            const friendProps = await getUserDataService.getUserSocial(user.friends);
 
             return res.status(200).json(friendProps);
         } catch (error) {
@@ -53,13 +55,13 @@ class UserController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getUserById(userId);
+            const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const friendRequestProps = await userDataService.getUserFriendRequest(user._id);
+            const friendRequestProps = await getUserDataService.getUserFriendRequest(user._id);
 
             return res.status(200).json(friendRequestProps);
         } catch (error) {
@@ -72,13 +74,13 @@ class UserController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const settingProps = await userDataService.getUserSetting(user._id);
+            const settingProps = await getUserDataService.getUserSetting(user._id);
 
             return res.status(200).json(settingProps);
         } catch (error) {
@@ -91,13 +93,13 @@ class UserController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const followingProps = await userDataService.getUserSocial(user.following);
+            const followingProps = await getUserDataService.getUserSocial(user.following);
 
             return res.status(200).json(followingProps);
         } catch (error) {
@@ -110,13 +112,13 @@ class UserController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const followerProps = await userDataService.getUserSocial(user.followers);
+            const followerProps = await getUserDataService.getUserSocial(user.followers);
 
             return res.status(200).json(followerProps);
         } catch (error) {
@@ -129,13 +131,13 @@ class UserController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getUserById(userId);
+            const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const searchProps = await userDataService.getUserSearchQuery(user._id);
+            const searchProps = await getUserDataService.getUserSearchQuery(user._id);
 
             return res.status(200).json(searchProps);
         } catch (error) {
@@ -148,13 +150,13 @@ class UserController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const messageProps = await userDataService.getUserMessages(user._id);
+            const messageProps = await getUserDataService.getUserMessages(user._id);
 
             return res.status(200).json(messageProps);
         } catch (error) {
@@ -167,13 +169,13 @@ class UserController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const photoListProps = await userDataService.getUserPhotoList(user.photo_list);
+            const photoListProps = await getUserDataService.getUserPhotoList(user.photo_list);
 
             return res.status(200).json(photoListProps);
         } catch (error) {
@@ -186,13 +188,13 @@ class UserController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const groupListProps = await userDataService.getUserGroup(user._id);
+            const groupListProps = await getUserDataService.getUserGroup(user._id);
 
             return res.status(200).json(groupListProps);
         } catch (error) {
@@ -205,13 +207,13 @@ class UserController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const notificationProps = await userDataService.getUserNotifications(user._id);
+            const notificationProps = await getUserDataService.getUserNotifications(user._id);
 
             return res.status(200).json(notificationProps);
         } catch (error) {
@@ -224,7 +226,7 @@ class UserController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
@@ -236,7 +238,7 @@ class UserController {
                 return res.status(400).json({ error: 'Friend ID is missing' });
             }
 
-            const existFriendRequest = await FriendRequest.findOne({ source_id: user._id, destination_id: friendId });
+            const existFriendRequest = await getFriendRequestDataService.getFriendRequestData(user._id, friendId);
 
             if (existFriendRequest) {
                 existFriendRequest.updatedAt = new Date();
@@ -245,12 +247,7 @@ class UserController {
                 return res.status(200).json(existFriendRequest);
             }
 
-            const newFriendRequest = new FriendRequest({
-                source_id: user._id,
-                destination_id: friendId,
-            });
-
-            await newFriendRequest.save();
+            const newFriendRequest = await createFriendRequestDataService.createFriendRequestData(user._id, friendId);
 
             const wss = req.app.get("wss");
 
@@ -286,22 +283,23 @@ class UserController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
             const requestData = req.body;
-            const userFriendRequestData = await FriendRequest.findOne({ source_id: requestData.user._id, destination_id: user._id });
+            const userFriendRequestData = await getFriendRequestDataService.getFriendRequestData(requestData.user._id, user._id);
 
             if (requestData.status === "Confirm") {
                 user.friends.unshift(userFriendRequestData.source_id);
+
                 await user.save();
             }
 
             if (requestData.status === "Confirm" || requestData.status === "Delete") {
-                await FriendRequest.deleteOne({ _id: userFriendRequestData._id });
+                await deleteFriendRequestDataService.deleteFriendRequestDataById(userFriendRequestData._id);
             }
 
             const wss = req.app.get("wss");
@@ -332,7 +330,7 @@ class UserController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
@@ -382,6 +380,7 @@ class UserController {
                     }
                 })
             }
+
             return res.status(200).json({ message: 'User profile updated successfully' });
         } catch (error) {
             return res.status(500).json(error);

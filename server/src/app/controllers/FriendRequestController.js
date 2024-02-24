@@ -1,12 +1,21 @@
-const FriendRequest = require("../models/FriendRequest");
-const userDataService = require("../services/userDataService");
+const getUserDataService = require("../services/userService/getUserDataService");
+const getFriendRequestDataService = require("../services/friendRequestService/getFriendRequestDataService");
 
 class FriendRequestController {
     getFriendRequestById = async (req, res) => {
         try {
-            const { requestId } = req.params;
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.userId;
 
-            const friendRequestData = await FriendRequest.findById(requestId);
+            const user = await getUserDataService.getFormattedUserData(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: "User not found" });
+            }
+
+            const requestId = req.query.request;
+
+            const friendRequestData = await getFriendRequestDataService.getRawFriendRequestDataById(requestId);
 
             if (!friendRequestData) {
                 return res.status(404).json({ error: 'Friend request not found' });
@@ -14,8 +23,8 @@ class FriendRequestController {
 
             const friendRequestProps = {
                 _id: friendRequestData._id,
-                source: await userDataService.getUserById(friendRequestData.source_id),
-                destination: await userDataService.getUserById(friendRequestData.destination_id),
+                source: await getUserDataService.getFormattedUserData(friendRequestData.source_id),
+                destination: await getUserDataService.getFormattedUserData(friendRequestData.destination_id),
                 created_at: friendRequestData.createdAt,
                 updated_at: friendRequestData.updatedAt,
             };

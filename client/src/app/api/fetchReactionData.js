@@ -1,9 +1,9 @@
-export const fetchReactionData = async (reactionId) => {
+export const getReactionData = async (reactionId) => {
     try {
         const accessToken = localStorage.getItem("accessToken");
 
         if (!accessToken) {
-            return { error: "Access token not found" };
+            return console.error("Access token not found.");
         }
 
         const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/reaction/?reaction=${reactionId}`;
@@ -19,10 +19,11 @@ export const fetchReactionData = async (reactionId) => {
         if (response.ok) {
             return await response.json();
         } else {
-            return { error: "Error fetching reaction data" };
+            const errorData = await response.json();
+            return { error: errorData.message || "Error fetching reaction data" };
         }
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
 };
 
@@ -31,7 +32,7 @@ export const createReactionData = async (reactionType, destinationId, destinatio
         const accessToken = localStorage.getItem("accessToken");
 
         if (!accessToken) {
-            return { error: "Access token not found" };
+            return console.error("Access token not found.");
         }
 
         const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/reaction/";
@@ -56,9 +57,10 @@ export const createReactionData = async (reactionType, destinationId, destinatio
         if (response.ok) {
             return await response.json();
         } else {
-            return { error: "Error create reaction data" };
+            const errorData = await response.json();
+            return { error: errorData.message || "Error creating reaction data" };
         }
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
 };

@@ -5,7 +5,7 @@ const UserProfileCoverFooterFriendRequest = ({ userProps }) => {
         try {
             await setUserFriendRequest(status, userProps);
         } catch (error) {
-            throw error;
+            return console.error(error);
         }
     }
 

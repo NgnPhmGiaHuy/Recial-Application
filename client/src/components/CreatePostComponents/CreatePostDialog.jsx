@@ -11,7 +11,7 @@ import TagPeople from "/public/images/Icon/tag-people.png";
 import { useContentEditable, useMultipleImagesData, useSetPostData, useToggleState } from "@/hooks";
 import { CreatePostDialogHeader, CreatePostDialogCustomizationItem, CreatePostDialogAudience, CreatePostDialogImageInput } from "@/components";
 
-const CreatePostDialog = ({ userProps, setUserProps, createPostRef, handleShowCreatePost }) => {
+const CreatePostDialog = ({ userProps, setUserProps, groupProps, createPostRef, handleShowCreatePost }) => {
     const [showCreatePostAudience, setShowCreatePostAudience] = useState(false);
 
     const { selectedImagesFunction } = useMultipleImagesData();
@@ -44,8 +44,9 @@ const CreatePostDialog = ({ userProps, setUserProps, createPostRef, handleShowCr
         },
     ]
 
+    console.log(groupProps)
     const handleSubmitPost = async () => {
-        await handleSetPostData({ inputText: inputText, inputImage: selectedImagesFunction.selectedImages, userProps: userProps });
+        await handleSetPostData({ inputText: inputText, inputImage: selectedImagesFunction.selectedImages, userProps: userProps, groupProps: groupProps });
     }
 
     useEffect(() => {

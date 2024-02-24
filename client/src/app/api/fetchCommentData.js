@@ -3,7 +3,7 @@ export const createCommentData = async (commentData) => {
         const accessToken = localStorage.getItem("accessToken");
 
         if (!accessToken) {
-            return { error: "Access token not found" };
+            return console.error("Access token not found.");
         }
 
         const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/comment/";
@@ -20,20 +20,20 @@ export const createCommentData = async (commentData) => {
         if (response.ok) {
             return await response.json();
         } else {
-            return { error: "Error creating post" };
+            const errorData = await response.json();
+            return { error: errorData.message || "Error creating post" };
         }
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
 };
 
-
-export const fetchCommentData = async ({ commentId }) => {
+export const getCommentData = async (commentId) => {
     try {
         const accessToken = localStorage.getItem("accessToken");
 
         if (!accessToken) {
-            return { error: "Access token not found" };
+            return console.error("Access token not found.");
         }
 
         const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/comment/?comment=${commentId}`;
@@ -49,9 +49,10 @@ export const fetchCommentData = async ({ commentId }) => {
         if (response.ok) {
             return await response.json();
         } else {
-            return { error: "Error fetch post" };
+            const errorData = await response.json();
+            return { error: errorData.message || "Error fetch post" };
         }
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
 }

@@ -1,12 +1,11 @@
 const { WebSocket } = require("ws");
 
-const Post = require("../../models/Post");
-const User = require("../../models/User");
-const Photo = require("../../models/Photo");
-const userDataService = require("../../services/userDataService");
-const postDataService = require("../../services/postDataService");
-const imageDataService = require("../../services/imageDataService");
 const websocketService = require("../../services/websocketService");
+const getUserDataService = require("../../services/userService/getUserDataService");
+const getPostDataService = require("../../services/postService/getPostDataService");
+const deletePostDataService = require("../../services/postService/deletePostDataService");
+const createPostDataService = require("../../services/postService/createPostDataService");
+const enhancePostDataService = require("../../services/postService/enhancePostDataService");
 
 class PostController {
     getPostData = async (req, res) => {
@@ -14,19 +13,16 @@ class PostController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getUserById(userId);
+            const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
-            const posts = await Post.aggregate([
-                { $match: { post_privacy: "Public" } },
-                { $sample: { size: 5 } },
-                { $sort: { createdAt: -1 } },
-            ]);
+            const posts = await getPostDataService.getPostFeedData();
 
-            const postsWithUserData = await postDataService.enhancePostsWithUserData(posts);
+            const postsWithUserData = await enhancePostDataService.enhancePostsWithUserData(posts);
+
             return res.status(200).json(postsWithUserData)
         } catch (error) {
             return res.status(500).json(error);
@@ -34,52 +30,25 @@ class PostController {
     }
 
     createPostData = async (req, res) => {
-        try {
+       try {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await User.findById(userId);
+            const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const postData = req.body;
 
-            const newPost = new Post({
-                post_content: postData.post.post_content,
-                post_privacy: postData.post.post_privacy,
-            })
-
-            /*
-                Using when you want to store it in your local computer
-                const resolvedImageData = await Promise.all(postData.post.post_image.map(async (imageData) => {
-                    const newPhoto = await imageDataService.saveImage(imageData, user, postData.post.post_privacy);
-                    user.photo_list.unshift(newPhoto._id);
-                    newPost.post_photos.unshift(newPhoto._id);
-                    return newPhoto._id;
-                }));
-            */
-
-            const imagesData = await Promise.all(postData.post.post_image.map(async (image) => {
-                const newPhoto = new Photo({
-                    photo_url: image,
-                    photo_privacy: postData.post.post_privacy,
-                })
-
-                await newPhoto.save()
-
-                user.photo_list.unshift(newPhoto._id);
-                newPost.post_photos.unshift(newPhoto._id);
-            }))
-
-            await newPost.save();
+            const newPost = await createPostDataService.createPostData(postData, user);
 
             user.post_list.unshift(newPost._id);
 
             await user.save();
 
-            await websocketService.sendNewPostMessage(req.app.get('wss'), user._id, newPost._id);
+            await websocketService.sendNewPostMessage(req.app.get("wss"), user._id, newPost._id);
 
             return res.status(200).json(newPost);
         } catch (error) {
@@ -92,28 +61,24 @@ class PostController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const deletedPost = await Post.findById(req.body.postId);
+            const deletedPost = await getPostDataService.getRawPostData(req.body.postId);
 
             if (!deletedPost) {
-                return res.status(404).json({ error: 'Post not found' });
+                return res.status(404).json({ error: "Post not found" });
             }
 
-            const user = await User.findByIdAndUpdate(
-                userId,
-                { $pull: { post_list: req.body.postId, photo_list: { $in: deletedPost.post_photos } } },
-                { new: true }
-            );
+            const user = await deletePostDataService.findAndDeleteUserPost(userId, deletedPost);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
-            await postDataService.deletePost(req, deletedPost);
+            await deletePostDataService.deletePost(req, deletedPost);
 
-            const wss = req.app.get('wss')
+            const wss = req.app.get("wss")
             if (wss) {
                 const message = {
-                    type: 'delete_post',
+                    type: "delete_post",
                     userId: user._id.toString(),
                 };
 
@@ -124,7 +89,7 @@ class PostController {
                 });
             }
 
-            return res.status(200).json({ message: 'Post deleted successfully' });
+            return res.status(200).json({ message: "Post deleted successfully" });
         } catch (error) {
             return res.status(500).json(error);
         }

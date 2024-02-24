@@ -33,7 +33,7 @@ const useFilteredNotification = (entity) => {
         return { newNotifications, otherNotifications };
     }, [entity?.notifications, showUnreadNotification]);
 
-    return {filteredNotifications, showUnreadNotification, setShowUnreadNotification}
-}
+    return { filteredNotifications, showUnreadNotification, setShowUnreadNotification };
+};
 
 export default useFilteredNotification;

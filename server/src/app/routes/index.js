@@ -18,13 +18,13 @@ const routes = (app) => {
     app.use("/api/v1/auth/", authRoutes);
     app.use("/api/v1/public/media/", mediaRoutes);
     app.use("/api/v1/public/group/", groupRoutes);
-    app.use("/api/v1/public/friend-request/", friendRequestRoutes);
 
     app.use("/api/v1/secure/comment/", MiddlewareController.verifyToken, commentRoutes);
     app.use("/api/v1/secure/setting/", MiddlewareController.verifyToken, settingRoutes);
     app.use("/api/v1/secure/story/", MiddlewareController.verifyToken, storyRouter);
     app.use("/api/v1/secure/suggest/", MiddlewareController.verifyToken, suggestRoutes);
     app.use("/api/v1/secure/reaction/", MiddlewareController.verifyToken, reactionRoutes);
+    app.use("/api/v1/secure/friend-request/", MiddlewareController.verifyToken, friendRequestRoutes);
 
     app.use("/api/v1/public/post/", postIdRoutes);
     app.use("/api/v1/secure/post/", MiddlewareController.verifyToken, postRoutes);

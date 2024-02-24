@@ -1,9 +1,8 @@
-const {WebSocket} = require("ws");
+const { WebSocket } = require("ws");
 
-const Type = require("../../models/Type");
-const Comment = require("../../models/Comment");
-const userDataService = require("../../services/userDataService");
-const generalDataService = require("../../services/generalDataService");
+const getUserDataService = require("../../services/userService/getUserDataService");
+const getCommentDataService = require("../../services/commentService/getCommentDataService");
+const createCommentDataService = require("../../services/commentService/createCommentDataService");
 
 class CommentController {
     getCommentData = async (req, res) => {
@@ -11,7 +10,7 @@ class CommentController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getUserById(userId);
+            const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
@@ -19,23 +18,7 @@ class CommentController {
 
             const commentId = req.query.comment;
 
-            const commentData = await Comment.findById(commentId);
-
-            const { createdAt, updatedAt, ...otherCommentProps } = commentData._doc;
-
-            const commentProps = {
-                comment: {
-                    ...otherCommentProps,
-                    user: await userDataService.getUserById(commentData.source_id),
-                    comment_reactions: await generalDataService.getReaction(commentData._id),
-                    comment_reply: await generalDataService.getComment(commentData._id),
-                    created_at: createdAt,
-                    updated_at: updatedAt,
-                },
-                destination: {
-                    destination_id: commentData.destination.destination_id,
-                }
-            }
+            const commentProps = await getCommentDataService.getFormattedCommentData(commentId);
 
             return res.status(200).json(commentProps);
         } catch (error) {
@@ -48,7 +31,7 @@ class CommentController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getUserById(userId);
+            const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
@@ -56,18 +39,7 @@ class CommentController {
 
             const comment = req.body;
 
-            const typeId = await Type.findOne({ type_name: comment.destination.type })
-
-            const newComment = new Comment({
-                source_id: comment.source_id,
-                destination: {
-                    type: typeId._id,
-                    destination_id: comment.destination.destination_id,
-                },
-                comment_text: comment.comment_text,
-            });
-
-            await newComment.save();
+            const newComment = await createCommentDataService.createCommentData(comment);
 
             const wss = req.app.get("wss");
 
@@ -89,7 +61,7 @@ class CommentController {
         } catch (error) {
             return res.status(500).json(error);
         }
-    }
+    };
 }
 
 module.exports = new CommentController;

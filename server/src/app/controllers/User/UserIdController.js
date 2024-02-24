@@ -1,11 +1,11 @@
-const userDataService = require("../../services/userDataService");
+const getUserDataService = require("../../services/userService/getUserDataService");
 
 class UserIdController {
     getUserIdData = async (req, res) => {
         try {
             const {userId} = req.params;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
@@ -29,13 +29,13 @@ class UserIdController {
         try {
             const {userId} = req.params;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const followerProps = await userDataService.getUserSocial(user.followers);
+            const followerProps = await getUserDataService.getUserSocial(user.followers);
 
             return res.status(200).json({ user: { _id: user._id }, followerProps })
         } catch (error) {
@@ -47,13 +47,13 @@ class UserIdController {
         try {
             const {userId} = req.params;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const followingProps = await userDataService.getUserSocial(user.following);
+            const followingProps = await getUserDataService.getUserSocial(user.following);
 
             return res.status(200).json({ user: { _id: user._id }, followingProps })
         } catch (error) {
@@ -65,13 +65,13 @@ class UserIdController {
         try {
             const {userId} = req.params;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const friendProps = await userDataService.getUserSocial(user.friends);
+            const friendProps = await getUserDataService.getUserSocial(user.friends);
 
             return res.status(200).json({user: {_id: user._id}, friendProps});
         } catch (error) {
@@ -83,13 +83,13 @@ class UserIdController {
         try {
             const {userId} = req.params;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const photoListProps = await userDataService.getUserPhotoList(user.photo_list);
+            const photoListProps = await getUserDataService.getUserPhotoList(user.photo_list);
 
             return res.status(200).json({user: {_id: user._id}, photoListProps});
         } catch (error) {
@@ -101,13 +101,13 @@ class UserIdController {
         try {
             const {userId} = req.params;
 
-            const user = await userDataService.getFullUserById(userId);
+            const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const groupListProps = await userDataService.getUserGroup(user._id);
+            const groupListProps = await getUserDataService.getUserGroup(user._id);
 
             return res.status(200).json({user: {_id: user._id}, groupListProps});
         } catch (error) {

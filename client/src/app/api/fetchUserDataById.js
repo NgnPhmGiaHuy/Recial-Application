@@ -1,179 +1,176 @@
-export const fetchUserDataById = async (userId) => {
+const fetchAndCacheUserData = async (url, localStorageKey) => {
     try {
-        const cachedUserIdProps = localStorage.getItem("userIdProps");
-        const parsedCachedUserIdData = JSON.parse(cachedUserIdProps);
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
 
-        if (parsedCachedUserIdData && parsedCachedUserIdData.user && parsedCachedUserIdData.user._id === userId) {
-            return parsedCachedUserIdData;
+        if (response.ok) {
+            const responseData = await response.json();
+            localStorage.setItem(localStorageKey.toString(), JSON.stringify(responseData));
+            return responseData;
         } else {
-            const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}`;
-
-            const response = await fetch(url, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            if (response.ok) {
-                const responseData = await response.json();
-                localStorage.setItem("userIdProps", JSON.stringify(responseData));
-                return responseData;
-            } else {
-                return { error: "Error fetching user data" };
-            }
+            const errorData = await response.json();
+            return console.error(errorData.message || `Error fetching ${localStorageKey} data`);
         }
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
-}
+};
 
-export const fetchUserIdFriend = async (userId) => {
+export const getUserDataById = async (userId) => {
     try {
-        const cachedUserIdFriendProps = localStorage.getItem("userIdFriendProps");
-        const parsedCachedUserIdFriendData = JSON.parse(cachedUserIdFriendProps);
+        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}`;
+        const localStorageKey = "userIdProps";
+        const cachedUserIdProps = localStorage.getItem(localStorageKey);
 
-        if (parsedCachedUserIdFriendData && parsedCachedUserIdFriendData.user && parsedCachedUserIdFriendData.user._id === userId) {
-            return parsedCachedUserIdFriendData.friendProps;
-        } else {
-            const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}/friend/`;
+        if (cachedUserIdProps) {
+            const parsedCachedUserIdData = JSON.parse(cachedUserIdProps);
 
-            const response = await fetch(url, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            if (parsedCachedUserIdData && parsedCachedUserIdData.user && parsedCachedUserIdData.user._id === userId) {
+                setInterval(() => fetchAndCacheUserData(url, localStorageKey), 60000);
 
-            if (response.ok) {
-                const responseData = await response.json();
-                localStorage.setItem("userIdFriendProps", JSON.stringify(responseData));
-                return responseData.friendProps;
-            } else {
-                return { error: "Error fetching user friend data" };
+                return parsedCachedUserIdData;
             }
         }
+
+        const userData = await fetchAndCacheUserData(url, localStorageKey);
+
+        setInterval(() => fetchAndCacheUserData(url, localStorageKey), 60000);
+
+        return userData;
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
-}
+};
 
-export const fetchUserIdFollowing = async (userId) => {
+export const getUserIdFriend = async (userId) => {
     try {
-        const cachedUserIdFollowingProps = localStorage.getItem("userIdFollowingProps");
-        const parsedCachedUserIdFollowingData = JSON.parse(cachedUserIdFollowingProps);
+        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}/friend/`;
+        const localStorageKey = "userIdFriendProps";
+        const cachedUserIdFriendProps = localStorage.getItem(localStorageKey);
 
-        if (parsedCachedUserIdFollowingData && parsedCachedUserIdFollowingData.user && parsedCachedUserIdFollowingData.user._id === userId) {
-            return parsedCachedUserIdFollowingData.followingProps;
-        } else {
-            const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}/following/`;
+        if (cachedUserIdFriendProps) {
+            const parsedCachedUserIdFriendData = JSON.parse(cachedUserIdFriendProps);
 
-            const response = await fetch(url, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            if (response.ok) {
-                const responseData = await response.json();
-                localStorage.setItem("userIdFollowingProps", JSON.stringify(responseData));
-                return responseData.followingProps;
-            } else {
-                return { error: "Error fetching user following data" };
+            if (parsedCachedUserIdFriendData && parsedCachedUserIdFriendData.user && parsedCachedUserIdFriendData.user._id === userId) {
+                return parsedCachedUserIdFriendData.friendProps;
             }
         }
+
+        const userFriendData = await fetchAndCacheUserData(url, localStorageKey);
+
+        setInterval(() => fetchAndCacheUserData(url, localStorageKey), 60000);
+
+        return userFriendData ? userFriendData.friendProps : null;
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
-}
+};
 
-export const fetchUserIdFollower = async (userId) => {
+export const getUserIdFollowing = async (userId) => {
     try {
-        const cachedUserIdFollowerProps = localStorage.getItem("userIdFollowerProps");
-        const parsedCachedUserIdFollowerData = JSON.parse(cachedUserIdFollowerProps);
+        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}/following/`;
+        const localStorageKey = "userIdFollowingProps";
+        const cachedUserIdFollowingProps = localStorage.getItem(localStorageKey);
 
-        if (parsedCachedUserIdFollowerData && parsedCachedUserIdFollowerData.user && parsedCachedUserIdFollowerData.user._id === userId) {
-            return parsedCachedUserIdFollowerData.followerProps;
-        } else {
-            const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}/follower/`;
+        if (cachedUserIdFollowingProps) {
+            const parsedCachedUserIdFollowingData = JSON.parse(cachedUserIdFollowingProps);
 
-            const response = await fetch(url, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            if (parsedCachedUserIdFollowingData && parsedCachedUserIdFollowingData.user && parsedCachedUserIdFollowingData.user._id === userId) {
+                setInterval(() => fetchAndCacheUserData(url, localStorageKey), 60000);
 
-            if (response.ok) {
-                const responseData = await response.json();
-                localStorage.setItem("userIdFollowerProps", JSON.stringify(responseData));
-                return responseData.followerProps;
-            } else {
-                return { error: "Error fetching user follower data" };
+                return parsedCachedUserIdFollowingData.followingProps;
             }
         }
+
+        const userFollowingData = await fetchAndCacheUserData(url, localStorageKey);
+
+        setInterval(() => fetchAndCacheUserData(url, localStorageKey), 60000);
+
+        return userFollowingData ? userFollowingData.followingProps : null;
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
-}
+};
 
-export const fetchUserIdPhotoList = async (userId) => {
+export const getUserIdFollower = async (userId) => {
     try {
-        const cachedUserIdPhotoProps = localStorage.getItem("userIdPhotoProps");
-        const parsedCachedUserIdPhotoData = JSON.parse(cachedUserIdPhotoProps);
+        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}/follower/`;
+        const localStorageKey = "userIdFollowerProps";
+        const cachedUserIdFollowerProps = localStorage.getItem(localStorageKey);
 
-        if (parsedCachedUserIdPhotoData && parsedCachedUserIdPhotoData.user && parsedCachedUserIdPhotoData.user._id === userId) {
-            return parsedCachedUserIdPhotoData.photoListProps;
-        } else {
-            const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}/photo-list/`;
+        if (cachedUserIdFollowerProps) {
+            const parsedCachedUserIdFollowerData = JSON.parse(cachedUserIdFollowerProps);
 
-            const response = await fetch(url, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            if (parsedCachedUserIdFollowerData && parsedCachedUserIdFollowerData.user && parsedCachedUserIdFollowerData.user._id === userId) {
+                setInterval(() => fetchAndCacheUserData(url, localStorageKey), 60000);
 
-            if (response.ok) {
-                const responseData = await response.json();
-                localStorage.setItem("userIdPhotoProps", JSON.stringify(responseData));
-                return responseData.photoListProps;
-            } else {
-                return { error: "Error fetching user photo data" };
+                return parsedCachedUserIdFollowerData.followerProps;
             }
         }
+
+        const userFollowerData = await fetchAndCacheUserData(url, localStorageKey);
+
+        setInterval(() => fetchAndCacheUserData(url, localStorageKey), 60000);
+
+        return userFollowerData ? userFollowerData.followerProps : null;
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
-}
+};
 
-export const fetchUserIdGroupList = async (userId) => {
+export const getUserIdPhotoList = async (userId) => {
     try {
-        const cachedUserIdGroupProps = localStorage.getItem("userIdGroupProps");
-        const parsedCachedUserIdGroupData = JSON.parse(cachedUserIdGroupProps);
+        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}/photo-list/`;
+        const localStorageKey = "userIdPhotoProps";
+        const cachedUserIdPhotoProps = localStorage.getItem(localStorageKey);
 
-        if (parsedCachedUserIdGroupData && parsedCachedUserIdGroupData.user && parsedCachedUserIdGroupData.user._id === userId) {
-            return parsedCachedUserIdGroupData.groupListProps;
-        } else {
-            const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}/group-list/`;
+        if (cachedUserIdPhotoProps) {
+            const parsedCachedUserIdPhotoData = JSON.parse(cachedUserIdPhotoProps);
 
-            const response = await fetch(url, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            if (parsedCachedUserIdPhotoData && parsedCachedUserIdPhotoData.user && parsedCachedUserIdPhotoData.user._id === userId) {
+                setInterval(() => fetchAndCacheUserData(url, localStorageKey), 60000);
 
-            if (response.ok) {
-                const responseData = await response.json();
-                localStorage.setItem("userIdGroupProps", JSON.stringify(responseData));
-                return responseData.groupListProps;
-            } else {
-                return { error: "Error fetching user group data" };
+                return parsedCachedUserIdPhotoData.photoListProps;
             }
         }
+
+        const userPhotoListData = await fetchAndCacheUserData(url, localStorageKey);
+
+        setInterval(() => fetchAndCacheUserData(url, localStorageKey), 60000);
+
+        return userPhotoListData ? userPhotoListData.photoListProps : null;
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
-}
+};
+
+export const getUserIdGroupList = async (userId) => {
+    try {
+        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/user/${userId}/group-list/`;
+        const localStorageKey = "userIdGroupProps";
+        const cachedUserIdGroupProps = localStorage.getItem(localStorageKey);
+
+        if (cachedUserIdGroupProps) {
+            const parsedCachedUserIdGroupData = JSON.parse(cachedUserIdGroupProps);
+
+            if (parsedCachedUserIdGroupData && parsedCachedUserIdGroupData.user && parsedCachedUserIdGroupData.user._id === userId) {
+                setInterval(() => fetchAndCacheUserData(url, localStorageKey), 60000);
+
+                return parsedCachedUserIdGroupData.groupListProps;
+            }
+        }
+
+        const userGroupListData = await fetchAndCacheUserData(url, localStorageKey);
+
+        setInterval(() => fetchAndCacheUserData(url, localStorageKey), 60000);
+
+        return userGroupListData ? userGroupListData.groupListProps : null;
+    } catch (error) {
+        return console.error(error);
+    }
+};
+

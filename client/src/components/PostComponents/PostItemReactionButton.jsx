@@ -25,7 +25,7 @@ const PostItemReactionButton = ({ timeoutRef, postReactionButtonRef, props, hand
 
             return handleState.handleShowPostReactionButton();
         } catch (error) {
-            throw error;
+            return console.error(error);
         }
     }
 

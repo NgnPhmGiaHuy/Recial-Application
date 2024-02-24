@@ -4,35 +4,25 @@ import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 
+import { fetchTokenRefresh } from "@/app/api/fetchAuthData";
+
 const useTokenRefresh = () => {
     const router = useRouter();
     const [accessToken, setAccessToken] = useState(null);
 
     const refreshAccessToken = useCallback(async () => {
         try {
-            const refreshToken = localStorage.getItem("refreshToken");
+            const newAccessToken = await fetchTokenRefresh();
 
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/auth/refresh";
-
-            const response = await fetch(url, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${refreshToken}`,
-                },
-            });
-
-            if (response.ok) {
-                const responseData = await response.json();
-                const newAccessToken = responseData.accessToken;
-
+            if (!newAccessToken.error) {
                 setAccessToken(newAccessToken);
+
                 return localStorage.setItem("accessToken", newAccessToken);
             } else {
                 return router.push("/auth/login");
             }
         } catch (error) {
-            throw error;
+            return console.error(error);
         }
     }, [router]);
 
@@ -61,7 +51,7 @@ const useTokenRefresh = () => {
                 return await refreshAccessToken();
             }
         } catch (error) {
-            throw error;
+            return console.error(error);
         }
     }, [router, refreshAccessToken]);
 

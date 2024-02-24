@@ -1,9 +1,9 @@
 "use client"
 
-import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import fetchMediaData from "@/app/api/fetchMediaData";
+import { getMediaData } from "@/app/api/fetchMediaData";
 
 const useMediaData = (url) => {
     const router = useRouter();
@@ -16,17 +16,17 @@ const useMediaData = (url) => {
             try {
                 setMediaProps(null);
 
-                const mediaData = await fetchMediaData(url);
+                const mediaData = await getMediaData(url);
 
                 if (!mediaData && mediaData.error) {
                     return router.push("/auth/login");
                 }
 
                 if (!isCancelled) {
-                    setMediaProps(mediaData);
+                    return setMediaProps(mediaData);
                 }
             } catch (error) {
-                throw error;
+                return console.error(error);
             }
         }
 
@@ -35,7 +35,7 @@ const useMediaData = (url) => {
         return () => { isCancelled = true };
     }, [url, router]);
 
-    return {mediaProps, setMediaProps};
+    return { mediaProps, setMediaProps };
 }
 
 export default useMediaData;

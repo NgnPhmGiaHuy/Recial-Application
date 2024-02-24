@@ -66,7 +66,7 @@ const useDateOfBirth = (formData, handleFormChange) => {
         setDaysInMonth(getDaysArray(selectedMonth, selectedYear));
     }, [selectedMonth, selectedYear]);
 
-    return {daysInMonth, months, years, selectedDate, selectedMonth, selectedYear, handleMonthChange, handleYearChange, handleDateChange};
-}
+    return { daysInMonth, months, years, selectedDate, selectedMonth, selectedYear, handleMonthChange, handleYearChange, handleDateChange };
+};
 
 export default useDateOfBirth;

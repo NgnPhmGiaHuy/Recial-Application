@@ -1,9 +1,9 @@
-const fetchPostDataById = async ({ userId, page }) => {
+export const getPostDataByUserId = async ({ userId, page }) => {
     try {
         const accessToken = localStorage.getItem("accessToken");
 
         if (!accessToken) {
-            return { error: "Access token not found" };
+            return console.error("Access token not found.");
         }
 
         const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/post/?user=${userId}&page=${page}`;
@@ -19,32 +19,39 @@ const fetchPostDataById = async ({ userId, page }) => {
         if (response.ok) {
             return await response.json();
         } else {
-            return { error: "Error fetching post data" };
+            const errorData = await response.json();
+            return { error: errorData.message || "Error fetching post data" };
         }
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
 };
 
-export const fetchPostByPostId = async ({ postId }) => {
+export const getPostDataByPostId = async (postId) => {
     try {
+        const accessToken = localStorage.getItem("accessToken");
+
+        if (!accessToken) {
+            return console.error("Access token not found.");
+        }
+
         const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/post/post/?post=${postId}`;
 
         const response = await fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${accessToken}`,
             },
         });
 
         if (response.ok) {
             return await response.json();
         } else {
-            return { error: "Error fetching post data" };
+            const errorData = await response.json();
+            return { error: errorData.message || "Error fetching post data" };
         }
     } catch (error) {
-        throw error;
+        return console.error(error);
     }
 }
-
-export default fetchPostDataById;

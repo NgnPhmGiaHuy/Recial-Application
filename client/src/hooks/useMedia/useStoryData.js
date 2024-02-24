@@ -1,26 +1,32 @@
 "use client"
 
-import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import fetchStoryData from "@/app/api/fetchStoryData";
+import { getStoryData } from "@/app/api/fetchStoryData";
 
 const useStoryData = () => {
     const router = useRouter();
     const [storyProps, setStoryProps] = useState(null);
 
     useEffect(() => {
+        let isCancelled = false;
+
         const fetchData = async () => {
             try {
-                const storyData = await fetchStoryData();
+                setStoryProps(null);
 
-                if (!storyData && storyData.error ) {
+                const storyData = await getStoryData();
+
+                if (!storyData && storyData.error) {
                     return router.push("/auth/login");
                 }
 
-                setStoryProps(storyData);
+                if (!isCancelled) {
+                    return setStoryProps(storyData);
+                }
             } catch (error) {
-                throw error;
+                return console.error(error);
             }
         }
 

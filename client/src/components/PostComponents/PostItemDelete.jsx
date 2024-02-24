@@ -8,7 +8,7 @@ const PostItemDelete = ({ props, postDeleteRef, handleState }) => {
                 return handleState.handleDeletePostStatus();
             }
         } catch (error) {
-            throw error;
+            return console.error(error);
         }
     }
 

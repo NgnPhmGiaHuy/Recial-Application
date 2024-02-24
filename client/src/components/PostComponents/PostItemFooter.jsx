@@ -17,7 +17,7 @@ const PostItemFooter = ({ footerRef, footerCommentRef, timeoutRef, handleState, 
 
             return handleState.handleShowPostReactionButton();
         } catch (error) {
-            throw error;
+            return console.error(error);
         }
     }
 

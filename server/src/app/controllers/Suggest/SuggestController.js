@@ -1,5 +1,5 @@
-const userDataService = require("../../services/userDataService");
-const suggestDataService = require("../../services/suggestDataService");
+const getUserDataService = require("../../services/userService/getUserDataService");
+const getSuggestDataService = require("../../services/suggestService/getSuggestDataService");
 
 class SuggestController {
     getSuggestEventData = async (req, res) => {
@@ -7,13 +7,13 @@ class SuggestController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getUserById(userId);
+            const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const suggestEvent = await suggestDataService.getSuggestedEvents();
+            const suggestEvent = await getSuggestDataService.getSuggestedEvents();
 
             return res.status(200).json(suggestEvent);
         } catch (error) {
@@ -26,13 +26,13 @@ class SuggestController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getUserById(userId);
+            const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const suggestGroup = await suggestDataService.getSuggestedGroup();
+            const suggestGroup = await getSuggestDataService.getSuggestedGroup();
 
             return res.status(200).json(suggestGroup);
         } catch (error) {
@@ -45,13 +45,13 @@ class SuggestController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await userDataService.getUserById(userId);
+            const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            const suggestPage = await suggestDataService.getSuggestedPages();
+            const suggestPage = await getSuggestDataService.getSuggestedPages();
 
             return res.status(200).json(suggestPage);
         } catch (error) {

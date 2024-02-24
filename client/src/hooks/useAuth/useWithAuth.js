@@ -1,7 +1,7 @@
 "use client"
 
-import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const useWithAuth = (WrappedComponent) => {
     const AuthComponent = (props) => {
@@ -14,12 +14,14 @@ const useWithAuth = (WrappedComponent) => {
                     const accessToken = localStorage.getItem("accessToken");
 
                     if (!accessToken) {
-                        router.push("/auth/login")
+                        return router.push("/auth/login")
                     } else {
-                        setLoading(false);
+                        return setLoading(false);
                     }
                 } catch (error) {
-                    router.push("auth/login")
+                    console.error("Error checking auth token:", error);
+
+                    return router.push("auth/login")
                 }
             }
 

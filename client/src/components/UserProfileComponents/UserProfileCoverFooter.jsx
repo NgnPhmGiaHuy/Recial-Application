@@ -21,9 +21,9 @@ const UserProfileCoverFooter = ({ userProps, userCheck, handleState }) => {
 
     const handleSentFriendRequest = async (friendId) => {
         try {
-            await createUserFriendRequest(friendId);
+            return await createUserFriendRequest(friendId);
         } catch (error) {
-            throw error;
+            return console.error(error);
         }
     }
 
@@ -33,7 +33,7 @@ const UserProfileCoverFooter = ({ userProps, userCheck, handleState }) => {
                 <>
                     <div className="pt-[12px] flex flex-row items-center relative">
                         <div className="ml-[-6px] flex flex-row flex-wrap items-center justify-center relative">
-                            <div className={`${userCheck?.isFriendRequest ? "outline-blue-500 bg-blue-500 hover:outline-blue-700 hover:bg-blue-700" : "outline-lime-500 bg-lime-500 hover:outline-lime-700 hover:bg-lime-700"} min-w-[135px] min-h-[12px] ml-[8px] px-[16px] py-[6px] flex grow rounded-md cursor-pointer outline relative transition-all`} onClick={handleClick}>
+                            <div className={`${userCheck?.isFriendRequest ? "outline-lime-500 bg-lime-500 hover:outline-blue-700 hover:bg-blue-700" : "outline-lime-500 bg-lime-500 hover:outline-lime-700 hover:bg-lime-700"} min-w-[135px] min-h-[12px] ml-[8px] px-[16px] py-[6px] flex grow rounded-md cursor-pointer outline relative transition-all`} onClick={handleClick}>
                                 <div className="flex items-center justify-center gap-1 text-white">
                                     {userCheck?.isFriendRequest ? (
                                         <i>

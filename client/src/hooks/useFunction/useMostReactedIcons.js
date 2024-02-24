@@ -12,14 +12,13 @@ const useMostReactedIcons = (reactionProps) => {
 
     useEffect(() => {
         const reactionCounts = {};
-        const reactionsData = reactionProps;
 
-        reactionsData?.forEach(reaction => {
-            const {reaction_type} = reaction;
+        reactionProps?.forEach(reaction => {
+            const { reaction_type } = reaction;
             if (reactionCounts[reaction_type]) {
-                reactionCounts[reaction_type]++;
+                return reactionCounts[reaction_type]++;
             } else {
-                reactionCounts[reaction_type] = 1;
+                return reactionCounts[reaction_type] = 1;
             }
         });
 
@@ -41,14 +40,14 @@ const useMostReactedIcons = (reactionProps) => {
                 default:
                     break;
             }
-            return {icon, count};
+            return { icon, count };
         });
 
         const sortedReactions = reactions.sort((a, b) => b.count - a.count);
 
         const topTwoReactions = sortedReactions.slice(0, 2).map(reaction => reaction.icon);
 
-        setMostReactedIcons(topTwoReactions);
+        return setMostReactedIcons(topTwoReactions);
     }, [reactionProps]);
 
     return mostReactedIcons;

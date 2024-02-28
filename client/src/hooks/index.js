@@ -7,6 +7,10 @@ import useCountLikeReaction from "@/hooks/useFunction/useCountLikeReaction";
 import useFilteredNotification from "@/hooks/useFunction/useFilteredNotification";
 import {useFilterUserGroupsByRole} from "@/hooks/useGroup/useGroupData";
 import useLogout from "@/hooks/useAuth/useLogout";
+import useMultipleRefs from "@/hooks/useFunction/useMultipleRefs";
+import useMultipleHandleState from "@/hooks/useFunction/useMultipleHandleState";
+import useWeatherData from "@/hooks/useFunction/useWeatherData";
+import useWeatherForecast from "@/hooks/useFunction/useWeatherForecast";
 import {useGroupData} from "@/hooks/useGroup/useGroupData";
 import useMediaData from "@/hooks/useMedia/useMediaData";
 import {usePostItemData} from "@/hooks/usePost/usePostItemData";
@@ -39,6 +43,10 @@ export {
     useFilteredNotification,
     useFilterUserGroupsByRole,
     useLogout,
+    useMultipleRefs,
+    useMultipleHandleState,
+    useWeatherData,
+    useWeatherForecast,
     useGroupData,
     useMediaData,
     usePostItemData,

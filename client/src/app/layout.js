@@ -1,13 +1,19 @@
 import "./globals.css";
-import {Rubik, Roboto, Nunito_Sans, Montserrat} from "next/font/google";
+import { Cabin, Exo_2, Jost, Rubik, Roboto, Nunito_Sans, Montserrat, Open_Sans, Noto_Sans } from "next/font/google";
 
-import {Providers} from "@/components";
+import { Providers } from "@/components";
+
 import Favicon from "/public/images/Metadata/favicon.ico";
 
-const rubik = Rubik({subsets: ["latin"]});
-const nunitoSans = Nunito_Sans({subsets: ["latin"]});
-const montserrat = Montserrat({subsets: ["latin"]});
-const roboto = Roboto({subsets: ["latin"], weight: ["100", "300", "400", "500", "700", "900"]});
+const montserrat = Montserrat({ subsets: ["latin"] });
+const nunitoSans = Nunito_Sans({ subsets: ["latin"] });
+const cabin = Cabin({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
+const roboto = Roboto({ subsets: ["latin"], weight: ["100", "300", "400", "500", "700", "900"] });
+const openSans = Open_Sans({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800"] });
+const rubik = Rubik({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800", "900"] });
+const jost = Jost({ subsets: ["latin"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"] });
+const exoTwo = Exo_2({ subsets: ["latin"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"] });
+const notoSans = Noto_Sans({ subsets: ["latin"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"] });
 
 export const metadata = {
     title: "Recial",
@@ -15,10 +21,10 @@ export const metadata = {
     icons: [{ rel: "icon", url: Favicon.src }],
 }
 
-export default function RootLayout({children}) {
+export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body className={`${montserrat.className}`}>
+            <body className={`${ exoTwo.className }`}>
                 <Providers>
                     {children}
                 </Providers>

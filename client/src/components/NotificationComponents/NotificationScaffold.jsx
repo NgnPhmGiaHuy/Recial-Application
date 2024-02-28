@@ -42,7 +42,7 @@ const NotificationScaffold = ({ userProps }) => {
     return (
         <div ref={notificationRef} className="max-w-full w-[760px] min-h-[inherit] my-[16px] flex flex-col justify-start relative">
             <div className="w-full flex relative">
-                <div className="w-full rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white overflow-hidden relative">
+                <div className="w-full rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white overflow-hidden relative">
                     <div className="max-w-[cacl(100vw-24px)] min-h-[inherit] flex flex-col">
                         <div className="flex flex-shrink grow overflow-x-hidden overflow-y-auto overscroll-y-contain basis-full relative">
                             <div className="flex flex-col grow relative">
@@ -57,7 +57,7 @@ const NotificationScaffold = ({ userProps }) => {
                                                 </span>
                                             </div>
                                             <div className="flex flex-col flex-shrink-0 items-end justify-center basis-auto">
-                                                <div ref={notificationQuickSettingButtonRef} className="w-[32px] h-[32px] flex items-center justify-center relative rounded-full cursor-pointer hover:bg-zinc-100 transition-all overflow-hidden" onClick={handleNotificationQuickSettingButton}>
+                                                <div ref={notificationQuickSettingButtonRef} className="w-[32px] h-[32px] flex items-center justify-center relative rounded-xl cursor-pointer hover:bg-zinc-100 transition-all overflow-hidden" onClick={handleNotificationQuickSettingButton}>
                                                     <i>
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />

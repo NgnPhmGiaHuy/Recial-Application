@@ -1,9 +1,10 @@
-import { asideFriendNavigation, asideVideoNavigation } from "@/constants/AsideConstants";
+import { asideVideoConstants } from "@/constants/AsideConstants/asideVideoConstants";
+import { asideFriendConstants } from "@/constants/AsideConstants/asideFriendConstants";
 import { AsideScaffoldFriendList, AsideScaffoldFriendRequest, AsideScaffoldGroup, AsideScaffoldHeader, AsideScaffoldItem } from "@/components";
 
 const AsideScaffold = ({ userProps, aside, action }) => {
     return (
-        <div className="my-[16px] ml-[12px] max-w-[360px] min-w-[280px] max-h-0 min-h-[inherit] top-[56px] fixed shrink-[9999] basis-[360px] bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-y-auto no-scrollbar rounded-md">
+        <div className="my-[16px] ml-[12px] max-w-[360px] min-w-[280px] max-h-0 min-h-[inherit] top-[56px] fixed shrink-[9999] basis-[360px] bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-y-auto no-scrollbar rounded-xl">
             <div className="max-h-[inherit] min-h-[inherit] flex flex-col relative">
                 <div className="flex flex-col min-h-0 flex-shrink grow basis-full relative">
                     <div className="mt-[16px] p-[8px] flex flex-col grow relative">
@@ -41,14 +42,14 @@ const AsideScaffold = ({ userProps, aside, action }) => {
                             )}
                             {userProps && aside?.role?.friends && (
                                 <ul>
-                                    {asideFriendNavigation.map((value, index) => (
+                                    {asideFriendConstants.map((value, index) => (
                                         <AsideScaffoldItem key={index} itemProps={value}/>
                                     ))}
                                 </ul>
                             )}
                             {userProps && aside?.role?.watch && (
                                 <ul>
-                                    {asideVideoNavigation.map((value, index) => (
+                                    {asideVideoConstants.map((value, index) => (
                                         <AsideScaffoldItem key={index} itemProps={value}/>
                                     ))}
                                 </ul>

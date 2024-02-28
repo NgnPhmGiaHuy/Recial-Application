@@ -15,7 +15,8 @@ const FriendRequestPage = () => {
 
     const handleFriendClick = (clickedFriendId) => {
         setFriendRequestId(clickedFriendId);
-        handleRemoveUserIdLocalStorage();
+
+        return handleRemoveUserIdLocalStorage();
     }
 
     const onDataReceived = async (data) => {

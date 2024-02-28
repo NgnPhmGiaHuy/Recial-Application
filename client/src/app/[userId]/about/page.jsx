@@ -4,7 +4,7 @@ import { useRef } from "react";
 
 import { handleNewUserData } from "@/utils/handleNewData";
 import { Header, UserAbout, UserProfileEdit } from "@/components";
-import { useToggleState, useUserIdLayout, useWebSocket } from "@/hooks";
+import { useMultipleHandleState, useToggleState, useUserIdLayout, useWebSocket } from "@/hooks";
 
 const UserAboutPage = ({ params }) => {
     const editProfileRef = useRef();
@@ -12,10 +12,8 @@ const UserAboutPage = ({ params }) => {
     const [showEditProfile, setShowEditProfile, handleShowEditProfile] = useToggleState(false);
 
     const { userData, setUserData, userProps, setUserProps, userCheck } = useUserIdLayout(params.userId);
-    
-    const handleState = {
-        handleShowEditProfile: handleShowEditProfile,
-    };
+
+    const handleState = useMultipleHandleState({ handleShowEditProfile });
 
     const onDataReceived = async (data) => {
         await handleNewUserData(data, userData, setUserData);

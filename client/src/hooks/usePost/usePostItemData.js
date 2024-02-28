@@ -1,10 +1,10 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react";
-import { useClickOutside, useToggleState } from "@/hooks";
+import {useClickOutside, useMultipleRefs, useMultipleSetState, useMultipleState, useToggleState} from "@/hooks";
 
 export const usePostItemData = () => {
-    const { ref } = usePostItemRef();
+    const ref = usePostItemRef();
     const { state, setState, handleState } = usePostItemToggleState(ref);
     const { translateX, translateY } = usePostItemTranslate(ref, state)
 
@@ -17,33 +17,19 @@ export const usePostItemData = () => {
 };
 
 const usePostItemRef = () => {
-    const postRef = useRef(null);
-    const headerRef = useRef(null);
-    const contentRef = useRef(null);
-    const footerRef = useRef(null);
-    const footerCommentRef = useRef(null);
-    const commentRef = useRef(null);
-    const timeoutRef = useRef(null);
-    const postDeleteRef = useRef(null);
-    const postShareButtonRef = useRef(null);
-    const postReactionButtonRef = useRef(null);
-    const postQuickSettingButtonRef = useRef(null);
-
-    const ref = {
-        postRef: postRef,
-        headerRef: headerRef,
-        contentRef: contentRef,
-        footerRef: footerRef,
-        footerCommentRef: footerCommentRef,
-        commentRef: commentRef,
-        timeoutRef: timeoutRef,
-        postDeleteRef: postDeleteRef,
-        postShareButtonRef: postShareButtonRef,
-        postReactionButtonRef: postReactionButtonRef,
-        postQuickSettingButtonRef: postQuickSettingButtonRef,
-    }
-
-    return { ref };
+    return useMultipleRefs({
+        postRef: null,
+        headerRef: null,
+        contentRef: null,
+        footerRef: null,
+        footerCommentRef: null,
+        commentRef: null,
+        timeoutRef: null,
+        postDeleteRef: null,
+        postShareButtonRef: null,
+        postReactionButtonRef: null,
+        postQuickSettingButtonRef: null
+    });
 }
 
 const usePostItemTranslate = (ref, state) => {

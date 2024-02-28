@@ -7,9 +7,9 @@ const FriendScaffoldProfileItem = ({ userProps }) => {
         <li className="my-[12px] h-full flex flex-col items-center justify-center text-center align-top hyphens-auto relative hover:">
             <section className="w-full h-full relative">
                 <a href="">
-                    <div className="w-full h-full p-[12px] rounded-md bg-white relative shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] hover:shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2),0px_4px_4px_rgb(0_0_0/0.3)] transition-all">
+                    <div className="w-full h-full p-[12px] rounded-xl bg-white relative outline outline-black/30 hover:shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2),0px_4px_4px_rgb(0_0_0/0.3)] transition-all">
                         <div className="top-[12px] right-[12px] absolute z-20">
-                            <div className="w-[28px] h-[28px] flex items-center justify-center text-white rounded-full cursor-pointer overflow-hidden bg-black/60 hover:bg-black/70 transition-all">
+                            <div className="w-[28px] h-[28px] flex items-center justify-center text-white rounded-xl cursor-pointer overflow-hidden bg-black/60 hover:bg-black/70 transition-all">
                                 <i>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -18,7 +18,7 @@ const FriendScaffoldProfileItem = ({ userProps }) => {
                             </div>
                         </div>
                         <div className="w-full h-full top-0 left-0 absolute ">
-                            <div className="w-full h-[62px] flex items-center justify-center rounded-t-md overflow-hidden relative">
+                            <div className="w-full h-[62px] flex items-center justify-center rounded-t-xl overflow-hidden relative">
                                 {userProps?.profile_cover_photo_url ? (
                                     <Image src={userProps?.profile_cover_photo_url} alt={`${userProps?.profile_cover_photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 ) : (
@@ -27,14 +27,14 @@ const FriendScaffoldProfileItem = ({ userProps }) => {
                                 <div className="absolute inset-0 bg-black opacity-10 transition-opacity"></div>
                             </div>
                         </div>
-                        <div className="mb-[100px] flex flex-col items-center justify-center rounded-md overflow-hidden relative">
+                        <div className="mb-[100px] flex flex-col items-center justify-center rounded-xl overflow-hidden relative">
                             <div className="flex flex-col items-center justify-center relative">
                                 <div className="w-[104px] h-[104px] mb-[8px] flex items-center justify-center rounded-full overflow-hidden relative">
                                     <Image src={userProps?.profile_picture_url} alt={`${userProps?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 </div>
                                 <div className="flex flex-col justify-between relative">
                                     <span className="block text-[16px] text-center text-zinc-500 font-bold break-words relative leading-5">
-                                        <span className="overflow-x-hidden overflow-y-hidden relative">
+                                        <span className="overflow-hidden relative">
                                             {userProps?.username}
                                         </span>
                                     </span>
@@ -57,7 +57,7 @@ const FriendScaffoldProfileItem = ({ userProps }) => {
                                         </div>
                                         <div className="flex flex-col items-center relative">
                                             <span className="block text-[14px] text-zinc-500 font-medium break-words relative leading-5">
-                                                <span className="overflow-x-hidden overflow-y-hidden relative">
+                                                <span className="overflow-hidden relative">
                                                     {userProps?.mutual_friends?.length} mutual friends
                                                 </span>
                                             </span>
@@ -66,7 +66,7 @@ const FriendScaffoldProfileItem = ({ userProps }) => {
                                 </div>
                             )}
                             <div className="mt-[8px]">
-                                <div className="w-full px-[16px] py-[6px] flex items-center justify-center gap-2 cursor-pointer outline text-lime-700 rounded-md relative hover:outline-[2px] hover:bg-lime-100 transition-all">
+                                <div className="w-full px-[16px] py-[6px] flex items-center justify-center gap-2 cursor-pointer outline text-lime-900 rounded-xl relative hover:outline-[2px] hover:bg-lime-100 hover:text-black transition-all">
                                     <div className="flex flex-col items-center relative">
                                         <div className="w-[20px] h-[20px] flex flex-row items-center justify-center relative">
                                             <i>
@@ -81,7 +81,7 @@ const FriendScaffoldProfileItem = ({ userProps }) => {
                                     </div>
                                     <div className="flex flex-col items-center relative">
                                         <span className="block text-[14px] font-bold break-words relative leading-5">
-                                            <span className="overflow-x-hidden overflow-y-hidden relative">
+                                            <span className="overflow-hidden relative">
                                                 Connect
                                             </span>
                                         </span>

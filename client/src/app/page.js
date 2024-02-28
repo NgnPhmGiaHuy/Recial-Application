@@ -42,9 +42,7 @@ const HomePage = () => {
                         </div>
                     </div>
                     <div>
-                        {showCreatePost ? (
-                            <CreatePostDialog userProps={userProps} setUserProps={setUserProps} setPostProps={setPostProps} createPostRef={createPostRef} handleShowCreatePost={handleShowCreatePost}/>
-                        ) : null}
+                        { showCreatePost && <CreatePostDialog userProps={userProps} setUserProps={setUserProps} setPostProps={setPostProps} createPostRef={createPostRef} handleShowCreatePost={handleShowCreatePost}/> }
                     </div>
                 </div>
             </>

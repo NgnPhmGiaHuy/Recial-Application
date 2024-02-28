@@ -14,6 +14,7 @@ const fetchGoogleData = async (account) => {
             return await response.json();
         } else {
             const errorData = await response.json();
+
             return { error: errorData.message || "Error fetching user data using Google OAuth" };
         }
     } catch (error) {

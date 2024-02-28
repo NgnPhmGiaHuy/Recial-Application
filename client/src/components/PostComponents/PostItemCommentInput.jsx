@@ -37,12 +37,12 @@ const PostItemCommentInput = ({userData, postProps, isReply}) => {
             </div>
             <div className="w-full max-h-[50vh] min-h-[40px] my-[4px] flex flex-row flex-shrink flex-grow relative">
                 <form action="" className="w-full h-full grow cursor-text relative">
-                    <div className="w-full h-full px-[16px] py-[2px] rounded-3xl border-2 border-solid border-zinc-200 bg-white relative">
+                    <div className="w-full h-full px-[16px] py-[2px] rounded-xl border-2 border-solid border-zinc-200 bg-white relative">
                         <div className="w-full h-full flex flex-wrap items-center relative">
                             <div className="w-auto max-h-[40vh] h-full pb-[8px] pt-[6px] text-[14px] text-black text-ellipsis flex flex-auto overflow-x-hidden overflow-y-scroll font-normal leading-5 no-scrollbar">
                                 <div className="w-full h-full text-left outline-none whitespace-pre-wrap break-words relative" contentEditable={true} spellCheck={false} onInput={handleInputTextChange} ref={inputContentEditableRef}>
                                 </div>
-                                <div className="top-[7px] overflow-x-hidden overflow-y-hidden text-zinc-500 text-ellipsis pointer-events-none absolute z-[1]">{inputText.length === 0 ? "Add a comment..." : null}
+                                <div className="top-[7px] overflow-hidden text-zinc-500 text-ellipsis pointer-events-none absolute z-[1]">{inputText.length === 0 ? "Add a comment..." : null}
                                 </div>
                             </div>
                             <div className="h-full ml-auto flex flex-row items-center justify-between relative">

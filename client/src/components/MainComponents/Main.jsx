@@ -1,12 +1,12 @@
 "use client"
 
 import { useSuggestEventData, useSuggestGroupData, useSuggestPageData } from "@/hooks";
-import { Story, CreatePost, Post, FriendRequest, SuggestGroup, SuggestPage, Event } from "@/components";
+import { Story, CreatePost, Post, FriendRequest, SuggestGroup, SuggestPage, SuggestEvent } from "@/components";
 
 const Main = ({postRef, userData, userProps, storyProps, postProps, setPostProps, handleShowCreatePost}) => {
-    const suggestEventProps = useSuggestEventData();
-    const suggestGroupProps = useSuggestGroupData();
     const suggestPageProps = useSuggestPageData();
+    const suggestGroupProps = useSuggestGroupData();
+    const suggestEventProps = useSuggestEventData();
 
     return (
         <div className="sm:pl-[32px] pl-0 basis-[calc(100%-360px)] flex flex-row flex-shrink flex-nowrap grow items-stretch justify-center relative">
@@ -19,7 +19,7 @@ const Main = ({postRef, userData, userProps, storyProps, postProps, setPostProps
                             </div>
                             <div className="flex flex-row justify-center">
                                 <div className="w-full">
-                                    <div className="mb-[16px]">
+                                    <div>
                                         <CreatePost userProps={userProps} handleShowCreatePost={handleShowCreatePost}/>
                                     </div>
                                     <div>
@@ -32,15 +32,9 @@ const Main = ({postRef, userData, userProps, storyProps, postProps, setPostProps
                             {userProps?.friend_request && userProps.friend_request?.length ? (
                                 <FriendRequest userProps={userProps?.friend_request}/>
                             ) : null}
-                            {suggestGroupProps ? (
-                                <SuggestGroup groupProps={suggestGroupProps}/>
-                            ) : null}
-                            {suggestPageProps ? (
-                                <SuggestPage pageProps={suggestPageProps}/>
-                            ) : null}
-                            {suggestEventProps ? (
-                                <Event eventProps={suggestEventProps}/>
-                            ) : null}
+                            { suggestGroupProps && <SuggestGroup groupProps={suggestGroupProps}/>}
+                            { suggestPageProps && <SuggestPage pageProps={suggestPageProps}/> }
+                            { suggestEventProps && <SuggestEvent eventProps={suggestEventProps}/> }
                         </div>
                     </div>
                 </div>

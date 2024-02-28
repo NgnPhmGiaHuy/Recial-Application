@@ -5,7 +5,7 @@ const UserProfileScaffoldItem = ({ userProps, mediaProps }) => {
     return (
         <div className="w-4/12 mb-[4px] flex relative">
             <div className="w-[calc(100%-4px)] h-full mr-[4px] relative">
-                <div className="w-full overflow-hidden rounded-md outline-zinc-200 outline shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
+                <div className="w-full overflow-hidden rounded-lg outline-zinc-200 outline shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
                     {mediaProps ? (
                         <Link href={`/photo/?user=${userProps?.user?._id}&photo=${mediaProps?._id}`} className="w-full pb-[100%] block relative">
                             <div className="top-0 right-0 bottom-0 left-0 absolute">

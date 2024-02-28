@@ -59,7 +59,7 @@ const CreatePostDialogAudience = ({userProps, setUserProps, handeShowCreatePostA
             <div>
                 <div className="h-[60px] flex items-center justify-center border-b border-solid border-zinc-200">
                     <span className="block text-[20px] text-black font-bold break-words leading-6">
-                        <span className="overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
+                        <span className="overflow-hidden whitespace-nowrap text-ellipsis relative">
                             Post Audience
                         </span>
                     </span>
@@ -82,7 +82,7 @@ const CreatePostDialogAudience = ({userProps, setUserProps, handeShowCreatePostA
                                 <div className="pt-[20px] pb-[4px] flex flex-col relative">
                                     <div className="px-[16px] flex flex-col grow relative">
                                         <span className="block text-[20px] text-black font-semibold break-words leading-6">
-                                            <span className="overflow-x-hidden overflow-y-hidden line-clamp-2 relative">
+                                            <span className="overflow-hidden line-clamp-2 relative">
                                                 Who can see your post?
                                             </span>
                                         </span>
@@ -112,7 +112,7 @@ const CreatePostDialogAudience = ({userProps, setUserProps, handeShowCreatePostA
                                 <div className="w-full h-full inline-flex flex-col justify-center cursor-pointer relative">
                                     <div className="w-[120px] h-[36px] px-[12px] flex flex-row flex-nowrap items-center justify-center rounded-md relative hover:bg-zinc-100 transition-all" onClick={handleCancel}>
                                         <span className="block text-[15px] text-lime-700 font-semibold break-words leading-5">
-                                            <span className="overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
+                                            <span className="overflow-hidden whitespace-nowrap text-ellipsis relative">
                                                 Cancel
                                             </span>
                                         </span>
@@ -123,7 +123,7 @@ const CreatePostDialogAudience = ({userProps, setUserProps, handeShowCreatePostA
                                 <div className="w-full h-full inline-flex flex-col justify-center cursor-pointer relative">
                                     <div className="w-[120px] h-[36px] px-[12px] flex flex-row flex-nowrap items-center justify-center rounded-md bg-lime-500 relative hover:bg-lime-700 transition-all" onClick={handeShowCreatePostAudience}>
                                         <span className="block text-[15px] text-white font-semibold break-words leading-5">
-                                            <span className="overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
+                                            <span className="overflow-hidden whitespace-nowrap text-ellipsis relative">
                                                 Done
                                             </span>
                                         </span>

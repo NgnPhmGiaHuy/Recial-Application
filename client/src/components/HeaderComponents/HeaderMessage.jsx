@@ -22,7 +22,7 @@ const HeaderMessage = ({forwardedRef, userProps}) => {
     return (
         <div ref={forwardedRef} className="absolute top-0 left-0 translate-x-[-172px] translate-y-[48px]">
             <div className="mt-[5px] mr-[8px] animate-slideInTop">
-                <div className="overflow-x-hidden overflow-y-hidden rounded-md bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
+                <div className="overflow-hidden rounded-xl bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
                     <div className="w-[360px] max-h-[calc(100vh-56px-16px)] flex flex-col">
                         <div className="flex flex-col flex-shrink grow no-scrollbar overflow-x-hidden overflow-y-auto overscroll-y-contain basis-full relative">
                             <div className="flex flex-col grow relative">
@@ -36,7 +36,7 @@ const HeaderMessage = ({forwardedRef, userProps}) => {
                                             </div>
                                             <div className="flex flex-row flex-shrink-0 items-end justify-center basis-auto">
                                                 <div ref={messageQuickSettingButtonRef}
-                                                     className="w-[32px] h-[32px] mx-[4px] flex items-center justify-center relative rounded-full cursor-pointer hover:bg-zinc-100 transition-all overflow-hidden"
+                                                     className="w-[32px] h-[32px] mx-[4px] flex items-center justify-center relative rounded-xl cursor-pointer hover:bg-zinc-100 transition-all overflow-hidden"
                                                      onClick={handleMessageQuickSettingButton}>
                                                     <i >
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -44,7 +44,7 @@ const HeaderMessage = ({forwardedRef, userProps}) => {
                                                         </svg>
                                                     </i>
                                                 </div>
-                                                <div className="w-[32px] h-[32px] mx-[4px] flex items-center justify-center relative rounded-full cursor-pointer hover:bg-zinc-100 transition-all overflow-hidden">
+                                                <div className="w-[32px] h-[32px] mx-[4px] flex items-center justify-center relative rounded-xl cursor-pointer hover:bg-zinc-100 transition-all overflow-hidden">
                                                     <i>
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} stroke="none" className="w-5 h-5">
                                                             <path d="M20 2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h3v3.767L13.277 18H20c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2m0 14h-7.277L9 18.233V16H4V4h16z"/>
@@ -61,7 +61,7 @@ const HeaderMessage = ({forwardedRef, userProps}) => {
                                             <div className="w-full h-full px-[16px] my-[8px]">
                                                 <div className="w-full h-full flex items-center">
                                                     <label htmlFor="headerMessageSearchInput" className="w-full h-full">
-                                                        <label className="w-full h-full min-w-[40px] min-h-[40px] flex items-center relative rounded-full bg-zinc-100 z-10">
+                                                        <label className="w-full h-full min-w-[40px] min-h-[40px] flex items-center relative rounded-xl bg-zinc-100 z-10">
                                                             <span className="flex items-center pl-[12px] transition-all duration-500">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>

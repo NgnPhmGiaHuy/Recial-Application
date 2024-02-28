@@ -8,9 +8,9 @@ const FriendScaffoldEventItem = ({ userProps }) => {
         <li className="my-[12px] h-full flex flex-col items-center justify-center text-center align-top hyphens-auto relative hover:">
             <section className="w-full h-full relative">
                 <a href="">
-                    <div className="w-full h-full rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white relative hover:shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2),0px_4px_4px_rgb(0_0_0/0.3)] transition-all">
+                    <div className="w-full h-full rounded-xl outline outline-black/30 bg-white relative hover:shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2),0px_4px_4px_rgb(0_0_0/0.3)] transition-all">
                         <div className="top-[12px] right-[12px] absolute z-20">
-                            <div className="w-[28px] h-[28px] flex items-center justify-center text-white rounded-full cursor-pointer overflow-hidden bg-black/60 hover:bg-black/70 transition-all">
+                            <div className="w-[28px] h-[28px] flex items-center justify-center text-white rounded-xl cursor-pointer overflow-hidden bg-black/60 hover:bg-black/70 transition-all">
                                 <i>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -18,8 +18,8 @@ const FriendScaffoldEventItem = ({ userProps }) => {
                                 </i>
                             </div>
                         </div>
-                        <div className="w-full h-full flex flex-col rounded-md overflow-hidden relative">
-                            <div className="w-full h-[140px] flex items-center justify-center rounded-t-md overflow-hidden relative">
+                        <div className="w-full h-full flex flex-col rounded-xl overflow-hidden relative">
+                            <div className="w-full h-[140px] flex items-center justify-center rounded-t-xl overflow-hidden relative">
                                 {userProps.cover_photo_url ? (
                                     <Image src={userProps.cover_photo_url} alt={`${userProps.cover_photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 ) : (
@@ -31,7 +31,7 @@ const FriendScaffoldEventItem = ({ userProps }) => {
                                 <div className="flex flex-col relative">
                                     <div className="flex flex-col relative">
                                         <span className="max-h-[76px] block text-[16px] text-left text-black font-semibold break-words relative leading-5">
-                                            <span className="overflow-x-hidden overflow-y-hidden line-clamp-2 text-ellipsis relative">
+                                            <span className="overflow-hidden line-clamp-2 text-ellipsis relative">
                                                 {userProps.event_name}
                                             </span>
                                         </span>
@@ -40,7 +40,7 @@ const FriendScaffoldEventItem = ({ userProps }) => {
                                 <div className="mt-[8px] flex flex-col relative">
                                     <div className="flex flex-col relative">
                                         <span className="block text-[14px] text-left text-black font-normal break-words relative leading-5">
-                                            <span className="overflow-x-hidden overflow-y-hidden line-clamp-2 text-ellipsis relative">
+                                            <span className="overflow-hidden line-clamp-2 text-ellipsis relative">
                                                 {formatDateTime(userProps.start_datetime)}
                                             </span>
                                         </span>
@@ -60,7 +60,7 @@ const FriendScaffoldEventItem = ({ userProps }) => {
                                     </div>
                                     <div className="flex flex-col relative">
                                         <span className="block text-[12px] text-left text-black font-normal break-words relative leading-5">
-                                            <span className="overflow-x-hidden overflow-y-hidden line-clamp-2 text-ellipsis relative">
+                                            <span className="overflow-hidden line-clamp-2 text-ellipsis relative">
                                                 {userProps.participants.length} attendees
                                             </span>
                                         </span>
@@ -68,10 +68,10 @@ const FriendScaffoldEventItem = ({ userProps }) => {
                                 </div>
                             </div>
                             <div className="mt-[8px] px-[12px] pb-[12px]">
-                                <div className="w-full px-[16px] py-[6px] flex items-center justify-center gap-2 cursor-pointer outline text-lime-700 rounded-md relative hover:outline-[2px] hover:bg-lime-100 transition-all">
+                                <div className="w-full px-[16px] py-[6px] flex items-center justify-center gap-2 cursor-pointer outline text-lime-900 rounded-xl relative hover:outline-[2px] hover:bg-lime-100 hover:text-black transition-all">
                                     <div className="flex flex-col items-center relative">
                                         <span className="block text-[14px] font-bold break-words relative leading-5">
-                                            <span className="overflow-x-hidden overflow-y-hidden relative">
+                                            <span className="overflow-hidden relative">
                                                 Follow
                                             </span>
                                         </span>

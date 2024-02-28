@@ -6,7 +6,7 @@ const AsideScaffoldHeader = ({ aside }) => {
                     <a href="/friends">
                         <div className="my-[6px] mr-[12px] flex flex-col self-center relative">
                             <div
-                                className="w-[32px] h-[32px] flex flex-row items-center justify-center rounded-full relative hover:bg-zinc-100 transition-all">
+                                className="w-[32px] h-[32px] flex flex-row items-center justify-center rounded-xl relative hover:bg-zinc-200 transition-all">
                                 <i>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                          strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -25,7 +25,7 @@ const AsideScaffoldHeader = ({ aside }) => {
                             {aside.subtitle && (
                                 <a href="">
                                     <span className="block text-[13px] text-black text-left font-normal break-words leading-4">
-                                        <span className="overflow-x-hidden overflow-y-hidden relative">
+                                        <span className="overflow-hidden relative">
                                             {aside.subtitle}
                                         </span>
                                     </span>
@@ -33,7 +33,7 @@ const AsideScaffoldHeader = ({ aside }) => {
                             )}
                             <div className="my-[5px]">
                                 <span className="block text-[24px] text-black text-left font-bold break-words leading-5">
-                                    <span className="overflow-x-hidden overflow-y-hidden relative">
+                                    <span className="overflow-hidden relative">
                                         {aside.title}
                                     </span>
                                 </span>

@@ -17,7 +17,7 @@ const GroupScaffoldJoin = ({ userProps }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="m-[-4px] flex flex-row flex-wrap items-start justify-start relative">
+                        <div className="m-[-4px] flex flex-row flex-wrap items-start justify-start gap-1 relative">
                             {userProps?.group_list?.map((value, index) => (
                                 <GroupScaffoldJoinItem key={index} groupProps={value}/>
                             ))}

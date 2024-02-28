@@ -15,7 +15,7 @@ const PostItem = ({ userData, userProps, postProps, isCurrentUser }) => {
     }, [state.deletePostStatus]);
 
     return (
-        <div ref={ref.postRef} className="mb-[24px] flex flex-col justify-center rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white relative">
+        <div ref={ref.postRef} className="mb-[24px] flex flex-col justify-center rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white relative">
             <div>
                 <PostItemHeader headerRef={ref.headerRef} props={props} handleState={handleState}/>
             </div>

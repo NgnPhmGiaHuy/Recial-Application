@@ -1,5 +1,5 @@
 import { useFilterUserGroupsByRole } from "@/hooks";
-import { asideGroupNavigation } from "@/constants/AsideConstants";
+import { asideGroupConstants } from "@/constants/AsideConstants/asideGroupConstants";
 import { AsideScaffoldGroupItem, AsideScaffoldGroupNavigation } from "@/components";
 
 const AsideScaffoldGroup = ({userProps}) => {
@@ -10,14 +10,12 @@ const AsideScaffoldGroup = ({userProps}) => {
             <div className="flex flex-col grow relative">
                 <div className="mt-[4px] mb-[8px]">
                     <div className="flex flex-col flex-shrink relative">
-                        {asideGroupNavigation.map((value, index) => (
+                        {asideGroupConstants.map((value, index) => (
                             <AsideScaffoldGroupNavigation key={index} itemProps={value}/>
                         ))}
                         <div className="mx-[16px] mt-[8px]">
-                            <div
-                                className="h-[36px] px-[12px] flex flex-row flex-shrink-0 items-center justify-center rounded-md bg-lime-200 hover:bg-lime-300 text-lime-700 hover:text-lime-900 cursor-pointer relative transition-all">
-                                <div
-                                    className="w-full flex flex-row items-center justify-center relative transition-all">
+                            <div className="h-[36px] px-[12px] flex flex-row flex-shrink-0 items-center justify-center rounded-xl bg-lime-200 hover:bg-lime-300 text-lime-900 hover:text-black cursor-pointer relative transition-all">
+                                <div className="w-full flex flex-row items-center justify-center relative transition-all">
                                     <div className="mx-[3px] flex flex-shrink-0 items-center relative">
                                         <div className="w-[16px] h-[16px] flex items-center justify-center relative">
                                             <i>
@@ -30,8 +28,7 @@ const AsideScaffoldGroup = ({userProps}) => {
                                         </div>
                                     </div>
                                     <div className="mx-[3px] flex flex-shrink-0 items-center relative">
-                                        <span
-                                            className="block text-[15px] text-center font-semibold break-words relative leading-5">
+                                        <span className="block text-[15px] text-center font-semibold break-words relative leading-5">
                                             <span className="overflow-hidden relative">
                                                 Create new group
                                             </span>

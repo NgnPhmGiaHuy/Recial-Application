@@ -26,13 +26,16 @@ const Login = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setLoginFormData({ ...loginFormData, [name]: value });
+
+        return setLoginFormData({ ...loginFormData, [name]: value });
     }
 
     return (
-        <div className="w-full h-full bg-white">
+        <div className="w-screen h-screen bg-white">
+            <div className="w-full h-full block">
+
             <AuthHeader/>
-            <main className="flex flex-col items-center justify-center relative overflow-hidden">
+            <main className="h-[calc(100%-80px)] flex flex-col items-center justify-center relative overflow-hidden">
                 <section className="min-h-[560px] max-w-[1128px] flex flex-nowrap pt-[0px] items-center justify-center w-full h-full relative">
                     <div className="self-start relative flex-shrink-0 sm:w-[55%] w-full sm:pr-[42px]">
                         <AuthLoginForm isLogin="true" action={handleSubmit} handleChange={handleChange} error={error} setError={setError}/>
@@ -40,6 +43,7 @@ const Login = () => {
                     <Image src={Illustration} alt="illustration-of-a-man-and-a-woman-watering-a-plant" width={600} height={560} priority={true} className="w-auto h-auto hidden z-[1] relative flex-shrink object-cover lg:block"/>
                 </section>
             </main>
+            </div>
         </div>
     );
 };

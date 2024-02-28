@@ -13,7 +13,6 @@ const useUserIdLayout = (userId) => {
     const { userProps, setUserProps } = useFetchUserData(userId, userData, isCurrentUser);
     const { isFriend, isFriendRequest } = useCheckUserFriend(userData, userProps);
 
-    console.log(userProps)
     const userCheck = {
         isFriend: isFriend,
         isCurrentUser: isCurrentUser,

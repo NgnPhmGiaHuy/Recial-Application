@@ -26,7 +26,7 @@ const HeaderMessageContentItem = ({messageProps}) => {
                                 <div className="flex flex-col flex-shrink-0 relative p-[6px]">
                                     <div className="w-[56px] h-[56px] relative cursor-pointer">
                                         <div className="w-full h-full absolute">
-                                            <div className="w-full h-full overflow-x-hidden overflow-y-hidden block rounded-full bg-white border border-solid border-gray-500 relative">
+                                            <div className="w-full h-full overflow-hidden block rounded-full bg-white border border-solid border-gray-500 relative">
                                                 <div className="w-full h-full flex flex-col relative">
                                                     <Image src={messageProps?.source?.profile_picture_url} alt={`${messageProps?.source?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                                 </div>
@@ -37,28 +37,28 @@ const HeaderMessageContentItem = ({messageProps}) => {
                                 <div className="flex flex-row flex-shrink flex-wrap grow basis-auto items-center justify-between relative">
                                     <div className="max-w-full flex flex-col flex-shrink-0 grow relative p-[6px]">
                                         <span className="block text-[15px] text-black text-left font-medium break-words leading-5">
-                                            <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
+                                            <span className="block overflow-hidden whitespace-nowrap text-ellipsis relative">
                                                 {messageProps?.source?.username || messageProps?.source?.firstname + " " + messageProps?.source?.lastname}
                                             </span>
                                         </span>
                                         <div className="min-h-[16px] flex flex-row items-center pt-[6px]">
                                             <span className="flex items-center break-words pr-[2px]">
                                                 <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
-                                                    <span className="max-w-[150px] block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
+                                                    <span className="max-w-[150px] block overflow-hidden whitespace-nowrap text-ellipsis relative">
                                                         {messageProps?.message_content}
                                                     </span>
                                                 </span>
                                             </span>
                                             <span className="flex items-center break-words">
                                                 <span className="block text-[13px] text-gray-500 font-normal break-words leading-4 mx-[4px]">
-                                                    <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
+                                                    <span className="block overflow-hidden whitespace-nowrap text-ellipsis relative">
                                                         <span> · </span>
                                                     </span>
                                                 </span>
                                             </span>
                                             <span className="flex items-center break-words pl-[2px]">
                                                 <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
-                                                    <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis line-clamp-1 relative">
+                                                    <span className="block overflow-hidden whitespace-nowrap text-ellipsis line-clamp-1 relative">
                                                         {formatTimeAgoShort(messageProps?.updated_at)}
                                                     </span>
                                                 </span>
@@ -84,12 +84,12 @@ const HeaderMessageContentItem = ({messageProps}) => {
                     </a>
                 </div>
                 <div>
-                    <div className={`${showHeaderMessageContentItemMoreButton ? "w-[36px] h-[36px] -translate-y-1/2" : "w-[1px] h-[1px] overflow-x-hidden overflow-y-hidden"} top-[50%] right-[48px] flex absolute`}>
+                    <div className={`${showHeaderMessageContentItemMoreButton ? "w-[32px] h-[32px] -translate-y-1/2" : "w-[1px] h-[1px] overflow-hidden"} top-[50%] right-[48px] flex absolute`}>
                         <div className="ml-[8px]">
                             <div>
                                 <div className="rounded-full">
                                     <div ref={messageQuickSettingItemButtonRef}
-                                         className="w-[36px] h-[36px] flex justify-center items-center text-gray-500 cursor-pointer rounded-full bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] border border-solid border-gray-200 relative hover:bg-zinc-100 transition-all"
+                                         className="w-[32px] h-[32px] flex justify-center items-center text-gray-500 cursor-pointer rounded-xl bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] border border-solid border-gray-200 relative hover:bg-zinc-100 transition-all"
                                          onClick={handleShowHeaderMessageItemQuickSettingButton}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>
@@ -105,7 +105,7 @@ const HeaderMessageContentItem = ({messageProps}) => {
                 {showHeaderMessageItemQuickSetting ? (
                     <div ref={messageQuickSettingItemButtonRef} className="absolute top-0 left-0 translate-x-[10px] translate-y-[-265px] z-50">
                         <div className="relative mt-[15px] rounded-l-md rounded-r-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
-                            <div className="overflow-x-hidden overflow-y-hidden rounded-l-md rounded-r-md bg-white">
+                            <div className="overflow-hidden rounded-l-md rounded-r-md bg-white">
                                 <div className="flex flex-col grow items-stretch origin-top-left relative">
                                     <div className="w-[344px] py-[8px] overflow-x-hidden overflow-y-auto overscroll-y-contain flex flex-col relative">
                                         <div className="flex flex-col grow relative">

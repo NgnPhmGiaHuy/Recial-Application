@@ -51,14 +51,14 @@ const Header = ({ userProps, disableMessage, disableNotification }) => {
                         <div className="w-full h-full relative before:shadow-md">
                             <div className={`${showSearchHistory ? "shadow-xl" : null} w-full h-full sm:px-[16px] px-[4px] mb-[-8px] flex items-center `}>
                                 <div className="w-full flex items-center">
-                                    <div className={`${showSearchHistory ? "flex w-[34px] h-[34px] p-[8px]" : "hidden"} items-center justify-center rounded-full hover:bg-zinc-200 cursor-pointer transition-all duration-500 ease-in-out animate-moveIconRightToLeft`}>
+                                    <div className={`${showSearchHistory ? "flex w-[34px] h-[34px] p-[8px]" : "hidden"} items-center justify-center rounded-xl hover:bg-zinc-200 cursor-pointer transition-all duration-500 ease-in-out animate-moveIconRightToLeft`}>
                                         <i>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
                                             </svg>
                                         </i>
                                     </div>
-                                    <label className={`${showSearchHistory ? "w-full" : null} h-full min-w-[40px] min-h-[40px] flex items-center justify-center relative rounded-full bg-zinc-100 z-10`} htmlFor="headerSearchInput">
+                                    <label className={`${showSearchHistory ? "w-full" : null} h-full min-w-[40px] min-h-[40px] flex items-center justify-center relative rounded-xl bg-zinc-100 z-10`} htmlFor="headerSearchInput">
                                         <span className={`${showSearchHistory ? "animate-moveIconRightToLeft hidden" : "flex"} w-auto items-center sm:pl-[12px] transition-all duration-500`}>
                                             <i>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
@@ -89,7 +89,7 @@ const Header = ({ userProps, disableMessage, disableNotification }) => {
             <div className="h-[56px] top-0 right-0 fixed z-20">
                 <div className="h-full pr-[16px] pl-[4px] flex flex-row items-center">
                     <div className="h-full flex items-center justify-center mr-[8px]">
-                        <div ref={menuButtonRef} className={`${showMenu ? "bg-lime-200 hover:bg-lime-300 text-lime-700" : "bg-zinc-200 hover:bg-zinc-300"} w-[40px] h-[40px] flex items-center justify-center rounded-full cursor-pointer relative transition-all`} onClick={handleMenuButtonClick}>
+                        <div ref={menuButtonRef} className={`${showMenu ? "bg-lime-200 hover:bg-lime-300 text-lime-700" : "bg-zinc-200 hover:bg-zinc-300"} w-[40px] h-[40px] flex items-center justify-center rounded-xl cursor-pointer relative transition-all`} onClick={handleMenuButtonClick}>
                             <i>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
                                      strokeWidth={1.5} stroke="none" className="w-6 h-6">
@@ -101,7 +101,7 @@ const Header = ({ userProps, disableMessage, disableNotification }) => {
                     {disableMessage ? null : (
                         <div className="h-full flex items-center justify-center mr-[8px]">
                             <div ref={messageButtonRef}
-                                 className={`${showMessage ? "bg-lime-200 hover:bg-lime-300 text-lime-700" : "bg-zinc-200 hover:bg-zinc-300"} w-[40px] h-[40px] flex items-center justify-center rounded-full cursor-pointer relative transition-all`} onClick={handleMessageButtonClick}>
+                                 className={`${showMessage ? "bg-lime-200 hover:bg-lime-300 text-lime-700" : "bg-zinc-200 hover:bg-zinc-300"} w-[40px] h-[40px] flex items-center justify-center rounded-xl cursor-pointer relative transition-all`} onClick={handleMessageButtonClick}>
                                 <i>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
                                          strokeWidth={1.5} stroke="none" className="w-6 h-6">
@@ -114,7 +114,7 @@ const Header = ({ userProps, disableMessage, disableNotification }) => {
                     )}
                     <div className="h-full flex items-center justify-center mr-[8px]">
                         <div ref={notificationButtonRef}
-                             className={`${disableNotification ? "pointer-events-none" : null} ${showNotification || disableNotification ? "bg-lime-200 hover:bg-lime-300 text-lime-700" : "bg-zinc-200 hover:bg-zinc-300"} w-[40px] h-[40px] flex items-center justify-center rounded-full cursor-pointer relative transition-all`} onClick={handleNotificationButtonClick}>
+                             className={`${disableNotification ? "pointer-events-none" : null} ${showNotification || disableNotification ? "bg-lime-200 hover:bg-lime-300 text-lime-700" : "bg-zinc-200 hover:bg-zinc-300"} w-[40px] h-[40px] flex items-center justify-center rounded-xl cursor-pointer relative transition-all`} onClick={handleNotificationButtonClick}>
                             <i>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5"/>
@@ -126,7 +126,7 @@ const Header = ({ userProps, disableMessage, disableNotification }) => {
                                 </svg>
                             </i>
                             {userProps?.notifications?.length ? (
-                                <span className="absolute h-[19px] min-w-[19px] flex items-center justify-center -top-1 -right-1 bg-red-500 rounded-full">
+                                <span className="absolute h-[19px] min-w-[19px] flex items-center justify-center -top-1 -right-1 bg-red-500 rounded-xl">
                                     <span className="text-white text-[13px] font-medium">
                                         {notificationUnreadCount}
                                     </span>
@@ -136,24 +136,24 @@ const Header = ({ userProps, disableMessage, disableNotification }) => {
                     </div>
                     <div className="h-full flex items-center justify-center">
                         <div ref={personalAccountButtonRef} className="w-[40px] h-[40px] relative cursor-pointer" onClick={handlePersonalAccountButtonClick}>
-                            <div className="w-full h-full rounded-full overflow-hidden relative">
+                            <div className="w-full h-full rounded-xl overflow-hidden relative">
                                 <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                             </div>
-                            <div className="w-3 h-3 top-0 right-0 absolute border border-solid border-white rounded-full bg-red-500"></div>
+                            <div className="w-3 h-3 top-0 right-0 absolute border border-solid border-white rounded-xl bg-red-500"></div>
                         </div>
                     </div>
                 </div>
                 <div>
-                    {showMenu ? (<HeaderMenu forwardedRef={menuButtonRef} handleMenuButtonClick={handleMenuButtonClick}/>) : null}
+                    { showMenu && <HeaderMenu forwardedRef={menuButtonRef} handleMenuButtonClick={handleMenuButtonClick}/> }
                 </div>
                 <div>
-                    {showMessage && !disableMessage ? (<HeaderMessage forwardedRef={messageButtonRef} userProps={userProps}/>) : null}
+                    { (showMessage && !disableMessage) && <HeaderMessage forwardedRef={messageButtonRef} userProps={userProps}/> }
                 </div>
                 <div>
-                    {showNotification && !disableNotification ? (<NotificationHeader forwardedRef={notificationButtonRef} userProps={userProps}/>) : null}
+                    { (showNotification && !disableNotification) && <NotificationHeader forwardedRef={notificationButtonRef} userProps={userProps}/> }
                 </div>
                 <div>
-                    {showPersonalAccount ? (<HeaderPersonalAccount forwardedRef={personalAccountButtonRef} userProps={userProps}/>) : null}
+                    { showPersonalAccount && <HeaderPersonalAccount forwardedRef={personalAccountButtonRef} userProps={userProps}/> }
                 </div>
             </div>
         </nav>

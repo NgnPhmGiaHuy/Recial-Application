@@ -5,7 +5,7 @@ const DynamicUserAboutVideoScaffoldItem = dynamic(() => import("@/components/Use
 
 const UserAboutScaffold = ({ userProps, mediaProps, titleLabel, isCurrentUser, isFriendItem, isFriendPage, isGroup, isGroupPage, isPhoto, isPhotoPage, isVideo, isVideoPage }) => {
     return (
-        <div className="flex flex-col rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white overflow-hidden relative">
+        <div className="flex flex-col rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white overflow-hidden relative">
             <div className="p-[16px]">
                 <div className="mb-[8px] flex">
                     <div className="flex grow items-center relative">
@@ -31,7 +31,7 @@ const UserAboutScaffold = ({ userProps, mediaProps, titleLabel, isCurrentUser, i
                             <>
                                 <div className="p-[4px] flex flex-col flex-shrink-0 relative">
                                     <a href="/friends/requests">
-                                        <div className="px-[12px] py-[10px] flex flex-row flex-nowrap items-center justify-center rounded-md cursor-pointer relative hover:bg-zinc-100 transition-all">
+                                        <div className="px-[12px] py-[10px] flex flex-row flex-nowrap items-center justify-center rounded-xl cursor-pointer relative hover:bg-zinc-100 transition-all">
                                             <span className="text-[15px] text-lime-500 text-left font-semibold break-words relative leading-5">
                                                 <span className="overflow-hidden relative">
                                                     Friend requests
@@ -42,7 +42,7 @@ const UserAboutScaffold = ({ userProps, mediaProps, titleLabel, isCurrentUser, i
                                 </div>
                                 <div className="p-[4px] flex flex-col flex-shrink-0 relative">
                                     <a href="/friends">
-                                        <div className="px-[12px] py-[10px] flex flex-row flex-nowrap items-center justify-center rounded-md cursor-pointer relative hover:bg-zinc-100 transition-all">
+                                        <div className="px-[12px] py-[10px] flex flex-row flex-nowrap items-center justify-center rounded-xl cursor-pointer relative hover:bg-zinc-100 transition-all">
                                             <span className="text-[15px] text-lime-500 text-left font-semibold break-words relative leading-5">
                                                 <span className="overflow-hidden relative">
                                                     Find Friends
@@ -55,7 +55,7 @@ const UserAboutScaffold = ({ userProps, mediaProps, titleLabel, isCurrentUser, i
                         ) : null}
                         {isCurrentUser && (isPhotoPage || isVideoPage) ? (
                             <div className="p-[4px] flex flex-col flex-shrink-0 relative">
-                                <div className="px-[12px] py-[10px] flex flex-row flex-nowrap items-center justify-center rounded-md cursor-pointer relative hover:bg-zinc-100 transition-all">
+                                <div className="px-[12px] py-[10px] flex flex-row flex-nowrap items-center justify-center rounded-xl cursor-pointer relative hover:bg-zinc-100 transition-all">
                                     <span className="text-[15px] text-lime-500 text-left font-semibold break-words relative leading-5">
                                         <span className="overflow-hidden relative">
                                             Add photos/video
@@ -65,7 +65,7 @@ const UserAboutScaffold = ({ userProps, mediaProps, titleLabel, isCurrentUser, i
                             </div>
                         ) : null}
                         <div className="p-[4px] flex flex-col flex-shrink-0 relative">
-                            <div className="p-[12px] flex flex-row flex-nowrap items-center justify-center rounded-md cursor-pointer bg-zinc-100 relative hover:bg-zinc-200 transition-all">
+                            <div className="p-[8px] flex flex-row flex-nowrap items-center justify-center rounded-xl cursor-pointer bg-zinc-100 relative hover:bg-zinc-200 transition-all">
                                 <div className="w-[16px] h-[16px] mx-[3px] flex items-center justify-center overflow-hidden relative">
                                     <i>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -122,7 +122,7 @@ const UserAboutScaffold = ({ userProps, mediaProps, titleLabel, isCurrentUser, i
                     ) : null}
                     {isFriendPage || isGroupPage || isPhotoPage || isVideoPage ? null : (
                         <a href={`${isFriendItem ? "/user/friends" : null}`}>
-                            <div className="h-[40px] px-[12px] flex flex-row flex-nowrap items-center justify-center rounded-md bg-zinc-100 relative hover:bg-zinc-200 transition-all">
+                            <div className="h-[40px] px-[12px] flex flex-row flex-nowrap items-center justify-center rounded-lg bg-zinc-100 relative hover:bg-zinc-200 transition-all">
                                 <span className="text-[17px] text-black text-left font-semibold break-words relative leading-5">
                                     <span className="overflow-hidden relative">
                                         See all

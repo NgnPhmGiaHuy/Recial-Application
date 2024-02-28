@@ -17,7 +17,7 @@ const AsideItem = ({ userProps }) => {
                                 <div className="my-[-5px] flex flex-col">
                                     <div className="my-[5px]">
                                         <span className="block text-[16px] text-black text-left font-medium break-words leading-5">
-                                            <span className="overflow-x-hidden overflow-y-hidden line-clamp-2 relative">
+                                            <span className="overflow-hidden line-clamp-2 relative">
                                                 {userProps.title}
                                             </span>
                                         </span>

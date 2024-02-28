@@ -38,7 +38,7 @@ const PostItemCommentScaffold = ({userData, userProps, postProps, isRely}) => {
                         </div>
                     </div>
                 </Link>
-                <div className="min-h-[40px] ml-[4px] py-[8px] pl-[12px] pr-[64px] flex grow basis-0 bg-zinc-200 rounded-tr-md overflow-hidden">
+                <div className="min-h-[40px] ml-[4px] py-[8px] pl-[12px] pr-[64px] flex grow basis-0 bg-zinc-200 rounded-tr-xl overflow-hidden">
                     <Link href={postProps?.user?._id}>
                         <div className="min-h-[22px] flex flex-col items-start justify-center">
                             <span className="text-[16px] text-black text-left font-semibold break-words relative leading-5">
@@ -68,7 +68,7 @@ const PostItemCommentScaffold = ({userData, userProps, postProps, isRely}) => {
                     </div>
                 </div>
             </div>
-            <div className="ml-[44px] pr-[16px] pb-[12px] pl-[12px] bg-zinc-200 rounded-b-md overflow-hidden relative">
+            <div className="ml-[44px] pr-[16px] pb-[12px] pl-[12px] bg-zinc-200 rounded-b-xl overflow-hidden relative">
                 <div className="max-w-[928px] block relative">
                     <div>
                         <span ref={textRef} className={`${showMoreText ? "" : "line-clamp-4" } webkit-box text-[14px] text-black text-left font-normal break-words relative leading-5`}>
@@ -76,13 +76,13 @@ const PostItemCommentScaffold = ({userData, userProps, postProps, isRely}) => {
                         </span>
                     </div>
                     {!showMoreText && isOverflowing ? (
-                        <button type="button" className="ml-[8px] px-[4px] bottom-[-1px] right-0 bg-zinc-200 rounded-md absolute z-10" onClick={handleShowMoreText}>
+                        <button type="button" className="ml-[8px] px-[4px] bottom-[-1px] right-0 bg-zinc-200 rounded-xl absolute z-10" onClick={handleShowMoreText}>
                             <span className="text-[14px] text-zinc-500 text-left font-normal break-words relative leading-5 hover:text-black transition-all">
                                 ...see more
                             </span>
                         </button>
                     ) : showMoreText && isOverflowing ? (
-                        <button type="button" className="ml-[8px] px-[4px] bottom-[-1px] right-0 bg-zinc-200 rounded-md absolute z-10" onClick={handleShowMoreText}>
+                        <button type="button" className="ml-[8px] px-[4px] bottom-[-1px] right-0 bg-zinc-200 rounded-xl absolute z-10" onClick={handleShowMoreText}>
                             <span
                                 className="text-[14px] text-zinc-500 text-left font-normal break-words relative leading-5 hover:text-black transition-all">
                                 ...see less
@@ -95,7 +95,7 @@ const PostItemCommentScaffold = ({userData, userProps, postProps, isRely}) => {
                 <div className="ml-[44px] pl-[8px]">
                     <div className="mt-[4px] flex items-center">
                         <div className="pr-[8px] text-[12px] flex items-center">
-                            <div className="px-[4px] flex flex-wrap items-center justify-center rounded-md overflow-hidden cursor-pointer hover:bg-zinc-200">
+                            <div className="px-[4px] flex flex-wrap items-center justify-center rounded-xl overflow-hidden cursor-pointer hover:bg-zinc-200">
                                 <span className="text-zinc-500 text-left font-semibold break-words relative">
                                     <span className="overflow-hidden relative">
                                         Like
@@ -130,7 +130,7 @@ const PostItemCommentScaffold = ({userData, userProps, postProps, isRely}) => {
                         </div>
                         <div className="w-[1px] h-[12px] bg-zinc-500"></div>
                         <div className="px-[8px] text-[12px] flex items-center">
-                            <div className="px-[4px] flex flex-wrap items-center justify-center rounded-md overflow-hidden cursor-pointer hover:bg-zinc-200" onClick={handleShowCommentInput}>
+                            <div className="px-[4px] flex flex-wrap items-center justify-center rounded-xl overflow-hidden cursor-pointer hover:bg-zinc-200" onClick={handleShowCommentInput}>
                                 <span className="text-zinc-500 text-left font-semibold break-words relative leading-5">
                                     <span className="overflow-hidden relative">
                                         Reply
@@ -164,7 +164,7 @@ const PostItemCommentScaffold = ({userData, userProps, postProps, isRely}) => {
                 </div>
                 {!loadMoreClicked && visibleComments < postProps?.comment_reply?.length && (
                     <div className="mx-[16px] mb-[8px] relative">
-                        <div className="px-[8px] py-[2px] w-fit flex flex-col rounded-md cursor-pointer relative hover:bg-zinc-200 transition-all" onClick={loadMoreComments}>
+                        <div className="px-[8px] py-[2px] w-fit flex flex-col rounded-xl cursor-pointer relative hover:bg-zinc-200 transition-all" onClick={loadMoreComments}>
                             <span className="text-[16px] text-zinc-500 text-left font-bold break-words relative leading-5">
                                 <span>Load more comments</span>
                             </span>

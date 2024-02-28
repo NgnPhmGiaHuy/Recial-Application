@@ -15,6 +15,7 @@ const FriendListPage = () => {
 
     const handleFriendClick = (clickedFriendId) => {
         setFriendId(clickedFriendId);
+
         return handleRemoveUserIdLocalStorage();
     }
 

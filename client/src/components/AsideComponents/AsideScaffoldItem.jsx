@@ -18,7 +18,7 @@ const AsideScaffoldItem = ({ itemProps }) => {
     return (
         <li>
             <div>
-                <a href={itemProps.link} className="block rounded-md hover:bg-zinc-100 transition-all">
+                <a href={itemProps.link} className="block rounded-xl hover:bg-zinc-100 transition-all">
                     <div className="min-h-[48px] px-[8px] flex flex-row items-center justify-between relative">
                         <div className="my-[6px] mr-[12px] flex flex-col self-center relative">
                             <div className={`${active ? "bg-lime-500 text-white" : "bg-zinc-200"} w-[40px] h-[40px] flex flex-row items-center justify-center rounded-full overflow-hidden relative`}>
@@ -30,7 +30,7 @@ const AsideScaffoldItem = ({ itemProps }) => {
                                 <div className="my-[-5px] flex flex-col">
                                     <div className="my-[5px]">
                                         <span className="block text-[16px] text-black text-left font-medium break-words leading-5">
-                                            <span className="overflow-x-hidden overflow-y-hidden line-clamp-2 relative">
+                                            <span className="overflow-hidden line-clamp-2 relative">
                                                 {itemProps.title}
                                             </span>
                                         </span>

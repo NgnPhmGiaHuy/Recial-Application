@@ -57,7 +57,7 @@ const UserProfileEditInputBirthdate = ({ formData, handleFormChange }) => {
                     </div>
                     <div className="flex flex-col items-stretch relative">
                         <div className="py-[16px] flex flex-row relative">
-                            <div className="mr-[12px] flex flex-col grow-[2] bg-white border border-solid border-zinc-200 rounded-md relative">
+                            <div className="mr-[12px] flex flex-col grow-[2] bg-white border border-solid border-zinc-200 rounded-xl relative">
                                 <label htmlFor="session_month" className="px-[8px] pt-[8px] absolute">
                                     <span className="text-[13px] text-zinc-500 text-left font-normal break-words relative leading-5">
                                         <span className="overflow-hidden relative">
@@ -66,7 +66,7 @@ const UserProfileEditInputBirthdate = ({ formData, handleFormChange }) => {
                                     </span>
                                 </label>
                                 <select name="session_month" value={selectedMonth} onChange={handleMonthChange}
-                                        className="mt-[16px] px-[8px] pt-[12px] pb-[8px] text-[17px] text-black text-left rounded-md cursor-pointer appearance-none outline-none leading-5">
+                                        className="mt-[16px] px-[8px] pt-[12px] pb-[8px] text-[17px] text-black text-left rounded-xl cursor-pointer appearance-none outline-none leading-5">
                                     <option disabled={true} value="" className="bg-white">Select Month</option>
                                     {months.map(month => (
                                         <option key={month.value} value={month.value}>
@@ -86,7 +86,7 @@ const UserProfileEditInputBirthdate = ({ formData, handleFormChange }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="mr-[12px] flex flex-col grow bg-white border border-solid border-zinc-200 rounded-md relative">
+                            <div className="mr-[12px] flex flex-col grow bg-white border border-solid border-zinc-200 rounded-xl relative">
                                 <label htmlFor="session_date" className="px-[8px] pt-[8px] absolute">
                                     <span className="text-[13px] text-zinc-500 text-left font-normal break-words relative leading-5">
                                         <span className="overflow-hidden relative">
@@ -95,7 +95,7 @@ const UserProfileEditInputBirthdate = ({ formData, handleFormChange }) => {
                                     </span>
                                 </label>
                                 <select name="session_date" value={selectedDate} onChange={handleDateChange}
-                                        className="mt-[16px] px-[8px] pt-[12px] pb-[8px] text-[17px] rounded-md text-black text-left cursor-pointer appearance-none outline-none leading-5">
+                                        className="mt-[16px] px-[8px] pt-[12px] pb-[8px] text-[17px] rounded-xl text-black text-left cursor-pointer appearance-none outline-none leading-5">
                                     <option disabled={true} value="" className="bg-white">Select Day</option>
                                     {daysInMonth.map((day) => (
                                         <option key={day} value={day}>
@@ -115,7 +115,7 @@ const UserProfileEditInputBirthdate = ({ formData, handleFormChange }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-col grow bg-white border border-solid border-zinc-200 rounded-md relative">
+                            <div className="flex flex-col grow bg-white border border-solid border-zinc-200 rounded-xl relative">
                                 <label htmlFor="session_year" className="px-[8px] pt-[8px] absolute">
                                     <span className="text-[13px] text-zinc-500 text-left font-normal break-words relative leading-5">
                                         <span className="overflow-hidden relative">
@@ -124,7 +124,7 @@ const UserProfileEditInputBirthdate = ({ formData, handleFormChange }) => {
                                     </span>
                                 </label>
                                 <select name="session_year" value={selectedYear} onChange={handleYearChange}
-                                        className="mt-[16px] px-[8px] pt-[12px] pb-[8px] text-[17px] text-black text-left rounded-md cursor-pointer appearance-none outline-none leading-5">
+                                        className="mt-[16px] px-[8px] pt-[12px] pb-[8px] text-[17px] text-black text-left rounded-xl cursor-pointer appearance-none outline-none leading-5">
                                     <option disabled={true} value="" className="bg-white"></option>
                                     {years().map((year) => (
                                         <option key={year} value={year}>

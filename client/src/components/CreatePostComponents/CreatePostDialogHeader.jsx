@@ -6,7 +6,7 @@ const CreatePostDialogHeader = ({ userProps, handleShowCreatePost, handeShowCrea
             <div className="relative">
                 <div className="h-[60px] flex items-center justify-center border-b border-solid border-zinc-200 relative">
                     <span className="block text-[20px] text-black font-bold leading-6">
-                        <span className="overflow-x-hidden overflow-y-hidden text-ellipsis whitespace-nowrap break-words relative">
+                        <span className="overflow-hidden text-ellipsis whitespace-nowrap break-words relative">
                             Create post
                         </span>
                     </span>
@@ -32,7 +32,7 @@ const CreatePostDialogHeader = ({ userProps, handleShowCreatePost, handeShowCrea
                         <div className="flex flex-col relative">
                             <div className="flex flex-row flex-shrink-0 relative">
                                 <span className="block text-[20px] text-black font-semibold break-words leading-5">
-                                    <span className="overflow-x-hidden overflow-y-hidden relative">
+                                    <span className="overflow-hidden relative">
                                         {userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname}
                                     </span>
                                 </span>
@@ -40,7 +40,7 @@ const CreatePostDialogHeader = ({ userProps, handleShowCreatePost, handeShowCrea
                             <div className="mt-[4px] flex items-center relative">
                                 <div className="flex flex-row basis-auto items-stretch justify-center cursor-pointer relative">
                                     <span className="block text-[14px] text-black font-semibold break-words leading-4">
-                                        <div className="px-[8px] py-[4px] rounded-md bg-zinc-200 relative">
+                                        <div className="px-[8px] py-[6px] rounded-xl bg-zinc-200 relative">
                                             <div className="flex items-center justify-center">
                                                 <div className="mr-[4px] inline-flex items-center justify-center">
                                                     <i>
@@ -78,7 +78,7 @@ const CreatePostDialogHeader = ({ userProps, handleShowCreatePost, handeShowCrea
                                                     </i>
                                                 </div>
                                                 <span className="mr-[4px] inline-flex items-center justify-center">
-                                                    <span className="overflow-x-hidden overflow-y-hidden relative">
+                                                    <span className="overflow-hidden relative">
                                                         {userProps?.setting?.privacy?.post_visibility}
                                                     </span>
                                                 </span>

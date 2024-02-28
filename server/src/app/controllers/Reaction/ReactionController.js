@@ -14,7 +14,7 @@ class ReactionController {
             const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const reactionId = req.query.reaction;
@@ -41,12 +41,12 @@ class ReactionController {
             const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const data = req.body;
 
-            const reactionType = await getTypeDataService.getTypeByTypeName(data.destination.type);
+            const reactionType = await getTypeDataService.getTypeByTypeName(data.reaction_type);
 
             const destinationId = data.destination.destination_id;
             const destinationType = await getTypeDataService.getTypeByTypeName(data.destination.type);
@@ -74,7 +74,7 @@ class ReactionController {
                     })
                 }
 
-                return res.status(200).json({ message: 'Reaction update/create successfully' });
+                return res.status(200).json({ message: "Reaction update/create successfully" });
             } else {
                 const newReaction = await createReactionDataService.createReactionData(user, destinationType, destinationId, reactionType);
 
@@ -91,7 +91,7 @@ class ReactionController {
                     })
                 }
 
-                return res.status(200).json({ message: 'Reaction create successfully' });
+                return res.status(200).json({ message: "Reaction create successfully" });
             }
         } catch (error) {
             return res.status(500).json(error);

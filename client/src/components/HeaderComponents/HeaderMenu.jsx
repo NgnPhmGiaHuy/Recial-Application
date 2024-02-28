@@ -4,7 +4,7 @@ import { headerMenuSocial, headerMenuPersonal } from "@/constants/HeaderConstant
 const HeaderMenu = ({ forwardedRef, handleMenuButtonClick }) => {
     return (
         <div className="w-screen h-screen mt-[56px] fixed top-0 left-0 bg-black/75 z-50">
-            <div ref={forwardedRef} className={`w-[380px] h-[calc(100vh-56px)] max-w-full max-h-screen absolute top-0 right-0 flex flex-col rounded-md bg-white shadow-lg border border-solid border-black transform-none overflow-hidden animate-movePanelRightToLeft`}>
+            <div ref={forwardedRef} className={`w-[380px] h-[calc(100vh-56px)] max-w-full max-h-screen absolute top-0 right-0 flex flex-col rounded-xl bg-white shadow-lg border border-solid border-black transform-none overflow-hidden animate-movePanelRightToLeft`}>
                 <div className="flex flex-row py-[8px] pl-[12px] pr-[48px] items-center justify-between text-black font-normal break-words leading-5 relative">
                     <div className="text-[20px] font-semibold leading-6">
                         <h1>Menu</h1>

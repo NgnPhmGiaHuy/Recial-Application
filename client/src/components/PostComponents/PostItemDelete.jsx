@@ -17,8 +17,8 @@ const PostItemDelete = ({ props, postDeleteRef, handleState }) => {
             <div className="top-0 right-0 bottom-0 left-0 z-0 fixed bg-[rgba(0,0,0,0.25)]">
                 <div className="min-h-screen flex flex-col grow items-stretch justify-center relative">
                     <div className="min-h-[500px] px-[8px] pt-[56px] flex items-start justify-center animate-slideInTop">
-                        <div className="flex flex-col rounded-lg shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-x-hidden overflow-y-hidden bg-white relative">
-                            <div ref={postDeleteRef} className="w-[500px] overflow-x-hidden overflow-y-hidden relative">
+                        <div className="flex flex-col rounded-lg shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-hidden bg-white relative">
+                            <div ref={postDeleteRef} className="w-[500px] overflow-hidden relative">
                                 <div className="w-full h-full flex flex-col grow relative">
                                     <div className="w-full min-h-[60px] flex items-center justify-between border-b border-solid border-zinc-300 relative">
                                         <div className="w-[36px] h-[36px] mx-[16px]"></div>

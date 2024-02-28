@@ -4,11 +4,11 @@ import Image from "next/image";
 const StoryItem = ({ index, selected, storyItemSelectedRef, storyProps }) => {
     return (
         <div key={index} ref={selected ? storyItemSelectedRef : null} className="mr-[12px] flex flex-shrink-0 grow-0 sm:basis-[160px] basis-[100px] relative">
-            <Link href={`/story/?user=${storyProps?.user?._id}&set=${storyProps?.stories[0]?.story._id}`} className="w-full block overflow-x-hidden overflow-y-hidden cursor-pointer shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] rounded-md relative">
-                <div className="w-full h-0 sm:pt-[230px] pt-[140px] overflow-x-hidden overflow-y-hidden relative">
+            <Link href={`/story/?user=${storyProps?.user?._id}&set=${storyProps?.stories[0]?.story._id}`} className="w-full block overflow-hidden cursor-pointer shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] rounded-xl relative">
+                <div className="w-full h-0 sm:pt-[230px] pt-[140px] overflow-hidden relative">
                     <div className="absolute top-0 right-0 bottom-0 left-0">
                         <div className="h-full flex flex-col relative">
-                            <div className="h-full overflow-x-hidden overflow-y-hidden relative transition ease-in-out duration-150">
+                            <div className="h-full overflow-hidden relative transition ease-in-out duration-150">
                                 <div className="w-full h-full relative">
                                     <Image src={storyProps?.stories[0]?.story?.story_media_url} alt={`${storyProps?.stories[0]?.story?.story_media_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 </div>
@@ -22,7 +22,7 @@ const StoryItem = ({ index, selected, storyItemSelectedRef, storyProps }) => {
                                 </div>
                                 <div>
                                     <span className="block sm:text-[13px] text-[10px] text-center text-white break-words font-semibold leading-4">
-                                        <span className="line-clamp-3 overflow-x-hidden overflow-y-hidden relative">
+                                        <span className="line-clamp-3 overflow-hidden relative">
                                             {storyProps?.user?.username || storyProps?.user?.firstname + " " + storyProps?.user?.lastname}
                                         </span>
                                     </span>

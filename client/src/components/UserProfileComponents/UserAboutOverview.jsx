@@ -29,7 +29,7 @@ const UserAboutOverview = ({ userProps }) => {
     useClickOutside(userAboutOverviewSettingButtonRef, showUserAboutOverviewSetting, setShowUserAboutOverviewSetting);
 
     return (
-        <section className="bg-white rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative" ref={userAboutOverviewRef}>
+        <section className="bg-white rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative" ref={userAboutOverviewRef}>
             <div className="p-[16px] flex flex-col gap-6 relative">
                 <header className="flex flex-row items-center justify-between relative">
                     <div className="flex flex-col">
@@ -40,7 +40,7 @@ const UserAboutOverview = ({ userProps }) => {
                         </span>
                     </div>
                     <div className="p-[4px] flex flex-col flex-shrink-0 relative">
-                        <div className="p-[12px] flex flex-row flex-nowrap items-center justify-center rounded-md cursor-pointer bg-zinc-100 relative hover:bg-zinc-200 transition-all" onClick={handleShowUserAboutOverviewSetting}>
+                        <div className="p-[8px] flex flex-row flex-nowrap items-center justify-center rounded-xl cursor-pointer bg-zinc-100 relative hover:bg-zinc-200 transition-all" onClick={handleShowUserAboutOverviewSetting}>
                             <div className="w-[16px] h-[16px] mx-[3px] flex items-center justify-center overflow-hidden relative">
                                 <i>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -97,7 +97,7 @@ const UserAboutOverview = ({ userProps }) => {
                 {showUserAboutOverviewSetting ? (
                     <div ref={userAboutOverviewSettingButtonRef} className="absolute top-0 left-0 translate-x-[525px] translate-y-[65px] z-50" style={{ '--tw-translate-x': `${userAboutOverviewTranslateXValue}px`}}>
                         <div className="relative mt-[15px] rounded-l-md rounded-r-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
-                            <div className="overflow-x-hidden overflow-y-hidden rounded-l-md rounded-r-md bg-white">
+                            <div className="overflow-hidden rounded-l-md rounded-r-md bg-white">
                                 <div className="flex flex-col grow items-stretch origin-top-left relative">
                                     <div className="w-[344px] py-[8px] overflow-x-hidden overflow-y-auto overscroll-y-contain flex flex-col relative">
                                         <div className="flex flex-col grow relative">

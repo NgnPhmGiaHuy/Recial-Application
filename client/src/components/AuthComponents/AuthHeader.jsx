@@ -49,8 +49,8 @@ const AuthHeader = () => {
                 </li>
             </ul>
             <div className="min-w-[100px] flex flex-nowrap flex-shrink-0 justify-end gap-x-1">
-                <a href="/auth/register" className="min-h-[48px] h-min px-[24px] py-[12px] text-[16px] font-semibold leading-normal text-center text-gray-500 rounded-3xl hover:bg-zinc-100 hover:text-gray-700 transition-all duration-500">Join now</a>
-                <a href="/auth/login" className="min-h-[48px] h-min px-[24px] py-[12px] text-[16px] bg-white border border-solid border-lime-500 font-semibold leading-normal text-center text-lime-500 rounded-3xl hover:border-lime-700 hover:text-lime-700 hover:bg-lime-50 transition-all duration-500">Sign in</a>
+                <a href="/auth/register" className="min-h-[44px] h-min px-[24px] py-[8px] text-[16px] font-semibold leading-normal text-center text-gray-500 rounded-xl hover:bg-zinc-100 hover:text-gray-700 transition-all duration-500">Join now</a>
+                <a href="/auth/login" className="min-h-[44px] h-min px-[24px] py-[8px] text-[16px] bg-white border border-solid border-lime-700 font-semibold leading-normal text-center text-lime-700 rounded-xl hover:border-lime-700 hover:text-black hover:bg-lime-100 transition-all duration-300">Sign in</a>
             </div>
         </nav>
     );

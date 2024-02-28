@@ -27,7 +27,7 @@ const FriendListItem = ({ userProps, action }) => {
 
     return (
         <div className="pt-[12px] mx-[-4px] flex flex-col flex-auto justify-between relative" onClick={() => action(userProps?.user?._id)}>
-            <div className="min-h-[44px] px-[4px] flex flex-row items-center justify-between rounded-md relative cursor-pointer hover:bg-zinc-100 transition-all">
+            <div className="min-h-[44px] px-[4px] flex flex-row items-center justify-between rounded-xl relative cursor-pointer hover:bg-zinc-100 transition-all">
                 <div className="my-[8px] mr-[12px] flex flex-col self-start relative">
                     <div className="w-[60px] h-[60px] flex flex-col items-center rounded-full overflow-hidden relative">
                         <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
@@ -39,7 +39,7 @@ const FriendListItem = ({ userProps, action }) => {
                             <div className="flex flex-row flex-nowrap items-center justify-between relative">
                                 <div className="flex flex-col flex-shrink grow basis-0 relative">
                                     <span className="block text-[14px] text-black font-bold break-words relative leading-5">
-                                        <span className="overflow-x-hidden overflow-y-hidden line-clamp-1 relative">
+                                        <span className="overflow-hidden line-clamp-1 relative">
                                             {userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname}
                                         </span>
                                     </span>
@@ -60,7 +60,7 @@ const FriendListItem = ({ userProps, action }) => {
                                         </div>
                                         <div className="flex flex-col items-center relative">
                                             <span className="block text-[14px] text-zinc-500 font-medium break-words relative leading-5">
-                                                <span className="overflow-x-hidden overflow-y-hidden relative">
+                                                <span className="overflow-hidden relative">
                                                     {userProps?.mutual_friends?.length} mutual friends
                                                 </span>
                                             </span>
@@ -72,7 +72,7 @@ const FriendListItem = ({ userProps, action }) => {
                     </div>
                     <div className="my-[8px] ml-[12px] self-center relative">
                         <div className="flex flex-row items-center relative">
-                            <div className="w-[32px] h-[32px] flex items-center justify-center text-zinc-500 rounded-full cursor-pointer overflow-hidden relative hover:bg-zinc-200 z-10" onClick={handleShowFriendListQuickSettingItem}>
+                            <div className="w-[32px] h-[32px] flex items-center justify-center text-zinc-500 rounded-xl cursor-pointer overflow-hidden relative hover:bg-zinc-300 hover:text-black z-10 transition-all" onClick={handleShowFriendListQuickSettingItem}>
                                 <i>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />

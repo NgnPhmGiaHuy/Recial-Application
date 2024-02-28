@@ -46,7 +46,7 @@ const UserProfileEditImage = ({ userProps, formData, setFormData }) => {
                         <div
                             className="w-full h-full top-0 flex flex-col items-center justify-center opacity-75 absolute z-30">
                             <div className="flex flex-row gap-6 items-center justify-center relative">
-                                <div className="w-[44px] h-[44px] rounded-full overflow-hidden bg-black/50 hover:bg-black/80 transition-all" onClick={handleCoverImageTriggerClick}>
+                                <div className="w-[44px] h-[44px] rounded-xl overflow-hidden bg-black/60 hover:bg-black/80 transition-all" onClick={handleCoverImageTriggerClick}>
                                     <div className="w-full h-full flex items-center justify-center text-white cursor-pointer relative">
                                         <i>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -56,7 +56,7 @@ const UserProfileEditImage = ({ userProps, formData, setFormData }) => {
                                         </i>
                                     </div>
                                 </div>
-                                <div className="w-[44px] h-[44px] rounded-full overflow-hidden bg-black/50 hover:bg-black/80 transition-all" onClick={() => setSelectedCoverImage(userProps?.user?.profile_cover_photo_url)}>
+                                <div className="w-[44px] h-[44px] rounded-xl overflow-hidden bg-black/60 hover:bg-black/80 transition-all" onClick={() => setSelectedCoverImage(userProps?.user?.profile_cover_photo_url)}>
                                     <div className="w-full h-full flex items-center justify-center text-white cursor-pointer relative">
                                         <i>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
@@ -88,7 +88,7 @@ const UserProfileEditImage = ({ userProps, formData, setFormData }) => {
                 </div>
                 <div className="w-full h-full top-0 flex flex-col items-center justify-center opacity-75 absolute z-30">
                     <div className="flex flex-row items-center justify-center relative">
-                        <div className="w-[44px] h-[44px] rounded-full overflow-hidden bg-black/50 hover:bg-black/80 transition-all" onClick={handleProfileImageTriggerClick}>
+                        <div className="w-[44px] h-[44px] rounded-xl overflow-hidden bg-black/60 hover:bg-black/80 transition-all" onClick={handleProfileImageTriggerClick}>
                             <div className="w-full h-full flex items-center justify-center text-white cursor-pointer relative">
                                 <i>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

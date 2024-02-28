@@ -5,7 +5,7 @@ const HeaderMessageQuickSetting = ({ messageQuickSettingButtonRef, messageQuickS
     return (
         <div ref={messageQuickSettingButtonRef} className="absolute top-0 left-0 translate-x-[-65px] translate-y-[60px] z-50">
             <div className="relative mt-[15px] rounded-l-md rounded-b-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
-                <div className="overflow-x-hidden overflow-y-hidden rounded-l-md rounded-b-md bg-white">
+                <div className="overflow-hidden rounded-l-md rounded-b-md bg-white">
                     <div className="flex flex-col grow items-stretch origin-top-left relative">
                         <div className="w-[344px] py-[8px] overflow-x-hidden overflow-y-auto overscroll-y-contain flex flex-col relative">
                             <div className="flex flex-col grow relative">

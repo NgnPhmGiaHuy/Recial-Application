@@ -3,8 +3,8 @@
 import { useRef } from "react";
 
 import { handleNewUserData } from "@/utils/handleNewData";
-import { useToggleState, useUserIdLayout, useWebSocket } from "@/hooks";
 import { Header, UserAboutScaffold, UserProfileCover, UserProfileEdit } from "@/components";
+import { useMultipleHandleState, useToggleState, useUserIdLayout, useWebSocket } from "@/hooks";
 
 
 const UserGroupsPage = ({ params }) => {
@@ -14,9 +14,7 @@ const UserGroupsPage = ({ params }) => {
 
     const { userData, setUserData, userProps, setUserProps, userCheck } = useUserIdLayout(params.userId);
 
-    const handleState = {
-        handleShowEditProfile: handleShowEditProfile,
-    };
+    const handleState = useMultipleHandleState({ handleShowEditProfile });
 
     const onDataReceived = async (data) => {
         await handleNewUserData(data, userData, setUserData);

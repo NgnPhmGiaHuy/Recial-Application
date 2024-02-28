@@ -23,12 +23,12 @@ const AuthLoginForm = ({ action, handleChange, isLogin, isSignup, error, setErro
                                 </div>
                                 <div className="w-full relative mt-[8px]">
                                     <input type="text" name="session_key" id="session_key" placeholder="Email or phone numbers" onChange={handleChange} required
-                                           className={`${error && error.isEmailError ? "outline-red-500" : "outline-zinc-500"} w-full h-[57px]  p-4 rounded-md outline outline-1 focus:outline-lime-400`} onFocus={error ? () => setError({setIsEmailError: false}) : null}/>
+                                           className={`${error && error.isEmailError ? "outline-red-500" : "outline-zinc-500"} w-full h-[57px] p-4 rounded-xl outline outline-1 focus:outline-lime-400`} onFocus={error ? () => setError({setIsEmailError: false}) : null}/>
                                 </div>
                             </div>
                             {error && error.isEmailError && error.formErrorStatus ? (
                                 <div className="my-[2px] flex flex-row items-center">
-                                    <div className="w-[20px] h-[20px] p-[2px] flex items-center justify-center bg-red-500 rounded-full overflow-hidden relative">
+                                    <div className="w-[20px] h-[20px] p-[2px] flex items-center justify-center bg-red-500 rounded-md overflow-hidden relative">
                                         <span className="text-[14px] text-white text-center font-bold break-words relative leading-5">
                                             <span>
                                                 !
@@ -52,7 +52,7 @@ const AuthLoginForm = ({ action, handleChange, isLogin, isSignup, error, setErro
                                         </div>
                                         <div className="w-full mt-[8px]">
                                             <input type="text" name="session_firstname" id="session_firstname" placeholder="First name" onChange={handleChange} required
-                                                   className="w-full h-[57px]  p-4 rounded-md outline outline-1 outline-zinc-500 focus:outline-lime-400"/>
+                                                   className="w-full h-[57px] p-4 rounded-xl outline outline-1 outline-zinc-500 focus:outline-lime-400"/>
                                         </div>
                                     </div>
                                     <div className="flex flex-1 flex-col">
@@ -61,7 +61,7 @@ const AuthLoginForm = ({ action, handleChange, isLogin, isSignup, error, setErro
                                         </div>
                                         <div className="w-full mt-[8px]">
                                             <input type="text" name="session_lastname" id="session_lastname" placeholder="Last name (optional)" onChange={handleChange}
-                                                   className="w-full h-[57px]  p-4 rounded-md outline outline-1 outline-zinc-500 focus:outline-lime-400"/>
+                                                   className="w-full h-[57px] p-4 rounded-xl outline outline-1 outline-zinc-500 focus:outline-lime-400"/>
                                         </div>
                                     </div>
                                 </div>
@@ -72,7 +72,7 @@ const AuthLoginForm = ({ action, handleChange, isLogin, isSignup, error, setErro
                                 </div>
                                 <div className="w-full relative mt-[8px]">
                                     <input type={`${showPassword ? "text" : "password"}`} name="session_password" id="session_password" placeholder="Password" onChange={handleChange} required
-                                           className={`${error && error.isPasswordError ? "outline-red-500" : "outline-zinc-500"} w-full h-[57px]  p-4 rounded-md outline outline-1 focus:outline-lime-400`} onFocus={error ? () => setError({setIsPasswordError: false}) : null}/>
+                                           className={`${error && error.isPasswordError ? "outline-red-500" : "outline-zinc-500"} w-full h-[57px]  p-4 rounded-xl outline outline-1 focus:outline-lime-400`} onFocus={error ? () => setError({setIsPasswordError: false}) : null}/>
                                     <div className="top-0 right-[16px] h-full flex items-center justify-center absolute">
                                         <div className="w-fit h-fit text-black cursor-pointer" onClick={handleShowPassword}>
                                             {showPassword ? (
@@ -96,7 +96,7 @@ const AuthLoginForm = ({ action, handleChange, isLogin, isSignup, error, setErro
                             </div>
                             {error && error.isPasswordError && error.formErrorStatus ? (
                                 <div className="my-[2px] flex flex-row items-center">
-                                    <div className="w-[20px] h-[20px] p-[2px] flex items-center justify-center bg-red-500 rounded-full overflow-hidden relative">
+                                    <div className="w-[20px] h-[20px] p-[2px] flex items-center justify-center bg-red-500 rounded-md overflow-hidden relative">
                                         <span className="text-[14px] text-white text-center font-bold break-words relative leading-5">
                                             <span>
                                                 !

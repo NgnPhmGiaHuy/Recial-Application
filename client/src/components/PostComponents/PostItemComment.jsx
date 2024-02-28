@@ -47,8 +47,8 @@ const PostItemComment = ({ commentRef, props }) => {
                         <div ref={commentSortContentRef}
                              className="absolute top-0 left-0 translate-x-[0px] translate-y-[20px] z-50">
                             <div
-                                className="animate-slideInTop relative mt-[15px] rounded-b-md rounded-r-md shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
-                                <div className="overflow-x-hidden overflow-y-hidden rounded-b-md rounded-r-md bg-white">
+                                className="animate-slideInTop relative mt-[15px] rounded-b-xl rounded-r-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
+                                <div className="overflow-hidden rounded-b-xl rounded-r-xl bg-white">
                                     <div className="flex flex-col grow items-stretch origin-top-left relative">
                                         <div
                                             className="w-[344px] py-[8px] overflow-x-hidden overflow-y-auto overscroll-y-contain flex flex-col relative">
@@ -72,7 +72,7 @@ const PostItemComment = ({ commentRef, props }) => {
             </div>
             {!loadMoreClicked && visibleComments < props.postProps?.comment?.length && (
                 <div className="mx-[16px] mb-[8px] relative">
-                    <div className="px-[8px] py-[2px] w-fit flex flex-col rounded-md cursor-pointer relative hover:bg-zinc-200 transition-all" onClick={loadMoreComments}>
+                    <div className="px-[8px] py-[2px] w-fit flex flex-col rounded-xl cursor-pointer relative hover:bg-zinc-200 transition-all" onClick={loadMoreComments}>
                         <span className="text-[16px] text-zinc-500 text-left font-bold break-words relative leading-5">
                             <span>Load more comments</span>
                         </span>

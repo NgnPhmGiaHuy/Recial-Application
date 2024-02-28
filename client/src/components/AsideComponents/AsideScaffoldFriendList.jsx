@@ -7,7 +7,7 @@ const AsideScaffoldFriendList = ({ aside, action, userProps }) => {
                 <div className="pb-[4px] pt-[20px] px-[8px] flex flex-col relative">
                     <div className="flex flex-col grow relative">
                         <span className="block text-[17px] text-black text-left font-semibold break-words leading-5 relative">
-                            <span className="overflow-x-hidden overflow-y-hidden relative">
+                            <span className="overflow-hidden relative">
                                 {userProps?.user?.friends?.length + " " + aside?.title}
                             </span>
                         </span>

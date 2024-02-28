@@ -19,7 +19,7 @@ const AsideScaffoldGroupNavigation = ({ itemProps }) => {
     return (
         <div className="px-[8px]">
             <Link href={itemProps.link}>
-                <div className={`${active && "bg-zinc-100"} min-h-[44px] px-[8px] flex flex-row items-center justify-between rounded-md overflow-hidden relative hover:bg-zinc-100 transition-all`}>
+                <div className={`${active && "bg-zinc-200"} min-h-[44px] px-[8px] flex flex-row items-center justify-between rounded-xl overflow-hidden relative hover:bg-zinc-200 transition-all`}>
                     <div className={`${active && "bg-lime-500"} my-[8px] mr-[12px] flex flex-col self-start rounded-full relative`}>
                         <div className={`${active && "text-white"} w-[40px] h-[40px] flex items-center justify-center relative`}>
                             <i>

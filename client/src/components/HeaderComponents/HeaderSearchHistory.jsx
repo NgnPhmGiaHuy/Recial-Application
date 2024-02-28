@@ -2,7 +2,7 @@ import { HeaderSearchHistoryItem } from "@/components";
 
 const HeaderSearchHistory = ({ userProps }) => {
     return (
-        <div className="shadow-xl bg-white rounded-b-lg">
+        <div className="shadow-xl bg-white rounded-b-xl">
             <div className="max-h-[calc(500px-80px)] flex flex-col grow p-[8px] scroll-smooth">
                 <div className="flex flex-col relative overflow-x-hidden overflow-y-auto  overscroll-y-contain no-scrollbar z-0">
                     <div className="flex flex-col grow relative">

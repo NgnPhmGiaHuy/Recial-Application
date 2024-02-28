@@ -3,11 +3,11 @@ import Image from "next/image";
 
 const UserAboutScaffoldItem = ({ userProps }) => {
     return (
-        <div className="w-[calc(50%-4px)] mb-[8px] p-[16px] flex items-center rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)]">
+        <div className="w-[calc(50%-4px)] mb-[8px] p-[16px] flex items-center rounded-lg shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)]">
             <div>
                 <Link href={userProps?._id ? `/groups/${userProps?._id}` : `/${userProps?.user?._id}`}>
-                    <div className="mr-[16px] rounded-md border border-solid border-zinc-100 bg-white relative">
-                        <div className="w-[80px] h-[80px] rounded-md overflow-hidden relative">
+                    <div className="mr-[16px] rounded-lg border border-solid border-zinc-100 bg-white relative">
+                        <div className="w-[80px] h-[80px] rounded-lg overflow-hidden relative">
                             <Image src={userProps?.user?.profile_picture_url || userProps?.group_picture_url} alt={`${userProps?.user?.profile_picture_url || userProps?.group_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                         </div>
                     </div>

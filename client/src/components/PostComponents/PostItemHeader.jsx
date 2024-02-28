@@ -39,7 +39,7 @@ const PostItemHeader = ({ headerRef, props, handleState }) => {
                             {props.postProps?.post?.group ? (
                                 <Link href={`/groups/${props.postProps?.post?.group?._id}`} className="w-full h-full">
                                     <strong>
-                                        <span className="overflow-x-hidden overflow-y-hidden text-ellipsis line-clamp-1 relative">
+                                        <span className="overflow-hidden text-ellipsis line-clamp-1 relative">
                                             {props.postProps?.post?.group?.group_name}
                                         </span>
                                     </strong>
@@ -47,7 +47,7 @@ const PostItemHeader = ({ headerRef, props, handleState }) => {
                             ) : (
                                 <Link href={props.postProps?.user?._id} className="w-full h-full">
                                     <strong>
-                                        <span className="overflow-x-hidden overflow-y-hidden text-ellipsis line-clamp-2 relative">
+                                        <span className="overflow-hidden text-ellipsis line-clamp-2 relative">
                                             {props.postProps?.user?.username || props.postProps?.user?.firstname + " " + props.postProps?.user?.lastname}
                                         </span>
                                     </strong>
@@ -62,14 +62,14 @@ const PostItemHeader = ({ headerRef, props, handleState }) => {
                                     <>
                                         <span className="flex items-center break-words pr-[2px]">
                                             <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
-                                                <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
+                                                <span className="block overflow-hidden whitespace-nowrap text-ellipsis relative">
                                                     {props.postProps?.user?.username || props.postProps?.user?.firstname + " " + props.postProps?.user?.lastname}
                                                 </span>
                                             </span>
                                         </span>
                                         <span className="flex items-center break-words">
                                             <span className="block text-[13px] text-gray-500 font-normal break-words leading-4 mx-[4px]">
-                                                <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
+                                                <span className="block overflow-hidden whitespace-nowrap text-ellipsis relative">
                                                     <span> · </span>
                                                 </span>
                                             </span>
@@ -79,7 +79,7 @@ const PostItemHeader = ({ headerRef, props, handleState }) => {
                                 <span className="flex items-center break-words pr-[2px]">
                                     <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
                                         <span
-                                            className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
+                                            className="block overflow-hidden whitespace-nowrap text-ellipsis relative">
                                             {formatTimeAgoFull(props.postProps?.post?.updated_at)}
                                         </span>
                                     </span>
@@ -88,14 +88,14 @@ const PostItemHeader = ({ headerRef, props, handleState }) => {
                                     <span
                                         className="block text-[13px] text-gray-500 font-normal break-words leading-4 mx-[4px]">
                                         <span
-                                            className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis relative">
+                                            className="block overflow-hidden whitespace-nowrap text-ellipsis relative">
                                             <span> · </span>
                                         </span>
                                     </span>
                                 </span>
                                 <span className="flex items-center break-words pl-[2px]">
                                     <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
-                                        <span className="block overflow-x-hidden overflow-y-hidden whitespace-nowrap text-ellipsis line-clamp-1 relative">
+                                        <span className="block overflow-hidden whitespace-nowrap text-ellipsis line-clamp-1 relative">
                                             {props.postProps?.post?.post_privacy === 'Public' ? (
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                      viewBox="0 0 512 512" strokeWidth={1.5}

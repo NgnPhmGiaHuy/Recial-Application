@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { AsideSettingItem } from "@/components";
-import { asideSettingNavigation } from "@/constants/AsideConstants";
+import { asideSettingConstants } from "@/constants/AsideConstants/asideSettingConstants";
 
 const AsideSetting = ({ userProps }) => {
     return (
@@ -24,7 +24,7 @@ const AsideSetting = ({ userProps }) => {
                     </div>
                 </div>
                 <ul>
-                    {asideSettingNavigation.map((value, index) => (
+                    {asideSettingConstants.map((value, index) => (
                         <AsideSettingItem key={index} itemProps={value}/>
                     ))}
                 </ul>

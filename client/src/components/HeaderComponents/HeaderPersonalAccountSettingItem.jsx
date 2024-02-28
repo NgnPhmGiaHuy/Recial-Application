@@ -2,9 +2,9 @@ const HeaderPersonalAccountSettingItem = ({ settingProps }) => {
     return (
         <div className="px-[8px]">
             <a href={settingProps.settingItemLink}>
-                <div className="min-h-[44px] px-[8px] flex flex-row items-center justify-between rounded-md cursor-pointer relative hover:bg-zinc-100 transition-all">
+                <div className="min-h-[44px] px-[8px] flex flex-row items-center justify-between rounded-xl cursor-pointer relative hover:bg-zinc-100 transition-all">
                     <div className="my-[6px] mr-[12px] flex flex-col self-start relative">
-                        <div className="w-[36px] h-[36px] flex items-center justify-center rounded-full bg-zinc-200 relative">
+                        <div className="w-[36px] h-[36px] flex items-center justify-center rounded-xl bg-zinc-200 relative">
                             <i>
                                 {settingProps.icon}
                             </i>

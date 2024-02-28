@@ -22,11 +22,11 @@ const PostItemFooter = ({ footerRef, footerCommentRef, timeoutRef, handleState, 
     }
 
     return (
-        <div ref={footerRef} className="overflow-x-hidden overflow-y-hidden">
+        <div ref={footerRef} className="overflow-hidden">
             <div className="flex flex-col justify-center relative">
                 {totalComments || totalShares || mostReactedIcons.length ? (
                     <div ref={footerCommentRef} className="mx-[16px] py-[10px] flex items-center justify-end text-[15px] text-zinc-500 relative leading-5">
-                        <div className="flex grow items-center overflow-x-hidden overflow-y-hidden">
+                        <div className="flex grow items-center overflow-hidden">
                             <span className="pl-[4px] flex items-center ">
                                 {mostReactedIcons.map((icon, index) => (
                                     <span key={index} style={{ zIndex: 2 - index }} className="w-[20px] h-[20px] ml-[-4px] border-[2px] border-solid border-white rounded-full relative cursor-pointer">
@@ -35,7 +35,7 @@ const PostItemFooter = ({ footerRef, footerCommentRef, timeoutRef, handleState, 
                                 ))}
                             </span>
                             <div>
-                                <span className="w-[100px] overflow-x-hidden overflow-y-hidden float-left text-ellipsis">
+                                <span className="w-[100px] overflow-hidden float-left text-ellipsis">
                                     <span className="pl-[4px] cursor-pointer relative hover:underline transition-all">
                                         {handleFormatNumber(props.postProps?.reaction?.reduce((sum) => sum + 1, 0))}
                                     </span>

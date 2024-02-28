@@ -1,10 +1,10 @@
 "use client"
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 import { handleNewUserData, handleNewPostData } from "@/utils/handleNewData";
 import { AsideUser, CreatePostDialog, Header, UserProfile, UserProfileEdit } from "@/components";
-import { useClickOutside, usePostDataByUserId, useToggleState, useUserIdLayout, useWebSocket } from "@/hooks";
+import { useClickOutside, useMultipleHandleState, useMultipleRefs, usePostDataByUserId, useToggleState, useUserIdLayout, useWebSocket } from "@/hooks";
 
 const UserPage = ({ params, asAProps }) => {
     const { postByIdRef, postByUserIdProps, setPostByUserIdProps } = usePostDataByUserId(params.userId);
@@ -13,15 +13,8 @@ const UserPage = ({ params, asAProps }) => {
     const [showCreatePost, setMainCreatePost, handleShowCreatePost] = useToggleState(false);
     const [showEditProfile, setShowEditProfile, handleShowEditProfile] = useToggleState(false);
 
-    const ref = {
-        createPostRef: useRef(null),
-        editProfileRef: useRef(null),
-    };
-
-    const handleState = {
-        handleShowCreatePost: handleShowCreatePost,
-        handleShowEditProfile: handleShowEditProfile,
-    };
+    const ref = useMultipleRefs({ createPostRef: null, editProfileRef: null });
+    const handleState = useMultipleHandleState({ handleShowCreatePost, handleShowEditProfile });
 
     const onDataReceived = async (data) => {
         await handleNewPostData(data, postByUserIdProps, setPostByUserIdProps);

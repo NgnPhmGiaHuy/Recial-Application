@@ -44,14 +44,14 @@ const PostItemContent = ({ contentRef, props }) => {
                     </div>
                 </div>
             )}
-            <div className="mt-[8px]">
+            <div className="mt-[8px] px-[6px]">
                 {(props.postProps?.photo && props.postProps?.photo?.length) ? (
-                    <div className="w-full h-0 pt-[75%] block overflow-x-hidden overflow-y-hidden bg-white border-t border-b border-solid border-zinc-200  relative">
+                    <div className="w-full h-0 pt-[75%] block overflow-hidden bg-white relative">
                         {props.postProps?.photo?.length === 1 ? (
                             <Link href={`/post/?user=${props.postProps?.user?._id}&post=${props.postProps?.post?._id}&photo=${props.postProps?.photo[0]._id}`}>
                                 <div className="w-full h-full top-0 left-0 block absolute">
                                     <div className="w-full h-full flex overflow-hidden relative">
-                                        <Image src={props.postProps?.photo[0]?.photo_url} alt={`${props.postProps?.photo[0]?.photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="w-full h-full object-contain object-center bg-no-repeat"/>
+                                        <Image src={props.postProps?.photo[0]?.photo_url} alt={`${props.postProps?.photo[0]?.photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="w-full h-full object-contain object-center rounded-xl bg-no-repeat"/>
                                     </div>
                                 </div>
                             </Link>
@@ -61,11 +61,11 @@ const PostItemContent = ({ contentRef, props }) => {
 
                                 return (
                                     <Link key={index} href={`/post/?user=${props.postProps?.user?._id}&post=${props.postProps?.post?._id}&photo=${props.postProps?.photo[0]._id}`}>
-                                        <div className="block absolute" style={{...insetStyles, width, height}}>
+                                        <div className="p-[4px] block absolute" style={{...insetStyles, width, height}}>
                                             <div className="relative w-full h-full">
-                                                <Image src={value?.photo_url} alt={`${value?.photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover outline outline-black"/>
+                                                <Image src={value?.photo_url} alt={`${value?.photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover rounded-xl"/>
                                                 {props.postProps?.photo?.length > 6 && index === 4 ? (
-                                                    <div className="absolute inset-0 bg-gray-900 bg-opacity-60 transition-opacity">
+                                                    <div className="absolute inset-0 rounded-xl bg-gray-900 bg-opacity-60 transition-opacity">
                                                         <div className="w-full h-full flex items-center justify-center relative">
                                                             <span className="block text-[32px] text-white font-semibold break-words leading-10">
                                                                 <span className="overflow-hidden relative">

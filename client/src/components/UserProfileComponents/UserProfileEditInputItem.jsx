@@ -1,7 +1,7 @@
 const UserProfileEditInputItem = ({ formData, handleFormChange, title, inputName, required, textarea }) => {
     return (
         <div className="px-[16px] py-[12px] flex flex-col items-stretch relative">
-            <label htmlFor={inputName} className="flex flex-row border border-solid border-zinc-300 rounded-md">
+            <label htmlFor={inputName} className="flex flex-row border border-solid border-zinc-300 rounded-xl">
                 <div className="flex flex-shrink grow relative">
                     <div className="w-full h-full flex flex-row items-stretch justify-between absolute">
                         <div className="px-[8px] pt-[8px]">

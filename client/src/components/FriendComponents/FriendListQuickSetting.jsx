@@ -50,7 +50,7 @@ const FriendListQuickSetting = ({ userProps, friendListQuickSettingItemButtonRef
     return (
         <div ref={friendListQuickSettingItemButtonRef} className="absolute top-0 left-0 translate-x-[315px] translate-y-[55px] z-50">
             <div className="relative mt-[15px] rounded-r-md rounded-b-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
-                <div className="overflow-x-hidden overflow-y-hidden rounded-r-md rounded-b-md bg-white">
+                <div className="overflow-hidden rounded-r-md rounded-b-md bg-white">
                     <div className="flex flex-col grow items-stretch origin-top-left relative">
                         <div className="w-[344px] py-[8px] overflow-x-hidden overflow-y-auto overscroll-y-contain flex flex-col relative">
                             <div className="flex flex-col grow relative">

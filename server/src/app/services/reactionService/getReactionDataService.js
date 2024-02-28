@@ -9,8 +9,8 @@ class GetReactionDataService {
     }
 
     getFormattedReactionData = async (reactionData) => {
-        const reactionType = await getTypeDataService.getTypeByTypeId(reactionData.destination.type);
-        const destinationType = await getTypeDataService.getTypeByTypeId(reactionData.reaction_type);
+        const reactionType = await getTypeDataService.getTypeByTypeId(reactionData.reaction_type);
+        const destinationType = await getTypeDataService.getTypeByTypeId(reactionData.destination.type);
 
         return {
             _id: reactionData._id,

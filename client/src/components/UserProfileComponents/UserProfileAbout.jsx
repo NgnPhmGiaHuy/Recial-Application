@@ -8,7 +8,7 @@ const UserProfileAbout = ({ userProps }) => {
     const { textRef, showMoreText, isOverflowing, handleShowMoreText } = useOverflowText();
 
     return (
-            <section className="mb-[16px] bg-white rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
+            <section className="mb-[16px] bg-white rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
             <div className="py-[24px] flex flex-col gap-6 relative">
                 <header>
                     <div className="px-[24px] flex flex-col">

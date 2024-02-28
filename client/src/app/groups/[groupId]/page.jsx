@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 
 import { CreatePostDialog, GroupPage, Header } from "@/components";
-import { useGroupData, useToggleState, useUserData, useWithAuth } from "@/hooks";
+import { useGroupData, useMultipleHandleState, useToggleState, useUserData, useWithAuth } from "@/hooks";
 
 const GroupScaffoldPage = ({ params }) => {
     const groupId = params.groupId;
@@ -15,9 +15,7 @@ const GroupScaffoldPage = ({ params }) => {
     const { userProps, setUserProps } = useUserData();
     const { postRef, groupData, setGroupData, userRole } = useGroupData(groupId, userProps?.user?._id);
 
-    const handleState = {
-        handleShowCreatePost: handleShowCreatePost,
-    };
+    const handleState = useMultipleHandleState({ handleShowCreatePost });
 
     return (
         userProps && (

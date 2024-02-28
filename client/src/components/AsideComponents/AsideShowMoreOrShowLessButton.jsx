@@ -21,7 +21,7 @@ const AsideShowMoreOrShowLessButton = ({ showMore, onClick }) => {
                             <div className="my-[-5px] flex flex-col">
                                 <div className="my-[5px]">
                                     <span className="block text-[14px] text-black text-left font-medium break-words leading-4">
-                                        <span className="overflow-x-hidden overflow-y-hidden line-clamp-2 relative">
+                                        <span className="overflow-hidden line-clamp-2 relative">
                                             {showMore ? "Show more" : "Show less"}
                                         </span>
                                     </span>

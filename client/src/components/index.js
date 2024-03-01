@@ -52,6 +52,24 @@ import CreatePostDialogAudience from "@/components/CreatePostComponents/CreatePo
 import CreatePostDialogAudienceItem from "@/components/CreatePostComponents/CreatePostDialogAudienceItem";
 import CreatePostDialogCustomizationItem from "@/components/CreatePostComponents/CreatePostDialogCustomizationItem";
 
+import CreateGroupAside from "@/components/CreateGroupComponents/CreateGroupAside";
+import CreateGroupAsideHeader from "@/components/CreateGroupComponents/CreateGroupAsideHeader";
+import CreateGroupAsideForm from "@/components/CreateGroupComponents/CreateGroupAsideForm";
+import CreateGroupAsideFormSubmit from "@/components/CreateGroupComponents/CreateGroupAsideFormSubmit";
+import CreateGroupAsideFormVisible from "@/components/CreateGroupComponents/CreateGroupAsideFormVisible";
+import CreateGroupAsideFormPrivacy from "@/components/CreateGroupComponents/CreateGroupAsideFormPrivacy";
+import CreateGroupAsideFormPrivacyMenu from "@/components/CreateGroupComponents/CreateGroupAsideFormPrivacyMenu";
+import CreateGroupAsideFormPrivacyMenuItem from "@/components/CreateGroupComponents/CreateGroupAsideFormPrivacyMenuItem";
+import CreateGroupAsideUserRole from "@/components/CreateGroupComponents/CreateGroupAsideUserRole";
+import CreateGroupReview from "@/components/CreateGroupComponents/CreateGroupReview";
+import CreateGroupReviewHeader from "@/components/CreateGroupComponents/CreateGroupReviewHeader";
+import CreateGroupReviewIllustration from "@/components/CreateGroupComponents/CreateGroupReviewIllustration";
+import CreateGroupReviewAbout from "@/components/CreateGroupComponents/CreateGroupReviewAbout";
+import CreateGroupReviewContent from "@/components/CreateGroupComponents/CreateGroupReviewContent";
+import CreateGroupReviewContentName from "@/components/CreateGroupComponents/CreateGroupReviewContentName";
+import CreateGroupReviewContentNavigation from "@/components/CreateGroupComponents/CreateGroupReviewContentNavigation";
+import CreateGroupReviewCreatePost from "@/components/CreateGroupComponents/CreateGroupReviewCreatePost";
+
 import Post from "@/components/PostComponents/Post";
 import PostDialog from "@/components/PostComponents/PostDialog";
 import PostItem from "@/components/PostComponents/PostItem";
@@ -213,6 +231,24 @@ export {
     CreatePostDialogAudience,
     CreatePostDialogAudienceItem,
     CreatePostDialogCustomizationItem,
+
+    CreateGroupAside,
+    CreateGroupAsideHeader,
+    CreateGroupAsideForm,
+    CreateGroupAsideFormSubmit,
+    CreateGroupAsideFormVisible,
+    CreateGroupAsideFormPrivacy,
+    CreateGroupAsideFormPrivacyMenu,
+    CreateGroupAsideFormPrivacyMenuItem,
+    CreateGroupAsideUserRole,
+    CreateGroupReview,
+    CreateGroupReviewHeader,
+    CreateGroupReviewIllustration,
+    CreateGroupReviewAbout,
+    CreateGroupReviewContent,
+    CreateGroupReviewContentName,
+    CreateGroupReviewContentNavigation,
+    CreateGroupReviewCreatePost,
 
     Post,
     PostDialog,

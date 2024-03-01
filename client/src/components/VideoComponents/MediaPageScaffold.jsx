@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 
 import { useCountComment } from "@/hooks";
 import { MediaPhotoPageScaffoldItem, MediaPageScaffoldCommentItem, MediaPageScaffoldFooter, MediaPageScaffoldHeader } from "@/components";
-import Image from "next/image";
 const DynamicVideoPageScaffoldItem = dynamic(() => import("@/components/VideoComponents/VideoPageScaffoldItem"), { ssr: false });
 
 const MediaPageScaffold = ({ userProps, mediaProps, videoProps, mediaType }) => {
@@ -12,19 +11,17 @@ const MediaPageScaffold = ({ userProps, mediaProps, videoProps, mediaType }) => 
 
     return (
         <div className="top-0 right-0 bottom-0 left-0 flex flex-row fixed bg-white">
-            <div className="max-w-full  flex-[1_0_600px] bg-black/95 overflow-hidden relative">
+            <div className="max-w-full flex-[1_0_600px] bg-black/95 overflow-hidden relative">
                 {mediaProps?.media?.media_type === "Photo" || mediaProps?.media?.media_type === "Story" ? (
                     <MediaPhotoPageScaffoldItem mediaProps={mediaProps}/>
                 ) : null}
                 {/*<DynamicVideoPageScaffoldItem videoProps={videoProps}/>*/}
             </div>
             <div className="w-[544px] flex flex-col flex-[0_0_544px]">
-                <div
-                    className="w-full flex flex-col grow border-b border-solid border-zinc-300 overflow-hidden relative">
-                    <div
-                        className="w-full px-[32px] py-[24px] block grow overflow-x-hidden overflow-y-auto no-scrollbar relative">
+                <div className="w-full flex flex-col grow border-b border-solid border-zinc-300 overflow-hidden relative">
+                    <div className="w-full px-[32px] py-[24px] block grow overflow-x-hidden overflow-y-auto no-scrollbar relative">
                         <div>
-                        <MediaPageScaffoldHeader userProps={userProps} mediaProps={mediaProps}/>
+                            <MediaPageScaffoldHeader userProps={userProps} mediaProps={mediaProps}/>
                         </div>
                         <div className="mb-[24px] top-[-28px] bg-white sticky z-10">
                             <div className="h-[50px] pt-[18px] flex flex-row items-center relative">

@@ -21,7 +21,8 @@ class CreatePostDataService {
             }));
         */
 
-        await Promise.all(postData.post.post_image.map(async (image) => {
+
+        const imagesData = await Promise.all(postData.post.post_image.map(async (image) => {
             const newPhoto = new Photo({
                 photo_url: image,
                 photo_privacy: postData.post.post_privacy,
@@ -31,6 +32,8 @@ class CreatePostDataService {
 
             userData.photo_list.unshift(newPhoto._id);
             newPost.post_photos.unshift(newPhoto._id);
+
+            return newPhoto._id;
         }))
 
         await newPost.save();

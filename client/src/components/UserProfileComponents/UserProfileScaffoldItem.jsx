@@ -26,7 +26,7 @@ const UserProfileScaffoldItem = ({ userProps, mediaProps }) => {
                 </div>
                 {!mediaProps && userProps?.user?.username ? (
                     <div className="min-h-[30px] mt-[8px] flex flex-col">
-                        <Link href={userProps?.user?._id}>
+                        <Link href={`/${userProps?.user?._id}`}>
                             <span className="text-[13px] text-black text-left font-semibold break-words relative leading-4 hover:underline">
                                 <span className="overflow-hidden text-ellipsis line-clamp-1 relative">
                                     {userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname}

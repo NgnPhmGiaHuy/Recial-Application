@@ -30,7 +30,7 @@ const HeaderPersonalAccount = ({ forwardedRef, userProps }) => {
                                         <div className="flex flex-col flex-shrink-0 relative">
                                             <div className="mx-[16px] mb-[16px] mt-[4px]">
                                                 <div className="w-full flex flex-col rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] relative">
-                                                    <Link href={userProps?.user?._id} className="mx-[4px] my-[8px] rounded-xl relative hover:bg-zinc-100 transition-all cursor-pointer">
+                                                    <Link href={`/${userProps?.user?._id}`} className="mx-[4px] my-[8px] rounded-xl relative hover:bg-zinc-100 transition-all cursor-pointer">
                                                         <div className="my-[-4px] p-[8px] flex flex-row flex-nowrap items-center justify-between">
                                                             <div className="p-[4px] flex flex-col flex-shrink-0 items-center justify-center relative">
                                                                 <div className="w-[36px] h-[36px] flex items-center justify-center rounded-lg overflow-hidden relative">

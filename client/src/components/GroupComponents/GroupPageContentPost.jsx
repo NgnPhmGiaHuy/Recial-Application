@@ -1,8 +1,8 @@
-import {CreatePost, Post} from "@/components";
+import { CreatePost, Post } from "@/components";
 
 const GroupPageContentPost = ({ postRef, userProps, groupPostProps, handleState }) => {
     return (
-        <div className="max-w-[680px] m-[8px] flex flex-col flex-shrink grow-[25] basis-[500px] relative">
+        <div className="max-w-[840px] m-[8px] flex flex-col flex-shrink grow-[25] basis-[500px] relative">
             <div>
                 <div>
                     <CreatePost userProps={userProps} handleShowCreatePost={handleState.handleShowCreatePost}/>

@@ -21,7 +21,7 @@ const CreatePost = ({ userProps, handleShowCreatePost }) => {
                             </div>
                         </div>
                         <div className="w-full flex flex-row flex-shrink items-start grow">
-                            <a href={userProps?.user?._id} className="mr-[8px] flex bg-transparent relative">
+                            <a href={`/${userProps?.user?._id}`} className="mr-[8px] flex bg-transparent relative">
                                 <div className="inline-block align-bottom relative">
                                     <div className="w-[40px] h-[40px] rounded-full overflow-hidden relative">
                                         <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>

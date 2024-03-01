@@ -12,11 +12,11 @@ const CreatePostDialogImageInputSelected = ({ selectedImagesFunction }) => {
     const { gridTemplateRowsValue, gridTemplateColumnsValue, imageGridAreas } = calculateGridProperties(selectedImagesFunction.selectedImages)
 
     return (
-        <div className="w-full rounded-md overflow-hidden relative">
+        <div className="w-full rounded-xl overflow-hidden relative">
             <div style={containerStyle}>
                 <div className="w-full h-full grid gap-2" style={{gridTemplateColumns: gridTemplateColumnsValue, gridTemplateRows: gridTemplateRowsValue}}>
                     {selectedImagesFunction.selectedImages.map((imageUrl, index) => (
-                        <div key={index} className="relative rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-hidden" style={{gridArea: imageGridAreas[index] || "auto"}}
+                        <div key={index} className="relative rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-hidden" style={{gridArea: imageGridAreas[index] || "auto"}}
                              onMouseEnter={() => setSelectedImageHover(true)}
                              onMouseLeave={() => setSelectedImageHover(false)}>
                             <Image src={imageUrl} alt={`image-${index}`} fill className="object-cover"/>
@@ -29,7 +29,7 @@ const CreatePostDialogImageInputSelected = ({ selectedImagesFunction }) => {
                 onMouseLeave={() => setSelectedImageHover(false)}>
                 <div className="m-[-6px] px-[12px] flex flex-row items-stretch justify-start relative">
                     <div className="p-[6px] flex flex-col flex-shrink-0 relative">
-                        <div className="h-[36px] px-[12px] flex flex-row flex-shrink-0 items-center justify-center rounded-md cursor-pointer bg-white">
+                        <div className="h-[36px] px-[12px] flex flex-row flex-shrink-0 items-center justify-center rounded-xl cursor-pointer bg-white">
                             <div className="flex flex-row items-center relative">
                                 <div className="mx-[3px] flex flex-shrink-0 items-center relative">
                                     <i>
@@ -50,7 +50,7 @@ const CreatePostDialogImageInputSelected = ({ selectedImagesFunction }) => {
                     </div>
                     <div className="p-[6px] flex flex-col flex-shrink-0 relative">
                         <input ref={selectedImagesFunction.fileInputRef} type="file" className="hidden" accept="image/*,image/heif,image/heic,video/*,video/mp4,video/x-m4v,video/x-matroska,.mkv" multiple={true} onChange={selectedImagesFunction.handleFileUpload}/>
-                        <div className="h-[36px] px-[12px] flex flex-row flex-shrink-0 items-center justify-center rounded-md cursor-pointer bg-white" onClick={selectedImagesFunction.handleTriggerClick}>
+                        <div className="h-[36px] px-[12px] flex flex-row flex-shrink-0 items-center justify-center rounded-xl cursor-pointer bg-white" onClick={selectedImagesFunction.handleTriggerClick}>
                             <div className="flex flex-row items-center relative">
                                 <div className="mx-[3px] flex flex-shrink-0 items-center relative">
                                     <i>

@@ -2,7 +2,7 @@ const GroupPageHeaderContentButton = ({ buttonProps }) => {
     return (
         <div className="p-[4px] flex flex-col flex-shrink-0 relative">
             <div className="w-full flex flex-col justify-center cursor-pointer" onClick={buttonProps?.onClick}>
-                <div className={`${buttonProps?.color ? "text-white bg-lime-500 hover:bg-lime-700" : "text-black bg-zinc-100 hover:bg-zinc-300"} h-[36px] px-[12px] flex flex-row flex-nowrap flex-shrink-0 items-center justify-center rounded-md relative transition-all`}>
+                <div className={`${buttonProps?.color ? "text-white bg-lime-500 hover:bg-lime-700" : "text-black bg-zinc-100 hover:bg-zinc-300"} h-[36px] px-[12px] flex flex-row flex-nowrap flex-shrink-0 items-center justify-center rounded-xl relative transition-all`}>
                     {buttonProps?.icon && (
                         <div className="mx-[3px] flex flex-shrink-0 items-center relative">
                             <div className="w-[16px] h-[16px] relative">

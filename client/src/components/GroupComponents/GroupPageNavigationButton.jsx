@@ -11,7 +11,7 @@ const GroupPageNavigationButton = ({ buttonProps }) => {
                  </span>
             </div>
             {!buttonProps.active && (
-                <div className="inset-1 rounded-md bg-transparent group-hover:bg-zinc-200 opacity-0 group-hover:opacity-50 absolute transition-all"></div>
+                <div className="inset-1 rounded-xl bg-transparent group-hover:bg-zinc-200 opacity-0 group-hover:opacity-50 absolute transition-all"></div>
             )}
         </Link>
     )

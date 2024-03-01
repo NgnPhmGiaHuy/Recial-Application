@@ -79,7 +79,7 @@ const MediaPhotoPageScaffoldItem = ({ mediaProps }) => {
             </div>
             <div className="top-[20px] left-[20px] flex items-center justify-center cursor-pointer absolute z-50">
                 <div
-                    className="w-[40px] h-[40px] flex items-center justify-center cursor-pointer rounded-full overflow-hidden text-white bg-black/50 relative hover:bg-black/25 transition-all">
+                    className="w-[40px] h-[40px] flex items-center justify-center cursor-pointer rounded-xl overflow-hidden text-white bg-black/50 relative hover:bg-black/25 transition-all">
                     <i onClick={handleExistClick}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3}
                              stroke="currentColor" className="w-7 h-7">
@@ -95,7 +95,7 @@ const MediaPhotoPageScaffoldItem = ({ mediaProps }) => {
                         <div className="w-[60px] h-[60px] relative">
                             {showPrevButton ? (
                                 <div
-                                    className="w-full h-full flex items-center justify-center cursor-pointer rounded-full overflow-hidden text-white bg-white/50 relative hover:bg-white/25 transition-all">
+                                    className="w-full h-full flex items-center justify-center cursor-pointer rounded-xl overflow-hidden text-white bg-white/50 relative hover:bg-white/25 transition-all">
                                     <i onClick={fetchPreviousMedia}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                              strokeWidth={3}
@@ -111,9 +111,9 @@ const MediaPhotoPageScaffoldItem = ({ mediaProps }) => {
                     <div className="h-full top-0 right-[10px] flex items-center justify-center cursor-pointer absolute"
                          onMouseEnter={handleShowNextButton} onMouseLeave={handleShowNextButton}>
                         <div className="w-[60px] h-[60px] relative">
-                            {showNextButton ? (
+                            {showNextButton && (
                                 <div
-                                    className="w-full h-full flex items-center justify-center cursor-pointer rounded-full overflow-hidden text-white bg-white/50 relative hover:bg-white/25 transition-all">
+                                    className="w-full h-full flex items-center justify-center cursor-pointer rounded-xl overflow-hidden text-white bg-white/50 relative hover:bg-white/25 transition-all">
                                     <i onClick={fetchNextMedia}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                              strokeWidth={3}
@@ -123,7 +123,7 @@ const MediaPhotoPageScaffoldItem = ({ mediaProps }) => {
                                         </svg>
                                     </i>
                                 </div>
-                            ) : null}
+                            )}
                         </div>
                     </div>
                 </div>

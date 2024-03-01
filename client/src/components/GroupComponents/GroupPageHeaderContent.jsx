@@ -75,7 +75,7 @@ const GroupPageHeaderContent = ({ userRole, groupProps, groupMemberProps }) => {
     return (
         <>
             <div className="pb-[16px] flex flex-row flex-nowrap items-stretch justify-center bg-white relative">
-                <div className="max-w-[1218px] px-[16px] flex flex-col flex-shrink grow relative">
+                <div className="max-w-[1320px] px-[16px] flex flex-col flex-shrink grow relative">
                     <div className="w-full m-[-6px] pt-[16px] flex flex-row flex-wrap items-end justify-between relative">
                         <div className="min-w-[320px] px-[6px] pt-[6px] pb-[16px] flex flex-col flex-shrink grow-[999] basis-0 relative">
                             <div className="mt-[16px] flex flex-col grow relative">
@@ -138,7 +138,7 @@ const GroupPageHeaderContent = ({ userRole, groupProps, groupMemberProps }) => {
                                     <div className="pt-[12px] flex flex-col flex-shrink-0 items-start relative">
                                         <div className="h-[36px] flex flex-row overflow-hidden relative">
                                             {groupMemberProps?.slice(0, 20).map((value, index) => (
-                                                <div className={`${index !== 0 && "ml-[-8px]"} mb-[20px]  relative`} style={{zIndex: 20 - index}} key={index}>
+                                                <div className={`${index !== 0 && "ml-[-4px]"} mb-[20px] relative`} style={{zIndex: 20 - index}} key={index}>
                                                     <Link href={`/${value.user._id}`}>
                                                         <div className="w-[32px] h-[32px] flex flex-col items-center justify-center rounded-full border border-solid border-white overflow-hidden relative">
                                                             <Image src={value.user.profile_picture_url} alt={`${value.user.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
@@ -152,7 +152,7 @@ const GroupPageHeaderContent = ({ userRole, groupProps, groupMemberProps }) => {
                             </div>
                         </div>
                         <div className="min-w-[320px] px-[6px] pt-[6px] pb-[16px] flex flex-col flex-shrink-0 grow justify-end basis-auto relative">
-                            <div className="m-[-4px] flex flex-row flex-shrink-0 flex-nowrap items-center justify-end relative">
+                            <div className="mx-[-16px] my-[-4px] flex flex-row flex-shrink-0 flex-nowrap items-center justify-end relative">
                                 {button.map((value, index) => (
                                     <GroupPageHeaderContentButton key={index} buttonProps={value}/>
                                 ))}
@@ -162,7 +162,7 @@ const GroupPageHeaderContent = ({ userRole, groupProps, groupMemberProps }) => {
                 </div>
             </div>
             <div className="flex flex-row flex-nowrap items-stretch justify-center bg-white relative">
-                <div className="max-w-[1218px] after:h-[1px] px-[16px] flex flex-col flex-shrink grow after:bg-zinc-300 relative"></div>
+                <div className="max-w-[1320px] after:h-[1px] px-[16px] flex flex-col flex-shrink grow after:bg-zinc-300 relative"></div>
             </div>
         </>
 

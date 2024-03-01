@@ -19,18 +19,15 @@ const GroupPageHeaderCover = ({ groupProps }) => {
                             </div>
                         </div>
                         <div
-                            className="max-w-[1250px] flex flex-col flex-shrink grow items-center justify-center relative z-10">
-                            <div className="w-full rounded-md overflow-hidden relative">
+                            className="max-w-[1360px] flex flex-col flex-shrink grow items-center justify-center relative z-10">
+                            <div className="w-full rounded-xl overflow-hidden relative">
                                 <Link href={`/groups/${groupProps?._id}`}>
                                     <div className="w-full h-0 pt-[40%] overflow-hidden relative">
                                         <div className="inset-0 flex flex-col absolute">
                                             <div className="w-full h-0 top-0 left-[50%] pt-[50%] -translate-x-1/2 -translate-y-[10%] absolute">
                                                 <div className="inset-0 flex flex-col absolute">
                                                     <div className="w-full h-full relative">
-                                                        <Image src={groupProps?.group_cover_picture_url}
-                                                               alt={`${groupProps?.group_cover_picture_url}-image`}
-                                                               fill={true} sizes="(max-width: 768px) 100vw"
-                                                               className="object-cover"/>
+                                                        <Image src={groupProps?.group_cover_picture_url} alt={`${groupProps?.group_cover_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                                     </div>
                                                 </div>
                                             </div>

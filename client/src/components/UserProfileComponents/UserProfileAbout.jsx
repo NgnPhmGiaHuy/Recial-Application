@@ -47,7 +47,7 @@ const UserProfileAbout = ({ userProps }) => {
                 </div>
             </div>
             <footer className="flex border-t border-solid border-zinc-200">
-                <Link href={`${userProps?.user?._id}/about`} className="w-full h-full">
+                <Link href={`/${userProps?.user?._id}/about`} className="w-full h-full">
                     <div className="py-[16px] flex flex-row items-center justify-center gap-2 relative text-zinc-500 hover:text-black transition-all">
                         <span className="text-[16px] text-center font-semibold break-words relative leading-5">
                             <span className="overflow-hidden relative">

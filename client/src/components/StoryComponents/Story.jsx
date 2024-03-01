@@ -61,7 +61,7 @@ const Story = ({ userProps, storyProps }) => {
                     <div className="py-[8px] flex flex-col overflow-x-auto overflow-y-hidden relative custom-story-scrollbar">
                         <div className="flex flex-row grow relative">
                                 <div className="mr-[12px] flex flex-shrink-0 grow-0 sm:basis-[160px] basis-[100px] relative">
-                                <a href={userProps?.user?._id} className="w-full block overflow-hidden cursor-pointer rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
+                                <a href={`/${userProps?.user?._id}`} className="w-full block overflow-hidden cursor-pointer rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
                                     <div className="w-full h-0 sm:pt-[230px] pt-[140px] overflow-hidden relative">
                                         <div className="absolute top-0 right-0 bottom-0 left-0">
                                             <div className="h-full flex flex-col relative">

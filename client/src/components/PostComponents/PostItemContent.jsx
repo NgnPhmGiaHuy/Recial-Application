@@ -51,7 +51,7 @@ const PostItemContent = ({ contentRef, props }) => {
                             <Link href={`/post/?user=${props.postProps?.user?._id}&post=${props.postProps?.post?._id}&photo=${props.postProps?.photo[0]._id}`}>
                                 <div className="w-full h-full top-0 left-0 block absolute">
                                     <div className="w-full h-full flex overflow-hidden relative">
-                                        <Image src={props.postProps?.photo[0]?.photo_url} alt={`${props.postProps?.photo[0]?.photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="w-full h-full object-contain object-center rounded-xl bg-no-repeat"/>
+                                        <Image src={props.postProps?.photo[0]?.photo_url} alt={`${props.postProps?.photo[0]?.photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="w-full h-full object-cover object-center rounded-xl bg-no-repeat"/>
                                     </div>
                                 </div>
                             </Link>

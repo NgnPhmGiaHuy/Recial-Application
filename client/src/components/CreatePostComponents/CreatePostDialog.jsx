@@ -67,7 +67,7 @@ const CreatePostDialog = ({ userProps, setUserProps, groupProps, createPostRef, 
                                                     <div>
                                                         <CreatePostDialogHeader userProps={userProps} handleShowCreatePost={handleShowCreatePost} handeShowCreatePostAudience={handeShowCreatePostAudience}/>
                                                     </div>
-                                                    <div className="max-h-[45vh] flex flex-col grow overflow-x-hidden overflow-y-auto overscroll-y-contain no-scrollbar relative">
+                                                    <div className="max-h-[40vh] flex flex-col grow overflow-x-hidden overflow-y-auto overscroll-y-contain no-scrollbar relative">
                                                         <div className="flex flex-col grow relative">
                                                             <div className="w-full max-h-[20vh] grow cursor-text relative">
                                                                 <div className="w-full h-fit px-[16px] pb-[40px] relative">

@@ -34,21 +34,21 @@ class PostController {
             const decodedToken = req.decodedToken;
             const userId = decodedToken.userId;
 
-            const user = await getUserDataService.getFormattedUserData(userId);
+            const userData = await getUserDataService.getRawUserData(userId);
 
-            if (!user) {
+            if (!userData) {
                 return res.status(404).json({ error: "User not found" });
             }
 
             const postData = req.body;
 
-            const newPost = await createPostDataService.createPostData(postData, user);
+            const newPost = await createPostDataService.createPostData(postData, userData);
 
-            user.post_list.unshift(newPost._id);
+            userData.post_list.unshift(newPost._id);
 
-            await user.save();
+            await userData.save();
 
-            await websocketService.sendNewPostMessage(req.app.get("wss"), user._id, newPost._id);
+            await websocketService.sendNewPostMessage(req.app.get("wss"), userData._id, newPost._id);
 
             return res.status(200).json(newPost);
         } catch (error) {

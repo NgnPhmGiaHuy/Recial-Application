@@ -3,8 +3,8 @@ import { CreateGroupReviewAbout, CreateGroupReviewContent, CreateGroupReviewCrea
 const CreateGroupReview = ({ state }) => {
     return (
         <div className="flex flex-col grow items-stretch justify-center relative">
-            <div className="w-full flex flex-col items-center relative">
-                <div className="max-w-[calc(100%-48px)] w-[1000px] h-full mx-[84px] my-[16px] flex flex-col flex-shrink grow rounded-xl shadow-md bg-white relative">
+            <div className="w-full flex flex-col items-center justify-center relative">
+                <div className="max-w-[calc(100%-48px)] w-[980px] h-full my-[16px] flex flex-col flex-shrink grow rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white relative">
                     <CreateGroupReviewHeader/>
                     <div className="m-[16px] flex flex-col grow border border-solid border-zinc-500 rounded-xl overflow-hidden relative">
                         <div>
@@ -14,7 +14,7 @@ const CreateGroupReview = ({ state }) => {
                             <CreateGroupReviewContent state={state}/>
                         </div>
                         <div className="flex flex-col items-center relative">
-                            <div className="max-w-[1000px] px-[16px] pt-[16px] bg-zinc-100 relative">
+                            <div className="max-w-[980px] px-[16px] pt-[16px] bg-zinc-100 relative">
                                 <div className="mx-[8px] flex flex-row items-stretch justify-between gap-2 relative">
                                     <div className="w-full flex flex-shrink">
                                         <CreateGroupReviewCreatePost/>

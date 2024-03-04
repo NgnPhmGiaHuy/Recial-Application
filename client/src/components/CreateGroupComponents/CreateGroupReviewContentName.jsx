@@ -1,7 +1,7 @@
 const CreateGroupReviewContentName = ({ state }) => {
     return (
         <div className="pb-[16px] flex flex-row flex-wrap items-stretch bg-white relative">
-            <div className="max-w-[1000px] px-[16px] flex flex-col flex-shrink grow basis-0 relative">
+            <div className="max-w-[980px] px-[16px] flex flex-col flex-shrink grow basis-0 relative">
                 <div className="m-[-6px] pt-[16px] flex flex-row flex-wrap items-end justify-between relative">
                     <div className="pt-[6px] pb-[16px] px-[6px] flex flex-col flex-shrink basis-0 grow-[9999] relative">
                         <div className="mt-[16px]">

@@ -7,7 +7,9 @@ const GroupPageContent = ({ postRef, userProps, groupData, handleState }) => {
                 <div className="w-[1320px] px-[16px] pt-[16px] relative">
                     <div className="m-[-8px] flex flex-row flex-wrap-reverse items-stretch justify-center relative">
                         <GroupPageContentPost postRef={postRef} userProps={userProps} groupPostProps={groupData.groupPostProps} handleState={handleState}/>
-                        <GroupPageContentAside groupProps={groupData.groupProps}/>
+                        <div>
+                            <GroupPageContentAside groupProps={groupData.groupProps}/>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -83,6 +83,8 @@ import PostItemCommentScaffold from "@/components/PostComponents/PostItemComment
 import PostItemQuickSetting from "@/components/PostComponents/PostItemQuickSetting";
 import PostItemShareSetting from "@/components/PostComponents/PostItemShareSetting";
 import PostItemReactionButton from "@/components/PostComponents/PostItemReactionButton";
+import PostPage from "@/components/PostComponents/PostPage";
+import PostPageItem from "@/components/PostComponents/PostPageItem";
 
 import FriendRequest from "@/components/FriendComponents/FriendRequest";
 import FriendRequestItem from "@/components/FriendComponents/FriendRequestItem";
@@ -114,9 +116,31 @@ import GroupScaffoldJoin from "@/components/GroupComponents/GroupScaffoldJoin";
 import GroupScaffoldJoinItem from "@/components/GroupComponents/GroupScaffoldJoinItem";
 import SuggestGroup from "@/components/GroupComponents/SuggestGroup";
 
+import PageCover from "@/components/PageComponents/PageCover";
+import PageCoverNavigation from "@/components/PageComponents/PageCoverNavigation";
+import PageCoverNavigationItem from "@/components/PageComponents/PageCoverNavigationItem";
+import PageCoverProfileSubHeader from "@/components/PageComponents/PageCoverProfileSubHeader";
+import PageScaffold from "@/components/PageComponents/PageScaffold";
+import PageScaffoldAside from "@/components/PageComponents/PageScaffoldAside";
+import PageScaffoldAsideCard from "@/components/PageComponents/PageScaffoldAsideCard";
+import PageScaffoldAsideCardItem from "@/components/PageComponents/PageScaffoldAsideCardItem";
+import PageScaffoldAsideHeader from "@/components/PageComponents/PageScaffoldAsideHeader";
+import PageScaffoldAsideInfoItem from "@/components/PageComponents/PageScaffoldAsideInfoItem";
+import PageScaffoldAsideSecurityCard from "@/components/PageComponents/PageScaffoldAsideSecurityCard";
+import PageScaffoldMain from "@/components/PageComponents/PageScaffoldMain";
+import PageScaffoldMainHeader from "@/components/PageComponents/PageScaffoldMainHeader";
 import SuggestPage from "@/components/PageComponents/SuggestPage";
 import SuggestPageItem from "@/components/PageComponents/SuggestPageItem";
 
+import EventAside from "@/components/EventComponents/EventAside";
+import EventAsideItem from "@/components/EventComponents/EventAsideItem";
+import EventAsideActivity from "@/components/EventComponents/EventAsideActivity";
+import EventAsideActivityItem from "@/components/EventComponents/EventAsideActivityItem";
+import EventScaffold from "@/components/EventComponents/EventScaffold";
+import EventScaffoldItem from "@/components/EventComponents/EventScaffoldItem";
+import EventScaffoldItemHeader from "@/components/EventComponents/EventScaffoldItemHeader";
+import EventScaffoldItemContent from "@/components/EventComponents/EventScaffoldItemContent";
+import EventScaffoldItemMember from "@/components/EventComponents/EventScaffoldItemMember";
 import SuggestEvent from "@/components/EventComponents/SuggestEvent";
 import SuggestEventItem from "@/components/EventComponents/SuggestEventItem";
 
@@ -263,6 +287,8 @@ export {
     PostItemQuickSetting,
     PostItemShareSetting,
     PostItemReactionButton,
+    PostPage,
+    PostPageItem,
 
     FriendRequest,
     FriendRequestItem,
@@ -294,9 +320,31 @@ export {
     GroupScaffoldJoinItem,
     SuggestGroup,
 
+    PageCover,
+    PageCoverNavigation,
+    PageCoverNavigationItem,
+    PageCoverProfileSubHeader,
+    PageScaffold,
+    PageScaffoldAside,
+    PageScaffoldAsideCard,
+    PageScaffoldAsideCardItem,
+    PageScaffoldAsideHeader,
+    PageScaffoldAsideInfoItem,
+    PageScaffoldAsideSecurityCard,
+    PageScaffoldMain,
+    PageScaffoldMainHeader,
     SuggestPage,
     SuggestPageItem,
 
+    EventAside,
+    EventAsideItem,
+    EventAsideActivity,
+    EventAsideActivityItem,
+    EventScaffold,
+    EventScaffoldItem,
+    EventScaffoldItemHeader,
+    EventScaffoldItemContent,
+    EventScaffoldItemMember,
     SuggestEvent,
     SuggestEventItem,
 

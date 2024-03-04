@@ -7,21 +7,9 @@ const UserProfile = ({ userData, userProps, userCheck, postProps, postByIdRef, h
                 <div>
                     <UserProfileCover userProps={userProps} handleState={handleState} userCheck={userCheck} />
                 </div>
-                {userCheck.isCurrentUser ? (
-                    <div>
-                        <CreatePost userProps={userProps} handleShowCreatePost={handleState.handleShowCreatePost}/>
-                    </div>
-                ) : null}
-                {userProps && userProps?.user?.description ? (
-                    <div>
-                        <UserProfileAbout userProps={userProps}/>
-                    </div>
-                ) : null}
-                {postProps ? (
-                    <div>
-                        <Post postRef={postByIdRef} userData={userData} userProps={userProps} isCurrentUser={userCheck.isCurrentUser} postListProps={postProps}/>
-                    </div>
-                ) : null}
+                {userCheck.isCurrentUser && <CreatePost userProps={userProps} handleShowCreatePost={handleState.handleShowCreatePost}/>}
+                {userProps && userProps?.user?.description && <UserProfileAbout userProps={userProps}/>}
+                {postProps && <Post postRef={postByIdRef} userData={userData} userProps={userProps} isCurrentUser={userCheck.isCurrentUser} postListProps={postProps}/>}
             </div>
         </main>
     );

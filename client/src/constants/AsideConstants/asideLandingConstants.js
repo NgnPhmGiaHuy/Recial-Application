@@ -55,7 +55,7 @@ export const asideLandingConstants = [
         title: "Saved",
         chevronRight: false,
     }, {
-        link: "",
+        link: "/event",
         icon: Calender,
         title: "Event",
         chevronRight: false,

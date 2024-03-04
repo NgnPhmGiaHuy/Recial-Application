@@ -32,9 +32,7 @@ const UserPage = ({ params, asAProps }) => {
 
     return (
         <div>
-            {asAProps ? null : (
-                <Header userProps={userData}/>
-            )}
+            {!asAProps && <Header userProps={userData}/>}
             {userProps ? (
                 <>
                     <div className={`${asAProps ? "mr-[24px]" : "mx-[128px]"} flex flex-col relative z-0`}>
@@ -54,12 +52,8 @@ const UserPage = ({ params, asAProps }) => {
                         </div>
                     </div>
                     <div>
-                        {showCreatePost && (
-                            <CreatePostDialog userProps={userProps} setUserProps={setUserData} createPostRef={ref.createPostRef} handleShowCreatePost={handleShowCreatePost}/>
-                        )}
-                        {showEditProfile && (
-                            <UserProfileEdit userProps={userProps} editProfileRef={ref.editProfileRef} handleState={handleState}/>
-                        )}
+                        {showCreatePost && <CreatePostDialog userProps={userProps} setUserProps={setUserData} createPostRef={ref.createPostRef} handleShowCreatePost={handleShowCreatePost}/>}
+                        {showEditProfile && <UserProfileEdit userProps={userProps} editProfileRef={ref.editProfileRef} handleState={handleState}/>}
                     </div>
                 </>
             ) : null}

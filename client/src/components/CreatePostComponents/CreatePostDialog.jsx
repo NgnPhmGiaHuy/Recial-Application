@@ -2,13 +2,8 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
-import Image from "/public/images/Icon/image.png";
-import Gif from "/public/images/Icon/gif.png"
-import Happiness from "/public/images/Icon/happiness.png";
-import Location from "/public/images/Icon/location.png";
-import TagPeople from "/public/images/Icon/tag-people.png";
-
-import { useContentEditable, useMultipleImagesData, useSetPostData, useToggleState } from "@/hooks";
+import { useContentEditable, useMultipleHandleState, useMultipleImagesData, useSetPostData, useToggleState } from "@/hooks";
+import { createPostContentCustomizationConstants } from "@/constants/CreatePostConstants/createPostContentCustomizationConstants";
 import { CreatePostDialogHeader, CreatePostDialogCustomizationItem, CreatePostDialogAudience, CreatePostDialogImageInput } from "@/components";
 
 const CreatePostDialog = ({ userProps, setUserProps, groupProps, createPostRef, handleShowCreatePost }) => {
@@ -24,25 +19,13 @@ const CreatePostDialog = ({ userProps, setUserProps, groupProps, createPostRef, 
 
     const handeShowCreatePostAudience = useCallback(() => {
         handleShowCreatPostPanel();
-        setShowCreatePostAudience((prevState) => !prevState);
+
+        return  setShowCreatePostAudience((prevState) => !prevState);
     }, []);
 
-    const createPostContentCustomizationItemList = [
-        {
-            icon: Image,
-            onClick: handleShowCreatePostMediaInput,
-        }, {
-            icon: Gif,
-        }, {
-            icon: Happiness,
-        }, {
-            icon: Location,
-        }, {
-            icon: TagPeople,
-        }, {
-            icon: Image,
-        },
-    ]
+    const handleState = useMultipleHandleState({ handleShowCreatPostPanel, handleShowCreatePostMediaInput, handeShowCreatePostAudience })
+
+    const createPostContentCustomizationItemList = createPostContentCustomizationConstants(handleState);
 
     const handleSubmitPost = async () => {
         await handleSetPostData({ inputText: inputText, inputImage: selectedImagesFunction.selectedImages, userProps: userProps, groupProps: groupProps });
@@ -60,14 +43,14 @@ const CreatePostDialog = ({ userProps, setUserProps, groupProps, createPostRef, 
                         <div className="flex flex-col rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-hidden bg-white relative">
                             <form action="" method="POST">
                                 <div ref={createPostRef} className="w-[750px] h-[700px] overflow-hidden relative">
-                                    <div className={`${showCreatPostPanel ? "opacity-100 visible translate-x-0" : "opacity-0 invisible -translate-x-full pointer-events-none"} top-0 left-0 absolute`}>
+                                    <div className={`${showCreatPostPanel ? "opacity-100 visible translate-x-0" : "opacity-0 invisible -translate-x-full pointer-events-none"} w-full h-full top-0 left-0 absolute`}>
                                         <div className="w-full h-full relative">
-                                            <div className="max-h-[90vh] min-h-[700px] flex flex-row overflow-x-visible overflow-y-visible">
-                                                <div className="w-[750px] max-h-[80vh] min-h-[700px] flex flex-col relative">
+                                            <div className="w-full h-full flex flex-row overflow-x-visible overflow-y-visible">
+                                                <div className="w-full h-full flex flex-col relative">
                                                     <div>
                                                         <CreatePostDialogHeader userProps={userProps} handleShowCreatePost={handleShowCreatePost} handeShowCreatePostAudience={handeShowCreatePostAudience}/>
                                                     </div>
-                                                    <div className="max-h-[40vh] flex flex-col grow overflow-x-hidden overflow-y-auto overscroll-y-contain no-scrollbar relative">
+                                                    <div className="flex flex-col grow overflow-x-hidden overflow-y-auto overscroll-y-contain no-scrollbar relative">
                                                         <div className="flex flex-col grow relative">
                                                             <div className="w-full max-h-[20vh] grow cursor-text relative">
                                                                 <div className="w-full h-fit px-[16px] pb-[40px] relative">

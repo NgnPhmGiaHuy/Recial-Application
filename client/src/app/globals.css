@@ -76,6 +76,12 @@ b, strong {
     }
 }
 
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 @keyframes pop {
     0% {
         transform: scale(1);
@@ -187,6 +193,14 @@ b, strong {
     100% {
         transform: translateX(100%);
     }
+}
+
+.group:hover .animate-spin {
+    animation: spin 2s linear infinite;
+}
+
+.group:not(:hover) .animate-spin {
+    animation: none;
 }
 
 .animate-pop {

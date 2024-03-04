@@ -4,7 +4,7 @@ const SuggestPageItem = ({ pageProps }) => {
     return (
         <div className="w-full h-full p-[12px] relative">
             <div className="w-full flex flex-col justify-between relative">
-                <a href={pageProps?._id} className="w-full h-[200px] rounded-lg border border-solid border-zinc-300 overflow-hidden group relative">
+                <a href={`/pages/${pageProps?._id}`} className="w-full h-[200px] rounded-lg border border-solid border-zinc-300 overflow-hidden group relative">
                     <Image src={pageProps?.page_cover_picture_url} alt={`${pageProps?.page_cover_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="p-[4px] rounded-xl object-cover"/>
                     <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-5 transition-opacity"></div>
                 </a>

@@ -1,41 +1,25 @@
 "use client"
 
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import useSWR from "swr";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
-import { getMediaData } from "@/app/api/fetchMediaData";
+import {clearMediaData, setMediaData} from "@/store/actions/media/mediaActions";
+import fetcherWithoutAccessToken from "@/app/api/fetcherWithoutAccessToken";
 
 const useMediaData = (url) => {
-    const router = useRouter();
-    const [mediaProps, setMediaProps] = useState(null);
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(url, fetcherWithoutAccessToken);
 
     useEffect(() => {
-        let isCancelled = false;
+        dispatch(clearMediaData());
 
-        const fetchData = async () => {
-            try {
-                setMediaProps(null);
-
-                const mediaData = await getMediaData(url);
-
-                if (!mediaData && mediaData.error) {
-                    return router.push("/auth/login");
-                }
-
-                if (!isCancelled) {
-                    return setMediaProps(mediaData);
-                }
-            } catch (error) {
-                return console.error(error);
-            }
+        if (data) {
+            dispatch(setMediaData(data));
         }
+    }, [data, dispatch]);
 
-        fetchData()
-
-        return () => { isCancelled = true };
-    }, [url, router]);
-
-    return { mediaProps, setMediaProps };
+    return { mediaProps: data };
 }
 
 export default useMediaData;

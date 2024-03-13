@@ -1,10 +1,20 @@
+import { useDispatch, useSelector } from "react-redux";
+
 import { CreateGroupAsideFormPrivacyMenu } from "@/components";
+import { toggleGroupPrivacy } from "@/store/actions/toggle/toggleActions";
 
 const CreateGroupAsideFormPrivacy = ({ state, handleState, createGroupPrivacyRef}) => {
+    const dispatch = useDispatch();
+    const { showGroupPrivacy } = useSelector(state => state.toggle);
+
+    const handleGroupPrivacySettingButton = () => {
+        return dispatch(toggleGroupPrivacy());
+    }
+
     return (
         <>
             <div ref={createGroupPrivacyRef} className="mx-[12px] my-[12px] flex flex-col items-start  relative">
-                <div className="w-full h-full cursor-pointer relative" onClick={handleState.handleGroupPrivacySettingButton}>
+                <div className="w-full h-full cursor-pointer relative" onClick={handleGroupPrivacySettingButton}>
                     <div className="w-full h-[56px] px-4 flex flex-row items-center justify-between rounded-xl outline outline-1 focus:outline-2 focus:outline-lime-400 transition-all relative">
                         <div className="flex flex-shrink-0 relative">
                             <div className="w-[32px] h-[32px] flex items-center justify-center relative overflow-hidden">
@@ -48,7 +58,7 @@ const CreateGroupAsideFormPrivacy = ({ state, handleState, createGroupPrivacyRef
                         </div>
                     </div>
                 </div>
-                {state.showGroupPrivacySetting && <CreateGroupAsideFormPrivacyMenu groupPrivacy={state.groupPrivacy} handleSetGroupPrivacy={handleState.handleSetGroupPrivacy}/>}
+                { showGroupPrivacy && <CreateGroupAsideFormPrivacyMenu groupPrivacy={state.groupPrivacy} handleSetGroupPrivacy={handleState.handleSetGroupPrivacy}/> }
             </div>
             <div className="mx-[12px] my-[4px]">
                 <span className="block text-[12px] text-zinc-500 text-left font-normal break-words relative leading-4">

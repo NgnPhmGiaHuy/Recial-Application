@@ -11,7 +11,7 @@ class PostController {
     getPostData = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getFormattedUserData(userId);
 
@@ -32,7 +32,7 @@ class PostController {
     createPostData = async (req, res) => {
        try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const userData = await getUserDataService.getRawUserData(userId);
 
@@ -59,7 +59,7 @@ class PostController {
     deletePostData = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const deletedPost = await getPostDataService.getRawPostData(req.body.postId);
 

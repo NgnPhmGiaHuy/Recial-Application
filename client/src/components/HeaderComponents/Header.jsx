@@ -1,40 +1,21 @@
 "use client"
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useClickOutside, useToggleState } from "@/hooks";
+import { useHeaderAction } from "@/hooks";
 import { headerNavigation } from "@/constants/HeaderConstants";
 import { HeaderMenu, HeaderMessage, NotificationHeader, HeaderPersonalAccount, HeaderSearchHistory, HeaderNavigationItem } from "@/components";
+import { toggleHeaderMenu, toggleHeaderMessage, toggleHeaderNotification, toggleHeaderPersonalAccount, toggleHeaderSearchHistory } from "@/store/actions/toggle/toggleActions";
 
 import Favicon from "/public/images/Metadata/favicon.ico";
 
-const Header = ({ userProps, disableMessage, disableNotification }) => {
-    const menuButtonRef = useRef(null);
-    const messageButtonRef = useRef(null);
-    const notificationButtonRef = useRef(null);
-    const searchHistoryButtonRef = useRef(null);
-    const personalAccountButtonRef = useRef(null);
+const Header = ({ disableMessage, disableNotification }) => {
+    const dispatch = useDispatch();
 
-    const [showMenu, setShowMenu, handleMenuButtonClick] = useToggleState(false);
-    const [showMessage, setShowMessage, handleMessageButtonClick] = useToggleState(false);
-    const [showNotification, setShowNotification, handleNotificationButtonClick] = useToggleState(false);
-    const [showSearchHistory, setShowSearchHistory, handleSearchHistoryButtonClick] = useToggleState(false);
-    const [showPersonalAccount, setShowPersonalAccount, handlePersonalAccountButtonClick] = useToggleState(false);
+    const userProps = useSelector(state => state.user);
 
-    const [notificationUnreadCount, setNotificationUnreadCount] = useState(0);
-
-    useClickOutside(menuButtonRef, showMenu, setShowMenu);
-    useClickOutside(messageButtonRef, showMessage, setShowMessage);
-    useClickOutside(notificationButtonRef, showNotification, setShowNotification);
-    useClickOutside(searchHistoryButtonRef, showSearchHistory, setShowSearchHistory);
-    useClickOutside(personalAccountButtonRef, showPersonalAccount, setShowPersonalAccount);
-
-    useEffect(() => {
-        setNotificationUnreadCount(
-            userProps?.notifications?.filter(notification => !notification.is_read).length
-        );
-    }, [userProps?.notifications]);
+    const { showMenu, showMessage, showNotification, showSearchHistory, showPersonalAccount, headerRef, notificationUnreadCount } = useHeaderAction(userProps);
 
     return (
         <nav>
@@ -66,12 +47,12 @@ const Header = ({ userProps, disableMessage, disableNotification }) => {
                                             </i>
                                         </span>
                                         <span className={`${showSearchHistory ? "flex" : "hidden"} w-[22px]`}></span>
-                                        <input type="text" name="headerSearchInput" id="headerSearchInput" placeholder="Search in Recial" ref={searchHistoryButtonRef} className="w-full h-full px-[8px] pt-[7px] pb-[9px] sm:flex hidden outline-none bg-zinc-100 rounded-r-full" onClick={handleSearchHistoryButtonClick}/>
+                                        <input type="text" name="headerSearchInput" id="headerSearchInput" placeholder="Search in Recial" ref={headerRef.searchHistoryButtonRef} className="w-full h-full px-[8px] pt-[7px] pb-[9px] sm:flex hidden outline-none bg-zinc-100 rounded-r-full" onClick={() => dispatch(toggleHeaderSearchHistory())}/>
                                     </label>
                                 </div>
                             </div>
-                            <div ref={searchHistoryButtonRef}>
-                                {showSearchHistory ? (<HeaderSearchHistory userProps={userProps}/>) : null}
+                            <div ref={headerRef.searchHistoryButtonRef}>
+                                {showSearchHistory && <HeaderSearchHistory/>}
                             </div>
                         </div>
                     </div>
@@ -89,7 +70,7 @@ const Header = ({ userProps, disableMessage, disableNotification }) => {
             <div className="h-[56px] top-0 right-0 fixed z-20">
                 <div className="h-full pr-[16px] pl-[4px] flex flex-row items-center">
                     <div className="h-full flex items-center justify-center mr-[8px]">
-                        <div ref={menuButtonRef} className={`${showMenu ? "bg-lime-200 hover:bg-lime-300 text-lime-700" : "bg-zinc-200 hover:bg-zinc-300"} w-[40px] h-[40px] flex items-center justify-center rounded-xl cursor-pointer relative transition-all`} onClick={handleMenuButtonClick}>
+                        <div ref={headerRef.menuButtonRef} className={`${showMenu ? "bg-lime-200 hover:bg-lime-300 text-lime-700" : "bg-zinc-200 hover:bg-zinc-300"} w-[40px] h-[40px] flex items-center justify-center rounded-xl cursor-pointer relative transition-all`} onClick={() => dispatch(toggleHeaderMenu())}>
                             <i>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
                                      strokeWidth={1.5} stroke="none" className="w-6 h-6">
@@ -100,8 +81,8 @@ const Header = ({ userProps, disableMessage, disableNotification }) => {
                     </div>
                     {disableMessage ? null : (
                         <div className="h-full flex items-center justify-center mr-[8px]">
-                            <div ref={messageButtonRef}
-                                 className={`${showMessage ? "bg-lime-200 hover:bg-lime-300 text-lime-700" : "bg-zinc-200 hover:bg-zinc-300"} w-[40px] h-[40px] flex items-center justify-center rounded-xl cursor-pointer relative transition-all`} onClick={handleMessageButtonClick}>
+                            <div ref={headerRef.messageButtonRef}
+                                 className={`${showMessage ? "bg-lime-200 hover:bg-lime-300 text-lime-700" : "bg-zinc-200 hover:bg-zinc-300"} w-[40px] h-[40px] flex items-center justify-center rounded-xl cursor-pointer relative transition-all`} onClick={() => dispatch(toggleHeaderMessage())}>
                                 <i>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
                                          strokeWidth={1.5} stroke="none" className="w-6 h-6">
@@ -113,8 +94,8 @@ const Header = ({ userProps, disableMessage, disableNotification }) => {
                         </div>
                     )}
                     <div className="h-full flex items-center justify-center mr-[8px]">
-                        <div ref={notificationButtonRef}
-                             className={`${disableNotification ? "pointer-events-none" : null} ${showNotification || disableNotification ? "bg-lime-200 hover:bg-lime-300 text-lime-700" : "bg-zinc-200 hover:bg-zinc-300"} w-[40px] h-[40px] flex items-center justify-center rounded-xl cursor-pointer relative transition-all`} onClick={handleNotificationButtonClick}>
+                        <div ref={headerRef.notificationButtonRef}
+                             className={`${disableNotification ? "pointer-events-none" : null} ${showNotification || disableNotification ? "bg-lime-200 hover:bg-lime-300 text-lime-700" : "bg-zinc-200 hover:bg-zinc-300"} w-[40px] h-[40px] flex items-center justify-center rounded-xl cursor-pointer relative transition-all`} onClick={() => dispatch(toggleHeaderNotification())}>
                             <i>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5"/>
@@ -135,25 +116,25 @@ const Header = ({ userProps, disableMessage, disableNotification }) => {
                         </div>
                     </div>
                     <div className="h-full flex items-center justify-center">
-                        <div ref={personalAccountButtonRef} className="w-[40px] h-[40px] relative cursor-pointer" onClick={handlePersonalAccountButtonClick}>
+                        <div ref={headerRef.personalAccountButtonRef} className="w-[40px] h-[40px] relative cursor-pointer" onClick={() => dispatch(toggleHeaderPersonalAccount())}>
                             <div className="w-full h-full rounded-xl overflow-hidden relative">
-                                <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                <Image src={userProps?.user?.profile?.profile_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                             </div>
                             <div className="w-3 h-3 top-0 right-0 absolute border border-solid border-white rounded-xl bg-red-500"></div>
                         </div>
                     </div>
                 </div>
                 <div>
-                    { showMenu && <HeaderMenu forwardedRef={menuButtonRef} handleMenuButtonClick={handleMenuButtonClick}/> }
+                    { showMenu && <HeaderMenu forwardedRef={headerRef.menuButtonRef}/> }
                 </div>
                 <div>
-                    { (showMessage && !disableMessage) && <HeaderMessage forwardedRef={messageButtonRef} userProps={userProps}/> }
+                    { (showMessage && !disableMessage) && <HeaderMessage forwardedRef={headerRef.messageButtonRef}/> }
                 </div>
                 <div>
-                    { (showNotification && !disableNotification) && <NotificationHeader forwardedRef={notificationButtonRef} userProps={userProps}/> }
+                    { (showNotification && !disableNotification) && <NotificationHeader forwardedRef={headerRef.notificationButtonRef}/> }
                 </div>
                 <div>
-                    { showPersonalAccount && <HeaderPersonalAccount forwardedRef={personalAccountButtonRef} userProps={userProps}/> }
+                    { showPersonalAccount && <HeaderPersonalAccount forwardedRef={headerRef.personalAccountButtonRef}/> }
                 </div>
             </div>
         </nav>

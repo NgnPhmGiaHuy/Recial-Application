@@ -23,7 +23,7 @@ class DeletePostDataService {
     findAndDeleteUserPost = async (userId, deletedPost) => {
         const user = await User.findByIdAndUpdate(
             userId,
-            { $pull: { post_list: req.body.postId, photo_list: { $in: deletedPost.post_photos } } },
+            { $pull: { post_list: deletedPost._id, photo_list: { $in: deletedPost.post_photos } } },
             { new: true }
         );
 

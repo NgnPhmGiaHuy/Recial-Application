@@ -5,7 +5,7 @@ class GroupController {
         try {
             const groupId = req.query.group;
 
-            const groupProps = await getGroupDataService.getGroupDataById(groupId);
+            const groupProps = await getGroupDataService.getFormattedGroupDataById(groupId);
 
             if (!groupProps) {
                 return res.status(404).json({ error: "Group not found" });
@@ -66,6 +66,23 @@ class GroupController {
             return res.status(500).json(error);
         }
     };
+
+    getMultipleGroupData = async (req, res) => {
+        try {
+            const groupIds = req.query.groups.split(',');
+
+            const groupDataPromises = groupIds.map(async groupId => {
+                const groupProps = await getGroupDataService.getFormattedGroupDataById(groupId.trim());
+                return groupProps;
+            });
+
+            const groupsData = await Promise.all(groupDataPromises);
+
+            return res.status(200).json(groupsData);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    }
 }
 
 module.exports = new GroupController();

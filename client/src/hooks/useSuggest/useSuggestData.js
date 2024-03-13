@@ -1,70 +1,23 @@
 "use client"
 
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import useSWR from "swr";
 
-import { getSuggestEvent, getSuggestGroup, getSuggestPage } from "@/app/api/fetchSuggestData";
+import fetcherWithAccessToken from "@/app/api/fetcherWithAccessToken";
 
 export const useSuggestEventData = () => {
-    const router = useRouter();
-    const [suggestEvent, setSuggestEvent] = useState(null);
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/suggest/event`, fetcherWithAccessToken)
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const suggestEventData = await getSuggestEvent();
-
-                return setSuggestEvent(suggestEventData);
-            } catch (error) {
-                return console.error(error);
-            }
-        };
-
-        fetchData();
-
-    }, [router]);
-
-    return suggestEvent;
+    return { suggestEventProps: data, suggestEventError: error, suggestEventIsLoading: isLoading, suggestEventIsValidating: isValidating };
 }
 
 export const useSuggestGroupData = () => {
-    const router = useRouter();
-    const [suggestGroup, setSuggestGroup] = useState(null);
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/suggest/group`, fetcherWithAccessToken)
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const suggestGroupData = await getSuggestGroup();
-
-                return setSuggestGroup(suggestGroupData);
-            } catch (error) {
-                return console.error(error);
-            }
-        };
-
-        fetchData();
-    }, [router]);
-
-    return suggestGroup;
+    return { suggestGroupProps: data, suggestGroupError: error, suggestGroupIsLoading: isLoading, suggestGroupIsValidating: isValidating };
 }
 
 export const useSuggestPageData = () => {
-    const router = useRouter();
-    const [suggestPage, setSuggestPage] = useState(null);
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/suggest/page`, fetcherWithAccessToken)
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const suggestPageData = await getSuggestPage();
-
-                return setSuggestPage(suggestPageData);
-            } catch (error) {
-                return console.error(error);
-            }
-        };
-
-        fetchData();
-    }, [router]);
-
-    return suggestPage;
+    return { suggestPageProps: data, suggestPageError: error, suggestPageIsLoading: isLoading, suggestPageIsValidating: isValidating };
 };

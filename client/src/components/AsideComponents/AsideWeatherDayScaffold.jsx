@@ -1,5 +1,6 @@
-import { weatherIcons } from "@/constants/AsideConstants/asideWeatherConstants";
 import { interpretWeatherCode } from "@/utils/handleWeather";
+
+import WEATHER_ICONS from "@/constants/AsideConstants/AsideWeatherConstants";
 
 const AsideWeatherDayScaffold = ({ day, temperature, weatherCode }) => {
     return (
@@ -16,7 +17,7 @@ const AsideWeatherDayScaffold = ({ day, temperature, weatherCode }) => {
                     <div className="m-[6px]">
                         <div className="w-[24px] h-[24px] flex items-center justify-center relative overflow-hidden">
                             <i>
-                                {weatherIcons[interpretWeatherCode(weatherCode)]}
+                                {WEATHER_ICONS[interpretWeatherCode(weatherCode)]}
                             </i>
                         </div>
                     </div>

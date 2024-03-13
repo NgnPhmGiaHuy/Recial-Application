@@ -8,7 +8,7 @@ import { PostItemCommentInput } from "@/components";
 import { formatTimeAgoShort, handleFormatNumber } from "@/utils";
 import { useMostReactedIcons, useOverflowText, useToggleState } from "@/hooks";
 
-const PostItemCommentScaffold = ({userData, userProps, postProps, isRely}) => {
+const PostItemCommentScaffold = ({ postProps, isRely }) => {
     const mostReactedIcons = useMostReactedIcons(postProps?.comment_reactions);
 
     const [visibleComments, setVisibleComments] = useState(3);
@@ -153,13 +153,11 @@ const PostItemCommentScaffold = ({userData, userProps, postProps, isRely}) => {
                     </div>
                 </div>
                 <div>
-                    {showCommentInput ? (
-                        <PostItemCommentInput userData={userData} postProps={postProps} isReply={true}/>
-                    ) : null}
+                    { showCommentInput && <PostItemCommentInput postProps={postProps} isReply={true}/> }
                 </div>
                 <div className="ml-[44px] mt-[8px] pl-[8px]">
                     {postProps?.comment_reply?.slice(0, 3).map((value, index) => (
-                        <PostItemCommentScaffold key={index} userData={userData} userProps={userProps} postProps={value} isRely={true}/>
+                        <PostItemCommentScaffold key={index} postProps={value} isRely={true}/>
                     ))}
                 </div>
                 {!loadMoreClicked && visibleComments < postProps?.comment_reply?.length && (

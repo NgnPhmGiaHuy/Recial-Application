@@ -4,6 +4,7 @@ const { OAuth2Client } = require('google-auth-library');
 
 const User = require("../../models/User");
 const Setting = require("../../models/Setting");
+const generateToken = require("../../services/tokenService/generateToken");
 const getUserDataService = require("../../services/userService/getUserDataService");
 
 class AuthController {
@@ -56,8 +57,8 @@ class AuthController {
                 }
             }
 
-            const accessToken = this.generateAccessToken(user);
-            const refreshToken = this.generateRefreshToken(user);
+            const accessToken = await generateToken.generateAccessToken(user);
+            const refreshToken = await generateToken.generateRefreshToken(user);
 
             user.refreshToken = refreshToken;
 
@@ -92,8 +93,8 @@ class AuthController {
             const existingUser = await User.findOne({ email: user.email });
 
             if (existingUser) {
-                const accessToken = this.generateAccessToken(existingUser);
-                const refreshToken = this.generateRefreshToken(existingUser);
+                const accessToken = await generateToken.generateAccessToken(existingUser);
+                const refreshToken = await generateToken.generateRefreshToken(existingUser);
 
                 existingUser.refreshToken = refreshToken;
 
@@ -111,8 +112,8 @@ class AuthController {
                 profile_picture_url: user.picture,
             });
 
-            const accessToken = this.generateAccessToken(newUser);
-            const refreshToken = this.generateRefreshToken(newUser);
+            const accessToken = await generateToken.generateAccessToken(newUser);
+            const refreshToken = await generateToken.generateRefreshToken(newUser);
 
             newUser.refreshToken = refreshToken;
 
@@ -151,7 +152,7 @@ class AuthController {
                     return res.status(403).json({ error: "User not found" });
                 }
 
-                const newAccessToken = this.generateAccessToken(user);
+                const newAccessToken = await generateToken.generateAccessToken(user);
 
                 return res.status(200).json({ accessToken: newAccessToken });
             });
@@ -163,7 +164,7 @@ class AuthController {
     logoutUser = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getRawUserData(userId);
 
@@ -179,14 +180,6 @@ class AuthController {
         } catch (error) {
             return res.status(500).json(error);
         }
-    };
-
-    generateAccessToken = (user) => {
-        return jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
-    };
-
-    generateRefreshToken = (user) => {
-        return jwt.sign({ userId: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '365d' });
     };
 }
 

@@ -74,12 +74,12 @@ const NotificationScaffold = ({ userProps }) => {
                                         <HeaderTypeButtonItem type="unread" showType={showTypeNotification} onClick={handleTypeClick} />
                                     </div>
                                     <div className="mt-[-12px] mb-[20px] flex flex-col">
-                                        {filteredNotifications?.newNotifications.length ? (
+                                        { filteredNotifications?.newNotifications.length ? (
                                             <NotificationHeaderContent title="News" props={filteredNotifications?.newNotifications} hasNews={true}/>
-                                        ) : null}
-                                        {filteredNotifications?.otherNotifications.length ? (
+                                        ) : null }
+                                        { filteredNotifications?.otherNotifications.length ? (
                                             <NotificationHeaderContent title="Before" props={filteredNotifications?.otherNotifications} hasNews={true}/>
-                                        ) : null}
+                                        ) : null }
                                     </div>
                                 </div>
                             </div>
@@ -88,9 +88,7 @@ const NotificationScaffold = ({ userProps }) => {
                 </div>
             </div>
             <div>
-                {showNotificationQuickSetting && (
-                    <NotificationHeaderQuickSetting notificationQuickSettingButtonRef={notificationQuickSettingButtonRef} notificationTranslateXValue={notificationTranslateXValue} notificationQuickSettingTranslateYValue={notificationQuickSettingTranslateYValue}/>
-                )}
+                { showNotificationQuickSetting && <NotificationHeaderQuickSetting notificationQuickSettingButtonRef={notificationQuickSettingButtonRef} notificationTranslateXValue={notificationTranslateXValue} notificationQuickSettingTranslateYValue={notificationQuickSettingTranslateYValue}/> }
             </div>
 
         </div>

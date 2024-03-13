@@ -1,10 +1,20 @@
 import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
 
 import { CreatePostOptionItem } from "@/components";
+import { toggleCreatePost } from "@/store/actions/toggle/toggleActions";
 import { createPostOptionItemListConstants } from "@/constants/CreatePostConstants";
 
-const CreatePost = ({ userProps, handleShowCreatePost }) => {
-    const createPostOptionItemList = createPostOptionItemListConstants(handleShowCreatePost);
+const CreatePost = () => {
+    const dispatch = useDispatch();
+
+    const userProps = useSelector(state => state.user);
+
+    const handleToggleShowCreatePost = () => {
+        dispatch(toggleCreatePost());
+    }
+
+    const createPostOptionItemList = createPostOptionItemListConstants(handleToggleShowCreatePost);
 
     return (
         <div className="mb-[16px]">
@@ -24,14 +34,14 @@ const CreatePost = ({ userProps, handleShowCreatePost }) => {
                             <a href={`/${userProps?.user?._id}`} className="mr-[8px] flex bg-transparent relative">
                                 <div className="inline-block align-bottom relative">
                                     <div className="w-[40px] h-[40px] rounded-full overflow-hidden relative">
-                                        <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                        <Image src={userProps?.user?.profile?.profile_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                     </div>
                                 </div>
                             </a>
-                            <div className="h-[80px] px-[12px] py-[8px] flex flex-row grow items-start justify-start cursor-pointer outline-none bg-zinc-100 rounded-xl hover:bg-zinc-200 transition-all relative" onClick={handleShowCreatePost}>
+                            <div className="h-[80px] px-[12px] py-[8px] flex flex-row grow items-start justify-start cursor-pointer outline-none bg-zinc-100 rounded-xl hover:bg-zinc-200 transition-all relative" onClick={handleToggleShowCreatePost}>
                                 <div className="text-[17px] text-zinc-500 hyphens-auto break-words leading-6">
                                     <span className="overflow-hidden line-clamp-2 relative">
-                                        Share some what you are thinking, {userProps?.user?.username}?
+                                        Share some what you are thinking, {userProps?.user?.profile?.username || userProps?.user?.profile?.firstname + userProps?.user?.profile?.lastname}?
                                     </span>
                                 </div>
                             </div>

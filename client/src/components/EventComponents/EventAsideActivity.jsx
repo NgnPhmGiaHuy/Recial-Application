@@ -1,6 +1,6 @@
 import { EventAsideActivityItem } from "@/components";
 
-const EventAsideActivity = ({ userProps }) => {
+const EventAsideActivity = () => {
     return (
         <div className="my-[16px] mr-[12px] w-[300px] max-h-0 min-h-[inherit] top-[56px] fixed shrink-[9999] basis-[300] bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] rounded-xl overflow-y-auto no-scrollbar">
             <div className="max-h-[inherit] min-h-[inherit] flex flex-col relative">
@@ -21,7 +21,7 @@ const EventAsideActivity = ({ userProps }) => {
                             <div className="h-[calc(100%-60px)] px-[12px] pb-[30px] flex flex-col overflow-y-auto relative">
                                 <ul>
                                     <li>
-                                        <EventAsideActivityItem userProps={userProps}/>
+                                        <EventAsideActivityItem/>
                                     </li>
                                 </ul>
                             </div>

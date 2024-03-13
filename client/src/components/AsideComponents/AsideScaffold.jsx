@@ -1,15 +1,15 @@
-import { asideVideoConstants } from "@/constants/AsideConstants/asideVideoConstants";
-import { asideFriendConstants } from "@/constants/AsideConstants/asideFriendConstants";
+import ASIDE_VIDEO from "@/constants/AsideConstants/AsideVideoConstants";
+import ASIDE_FRIEND from "@/constants/AsideConstants/AsideFriendConstants";
 import { AsideScaffoldFriendList, AsideScaffoldFriendRequest, AsideScaffoldGroup, AsideScaffoldHeader, AsideScaffoldItem } from "@/components";
 
-const AsideScaffold = ({ userProps, aside, action }) => {
+const AsideScaffold = ({ aside, action }) => {
     return (
-        <div className="my-[16px] ml-[12px] max-w-[360px] min-w-[280px] max-h-0 min-h-[inherit] top-[56px] fixed shrink-[9999] basis-[360px] bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-y-auto no-scrollbar rounded-xl">
+        <div className="my-[16px] ml-[12px] max-w-[360px] min-w-[320px] max-h-0 min-h-[inherit] top-[56px] fixed shrink-[9999] basis-[360px] bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-y-auto no-scrollbar rounded-xl">
             <div className="max-h-[inherit] min-h-[inherit] flex flex-col relative">
                 <div className="flex flex-col min-h-0 flex-shrink grow basis-full relative">
                     <div className="mt-[16px] p-[8px] flex flex-col grow relative">
                         <AsideScaffoldHeader aside={aside}/>
-                        {userProps && (aside?.role?.friends_list || aside?.role?.watch) ? (
+                        { (aside?.role?.friends_list || aside?.role?.watch) && (
                             <section>
                                 <div className="py-[8px] mx-[4px]">
                                     <label htmlFor="session_search" className="w-full min-w-[40px] min-h-[36px] flex items-stretch rounded-full outline-none bg-zinc-100 relative">
@@ -24,36 +24,34 @@ const AsideScaffold = ({ userProps, aside, action }) => {
                                     </label>
                                 </div>
                             </section>
-                        ) : null}
-                        {userProps && (
-                            <section>
-                                <div className="my-[12px] mx-[8px] border-b border-solid border-zinc-200"></div>
-                            </section>
-                        )}
+                        ) }
                         <section>
-                            {userProps && aside?.role?.friends_list && (
-                                <AsideScaffoldFriendList aside={aside} action={action} userProps={userProps}/>
-                            )}
-                            {userProps && aside?.role?.friend_request && (
-                                <AsideScaffoldFriendRequest aside={aside} action={action} userProps={userProps}/>
-                            )}
-                            {userProps && aside?.role?.group_feed && (
-                                <AsideScaffoldGroup userProps={userProps}/>
-                            )}
-                            {userProps && aside?.role?.friends && (
+                            <div className="my-[12px] mx-[8px] border-b border-solid border-zinc-200"></div>
+                        </section>
+                        <section>
+                            { aside?.role?.group_feed && (
+                                <AsideScaffoldGroup/>
+                            ) }
+                            { aside?.role?.friends && (
                                 <ul>
-                                    {asideFriendConstants.map((value, index) => (
+                                    { ASIDE_FRIEND.map((value, index) => (
+                                        <AsideScaffoldItem key={index} itemProps={value}/>
+                                    )) }
+                                </ul>
+                            ) }
+                            { aside?.role?.friends_list && (
+                                <AsideScaffoldFriendList aside={aside} action={action}/>
+                            ) }
+                            { aside?.role?.friend_request && (
+                                <AsideScaffoldFriendRequest aside={aside} action={action}/>
+                            ) }
+                            { aside?.role?.watch && (
+                                <ul>
+                                    {ASIDE_VIDEO.map((value, index) => (
                                         <AsideScaffoldItem key={index} itemProps={value}/>
                                     ))}
                                 </ul>
-                            )}
-                            {userProps && aside?.role?.watch && (
-                                <ul>
-                                    {asideVideoConstants.map((value, index) => (
-                                        <AsideScaffoldItem key={index} itemProps={value}/>
-                                    ))}
-                                </ul>
-                            )}
+                            ) }
                         </section>
                     </div>
                 </div>

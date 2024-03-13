@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux";
+
 import { convertDateFormat } from "@/utils";
 
-const GroupPageContentBlockActivity = ({ groupData }) => {
+const GroupPageContentBlockActivity = () => {
+    const groupProps = useSelector(state => state.group);
+
     return (
         <div className="mb-[16px]">
             <div className="w-full flex bg-white rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-hidden relative">
@@ -40,7 +44,7 @@ const GroupPageContentBlockActivity = ({ groupData }) => {
                                                 <span
                                                     className="block text-[15px] text-zinc-900 text-left font-normal relative leading-5">
                                                     <span className="overflow-hidden relative">
-                                                        {groupData?.groupActivityProps?.groupPostToday} new posts today
+                                                        { groupProps?.activity?.groupPostToday } new posts today
                                                     </span>
                                                 </span>
                                             </div>
@@ -48,7 +52,7 @@ const GroupPageContentBlockActivity = ({ groupData }) => {
                                                 <span
                                                     className="block text-[13px] text-zinc-500 text-left font-normal relative leading-5">
                                                     <span className="overflow-hidden relative">
-                                                        {groupData?.groupActivityProps?.groupPostLastMonth} in the last month
+                                                        { groupProps?.activity?.groupPostLastMonth } in the last month
                                                     </span>
                                                 </span>
                                             </div>
@@ -77,7 +81,7 @@ const GroupPageContentBlockActivity = ({ groupData }) => {
                                                 <span
                                                     className="block text-[15px] text-zinc-900 text-left font-normal relative leading-5">
                                                     <span className="overflow-hidden relative">
-                                                        {groupData?.groupMemberProps?.length} total members
+                                                        { groupProps?.members?.length } total members
                                                     </span>
                                                 </span>
                                             </div>
@@ -85,7 +89,7 @@ const GroupPageContentBlockActivity = ({ groupData }) => {
                                                 <span
                                                     className="block text-[13px] text-zinc-500 text-left font-normal relative leading-5">
                                                     <span className="overflow-hidden relative">
-                                                        + {groupData?.groupActivityProps?.groupMemberAddLastWeek} in the last week
+                                                        + { groupProps?.activity?.groupMemberAddLastWeek } in the last week
                                                     </span>
                                                 </span>
                                             </div>
@@ -114,7 +118,7 @@ const GroupPageContentBlockActivity = ({ groupData }) => {
                                                 <span
                                                     className="block text-[15px] text-zinc-900 text-left font-normal relative leading-5">
                                                     <span className="overflow-hidden relative">
-                                                        Created on {convertDateFormat(groupData?.groupProps?.created_at)}.
+                                                        Created on { convertDateFormat(groupProps?.profile?.created_at) }.
                                                     </span>
                                                 </span>
                                             </div>

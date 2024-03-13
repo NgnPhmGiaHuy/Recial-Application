@@ -1,36 +1,16 @@
+import { useSelector } from "react-redux";
+
 import { UserProfileCoverNavigationItem } from "@/components";
 
-const UserProfileCoverNavigation = ({ userProps }) => {
-    const userProfileCoverNavigationItemList = [
-        {
-            link: `/${userProps?.user?._id}`,
-            title: "Post"
-        },
-        {
-            link: `/${userProps?.user?._id}/about`,
-            title: "About"
-        },
-        {
-            link: `/${userProps?.user?._id}/friends`,
-            title: "Friends"
-        },
-        {
-            link: `/${userProps?.user?._id}/photos`,
-            title: "Photos"
-        },
-        {
-            link: `/${userProps?.user?._id}/videos`,
-            title: "Videos"
-        },
-        {
-            link: `/${userProps?.user?._id}/groups`,
-            title: "Groups"
-        },
-        {
-            link: `/${userProps?.user?._id}/articles`,
-            title: "Articles"
-        },
-    ]
+import USER_PROFILE_COVER_NAVIGATION from "@/constants/UserProfileConstants/UserProfileCoverNavigationConstants";
+
+
+const UserProfileCoverNavigation = () => {
+    const { isCurrentUser } = useSelector(state => state.userRelationship);
+
+    const userProps = isCurrentUser ? useSelector(state => state.user) : useSelector(state => state.userId);
+
+    const userProfileCoverNavigationItemList = USER_PROFILE_COVER_NAVIGATION(userProps);
 
     return (
         <nav className="flex flex-row items-center justify-start relative border-t border-solid border-zinc-200">

@@ -1,7 +1,7 @@
 "use client"
 
 import {fakeUserData} from "@/constants";
-import { useUserIdLayout } from "@/hooks";
+import { useUserIdLayout, useWithAuth } from "@/hooks";
 import { Header, UserAboutScaffold, UserProfileCover } from "@/components";
 
 const UserVideosPage = ({ params }) => {
@@ -10,7 +10,7 @@ const UserVideosPage = ({ params }) => {
     return (
         <div>
             {userData ? (
-                <Header userProps={userData}/>
+                <Header/>
             ) : null}
             {userProps ? (
                 <div className="mx-[128px] flex flex-col relative z-0 ">
@@ -24,7 +24,7 @@ const UserVideosPage = ({ params }) => {
                                                 <UserProfileCover userProps={userProps} isCurrentUser={userCheck.isCurrentUser}/>
                                             </div>
                                             <div>
-                                                <UserAboutScaffold mediaProps={fakeUserData.videos_list} isVideoPage={true} isCurrentUser={userCheck.isCurrentUser}/>
+                                                <UserAboutScaffold titleLabel="Videos" options={{ isVideoPage: true }}/>
                                             </div>
                                         </div>
                                     </main>
@@ -38,4 +38,4 @@ const UserVideosPage = ({ params }) => {
     );
 };
 
-export default UserVideosPage;
+export default useWithAuth(UserVideosPage);

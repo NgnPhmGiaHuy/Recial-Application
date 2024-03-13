@@ -1,20 +1,24 @@
 import Link from "next/link";
 
+import ASIDE_GROUP from "@/constants/AsideConstants/AsideGroupConstants";
+
 import { useFilterUserGroupsByRole } from "@/hooks";
-import { asideGroupConstants } from "@/constants/AsideConstants/asideGroupConstants";
+import { useGetGroupDataAfterFilterUserRole } from "@/hooks/useGroup/useGroupData";
 import { AsideScaffoldGroupItem, AsideScaffoldGroupNavigation } from "@/components";
 
-const AsideScaffoldGroup = ({userProps}) => {
-    const { managedGroups, joinedGroups } = useFilterUserGroupsByRole(userProps);
+
+const AsideScaffoldGroup = () => {
+    const { managedGroups, joinedGroups } = useFilterUserGroupsByRole();
+    const { managedGroupsProps, joinedGroupsProps } = useGetGroupDataAfterFilterUserRole(managedGroups, joinedGroups);
 
     return (
         <div className="max-w-[360px] flex flex-col flex-shrink grow basis-full relative">
             <div className="flex flex-col grow relative">
                 <div className="mt-[4px] mb-[8px]">
                     <div className="flex flex-col flex-shrink relative">
-                        {asideGroupConstants.map((value, index) => (
+                        { ASIDE_GROUP.map((value, index) => (
                             <AsideScaffoldGroupNavigation key={index} itemProps={value}/>
-                        ))}
+                        )) }
                         <div className="mx-[16px] mt-[8px]">
                             <div className="h-[36px] px-[12px] flex flex-row flex-shrink-0 items-center justify-center rounded-xl bg-lime-200 hover:bg-lime-300 text-lime-900 hover:text-black cursor-pointer relative transition-all">
                                 <Link href="/groups/create">
@@ -55,9 +59,9 @@ const AsideScaffoldGroup = ({userProps}) => {
                             </span>
                         </div>
                     </div>
-                    {managedGroups?.map((value, index) => (
+                    { managedGroupsProps?.map((value, index) => (
                         <AsideScaffoldGroupItem key={index} groupProps={value}/>
-                    ))}
+                    )) }
                 </>
                 <div className="my-[12px] mx-[8px] border-b border-solid border-zinc-200"></div>
                 <>
@@ -81,9 +85,9 @@ const AsideScaffoldGroup = ({userProps}) => {
                             </a>
                         </div>
                     </div>
-                    {joinedGroups?.map((value, index) => (
+                    { joinedGroupsProps?.map((value, index) => (
                         <AsideScaffoldGroupItem key={index} groupProps={value}/>
-                    ))}
+                    )) }
                 </>
             </div>
         </div>

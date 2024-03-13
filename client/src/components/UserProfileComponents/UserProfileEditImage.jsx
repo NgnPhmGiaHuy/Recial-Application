@@ -4,8 +4,11 @@ import Image from "next/image";
 import { useEffect } from "react";
 
 import { useSingleImageData } from "@/hooks";
+import {useSelector} from "react-redux";
 
-const UserProfileEditImage = ({ userProps, formData, setFormData }) => {
+const UserProfileEditImage = ({ formData, setFormData }) => {
+    const userProps = useSelector(state => state.user);
+
     const [coverImageFileInputRef, selectedCoverImage, setSelectedCoverImage, handleCoverImageFileUpload, handleCoverImageTriggerClick] = useSingleImageData();
     const [profileImageFileInputRef, selectedProfileImage, setSelectedProfileImage, handleProfileImageFileUpload, handleProfileImageTriggerClick] = useSingleImageData();
 
@@ -17,8 +20,8 @@ const UserProfileEditImage = ({ userProps, formData, setFormData }) => {
     };
 
     useEffect(() => {
-        updateFormData("session_profile_picture_url", selectedProfileImage || formData.session_profile_picture_url);
-        updateFormData("session_profile_cover_photo_url", selectedCoverImage || formData.session_profile_cover_photo_url);
+        updateFormData("session_profile_picture_url", selectedProfileImage || formData?.session_profile_picture_url);
+        updateFormData("session_profile_cover_photo_url", selectedCoverImage || formData?.session_profile_cover_photo_url);
     }, [selectedCoverImage, selectedProfileImage]);
 
     return (
@@ -29,9 +32,9 @@ const UserProfileEditImage = ({ userProps, formData, setFormData }) => {
                         <div className="w-full pb-[calc(100%/3)] relative">
                             <div className="w-full h-full top-0 bottom-0 left-0 absolute">
                                 <div className="w-full h-full overflow-hidden relative">
-                                    {formData.session_profile_cover_photo_url && (
-                                        <Image src={formData.session_profile_cover_photo_url}
-                                               alt={`${formData.session_profile_cover_photo_url}-image`} fill={true}
+                                    {formData?.session_profile_cover_photo_url && (
+                                        <Image src={formData?.session_profile_cover_photo_url}
+                                               alt={`${formData?.session_profile_cover_photo_url}-image`} fill={true}
                                                sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                     )}
                                     {selectedCoverImage && (
@@ -56,7 +59,7 @@ const UserProfileEditImage = ({ userProps, formData, setFormData }) => {
                                         </i>
                                     </div>
                                 </div>
-                                <div className="w-[44px] h-[44px] rounded-xl overflow-hidden bg-black/60 hover:bg-black/80 transition-all" onClick={() => setSelectedCoverImage(userProps?.user?.profile_cover_photo_url)}>
+                                <div className="w-[44px] h-[44px] rounded-xl overflow-hidden bg-black/60 hover:bg-black/80 transition-all" onClick={() => setSelectedCoverImage(userProps?.user?.profile?.profile_cover_photo_url)}>
                                     <div className="w-full h-full flex items-center justify-center text-white cursor-pointer relative">
                                         <i>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
@@ -75,8 +78,8 @@ const UserProfileEditImage = ({ userProps, formData, setFormData }) => {
                     <div className="w-full pb-[100%] relative">
                         <div className="w-full h-full top-0 bottom-0 left-0 absolute">
                             <div className="w-full h-full overflow-hidden relative">
-                                <Image src={selectedProfileImage || formData.session_profile_picture_url}
-                                       alt={`${selectedProfileImage || formData.session_profile_picture_url}-image`} fill={true}
+                                <Image src={selectedProfileImage || formData?.session_profile_picture_url}
+                                       alt={`${selectedProfileImage || formData?.session_profile_picture_url}-image`} fill={true}
                                        sizes="(max-width: 768px) 100vw" className="object-cover"/>
                             </div>
                             <div className="w-full h-full inset-0 absolute bg-black/30 z-10"></div>

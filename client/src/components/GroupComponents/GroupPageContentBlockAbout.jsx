@@ -1,6 +1,9 @@
+import { useSelector } from "react-redux";
 import { convertDateFormat } from "@/utils";
 
-const GroupPageContentBlockAbout = ({ groupData }) => {
+const GroupPageContentBlockAbout = () => {
+    const groupProps = useSelector(state => state.group);
+
     return (
         <div className="mb-[16px]">
             <div className="w-full flex bg-white rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-hidden relative">
@@ -25,7 +28,7 @@ const GroupPageContentBlockAbout = ({ groupData }) => {
                                     <span
                                         className="block text-[15px] text-zinc-700 text-left font-normal break-words relative leading-5">
                                         <span className="overflow-hidden relative">
-                                            {groupData?.groupProps?.group_description}
+                                            { groupProps?.profile?.group_description }
                                         </span>
                                     </span>
                                 </div>
@@ -52,7 +55,7 @@ const GroupPageContentBlockAbout = ({ groupData }) => {
                                             <span
                                                 className="block text-[17px] text-black text-left font-medium break-words relative leading-5">
                                                 <span className="overflow-hidden relative">
-                                                    {groupData?.groupProps?.group_privacy}
+                                                    { groupProps?.profile?.group_privacy }
                                                 </span>
                                             </span>
                                         </div>
@@ -97,7 +100,7 @@ const GroupPageContentBlockAbout = ({ groupData }) => {
                                             <span
                                                 className="block text-[15px] text-zinc-700 text-left font-normal break-words relative leading-5">
                                                 <span className="overflow-hidden relative">
-                                                    Group created on {convertDateFormat(groupData?.groupProps?.created_at)}. Name last changed on {convertDateFormat(groupData?.groupProps?.updated_at)}.
+                                                    Group created on { convertDateFormat(groupProps?.profile?.created_at) }. Name last changed on { convertDateFormat(groupProps?.profile?.updated_at) }.
                                                 </span>
                                             </span>
                                         </div>

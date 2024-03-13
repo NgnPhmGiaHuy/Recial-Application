@@ -1,11 +1,11 @@
 import { AsideItem } from "@/components";
-import { asideLandingConstants } from "@/constants/AsideConstants/asideLandingConstants";
+import ASIDE_LANDING from "@/constants/AsideConstants/AsideLandingConstants";
 
 const AsideNavigation = () => {
     return (
         <div>
             <ul>
-                {asideLandingConstants.map((value, index) => (
+                {ASIDE_LANDING.map((value, index) => (
                     <AsideItem key={index} userProps={value}/>
                 ))}
             </ul>

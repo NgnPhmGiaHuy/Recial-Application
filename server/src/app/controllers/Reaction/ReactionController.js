@@ -9,7 +9,7 @@ class ReactionController {
     getReactionData = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getFormattedUserData(userId);
 
@@ -36,7 +36,7 @@ class ReactionController {
     createReaction = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getFormattedUserData(userId);
 

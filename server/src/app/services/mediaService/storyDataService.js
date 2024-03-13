@@ -22,27 +22,26 @@ class StoryDataService {
         const recentUserStoryProps = userStories.filter(story => story !== null);
 
         const mediaProps = {
+            _id: storyProps._id,
             user: {
-                _id: userProps._id,
-                email: userProps.email,
-                username: userProps.username,
-                firstname: userProps.firstname,
-                lastname: userProps.lastname,
-                profile_picture_url: userProps.profile_picture_url,
-                hasFollow: false,
+                profile: {
+                    _id: userProps._id,
+                    email: userProps.email,
+                    username: userProps.username,
+                    firstname: userProps.firstname,
+                    lastname: userProps.lastname,
+                    profile_picture_url: userProps.profile_picture_url,
+                },
             },
-            media: {
-                _id: storyProps._id,
-                media_name: storyProps.story_title,
-                media_type: "Story",
-                media_text: storyProps.story_description,
-                media_url: storyProps.story_media_url,
-                comment:  await generalDataService.getComment(storyProps._id),
-                reaction: await generalDataService.getReaction(storyProps._id),
-                created_at: storyProps.createdAt,
-                updated_at: storyProps.updatedAt,
-                media_recent: recentUserStoryProps,
-            }
+            media_name: storyProps.story_title,
+            media_type: "Story",
+            media_text: storyProps.story_description,
+            media_url: storyProps.story_media_url,
+            comment:  await generalDataService.getComment(storyProps._id),
+            reaction: await generalDataService.getReaction(storyProps._id),
+            created_at: storyProps.createdAt,
+            updated_at: storyProps.updatedAt,
+            media_recent: recentUserStoryProps,
         }
 
         return mediaProps;

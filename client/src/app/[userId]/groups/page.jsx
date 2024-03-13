@@ -1,33 +1,26 @@
 "use client"
 
-import { useRef } from "react";
-
 import { handleNewUserData } from "@/utils/handleNewData";
 import { Header, UserAboutScaffold, UserProfileCover, UserProfileEdit } from "@/components";
-import { useMultipleHandleState, useToggleState, useUserIdLayout, useWebSocket } from "@/hooks";
+import { useUserIdLayout, useUserProfileActions, useWebSocket, useWithAuth } from "@/hooks";
 
 
 const UserGroupsPage = ({ params }) => {
-    const editProfileRef = useRef();
+    const { currentUser: userProps, isCurrentUser, isFriend, isFriendRequest } = useUserIdLayout(params);
+    const { profileActionRef, showCreatePost, showEditProfile } = useUserProfileActions();
 
-    const [showEditProfile, setShowEditProfile, handleShowEditProfile] = useToggleState(false);
+    // const onDataReceived = async (data) => {
+    //     await handleNewUserData(data, userData, setUserData);
+    // };
 
-    const { userData, setUserData, userProps, setUserProps, userCheck } = useUserIdLayout(params.userId);
-
-    const handleState = useMultipleHandleState({ handleShowEditProfile });
-
-    const onDataReceived = async (data) => {
-        await handleNewUserData(data, userData, setUserData);
-    };
-
-    useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
+    // useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
     return (
         <div>
-            {userData && (
-                <Header userProps={userData}/>
-            )}
-            {userProps && (
+            { userProps && (
+                <Header/>
+            ) }
+            { userProps && (
                 <>
                     <div className="mx-[128px] flex flex-col relative z-0 ">
                         <div className="top-[56px] min-h-[calc(100vh-88px)] flex flex-col relative">
@@ -37,16 +30,11 @@ const UserGroupsPage = ({ params }) => {
                                         <main>
                                             <div className="my-[16px] flex flex-col gap-4 relative">
                                                 <div>
-                                                    <UserProfileCover userProps={userProps} handleState={handleState} userCheck={userCheck}/>
+                                                    <UserProfileCover/>
                                                 </div>
                                                 <div>
-                                                    <UserAboutScaffold mediaProps={userProps?.group_list} titleLabel="Groups" isGroupPage={true}/>
+                                                    <UserAboutScaffold titleLabel="Groups" options={{ isGroupPage: true }}/>
                                                 </div>
-                                                {userProps?.suggest_group && (
-                                                    <div>
-                                                        <UserAboutScaffold mediaProps={userProps?.suggest_group} titleLabel="Suggest groups" isGroupPage={true}/>
-                                                    </div>
-                                                )}
                                             </div>
                                         </main>
                                     </div>
@@ -55,9 +43,7 @@ const UserGroupsPage = ({ params }) => {
                         </div>
                     </div>
                     <div>
-                        {showEditProfile && (
-                            <UserProfileEdit userProps={userProps} editProfileRef={editProfileRef} handleState={handleState}/>
-                        )}
+                        { showEditProfile && <UserProfileEdit editProfileRef={profileActionRef.editProfileRef}/> }
                     </div>
                 </>
             )}
@@ -65,4 +51,4 @@ const UserGroupsPage = ({ params }) => {
     );
 };
 
-export default UserGroupsPage;
+export default useWithAuth(UserGroupsPage);

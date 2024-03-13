@@ -1,8 +1,9 @@
 import { QuickSettingItem } from "@/components";
-import { postItemQuickSettingConstants } from "@/constants/PostConstants/postItemQuickSettingConstants";
+
+import POST_ITEM_QUICK_SETTING from "@/constants/PostConstants/PostItemQuickSettingConstants";
 
 const PostItemQuickSetting = ({ props, postQuickSettingButtonRef, translateX, translateY }) => {
-    const postItemQuickSettingList = postItemQuickSettingConstants(props)
+    const postItemQuickSettingList = POST_ITEM_QUICK_SETTING(props)
 
     return (
         <div ref={postQuickSettingButtonRef} className="absolute top-0 left-0 translate-x-[400px] translate-y-[50px] z-50" style={{"--tw-translate-x": `${translateX.postItemTranslateXValue}px`}}>

@@ -9,12 +9,12 @@ class UserController {
     getUserData = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const { isOAuthUser, password, refreshToken, friends, followers, following, photo_list, video_list, story_list, post_list, roles, ...otherUserProps} = user._doc;
@@ -31,15 +31,53 @@ class UserController {
         }
     };
 
-    getUserFriend = async (req, res) => {
+    getUserContact = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
+            }
+
+            const userContactProps = await getUserDataService.getFormattedUserContact(user);
+
+            return res.status(200).json(userContactProps);
+        } catch (error) {
+            return res.status(500).json(error)
+        }
+    }
+
+    getUserProfile = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.user_id;
+
+            const user = await getUserDataService.getRawUserData(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: "User not found" });
+            }
+
+            const userProfileProps = await getUserDataService.getFormattedUserProfile(user);
+
+            return res.status(200).json(userProfileProps);
+        } catch (error) {
+            return res.status(500).json(error)
+        }
+    }
+
+    getUserFriend = async (req, res) => {
+        try {
+            const decodedToken = req.decodedToken;
+            const userId = decodedToken.user_id;
+
+            const user = await getUserDataService.getRawUserData(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: "User not found" });
             }
 
             const friendProps = await getUserDataService.getUserSocial(user.friends);
@@ -53,12 +91,12 @@ class UserController {
     getUserFriendRequest = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const friendRequestProps = await getUserDataService.getUserFriendRequest(user._id);
@@ -72,12 +110,12 @@ class UserController {
     getUserSetting = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const settingProps = await getUserDataService.getUserSetting(user._id);
@@ -91,12 +129,12 @@ class UserController {
     getUserFollowing = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const followingProps = await getUserDataService.getUserSocial(user.following);
@@ -110,12 +148,12 @@ class UserController {
     getUserFollower = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const followerProps = await getUserDataService.getUserSocial(user.followers);
@@ -129,12 +167,12 @@ class UserController {
     getUserSearchQuery = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getFormattedUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const searchProps = await getUserDataService.getUserSearchQuery(user._id);
@@ -148,12 +186,12 @@ class UserController {
     getUserMessage = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const messageProps = await getUserDataService.getUserMessages(user._id);
@@ -167,12 +205,12 @@ class UserController {
     getUserPhotoList = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const photoListProps = await getUserDataService.getUserPhotoList(user.photo_list);
@@ -186,12 +224,12 @@ class UserController {
     getUserGroupList = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const groupListProps = await getUserDataService.getUserGroup(user._id);
@@ -205,12 +243,12 @@ class UserController {
     getUserNotification = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const notificationProps = await getUserDataService.getUserNotifications(user._id);
@@ -224,18 +262,18 @@ class UserController {
     createUserFriendRequest = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const { friendId } = req.body;
 
             if (!friendId) {
-                return res.status(400).json({ error: 'Friend ID is missing' });
+                return res.status(400).json({ error: "Friend ID is missing" });
             }
 
             const existFriendRequest = await getFriendRequestDataService.getFriendRequestData(user._id, friendId);
@@ -281,12 +319,12 @@ class UserController {
     setUserFriendRequest = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const requestData = req.body;
@@ -319,7 +357,7 @@ class UserController {
                 })
             }
 
-            return res.status(200).json({ message: 'Request processed successfully' });
+            return res.status(200).json({ message: "Request processed successfully" });
         } catch (error) {
             return res.status(500).json(error);
         }
@@ -328,12 +366,12 @@ class UserController {
     setUserProfile = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getRawUserData(userId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const { session_username, session_firstname, session_lastname, session_description, session_location, session_date_of_birth, session_profile_picture_url, session_profile_cover_photo_url } = req.body;
@@ -381,7 +419,7 @@ class UserController {
                 })
             }
 
-            return res.status(200).json({ message: 'User profile updated successfully' });
+            return res.status(200).json({ message: "User profile updated successfully" });
         } catch (error) {
             return res.status(500).json(error);
         }

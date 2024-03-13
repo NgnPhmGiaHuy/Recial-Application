@@ -1,5 +1,6 @@
 import { interpretWeatherCode } from "@/utils/handleWeather";
-import { weatherIcons } from "@/constants/AsideConstants/asideWeatherConstants";
+
+import WEATHER_ICONS from "@/constants/AsideConstants/AsideWeatherConstants";
 
 const AsideWeatherTemperature = ({ weatherForecast }) => {
     return (
@@ -16,7 +17,7 @@ const AsideWeatherTemperature = ({ weatherForecast }) => {
             <div className="flex flex-col gap-2 items-center justify-center relative">
                 <div className="w-[48px] h-[48px] flex items-center justify-center text-white relative">
                     <i>
-                        {weatherIcons[interpretWeatherCode(weatherForecast?.current?.weather_code)]}
+                        {WEATHER_ICONS[interpretWeatherCode(weatherForecast?.current?.weather_code)]}
                     </i>
                 </div>
                 <div className="flex items-center justify-center relative">

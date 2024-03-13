@@ -1,10 +1,10 @@
 import { PostPageItem } from "@/components";
 
-const PostPage = ({ postRef, userData, userProps, isCurrentUser, postListProps }) => {
+const PostPage = ({ postRef, pagePostProps }) => {
     return (
         <div ref={postRef}>
-            {postListProps?.map((value, index) => (
-                <PostPageItem key={index} userData={userData} userProps={userProps} isCurrentUser={isCurrentUser} postProps={value} />
+            {pagePostProps?.map((value, index) => (
+                <PostPageItem key={index} postProps={value}/>
             ))}
         </div>
     );

@@ -1,35 +1,25 @@
+import { useSelector } from "react-redux";
+
 import { UserAboutOverview, UserAboutScaffold, UserProfileCover } from "@/components";
 
-const UserAbout = ({ userProps, userCheck, handleState }) => {
+const UserAbout = () => {
+    const { isCurrentUser } = useSelector(state => state.userRelationship);
+
+    const userProps = isCurrentUser ? useSelector(state => state.user) : useSelector(state => state.userId);
+
     return (
         <main>
             <div className="my-[16px] flex flex-col gap-4 relative">
                 <div>
-                    <UserProfileCover userProps={userProps} userCheck={userCheck} handleState={handleState}/>
+                    <UserProfileCover/>
                 </div>
                 <div>
-                    <UserAboutOverview userProps={userProps}/>
+                    <UserAboutOverview/>
                 </div>
-                {userProps?.photo_list ? (
-                    <div>
-                        <UserAboutScaffold mediaProps={userProps?.photo_list} isPhoto={true}/>
-                    </div>
-                ) : null}
-                {userProps?.videos_list ? (
-                    <div>
-                        <UserAboutScaffold mediaProps={userProps?.videos_list} isVideo={true}/>
-                    </div>
-                ) : null}
-                {userProps?.user?.friends ? (
-                    <div>
-                        <UserAboutScaffold mediaProps={userProps?.user?.friends} isFriendItem={true}/>
-                    </div>
-                ) : null}
-                {userProps?.group_list ? (
-                    <div>
-                        <UserAboutScaffold mediaProps={userProps?.group_list} isGroup={true}/>
-                    </div>
-                ) : null}
+                { userProps?.photo_list && <UserAboutScaffold titleLabel="Photos" options={{ isPhotoCard: true }}/> }
+                { userProps?.videos_list && <UserAboutScaffold titleLabel="Videos" options={{ isVideoCard: true }} /> }
+                { userProps?.user?.friends && <UserAboutScaffold titleLabel="Friends" options={{ isFriendCard: true }}/> }
+                { userProps?.group_list && <UserAboutScaffold titleLabel="Groups" options={{ isGroupCard: true }} /> }
             </div>
         </main>
     );

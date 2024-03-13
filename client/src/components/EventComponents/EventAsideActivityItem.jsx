@@ -1,6 +1,9 @@
 import Image from "next/image";
+import { useSelector } from "react-redux";
 
-const EventAsideActivityItem = ({ userProps }) => {
+const EventAsideActivityItem = () => {
+    const userProps = useSelector(state => state.user);
+
     return (
         <div>
             <div className="py-[10px] flex items-start relative">

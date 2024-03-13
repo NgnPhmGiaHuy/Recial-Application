@@ -1,63 +1,14 @@
 "use client"
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
 
-import { useToggleState } from "@/hooks";
+import { useMediaNavigation } from "@/hooks";
 
-const MediaPhotoPageScaffoldItem = ({ mediaProps }) => {
-    const router = useRouter();
+const MediaPhotoPageScaffoldItem = () => {
+    const mediaProps = useSelector(state => state.media);
 
-    const handleExistClick = () => {
-        return router.back();
-    };
-
-    const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
-    const [showPrevButton, setShowPrevButton, handleShowPrevButton] = useToggleState(false);
-    const [showNextButton, setShowNextButton, handleShowNextButton] = useToggleState(false);
-
-    useEffect(() => {
-        const currentIndex = mediaProps?.media?.media_recent?.indexOf(mediaProps?.media?._id);
-        if (currentIndex !== -1) {
-            return setCurrentMediaIndex(currentIndex);
-        }
-    }, [mediaProps]);
-
-    const fetchPreviousMedia = () => {
-        let prevIndex = currentMediaIndex - 1;
-        if (prevIndex < 0) {
-            prevIndex = mediaProps?.media?.media_recent?.length - 1;
-        }
-
-        const prevMediaId = mediaProps?.media?.media_recent[prevIndex];
-        if (prevMediaId) {
-            let previousPhotoURL;
-            if (mediaProps.media.media_type === "Story") {
-                previousPhotoURL = `http://localhost:3000/story?user=${mediaProps.user._id}&set=${prevMediaId}`;
-            } else if (mediaProps.media.media_type === "Photo") {
-                previousPhotoURL = `http://localhost:3000/post?user=${mediaProps.user._id}&post=${mediaProps.media.media_set}&photo=${prevMediaId}`;
-            }
-            router.push(previousPhotoURL);
-            setCurrentMediaIndex(prevIndex);
-        }
-    };
-
-    const fetchNextMedia = () => {
-        const nextIndex = (currentMediaIndex + 1) % mediaProps?.media?.media_recent?.length;
-        const nextMediaId = mediaProps?.media?.media_recent[nextIndex];
-
-        if (nextMediaId) {
-            let nextPhotoURL;
-            if (mediaProps.media.media_type === "Story") {
-                nextPhotoURL = `http://localhost:3000/story?user=${mediaProps.user._id}&set=${nextMediaId}`;
-            } else if (mediaProps.media.media_type === "Photo") {
-                nextPhotoURL = `http://localhost:3000/post?user=${mediaProps.user._id}&post=${mediaProps.media.media_set}&photo=${nextMediaId}`;
-            }
-            router.push(nextPhotoURL);
-            setCurrentMediaIndex(nextIndex);
-        }
-    };
+    const { currentMediaIndex, showPrevButton, showNextButton, handleExistClick, handleShowPrevButton, handleShowNextButton, fetchPreviousMedia, fetchNextMedia } = useMediaNavigation()
 
     return (
         <>
@@ -90,7 +41,7 @@ const MediaPhotoPageScaffoldItem = ({ mediaProps }) => {
             </div>
             {mediaProps?.media?.media_recent?.length > 1 ? (
                 <div>
-                    <div className="h-full top-0 left-[10px] flex items-center justify-center cursor-pointer absolute"
+                    <div className="h-full top-0 left-[10px] flex items-center justify-center cursor-pointer absolute z-50"
                          onMouseEnter={handleShowPrevButton} onMouseLeave={handleShowPrevButton}>
                         <div className="w-[60px] h-[60px] relative">
                             {showPrevButton ? (
@@ -108,7 +59,7 @@ const MediaPhotoPageScaffoldItem = ({ mediaProps }) => {
                             ) : null}
                         </div>
                     </div>
-                    <div className="h-full top-0 right-[10px] flex items-center justify-center cursor-pointer absolute"
+                    <div className="h-full top-0 right-[10px] flex items-center justify-center cursor-pointer absolute z-50"
                          onMouseEnter={handleShowNextButton} onMouseLeave={handleShowNextButton}>
                         <div className="w-[60px] h-[60px] relative">
                             {showNextButton && (

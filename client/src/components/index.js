@@ -129,6 +129,7 @@ import PageScaffoldAsideInfoItem from "@/components/PageComponents/PageScaffoldA
 import PageScaffoldAsideSecurityCard from "@/components/PageComponents/PageScaffoldAsideSecurityCard";
 import PageScaffoldMain from "@/components/PageComponents/PageScaffoldMain";
 import PageScaffoldMainHeader from "@/components/PageComponents/PageScaffoldMainHeader";
+import PageScaffoldMainNavigationItem from "@/components/PageComponents/PageScaffoldMainNavigationItem";
 import SuggestPage from "@/components/PageComponents/SuggestPage";
 import SuggestPageItem from "@/components/PageComponents/SuggestPageItem";
 
@@ -155,6 +156,7 @@ import UserAbout from "@/components/UserProfileComponents/UserAbout";
 import UserAboutOverview from "@/components/UserProfileComponents/UserAboutOverview";
 import UserAboutScaffold from "@/components/UserProfileComponents/UserAboutScaffold";
 import UserAboutScaffoldItem from "@/components/UserProfileComponents/UserAboutScaffoldItem";
+import UserAboutScaffoldOptions from "@/components/UserProfileComponents/UserAboutScaffoldOptions";
 import UserAboutVideoScaffoldItem from "@/components/UserProfileComponents/UserAboutVideoScaffoldItem";
 import UserAboutPhotoScaffoldItem from "@/components/UserProfileComponents/UserAboutPhotoScaffoldItem";
 import UserProfile from "@/components/UserProfileComponents/UserProfile";
@@ -333,6 +335,7 @@ export {
     PageScaffoldAsideSecurityCard,
     PageScaffoldMain,
     PageScaffoldMainHeader,
+    PageScaffoldMainNavigationItem,
     SuggestPage,
     SuggestPageItem,
 
@@ -352,6 +355,7 @@ export {
     UserAboutOverview,
     UserAboutScaffold,
     UserAboutScaffoldItem,
+    UserAboutScaffoldOptions,
     UserAboutVideoScaffoldItem,
     UserAboutPhotoScaffoldItem,
     UserProfile,

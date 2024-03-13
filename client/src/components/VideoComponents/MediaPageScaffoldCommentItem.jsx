@@ -7,7 +7,7 @@ import { formatDate } from "@/utils";
 import { MediaPageScaffoldFooter } from "@/components";
 import { useClickOutside, useToggleState } from "@/hooks";
 
-const MediaPageScaffoldCommentItem = ({ userProps, mediaProps, isReply }) => {
+const MediaPageScaffoldCommentItem = ({ mediaProps, isReply }) => {
     const reportButtonRef = useRef(null);
 
     const [displayedComments, setDisplayedComments] = useState(5);
@@ -111,7 +111,7 @@ const MediaPageScaffoldCommentItem = ({ userProps, mediaProps, isReply }) => {
             {showReplyPanel ? (
                 <div className="pl-[52px]">
                     <div className="mb-[16px]">
-                        <MediaPageScaffoldFooter userProps={userProps} mediaProps={mediaProps} mediaType="Comment" isComment={true} handleShowReplyPanel={handleShowReplyPanel}/>
+                        <MediaPageScaffoldFooter mediaProps={mediaProps} mediaType="Comment" isComment={true} handleShowReplyPanel={handleShowReplyPanel}/>
                     </div>
                 </div>
             ) : null}
@@ -121,7 +121,7 @@ const MediaPageScaffoldCommentItem = ({ userProps, mediaProps, isReply }) => {
                         <>
                             <div className="w-full h-full flex flex-col relative">
                                 {mediaProps?.comment_reply?.slice(0, displayedComments).map((value, index) => (
-                                    <MediaPageScaffoldCommentItem key={index} userProps={userProps} mediaProps={value} isReply={true}/>
+                                    <MediaPageScaffoldCommentItem key={index} mediaProps={value} isReply={true}/>
                                 ))}
                                 {displayedComments < mediaProps?.comment_reply?.length && (
                                     <div className="pl-[52px] flex flex-row items-center justify-between relative">

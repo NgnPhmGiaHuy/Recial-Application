@@ -1,62 +1,29 @@
 "use client"
 
 import Image from "next/image";
-import { flushSync } from "react-dom";
-import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
 import { StoryItem } from "@/components";
+import { useStoryControls, useStoryData } from "@/hooks";
 
-const Story = ({ userProps, storyProps }) => {
-    const storyItemSelectedRef = useRef(null);
-    const [storyItemIndex, setStoryItemIndex] = useState(0);
+const Story = () => {
+    const userProps = useSelector(state => state.user);
 
-    const handleShowPrevStory = () => {
-        flushSync(() => {
-            if (storyItemIndex > 0){
-                setStoryItemIndex(storyItemIndex - 3 < 0 ? 0 : storyItemIndex - 3);
-            } else {
-                setStoryItemIndex(0);
-            }
-        });
-        if (storyItemSelectedRef.current) {
-            storyItemSelectedRef.current.scrollIntoView({
-                behavior: "smooth",
-                block: "nearest",
-                inline: "center"
-            });
-        }
-    }
-
-    const handleShowNextStory = () => {
-        flushSync(() => {
-            const newIndex = storyItemIndex + 3;
-            if (newIndex < storyProps?.length) {
-                setStoryItemIndex(newIndex);
-            } else {
-                setStoryItemIndex(storyProps?.length - 1);
-            }
-        });
-        if (storyItemSelectedRef.current) {
-            storyItemSelectedRef.current.scrollIntoView({
-                behavior: "smooth",
-                block: "nearest",
-                inline: "center"
-            });
-        }
-    }
+    const { storyProps } = useStoryData();
+    const { storyItemSelectedRef, storyItemIndex, handleShowPrevStory, handleShowNextStory } = useStoryControls();
 
     return (
         <div className="max-w-full relative">
             <div className="sm:min-h-[200px] min-h-[140px] mb-[14px] relative">
-                {storyItemIndex === 0 ? "" : (
+                { storyItemIndex === 0 ? "" : (
                     <div className="top-[50%] left-[44px] translate-x-[calc(-50%-4px)] -translate-y-1/2 absolute opacity-100 transition-opacity ease-in-out duration-300 z-20">
-                        <div onClick={() => handleShowPrevStory()} className="sm:w-[48px] w-[36px] sm:h-[48px] h-[36px] flex items-center justify-center shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] rounded-xl cursor-pointer bg-white hover:bg-zinc-50 relative">
+                        <div onClick={ () => handleShowPrevStory() } className="sm:w-[48px] w-[36px] sm:h-[48px] h-[36px] flex items-center justify-center shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] rounded-xl cursor-pointer bg-white hover:bg-zinc-50 relative">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                             </svg>
                         </div>
                     </div>
-                )}
+                ) }
                 <div className="my-[-8px] py-[8px] relative">
                     <div className="py-[8px] flex flex-col overflow-x-auto overflow-y-hidden relative custom-story-scrollbar">
                         <div className="flex flex-row grow relative">
@@ -67,7 +34,7 @@ const Story = ({ userProps, storyProps }) => {
                                             <div className="h-full flex flex-col relative">
                                                 <div className="h-full overflow-hidden relative transition ease-in-out duration-150">
                                                     <div className="w-full h-full relative">
-                                                        <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                                        <Image src={userProps?.user?.profile?.profile_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                                     </div>
                                                 </div>
                                                 <div className="sm:pt-[28px] pt-[14px] sm:pb-[12px] pb-[6px] sm:px-[16px] px-[8px] flex flex-shrink-0 justify-center bg-white relative">
@@ -91,21 +58,21 @@ const Story = ({ userProps, storyProps }) => {
                                     </div>
                                 </a>
                             </div>
-                            {Array.isArray(storyProps) && storyProps?.map((value, index) => (
+                            { Array.isArray(storyProps) && storyProps?.map((value, index) => (
                                 <StoryItem key={index} index={index} selected={storyItemIndex === index} storyItemSelectedRef={storyItemSelectedRef} storyProps={value}/>
-                            ))}
+                            )) }
                         </div>
                     </div>
                 </div>
-                {userProps?.stories && storyItemIndex === userProps?.stories?.length - 2 ? "" : (
+                { userProps?.stories && storyItemIndex === userProps?.stories?.length - 2 ? "" : (
                     <div className="top-[50%] right-[44px] translate-x-[calc(50%+4px)] -translate-y-1/2 absolute opacity-100 transition-opacity ease-in-out duration-300">
-                        <div onClick={() => handleShowNextStory()} className="sm:w-[48px] w-[36px] sm:h-[48px] h-[36px] flex items-center justify-center shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] rounded-xl cursor-pointer bg-white hover:bg-zinc-50 relative">
+                        <div onClick={() => handleShowNextStory() } className="sm:w-[48px] w-[36px] sm:h-[48px] h-[36px] flex items-center justify-center shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] rounded-xl cursor-pointer bg-white hover:bg-zinc-50 relative">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                             </svg>
                         </div>
                     </div>
-                )}
+                ) }
             </div>
         </div>
     );

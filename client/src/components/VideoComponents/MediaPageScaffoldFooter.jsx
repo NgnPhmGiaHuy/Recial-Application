@@ -1,10 +1,14 @@
 "use client"
 
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import { useCommentMediaData, useContentEditable } from "@/hooks";
 
-const MediaPageScaffoldFooter = ({ userProps, mediaProps, mediaType, isComment, handleShowReplyPanel }) => {
+const MediaPageScaffoldFooter = ({ mediaType, isComment, handleShowReplyPanel }) => {
+    const userProps = useSelector(state => state.user);
+    const mediaProps = useSelector(state => state.media);
+
     const { inputContentEditableRef, inputText, setCreatePostInputText, setCreatePostAllowSubmit, allowSubmit, handleInputTextChange } = useContentEditable()
 
     const { commentSubmitStatus, handleSetCommentData } = useCommentMediaData();

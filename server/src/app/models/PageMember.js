@@ -14,21 +14,21 @@ const PageMemberSchema = new Schema(
                 ref: "User",
                 required: true,
             },
-            user_role: [{
+            user_role: {
                 type: Schema.Types.ObjectId,
                 ref: "Role",
                 required: true,
-            }],
-        },
+            },
+        }
     }, {
         timestamps: true,
-    }
-);
+    },
+)
 
 PageMemberSchema.pre("save", async function(next) {
     if (this.isNew && !this.user_role.length) {
         try {
-            const defaultRole = await mongoose.model("Role").findOne({ roleName: "Viewer" });
+            const defaultRole = await mongoose.model("Role").findOne({ roleName: "page_contributor" });
 
             if (defaultRole) {
                 this.user_role.push(defaultRole._id);
@@ -41,4 +41,4 @@ PageMemberSchema.pre("save", async function(next) {
     next();
 });
 
-module.exports = mongoose.model("PageMember", PageMemberSchema);
+module.exports = new mongoose.model("PageMember", PageMemberSchema);

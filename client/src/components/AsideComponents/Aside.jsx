@@ -1,10 +1,15 @@
 "use client"
 
-import { useCallback, useState } from "react";
+import {useSelector} from "react-redux";
+import {useCallback, useEffect, useState} from "react";
 
+import {useGetUserFollowingData} from "@/hooks/useUser/useUserData";
 import {AsideFollowItem, AsideWeather, AsideShowMoreOrShowLessButton, AsideNavigation} from "@/components";
 
-const Aside = ({ userProps }) => {
+
+const Aside = () => {
+    const userProps = useSelector(state => state.user);
+
     const [asideFollowItemToShow, setAsideFollowItemToShow] = useState(3);
     const [asideNavigationItemsToShow, setAsideNavigationItemsToShow] = useState(6);
 
@@ -15,6 +20,8 @@ const Aside = ({ userProps }) => {
     const showLessAsideFollowItem = useCallback(() => {
         setAsideFollowItemToShow(3)
     }, [setAsideNavigationItemsToShow]);
+
+    const { data, error, isLoading, isValidating } = useGetUserFollowingData();
 
     return (
         <div className="max-w-[360px] min-w-[280px] top-[56px] sm:block hidden basis-[360px] overflow-x-hidden">
@@ -59,20 +66,30 @@ const Aside = ({ userProps }) => {
                                     </div>
                                 </div>
                             </div>
-                            {userProps?.user?.following?.length ? (
-                                <>
-                                    <ul>
-                                        {userProps?.user?.following?.slice(0, asideFollowItemToShow).map((value, index) => (
-                                            <AsideFollowItem key={index} userProps={value} hasNotificationBadge={true}/>
-                                        ))}
-                                    </ul>
-                                    {asideFollowItemToShow === userProps?.user?.following?.length ? (
-                                        <AsideShowMoreOrShowLessButton showMore={false} onClick={() => showLessAsideFollowItem()}/>
-                                    ) : (
-                                        <AsideShowMoreOrShowLessButton showMore={true} onClick={() => showMoreAsideFollowItem(userProps?.user?.following)}/>
-                                    )}
-                                </>
-                            ) : null}
+                            {isLoading ? (
+                                <div className="w-full h-full py-[16px] flex items-center justify-center relative">
+                                    <div className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-lime-700 motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                                        <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                                            Loading...
+                                        </span>
+                                    </div>
+                                </div>
+                            ) : (
+                                userProps?.user?.following?.length ? (
+                                    <>
+                                        <ul>
+                                            {userProps?.user?.following?.slice(0, asideFollowItemToShow).map((value, index) => (
+                                                <AsideFollowItem key={index} userProps={value} hasNotificationBadge={true}/>
+                                            ))}
+                                        </ul>
+                                        {asideFollowItemToShow === userProps?.user?.following?.length ? (
+                                            <AsideShowMoreOrShowLessButton showMore={false} onClick={() => showLessAsideFollowItem()}/>
+                                        ) : (
+                                            <AsideShowMoreOrShowLessButton showMore={true} onClick={() => showMoreAsideFollowItem(userProps?.user?.following)}/>
+                                        )}
+                                    </>
+                                ) : null
+                            )}
                         </section>
                     </div>
                 </div>

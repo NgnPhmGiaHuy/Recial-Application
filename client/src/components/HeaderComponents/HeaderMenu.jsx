@@ -1,7 +1,12 @@
+import { useDispatch } from "react-redux";
+
 import { HeaderMenuSectionItem } from "@/components";
+import { toggleHeaderMenu } from "@/store/actions/toggle/toggleActions";
 import { headerMenuSocial, headerMenuPersonal } from "@/constants/HeaderConstants";
 
-const HeaderMenu = ({ forwardedRef, handleMenuButtonClick }) => {
+const HeaderMenu = ({ forwardedRef }) => {
+    const dispatch = useDispatch();
+
     return (
         <div className="w-screen h-screen mt-[56px] fixed top-0 left-0 bg-black/75 z-50">
             <div ref={forwardedRef} className={`w-[380px] h-[calc(100vh-56px)] max-w-full max-h-screen absolute top-0 right-0 flex flex-col rounded-xl bg-white shadow-lg border border-solid border-black transform-none overflow-hidden animate-movePanelRightToLeft`}>
@@ -10,7 +15,7 @@ const HeaderMenu = ({ forwardedRef, handleMenuButtonClick }) => {
                         <h1>Menu</h1>
                     </div>
                     <div className="w-[32px] h-[32px] absolute top-[8px] right-[8px] flex flex-col items-center justify-center overflow-hidden">
-                        <button type="button" className="w-full h-full flex flex-row items-center justify-center rounded-full hover:bg-zinc-200 transition-all" onClick={handleMenuButtonClick}>
+                        <button type="button" className="w-full h-full flex flex-row items-center justify-center rounded-full hover:bg-zinc-200 transition-all" onClick={() => dispatch(toggleHeaderMenu())}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
                             </svg>

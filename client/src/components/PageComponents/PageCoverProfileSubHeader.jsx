@@ -1,6 +1,11 @@
 import Link from "next/link";
+import { useSelector } from "react-redux";
+
+import { handleFormatNumber } from "@/utils";
 
 const PageCoverProfileSubHeader = () => {
+    const pageProps = useSelector(state => state.page);
+
     return (
         <div className="w-full mt-[8px] flex flex-row items-center justify-start relative">
             <div className="w-full flex flex-row items-center justify-between relative">
@@ -9,7 +14,7 @@ const PageCoverProfileSubHeader = () => {
                         <div>
                             <span className="block text-[24px] text-black text-left font-bold break-words relative leading-5">
                                 <span className="overflow-hidden relative">
-                                    145k
+                                    {handleFormatNumber(pageProps?.follow?.length)}
                                 </span>
                             </span>
                         </div>

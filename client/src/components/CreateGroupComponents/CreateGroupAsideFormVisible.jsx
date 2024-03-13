@@ -1,9 +1,20 @@
+import { useDispatch, useSelector } from "react-redux";
+
 import { CreateGroupAsideFormPrivacyMenu } from "@/components";
+import { toggleGroupVisible } from "@/store/actions/toggle/toggleActions";
 
 const CreateGroupAsideFormVisible = ({ state, handleState, createGroupVisibleRef }) => {
+    const dispatch = useDispatch();
+
+    const { showGroupVisible } = useSelector(state => state.toggle);
+
+    const handleGroupVisibleSettingButton = () => {
+        return dispatch(toggleGroupVisible());
+    }
+
     return (
         <div ref={createGroupVisibleRef} className="mx-[12px] my-[12px] flex flex-col items-start  relative">
-            <div className="w-full h-full cursor-pointer relative" onClick={handleState.handleGroupVisibleSettingButton}>
+            <div className="w-full h-full cursor-pointer relative" onClick={handleGroupVisibleSettingButton}>
                 <div className="w-full h-[56px] px-4 flex flex-row items-center justify-between rounded-xl outline outline-1 focus:outline-2 focus:outline-lime-400 transition-all relative">
                     <div className="flex flex-shrink-0 relative">
                         <div className="w-[32px] h-[32px] flex items-center justify-center relative overflow-hidden">
@@ -54,7 +65,7 @@ const CreateGroupAsideFormVisible = ({ state, handleState, createGroupVisibleRef
                     </div>
                 </div>
             </div>
-            {state.showGroupVisibleSetting && <CreateGroupAsideFormPrivacyMenu groupVisible={state.groupVisible} handleSetGroupVisible={handleState.handleSetGroupVisible}/>}
+            { showGroupVisible && <CreateGroupAsideFormPrivacyMenu groupVisible={state.groupVisible} handleSetGroupVisible={handleState.handleSetGroupVisible}/> }
         </div>
     );
 };

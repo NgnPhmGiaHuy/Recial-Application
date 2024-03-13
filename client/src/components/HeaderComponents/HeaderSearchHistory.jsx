@@ -1,6 +1,11 @@
 import { HeaderSearchHistoryItem } from "@/components";
+import { useGetUserSearchData } from "@/hooks/useUser/useUserData";
+import {useSelector} from "react-redux";
 
-const HeaderSearchHistory = ({ userProps }) => {
+const HeaderSearchHistory = () => {
+    const userProps = useSelector(state => state.user);
+    const { data, error, isLoading, isValidating } = useGetUserSearchData();
+
     return (
         <div className="shadow-xl bg-white rounded-b-xl">
             <div className="max-h-[calc(500px-80px)] flex flex-col grow p-[8px] scroll-smooth">
@@ -32,9 +37,19 @@ const HeaderSearchHistory = ({ userProps }) => {
                                         </div>
                                     </div>
                                     <ul>
-                                        {userProps?.search?.map((value, index) => (
-                                            <HeaderSearchHistoryItem key={index} searchHistoryProps={value}/>
-                                        ))}
+                                        {isLoading ? (
+                                            <div className="w-full h-full py-[16px] flex items-center justify-center relative">
+                                                <div className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-lime-700 motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                                                    <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                                                        Loading...
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            userProps?.search?.map((value, index) => (
+                                                <HeaderSearchHistoryItem key={index} searchHistoryProps={value}/>
+                                            ))
+                                        )}
                                     </ul>
                                 </li>
                             </ul>

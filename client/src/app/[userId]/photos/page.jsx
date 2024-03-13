@@ -1,32 +1,24 @@
 "use client"
 
-import { useRef } from "react";
-
-import { handleNewUserData } from "@/utils/handleNewData";
 import { Header, UserAboutScaffold, UserProfileCover, UserProfileEdit } from "@/components";
-import { useMultipleHandleState, useToggleState, useUserIdLayout, useWebSocket } from "@/hooks";
+import { useUserIdLayout, useUserProfileActions, useWebSocket, useWithAuth } from "@/hooks";
 
 const UserPhotosPage = ({ params }) => {
-    const editProfileRef = useRef();
+    const { currentUser: userProps, isCurrentUser, isFriend, isFriendRequest } = useUserIdLayout(params);
+    const { profileActionRef, showCreatePost, showEditProfile } = useUserProfileActions();
 
-    const [showEditProfile, setShowEditProfile, handleShowEditProfile] = useToggleState(false);
+    // const onDataReceived = async (data) => {
+    //     await handleNewUserData(data, userData, setUserData);
+    // };
 
-    const { userData, setUserData, userProps, setUserProps, userCheck } = useUserIdLayout(params.userId);
-
-    const handleState = useMultipleHandleState({ handleShowEditProfile });
-
-    const onDataReceived = async (data) => {
-        await handleNewUserData(data, userData, setUserData);
-    };
-
-    useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
+    // useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
     return (
         <div>
-            {userData && (
-                <Header userProps={userData}/>
-            )}
-            {userProps && (
+            { userProps && (
+                <Header/>
+            ) }
+            { userProps && (
                 <>
                     <div className="mx-[128px] flex flex-col relative z-0 ">
                         <div className="top-[56px] min-h-[calc(100vh-88px)] flex flex-col relative">
@@ -36,10 +28,10 @@ const UserPhotosPage = ({ params }) => {
                                         <main>
                                             <div className="my-[16px] flex flex-col gap-4 relative">
                                                 <div>
-                                                    <UserProfileCover userProps={userProps} handleState={handleState} userCheck={userCheck}/>
+                                                    <UserProfileCover/>
                                                 </div>
                                                 <div>
-                                                    <UserAboutScaffold userProps={userProps} mediaProps={userProps?.photo_list} isPhotoPage={true} isCurrentUser={userCheck.isCurrentUser}/>
+                                                    <UserAboutScaffold titleLabel="Photos" options={{ isPhotoPage: true }}/>
                                                 </div>
                                             </div>
                                         </main>
@@ -49,14 +41,12 @@ const UserPhotosPage = ({ params }) => {
                         </div>
                     </div>
                     <div>
-                        {showEditProfile && (
-                            <UserProfileEdit userProps={userProps} editProfileRef={editProfileRef} handleState={handleState}/>
-                        )}
+                        { showEditProfile && <UserProfileEdit editProfileRef={profileActionRef.editProfileRef}/> }
                     </div>
                 </>
-            )}
+            ) }
         </div>
     );
 };
 
-export default UserPhotosPage;
+export default useWithAuth(UserPhotosPage);

@@ -5,11 +5,15 @@ const Comment = require("../app/models/Comment");
 const Event = require("../app/models/Event");
 const EventMember = require("../app/models/EventMember");
 const Group = require("../app/models/Group");
+const GroupPost = require("../app/models/GroupPost");
 const GroupMember = require("../app/models/GroupMember");
 const Location = require("../app/models/Location");
 const Message = require("../app/models/Message");
 const Notification = require("../app/models/Notification");
 const Page = require("../app/models/Page");
+const PageLike = require("../app/models/PageLike");
+const PageFollow = require("../app/models/PageFollow");
+const PagePost = require("../app/models/PagePost");
 const PageMember = require("../app/models/PageMember");
 const Photo = require("../app/models/Photo");
 const PhotoView = require("../app/models/PhotoView");
@@ -37,23 +41,25 @@ const VideoShare = require("../app/models/VideoShare");
 const Setting = require("../app/models/Setting");
 
 const generateRoles = () => [
-    { role_name: "User", role_permissions: "user_permissions_here" },
-    { role_name: "Admin", role_permissions: "admin_permissions_here" },
-    { role_name: "Viewer", role_permissions: "viewer_permissions_here" },
-    { role_name: "Member", role_permissions: "member_permissions_here" },
-    { role_name: "Moderator", role_permissions: "moderator_permissions_here" },
-    { role_name: "Group_Owner", role_permissions: "group_owner_permissions_here" },
-    { role_name: "Group_Moderator", role_permissions: "group_moderator_permissions_here" },
-    { role_name: "Group_Contributor", role_permissions: "group_contributor_permissions_here" },
-    { role_name: "Group_Administrator", role_permissions: "group_administrator_permissions_here" },
-    { role_name: "Page_Owner", role_permissions: "page_owner_permissions_here" },
-    { role_name: "Page_Moderator", role_permissions: "page_moderator_permissions_here" },
-    { role_name: "Page_Contributor", role_permissions: "page_contributor_permissions_here" },
-    { role_name: "Page_Administrator", role_permissions: "page_administrator_permissions_here" },
-    { role_name: "Event_Owner", role_permissions: "event_owner_permissions_here" },
-    { role_name: "Event_Moderator", role_permissions: "event_moderator_permissions_here" },
-    { role_name: "Event_Contributor", role_permissions: "event_contributor_permissions_here" },
-    { role_name: "Event_Administrator", role_permissions: "event_administrator_permissions_here" },
+    { role_name: "user", role_permissions: "user_permissions_here" },
+    { role_name: "admin", role_permissions: "admin_permissions_here" },
+    { role_name: "viewer", role_permissions: "viewer_permissions_here" },
+    { role_name: "member", role_permissions: "member_permissions_here" },
+    { role_name: "moderator", role_permissions: "moderator_permissions_here" },
+    { role_name: "group_owner", role_permissions: "group_owner_permissions_here" },
+    { role_name: "group_member", role_permissions: "group_member_permissions_here" },
+    { role_name: "group_moderator", role_permissions: "group_moderator_permissions_here" },
+    { role_name: "group_contributor", role_permissions: "group_contributor_permissions_here" },
+    { role_name: "group_administrator", role_permissions: "group_administrator_permissions_here" },
+    { role_name: "page_owner", role_permissions: "page_owner_permissions_here" },
+    { role_name: "page_moderator", role_permissions: "page_moderator_permissions_here" },
+    { role_name: "page_contributor", role_permissions: "page_contributor_permissions_here" },
+    { role_name: "page_administrator", role_permissions: "page_administrator_permissions_here" },
+    { role_name: "event_owner", role_permissions: "event_owner_permissions_here" },
+    { role_name: "event_member", role_permissions: "event_member_permissions_here" },
+    { role_name: "event_moderator", role_permissions: "event_moderator_permissions_here" },
+    { role_name: "event_contributor", role_permissions: "event_contributor_permissions_here" },
+    { role_name: "event_administrator", role_permissions: "event_administrator_permissions_here" },
 ];
 
 const generateTypes = () => [
@@ -154,7 +160,7 @@ const generateUserProps = (roles, insertedRoles) => Array.from({ length: 1000 },
         date_of_birth: faker.date.birthdate({ min: 10, max: 65, mode: "age" }),
         gender: faker.helpers.arrayElement(["Male", "Female", "Other"]),
         roles: [insertedRoles[0]._id],
-        profile_picture_url: faker.internet.avatar(),
+        profile_picture_url: faker.image.avatarLegacy(),
         profile_cover_photo_url: faker.image.urlLoremFlickr({ category: "abstract" }),
         photo_list: userPhotoIds,
         video_list: videos,
@@ -178,6 +184,40 @@ const generatePages = async () => {
     return await Page.insertMany(pageProps);
 };
 
+const generatePageLike = async (allPages, allUsers) => {
+    const pageLikeProps = allPages.flatMap(page => {
+        return Array.from({ length: 50 }, () => {
+            const randomUser = faker.helpers.objectValue(allUsers);
+
+            return {
+                page_id: page._id,
+                user_id: randomUser._id,
+            };
+        });
+    })
+
+    console.log("Page Like generated successfully.");
+
+    return await PageLike.insertMany(pageLikeProps);
+};
+
+const generatePageFollow = async (allPages, allUsers) => {
+    const pageFollowProps = allPages.flatMap(page => {
+        return Array.from({ length: 50 }, () => {
+            const randomUser = faker.helpers.objectValue(allUsers);
+
+            return {
+                page_id: page._id,
+                user_id: randomUser._id,
+            };
+        });
+    })
+
+    console.log("Page Follow generated successfully.");
+
+    return await PageFollow.insertMany(pageFollowProps);
+};
+
 const generatePageMembers = async (allPages, allUsers, insertedRoles) => {
     const pageMemberProps = allPages.flatMap(page => {
         return Array.from({ length: 50 }, () => {
@@ -187,11 +227,11 @@ const generatePageMembers = async (allPages, allUsers, insertedRoles) => {
                 page_id: page._id,
                 user: {
                     user_id: randomUser._id,
-                    user_role: insertedRoles[faker.helpers.arrayElement([3, 9, 10, 11, 12])]._id,
+                    user_role: insertedRoles[faker.helpers.arrayElement([10, 11, 12, 13])]._id,
                 },
             };
         });
-    })
+    });
 
     console.log("Page Members generated successfully.");
 
@@ -223,7 +263,7 @@ const generateGroupMembers = async (allGroups, allUsers, insertedRoles) => {
                 group_id: group._id,
                 user: {
                     user_id: randomUser._id,
-                    user_role: insertedRoles[faker.helpers.arrayElement([3, 5, 6, 7, 8])]._id,
+                    user_role: insertedRoles[faker.helpers.arrayElement([5, 6, 7, 8, 9])]._id,
                 },
             };
         });
@@ -259,7 +299,7 @@ const generateEventMembers = async (allEvents, allUsers, insertedRoles) => {
                 event_id: event._id,
                 user: {
                     user_id: randomUser._id,
-                    user_role: insertedRoles[faker.helpers.arrayElement([3, 13, 14, 15, 16])]._id,
+                    user_role: insertedRoles[faker.helpers.arrayElement([13, 14, 15, 16, 17])]._id,
                 },
             };
         });
@@ -445,7 +485,6 @@ const generateFriendRequest = async (allUsers) => {
     return await FriendRequest.insertMany(friendRequests);
 }
 
-
 const generateNotifications = async (allUsers, typesWithCommentFiltered, allPages, allGroups, allComments, allStories) => {
     const notificationProps = Array.from({ length: 100000 }, () => {
         const randomUser = faker.helpers.objectValue(allUsers);
@@ -564,18 +603,49 @@ const generateViewShareSaved = async (name, model, allModels, allUsers) => {
 }
 
 const generateGroupPost = async (allGroups, allPosts) => {
-    const promises = Array.from({ length: 15000 }, () => {
+    return Promise.all(Array.from({ length: 15000 }, () => {
         const randomPost = allPosts[Math.floor(Math.random() * allPosts.length)];
         const randomGroup = allGroups[Math.floor(Math.random() * allGroups.length)];
 
         randomPost.group = randomGroup._id;
 
-        return randomPost.save().then(savedPost => savedPost);
-    });
-
-    return Promise.all(promises);
+        return randomPost.save();
+    }))
 };
 
+const generateGroupPosts = async (allGroups, allPosts) => {
+    const pagePosts = Array.from({ length: 100000 }, () => {
+        const randomPost = allPosts[Math.floor(Math.random() * allPosts.length)];
+        const randomGroup = allGroups[Math.floor(Math.random() * allGroups.length)];
+
+        return {
+            _id: new mongoose.Types.ObjectId,
+            group_id: randomGroup._id,
+            post_id: randomPost._id,
+        }
+    })
+
+    console.log("Group post generated successfully.");
+
+    return await GroupPost.insertMany(pagePosts);
+}
+
+const generatePagePost = async (allPages, allPosts) => {
+    const pagePosts = Array.from({ length: 100000 }, () => {
+        const randomPost = allPosts[Math.floor(Math.random() * allPosts.length)];
+        const randomPage = allPages[Math.floor(Math.random() * allPages.length)];
+
+        return {
+            _id: new mongoose.Types.ObjectId,
+            page_id: randomPage._id,
+            post_id: randomPost._id,
+        }
+    })
+
+    console.log("Page post generated successfully.");
+
+    return await PagePost.insertMany(pagePosts);
+}
 
 const generateDummyData = async () => {
     try {
@@ -612,6 +682,8 @@ const generateDummyData = async () => {
         const allPosts = await Post.find({});
         const allVideos = await Video.find({});
 
+        await generatePageLike(allPages, allUsers);
+        await generatePageFollow(allPages, allUsers);
         await generatePageMembers(allPages, allUsers, insertedRoles);
         await generateGroupMembers(allGroups, allUsers, insertedRoles);
         await generateEventMembers(allEvents, allUsers, insertedRoles);
@@ -658,7 +730,9 @@ const generateDummyData = async () => {
         await generateViewShareSaved("Video", VideoShare, allVideos, allUsers);
         await generateViewShareSaved("Video", VideoSaved, allVideos, allUsers);
 
-        await generateGroupPost(allGroups, allPosts)
+        await generateGroupPost(allGroups, allPosts);
+        await generateGroupPosts(allGroups, allPosts);
+        await generatePagePost(allPages, allPosts);
         console.log("Dummy data generated successfully.");
     } catch (error) {
         console.error("Error generating dummy data:", error);

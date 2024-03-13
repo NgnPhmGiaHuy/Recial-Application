@@ -1,49 +1,12 @@
-import { GroupPageNavigationButton } from "@/components";
+import { useSelector } from "react-redux";
 
-const GroupPageNavigation = ({ groupData, userRole }) => {
-    const button = [
-        ...(!userRole.length && (groupData?.groupProps?.group_privacy === "Private")
-                ? [
-                    {
-                        link: "",
-                        active: true,
-                        title: "About",
-                    },
-                    {
-                        link: "",
-                        active: false,
-                        title: "Discussion",
-                    }
-                ]
-                : [
-                    {
-                        link: "",
-                        active: true,
-                        title: "Discussion",
-                    },
-                    {
-                        link: "",
-                        active: false,
-                        title: "Members",
-                    },
-                    {
-                        link: "",
-                        active: false,
-                        title: "Events",
-                    },
-                    {
-                        link: "",
-                        active: false,
-                        title: "Media",
-                    },
-                    {
-                        link: "",
-                        active: false,
-                        title: "Files",
-                    }
-                ]
-        )
-    ].filter(Boolean);
+import { GroupPageNavigationButton } from "@/components";
+import { GROUP_PAGE_NAVIGATION_BUTTON_OPTIONS } from "@/constants/GroupConstants/GroupPageNavigationConstants";
+
+const GroupPageNavigation = () => {
+    const groupProps = useSelector(state => state.group);
+
+    const button = GROUP_PAGE_NAVIGATION_BUTTON_OPTIONS(groupProps).filter(Boolean);
 
     return (
         <div className="top-[56px] sticky z-[9999]">

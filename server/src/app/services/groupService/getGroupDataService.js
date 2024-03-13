@@ -11,7 +11,7 @@ class GetGroupDataService {
         return Group.findById(groupId);
     }
 
-    getGroupDataById = async (groupId) => {
+    getFormattedGroupDataById = async (groupId) => {
         const groupProps = await this.getRawGroupData(groupId);
 
         const { createdAt, updatedAt, ...otherGroupProps } = groupProps._doc;

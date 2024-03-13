@@ -6,6 +6,8 @@ const router = express.Router();
 router.route("/").get(UserController.getUserData);
 router.route("/friend").get(UserController.getUserFriend);
 router.route("/setting").get(UserController.getUserSetting);
+router.route("/contact").get(UserController.getUserContact);
+router.route("/profile").get(UserController.getUserProfile);
 router.route("/message").get(UserController.getUserMessage);
 router.route("/search").get(UserController.getUserSearchQuery);
 router.route("/follower").get(UserController.getUserFollower);

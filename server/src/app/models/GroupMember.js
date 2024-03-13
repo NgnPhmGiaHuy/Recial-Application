@@ -28,7 +28,7 @@ const GroupMemberSchema = new Schema(
 GroupMemberSchema.pre("save", async function(next) {
     if (this.isNew && !this.user_role.length) {
         try {
-            const defaultRole = await mongoose.model("Role").findOne({ roleName: "Member" });
+            const defaultRole = await mongoose.model("Role").findOne({ roleName: "group_member" });
 
             if (defaultRole) {
                 this.user_role.push(defaultRole._id);

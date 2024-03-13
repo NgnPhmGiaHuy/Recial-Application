@@ -2,69 +2,35 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import { handleFormatNumber, formatDate } from "@/utils";
-import { useCountComment, useCountLikeReaction, useOverflowText } from "@/hooks";
+import { useMediaPageFunctionality } from "@/hooks";
 
-const MediaPageScaffoldHeader = ({ userProps, mediaProps }) => {
-    const totalLike = useCountLikeReaction(mediaProps?.media);
-    const totalComment = useCountComment(mediaProps?.media);
+const MediaPageScaffoldHeader = () => {
+    const mediaProps = useSelector(state => state.media);
 
-    const [hasFollow, setHasFollow] = useState(false);
-    const [currentURL, setCurrentURL] = useState("");
-    const [copyLinkSuccess, setCopyLinkSuccess] = useState("");
-
-    const {textRef, showMoreText, isOverflowing, handleShowMoreText} = useOverflowText(mediaProps?.media_text);
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            setCurrentURL(window.location.href);
-        }
-    }, []);
-
-    useEffect(() => {
-        const updateFollowStatus = () => {
-            if (userProps?.user?._id === mediaProps?.user?._id) {
-                return setHasFollow(true);
-            } else {
-                userProps?.user?.following.map((value) => {
-                    const foundUser = value?.user?._id === mediaProps?.user?._id;
-                    if (foundUser) {
-                        setHasFollow(foundUser);
-                    }
-                })
-            }
-        };
-
-        updateFollowStatus();
-    }, [userProps, mediaProps]);
-
-    const handleCopyToClipboard = useCallback(() => {
-        navigator.clipboard.writeText(currentURL)
-            .then(() => setCopyLinkSuccess('Copied!'))
-            .catch((error) => console.error('Failed to copy:', error));
-    }, [mediaProps?.media?._id]);
+    const { totalLike, totalComment, hasFollow, currentURL, copyLinkSuccess, textRef, showMoreText, isOverflowing, handleShowMoreText, handleCopyToClipboard } = useMediaPageFunctionality()
 
     return (
         <div className="mx-[-32px]">
             <div className="mx-[20px] p-[16px] rounded-md bg-zinc-100">
                 <div className="mb-[16px] flex flex-row items-center relative">
                     <div className="mr-[12px] flex-[0_0_40px]">
-                        {mediaProps?.user?.profile_picture_url ? (
-                            <Link href={`/${mediaProps?.user?._id}`}>
+                        {mediaProps?.media?.user?.profile?.profile_picture_url ? (
+                            <Link href={`/${mediaProps?.media?.user?.profile?._id}`}>
                                 <div className="w-[40px] h-[40px] flex items-center justify-center rounded-full overflow-hidden relative">
-                                    <Image src={mediaProps?.user?.profile_picture_url} alt={`${mediaProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                    <Image src={mediaProps?.media?.user?.profile?.profile_picture_url} alt={`${mediaProps?.media?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 </div>
                             </Link>
                         ) : null}
                     </div>
                     <div className="mr-[12px] flex-[1_1_auto] overflow-hidden">
-                        <Link href={`/${mediaProps?.user?._id}`}>
-                            {mediaProps?.user?.username || mediaProps?.user?.firstname ? (
+                        <Link href={`/${mediaProps?.media?.user?.profile?._id}`}>
+                            {mediaProps?.media?.user?.profile?.username || mediaProps?.media?.user?.profile?.firstname ? (
                                 <span className="block text-[18px] text-black text-left font-bold break-words relative leading-5 hover:underline">
                                     <span className="overflow-hidden text-ellipsis line-clamp-1 relative">
-                                        {mediaProps?.user?.username || mediaProps?.user?.firstname + " " + mediaProps?.user?.lastname}
+                                        {mediaProps?.media?.user?.profile?.username || mediaProps?.media?.user?.profile?.firstname + " " + mediaProps?.media?.user?.profile?.lastname}
                                     </span>
                                 </span>
                             ) : null}

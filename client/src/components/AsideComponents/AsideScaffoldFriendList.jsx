@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux";
+
 import { FriendListItem } from "@/components";
 
-const AsideScaffoldFriendList = ({ aside, action, userProps }) => {
+const AsideScaffoldFriendList = ({ aside, action }) => {
+    const userProps = useSelector(state => state.user);
+
     return (
         <>
             <div className="mb-[5px] mt-[-8px]">

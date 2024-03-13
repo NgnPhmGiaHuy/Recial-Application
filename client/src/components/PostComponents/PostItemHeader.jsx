@@ -24,6 +24,13 @@ const PostItemHeader = ({ headerRef, props, handleState }) => {
                                 </Link>
                             </div>
                         </>
+                    ) : props.postProps?.page ? (
+                        <Link href={`/pages/${props.postProps?.page?._id}`}>
+                            <div className="w-[40px] h-[40px] overflow-hidden rounded-full relative group">
+                                <Image src={props.postProps?.page?.page_picture_url} alt={`${props.postProps?.page?.page_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                            </div>
+                        </Link>
                     ) : (
                         <Link href={`/${props.postProps?.user?._id}`}>
                             <div className="w-[40px] h-[40px] overflow-hidden rounded-full relative group">
@@ -41,6 +48,14 @@ const PostItemHeader = ({ headerRef, props, handleState }) => {
                                     <strong>
                                         <span className="overflow-hidden text-ellipsis line-clamp-1 relative">
                                             {props.postProps?.post?.group?.group_name}
+                                        </span>
+                                    </strong>
+                                </Link>
+                            ) : props.postProps?.page ? (
+                                <Link href={`/pages/${props.postProps?.page?._id}`} className="w-full h-full">
+                                    <strong>
+                                        <span className="overflow-hidden text-ellipsis line-clamp-1 relative">
+                                            {props.postProps?.page?.page_name}
                                         </span>
                                     </strong>
                                 </Link>

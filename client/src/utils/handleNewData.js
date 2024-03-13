@@ -1,7 +1,10 @@
+import useSWR from "swr";
+
+import fetcherWithAccessToken from "@/app/api/fetcherWithAccessToken";
+
 import { getCommentData } from "@/app/api/fetchCommentData";
 import { getReactionData } from "@/app/api/fetchReactionData";
-import { getUserDataById } from "@/app/api/fetchUserDataById";
-import { getFriendRequestData } from "@/app/api/fetchFriendRequestData";
+import { useGetUserProfileById } from "@/hooks/useUser/useUserIdData";
 import { getPostDataByUserId, getPostDataByPostId } from "@/app/api/fetchPostDataById";
 import { getUserData, getUserFriendRequest, getUserPhotoList } from "@/app/api/fetchUserData";
 
@@ -157,7 +160,7 @@ const updateUserFriendRequest = async (data, props, setProps) => {
     try {
         const { status, friendId, friendRequestId } = data;
 
-        const newFriendProps = await getUserDataById(friendId);
+        const newFriendProps = useGetUserProfileById(friendId);
 
         const updatedFriends = status === "Confirm" ? [newFriendProps, ...props.user.friends] : [...props.user.friends];
         const updatedUser = { ...props.user, friends: updatedFriends };
@@ -202,7 +205,7 @@ const createUserFriendRequest = async (data, props, setProps) => {
     try {
         const { friendRequestId } = data;
 
-        const friendRequestProps = await getFriendRequestData(friendRequestId);
+        const friendRequestProps = await useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/friend-request/?request=${friendRequestId}`, fetcherWithAccessToken);
 
         const updatedProps = {
             ...props,

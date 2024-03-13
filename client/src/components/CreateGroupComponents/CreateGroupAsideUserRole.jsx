@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useSelector } from "react-redux";
 
-const CreateGroupAsideUserRole = ({ userProps }) => {
+const CreateGroupAsideUserRole = () => {
+    const userProps = useSelector(state => state.user);
+
     return (
         <section>
             <div className="flex flex-col flex-shrink grow basis-full relative">
@@ -13,14 +16,14 @@ const CreateGroupAsideUserRole = ({ userProps }) => {
                                     <div className="min-h-[44px] px-[8px] flex flex-row items-center justify-between rounded-xl overflow-hidden relative bg-zinc-100 transition-all">
                                         <div className="my-[8px] mr-[12px] flex flex-col self-start bg-lime-500 rounded-lg overflow-hidden relative">
                                             <div className="w-[48px] h-[48px] flex items-center text-white justify-center relative">
-                                                <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                                <Image src={userProps?.user?.profile?.profile_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                             </div>
                                         </div>
                                         <div className="flex flex-col flex-shrink grow items-start justify-start relative">
                                             <div>
                                                 <span className="block text-[17px] text-black text-left font-medium break-words relative leading-5">
                                                     <span className="overflow-hidden relative">
-                                                        {userProps?.user?.username || userProps?.user?.firstname + userProps?.user?.lastname}
+                                                        {userProps?.user?.profile?.username || userProps?.user?.profile?.firstname + userProps?.user?.profile?.lastname}
                                                     </span>
                                                 </span>
                                             </div>

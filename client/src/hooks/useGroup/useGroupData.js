@@ -1,33 +1,28 @@
 "use client"
 
+import useSWR from "swr";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-import { getGroupData, getGroupMemberData, getGroupActivityData, getGroupPostData } from "@/app/api/fetchGroupData";
+import { useDecodeToken, useFetchAndScroll } from "@/hooks";
+import { getGroupPostData } from "@/app/api/fetchGroupData";
+import fetcherWithoutAccessToken from "@/app/api/fetcherWithoutAccessToken";
+import { clearGroupCurrentUserRole, setGroupActivityData, setGroupCurrentUserRole, setGroupData, setGroupMemberData } from "@/store/actions/group/groupActions";
 
-export const useGroupData = (groupId, userId) => {
-    const { groupProps, setGroupProps } = useGetGroupData(groupId);
-    const { groupMemberProps, setGroupMemberProps } = useGetGroupMemberData(groupId);
-    const { groupActivityProps, setGroupActivityProps } = useGetGroupActivityData(groupId);
-    const { postRef, groupPostProps, setGroupPostProps } = useGetGroupPostData(groupId);
+export const useGroupData = (groupId) => {
+    const { userRole } = useCheckUserRole(groupId);
+    const { groupProps } = useGetGroupData(groupId);
+    const { groupMemberProps } = useGetGroupMemberData(groupId);
+    const { groupActivityProps } = useGetGroupActivityData(groupId);
 
-    const { userRole } = useCheckUserRole(groupMemberProps, userId);
+    const { postRef, groupPostProps } = useGetGroupPostData(groupId);
 
     const groupData = {
-        groupProps: groupProps,
         groupPostProps: groupPostProps,
-        groupMemberProps: groupMemberProps,
-        groupActivityProps: groupActivityProps,
     };
 
-    const setGroupData = {
-        setGroupProps: setGroupProps,
-        setGroupPostProps: setGroupPostProps,
-        setGroupMemberProps: setGroupMemberProps,
-        setGroupActivityProps: setGroupActivityProps,
-    }
-
-    return { postRef, groupData, setGroupData, userRole };
+    return { postRef, groupData, userRole };
 }
 
 export const useUserGroupData = (user) => {
@@ -36,37 +31,17 @@ export const useUserGroupData = (user) => {
     return { postRef, groupPostProps, setGroupPostProps };
 }
 
-const useCheckUserRole = (groupMemberProps, userId) => {
-    const [userRole, setUserRole] = useState(null)
-
-    const checkUserRole = () => {
-        const foundUser = groupMemberProps?.find((user) => user.user._id === userId);
-
-        const userRoles = foundUser?.role || [];
-
-        return setUserRole(userRoles);
-    };
-
-    useEffect(() => {
-        checkUserRole();
-    }, [groupMemberProps, userId]);
-
-    return { userRole };
-};
-
-export const useFilterUserGroupsByRole = (user) => {
-    const managedGroups = [];
+export const useFilterUserGroupsByRole = () => {
+    const decodedToken = useDecodeToken();
     const joinedGroups = [];
+    const managedGroups = [];
 
-    if (user?.group_list) {
-        user.group_list.forEach((group) => {
-            const { groupMemberProps, setGroupMemberProps } = useGetGroupMemberData(group._id);
-            const { userRole } = useCheckUserRole(groupMemberProps, user?.user?._id);
-
-            if (userRole === 'Member') {
-                joinedGroups.unshift(group);
+    if (decodedToken?.roles?.group) {
+        Object.entries(decodedToken.roles.group).forEach(([groupId, userRole]) => {
+            if (userRole === "group_member") {
+                joinedGroups.unshift(groupId);
             } else {
-                managedGroups.unshift(group);
+                managedGroups.unshift(groupId);
             }
         });
     }
@@ -74,171 +49,105 @@ export const useFilterUserGroupsByRole = (user) => {
     return { managedGroups, joinedGroups };
 };
 
-const useGetGroupData = (groupId) => {
-    const [groupProps, setGroupProps] = useState(null);
-    const [loading, setLoading] = useState(false);
+export const useGetGroupDataAfterFilterUserRole = (managedGroups, joinedGroups) => {
+    const [joinedGroupsProps, setJoinedGroupsProps] = useState(null);
+    const [managedGroupsProps, setManagedGroupsProps] = useState(null);
 
-    const fetchData = async () => {
-        if (loading) return;
+    const { data: joinedGroupsData } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/public/group/groups/?groups=${joinedGroups.join(',')}`, fetcherWithoutAccessToken)
+    const { data: managedGroupsData } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/public/group/groups/?groups=${managedGroups.join(',')}`, fetcherWithoutAccessToken)
 
-        setLoading(true);
 
-        try {
-            const groupData = await getGroupData(groupId);
+    useEffect(() => {
+        if (joinedGroupsData) {
+            setJoinedGroupsProps(joinedGroupsData.map((groupProps) => ({
+                profile: {
+                    ...groupProps,
+                }
+            })))
+        }
 
-            if (groupData && !groupData.error) {
-                return setGroupProps(groupData);
-            } else {
-                return { error: "Error fetch group data" };
-            }
-        } catch (error) {
-            return console.error(error);
-        } finally {
-            setLoading(false);
+        if (managedGroupsData) {
+            setManagedGroupsProps(managedGroupsData.map((groupProps) => ({
+                profile: {
+                    ...groupProps,
+                }
+            })))
+        }
+    }, [joinedGroupsData, managedGroupsData]);
+
+    return { managedGroupsProps, joinedGroupsProps };
+}
+
+const useCheckUserRole = (groupIds) => {
+    const decodedToken = useDecodeToken();
+    const dispatch = useDispatch();
+
+    const [userRole, setUserRole] = useState(null);
+
+    const checkUserRole = () => {
+        if (decodedToken?.roles?.group) {
+            Object.entries(decodedToken.roles.group).forEach(([groupId, userRole]) => {
+                if (groupId === groupIds) {
+                    setUserRole(userRole);
+
+                    return dispatch(setGroupCurrentUserRole(userRole));
+                }
+            });
         }
     };
 
     useEffect(() => {
-        fetchData();
-    }, [groupId]);
+        dispatch(clearGroupCurrentUserRole());
 
-    return { groupProps, setGroupProps };
+        return checkUserRole();
+    }, [groupIds, decodedToken]);
+
+    return { userRole };
 };
+
+const useGetGroupData = (groupId) => {
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/public/group/?group=${groupId}`, fetcherWithoutAccessToken)
+
+    useEffect(() => {
+        if (data) {
+            dispatch(setGroupData(data));
+        }
+    }, [data, dispatch]);
+
+    return { groupProps: data, groupError: error, groupIsLoading: isLoading, groupValidating: isValidating };
+}
 
 const useGetGroupMemberData = (groupId) => {
-    const [loading, setLoading] = useState(false);
-    const [groupMemberProps, setGroupMemberProps] = useState(null);
-
-    const fetchMemberData = async () => {
-        if (loading) return;
-
-        setLoading(true);
-
-        try {
-            const groupMemberData = await getGroupMemberData(groupId);
-
-            if (groupMemberData && !groupMemberData.error) {
-                return setGroupMemberProps(groupMemberData);
-            } else {
-                return { error: "Error fetch group member data" };
-            }
-        } catch (error) {
-            return console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/public/group/member/?group=${groupId}`, fetcherWithoutAccessToken);
 
     useEffect(() => {
-        fetchMemberData();
-    }, [groupId]);
+        if (data) {
+            dispatch(setGroupMemberData(data));
+        }
+    }, [data, dispatch]);
 
-    return { groupMemberProps, setGroupMemberProps };
-};
+    return { groupMemberProps: data, groupMemberError: error, groupMemberIsLoading: isLoading, groupMemberIsValidating: isValidating };
+}
 
 const useGetGroupActivityData = (groupId) => {
-    const [loading, setLoading] = useState(false);
-    const [groupActivityProps, setGroupActivityProps] = useState(null);
-
-    const fetchActivityData = async () => {
-        if (loading) return;
-
-        setLoading(true);
-
-        try {
-            const groupActivityData = await getGroupActivityData(groupId);
-
-            if (groupActivityData && !groupActivityData.error) {
-                return setGroupActivityProps(groupActivityData);
-            } else {
-                return { error: "Error fetch group member data" };
-            }
-        } catch (error) {
-            return console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/public/group/activity/?group=${groupId}`, fetcherWithoutAccessToken);
 
     useEffect(() => {
-        fetchActivityData();
-    }, [groupId]);
+        if (data) {
+            dispatch(setGroupActivityData(data));
+        }
+    }, [data, dispatch]);
 
-    return { groupActivityProps, setGroupActivityProps };
-};
+    return { groupActivityProps: data, groupActivityError: error, groupActivityIsLoading: isLoading, groupActivityIsValidating: isValidating };
+}
 
 const useGetGroupPostData = (groupId) => {
-    const router = useRouter();
+    const { postRef, postProps, setPostProps } = useFetchAndScroll(groupId, (page) => getGroupPostData({ groupId, page }),);
 
-    const postRef = useRef();
-
-    const [page, setPage] = useState(0);
-    const [loading, setLoading] = useState(false);
-    const [groupPostProps, setGroupPostProps] = useState([]);
-
-    const debounce = (func, delay) => {
-        let timeoutId;
-        return function (...args) {
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => {
-                func.apply(this, args);
-            }, delay);
-        };
-    };
-
-    const fetchPostData = async () => {
-        if (loading) return;
-
-        setLoading(true);
-
-        try {
-            const groupPostData = await getGroupPostData({ groupId, page });
-
-            if (!groupPostData || groupPostData.error) {
-                return { error: "Error fetch group post data" };
-            }
-
-            if (Array.isArray(groupPostData)) {
-                if (page <= 1) {
-                    setGroupPostProps(groupPostData);
-                } else {
-                    setGroupPostProps((prevPosts) => [...prevPosts, ...groupPostData]);
-                }
-                setPage((prevPage) => prevPage + 1);
-            }
-        } catch (error) {
-            return console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        setPage(0);
-        setGroupPostProps([]);
-
-        return () => { };
-    }, [groupId]);
-
-    useEffect(() => {
-        fetchPostData();
-    }, [groupId, router]);
-
-    useEffect(() => {
-        const handleScroll = debounce(async () => {
-            if (postRef.current && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight * 0.8 && !loading) {
-                await fetchPostData();
-            }
-        }, 200);
-
-        window.addEventListener("scroll", handleScroll);
-
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, [groupId, loading, fetchPostData]);
-
-    return { postRef, groupPostProps, setGroupPostProps };
+    return { postRef, groupPostProps: postProps, setGroupPostProps: setPostProps };
 }
 
 const useUserGetGroupPostData = (user) => {

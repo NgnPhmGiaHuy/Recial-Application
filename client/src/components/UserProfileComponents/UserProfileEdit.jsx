@@ -1,11 +1,16 @@
 "use client"
 
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useUpdateUserProfile } from "@/hooks";
+import { toggleEditProfile } from "@/store/actions/toggle/toggleActions";
 import { UserProfileEditHeader, UserProfileEditImage, UserProfileEditInput } from "@/components";
 
-const UserProfileEdit = ({ userProps, editProfileRef, handleState }) => {
+const UserProfileEdit = ({ editProfileRef }) => {
+    const dispatch = useDispatch();
+    const userProps = useSelector(state => state.user);
+
     const { formData, setFormData, submitStatus, handleSetUserProfile } = useUpdateUserProfile(userProps);
 
     const handleFormChange = (e) => {
@@ -17,8 +22,12 @@ const UserProfileEdit = ({ userProps, editProfileRef, handleState }) => {
         await handleSetUserProfile();
     }
 
+    const handleToggleEditProfile = () => {
+        dispatch(toggleEditProfile());
+    };
+
     useEffect(() => {
-        handleState.handleShowEditProfile();
+        handleToggleEditProfile();
     }, [submitStatus]);
 
     return (
@@ -27,9 +36,9 @@ const UserProfileEdit = ({ userProps, editProfileRef, handleState }) => {
                 <div className="flex flex-col flex-shrink grow items-stretch basis-auto bg-white rounded-xl relative">
                     <div className="max-w-[600px] min-h-0 w-full mx-auto flex flex-col flex-shrink grow items-stretch relative">
                         <div className="flex flex-col flex-shrink grow items-stretch rounded-xl overflow-auto no-scrollbar basis-auto relative">
-                            <UserProfileEditHeader handleState={handleState} handleSubmitForm={handleSubmitForm}/>
+                            <UserProfileEditHeader handleSubmitForm={handleSubmitForm}/>
                             <div className="pb-[64px] flex flex-col flex-shrink-0 items-stretch basis-auto relative">
-                                <UserProfileEditImage userProps={userProps} formData={formData} setFormData={setFormData}/>
+                                <UserProfileEditImage formData={formData} setFormData={setFormData}/>
                                 <UserProfileEditInput formData={formData} setFormData={setFormData} handleFormChange={handleFormChange}/>
                                 <a href="/settings/categories/account">
                                     <div className="min-h-[48px] px-[16px] py-[12px] flex flex-col items-stretch justify-center cursor-pointer outline-none relative hover:bg-zinc-100 transition-all">

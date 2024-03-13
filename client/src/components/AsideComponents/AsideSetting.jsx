@@ -1,7 +1,8 @@
 import Image from "next/image";
 
 import { AsideSettingItem } from "@/components";
-import { asideSettingConstants } from "@/constants/AsideConstants/asideSettingConstants";
+
+import ASIDE_SETTING from "@/constants/AsideConstants/AsideSettingConstants";
 
 const AsideSetting = ({ userProps }) => {
     return (
@@ -24,9 +25,9 @@ const AsideSetting = ({ userProps }) => {
                     </div>
                 </div>
                 <ul>
-                    {asideSettingConstants.map((value, index) => (
+                    { ASIDE_SETTING.map((value, index) => (
                         <AsideSettingItem key={index} itemProps={value}/>
-                    ))}
+                    )) }
                 </ul>
             </section>
         </aside>

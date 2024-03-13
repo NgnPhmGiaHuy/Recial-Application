@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useSelector } from "react-redux";
 
-const EventScaffoldItemMember = ({ userProps }) => {
+const EventScaffoldItemMember = () => {
+    const userProps = useSelector(state => state.user);
+
     return (
         <div>
             <div className="w-full h-full p-[12px] relative">

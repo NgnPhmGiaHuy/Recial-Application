@@ -1,6 +1,15 @@
+import { useDispatch } from "react-redux";
+
+import { toggleCreatePostMediaInput } from "@/store/actions/toggle/toggleActions";
 import { CreatePostDialogImageInputEmpty, CreatePostDialogImageInputSelected } from "@/components";
 
-const CreatePostDialogImageInput = ({ handleShowCreatePostMediaInput, selectedImagesFunction }) => {
+const CreatePostDialogImageInput = ({ selectedImagesFunction }) => {
+    const dispatch = useDispatch();
+
+    const toggleShowCreatePostMediaInput = () => {
+        return dispatch(toggleCreatePostMediaInput());
+    }
+
     return (
         <div className="px-[8px] animate-float">
             <div className="mx-[8px] mt-[32px] flex items-center justify-center border border-solid border-zinc-500 rounded-xl overflow-hidden relative">
@@ -51,7 +60,7 @@ const CreatePostDialogImageInput = ({ handleShowCreatePostMediaInput, selectedIm
                     </div>
                 </div>
                 <div className="top-[12px] right-[10px] absolute">
-                    <div className="w-[32px] h-[32px] flex items-center justify-center rounded-xl text-zinc-500 bg-black/10 cursor-pointer relative hover:bg-black/20 hover:text-white transition-all" onClick={handleShowCreatePostMediaInput}>
+                    <div className="w-[32px] h-[32px] flex items-center justify-center rounded-xl text-zinc-500 bg-black/10 cursor-pointer relative hover:bg-black/20 hover:text-white transition-all" onClick={toggleShowCreatePostMediaInput}>
                         <i>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12"/>

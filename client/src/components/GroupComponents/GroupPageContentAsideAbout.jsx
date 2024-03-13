@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { GroupPageContentAsideAboutItem } from "@/components";
 
-const GroupPageContentAsideAbout = ({ groupProps }) => {
+const GroupPageContentAsideAbout = () => {
     return (
         <div className="w-full mb-[16px] flex relative">
             <div className="w-full rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white overflow-hidden">
@@ -20,7 +20,7 @@ const GroupPageContentAsideAbout = ({ groupProps }) => {
                             </div>
                         </div>
                         <div className="mt-[4px] flex flex-col flex-shrink-0 relative">
-                            <GroupPageContentAsideAboutItem groupProps={groupProps}/>
+                            <GroupPageContentAsideAboutItem/>
                             <div className="px-[16px] pt-[8px]">
                                 <Link href="">
                                     <div className="h-[36px] px-[12px] flex flex-row flex-shrink-0 items-center justify-center rounded-xl bg-zinc-300 relative hover:bg-zinc-400 transition-all">

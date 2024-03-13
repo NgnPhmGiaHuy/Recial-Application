@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 const useDateOfBirth = (formData, handleFormChange) => {
-    const initialDate = new Date(formData.session_date_of_birth || Date.now());
+    const initialDate = new Date(formData?.session_date_of_birth || Date.now());
 
     const [selectedMonth, setSelectedMonth] = useState(initialDate.getMonth() + 1);
     const [selectedYear, setSelectedYear] = useState(initialDate.getFullYear());

@@ -27,10 +27,6 @@ const PostSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "Location",
         },
-        page: {
-            type: Schema.Types.ObjectId,
-            ref: "Page",
-        },
         group: {
             type: Schema.Types.ObjectId,
             ref: "Group"

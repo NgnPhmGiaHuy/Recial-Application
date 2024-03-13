@@ -35,6 +35,36 @@ class GetUserDataService {
         }
     }
 
+    getFormattedUserContact = async (user) => {
+        const formattedUserContact = {
+            phone_number: user.phone_number,
+            location: user.location,
+            description: user.description,
+            short_description: user.short_description,
+        }
+
+        return formattedUserContact;
+    }
+
+    getFormattedUserProfile = async (user) => {
+        const formattedProfile = {
+            user_id: user._id,
+            profile: {
+                email: user.email,
+                username: user.username,
+                firstname: user.firstname,
+                lastname: user.lastname,
+                gender: user.gender,
+                date_of_birth: user.date_of_birth,
+                profile_picture_url: user.profile_picture_url,
+                profile_cover_photo_url: user.profile_cover_photo_url,
+            }
+        };
+
+        return formattedProfile;
+    }
+
+
     getUserMessages = async (userId) => {
         const messages = await Message.find({ destination_id: userId });
 

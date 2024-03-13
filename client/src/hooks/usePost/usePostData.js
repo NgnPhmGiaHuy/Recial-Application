@@ -1,11 +1,13 @@
 "use client"
 
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { ref, uploadBytes, getDownloadURL, list, listAll } from "firebase/storage";
 
 import { storage } from "@/utils/firebaseConfig";
 import { createPostData, getPostData } from "@/app/api/fetchPostData";
+import { toggleCreatePost } from "@/store/actions/toggle/toggleActions";
 
 export const useGetPostData = () => {
     const router = useRouter();
@@ -55,6 +57,7 @@ export const useGetPostData = () => {
 };
 
 export const useSetPostData = () => {
+    const dispatch = useDispatch();
     const [postSubmitStatus, setPostSubmitStatus] = useState(false);
 
     const handleSetPostData = async ({ inputText, inputImage, userProps, groupProps }) => {
@@ -87,7 +90,7 @@ export const useSetPostData = () => {
                     post_content: inputText,
                     post_image: uploadedURLs,
                     post_group: groupProps?.groupProps?._id,
-                    post_privacy: userProps?.setting?.privacy?.post_visibility,
+                    post_privacy: userProps?.settings?.privacy?.post_visibility,
                 },
             };
 
@@ -100,6 +103,10 @@ export const useSetPostData = () => {
             console.error("Error uploading images or creating post:", error);
         }
     };
+
+    useEffect(() => {
+        dispatch(toggleCreatePost());
+    }, [postSubmitStatus]);
 
     return { postSubmitStatus, handleSetPostData };
 };

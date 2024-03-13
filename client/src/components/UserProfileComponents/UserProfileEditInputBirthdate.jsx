@@ -154,7 +154,7 @@ const UserProfileEditInputBirthdate = ({ formData, handleFormChange }) => {
                 <div className="flex flex-col justify-center relative">
                     <span className="text-[20px] text-black text-left font-normal break-words relative leading-6">
                         <span className="overflow-hidden relative">
-                            {convertDateFormat(formData.session_date_of_birth)}
+                            {convertDateFormat(formData?.session_date_of_birth)}
                         </span>
                     </span>
                 </div>

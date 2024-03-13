@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { useClickOutside, useToggleState } from "@/hooks";
 import { postItemCommentSortList } from "@/constants/PostConstants";
 import { PostItemCommentInput, PostItemCommentScaffold, QuickSettingItem } from "@/components";
+import {useSelector} from "react-redux";
 
 const PostItemComment = ({ commentRef, props }) => {
     const commentSortContentRef = useRef(null);
@@ -26,7 +27,7 @@ const PostItemComment = ({ commentRef, props }) => {
 
     return (
         <div ref={commentRef} className="flex flex-col justify-center relative animate-slideInTop">
-            <PostItemCommentInput userData={props.userData} postProps={props.postProps}/>
+            <PostItemCommentInput postProps={props.postProps}/>
             <div className="mx-[16px] mb-[8px] relative">
                 <div className="w-fit flex flex-col cursor-pointer relative" onClick={handleShowCommentSortContent}>
                     <span className="flex flex-row items-center justify-between text-[16px] text-zinc-500 text-left font-semibold break-words relative leading-5">
@@ -67,7 +68,7 @@ const PostItemComment = ({ commentRef, props }) => {
             </div>
             <div>
                 {props.postProps?.comment?.slice(0, visibleComments).map((value, index) => (
-                    <PostItemCommentScaffold key={index} userData={props.userData} userProps={props.userProps} postProps={value} />
+                    <PostItemCommentScaffold key={index} postProps={value} />
                 ))}
             </div>
             {!loadMoreClicked && visibleComments < props.postProps?.comment?.length && (

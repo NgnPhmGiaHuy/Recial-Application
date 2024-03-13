@@ -1,6 +1,6 @@
 import { Post } from "@/components";
 
-const GroupScaffoldPost = ({ postRef, userProps, groupPostProps}) => {
+const GroupScaffoldPost = ({ postRef, groupPostProps}) => {
     return (
         <div className="w-full p-[16px] flex flex-col items-center justify-center relative">
             <div className="w-full m-[-8px] flex flex-row flex-wrap items-stretch justify-center">
@@ -17,7 +17,7 @@ const GroupScaffoldPost = ({ postRef, userProps, groupPostProps}) => {
                                 </div>
                             </div>
                         </div>
-                        <Post postRef={postRef} userData={userProps} userProps={userProps} isCurrentUser={true} postListProps={groupPostProps}/>
+                        <Post postRef={postRef} isCurrentUser={true} postListProps={groupPostProps}/>
                     </div>
                 </div>
             </div>

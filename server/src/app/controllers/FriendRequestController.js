@@ -5,7 +5,7 @@ class FriendRequestController {
     getFriendRequestById = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getFormattedUserData(userId);
 

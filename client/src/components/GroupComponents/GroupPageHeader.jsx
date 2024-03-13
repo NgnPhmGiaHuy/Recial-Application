@@ -1,10 +1,10 @@
 import { GroupPageHeaderContent, GroupPageHeaderCover } from "@/components";
 
-const GroupPageHeader = ({ userRole, groupData }) => {
+const GroupPageHeader = () => {
     return (
         <>
-            <GroupPageHeaderCover groupProps={groupData.groupProps}/>
-            <GroupPageHeaderContent userRole={userRole} groupProps={groupData.groupProps} groupMemberProps={groupData.groupMemberProps} />
+            <GroupPageHeaderCover/>
+            <GroupPageHeaderContent/>
         </>
     );
 };

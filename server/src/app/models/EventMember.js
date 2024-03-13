@@ -14,11 +14,11 @@ const EventMemberSchema = new Schema(
                 ref: "User",
                 required: true,
             },
-            user_role: [{
+            user_role: {
                 type: Schema.Types.ObjectId,
                 ref: "Role",
                 required: true,
-            }],
+            },
         },
     }, {
         timestamps: true,
@@ -28,7 +28,7 @@ const EventMemberSchema = new Schema(
 EventMemberSchema.pre("save", async function(next) {
     if (this.isNew && !this.user_role.length) {
         try {
-            const defaultRole = await mongoose.model("Role").findOne({ roleName: "member" });
+            const defaultRole = await mongoose.model("Role").findOne({ roleName: "event_member" });
 
             if (defaultRole) {
                 this.user_role.push(defaultRole._id);

@@ -3,16 +3,19 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import {useContentEditable, useCommentData} from "@/hooks";
 
-const PostItemCommentInput = ({userData, postProps, isReply}) => {
+const PostItemCommentInput = ({ postProps, isReply }) => {
+    const userProps = useSelector(state => state.user);
+
     const { inputContentEditableRef, inputText, setCreatePostInputText, setCreatePostAllowSubmit, allowSubmit, handleInputTextChange } = useContentEditable()
 
     const { commentSubmitStatus, handleSetCommentData } = useCommentData();
 
     const handleSubmitComment = async () => {
-        await handleSetCommentData(inputText, userData, postProps, isReply);
+        await handleSetCommentData(inputText, userProps, postProps, isReply);
     }
 
     useEffect(() => {
@@ -25,13 +28,12 @@ const PostItemCommentInput = ({userData, postProps, isReply}) => {
         resetInput();
     }, [commentSubmitStatus]);
 
-
     return (
         <div className={`${isReply ? "ml-[44px]" : "mx-[16px]"} pt-[4px] pb-[8px] flex flex-row flex-shrink-0 items-start`}>
             <div className="mr-[4px] sm:my-[4px] my-[6px] flex-col justify-center relative">
-                <Link href={userData?.user?._id}>
+                <Link href={userProps?.user?._id}>
                     <div className="sm:w-[44px] w-[40px] sm:h-[44px] h-[40px] overflow-hidden rounded-full relative">
-                        <Image src={userData?.user?.profile_picture_url} alt={`${userData?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                        <Image src={userProps?.user?.profile?.profile_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                     </div>
                 </Link>
             </div>
@@ -60,7 +62,7 @@ const PostItemCommentInput = ({userData, postProps, isReply}) => {
                                         </svg>
                                     </i>
                                 </div>
-                                {allowSubmit ? (
+                                { allowSubmit && (
                                     <div className="w-[44px] h-[36px] flex flex-col items-center justify-center text-zinc-500 rounded-full cursor-pointer relative hover:bg-zinc-200 transition-all" onClick={handleSubmitComment}>
                                         <i>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-9 h-9">
@@ -69,7 +71,7 @@ const PostItemCommentInput = ({userData, postProps, isReply}) => {
                                             </svg>
                                         </i>
                                     </div>
-                                ) : null}
+                                ) }
                             </div>
                         </div>
                     </div>

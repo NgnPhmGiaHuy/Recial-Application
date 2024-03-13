@@ -1,27 +1,31 @@
-    "use client"
+"use client"
 
-    import React, { createContext, useContext } from "react";
-    import { SessionProvider } from "next-auth/react";
+import { Provider } from "react-redux";
+import { createContext, useContext } from "react";
+import { SessionProvider } from "next-auth/react";
 
-    import { useTokenRefresh } from "@/hooks";
+import { store } from "@/store";
+import { useTokenRefresh } from "@/hooks";
 
-    const AccessTokenContext = createContext(null);
+const AccessTokenContext = createContext(null);
 
-    export const useAccessTokenContext = () => {
-        return useContext(AccessTokenContext);
-    };
+export const useAccessTokenContext = () => {
+    return useContext(AccessTokenContext);
+};
 
-    const Providers = (props) => {
-        const { accessToken, setAccessToken } = useTokenRefresh();
+const Providers = (props) => {
+    const { accessToken, setAccessToken } = useTokenRefresh();
 
-        return (
+    return (
+        <Provider store={store}>
             <AccessTokenContext.Provider value={{ accessToken, setAccessToken }}>
                 <SessionProvider>
                     {props.children}
                 </SessionProvider>
             </AccessTokenContext.Provider>
-        )
-    };
+        </Provider>
+    )
+};
 
-    export default Providers;
+export default Providers;
 

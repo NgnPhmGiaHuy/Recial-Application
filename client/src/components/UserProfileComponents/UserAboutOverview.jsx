@@ -1,12 +1,17 @@
 "use client"
 
+import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from 'react';
 
 import { QuickSettingItem } from "@/components";
 import { useClickOutside, useToggleState } from "@/hooks";
 import { userAboutOverviewSettingList } from "@/constants/UserProfileConstants";
 
-const UserAboutOverview = ({ userProps }) => {
+const UserAboutOverview = () => {
+    const { isCurrentUser } = useSelector(state => state.userRelationship);
+
+    const userProps = isCurrentUser ? useSelector(state => state.user) : useSelector(state => state.userId);
+
     const userAboutOverviewRef = useRef(null);
     const userAboutOverviewSettingButtonRef = useRef(null);
 
@@ -55,14 +60,14 @@ const UserAboutOverview = ({ userProps }) => {
                     <div>
                         <span className="text-[16px] text-zinc-500 font-normal break-words relative leading-5">
                             <span className="overflow-hidden relative">
-                                {userProps?.user?.description}
+                                { userProps?.user?.contact?.description }
                             </span>
                         </span>
                     </div>
                 </div>
                 <div>
                     <dl className="flex flex-col gap-4 overflow-hidden relative">
-                        {userProps?.user?.job_title ? (
+                        { userProps?.user?.job_title && (
                             <div>
                                 <dt className="mb-[4px] text-[16px] text-black text-left font-bold relative leading-5">
                                     <span className="overflow-hidden relative">
@@ -75,8 +80,8 @@ const UserAboutOverview = ({ userProps }) => {
                                     </span>
                                 </dd>
                             </div>
-                        ) : null}
-                        {userProps?.user?.location ? (
+                        ) }
+                        { userProps?.user?.location && (
                             <div>
                                 <dt className="mb-[4px] text-[16px] text-black text-left font-bold relative leading-5">
                                     <span className="overflow-hidden relative">
@@ -89,12 +94,12 @@ const UserAboutOverview = ({ userProps }) => {
                                     </span>
                                 </dd>
                             </div>
-                        ) : null}
+                        ) }
                     </dl>
                 </div>
             </div>
             <div ref={userAboutOverviewSettingButtonRef}>
-                {showUserAboutOverviewSetting ? (
+                { showUserAboutOverviewSetting && (
                     <div ref={userAboutOverviewSettingButtonRef} className="absolute top-0 left-0 translate-x-[525px] translate-y-[65px] z-50" style={{ '--tw-translate-x': `${userAboutOverviewTranslateXValue}px`}}>
                         <div className="relative mt-[15px] rounded-l-md rounded-r-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
                             <div className="overflow-hidden rounded-l-md rounded-r-md bg-white">
@@ -113,7 +118,7 @@ const UserAboutOverview = ({ userProps }) => {
                             </svg>
                         </div>
                     </div>
-                ) : null}
+                ) }
             </div>
         </section>
     );

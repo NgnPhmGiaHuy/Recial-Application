@@ -1,3 +1,5 @@
+import decodeToken from "@/utils/handleToken";
+
 const fetchAndCacheUserData = async (url, accessToken, localStorageKey) => {
     try {
         const response = await fetch(url, {
@@ -20,6 +22,27 @@ const fetchAndCacheUserData = async (url, accessToken, localStorageKey) => {
         return console.error(error);
     }
 };
+
+export const getUserProfileData = async () => {
+    try {
+        const accessToken = localStorage.getItem("accessToken");
+
+        if (!accessToken) {
+            return console.error("Access token not found.");
+        }
+
+        const decodedToken = decodeToken(accessToken);
+
+        if (decodedToken) {
+            return decodedToken;
+        } else {
+            return console.error("Cannot decode token");
+        }
+    } catch (error) {
+        return console.error(error);
+    }
+}
+
 
 export const getUserData = async () => {
     try {
@@ -45,36 +68,6 @@ export const getUserData = async () => {
             setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
 
             return userData;
-        }
-    } catch (error) {
-        return console.error(error);
-    }
-};
-
-export const getUserFriend = async () => {
-    try {
-        const accessToken = localStorage.getItem("accessToken");
-
-        if (!accessToken) {
-            return console.error("Access token not found.");
-        }
-
-        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/friend/";
-        const localStorageKey = "userFriendProps";
-        const cachedUserFriendProps = localStorage.getItem(localStorageKey);
-
-        if (cachedUserFriendProps) {
-            const userFriendData =  JSON.parse(cachedUserFriendProps);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userFriendData;
-        } else  {
-            const userFriendData = await fetchAndCacheUserData(url, accessToken, localStorageKey);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userFriendData;
         }
     } catch (error) {
         return console.error(error);
@@ -111,156 +104,6 @@ export const getUserFriendRequest = async () => {
     }
 };
 
-export const getUserSearchQuery = async () => {
-    try {
-        const accessToken = localStorage.getItem("accessToken");
-
-        if (!accessToken) {
-            return console.error("Access token not found.");
-        }
-
-        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/search/";
-        const localStorageKey = "userSearchProps";
-        const cachedUserSearchProps = localStorage.getItem(localStorageKey);
-
-        if (cachedUserSearchProps) {
-            const userSearchData =  JSON.parse(cachedUserSearchProps);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userSearchData;
-        } else  {
-            const userSearchData = await fetchAndCacheUserData(url, accessToken, localStorageKey);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userSearchData;
-        }
-    } catch (error) {
-        return console.error(error);
-    }
-}
-
-export const getUserSetting = async () => {
-    try {
-        const accessToken = localStorage.getItem("accessToken");
-
-        if (!accessToken) {
-            return console.error("Access token not found.");
-        }
-
-        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/setting/";
-        const localStorageKey = "userSettingProps";
-        const cachedUserSettingProps = localStorage.getItem(localStorageKey);
-
-        if (cachedUserSettingProps) {
-            const userSettingData =  JSON.parse(cachedUserSettingProps);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userSettingData;
-        } else  {
-            const userSettingData = await fetchAndCacheUserData(url, accessToken, localStorageKey);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userSettingData;
-        }
-    } catch (error) {
-        return console.error(error);
-    }
-};
-
-export const getUserFollowing = async () => {
-    try {
-        const accessToken = localStorage.getItem("accessToken");
-
-        if (!accessToken) {
-            return console.error("Access token not found.");
-        }
-
-        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/following/";
-        const localStorageKey = "userFollowingProps";
-        const cachedUserFollowingProps = localStorage.getItem(localStorageKey);
-
-        if (cachedUserFollowingProps) {
-            const userFollowingData =  JSON.parse(cachedUserFollowingProps);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userFollowingData;
-        } else  {
-            const userFollowingData = await fetchAndCacheUserData(url, accessToken, localStorageKey);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userFollowingData;
-        }
-    } catch (error) {
-        return console.error(error);
-    }
-};
-
-export const getUserFollower = async () => {
-    try {
-        const accessToken = localStorage.getItem("accessToken");
-
-        if (!accessToken) {
-            return console.error("Access token not found.");
-        }
-
-        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/follower/";
-        const localStorageKey = "userFollowerProps";
-        const cachedUserFollowerProps = localStorage.getItem(localStorageKey);
-
-        if (cachedUserFollowerProps) {
-            const userFollowerData =  JSON.parse(cachedUserFollowerProps);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userFollowerData;
-        } else  {
-            const userFollowerData = await fetchAndCacheUserData(url, accessToken, localStorageKey);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userFollowerData;
-        }
-    } catch (error) {
-        return console.error(error);
-    }
-};
-
-export const getUserMessage = async () => {
-    try {
-        const accessToken = localStorage.getItem("accessToken");
-
-        if (!accessToken) {
-            return console.error("Access token not found.");
-        }
-
-        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/message/";
-        const localStorageKey = "userMessageProps";
-        const cachedUserMessageProps = localStorage.getItem(localStorageKey);
-
-        if (cachedUserMessageProps) {
-            const userMessageData =  JSON.parse(cachedUserMessageProps);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userMessageData;
-        } else  {
-            const userMessageData = await fetchAndCacheUserData(url, accessToken, localStorageKey);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userMessageData;
-        }
-    } catch (error) {
-        return console.error(error);
-    }
-};
-
 export const getUserPhotoList = async () => {
     try {
         const accessToken = localStorage.getItem("accessToken");
@@ -285,66 +128,6 @@ export const getUserPhotoList = async () => {
             setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
 
             return userPhotoListData;
-        }
-    } catch (error) {
-        return console.error(error);
-    }
-};
-
-export const getUserGroupList = async () => {
-    try {
-        const accessToken = localStorage.getItem("accessToken");
-
-        if (!accessToken) {
-            return console.error("Access token not found.");
-        }
-
-        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/group-list/";
-        const localStorageKey = "userGroupListProps";
-        const cachedUserGroupListProps = localStorage.getItem(localStorageKey);
-
-        if (cachedUserGroupListProps) {
-            const userGroupListData =  JSON.parse(cachedUserGroupListProps);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userGroupListData;
-        } else  {
-            const userGroupListData = await fetchAndCacheUserData(url, accessToken, localStorageKey);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userGroupListData;
-        }
-    } catch (error) {
-        return console.error(error);
-    }
-};
-
-export const getUserNotification = async () => {
-    try {
-        const accessToken = localStorage.getItem("accessToken");
-
-        if (!accessToken) {
-            return console.error("Access token not found.");
-        }
-
-        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/notification/";
-        const localStorageKey = "userNotificationProps";
-        const cachedUserNotificationProps = localStorage.getItem(localStorageKey);
-
-        if (cachedUserNotificationProps) {
-            const userNotificationData =  JSON.parse(cachedUserNotificationProps);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userNotificationData;
-        } else  {
-            const userNotificationData = await fetchAndCacheUserData(url, accessToken, localStorageKey);
-
-            setInterval(() => fetchAndCacheUserData(url, accessToken, localStorageKey), 60000);
-
-            return userNotificationData;
         }
     } catch (error) {
         return console.error(error);

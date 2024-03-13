@@ -2,12 +2,15 @@
 
 import Image from "next/image";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import { usePostItemData } from "@/hooks";
 import { PostItemComment, PostItemContent, PostItemDelete, PostItemFooter, PostItemHeader, PostItemQuickSetting, PostItemReactionButton, PostItemShareSetting } from "@/components";
 
-const PostPageItem = ({ userData, userProps, postProps, isCurrentUser }) => {
-    const props = { userData: userData, userProps: userProps, postProps: postProps }
+const PostPageItem = ({ postProps }) => {
+    const pageProps = useSelector(state => state.page);
+
+    const props = { postProps: postProps, pageProps: pageProps }
 
     const { ref, state, setState, handleState, translateX, translateY } = usePostItemData();
 
@@ -20,7 +23,7 @@ const PostPageItem = ({ userData, userProps, postProps, isCurrentUser }) => {
             <div className="pr-[24px] flex flex-col items-stretch justify-center relative">
                 <div className="h-full flex items-start justify-start relative after:absolute after:w-[1px] after:h-[calc(100%-80px)] after:top-[60px] after:left-[24px] after:bg-zinc-300">
                     <div className="w-[46px] h-[46px] flex items-center justify-center rounded-xl border-2 border-solid border-white overflow-hidden relative">
-                        <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                        <Image src={pageProps?.profile?.page_picture_url} alt={`${pageProps?.profile?.page_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                     </div>
                 </div>
             </div>
@@ -40,7 +43,7 @@ const PostPageItem = ({ userData, userProps, postProps, isCurrentUser }) => {
                     )}
                 </div>
                 <div>
-                    {(state.showPostItemDelete && isCurrentUser) && (
+                    {state.showPostItemDelete && (
                         <PostItemDelete props={props} postDeleteRef={ref.postDeleteRef} handleState={handleState}/>
                     )}
                 </div>
@@ -50,7 +53,7 @@ const PostPageItem = ({ userData, userProps, postProps, isCurrentUser }) => {
                     )}
                 </div>
                 <div ref={ref.postQuickSettingButtonRef}>
-                    {(state.showPostItemQuickSetting && !isCurrentUser) && (
+                    {state.showPostItemQuickSetting && (
                         <PostItemQuickSetting props={props} translateX={translateX} translateY={translateY} postQuickSettingButtonRef={ref.postQuickSettingButtonRef}/>
                     )}
                 </div>

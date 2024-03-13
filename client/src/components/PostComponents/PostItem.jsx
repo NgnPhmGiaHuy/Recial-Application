@@ -1,12 +1,15 @@
 "use client"
 
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import { usePostItemData } from "@/hooks";
 import { PostItemHeader, PostItemContent, PostItemFooter, PostItemComment, PostItemDelete, PostItemShareSetting, PostItemQuickSetting, PostItemReactionButton } from "@/components";
 
-const PostItem = ({ userData, userProps, postProps, isCurrentUser }) => {
-    const props = { userData: userData, userProps: userProps, postProps: postProps }
+const PostItem = ({ postProps }) => {
+    const { isCurrentUser } = useSelector(state => state.userRelationship);
+
+    const props = { postProps: postProps }
 
     const { ref, state, setState, handleState, translateX, translateY } = usePostItemData();
 

@@ -17,7 +17,7 @@ const UserProfileCoverFooterFriendRequest = ({ userProps }) => {
                         <div className="p-[12px] flex flex-col flex-shrink-0 items-center self-center relative">
                             <span className="block text-[17px] text-black text-left font-semibold break-words relative leading-5">
                                 <span className="overflow-hidden relative">
-                                    {userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname} sent you a friend request
+                                    {userProps?.user?.profile?.username || userProps?.user?.profile?.firstname + " " + userProps?.user?.profile?.lastname} sent you a friend request
                                 </span>
                             </span>
                         </div>

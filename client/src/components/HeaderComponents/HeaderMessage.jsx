@@ -1,11 +1,15 @@
 "use client"
 
+import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
 import { useClickOutside, useToggleState } from "@/hooks";
 import { HeaderMessageContentItem, HeaderMessageQuickSetting } from "@/components";
+import { useGetUserMessageData } from "@/hooks/useUser/useUserData";
 
-const HeaderMessage = ({forwardedRef, userProps}) => {
+const HeaderMessage = ({ forwardedRef }) => {
+    const userProps = useSelector(state => state.user);
+
     const messageQuickSettingButtonRef = useRef(null);
 
     const [messageQuickSettingTranslateYValue, setMessageQuickSettingTranslateYValue] = useState(-415);
@@ -18,6 +22,8 @@ const HeaderMessage = ({forwardedRef, userProps}) => {
     }, [showMessageQuickSetting]);
 
     useClickOutside(messageQuickSettingButtonRef, showMessageQuickSetting, setShowMessageQuickSetting);
+
+    const { data, error, isLoading, isValidating } = useGetUserMessageData();
 
     return (
         <div ref={forwardedRef} className="absolute top-0 left-0 translate-x-[-172px] translate-y-[48px]">
@@ -62,11 +68,11 @@ const HeaderMessage = ({forwardedRef, userProps}) => {
                                                 <div className="w-full h-full flex items-center">
                                                     <label htmlFor="headerMessageSearchInput" className="w-full h-full">
                                                         <label className="w-full h-full min-w-[40px] min-h-[40px] flex items-center relative rounded-xl bg-zinc-100 z-10">
-                                                            <span className="flex items-center pl-[12px] transition-all duration-500">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
-                                                                </svg>
-                                                            </span>
+                                                                <span className="flex items-center pl-[12px] transition-all duration-500">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+                                                                    </svg>
+                                                                </span>
                                                             <input type="text" name="headerMessageSearchInput" id="headerMessageSearchInput" placeholder="Search in Recial Message" className="px-[8px] pt-[7px] pb-[9px] w-full h-full outline-none bg-zinc-100 rounded-r-full"/>
                                                         </label>
                                                     </label>
@@ -91,29 +97,38 @@ const HeaderMessage = ({forwardedRef, userProps}) => {
                                 </div>
                             </div>
                             <div>
-                                {userProps?.message ? (
+                                {userProps?.message && (
                                     <div className="px-[16px] py-[12px]">
                                         <div className="flex flex-row items-center text-left text-[16px] font-normal leading-5">
                                             <span>Messages</span>
                                         </div>
                                     </div>
-                                ) : null}
+                                )}
                             </div>
                             <div>
-                                <ul className="flex flex-col relative">
-                                    {userProps?.messages?.map((value, index) => (
-                                        <HeaderMessageContentItem key={index} messageProps={value}/>
-                                    ))}
-                                </ul>
+                                {isLoading ? (
+                                    <div className="w-full h-full py-[16px] flex items-center justify-center relative">
+                                        <div className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-lime-700 motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                                            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                                                Loading...
+                                            </span>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <ul className="flex flex-col relative">
+                                        {userProps?.messages?.map((value, index) => (
+                                            <HeaderMessageContentItem key={index} messageProps={value}/>
+                                        ))}
+                                    </ul>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div>
-                {showMessageQuickSetting ? (
-                    <HeaderMessageQuickSetting messageQuickSettingButtonRef={messageQuickSettingButtonRef} messageQuickSettingTranslateYValue={messageQuickSettingTranslateYValue}/>
-                ) : null}
+                {showMessageQuickSetting &&
+                    <HeaderMessageQuickSetting messageQuickSettingButtonRef={messageQuickSettingButtonRef} messageQuickSettingTranslateYValue={messageQuickSettingTranslateYValue}/>}
             </div>
         </div>
     );

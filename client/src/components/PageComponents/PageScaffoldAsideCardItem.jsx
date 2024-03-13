@@ -18,7 +18,7 @@ const PageScaffoldAsideCardItem = ({ icon, title, handleAction }) => {
                         </span>
                     )}
                     {handleAction && (
-                        <span className="block text-[14px] text-black text-left font-semibold break-words relative leading-5" onClick={handleAction.onClick}>
+                        <span className="block text-[14px] text-black text-left font-semibold break-words cursor-pointer relative leading-5" onClick={handleAction.onClick}>
                             <span>
                                 {handleAction.title}
                             </span>

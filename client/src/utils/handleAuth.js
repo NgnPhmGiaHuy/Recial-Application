@@ -32,9 +32,3 @@ export const handleValidateForm = (registerFormData, setError) => {
 
     return setError({ isEmailError: false, isPasswordError: false, formErrorStatus: "" });
 };
-
-export const handleRemoveUserIdLocalStorage = () => {
-    const keysToRemove = ["userIdProps", "userIdFriendProps", "userIdFollowingProps", "userIdFollowerProps", "userIdPhotoProps", "userIdGroupProps"];
-
-    return keysToRemove.forEach(key => localStorage.removeItem(key));
-};

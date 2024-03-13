@@ -1,39 +1,27 @@
 "use client"
 
-import { useCallback, useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
 
-import { useContentEditable, useMultipleHandleState, useMultipleImagesData, useSetPostData, useToggleState } from "@/hooks";
-import { createPostContentCustomizationConstants } from "@/constants/CreatePostConstants/createPostContentCustomizationConstants";
+import { useGetUserSettingData } from "@/hooks/useUser/useUserData";
+import { useContentEditable, useMultipleImagesData, useSetPostData } from "@/hooks";
 import { CreatePostDialogHeader, CreatePostDialogCustomizationItem, CreatePostDialogAudience, CreatePostDialogImageInput } from "@/components";
 
-const CreatePostDialog = ({ userProps, setUserProps, groupProps, createPostRef, handleShowCreatePost }) => {
-    const [showCreatePostAudience, setShowCreatePostAudience] = useState(false);
+import CREATE_POST_CONTENT_CUSTOMIZATION from "@/constants/CreatePostConstants/CreatePostContentCustomizationConstants";
 
+const CreatePostDialog = ({ groupProps, createPostRef }) => {
+    const userProps = useSelector(state => state.user);
+    const createPostContentCustomizationItemList = CREATE_POST_CONTENT_CUSTOMIZATION();
+    const { showCreatePostAudience, showCreatePostPanel, showCreatePostMediaInput } = useSelector(state => state.toggle);
+
+    const { handleSetPostData } = useSetPostData();
     const { selectedImagesFunction } = useMultipleImagesData();
-    const { postSubmitStatus, handleSetPostData } = useSetPostData();
-
-    const [showCreatPostPanel, setShowCreatPostPanel, handleShowCreatPostPanel] = useToggleState(true);
-    const [showCreatePostMediaInput, setShowCreatePostMediaInput, handleShowCreatePostMediaInput] = useToggleState(false);
-
     const { inputContentEditableRef, inputText, allowSubmit, handleInputTextChange } = useContentEditable()
-
-    const handeShowCreatePostAudience = useCallback(() => {
-        handleShowCreatPostPanel();
-
-        return  setShowCreatePostAudience((prevState) => !prevState);
-    }, []);
-
-    const handleState = useMultipleHandleState({ handleShowCreatPostPanel, handleShowCreatePostMediaInput, handeShowCreatePostAudience })
-
-    const createPostContentCustomizationItemList = createPostContentCustomizationConstants(handleState);
 
     const handleSubmitPost = async () => {
         await handleSetPostData({ inputText: inputText, inputImage: selectedImagesFunction.selectedImages, userProps: userProps, groupProps: groupProps });
     }
 
-    useEffect(() => {
-        handleShowCreatePost();
-    }, [postSubmitStatus]);
+    useGetUserSettingData();
 
     return (
         <div className="z-[9999] relative">
@@ -43,12 +31,12 @@ const CreatePostDialog = ({ userProps, setUserProps, groupProps, createPostRef, 
                         <div className="flex flex-col rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-hidden bg-white relative">
                             <form action="" method="POST">
                                 <div ref={createPostRef} className="w-[750px] h-[700px] overflow-hidden relative">
-                                    <div className={`${showCreatPostPanel ? "opacity-100 visible translate-x-0" : "opacity-0 invisible -translate-x-full pointer-events-none"} w-full h-full top-0 left-0 absolute`}>
+                                    <div className={`${showCreatePostPanel ? "opacity-100 visible translate-x-0" : "opacity-0 invisible -translate-x-full pointer-events-none"} w-full h-full top-0 left-0 absolute`}>
                                         <div className="w-full h-full relative">
                                             <div className="w-full h-full flex flex-row overflow-x-visible overflow-y-visible">
                                                 <div className="w-full h-full flex flex-col relative">
                                                     <div>
-                                                        <CreatePostDialogHeader userProps={userProps} handleShowCreatePost={handleShowCreatePost} handeShowCreatePostAudience={handeShowCreatePostAudience}/>
+                                                        <CreatePostDialogHeader/>
                                                     </div>
                                                     <div className="flex flex-col grow overflow-x-hidden overflow-y-auto overscroll-y-contain no-scrollbar relative">
                                                         <div className="flex flex-col grow relative">
@@ -59,13 +47,13 @@ const CreatePostDialog = ({ userProps, setUserProps, groupProps, createPostRef, 
                                                                             <div className="w-full h-full text-black select-text whitespace-pre-wrap break-words outline-none relative" contentEditable={true} spellCheck={false} onInput={handleInputTextChange} ref={inputContentEditableRef}>
                                                                             </div>
                                                                             <div className="top-[5px] overflow-hidden text-zinc-500 text-ellipsis pointer-events-none absolute z-[1]">
-                                                                                {inputText.length === 0 ? `What's on your mind, ${userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname}?` : null}
+                                                                                {inputText.length === 0 ? `What's on your mind, ${userProps?.user?.profile?.username || userProps?.user?.profile?.firstname + " " + userProps?.user?.profile?.lastname}?` : null}
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            { showCreatePostMediaInput && <CreatePostDialogImageInput handleShowCreatePostMediaInput={handleShowCreatePostMediaInput} selectedImagesFunction={selectedImagesFunction}/> }
+                                                            { showCreatePostMediaInput && <CreatePostDialogImageInput selectedImagesFunction={selectedImagesFunction}/> }
                                                             {/*    Use for display pannel below*/}
                                                         </div>
                                                     </div>
@@ -83,7 +71,7 @@ const CreatePostDialog = ({ userProps, setUserProps, groupProps, createPostRef, 
                                                             <div>
                                                                 <div className="flex">
                                                                     {createPostContentCustomizationItemList.slice(0, 5).map((value, index) => (
-                                                                        <CreatePostDialogCustomizationItem key={index} createPostContentCustomizationData={value} handleShowCreatePostMediaInput={handleShowCreatePostMediaInput}/>
+                                                                        <CreatePostDialogCustomizationItem key={index} createPostContentCustomizationData={value}/>
                                                                     ))}
                                                                     <div className="m-[2px]">
                                                                         <span>
@@ -124,7 +112,7 @@ const CreatePostDialog = ({ userProps, setUserProps, groupProps, createPostRef, 
                                         </div>
                                     </div>
                                     <div className={`${showCreatePostAudience ? "opacity-100 visible translate-x-0 animate-movePanelRightToLeft" : "opacity-0 invisible translate-x-full pointer-events-none"} top-0 left-0 absolute `}>
-                                        <CreatePostDialogAudience userProps={userProps} setUserProps={setUserProps} handeShowCreatePostAudience={handeShowCreatePostAudience}/>
+                                        <CreatePostDialogAudience/>
                                     </div>
                                 </div>
                             </form>

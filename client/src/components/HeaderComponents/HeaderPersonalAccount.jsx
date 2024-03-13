@@ -5,9 +5,11 @@ import { useRouter } from "next/navigation";
 import { useLogout } from "@/hooks";
 import { HeaderPersonalAccountSettingItem } from "@/components";
 import { headerPersonalAccount } from "@/constants/HeaderConstants";
+import {useSelector} from "react-redux";
 
-const HeaderPersonalAccount = ({ forwardedRef, userProps }) => {
+const HeaderPersonalAccount = ({ forwardedRef }) => {
     const router = useRouter();
+    const userProps = useSelector(state => state.user);
 
     const handleLogout = async () => {
         const logout = await useLogout(router);
@@ -34,12 +36,12 @@ const HeaderPersonalAccount = ({ forwardedRef, userProps }) => {
                                                         <div className="my-[-4px] p-[8px] flex flex-row flex-nowrap items-center justify-between">
                                                             <div className="p-[4px] flex flex-col flex-shrink-0 items-center justify-center relative">
                                                                 <div className="w-[36px] h-[36px] flex items-center justify-center rounded-lg overflow-hidden relative">
-                                                                    <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                                                    <Image src={userProps?.user?.profile?.profile_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                                                 </div>
                                                             </div>
                                                             <div className="p-[4px] flex flex-col flex-shrink grow relative">
                                                                 <span className="block text-[16px] text-left text-black font-semibold break-words leading-4">
-                                                                    {userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname}
+                                                                    {userProps?.user?.profile?.username || userProps?.user?.profile?.firstname + " " + userProps?.user?.profile?.lastname}
                                                                 </span>
                                                             </div>
                                                         </div>

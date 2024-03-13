@@ -1,17 +1,29 @@
 "use client"
 
 import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useClickOutside, useToggleState } from "@/hooks";
 import { createUserFriendRequest } from "@/app/api/fetchUserData";
 import { UserProfileCoverFooterFriendRequest } from "@/components";
+import { toggleEditProfile } from "@/store/actions/toggle/toggleActions";
 
-const UserProfileCoverFooter = ({ userProps, userCheck, handleState }) => {
+const UserProfileCoverFooter = () => {
+    const dispatch = useDispatch();
+
+    const userCheck = useSelector(state => state.userRelationship);
+
+    const userProps = userCheck.isCurrentUser ? useSelector(state => state.user) : useSelector(state => state.userId);
+
     const peopleYouMayKnowButtonRef = useRef(null);
 
     const [showPeopleYouMayKnow, setShowPeopleYouMayKnow, handleShowPeopleYouMayKnow] = useToggleState(false);
 
     useClickOutside(peopleYouMayKnowButtonRef, showPeopleYouMayKnow, setShowPeopleYouMayKnow);
+
+    const handleToggleEditProfile = () => {
+        dispatch(toggleEditProfile());
+    };
 
     const handleClick = async () => {
         if (!userCheck?.isCurrentUser && !userCheck?.isFriend && !userCheck?.isFriendRequest) {
@@ -59,7 +71,7 @@ const UserProfileCoverFooter = ({ userProps, userCheck, handleState }) => {
                                     </span>
                                 </div>
                             </div>
-                            <div onClick={userCheck?.isCurrentUser && handleState.handleShowEditProfile} className="min-w-[135px] min-h-[12px] ml-[8px] px-[16px] py-[6px] flex grow rounded-md cursor-pointer outline outline-lime-700 relative hover:outline-2 hover:outline-lime-700 hover:bg-lime-100 transition-all">
+                            <div onClick={userCheck?.isCurrentUser && handleToggleEditProfile} className="min-w-[135px] min-h-[12px] ml-[8px] px-[16px] py-[6px] flex grow rounded-md cursor-pointer outline outline-lime-700 relative hover:outline-2 hover:outline-lime-700 hover:bg-lime-100 transition-all">
                                 <div className="flex items-center justify-center gap-1 text-lime-700">
                                     {userCheck?.isCurrentUser ? (
                                         <i>

@@ -1,9 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useSelector } from "react-redux";
 
 import { handleFormatNumber } from "@/utils";
 
-const GroupPageContentBlockMember = ({ groupData }) => {
+const GroupPageContentBlockMember = () => {
+    const groupProps = useSelector(state => state.group);
+
     return (
         <div className="mb-[16px]">
             <div className="w-full flex bg-white rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-hidden relative">
@@ -20,7 +23,7 @@ const GroupPageContentBlockMember = ({ groupData }) => {
                                             ·
                                         </span>
                                         <span className="overflow-hidden relative">
-                                             {handleFormatNumber(groupData?.groupMemberProps?.length)}
+                                             { handleFormatNumber(groupProps?.members?.length) }
                                         </span>
                                     </span>
                                 </span>
@@ -32,7 +35,7 @@ const GroupPageContentBlockMember = ({ groupData }) => {
                         <div className="px-[16px] pt-[16px]">
                             <div className="flex flex-col relative">
                                 <div className="my-[-10px] py-[10px] flex flex-row overflow-x-hidden relative">
-                                    {groupData?.groupMemberProps?.filter((value) => value.role !== "Member").slice(0, 20).map((value, index) => (
+                                    { groupProps?.members?.filter((value) => value.role !== "group_member").slice(0, 20).map((value, index) => (
                                         <div className={`${index !== 0 && "ml-[-8px]"} mb-[20px]  relative`} style={{zIndex: 20 - index}} key={index}>
                                             <Link href={`/${value.user._id}`}>
                                                 <div className="w-[36px] h-[36px] flex flex-col items-center justify-center rounded-full border border-solid border-white overflow-hidden relative">
@@ -40,14 +43,14 @@ const GroupPageContentBlockMember = ({ groupData }) => {
                                                 </div>
                                             </Link>
                                         </div>
-                                    ))}
+                                    )) }
                                 </div>
                                 <div className="pt-[12px]">
                                     <span className="block text-[15px] text-black text-left font-normal relative leading-5">
                                         <span className="overflow-hidden relative">
-                                            {groupData?.groupMemberProps?.filter((value) => value.role === "Group_Administrator")[0].user.username} is an admin.&nbsp;
-                                            {groupData?.groupMemberProps?.filter((value) => value.role === "Group_Moderator")[0].user.username} and&nbsp;
-                                            {groupData?.groupMemberProps?.filter((value) => value.role === "Group_Moderator").length - 1} other members are moderators.
+                                            { groupProps?.members?.filter((value) => value.role === "group_administrator")[0]?.user.username } is an admin.&nbsp;
+                                            { groupProps?.members?.filter((value) => value.role === "group_moderator")[0]?.user.username } and&nbsp;
+                                            { groupProps?.members?.filter((value) => value.role === "group_moderator").length - 1 } other members are moderators.
                                         </span>
                                     </span>
                                 </div>

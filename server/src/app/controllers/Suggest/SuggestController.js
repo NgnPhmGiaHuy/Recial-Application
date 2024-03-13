@@ -5,7 +5,7 @@ class SuggestController {
     getSuggestEventData = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getFormattedUserData(userId);
 
@@ -24,7 +24,7 @@ class SuggestController {
     getSuggestGroupData = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getFormattedUserData(userId);
 
@@ -43,7 +43,7 @@ class SuggestController {
     getSuggestPageData = async (req, res) => {
         try {
             const decodedToken = req.decodedToken;
-            const userId = decodedToken.userId;
+            const userId = decodedToken.user_id;
 
             const user = await getUserDataService.getFormattedUserData(userId);
 

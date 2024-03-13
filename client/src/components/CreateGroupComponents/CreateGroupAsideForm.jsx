@@ -1,6 +1,6 @@
 import {CreateGroupAsideFormPrivacy, CreateGroupAsideFormVisible} from "@/components";
 
-const CreateGroupAsideForm = ({ state, handleState, createGroupPrivacyRef, createGroupVisibleRef }) => {
+const CreateGroupAsideForm = ({ state, handleState, createGroupActionRef }) => {
     return (
         <section>
             <div className="flex flex-col flex-shrink grow basis-full relative">
@@ -13,8 +13,8 @@ const CreateGroupAsideForm = ({ state, handleState, createGroupPrivacyRef, creat
                             </label>
                         </div>
                     </div>
-                    <CreateGroupAsideFormPrivacy state={state} handleState={handleState} createGroupPrivacyRef={createGroupPrivacyRef}/>
-                    <CreateGroupAsideFormVisible state={state} handleState={handleState} createGroupVisibleRef={createGroupVisibleRef}/>
+                    <CreateGroupAsideFormPrivacy state={state} handleState={handleState} createGroupPrivacyRef={createGroupActionRef.createGroupPrivacyRef}/>
+                    <CreateGroupAsideFormVisible state={state} handleState={handleState} createGroupVisibleRef={createGroupActionRef.createGroupVisibleRef}/>
                 </form>
             </div>
         </section>

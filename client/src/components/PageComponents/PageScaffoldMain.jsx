@@ -1,24 +1,6 @@
-import Link from "next/link";
+import { CreatePost, PageScaffoldMainNavigationItem, PostPage } from "@/components";
 
-import { PostPage } from "@/components";
-
-const PageScaffoldMainNavigationItem = ({ title, active}) => {
-    return (
-        <div className={`${active ? "text-lime-500 border-lime-500" : "text-zinc-500 border-zinc-200 hover:border-black hover:text-black"} min-w-[100px] flex flex-col items-center bg-white rounded-xl border border-solid transition-all`}>
-            <Link href="" replace={true}>
-                <div className="px-[16px] py-[4px] flex flex-row items-center relative transition-all">
-                    <span className="text-[16px] text-left font-normal  break-words leading-6 relative">
-                        <span className="overflow-hidden relative">
-                            {title}
-                        </span>
-                    </span>
-                </div>
-            </Link>
-        </div>
-    )
-}
-
-const PageScaffoldMain = ({ userProps, postByIdRef, postByUserIdProps }) => {
+const PageScaffoldMain = ({ postRef, pagePostProps }) => {
     return (
         <div className="w-full min-h-[inherit] mx-[12px] flex flex-col flex-shrink grow basis-0 relative">
             <header>
@@ -41,9 +23,14 @@ const PageScaffoldMain = ({ userProps, postByIdRef, postByUserIdProps }) => {
                     </div>
                 </div>
             </header>
+            {false && (
+                <div className="mt-[12px]">
+                    <CreatePost/>
+                </div>
+            )}
             <main>
                 <div className="my-[16px] flex flex-col gap-4 relative">
-                    <PostPage postRef={postByIdRef} userData={userProps} userProps={userProps} isCurrentUser={false} postListProps={postByUserIdProps}/>
+                    <PostPage postRef={postRef} pagePostProps={pagePostProps}/>
                 </div>
             </main>
         </div>

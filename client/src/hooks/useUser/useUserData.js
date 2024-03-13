@@ -1,89 +1,24 @@
 "use client"
 
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import useSWR from "swr";
+import { useEffect } from "react";
+import {useDispatch, useSelector} from "react-redux";
 
-import { storage } from "@/utils/firebaseConfig";
-import { getUserData, getUserFollower, getUserFollowing, getUserFriend, getUserFriendRequest, getUserGroupList, getUserMessage, getUserNotification, getUserPhotoList, getUserSearchQuery, getUserSetting, setUserProfile } from "@/app/api/fetchUserData";
+import { getUserProfileData } from "@/app/api/fetchUserData";
+import fetcherWithAccessToken from "@/app/api/fetcherWithAccessToken";
+import { setUserContactData, setUserFollowerData, setUserFollowingData, setUserFriendData, setUserFriendRequestData, setUserGroupListData, setUserMessageData, setUserNotificationData, setUserPhotoListData, setUserProfileData, setUserSearchData, setUserSettingData } from "@/store/actions/user/userActions";
 
 export const useUserData = () => {
-    const router = useRouter();
-    const [userProps, setUserProps] = useState(null);
+    const dispatch = useDispatch();
+    const userProps = useSelector(state  => state.user);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const userData = await getUserData();
+                const userProfileData = await getUserProfileData();
 
-                if (!userData || userData.error) {
-                    return router.push("/auth/login");
-                }
-
-                setUserProps((prevData) => ({ ...prevData, ...userData }));
-
-                const userNotification = await getUserNotification();
-
-                if (userNotification && !userNotification.error) {
-                    setUserProps((prevData) => ({ ...prevData, notifications: [...userNotification] }));
-                }
-
-                const userMessage = await getUserMessage();
-
-                if (userMessage && !userMessage.error) {
-                    setUserProps((prevData) => ({ ...prevData, messages: [...userMessage] }));
-                }
-
-                const userSearch = await getUserSearchQuery();
-                if (userSearch && !userSearch.error) {
-                    setUserProps((prevData) => ({ ...prevData, search: [...userSearch] }));
-                }
-
-                const userSetting = await getUserSetting();
-                if (userSetting && !userSetting.error) {
-                    setUserProps((prevData) => ({ ...prevData, setting: userSetting }));
-                }
-
-                const userFollowing = await getUserFollowing()
-                if (userFollowing && !userFollowing.error) {
-                    setUserProps((prevData) => ({
-                        ...prevData,
-                        user: { ...prevData.user, following: [...userFollowing] }
-                    }));
-                }
-
-                const userFollower = await getUserFollower()
-                if (userFollower && !userFollower.error) {
-                    setUserProps((prevData) => ({
-                        ...prevData,
-                        user: { ...prevData.user, followers: [...userFollower] }
-                    }));
-                }
-
-                const userFriend = await getUserFriend();
-
-                if (userFriend && !userFriend.error) {
-                    setUserProps((prevData) => ({
-                        ...prevData,
-                        user: { ...prevData.user, friends: [...userFriend] }
-                    }));
-                }
-
-                const userFriendRequest = await getUserFriendRequest();
-                if (userFriendRequest && !userFriendRequest.error) {
-                    setUserProps((prevData) => ({ ...prevData, friend_request: [...userFriendRequest] }));
-                }
-
-                const userPhotoList = await getUserPhotoList();
-
-                if (userPhotoList && !userPhotoList.error) {
-                    setUserProps((prevData) => ({ ...prevData, photo_list: [...userPhotoList] }));
-                }
-
-                const userGroupList = await getUserGroupList();
-
-                if (userGroupList && !userGroupList.error) {
-                    setUserProps((prevData) => ({ ...prevData, group_list: [...userGroupList] }));
+                if (userProfileData && !userProfileData.error) {
+                    dispatch(setUserProfileData(userProfileData));
                 }
             } catch (error) {
                 return console.error(error);
@@ -91,74 +26,163 @@ export const useUserData = () => {
         };
 
         fetchData();
-    }, [router]);
+    }, [dispatch]);
 
-    return {userProps, setUserProps};
+    return { userProps };
 };
 
+export const useGetUserNotificationData = () => {
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/user/notification/`, fetcherWithAccessToken);
 
-export const useUpdateUserProfile = (userProps) => {
-    const [submitStatus, setSubmitStatus] = useState(false);
-
-    const [formData, setFormData] = useState({
-        session_username: userProps?.user?.username,
-        session_firstname: userProps?.user?.firstname || "",
-        session_lastname: userProps?.user?.lastname || "",
-        session_description: userProps?.user?.description || "",
-        session_location: userProps?.user?.location || "",
-        session_date_of_birth: userProps?.user?.date_of_birth || "",
-        session_profile_picture_url: userProps?.user?.profile_picture_url || "",
-        session_profile_cover_photo_url: userProps?.user?.profile_cover_photo_url || "",
-    });
-
-    const uploadImage = async (base64String) => {
-        if (base64String.startsWith('data:image')) {
-            const block = base64String.split(";");
-            const contentType = block[0].split(":")[1];
-            const realData = block[1].split(",")[1];
-
-            const blob = await fetch(`data:${contentType};base64,${realData}`).then((res) =>
-                res.blob()
-            );
-
-            const file = new File([blob], `image_${Date.now()}_${userProps.user._id}.jpeg`, {
-                type: contentType,
-            });
-
-            const imageRef = ref(
-                storage,
-                `${userProps.user._id}/images/${file.name}`
-            );
-
-            const snapshot = await uploadBytes(imageRef, file);
-            return getDownloadURL(snapshot.ref);
-        } else {
-            return base64String;
+    useEffect(() => {
+        if (data) {
+            dispatch(setUserNotificationData(data))
         }
-    }
+    }, [data, dispatch]);
 
-    const handleSetUserProfile = async () => {
-        try {
-            const uploadedProfilePictureURL = await uploadImage(formData.session_profile_picture_url);
-            const uploadedCoverPictureURL = await uploadImage(formData.session_profile_cover_photo_url);
+    return { data, error, isLoading, isValidating };
+}
 
-            const { session_profile_picture_url, session_profile_cover_photo_url, ...otherFormData } = formData;
+export const useGetUserContactData = () => {
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/user/contact/`, fetcherWithAccessToken);
 
-            const dataToSend = {
-                ...otherFormData,
-                session_profile_picture_url: uploadedProfilePictureURL,
-                session_profile_cover_photo_url: uploadedCoverPictureURL,
-            }
-
-            const updateUserProfile = await setUserProfile(dataToSend);
-
-            if (updateUserProfile && !updateUserProfile.error) {
-                return setSubmitStatus(true);
-            }
-        } catch (error) {
-            console.error('Error handling friend request:', error);
+    useEffect(() => {
+        if (data) {
+            dispatch(setUserContactData(data))
         }
-    }
+    }, [data, dispatch]);
 
-    return { formData, setFormData, submitStatus, handleSetUserProfile };
+    return { data, error, isLoading, isValidating };
+}
+
+export const useGetUserProfileData = () => {
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/user/profile/`, fetcherWithAccessToken);
+
+    useEffect(() => {
+        if (data) {
+            dispatch(setUserProfileData(data))
+        }
+    }, [data, dispatch]);
+
+    return { data, error, isLoading, isValidating };
+}
+
+export const useGetUserMessageData = () => {
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/user/message/`, fetcherWithAccessToken);
+
+    useEffect(() => {
+        if (data) {
+            dispatch(setUserMessageData(data))
+        }
+    }, [data, dispatch]);
+
+    return { data, error, isLoading, isValidating };
+}
+
+export const useGetUserSettingData = () => {
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/user/setting/`, fetcherWithAccessToken);
+
+    useEffect(() => {
+        if (data) {
+            dispatch(setUserSettingData(data))
+        }
+    }, [data, dispatch]);
+
+    return { data, error, isLoading, isValidating };
+}
+
+export const useGetUserFriendData = () => {
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/user/friend/`, fetcherWithAccessToken);
+
+    useEffect(() => {
+        if (data) {
+            dispatch(setUserFriendData(data))
+        }
+    }, [data, dispatch]);
+
+    return { data, error, isLoading, isValidating };
+}
+
+export const useGetUserSearchData = () => {
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/user/search/`, fetcherWithAccessToken);
+
+    useEffect(() => {
+        if (data) {
+            dispatch(setUserSearchData(data));
+        }
+    }, [data, dispatch]);
+
+    return { data, error, isLoading, isValidating };
+}
+
+export const useGetUserFollowingData = () => {
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/user/following/`, fetcherWithAccessToken);
+
+    useEffect(() => {
+        if (data) {
+            dispatch(setUserFollowingData(data))
+        }
+    }, [data, dispatch]);
+
+    return { data, error, isLoading, isValidating };
+}
+
+export const useGetUserFollowerData = () => {
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/user/follower/`, fetcherWithAccessToken);
+
+    useEffect(() => {
+        if (data) {
+            dispatch(setUserFollowerData(data))
+        }
+    }, [data, dispatch]);
+
+    return { data, error, isLoading, isValidating };
+}
+
+export const useGetUserPhotoListData = () => {
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/user/photo-list/`, fetcherWithAccessToken);
+
+    useEffect(() => {
+        if (data) {
+            dispatch(setUserPhotoListData(data))
+        }
+    }, [data, dispatch]);
+
+    return { data, error, isLoading, isValidating };
+}
+
+export const useGetUserGroupListData = () => {
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/user/group-list/`, fetcherWithAccessToken);
+
+    useEffect(() => {
+        if (data) {
+            dispatch(setUserGroupListData(data))
+        }
+    }, [data, dispatch]);
+
+    return { data, error, isLoading, isValidating };
+}
+
+export const useGetUserFriendRequestData = () => {
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/user/friend-request/`, fetcherWithAccessToken);
+
+    useEffect(() => {
+        if (data) {
+            dispatch(setUserFriendRequestData(data))
+        }
+    }, [data, dispatch]);
+
+    return { data, error, isLoading, isValidating };
 }

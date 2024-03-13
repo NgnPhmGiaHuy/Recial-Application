@@ -1,6 +1,6 @@
 import { EventScaffoldItemContent, EventScaffoldItemHeader, EventScaffoldItemMember } from "@/components";
 
-const EventScaffoldItem = ({ userProps }) => {
+const EventScaffoldItem = () => {
     return (
         <div>
             <div className="m-[20px]">
@@ -10,7 +10,7 @@ const EventScaffoldItem = ({ userProps }) => {
                         <div>
                             <EventScaffoldItemContent/>
                         </div>
-                        <EventScaffoldItemMember userProps={userProps}/>
+                        <EventScaffoldItemMember/>
                     </div>
                 </div>
             </div>

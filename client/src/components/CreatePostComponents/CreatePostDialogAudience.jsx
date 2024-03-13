@@ -1,50 +1,61 @@
 "use client"
 
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useCallback, useEffect } from "react";
 
 import { CreatePostDialogAudienceItem } from "@/components";
-import { createPostAudienceItemList } from "@/constants/CreatePostConstants";
+import { setUserSettingData } from "@/store/actions/user/userActions";
+import { CREATE_POST_AUDIENCE } from "@/constants/CreatePostConstants";
+import { toggleCreatePostAudience, toggleCreatePostPanel } from "@/store/actions/toggle/toggleActions";
 
 const renderAudienceItems = (userProps, handleCreatePostAudienceChecked) => {
-    return createPostAudienceItemList.map((value, index) => {
+    return CREATE_POST_AUDIENCE.map((value, index) => {
         return (
-            <CreatePostDialogAudienceItem key={index} createPostAudienceData={value} checked={userProps?.setting?.privacy?.post_visibility === value.createPostAudienceOption} onSelect={() => handleCreatePostAudienceChecked(index)} />
+            <CreatePostDialogAudienceItem key={index} createPostAudienceData={value} checked={userProps?.settings?.privacy?.post_visibility === value.createPostAudienceOption} onSelect={() => handleCreatePostAudienceChecked(index)} />
         );
     });
 };
 
-const CreatePostDialogAudience = ({userProps, setUserProps, handeShowCreatePostAudience}) => {
+const CreatePostDialogAudience = () => {
+    const dispatch = useDispatch();
+    const userProps = useSelector(state => state.user);
+
+    const handeShowCreatePostAudience = () => {
+        dispatch(toggleCreatePostPanel());
+
+        return dispatch(toggleCreatePostAudience());
+    }
+
     const [previousVisibility, setPreviousVisibility] = useState(null);
 
+    const updateSettings = (newSettings) => {
+        dispatch(setUserSettingData(newSettings));
+    };
+
     const handleCreatePostAudienceChecked = useCallback((index) => {
-        const newPostSettingPrivacy = createPostAudienceItemList[index].createPostAudienceOption;
+        const newPostSettingPrivacy = CREATE_POST_AUDIENCE[index].createPostAudienceOption;
 
-        setPreviousVisibility(userProps?.setting?.privacy?.post_visibility);
-        setUserProps((prevProps) => ({
-            ...prevProps,
-            setting: {
-                ...prevProps.setting,
-                privacy: {
-                    ...prevProps.setting.privacy,
-                    post_visibility: newPostSettingPrivacy
-                }
+        setPreviousVisibility(userProps?.settings?.privacy?.post_visibility);
+
+        updateSettings({
+            ...userProps,
+            privacy: {
+                ...userProps.privacy,
+                post_visibility: newPostSettingPrivacy
             }
-        }));
+        });
 
-    }, [userProps?.setting?.privacy?.post_visibility]);
+    }, [userProps?.settings?.privacy?.post_visibility]);
 
     const handleCancel = () => {
         if (previousVisibility !== null) {
-            setUserProps((prevProps) => ({
-                ...prevProps,
-                setting: {
-                    ...prevProps.setting,
-                    privacy: {
-                        ...prevProps.setting.privacy,
-                        post_visibility: previousVisibility,
-                    }
+            updateSettings({
+                ...userProps,
+                privacy: {
+                    ...userProps.privacy,
+                    post_visibility: previousVisibility
                 }
-            }));
+            });
         }
 
         return handeShowCreatePostAudience();
@@ -52,7 +63,7 @@ const CreatePostDialogAudience = ({userProps, setUserProps, handeShowCreatePostA
 
     useEffect(() => {
 
-    }, [userProps?.setting?.privacy?.post_visibility]);
+    }, [userProps?.settings?.privacy?.post_visibility]);
 
     return (
         <div className="min-w-[750px] relative">
@@ -95,7 +106,7 @@ const CreatePostDialogAudience = ({userProps, setUserProps, handeShowCreatePostA
                                                 Your post will show up in Feed, on your profile and in search results.
                                             </span>
                                             <span className="block text-[15px] text-zinc-500 font-normal break-words leading-5">
-                                                Your audience now is set to {`${userProps?.setting?.privacy?.post_visibility}`}, but you can change the audience default on the setting.
+                                                Your audience now is set to {`${userProps?.settings?.privacy?.post_visibility}`}, but you can change the audience default on the setting.
                                             </span>
                                         </div>
                                     </div>

@@ -1,11 +1,11 @@
 import { CreatePost, Post } from "@/components";
 
-const GroupPageContentPost = ({ postRef, userProps, groupPostProps, handleState }) => {
+const GroupPageContentPost = ({ postRef, groupPostProps }) => {
     return (
         <div className="max-w-[840px] m-[8px] flex flex-col flex-shrink grow-[25] basis-[500px] relative">
             <div>
                 <div>
-                    <CreatePost userProps={userProps} handleShowCreatePost={handleState.handleShowCreatePost}/>
+                    <CreatePost/>
                 </div>
             </div>
             <div>
@@ -38,7 +38,7 @@ const GroupPageContentPost = ({ postRef, userProps, groupPostProps, handleState 
                         </div>
                     </div>
                 </div>
-                <Post postRef={postRef} userData={userProps} userProps={userProps} isCurrentUser={true} postListProps={groupPostProps}/>
+                <Post postRef={postRef} isCurrentUser={true} postListProps={groupPostProps}/>
             </div>
         </div>
     );

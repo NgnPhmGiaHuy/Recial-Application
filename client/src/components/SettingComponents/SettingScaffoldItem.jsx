@@ -11,13 +11,13 @@ const SettingScaffoldItem = ({ settingProps, isBorderBottom }) => {
                                 </span>
                             </span>
                         </div>
-                        {settingProps.itemProps ? (
+                        { settingProps.itemProps && (
                             <div className="pl-[16px] flex-[1_1_auto]">
                                 <span className="block text-[16px] text-zinc-500 self-center text-right text-ellipsis whitespace-nowrap overflow-hidden">
                                     {settingProps.itemProps}
                                 </span>
                             </div>
-                        ) : null}
+                        ) }
                     </div>
                     <div className="h-[18px] pl-[16px] flex flex-[0_0_16px] items-center justify-end self-center">
                         <i>

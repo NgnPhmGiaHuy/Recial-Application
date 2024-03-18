@@ -11,16 +11,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
+    "ws": "^8.15.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "google-auth-library": "^9.4.1",
-    "jsonwebtoken": "^9.0.2",
     "moment": "^2.29.4",
+    "express": "^4.18.2",
+    "bcryptjs": "^2.4.3",
     "mongoose": "^7.6.3",
     "nodemailer": "^6.9.6",
-    "ws": "^8.15.1"
+    "jsonwebtoken": "^9.0.2",
+    "google-auth-library": "^9.4.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.3.1",

@@ -11,7 +11,7 @@ import fetcherWithoutAccessToken from "@/app/api/fetcherWithoutAccessToken";
 import { clearGroupCurrentUserRole, setGroupActivityData, setGroupCurrentUserRole, setGroupData, setGroupMemberData } from "@/store/actions/group/groupActions";
 
 export const useGroupData = (groupId) => {
-    const { userRole } = useCheckUserRole(groupId);
+    const { userRole } = useCheckUserGroupRole(groupId);
     const { groupProps } = useGetGroupData(groupId);
     const { groupMemberProps } = useGetGroupMemberData(groupId);
     const { groupActivityProps } = useGetGroupActivityData(groupId);
@@ -23,12 +23,6 @@ export const useGroupData = (groupId) => {
     };
 
     return { postRef, groupData, userRole };
-}
-
-export const useUserGroupData = (user) => {
-    const { postRef, groupPostProps, setGroupPostProps } = useUserGetGroupPostData(user);
-
-    return { postRef, groupPostProps, setGroupPostProps };
 }
 
 export const useFilterUserGroupsByRole = () => {
@@ -56,7 +50,6 @@ export const useGetGroupDataAfterFilterUserRole = (managedGroups, joinedGroups) 
     const { data: joinedGroupsData } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/public/group/groups/?groups=${joinedGroups.join(',')}`, fetcherWithoutAccessToken)
     const { data: managedGroupsData } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/public/group/groups/?groups=${managedGroups.join(',')}`, fetcherWithoutAccessToken)
 
-
     useEffect(() => {
         if (joinedGroupsData) {
             setJoinedGroupsProps(joinedGroupsData.map((groupProps) => ({
@@ -78,7 +71,13 @@ export const useGetGroupDataAfterFilterUserRole = (managedGroups, joinedGroups) 
     return { managedGroupsProps, joinedGroupsProps };
 }
 
-const useCheckUserRole = (groupIds) => {
+export const useUserGroupData = (user) => {
+    const { postRef, groupPostProps, setGroupPostProps } = useUserGetGroupPostData(user);
+
+    return { postRef, groupPostProps, setGroupPostProps };
+}
+
+const useCheckUserGroupRole = (groupIds) => {
     const decodedToken = useDecodeToken();
     const dispatch = useDispatch();
 

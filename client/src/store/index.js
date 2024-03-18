@@ -8,6 +8,7 @@ import userIdReducer from "@/store/reducers/user/userIdReducer";
 import pageReducer from "@/store/reducers/page/pageReducer";
 import groupReducer from "@/store/reducers/group/groupReducer";
 import mediaReducer from "@/store/reducers/media/mediaReducer";
+import eventPageReducer from "@/store/reducers/event/eventPageReducer";
 import toggleReducer from "@/store/reducers/toggle/toggleReducer";
 import userRelationshipReducer from "@/store/reducers/user/userRelationshipReducer";
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     group: groupReducer,
     media: mediaReducer,
     toggle: toggleReducer,
+    eventList: eventPageReducer,
     userRelationship: userRelationshipReducer,
 })
 

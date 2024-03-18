@@ -1,10 +1,10 @@
-const EventScaffoldItemHeader = () => {
+const EventScaffoldItemHeader = ({ eventProps }) => {
     return (
         <div className="w-full flex flex-row items-center justify-between relative">
             <div className="max-w-[640px] flex flex-shrink grow items-center relative">
                 <span className="block text-[32px] text-black text-left font-extrabold break-words relative leading-9">
                     <span className="overflow-hidden line-clamp-2 relative">
-                        Awesome Pool Party with Friends
+                        { eventProps?.event_name }
                     </span>
                 </span>
             </div>

@@ -9,11 +9,11 @@ import { Story, CreatePost, Post, FriendRequest, SuggestGroup, SuggestPage, Sugg
 const Main = ({ postRef, userData, postProps, setPostProps }) => {
     const userProps = useSelector(state => state.user);
 
-    const { data, error, isLoading, isValidating } = useGetUserFriendRequestData();
+    const { isLoading } = useGetUserFriendRequestData();
 
-    const { suggestPageProps, suggestPageError, suggestPageIsLoading, suggestPageIsValidating } = useSuggestPageData();
-    const { suggestGroupProps, suggestGroupError, suggestGroupIsLoading, suggestGroupIsValidating } = useSuggestGroupData();
-    const { suggestEventProps, suggestEventError, suggestEventIsLoading, suggestEventIsValidating } = useSuggestEventData();
+    const { suggestPageProps } = useSuggestPageData();
+    const { suggestEventProps } = useSuggestEventData();
+    const { suggestGroupProps } = useSuggestGroupData();
 
     return (
         <div className="sm:pl-[32px] pl-0 basis-[calc(100%-360px)] flex flex-row flex-shrink flex-nowrap grow items-stretch justify-center relative">
@@ -45,8 +45,8 @@ const Main = ({ postRef, userData, postProps, setPostProps }) => {
                                         </div>
                                     </div>
                             ) : (
-                                (userProps?.friend_request && userProps.friend_request?.length) && <FriendRequest userProps={userProps?.friend_request}/>
-                            )}
+                                (userProps?.friend_request && userProps.friend_request?.length) && <FriendRequest/>
+                            ) }
                             { suggestPageProps && <SuggestPage pageProps={suggestPageProps}/> }
                             { suggestGroupProps && <SuggestGroup groupProps={suggestGroupProps}/> }
                             { suggestEventProps && <SuggestEvent eventProps={suggestEventProps}/> }

@@ -1,6 +1,7 @@
 const authRoutes = require("../routes/auth/authRoutes");
 const postRoutes = require("../routes/post/postRoutes");
 const pageRoutes = require("../routes/page/pageRoutes");
+const eventRoutes = require("../routes/event/eventRoutes");
 const userRoutes = require("../routes/user/userRoutes");
 const roleRoutes = require("../routes/role/roleRoutes");
 const suggestRoutes = require("../routes/suggestRoutes");
@@ -23,6 +24,7 @@ const routes = (app) => {
     app.use("/api/v1/public/group/", groupRoutes);
 
     app.use("/api/v1/secure/role/", MiddlewareController.verifyToken, roleRoutes);
+    app.use("/api/v1/secure/event/", MiddlewareController.verifyToken, eventRoutes);
     app.use("/api/v1/secure/story/", MiddlewareController.verifyToken, storyRouter);
     app.use("/api/v1/secure/comment/", MiddlewareController.verifyToken, commentRoutes);
     app.use("/api/v1/secure/setting/", MiddlewareController.verifyToken, settingRoutes);

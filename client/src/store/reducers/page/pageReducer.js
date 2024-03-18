@@ -1,9 +1,10 @@
-import { SET_PAGE_DATA, SET_PAGE_LIKE_DATA, SET_PAGE_FOLLOW_DATA } from "@/store/actions/page/pageActions";
+import { SET_PAGE_DATA, SET_PAGE_LIKE_DATA, SET_PAGE_FOLLOW_DATA, SET_PAGE_CURRENT_USER_ROLE_DATA, CLEAR_PAGE_CURRENT_USER_ROLE_DATA } from "@/store/actions/page/pageActions";
 
 const initialState = {
     like: null,
     follow: null,
     profile: null,
+    currentUserRole: null,
 }
 
 const pageReducer = (state = initialState, action) => {
@@ -23,6 +24,16 @@ const pageReducer = (state = initialState, action) => {
                 ...state,
                 follow: action.payload,
             };
+        case SET_PAGE_CURRENT_USER_ROLE_DATA:
+            return {
+                ...state,
+                currentUserRole: action.payload,
+            }
+        case CLEAR_PAGE_CURRENT_USER_ROLE_DATA:
+            return {
+                ...state,
+                currentUserRole: null,
+            }
         default:
             return state;
     }

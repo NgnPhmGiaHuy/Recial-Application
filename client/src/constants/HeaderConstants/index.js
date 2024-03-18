@@ -7,7 +7,7 @@ import Memories from "/public/images/Icon/memories.png";
 import Networking from "/public/images/Icon/networking.png";
 import RecentAdActivity from "/public/images/Icon/recent-ad-activity.png";
 
-export const notificationTypeOfColor = {
+export const NOTIFICATION_TYPE_OF_COLOR = {
     Page: {
         textColor: "White",
         backgroundColor: "RoyalBlue",
@@ -191,7 +191,7 @@ export const notificationTypeOfColor = {
     },
 };
 
-export const headerNavigation = [
+export const HEADER_NAVIGATION = [
     {
         title: "Home",
         link: "/",
@@ -244,7 +244,7 @@ export const headerNavigation = [
     },
 ];
 
-export const headerMenuSocial = [
+export const HEADER_MENU_SOCIAL = [
     {
         link: "",
         icon: Calender,
@@ -268,7 +268,7 @@ export const headerMenuSocial = [
     }
 ];
 
-export const headerMenuPersonal = [
+export const HEADER_MENU_PERSONAL = [
     {
         link: "",
         icon: RecentAdActivity,
@@ -406,7 +406,7 @@ export const headerPersonalAccount = [
     },
 ]
 
-export const headerNotificationSetting = [
+export const HEADER_NOTIFICATION_SETTING = [
     {
         break: false,
         icon: (
@@ -497,7 +497,7 @@ export const headerMessageQuickSetting = [
     },
 ]
 
-export const headerNotificationQuickSetting = [
+export const HEADER_NOTIFICATION_QUICK_SETTING = [
     {
         break: false,
         icon: (

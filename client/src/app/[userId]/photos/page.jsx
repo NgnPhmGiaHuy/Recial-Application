@@ -1,7 +1,7 @@
 "use client"
 
-import { Header, UserAboutScaffold, UserProfileCover, UserProfileEdit } from "@/components";
 import { useUserIdLayout, useUserProfileActions, useWebSocket, useWithAuth } from "@/hooks";
+import { Header, LoadingPageComponent, UserAboutScaffold, UserProfileCover, UserProfileEdit } from "@/components";
 
 const UserPhotosPage = ({ params }) => {
     const { currentUser: userProps, isCurrentUser, isFriend, isFriendRequest } = useUserIdLayout(params);
@@ -14,12 +14,10 @@ const UserPhotosPage = ({ params }) => {
     // useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
     return (
-        <div>
-            { userProps && (
-                <Header/>
-            ) }
-            { userProps && (
+        <>
+            { userProps ? (
                 <>
+                    <Header/>
                     <div className="mx-[128px] flex flex-col relative z-0 ">
                         <div className="top-[56px] min-h-[calc(100vh-88px)] flex flex-col relative">
                             <div className="min-h-[inherit] mb-[calc(-100vh-56px)] flex flex-col flex-shrink-0 items-stretch justify-start relative">
@@ -44,8 +42,10 @@ const UserPhotosPage = ({ params }) => {
                         { showEditProfile && <UserProfileEdit editProfileRef={profileActionRef.editProfileRef}/> }
                     </div>
                 </>
+            ) : (
+                <LoadingPageComponent/>
             ) }
-        </div>
+        </>
     );
 };
 

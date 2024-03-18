@@ -1,6 +1,6 @@
 "use client"
 
-import { Header, UserAbout, UserProfileEdit } from "@/components";
+import { Header, LoadingPageComponent, UserAbout, UserProfileEdit } from "@/components";
 import { useUserIdLayout, useUserProfileActions, useWebSocket, useWithAuth } from "@/hooks";
 
 const UserAboutPage = ({ params }) => {
@@ -15,12 +15,10 @@ const UserAboutPage = ({ params }) => {
     //
 
     return (
-        <div>
-            { userProps && (
-                <Header/>
-            ) }
-            { userProps && (
+        <>
+            { userProps ? (
                 <>
+                    <Header/>
                     <div className="mx-[128px] flex flex-col relative z-0 ">
                         <div className="top-[56px] min-h-[calc(100vh-88px)] flex flex-col relative">
                             <div className="min-h-[inherit] mb-[calc(-100vh-56px)] flex flex-col flex-shrink-0 items-stretch justify-start relative">
@@ -36,8 +34,10 @@ const UserAboutPage = ({ params }) => {
                         { showEditProfile && <UserProfileEdit editProfileRef={profileActionRef.editProfileRef}/>}
                     </div>
                 </>
+            ) : (
+                <LoadingPageComponent/>
             ) }
-        </div>
+        </>
     );
 };
 

@@ -1,17 +1,18 @@
 import { QuickSettingItem } from "@/components";
-import { headerNotificationSetting } from "@/constants/HeaderConstants";
+import { HEADER_NOTIFICATION_SETTING } from "@/constants/HeaderConstants";
 
 const NotificationHeaderQuickSetting = ({ notificationQuickSettingButtonRef, notificationTranslateXValue, notificationQuickSettingTranslateYValue }) => {
+    console.log({ notificationQuickSettingButtonRef, notificationTranslateXValue, notificationQuickSettingTranslateYValue })
     return (
-        <div ref={notificationQuickSettingButtonRef} className="absolute top-0 left-0 translate-x-[-20px] translate-y-[60px] z-50" style={notificationTranslateXValue && {'--tw-translate-x': `${notificationTranslateXValue}px`}}>
+        <div ref={notificationQuickSettingButtonRef} className="absolute top-0 left-0 translate-x-[-20px] translate-y-[60px] z-50" style={{'--tw-translate-x': `${notificationTranslateXValue}px`}}>
             <div className="relative mt-[15px] rounded-l-md rounded-b-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
                 <div className="overflow-hidden rounded-l-md rounded-b-md bg-white">
                     <div className="flex flex-col grow items-stretch origin-top-left relative">
                         <div className="w-[344px] py-[8px] overflow-x-hidden overflow-y-auto overscroll-y-contain flex flex-col relative">
                             <div className="flex flex-col grow relative">
-                                {headerNotificationSetting.map((value, index) => (
+                                { HEADER_NOTIFICATION_SETTING.map((value, index) => (
                                     <QuickSettingItem key={index} settingProps={value}/>
-                                ))}
+                                )) }
                             </div>
                         </div>
                     </div>

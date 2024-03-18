@@ -33,7 +33,7 @@ const SuggestEventItem = ({ eventProps }) => {
                                         </span>
                                     </div>
                                 </div>
-                                {eventProps?.event_description ? (
+                                { eventProps?.event_description && (
                                     <div className="flex flex-row flex-nowrap items-center justify-between relative">
                                         <div className="flex flex-row items-center justify-between relative">
                                             <div className="flex flex-col items-center relative">
@@ -45,7 +45,7 @@ const SuggestEventItem = ({ eventProps }) => {
                                             </div>
                                         </div>
                                     </div>
-                                ): null}
+                                ) }
                             </div>
                         </div>
                     </div>

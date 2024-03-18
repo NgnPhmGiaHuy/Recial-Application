@@ -1,10 +1,11 @@
 "use client"
 
-import { useUserData, useWithAuth } from "@/hooks";
+import { useEventData, useUserData, useWithAuth } from "@/hooks";
 import { EventAside, EventAsideActivity, EventScaffold, Header } from "@/components";
 
 const EventPage = () => {
     const { userProps } = useUserData();
+    const { eventProps } = useEventData()
 
     return (
         <>

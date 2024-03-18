@@ -20,6 +20,15 @@ export const formatTime = (time) => {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 };
 
+export const convertTo12HourFormat = (dateString) => {
+    const date = new Date(dateString);
+    const hours = (date.getHours() % 12 || 12);
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const period = (date.getHours() >= 12 ? 'pm' : 'am');
+
+    return `${hours}:${minutes} ${period}`;
+};
+
 export const formatDate = (dateString) => {
     const date = new Date(dateString);
     const month = date.toLocaleString("en", { month: "numeric" });
@@ -30,12 +39,21 @@ export const formatDate = (dateString) => {
 
 export const formatCurrentDate = (date) => {
     const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     const day = date.getDate();
     const suffix = (day === 1 || day === 21 || day === 31) ? 'st' : (day === 2 || day === 22) ? 'nd' : (day === 3 || day === 23) ? 'rd' : 'th';
 
     return `${weekdays[date.getDay()]}, ${day}${suffix} ${date.getFullYear()}`;
+}
+
+export const formatCurrentWeekdayDate = (inputDate) => {
+    const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+    const dateObj = new Date(inputDate);
+    const day = dateObj.getDate() || "DD";
+    const suffix = (day === 1 || day === 21 || day === 31) ? 'st' : (day === 2 || day === 22) ? 'nd' : (day === 3 || day === 23) ? 'rd' : 'th';
+
+    return `${weekdays[dateObj.getDay()]}, ${day}${suffix}`;
 }
 
 export const formatDateTime = (startDatetime) => {

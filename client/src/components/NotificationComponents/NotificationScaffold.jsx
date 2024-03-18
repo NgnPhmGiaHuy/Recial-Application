@@ -6,7 +6,7 @@ import { useClickOutside, useFilteredNotification, useToggleState } from "@/hook
 import { HeaderTypeButtonItem, NotificationHeaderContent, NotificationHeaderQuickSetting } from "@/components";
 
 const NotificationScaffold = ({ userProps }) => {
-    const notificationRef = useRef(null)
+    const notificationRef = useRef(null);
     const notificationQuickSettingButtonRef = useRef(null);
 
     const [showTypeNotification, setShowTypeNotification] = useState("all");

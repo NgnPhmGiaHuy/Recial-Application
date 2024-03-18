@@ -8,7 +8,7 @@ import { QuickSettingItem } from "@/components";
 import { useClickOutside, useToggleState } from "@/hooks";
 import { headerMessageQuickSetting } from "@/constants/HeaderConstants";
 
-const HeaderMessageContentItem = ({messageProps}) => {
+const HeaderMessageContentItem = ({ messageProps }) => {
     const messageQuickSettingItemButtonRef = useRef();
 
     const [showHeaderMessageContentItemMoreButton, setShowHeaderMessageContentItemMoreButton] = useState(false);
@@ -102,7 +102,7 @@ const HeaderMessageContentItem = ({messageProps}) => {
                 </div>
             </div>
             <div>
-                {showHeaderMessageItemQuickSetting ? (
+                { showHeaderMessageItemQuickSetting && (
                     <div ref={messageQuickSettingItemButtonRef} className="absolute top-0 left-0 translate-x-[10px] translate-y-[-265px] z-50">
                         <div className="relative mt-[15px] rounded-l-md rounded-r-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
                             <div className="overflow-hidden rounded-l-md rounded-r-md bg-white">
@@ -121,7 +121,7 @@ const HeaderMessageContentItem = ({messageProps}) => {
                             </svg>
                         </div>
                     </div>
-                ) : null}
+                ) }
             </div>
         </li>
     );

@@ -22,7 +22,7 @@ const AsideScaffoldItem = ({ itemProps }) => {
                     <div className="min-h-[48px] px-[8px] flex flex-row items-center justify-between relative">
                         <div className="my-[6px] mr-[12px] flex flex-col self-center relative">
                             <div className={`${active ? "bg-lime-500 text-white" : "bg-zinc-200"} w-[40px] h-[40px] flex flex-row items-center justify-center rounded-full overflow-hidden relative`}>
-                                <i>{itemProps.icon}</i>
+                                <i>{ itemProps.icon }</i>
                             </div>
                         </div>
                         <div className="flex flex-row flex-shrink grow items-center justify-between self-stretch relative">
@@ -31,14 +31,14 @@ const AsideScaffoldItem = ({ itemProps }) => {
                                     <div className="my-[5px]">
                                         <span className="block text-[16px] text-black text-left font-medium break-words leading-5">
                                             <span className="overflow-hidden line-clamp-2 relative">
-                                                {itemProps.title}
+                                                { itemProps.title }
                                             </span>
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        {itemProps.chevronRight ? (
+                        { itemProps.chevronRight && (
                             <div className="flex flex-row items-center relative">
                                 <div className="mr-[12px] flex flex-col self-center relative">
                                     <div className="w-[32px] h-[32px] flex flex-row items-center justify-center cursor-pointer relative transition-all">
@@ -50,7 +50,7 @@ const AsideScaffoldItem = ({ itemProps }) => {
                                     </div>
                                 </div>
                             </div>
-                        ) : null}
+                        ) }
                     </div>
                 </a>
             </div>

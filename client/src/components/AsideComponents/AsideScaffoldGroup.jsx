@@ -1,11 +1,5 @@
-import Link from "next/link";
-
-import ASIDE_GROUP from "@/constants/AsideConstants/AsideGroupConstants";
-
-import { useFilterUserGroupsByRole } from "@/hooks";
-import { useGetGroupDataAfterFilterUserRole } from "@/hooks/useGroup/useGroupData";
 import { AsideScaffoldGroupItem, AsideScaffoldGroupNavigation } from "@/components";
-
+import { useFilterUserGroupsByRole, useGetGroupDataAfterFilterUserRole } from "@/hooks/useGroup/useGroupData";
 
 const AsideScaffoldGroup = () => {
     const { managedGroups, joinedGroups } = useFilterUserGroupsByRole();
@@ -14,40 +8,11 @@ const AsideScaffoldGroup = () => {
     return (
         <div className="max-w-[360px] flex flex-col flex-shrink grow basis-full relative">
             <div className="flex flex-col grow relative">
-                <div className="mt-[4px] mb-[8px]">
-                    <div className="flex flex-col flex-shrink relative">
-                        { ASIDE_GROUP.map((value, index) => (
-                            <AsideScaffoldGroupNavigation key={index} itemProps={value}/>
-                        )) }
-                        <div className="mx-[16px] mt-[8px]">
-                            <div className="h-[36px] px-[12px] flex flex-row flex-shrink-0 items-center justify-center rounded-xl bg-lime-200 hover:bg-lime-300 text-lime-900 hover:text-black cursor-pointer relative transition-all">
-                                <Link href="/groups/create">
-                                    <div className="w-full flex flex-row items-center justify-center relative transition-all">
-                                        <div className="mx-[3px] flex flex-shrink-0 items-center relative">
-                                            <div className="w-[16px] h-[16px] flex items-center justify-center relative">
-                                                <i>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
-                                                    </svg>
-                                                </i>
-                                            </div>
-                                        </div>
-                                        <div className="mx-[3px] flex flex-shrink-0 items-center relative">
-                                            <span
-                                                className="block text-[15px] text-center font-semibold break-words relative leading-5">
-                                                <span className="overflow-hidden relative">
-                                                    Create new group
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <section>
+                    <AsideScaffoldGroupNavigation/>
+                </section>
                 <div className="my-[12px] mx-[8px] border-b border-solid border-zinc-200"></div>
-                <>
+                <section>
                     <div
                         className="m-[-6px] px-[16px] py-[12px] flex flex-row flex-shrink-0 flex-nowrap items-stretch justify-between">
                         <div className="p-[6px] flex flex-col flex-shrink-0 relative">
@@ -62,11 +27,10 @@ const AsideScaffoldGroup = () => {
                     { managedGroupsProps?.map((value, index) => (
                         <AsideScaffoldGroupItem key={index} groupProps={value}/>
                     )) }
-                </>
+                </section>
                 <div className="my-[12px] mx-[8px] border-b border-solid border-zinc-200"></div>
-                <>
-                    <div
-                        className="m-[-6px] px-[16px] py-[12px] flex flex-row flex-shrink-0 flex-nowrap items-stretch justify-between">
+                <section>
+                    <div className="m-[-6px] px-[16px] py-[12px] flex flex-row flex-shrink-0 flex-nowrap items-stretch justify-between">
                         <div className="p-[6px] flex flex-col flex-shrink-0 relative">
                             <span
                                 className="block text-[17px] text-black text-left font-semibold break-words relative leading-5">
@@ -88,7 +52,7 @@ const AsideScaffoldGroup = () => {
                     { joinedGroupsProps?.map((value, index) => (
                         <AsideScaffoldGroupItem key={index} groupProps={value}/>
                     )) }
-                </>
+                </section>
             </div>
         </div>
     );

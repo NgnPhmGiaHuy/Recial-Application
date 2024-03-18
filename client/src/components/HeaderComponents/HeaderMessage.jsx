@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
 import { useClickOutside, useToggleState } from "@/hooks";
-import { HeaderMessageContentItem, HeaderMessageQuickSetting } from "@/components";
 import { useGetUserMessageData } from "@/hooks/useUser/useUserData";
+import { HeaderMessageContentItem, HeaderMessageQuickSetting } from "@/components";
 
 const HeaderMessage = ({ forwardedRef }) => {
     const userProps = useSelector(state => state.user);
@@ -23,7 +23,7 @@ const HeaderMessage = ({ forwardedRef }) => {
 
     useClickOutside(messageQuickSettingButtonRef, showMessageQuickSetting, setShowMessageQuickSetting);
 
-    const { data, error, isLoading, isValidating } = useGetUserMessageData();
+    const { isLoading } = useGetUserMessageData();
 
     return (
         <div ref={forwardedRef} className="absolute top-0 left-0 translate-x-[-172px] translate-y-[48px]">

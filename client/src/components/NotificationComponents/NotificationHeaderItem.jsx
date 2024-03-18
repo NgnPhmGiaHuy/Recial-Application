@@ -1,33 +1,11 @@
-"use client"
-
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
 
 import { formatTimeAgoFull } from "@/utils";
-import { useClickOutside, useToggleState } from "@/hooks";
+import { useNotificationHeaderItemAction } from "@/hooks";
 import { NotificationHeaderItemQuickSetting } from "@/components";
-import { notificationTypeOfColor } from "@/constants/HeaderConstants";
 
-const NotificationHeaderItem = ({notificationProps}) => {
-    const notificationQuickSettingItemRef = useRef(null);
-    const notificationQuickSettingItemButtonRef = useRef(null);
-
-    const [notificationQuickSettingItemTranslateXValue, setNotificationQuickSettingItemTranslateXValue] = useState(0);
-
-    const [showHeaderNotificationContentItemMoreButton, setShowNotificationMessageContentItemMoreButton] = useState(false)
-    const [showHeaderNotificationItemQuickSetting, setShowHeaderNotificationItemQuickSetting, handleShowHeaderNotificationQuickSettingButton] = useToggleState(false);
-
-    const notificationSvgIcon = notificationTypeOfColor[notificationProps.notification_type]?.icon || notificationTypeOfColor.default.icon;
-    const notificationTextColor = notificationTypeOfColor[notificationProps.notification_type]?.textColor || notificationTypeOfColor.default.textColor;
-    const notificationBackgroundColor = notificationTypeOfColor[notificationProps.notification_type]?.backgroundColor || notificationTypeOfColor.default.backgroundColor;
-
-    useEffect(() => {
-        if (notificationQuickSettingItemRef.current && notificationQuickSettingItemButtonRef.current && showHeaderNotificationItemQuickSetting) {
-            setNotificationQuickSettingItemTranslateXValue(notificationQuickSettingItemRef.current.clientWidth - notificationQuickSettingItemButtonRef.current.clientWidth - 5)
-        }
-    }, [showHeaderNotificationItemQuickSetting])
-
-    useClickOutside(notificationQuickSettingItemButtonRef, showHeaderNotificationItemQuickSetting, setShowHeaderNotificationItemQuickSetting);
+const NotificationHeaderItem = ({ notificationProps }) => {
+    const { notificationQuickSettingItemRef, notificationQuickSettingItemButtonRef, notificationSvgIcon, notificationTextColor, notificationBackgroundColor, notificationQuickSettingItemTranslateXValue, showHeaderNotificationContentItemMoreButton, showHeaderNotificationItemQuickSetting, setShowNotificationMessageContentItemMoreButton, handleShowHeaderNotificationQuickSettingButton } = useNotificationHeaderItemAction({ notificationProps });
 
     return (
         <li ref={notificationQuickSettingItemRef} className="relative" onMouseOver={() => setShowNotificationMessageContentItemMoreButton(true)} onMouseOut={() => setShowNotificationMessageContentItemMoreButton(false)}>
@@ -103,9 +81,9 @@ const NotificationHeaderItem = ({notificationProps}) => {
                 </div>
             </div>
             <div>
-                {showHeaderNotificationItemQuickSetting && (
+                { showHeaderNotificationItemQuickSetting && (
                     <NotificationHeaderItemQuickSetting notificationQuickSettingItemButtonRef={notificationQuickSettingItemButtonRef} notificationQuickSettingItemTranslateXValue={notificationQuickSettingItemTranslateXValue}/>
-                )}
+                ) }
             </div>
         </li>
     );

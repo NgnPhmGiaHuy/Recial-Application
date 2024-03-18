@@ -1,6 +1,11 @@
+import Link from "next/link";
+import { useSelector } from "react-redux";
+
 import { FriendRequestItem } from "@/components";
 
-const FriendRequest = ({ userProps }) => {
+const FriendRequest = () => {
+    const userProps = useSelector(state => state.user);
+
     return (
         <section className="flex flex-col rounded-xl bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
             <div className="w-full h-full p-[12px] relative">
@@ -14,16 +19,16 @@ const FriendRequest = ({ userProps }) => {
                             </span>
                         </div>
                     </div>
-                    <a href="/friends" >
+                    <Link href="/friends" >
                         <span className="block text-[14px] text-left text-lime-500 font-semibold break-words relative leading-5 hover:text-lime-700 transition-all">
                             See all
                         </span>
-                    </a>
+                    </Link>
                 </div>
                 <div>
-                    {userProps?.slice(0, 5).map((value, index) => (
+                    { userProps?.friend_request?.slice(0, 5).map((value, index) => (
                         <FriendRequestItem key={index} userProps={value}/>
-                    ))}
+                    )) }
                 </div>
             </div>
         </section>

@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux";
+
 import { GroupScaffoldJoinItem } from "@/components";
 
-const GroupScaffoldJoin = ({ userProps }) => {
+const GroupScaffoldJoin = () => {
+    const userProps = useSelector(state => state.user);
+
     return (
         <div className="w-full p-[16px] flex flex-col items-center justify-center relative">
             <div className="w-full m-[-8px] flex flex-row flex-wrap items-stretch justify-center">
@@ -11,16 +15,16 @@ const GroupScaffoldJoin = ({ userProps }) => {
                                 <div className="px-[16px] flex flex-col relative">
                                     <span className="block text-[17px] text-black text-left font-semibold relative leading-5">
                                         <span className="overflow-hidden relative">
-                                            All groups you've joined ({userProps?.group_list?.length})
+                                            All groups you've joined ({ userProps?.group_list?.length })
                                         </span>
                                     </span>
                                 </div>
                             </div>
                         </div>
                         <div className="m-[-4px] flex flex-row flex-wrap items-start justify-start gap-1 relative">
-                            {userProps?.group_list?.map((value, index) => (
+                            { userProps?.group_list?.map((value, index) => (
                                 <GroupScaffoldJoinItem key={index} groupProps={value}/>
-                            ))}
+                            )) }
                         </div>
                     </div>
                 </div>

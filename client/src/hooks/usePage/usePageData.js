@@ -1,21 +1,51 @@
 "use client"
 
 import useSWR from "swr";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { useFetchAndScroll } from "@/hooks";
+import {useDecodeToken, useFetchAndScroll} from "@/hooks";
 import { getPagePostDataById } from "@/app/api/fetchPageData";
 import fetcherWithoutAccessToken from "@/app/api/fetcherWithoutAccessToken";
-import { setPageData, setPageFollowData, setPageLikeData } from "@/store/actions/page/pageActions";
+import { clearPageCurrentUserRole, setPageCurrentUserRole, setPageData, setPageFollowData, setPageLikeData } from "@/store/actions/page/pageActions";
 
 export const usePageData = (pageId) => {
+    const { userRole } = useCheckUserPageRole(pageId);
+
     const { pageProps } = useGetPageData(pageId);
     const { pageLikeProps } = useGetPageLikeData(pageId);
     const { pageFollowProps } = useGetPageFollowData(pageId);
+
     const { postRef, pagePostProps, setPagePostProps } = useGetPagePostData(pageId);
 
-    return { postRef, pagePostProps };
+    return { postRef, pagePostProps, userRole };
+}
+
+const useCheckUserPageRole = (pageIds) => {
+    const decodedToken = useDecodeToken();
+    const dispatch = useDispatch();
+
+    const [userRole, setUserRole] = useState(null);
+
+    const checkUserRole = () => {
+        if (decodedToken?.roles?.page) {
+            Object.entries(decodedToken.roles.page).forEach(([pageId, userRole]) => {
+                if (pageId === pageIds) {
+                    setUserRole(userRole);
+
+                    return dispatch(setPageCurrentUserRole(userRole));
+                }
+            });
+        }
+    };
+
+    useEffect(() => {
+        dispatch(clearPageCurrentUserRole());
+
+        return checkUserRole();
+    }, [pageIds, decodedToken]);
+
+    return { userRole };
 }
 
 const useGetPageData = (pageId) => {

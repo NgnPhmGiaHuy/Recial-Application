@@ -3,24 +3,25 @@ import { useRouter } from "next/navigation";
 
 import { formatTimeAgoShort } from "@/utils";
 import { setUserFriendRequest } from "@/app/api/fetchUserData";
+import { FriendRequestItemButton } from "@/components";
 
 const FriendRequestItem = ({ userProps, action }) => {
     const router = useRouter();
 
     const handleClick = () => {
         if (action) {
-            action(userProps?.user?._id);
+            return action(userProps?.user?._id);
         } else {
-            router.push(`/${userProps?.user?._id}`)
+            return router.push(`/${userProps?.user?._id}`)
         }
     }
 
     const handleFriendRequest = async (e, status) => {
         e.stopPropagation();
         try {
-            await setUserFriendRequest(status, userProps);
+            return await setUserFriendRequest(status, userProps);
         } catch (error) {
-            console.error('Error handling friend request:', error);
+            return console.error('Error handling friend request:', error);
         }
     }
 
@@ -78,32 +79,8 @@ const FriendRequestItem = ({ userProps, action }) => {
                     </div>
                     <div className="mx-[-12px] flex flex-col grow relative">
                         <div className="px-[8px] flex flex-row flex-wrap items-stretch justify-between relative">
-                            <div className="p-[4px] flex flex-col flex-shrink grow basis-auto relative">
-                                <div className="flex flex-col justify-center cursor-pointer">
-                                    <div className="h-[36px] px-[12px] flex flex-row flex-nowrap items-center justify-center rounded-xl bg-lime-500 relative hover:bg-lime-700 transition-all" onClick={(e) => handleFriendRequest(e,  "Confirm")}>
-                                        <div className="mx-[3px] flex flex-shrink-0 items-center justify-center relative">
-                                            <span className="block text-[15px] text-white font-semibold break-words relative leading-5">
-                                                <span className="block overflow-hidden whitespace-nowrap text-ellipsis relative">
-                                                    Confirm
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="p-[4px] flex flex-col flex-shrink grow basis-auto relative">
-                                <div className="flex flex-col justify-center cursor-pointer">
-                                    <div className="h-[36px] px-[12px] flex flex-row flex-nowrap items-center justify-center rounded-xl bg-zinc-200 relative hover:bg-zinc-300 transition-all" onClick={(e) => handleFriendRequest(e, "Delete")}>
-                                        <div className="mx-[3px] flex flex-shrink-0 items-center justify-center relative">
-                                            <span className="block text-[15px] text-black font-semibold break-words relative leading-5">
-                                                <span className="block overflow-hidden whitespace-nowrap text-ellipsis relative">
-                                                    Delete
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <FriendRequestItemButton color={true} title="Confirm" onClick={(e) => handleFriendRequest(e,  "Confirm")}/>
+                            <FriendRequestItemButton color={false} title="Delete" onClick={(e) => handleFriendRequest(e,  "Delete")}/>
                         </div>
                     </div>
                 </div>

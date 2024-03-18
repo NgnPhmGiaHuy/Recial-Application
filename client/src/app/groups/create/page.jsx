@@ -1,15 +1,15 @@
 "use client"
 
 import { useGroupCreateAction, useUserData, useWithAuth } from "@/hooks";
-import { CreateGroupAside, CreateGroupReview, Header} from "@/components";
+import { CreateGroupAside, CreateGroupReview, Header, LoadingPageComponent } from "@/components";
 
 const CreateGroupPage = () => {
     const { userProps } = useUserData();
     const { createGroupActionRef, state, handleState } = useGroupCreateAction();
 
     return (
-        userProps && (
-            <>
+        <>
+            { userProps ? (
                 <div>
                     <Header/>
                     <div className="flex flex-col relative">
@@ -31,8 +31,10 @@ const CreateGroupPage = () => {
                         </div>
                     </div>
                 </div>
-            </>
-        )
+            ) : (
+                <LoadingPageComponent/>
+            ) }
+        </>
     );
 };
 

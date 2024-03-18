@@ -1,4 +1,6 @@
-const EventScaffoldItemContent = () => {
+import {convertDateFormat} from "@/utils";
+
+const EventScaffoldItemContent = ({ eventProps }) => {
     return (
         <div>
             <div className="mt-[40px] mb-[12px] flex flex-row items-center relative">
@@ -15,11 +17,11 @@ const EventScaffoldItemContent = () => {
                         <div className="block text-[16px] text-zinc-500 font-normal break-words relative leading-5">
                             <div className="flex flex-row items-center justify-between gap-2 relative">
                                 <span className="max-w-[320px] text-ellipsis whitespace-nowrap overflow-hidden relative">
-                                    Stella Bergmann's place
+                                    { eventProps?.location }
                                 </span>
                                 <span className="overflow-hidden relative"> | </span>
                                 <span className="overflow-hidden relative">
-                                    July 5, 2020.
+                                    { convertDateFormat(eventProps?.event_start_datetime) }
                                 </span>
                             </div>
                         </div>
@@ -30,7 +32,7 @@ const EventScaffoldItemContent = () => {
                 <div>
                     <span className="text-[16px] text-zinc-700 text-left font-normal break-words relative leading-6">
                         <span className="overflow-hidden line-clamp-6 relative">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Restatis igitur vos; Putabam equidem satis, inquit, me dixisse. Sed ea mala virtuti magnitudine obruebantur. Tenent mordicus. Duo Reges: constructio interrete.Tollitur beneficium, tollitur gratia, quae sunt vincla concordiae. Falli igitur possumus. Bonum patria: miserum exilium. Sullae consulatum? Eiuro, inquit adridens, iniquum, hac quidem de re; Tu vero, inquam, ducas licet, si sequetur;Quorum altera prosunt, nocent altera. Quis hoc dicit? Hos contra singulos dici est melius. Quid iudicant sensus?
+                            { eventProps?.event_description }
                         </span>
                     </span>
                 </div>

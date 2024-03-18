@@ -10,21 +10,21 @@ const AsideWeatherDayScaffold = ({ day, temperature, weatherCode }) => {
                     <div>
                         <span className="text-[12px] break-words relative leading-5">
                             <span className="overflow-hidden relative">
-                                {day}
+                                { day }
                             </span>
                         </span>
                     </div>
                     <div className="m-[6px]">
                         <div className="w-[24px] h-[24px] flex items-center justify-center relative overflow-hidden">
                             <i>
-                                {WEATHER_ICONS[interpretWeatherCode(weatherCode)]}
+                                { WEATHER_ICONS[interpretWeatherCode(weatherCode)] }
                             </i>
                         </div>
                     </div>
                     <div>
                         <span className="text-[14px] break-words relative leading-5">
                             <span className="overflow-hidden relative">
-                                {temperature}°
+                                { temperature }°
                             </span>
                         </span>
                     </div>

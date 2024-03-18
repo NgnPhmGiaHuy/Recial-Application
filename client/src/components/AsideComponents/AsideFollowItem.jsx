@@ -1,10 +1,11 @@
+import Link from "next/link";
 import Image from "next/image";
 
 const AsideFollowItem = ({ userProps, hasNotificationBadge }) => {
     return(
         <li>
             <div className="px-[8px]">
-                <a href={`/${userProps?.user?._id}`} className="block rounded-md hover:bg-zinc-200 transition-all">
+                <Link href={`/${userProps?.user?._id}`} className="block rounded-md hover:bg-zinc-200 transition-all">
                     <div className="min-h-[48px] px-[8px] flex flex-row items-center justify-between relative">
                         <div className="my-[6px] mr-[12px] flex flex-col self-center relative">
                             <div className="w-[32px] h-[32px] flex flex-row items-center justify-center rounded-md overflow-hidden relative">
@@ -24,7 +25,7 @@ const AsideFollowItem = ({ userProps, hasNotificationBadge }) => {
                                 </div>
                             </div>
                         </div>
-                        {hasNotificationBadge ? (
+                        { hasNotificationBadge && (
                             <div className="my-[8px] ml-[12px] self-center relative">
                                 <div className="flex flex-row items-center">
                                     <div className="w-[20px] pl-[4px] flex flex-row bg-transparent relative cursor-pointer">
@@ -32,9 +33,9 @@ const AsideFollowItem = ({ userProps, hasNotificationBadge }) => {
                                     </div>
                                 </div>
                             </div>
-                        ): null}
+                        ) }
                     </div>
-                </a>
+                </Link>
             </div>
         </li>
     )

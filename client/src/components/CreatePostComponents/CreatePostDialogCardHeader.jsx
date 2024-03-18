@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { toggleCreatePost, toggleCreatePostAudience, toggleCreatePostPanel } from "@/store/actions/toggle/toggleActions";
 
-const CreatePostDialogHeader = () => {
+const CreatePostDialogCardHeader = () => {
     const dispatch = useDispatch();
 
     const userProps = useSelector(state => state.user);
@@ -122,4 +122,4 @@ const CreatePostDialogHeader = () => {
     )
 }
 
-export default CreatePostDialogHeader;
+export default CreatePostDialogCardHeader;

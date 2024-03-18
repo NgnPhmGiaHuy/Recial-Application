@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux";
+
 import { CreatePost, PageScaffoldMainNavigationItem, PostPage } from "@/components";
 
 const PageScaffoldMain = ({ postRef, pagePostProps }) => {
+    const pageProps = useSelector(state => state.page);
+
     return (
         <div className="w-full min-h-[inherit] mx-[12px] flex flex-col flex-shrink grow basis-0 relative">
             <header>
@@ -23,11 +27,11 @@ const PageScaffoldMain = ({ postRef, pagePostProps }) => {
                     </div>
                 </div>
             </header>
-            {false && (
+            { pageProps?.currentUserRole && (
                 <div className="mt-[12px]">
                     <CreatePost/>
                 </div>
-            )}
+            ) }
             <main>
                 <div className="my-[16px] flex flex-col gap-4 relative">
                     <PostPage postRef={postRef} pagePostProps={pagePostProps}/>

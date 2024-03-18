@@ -3,7 +3,7 @@
 import { handleNewPostData } from "@/utils/handleNewData";
 import { useUserGroupData } from "@/hooks/useGroup/useGroupData";
 import { useUserData, useWebSocket, useWithAuth } from "@/hooks";
-import { AsideScaffold, GroupScaffoldPost, Header } from "@/components";
+import { AsideScaffold, GroupScaffoldPost, Header, LoadingPageComponent } from "@/components";
 
 const GroupFeedPage = () => {
     const { userProps } = useUserData();
@@ -16,8 +16,8 @@ const GroupFeedPage = () => {
     useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
     return (
-        userProps && (
-            <>
+        <>
+            { userProps ? (
                 <div>
                     <Header/>
                     <div className="flex flex-col relative">
@@ -39,8 +39,10 @@ const GroupFeedPage = () => {
                         </div>
                     </div>
                 </div>
-            </>
-        )
+            ) : (
+                <LoadingPageComponent/>
+            ) }
+        </>
     );
 };
 

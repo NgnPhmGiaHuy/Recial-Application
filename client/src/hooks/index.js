@@ -7,6 +7,8 @@ import useWithAuth from "@/hooks/useAuth/useWithAuth";
 import { useCommentData } from "@/hooks/useComment/useCommentData";
 import { useCommentMediaData } from "@/hooks/useComment/useCommentData";
 
+import { useEventData } from "@/hooks/useEvent/useEventData";
+
 import useClickOutside from "@/hooks/useFunction/useClickOutside";
 import useContentEditable from "@/hooks/useFunction/useContentEditable";
 import useCountComment from "@/hooks/useFunction/useCountComment";
@@ -38,6 +40,9 @@ import { useStoryControls } from "@/hooks/useMedia/useStoryData";
 
 import { usePageData } from "@/hooks/usePage/usePageData";
 
+import useNotificationHeaderAction from "@/hooks/useNotification/useNotificationHeaderAction";
+import useNotificationHeaderItemAction from "@/hooks/useNotification/useNotificationHeaderItemAction";
+
 import { useGetPostData } from "@/hooks/usePost/usePostData";
 import { useSetPostData } from "@/hooks/usePost/usePostData";
 import { usePostItemData } from "@/hooks/usePost/usePostItemData";
@@ -59,6 +64,8 @@ export {
 
     useCommentData, useCommentMediaData,
 
+    useEventData,
+
     useClickOutside, useContentEditable, useCountComment, useCountLikeReaction, useDateOfBirth, useFetchAndScroll, useFilteredNotification, useSingleImageData, useMultipleImagesData, useMostReactedIcons, useMultipleHandleState, useMultipleRefs, useOverflowText, useToggleState, useWeatherData, useWeatherForecast,
 
     useGroupCreateAction, useGroupData, useFilterUserGroupsByRole,
@@ -68,6 +75,8 @@ export {
     useMediaData, useMediaNavigation, useMediaPageFunctionality, useStoryData, useStoryControls,
 
     usePageData,
+
+    useNotificationHeaderAction, useNotificationHeaderItemAction,
 
     useGetPostData, useSetPostData, usePostItemData, usePostDataByUserId,
 

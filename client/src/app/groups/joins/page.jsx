@@ -1,14 +1,16 @@
 "use client"
 
 import { useUserData, useWithAuth } from "@/hooks";
-import { AsideScaffold, GroupScaffoldJoin, Header } from "@/components";
+import { useGetUserGroupListData } from "@/hooks/useUser/useUserData";
+import { AsideScaffold, GroupScaffoldJoin, Header, LoadingPageComponent } from "@/components";
 
 const GroupJoinPage = () => {
-    const { userProps, setUserProps } = useUserData();
+    const { userProps } = useUserData();
 
+    useGetUserGroupListData();
     return (
-        userProps && (
-            <>
+        <>
+            { userProps ? (
                 <div>
                     <Header/>
                     <div className="flex flex-col relative">
@@ -22,7 +24,7 @@ const GroupJoinPage = () => {
                                             </div>
                                         </div>
                                         <div className="flex flex-col flex-shrink grow basis-0 relative">
-                                            <GroupScaffoldJoin userProps={userProps}/>
+                                            <GroupScaffoldJoin/>
                                         </div>
                                     </div>
                                 </div>
@@ -30,8 +32,10 @@ const GroupJoinPage = () => {
                         </div>
                     </div>
                 </div>
-            </>
-        )
+            ) : (
+                <LoadingPageComponent/>
+            ) }
+        </>
     );
 };
 

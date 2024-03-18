@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 
 import { HeaderMenuSectionItem } from "@/components";
 import { toggleHeaderMenu } from "@/store/actions/toggle/toggleActions";
-import { headerMenuSocial, headerMenuPersonal } from "@/constants/HeaderConstants";
+import { HEADER_MENU_SOCIAL, HEADER_MENU_PERSONAL } from "@/constants/HeaderConstants";
 
 const HeaderMenu = ({ forwardedRef }) => {
     const dispatch = useDispatch();
@@ -30,9 +30,9 @@ const HeaderMenu = ({ forwardedRef }) => {
                             </div>
                         </header>
                         <ul className="flex flex-row flex-wrap p-[8px]">
-                            {headerMenuSocial.map((value, index) => (
+                            { HEADER_MENU_SOCIAL.map((value, index) => (
                                 <HeaderMenuSectionItem key={index} sectionItemData={value}/>
-                            ))}
+                            )) }
                         </ul>
                     </section>
                     <section className="mt-[12px] bg-white border border-solid border-gray-200 rounded-xl overflow-visible relative">
@@ -42,9 +42,9 @@ const HeaderMenu = ({ forwardedRef }) => {
                             </div>
                         </header>
                         <ul className="flex flex-row flex-wrap p-[8px]">
-                            {headerMenuPersonal.map((value, index) => (
+                            { HEADER_MENU_PERSONAL.map((value, index) => (
                                 <HeaderMenuSectionItem key={index} sectionItemData={value}/>
-                            ))}
+                            )) }
                         </ul>
                     </section>
                 </div>

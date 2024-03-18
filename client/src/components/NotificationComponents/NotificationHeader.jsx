@@ -1,42 +1,10 @@
-"use client"
-
-import { useEffect, useRef, useState, useCallback } from "react";
-
-import { useClickOutside, useFilteredNotification, useToggleState } from "@/hooks";
+import { useNotificationHeaderAction } from "@/hooks";
+import { useGetUserNotificationData } from "@/hooks/useUser/useUserData";
 import { HeaderTypeButtonItem, NotificationHeaderQuickSetting, NotificationHeaderContent } from "@/components";
-import {useGetUserNotificationData} from "@/hooks/useUser/useUserData";
-import {useSelector} from "react-redux";
 
 const NotificationHeader = ({ forwardedRef }) => {
-    const userProps = useSelector(state => state.user);
-
-    const notificationQuickSettingButtonRef = useRef(null);
-
-    const [showTypeNotification, setShowTypeNotification] = useState("all");
-    const [notificationQuickSettingTranslateYValue, setNotificationQuickSettingTranslateYValue] = useState(0)
-    const [showNotificationQuickSetting, setShowNotificationQuickSetting, handleNotificationQuickSettingButton] = useToggleState(false);
-
-    const {filteredNotifications, showUnreadNotification, setShowUnreadNotification} = useFilteredNotification(userProps);
-
-    const handleTypeClick = useCallback((type) => {
-        if (type === "unread") {
-            setShowUnreadNotification(true)
-        } else {
-            setShowUnreadNotification(false);
-        }
-
-        setShowTypeNotification(type);
-    }, []);
-
-    useEffect(() => {
-        if (notificationQuickSettingButtonRef.current && showNotificationQuickSetting) {
-            setNotificationQuickSettingTranslateYValue(-notificationQuickSettingButtonRef.current.clientHeight);
-        }
-    }, [showNotificationQuickSetting]);
-
-    useClickOutside(notificationQuickSettingButtonRef, showNotificationQuickSetting, setShowNotificationQuickSetting);
-
-    const { data, error, isLoading, isValidating } = useGetUserNotificationData();
+    const { isLoading } = useGetUserNotificationData();
+    const { notificationQuickSettingButtonRef, showTypeNotification, showNotificationQuickSetting, notificationTranslateXValue, notificationQuickSettingTranslateYValue, filteredNotifications, handleTypeClick, handleNotificationQuickSettingButton } = useNotificationHeaderAction();
 
     return (
         <div ref={forwardedRef} className="absolute top-0 left-0 sm:translate-x-[-172px] translate-x-[-160px] translate-y-[48px]">
@@ -71,7 +39,7 @@ const NotificationHeader = ({ forwardedRef }) => {
                                         <HeaderTypeButtonItem type="unread" showType={showTypeNotification} onClick={handleTypeClick}/>
                                     </div>
                                     <div className="mt-[-12px] mb-[20px] flex flex-col">
-                                        {isLoading ? (
+                                        { isLoading ? (
                                             <div className="w-full h-full mb-[-12px] py-[16px] flex items-center justify-center relative">
                                                 <div className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-lime-700 motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
                                                     <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
@@ -81,14 +49,14 @@ const NotificationHeader = ({ forwardedRef }) => {
                                             </div>
                                         ) : (
                                             <>
-                                                {filteredNotifications?.newNotifications?.length ? (
+                                                { filteredNotifications?.newNotifications?.length ? (
                                                     <NotificationHeaderContent title="News" props={filteredNotifications?.newNotifications} hasNews={false}/>
-                                                ) : null}
-                                                {filteredNotifications?.otherNotifications?.length ? (
+                                                ) : null }
+                                                { filteredNotifications?.otherNotifications?.length ? (
                                                     <NotificationHeaderContent title="Before" props={filteredNotifications?.otherNotifications} hasNews={filteredNotifications?.newNotifications.length}/>
-                                                ) : null}
+                                                ) : null }
                                             </>
-                                        )}
+                                        ) }
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +66,7 @@ const NotificationHeader = ({ forwardedRef }) => {
             </div>
             <div>
                 {showNotificationQuickSetting && (
-                    <NotificationHeaderQuickSetting notificationQuickSettingButtonRef={notificationQuickSettingButtonRef} notificationQuickSettingTranslateYValue={notificationQuickSettingTranslateYValue}/>
+                    <NotificationHeaderQuickSetting notificationQuickSettingButtonRef={notificationQuickSettingButtonRef} notificationTranslateXValue={notificationTranslateXValue} notificationQuickSettingTranslateYValue={notificationQuickSettingTranslateYValue}/>
                 )}
             </div>
         </div>

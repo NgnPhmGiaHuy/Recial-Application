@@ -2,13 +2,8 @@ import Header from "@/components/HeaderComponents/Header";
 import HeaderButton from "@/components/HeaderComponents/HeaderButton";
 import HeaderMenu from "@/components/HeaderComponents/HeaderMenu";
 import HeaderMenuSectionItem from "@/components/HeaderComponents/HeaderMenuSectionItem";
-import HeaderMessage from "@/components/HeaderComponents/HeaderMessage";
-import HeaderMessageContentItem from "@/components/HeaderComponents/HeaderMessageContentItem";
-import HeaderMessageQuickSetting from "@/components/HeaderComponents/HeaderMessageQuickSetting";
-import HeaderMessageSwitchButton from "@/components/HeaderComponents/HeaderMessageSwitchButton";
 import HeaderSearchHistory from "@/components/HeaderComponents/HeaderSearchHistory";
 import HeaderSearchHistoryItem from "@/components/HeaderComponents/HeaderSearchHistoryItem";
-import HeaderTypeButtonItem from "@/components/HeaderComponents/HeaderTypeButtonItem";
 import HeaderNavigationItem from "@/components/HeaderComponents/HeaderNavigationItem";
 import HeaderPersonalAccount from "@/components/HeaderComponents/HeaderPersonalAccount";
 import HeaderPersonalAccountSettingItem from "@/components/HeaderComponents/HeaderPersonalAccountSettingItem";
@@ -17,6 +12,9 @@ import QuickSettingItem from "@/components/QuickSettingComponents/QuickSettingIt
 
 import Aside from "@/components/AsideComponents/Aside";
 import AsideItem from "@/components/AsideComponents/AsideItem";
+import AsideMessage from "@/components/AsideComponents/AsideMessage";
+import AsideMessageHeader from "@/components/AsideComponents/AsideMessageHeader";
+import AsideMessageContent from "@/components/AsideComponents/AsideMessageContent";
 import AsideUser from "@/components/AsideComponents/AsideUser";
 import AsideNavigation from "@/components/AsideComponents/AsideNavigation";
 import AsideSetting from "@/components/AsideComponents/AsideSetting";
@@ -40,6 +38,32 @@ import AsideFollowItem from "@/components/AsideComponents/AsideFollowItem";
 import AsideShowMoreOrShowLessButton from "@/components/AsideComponents/AsideShowMoreOrShowLessButton";
 
 import Main from "@/components/MainComponents/Main";
+
+import MessageHeader from "@/components/MessageComponents/MessageHeader";
+import MessageHeaderContent from "@/components/MessageComponents/MessageHeaderContent";
+import MessageHeaderChatBox from "@/components/MessageComponents/MessageHeaderChatBox";
+import MessageHeaderCreate from "@/components/MessageComponents/MessageHeaderCreate";
+import MessageHeaderQuickSetting from "@/components/MessageComponents/MessageHeaderQuickSetting";
+import MessageHeaderSwitchButton from "@/components/MessageComponents/MessageHeaderSwitchButton";
+import MessageNoChatSelected from "@/components/MessageComponents/MessageNoChatSelected";
+import MessageContentItem from "@/components/MessageComponents/MessageContentItem";
+import MessageContentItemSetting from "@/components/MessageComponents/MessageContentItemSetting";
+import MessageContentItemStatus from "@/components/MessageComponents/MessageContentItemStatus";
+import MessageContentItemText from "@/components/MessageComponents/MessageContentItemText";
+import MessageContentItemSourceImage from "@/components/MessageComponents/MessageContentItemSourceImage";
+import MessageScaffold from "@/components/MessageComponents/MessageScaffold";
+import MessageScaffoldContent from "@/components/MessageComponents/MessageScaffoldContent";
+import MessageScaffoldContentHeader from "@/components/MessageComponents/MessageScaffoldContentHeader";
+import MessageScaffoldContentFooter from "@/components/MessageComponents/MessageScaffoldContentFooter";
+import MessageScaffoldContentFooterButton from "@/constants/MessageConstants/MessageScaffoldContentFooterButton";
+import MessageScaffoldContentPresentation from "@/components/MessageComponents/MessageScaffoldContentPresentation";
+import MessageScaffoldHeader from "@/components/MessageComponents/MessageScaffoldHeader";
+import MessageScaffoldInfo from "@/components/MessageComponents/MessageScaffoldInfo";
+import MessageScaffoldInfoList from "@/components/MessageComponents/MessageScaffoldInfoList";
+import MessageScaffoldInfoListMenu from "@/components/MessageComponents/MessageScaffoldInfoListMenu";
+import MessageScaffoldInfoListItem from "@/components/MessageComponents/MessageScaffoldInfoListItem";
+import MessageScaffoldInfoHeader from "@/components/MessageComponents/MessageScaffoldInfoHeader";
+import MessageScaffoldInfoHeaderButton from "@/components/MessageComponents/MessageScaffoldInfoHeaderButton";
 
 import Story from "@/components/StoryComponents/Story";
 import StoryItem from "@/components/StoryComponents/StoryItem";
@@ -206,6 +230,12 @@ import AuthHeader from "@/components/AuthComponents/AuthHeader";
 import OAuthLogin from "@/components/AuthComponents/OAuthLogin";
 import AuthLoginForm from "@/components/AuthComponents/AuthLoginForm";
 
+import SmallButtonMore from "@/components/Button/SmallButtonMore";
+import SmallButtonType from "@/components/Button/SmallButtonType";
+
+import MediumChatInput from "@/components/InputComponents/MediumChatInput";
+import SmallSearchInput from "@/components/InputComponents/SmallSearchInput";
+
 import LoadingPageComponent from "@/components/LoadingComponent/LoadingPageComponent";
 
 export {
@@ -213,15 +243,10 @@ export {
     HeaderButton,
     HeaderMenu,
     HeaderMenuSectionItem,
-    HeaderMessage,
-    HeaderMessageContentItem,
-    HeaderMessageQuickSetting,
-    HeaderMessageSwitchButton,
     HeaderPersonalAccount,
     HeaderPersonalAccountSettingItem,
     HeaderSearchHistory,
     HeaderSearchHistoryItem,
-    HeaderTypeButtonItem,
     HeaderNavigationItem,
 
     QuickSettingItem,
@@ -235,6 +260,9 @@ export {
 
     Aside,
     AsideItem,
+    AsideMessage,
+    AsideMessageHeader,
+    AsideMessageContent,
     AsideUser,
     AsideNavigation,
     AsideSetting,
@@ -258,6 +286,32 @@ export {
     AsideShowMoreOrShowLessButton,
 
     Main,
+
+    MessageHeader,
+    MessageHeaderChatBox,
+    MessageHeaderContent,
+    MessageHeaderCreate,
+    MessageHeaderQuickSetting,
+    MessageHeaderSwitchButton,
+    MessageNoChatSelected,
+    MessageContentItem,
+    MessageContentItemSetting,
+    MessageContentItemStatus,
+    MessageContentItemText,
+    MessageContentItemSourceImage,
+    MessageScaffold,
+    MessageScaffoldContent,
+    MessageScaffoldContentHeader,
+    MessageScaffoldContentFooter,
+    MessageScaffoldContentFooterButton,
+    MessageScaffoldContentPresentation,
+    MessageScaffoldHeader,
+    MessageScaffoldInfo,
+    MessageScaffoldInfoList,
+    MessageScaffoldInfoListMenu,
+    MessageScaffoldInfoListItem,
+    MessageScaffoldInfoHeader,
+    MessageScaffoldInfoHeaderButton,
 
     Story,
     StoryItem,
@@ -416,6 +470,12 @@ export {
     AuthHeader,
     OAuthLogin,
     AuthLoginForm,
+
+    SmallButtonMore,
+    SmallButtonType,
+
+    MediumChatInput,
+    SmallSearchInput,
 
     LoadingPageComponent,
 }

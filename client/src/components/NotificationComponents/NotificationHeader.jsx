@@ -1,6 +1,11 @@
+"use client"
+
+import Link from "next/link";
+import { Tooltip } from "react-tooltip";
+
 import { useNotificationHeaderAction } from "@/hooks";
 import { useGetUserNotificationData } from "@/hooks/useUser/useUserData";
-import { HeaderTypeButtonItem, NotificationHeaderQuickSetting, NotificationHeaderContent } from "@/components";
+import { SmallButtonType, NotificationHeaderQuickSetting, NotificationHeaderContent } from "@/components";
 
 const NotificationHeader = ({ forwardedRef }) => {
     const { isLoading } = useGetUserNotificationData();
@@ -22,12 +27,15 @@ const NotificationHeader = ({ forwardedRef }) => {
                                                 </span>
                                             </div>
                                             <div className="flex flex-col flex-shrink-0 items-end justify-center basis-auto">
-                                                <div ref={notificationQuickSettingButtonRef} className="w-[32px] h-[32px] flex items-center justify-center relative rounded-full text-zinc-500 cursor-pointer hover:bg-zinc-100 transition-all overflow-hidden" onClick={handleNotificationQuickSettingButton}>
-                                                    <i>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                                                        </svg>
-                                                    </i>
+                                                <div>
+                                                    <div data-tooltip-id="notification-setting" data-tooltip-content="Options" ref={notificationQuickSettingButtonRef} className="w-[32px] h-[32px] flex items-center justify-center relative rounded-full text-zinc-500 cursor-pointer hover:bg-zinc-100 transition-all overflow-hidden" onClick={handleNotificationQuickSettingButton}>
+                                                        <i>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                                            </svg>
+                                                        </i>
+                                                    </div>
+                                                    <Tooltip id="notification-setting" className="z-20"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -35,8 +43,8 @@ const NotificationHeader = ({ forwardedRef }) => {
                                 </div>
                                 <div>
                                     <div className="mb-[12px] pl-[16px] flex flex-row flex-wrap">
-                                        <HeaderTypeButtonItem type="all" showType={showTypeNotification} onClick={handleTypeClick}/>
-                                        <HeaderTypeButtonItem type="unread" showType={showTypeNotification} onClick={handleTypeClick}/>
+                                        <SmallButtonType type="all" showType={showTypeNotification} onClick={handleTypeClick}/>
+                                        <SmallButtonType type="unread" showType={showTypeNotification} onClick={handleTypeClick}/>
                                     </div>
                                     <div className="mt-[-12px] mb-[20px] flex flex-col">
                                         { isLoading ? (

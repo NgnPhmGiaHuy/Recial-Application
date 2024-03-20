@@ -1,4 +1,4 @@
-const HeaderTypeButtonItem = ({type, showType, onClick}) => {
+const SmallButtonType = ({ type, showType, onClick }) => {
     const isCurrentType = showType === type;
     const buttonClasses = `w-full h-[36px] px-[12px] flex flex-row justify-center items-center rounded-xl cursor-pointer relative ${
         isCurrentType ? "bg-lime-200 hover:bg-lime-300 text-lime-900" : "bg-transparent hover:bg-zinc-200 text-black"
@@ -17,4 +17,4 @@ const HeaderTypeButtonItem = ({type, showType, onClick}) => {
     );
 }
 
-export default HeaderTypeButtonItem;
+export default SmallButtonType;

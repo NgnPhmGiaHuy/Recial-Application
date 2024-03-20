@@ -60,7 +60,7 @@ const ASIDE_LANDING = [
         title: "Event",
         chevronRight: false,
     }, {
-        link: "",
+        link: "/messages",
         icon: Message,
         title: "Message",
         chevronRight: false,

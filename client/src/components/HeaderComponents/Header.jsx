@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHeaderAction } from "@/hooks";
 import { HEADER_NAVIGATION } from "@/constants/HeaderConstants";
 import { toggleHeaderSearchHistory } from "@/store/actions/toggle/toggleActions";
-import { HeaderMenu, HeaderMessage, NotificationHeader, HeaderPersonalAccount, HeaderSearchHistory, HeaderNavigationItem, HeaderButton } from "@/components";
+import { HeaderMenu, MessageHeader, NotificationHeader, HeaderPersonalAccount, HeaderSearchHistory, HeaderNavigationItem, HeaderButton } from "@/components";
 
 import Favicon from "/public/images/Metadata/favicon.ico";
 
@@ -73,7 +73,7 @@ const Header = ({ disableMessage, disableNotification }) => {
                     { headerActionProps.showMenu && <HeaderMenu forwardedRef={headerActionProps.headerRef.menuButtonRef}/> }
                 </div>
                 <div>
-                    { (headerActionProps.showMessage && !disableMessage) && <HeaderMessage forwardedRef={headerActionProps.headerRef.messageButtonRef}/> }
+                    { (headerActionProps.showMessage && !disableMessage) && <MessageHeader forwardedRef={headerActionProps.headerRef.messageButtonRef}/> }
                 </div>
                 <div>
                     { (headerActionProps.showNotification && !disableNotification) && <NotificationHeader forwardedRef={headerActionProps.headerRef.notificationButtonRef}/> }

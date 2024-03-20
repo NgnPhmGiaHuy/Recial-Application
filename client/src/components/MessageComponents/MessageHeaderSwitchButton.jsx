@@ -2,7 +2,7 @@
 
 import { useToggleState } from "@/hooks";
 
-const HeaderMessageSwitchButton = () =>{
+const MessageHeaderSwitchButton = () =>{
     const [isHeaderMessageSwitchButtonChecked, setIsHeaderMessageSwitchButtonChecked, handleHeaderMessageSwitchButton] = useToggleState(false);
 
     return(
@@ -18,4 +18,4 @@ const HeaderMessageSwitchButton = () =>{
     )
 }
 
-export default HeaderMessageSwitchButton;
+export default MessageHeaderSwitchButton;

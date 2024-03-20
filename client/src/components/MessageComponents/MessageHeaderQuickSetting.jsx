@@ -1,7 +1,8 @@
 import { QuickSettingItem } from "@/components";
-import { headerMessageSetting } from "@/constants/HeaderConstants";
 
-const HeaderMessageQuickSetting = ({ messageQuickSettingButtonRef, messageQuickSettingTranslateYValue}) => {
+import MESSAGE_HEADER_SETTING from "@/constants/MessageConstants/MessageHeaderSettingConstants";
+
+const MessageHeaderQuickSetting = ({ messageQuickSettingButtonRef, messageQuickSettingTranslateYValue}) => {
     return (
         <div ref={messageQuickSettingButtonRef} className="absolute top-0 left-0 translate-x-[-65px] translate-y-[60px] z-50">
             <div className="relative mt-[15px] rounded-l-md rounded-b-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
@@ -21,7 +22,7 @@ const HeaderMessageQuickSetting = ({ messageQuickSettingButtonRef, messageQuickS
                                         </div>
                                     </div>
                                 </div>
-                                {headerMessageSetting.map((value, index) => (
+                                {MESSAGE_HEADER_SETTING.map((value, index) => (
                                     <QuickSettingItem key={index} settingProps={value}/>
                                 ))}
                             </div>
@@ -36,4 +37,4 @@ const HeaderMessageQuickSetting = ({ messageQuickSettingButtonRef, messageQuickS
     );
 };
 
-export default HeaderMessageQuickSetting;
+export default MessageHeaderQuickSetting;

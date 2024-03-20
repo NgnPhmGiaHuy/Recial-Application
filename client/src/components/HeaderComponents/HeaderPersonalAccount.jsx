@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 import { useLogout } from "@/hooks";
 import { HeaderPersonalAccountSettingItem } from "@/components";
-import { headerPersonalAccount } from "@/constants/HeaderConstants";
+import { HEADER_PERSONAL_ACCOUNT } from "@/constants/HeaderConstants";
 import {useSelector} from "react-redux";
 
 const HeaderPersonalAccount = ({ forwardedRef }) => {
@@ -71,7 +71,7 @@ const HeaderPersonalAccount = ({ forwardedRef }) => {
                                         </div>
                                         <div className="pt-[4px] pb-[8px]">
                                             <div className="mt-[-4px] mb-[-16px]">
-                                                {headerPersonalAccount.map((value, index) => (
+                                                {HEADER_PERSONAL_ACCOUNT.map((value, index) => (
                                                     <HeaderPersonalAccountSettingItem key={index} settingProps={value}/>
                                                 ))}
                                                 <div className="px-[8px]">

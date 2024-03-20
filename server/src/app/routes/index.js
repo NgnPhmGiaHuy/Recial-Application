@@ -40,7 +40,7 @@ const routes = (app) => {
 
     app.get("/", async (req, res) => {
         res.status(200).json({
-            message: "Test Register Back-end",
+            message: "Test Back-end",
         });
     });
 };

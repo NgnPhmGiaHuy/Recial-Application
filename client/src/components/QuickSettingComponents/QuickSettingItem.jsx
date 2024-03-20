@@ -1,4 +1,4 @@
-import { HeaderMessageSwitchButton } from "@/components";
+import { MessageHeaderSwitchButton } from "@/components";
 
 const QuickSettingItem = ({ settingProps }) => {
     if (settingProps.break) {
@@ -28,7 +28,7 @@ const QuickSettingItem = ({ settingProps }) => {
                             </span>
                         ) : null}
                     </div>
-                    {settingProps.switchButton ? (<HeaderMessageSwitchButton/>) : null}
+                    {settingProps.switchButton ? (<MessageHeaderSwitchButton/>) : null}
                 </div>
             </div>
         )

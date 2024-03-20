@@ -1,8 +1,7 @@
 "use client"
 
-import { Header, Aside, Main, CreatePostDialog, LoadingPageComponent } from "@/components";
 import { useGetPostData, useUserData, useWithAuth, useUserProfileActions } from "@/hooks";
-import {useSelector} from "react-redux";
+import { Header, Aside, Main, CreatePostDialog, LoadingPageComponent } from "@/components";
 
 const HomePage = () => {
     const { profileActionRef, showCreatePost } = useUserProfileActions();

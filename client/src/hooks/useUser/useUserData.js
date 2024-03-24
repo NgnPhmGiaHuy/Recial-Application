@@ -2,13 +2,15 @@
 
 import useSWR from "swr";
 import { useEffect } from "react";
-import {useDispatch, useSelector} from "react-redux";
+import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 
 import { getUserProfileData } from "@/app/api/fetchUserData";
 import fetcherWithAccessToken from "@/app/api/fetcherWithAccessToken";
 import { setUserContactData, setUserFollowerData, setUserFollowingData, setUserFriendData, setUserFriendRequestData, setUserGroupListData, setUserMessageData, setUserNotificationData, setUserPhotoListData, setUserProfileData, setUserSearchData, setUserSettingData } from "@/store/actions/user/userActions";
 
 export const useUserData = () => {
+    const router = useRouter();
     const dispatch = useDispatch();
     const userProps = useSelector(state  => state.user);
 
@@ -26,7 +28,7 @@ export const useUserData = () => {
         };
 
         fetchData();
-    }, [dispatch]);
+    }, [router, dispatch]);
 
     return { userProps };
 };

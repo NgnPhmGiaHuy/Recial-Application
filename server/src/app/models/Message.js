@@ -17,10 +17,18 @@ const MessageSchema = new Schema(
             type: String,
             required: true,
         },
+        message_type: {
+            type: Schema.Types.ObjectId,
+            ref: "Type",
+        },
         message_tags: [{
             type: Schema.Types.ObjectId,
             ref: "Tag",
         }],
+        message_status: {
+            type: Schema.Types.ObjectId,
+            ref: "Status",
+        },
         is_read: {
             type: Boolean,
             default: false,

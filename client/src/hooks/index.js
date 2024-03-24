@@ -22,6 +22,7 @@ import useMostReactedIcons from "@/hooks/useFunction/useMostReactedIcons";
 import useMultipleHandleState from "@/hooks/useFunction/useMultipleHandleState";
 import useMultipleRefs from "@/hooks/useFunction/useMultipleRefs";
 import useOverflowText from "@/hooks/useFunction/useOverflowText";
+import useSliderScroll from "@/hooks/useFunction/useSliderScroll";
 import useToggleState from "@/hooks/useFunction/useToggleState";
 import useWeatherData from "@/hooks/useFunction/useWeatherData";
 import useWeatherForecast from "@/hooks/useFunction/useWeatherForecast";
@@ -66,7 +67,7 @@ export {
 
     useEventData,
 
-    useClickOutside, useContentEditable, useCountComment, useCountLikeReaction, useDateOfBirth, useFetchAndScroll, useFilteredNotification, useSingleImageData, useMultipleImagesData, useMostReactedIcons, useMultipleHandleState, useMultipleRefs, useOverflowText, useToggleState, useWeatherData, useWeatherForecast,
+    useClickOutside, useContentEditable, useCountComment, useCountLikeReaction, useDateOfBirth, useFetchAndScroll, useFilteredNotification, useSingleImageData, useMultipleImagesData, useMostReactedIcons, useMultipleHandleState, useMultipleRefs, useOverflowText, useSliderScroll, useToggleState, useWeatherData, useWeatherForecast,
 
     useGroupCreateAction, useGroupData, useFilterUserGroupsByRole,
 

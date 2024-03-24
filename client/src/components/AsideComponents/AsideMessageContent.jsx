@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { useGetUserMessageData } from "@/hooks/useUser/useUserData";
-import { MessageContentItem, SmallButtonType } from "@/components";
+import { MessageContentItem, SmallTypeButton } from "@/components";
 
 const AsideMessageContent = ({ action }) => {
     const userProps = useSelector(state => state.user);
@@ -21,8 +21,8 @@ const AsideMessageContent = ({ action }) => {
             <div className="mb-[5px] mt-[-8px]">
                 <div className="pb-[4px] pt-[20px] px-[8px] flex flex-col relative">
                     <div className="flex flex-row items-center relative">
-                        <SmallButtonType type="inbox" showType={showTypeNotification} onClick={handleTypeClick}/>
-                        <SmallButtonType type="communities" showType={showTypeNotification} onClick={handleTypeClick}/>
+                        <SmallTypeButton type="inbox" showType={showTypeNotification} onClick={handleTypeClick}/>
+                        <SmallTypeButton type="communities" showType={showTypeNotification} onClick={handleTypeClick}/>
                     </div>
                 </div>
             </div>

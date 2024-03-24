@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 
 import { useClickOutside, useToggleState } from "@/hooks";
-import { MessageContentItemSetting, MessageContentItemSourceImage, MessageContentItemStatus, MessageContentItemText, SmallButtonMore } from "@/components";
+import { MessageContentItemSetting, MessageContentItemSourceImage, MessageContentItemStatus, MessageContentItemText, SmallMoreButton } from "@/components";
 
 const MessageContentItem = ({ messageProps, action }) => {
     const messageQuickSettingItemButtonRef = useRef();
@@ -26,7 +26,7 @@ const MessageContentItem = ({ messageProps, action }) => {
                     </div>
                 </div>
                 <div>
-                    <SmallButtonMore buttonRef={messageQuickSettingItemButtonRef} state={showHeaderMessageContentItemMoreButton} onClick={handleShowHeaderMessageItemQuickSettingButton}/>
+                    <SmallMoreButton buttonRef={messageQuickSettingItemButtonRef} state={showHeaderMessageContentItemMoreButton} onClick={handleShowHeaderMessageItemQuickSettingButton}/>
                 </div>
             </div>
             <div>

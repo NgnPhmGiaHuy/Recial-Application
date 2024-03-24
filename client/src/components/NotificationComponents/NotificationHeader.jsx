@@ -5,7 +5,7 @@ import { Tooltip } from "react-tooltip";
 
 import { useNotificationHeaderAction } from "@/hooks";
 import { useGetUserNotificationData } from "@/hooks/useUser/useUserData";
-import { SmallButtonType, NotificationHeaderQuickSetting, NotificationHeaderContent } from "@/components";
+import { SmallTypeButton, NotificationHeaderQuickSetting, NotificationHeaderContent } from "@/components";
 
 const NotificationHeader = ({ forwardedRef }) => {
     const { isLoading } = useGetUserNotificationData();
@@ -43,8 +43,8 @@ const NotificationHeader = ({ forwardedRef }) => {
                                 </div>
                                 <div>
                                     <div className="mb-[12px] pl-[16px] flex flex-row flex-wrap">
-                                        <SmallButtonType type="all" showType={showTypeNotification} onClick={handleTypeClick}/>
-                                        <SmallButtonType type="unread" showType={showTypeNotification} onClick={handleTypeClick}/>
+                                        <SmallTypeButton type="all" showType={showTypeNotification} onClick={handleTypeClick}/>
+                                        <SmallTypeButton type="unread" showType={showTypeNotification} onClick={handleTypeClick}/>
                                     </div>
                                     <div className="mt-[-12px] mb-[20px] flex flex-col">
                                         { isLoading ? (

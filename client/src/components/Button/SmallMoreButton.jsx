@@ -1,4 +1,4 @@
-const SmallButtonMore = ({ buttonRef, state, onClick}) => {
+const SmallMoreButton = ({ buttonRef, state, onClick}) => {
     return (
         <div>
             <div className={`${state ? "w-[32px] h-[32px] -translate-y-1/2" : "w-[1px] h-[1px] overflow-hidden"} top-[50%] right-[48px] flex absolute`}>
@@ -19,4 +19,4 @@ const SmallButtonMore = ({ buttonRef, state, onClick}) => {
     );
 };
 
-export default SmallButtonMore;
+export default SmallMoreButton;

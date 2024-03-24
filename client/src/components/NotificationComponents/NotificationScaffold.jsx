@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { useClickOutside, useFilteredNotification, useToggleState } from "@/hooks";
-import { SmallButtonType, NotificationHeaderContent, NotificationHeaderQuickSetting } from "@/components";
+import { SmallTypeButton, NotificationHeaderContent, NotificationHeaderQuickSetting } from "@/components";
 
 const NotificationScaffold = ({ userProps }) => {
     const notificationRef = useRef(null);
@@ -70,8 +70,8 @@ const NotificationScaffold = ({ userProps }) => {
                                 </div>
                                 <div>
                                     <div className="mb-[12px] pl-[16px] flex flex-row flex-wrap">
-                                        <SmallButtonType type="all" showType={showTypeNotification} onClick={handleTypeClick} />
-                                        <SmallButtonType type="unread" showType={showTypeNotification} onClick={handleTypeClick} />
+                                        <SmallTypeButton type="all" showType={showTypeNotification} onClick={handleTypeClick} />
+                                        <SmallTypeButton type="unread" showType={showTypeNotification} onClick={handleTypeClick} />
                                     </div>
                                     <div className="mt-[-12px] mb-[20px] flex flex-col">
                                         { filteredNotifications?.newNotifications.length ? (

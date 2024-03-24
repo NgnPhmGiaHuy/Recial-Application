@@ -40,7 +40,7 @@ const ASIDE_LANDING = [
         title: "Videos",
         chevronRight: false,
     }, {
-        link: "",
+        link: "/climatescienceinfo",
         icon: Climate,
         title: "Climate Science Center",
         chevronRight: false,

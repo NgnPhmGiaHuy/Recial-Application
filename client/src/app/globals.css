@@ -212,7 +212,7 @@ b, strong {
 }
 
 .animate-bounceFadeIn {
-    animation: bounceFadeIn 0.45s ease-out;
+    animation: bounceFadeIn 0.15s ease-out;
 }
 
 .animate-slideInTop {

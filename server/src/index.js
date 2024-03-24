@@ -6,7 +6,7 @@ const { createServer } = require("http");
 
 const database = require("./config/database");
 const routes = require("./app/routes");
-const generateDummyData = require("./utils/dataGenerator");
+const generateDummyData = require("./utils/dataGenerator/");
 
 const PORT = 8080;
 

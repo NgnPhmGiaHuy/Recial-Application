@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import React, { forwardRef } from "react";
 
-const StoryItem = ({ index, selected, storyItemSelectedRef, storyProps }) => {
+const StoryItem = forwardRef(({ index, storyProps }, ref) => {
     return (
-        <div key={index} ref={selected ? storyItemSelectedRef : null} className="mr-[12px] flex flex-shrink-0 grow-0 sm:basis-[160px] basis-[100px] relative">
+        <div key={index} ref={ref} className="mr-[12px] flex flex-shrink-0 grow-0 sm:basis-[160px] basis-[100px] relative">
             <Link href={`/story/?user=${storyProps?.user?._id}&set=${storyProps?.stories[0]?.story._id}`} className="w-full block overflow-hidden cursor-pointer shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] rounded-xl relative">
                 <div className="w-full h-0 sm:pt-[230px] pt-[140px] overflow-hidden relative">
                     <div className="absolute top-0 right-0 bottom-0 left-0">
@@ -23,7 +24,7 @@ const StoryItem = ({ index, selected, storyItemSelectedRef, storyProps }) => {
                                 <div>
                                     <span className="block sm:text-[13px] text-[10px] text-center text-white break-words font-semibold leading-4">
                                         <span className="line-clamp-3 overflow-hidden relative">
-                                            {storyProps?.user?.username || storyProps?.user?.firstname + " " + storyProps?.user?.lastname}
+                                            { storyProps?.user?.username || storyProps?.user?.firstname + " " + storyProps?.user?.lastname }
                                         </span>
                                     </span>
                                 </div>
@@ -34,6 +35,6 @@ const StoryItem = ({ index, selected, storyItemSelectedRef, storyProps }) => {
             </Link>
         </div>
     );
-};
+});
 
 export default StoryItem;

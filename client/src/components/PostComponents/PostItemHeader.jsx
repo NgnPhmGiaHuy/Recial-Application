@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { formatTimeAgoFull } from "@/utils";
+import { formatFullTimeAgo } from "@/utils";
 
 const PostItemHeader = ({ headerRef, props, handleState }) => {
     return (
@@ -17,9 +17,9 @@ const PostItemHeader = ({ headerRef, props, handleState }) => {
                                         <div className="w-full h-full inset-0 bg-black/15 absolute"></div>
                                     </div>
                                 </Link>
-                                <Link href={`/${props.postProps?.user?._id}`}>
+                                <Link href={`/${props.postProps?.post?.user?._id}`}>
                                     <div className="w-[30px] h-[30px] bottom-[-5px] right-[-5px] rounded-full overflow-hidden outline outline-white absolute">
-                                        <Image src={props.postProps?.user?.profile_picture_url} alt={`${props.postProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                        <Image src={props.postProps?.post?.user?.profile?.profile_picture_url} alt={`${props.postProps?.post?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                     </div>
                                 </Link>
                             </div>
@@ -32,9 +32,9 @@ const PostItemHeader = ({ headerRef, props, handleState }) => {
                             </div>
                         </Link>
                     ) : (
-                        <Link href={`/${props.postProps?.user?._id}`}>
+                        <Link href={`/${props.postProps?.post?.user?._id}`}>
                             <div className="w-[40px] h-[40px] overflow-hidden rounded-full relative group">
-                                <Image src={props.postProps?.user?.profile_picture_url} alt={`${props.postProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                <Image src={props.postProps?.post?.user?.profile?.profile_picture_url} alt={`${props.postProps?.post?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
                             </div>
                         </Link>
@@ -60,10 +60,10 @@ const PostItemHeader = ({ headerRef, props, handleState }) => {
                                     </strong>
                                 </Link>
                             ) : (
-                                <Link href={props.postProps?.user?._id} className="w-full h-full">
+                                <Link href={props.postProps?.post?.user?._id} className="w-full h-full">
                                     <strong>
                                         <span className="overflow-hidden text-ellipsis line-clamp-2 relative">
-                                            {props.postProps?.user?.username || props.postProps?.user?.firstname + " " + props.postProps?.user?.lastname}
+                                            {props.postProps?.post?.user?.profile?.username || props.postProps?.post?.user?.profile?.firstname + " " + props.postProps?.post?.user?.profile?.lastname}
                                         </span>
                                     </strong>
                                 </Link>
@@ -78,7 +78,7 @@ const PostItemHeader = ({ headerRef, props, handleState }) => {
                                         <span className="flex items-center break-words pr-[2px]">
                                             <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
                                                 <span className="block overflow-hidden whitespace-nowrap text-ellipsis relative">
-                                                    {props.postProps?.user?.username || props.postProps?.user?.firstname + " " + props.postProps?.user?.lastname}
+                                                    {props.postProps?.post?.user?.profile?.username || props.postProps?.post?.user?.profile?.firstname + " " + props.postProps?.post?.user?.profile?.lastname}
                                                 </span>
                                             </span>
                                         </span>
@@ -95,7 +95,7 @@ const PostItemHeader = ({ headerRef, props, handleState }) => {
                                     <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
                                         <span
                                             className="block overflow-hidden whitespace-nowrap text-ellipsis relative">
-                                            {formatTimeAgoFull(props.postProps?.post?.updated_at)}
+                                            {formatFullTimeAgo(props.postProps?.post?.updated_at)}
                                         </span>
                                     </span>
                                 </span>

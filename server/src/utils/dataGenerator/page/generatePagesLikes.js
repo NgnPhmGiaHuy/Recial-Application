@@ -2,9 +2,11 @@ const { faker } = require("@faker-js/faker");
 
 const PageLike = require("../../../app/models/PageLike");
 
-const generatePagesLikes = async (allPages, allUsers) => {
+const generatePagesLikes = async (allPages, allUsers, maxNumberOfPagesLikes) => {
     const pageLikeProps = allPages.flatMap(page => {
-        return Array.from({ length: 50 }, () => {
+        const numberOfPagesLikes = faker.number.int({ min: 1, max: maxNumberOfPagesLikes });
+
+        return Array.from({ length: numberOfPagesLikes }, () => {
             const randomUser = faker.helpers.objectValue(allUsers);
 
             return {

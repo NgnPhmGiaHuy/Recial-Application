@@ -2,21 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 
-import { formatTimeAgoShort } from "@/utils";
+import { formatShortTimeAgo } from "@/utils";
+import { MessageScaffoldContentHeaderButton } from "@/components";
 
 import MESSAGE_SCAFFOLD_CONTENT_HEADER_BUTTON from "@/constants/MessageConstants/MessageScaffoldContentHeaderConstant";
-
-const MessageScaffoldContentHeaderButton = ({ button }) => {
-    return (
-        <div onClick={button.onClick} className="w-[40px] h-[40px] p-[6px] flex flex-col flex-shrink-0 items-center justify-center cursor-pointer rounded-full overflow-hidden hover:bg-zinc-100 relative transition-all">
-            <div className="w-[32px] h-[32px] flex items-center justify-center overflow-hidden relative">
-                <i>
-                    {button.icon}
-                </i>
-            </div>
-        </div>
-    )
-}
 
 const MessageScaffoldContentHeader = ({ handleShowInfo }) => {
     const userProps = useSelector(state => state.user);
@@ -49,7 +38,7 @@ const MessageScaffoldContentHeader = ({ handleShowInfo }) => {
                                                 <div>
                                                     <span className="block text-[12px] text-black text-left font-normal break-words relative leading-3">
                                                         <span className="overflow-hidden relative">
-                                                            Active {formatTimeAgoShort(userProps?.user?.profile?.updated_at)} ago
+                                                            Active {formatShortTimeAgo(userProps?.user?.profile?.updated_at)} ago
                                                         </span>
                                                     </span>
                                                 </div>

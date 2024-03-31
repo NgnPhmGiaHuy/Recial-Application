@@ -2,8 +2,8 @@ const { faker } = require("@faker-js/faker");
 
 const Message = require("../../../app/models/Message");
 
-const generateMessages = async (allUsers) => {
-    const messageProp = Array.from({ length: 50000 }, () => ({
+const generateMessages = async (allUsers, numberOfMessages) => {
+    const messageProp = Array.from({ length: numberOfMessages }, () => ({
         source_id: faker.helpers.objectValue(allUsers),
         destination_id: faker.helpers.objectValue(allUsers),
         message_content: faker.lorem.paragraph(),

@@ -1,10 +1,12 @@
-import { HeaderSearchHistoryItem } from "@/components";
-import { useGetUserSearchData } from "@/hooks/useUser/useUserData";
 import {useSelector} from "react-redux";
+
+import { useGetUserDataFetcher } from "@/hooks";
+import { HeaderSearchHistoryItem } from "@/components";
+import { setUserSearchData } from "@/store/actions/user/userActions";
 
 const HeaderSearchHistory = () => {
     const userProps = useSelector(state => state.user);
-    const { data, error, isLoading, isValidating } = useGetUserSearchData();
+    const { isLoading } = useGetUserDataFetcher("search", setUserSearchData);
 
     return (
         <div className="shadow-xl bg-white rounded-b-xl">

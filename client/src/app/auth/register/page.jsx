@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+import { handleValidateForm } from "@/utils";
 import { useCheckAccessToken } from "@/hooks";
-import { handleValidateForm } from "@/utils/handleAuth";
 import { AuthHeader, AuthLoginForm } from "@/components";
 import { fetchRegisterData } from "@/app/api/fetchAuthData";
 

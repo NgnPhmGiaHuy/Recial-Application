@@ -4,7 +4,7 @@ const CreatePostDialogAudienceItem = ({ createPostAudienceData, checked, onSelec
             <div className="min-h-[44px] px-[8px] flex flex-row items-center justify-between cursor-pointer rounded-md relative hover:bg-zinc-100" onClick={onSelect}>
                 <div className="my-[8px] mr-[12px] flex flex-col items-start relative">
                     <div className="w-[60px] h-[60px] inline-flex items-center justify-center rounded-full bg-zinc-200 relative">
-                        {createPostAudienceData.createPostAudienceIcon}
+                        {createPostAudienceData.icon}
                     </div>
                 </div>
                 <div className="flex flex-row flex-shrink grow self-stretch items-center justify-between relative">
@@ -12,12 +12,12 @@ const CreatePostDialogAudienceItem = ({ createPostAudienceData, checked, onSelec
                         <div className="my-[-5px] flex flex-col">
                             <div className="mt-[5px]">
                                 <span className="block text-[17px] text-black text-left font-medium break-words leading-5">
-                                    {createPostAudienceData.createPostAudienceOptionTitle}
+                                    {createPostAudienceData.title}
                                 </span>
                             </div>
                             <div className="mb-[5px]">
                                 <span className="block text-[15px] text-zinc-500 text-left font-normal break-words leading-5">
-                                    {createPostAudienceData.createPostAudienceExplain}
+                                    {createPostAudienceData.explain}
                                 </span>
                             </div>
                         </div>

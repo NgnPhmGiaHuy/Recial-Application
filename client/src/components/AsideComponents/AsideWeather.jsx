@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { useWeatherData } from "@/hooks";
-import { getRandomWeatherIllustration } from "@/utils/handleWeather";
+import { getRandomWeatherIllustration } from "@/utils";
 import { AsideWeatherLocation, AsideWeatherNextSevenDays, AsideWeatherTemperature } from "@/components";
 
 const AsideWeather = () => {

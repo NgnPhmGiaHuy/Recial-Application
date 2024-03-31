@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 import { CreatePost, Post, UserProfileAbout, UserProfileCover } from "@/components";
 
-const UserProfile = ({ postProps, postByIdRef }) => {
+const UserProfile = () => {
     const { isCurrentUser } = useSelector(state => state.userRelationship);
 
     const userProps = isCurrentUser ? useSelector(state => state.user) : useSelector(state => state.userId);
@@ -15,7 +15,7 @@ const UserProfile = ({ postProps, postByIdRef }) => {
                 </div>
                 { userProps?.user?.contact?.description && <UserProfileAbout/> }
                 { isCurrentUser && <CreatePost/> }
-                { postProps && <Post postRef={postByIdRef} postListProps={postProps}/> }
+                { userProps.post_list && <Post postRef={userProps.post_list.ref} postListProps={userProps.post_list.posts}/> }
             </div>
         </main>
     );

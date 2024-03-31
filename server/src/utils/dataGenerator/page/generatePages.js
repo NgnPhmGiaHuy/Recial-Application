@@ -3,8 +3,8 @@ const { faker } = require("@faker-js/faker");
 
 const Page = require("../../../app/models/Page");
 
-const generatePages = async () => {
-    const pageProps = Array.from({ length: 100 }, () => ({
+const generatePages = async (numberOfPages) => {
+    const pageProps = Array.from({ length: numberOfPages }, () => ({
         _id: new mongoose.Types.ObjectId(),
         page_name: faker.lorem.text(),
         page_description: faker.lorem.paragraph(),

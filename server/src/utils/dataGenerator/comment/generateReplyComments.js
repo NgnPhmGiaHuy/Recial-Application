@@ -3,17 +3,14 @@ const { faker } = require("@faker-js/faker");
 
 const Comment = require("../../../app/models/Comment");
 
-const generateReplyComments = async (allUsers, allComments, commentType) => {
-    const replyComment = Array.from({ length: 100000 }, () => {
+const generateReplyComments = async (allUsers, allComments, numberOfReplyComment) => {
+    const replyComment = Array.from({ length: numberOfReplyComment }, () => {
         const randomUser = faker.helpers.objectValue(allUsers);
 
         return {
             _id: new mongoose.Types.ObjectId(),
             source_id: randomUser._id,
-            destination: {
-                type: commentType._id,
-                destination_id: faker.helpers.objectValue(allComments)._id,
-            },
+            destination_id: faker.helpers.objectValue(allComments)._id,
             comment_text: faker.lorem.paragraph(),
         }
     })

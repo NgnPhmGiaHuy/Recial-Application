@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { formatTimeAgoFull } from "@/utils";
+import { formatFullTimeAgo } from "@/utils";
 
 const AsideScaffoldGroupItem = ({ groupProps }) => {
     return (
@@ -30,7 +30,7 @@ const AsideScaffoldGroupItem = ({ groupProps }) => {
                                         <div className="">
                                             <span className="block text-[13px] text-zinc-500 text-left font-normal break-words relative leading-4">
                                                 <span className="overflow-hidden line-clamp-1 relative">
-                                                    Last activity {formatTimeAgoFull(groupProps?.profile?.updated_at)} ago
+                                                    Last activity {formatFullTimeAgo(groupProps?.profile?.updated_at)} ago
                                                 </span>
                                             </span>
                                         </div>

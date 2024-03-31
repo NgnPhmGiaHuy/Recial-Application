@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-import { convertDateFormat } from "@/utils";
+import { formatLongDate } from "@/utils";
 
 const GroupPageContentBlockActivity = () => {
     const groupProps = useSelector(state => state.group);
@@ -118,7 +118,7 @@ const GroupPageContentBlockActivity = () => {
                                                 <span
                                                     className="block text-[15px] text-zinc-900 text-left font-normal relative leading-5">
                                                     <span className="overflow-hidden relative">
-                                                        Created on { convertDateFormat(groupProps?.profile?.created_at) }.
+                                                        Created on { formatLongDate(groupProps?.profile?.created_at) }.
                                                     </span>
                                                 </span>
                                             </div>

@@ -1,4 +1,4 @@
-import {convertDateFormat} from "@/utils";
+import { formatLongDate } from "@/utils";
 
 const EventScaffoldItemContent = ({ eventProps }) => {
     return (
@@ -21,7 +21,7 @@ const EventScaffoldItemContent = ({ eventProps }) => {
                                 </span>
                                 <span className="overflow-hidden relative"> | </span>
                                 <span className="overflow-hidden relative">
-                                    { convertDateFormat(eventProps?.event_start_datetime) }
+                                    { formatLongDate(eventProps?.event_start_datetime) }
                                 </span>
                             </div>
                         </div>

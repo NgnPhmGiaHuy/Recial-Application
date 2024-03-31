@@ -8,15 +8,15 @@ class GeneralDataService {
     getUsersByInteractionType = async (model, modelId, interactId) => {
         const props = await model.find({ [`${modelId.toString().toLowerCase()}`]: interactId }).populate("user_id", "username firstname lastname profile_picture_url");
 
-        return Promise.all(props.map(prop => ({
+        return await Promise.all(props.map(prop => ({
             user: prop.user_id,
         })));
     }
 
     getComment = async (entityId) => {
-        const comment = await Comment.find({ "destination.destination_id": entityId }).populate("source_id").sort({ updatedAt: -1 });
+        const comment = await Comment.find({ destination_id: entityId }).populate("source_id").sort({ updatedAt: -1 });
 
-        return Promise.all(comment.map(async (comment) => {
+        return await Promise.all(comment.map(async (comment) => {
             return {
                 _id: comment._id,
                 user: await getUserDataService.getFormattedUserData(comment.source_id),
@@ -31,9 +31,9 @@ class GeneralDataService {
     }
 
     getReaction = async (entityId) => {
-        const reaction = await Reaction.find({ "destination.destination_id": entityId }).populate("source_id").sort({ updatedAt: -1 });
+        const reaction = await Reaction.find({ destination_id: entityId }).populate("source_id").sort({ updatedAt: -1 });
 
-        return Promise.all(reaction.map(async (reaction) => {
+        return await Promise.all(reaction.map(async (reaction) => {
             const reactionType = await Type.findById(reaction.reaction_type);
 
             return {

@@ -30,7 +30,7 @@ const FriendListItem = ({ userProps, action }) => {
             <div className="min-h-[44px] px-[4px] flex flex-row items-center justify-between rounded-xl relative cursor-pointer hover:bg-zinc-100 transition-all">
                 <div className="my-[8px] mr-[12px] flex flex-col self-start relative">
                     <div className="w-[60px] h-[60px] flex flex-col items-center rounded-full overflow-hidden relative">
-                        <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                        <Image src={userProps?.user?.profile?.profile_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                     </div>
                 </div>
                 <div className="my-[-6px] py-[12px] flex flex-row flex-shrink grow items-stretch justify-between basis-0 relative">
@@ -40,7 +40,7 @@ const FriendListItem = ({ userProps, action }) => {
                                 <div className="flex flex-col flex-shrink grow basis-0 relative">
                                     <span className="block text-[14px] text-black font-bold break-words relative leading-5">
                                         <span className="overflow-hidden line-clamp-1 relative">
-                                            {userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname}
+                                            {userProps?.user?.profile?.username || userProps?.user?.profile?.firstname + " " + userProps?.user?.profile?.lastname}
                                         </span>
                                     </span>
                                 </div>

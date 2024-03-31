@@ -1,4 +1,4 @@
-import { formatTimeAgoShort } from "@/utils";
+import { formatShortTimeAgo } from "@/utils";
 
 const MessageContentItemText = ({ messageProps }) => {
     return (
@@ -7,7 +7,7 @@ const MessageContentItemText = ({ messageProps }) => {
                 <div className="max-w-full flex flex-col flex-shrink-0 grow relative p-[6px]">
                     <span className="block text-[15px] text-black text-left font-medium break-words leading-5">
                         <span className="block overflow-hidden whitespace-nowrap text-ellipsis relative">
-                            {messageProps?.source?.username || messageProps?.source?.firstname + " " + messageProps?.source?.lastname}
+                            {messageProps?.source?.profile?.username || messageProps?.source?.profile?.firstname + " " + messageProps?.source?.profile?.lastname}
                         </span>
                     </span>
                     <div className="min-h-[16px] flex flex-row items-center pt-[6px]">
@@ -28,7 +28,7 @@ const MessageContentItemText = ({ messageProps }) => {
                         <span className="flex items-center break-words pl-[2px]">
                             <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
                                 <span className="block overflow-hidden whitespace-nowrap text-ellipsis line-clamp-1 relative">
-                                    {formatTimeAgoShort(messageProps?.updated_at)}
+                                    {formatShortTimeAgo(messageProps?.updated_at)}
                                 </span>
                             </span>
                         </span>

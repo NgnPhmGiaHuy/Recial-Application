@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-import { convertDateFormat } from "@/utils";
+import { formatLongDate } from "@/utils";
 
 const GroupPageContentBlockAboutHistory = () => {
     const groupProps = useSelector(state => state.group);
@@ -31,7 +31,7 @@ const GroupPageContentBlockAboutHistory = () => {
                             <div>
                                 <span className="block text-[15px] text-zinc-700 text-left font-normal break-words relative leading-5">
                                     <span className="overflow-hidden relative">
-                                        Group created on {convertDateFormat(groupProps?.profile?.created_at)}. Name last changed on {convertDateFormat(groupProps?.profile?.updated_at)}.
+                                        Group created on {formatLongDate(groupProps?.profile?.created_at)}. Name last changed on {formatLongDate(groupProps?.profile?.updated_at)}.
                                     </span>
                                 </span>
                             </div>

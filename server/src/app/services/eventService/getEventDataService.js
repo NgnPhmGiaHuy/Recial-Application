@@ -24,7 +24,7 @@ class GetEventDataService {
     getFormattedEventPageData = async (userId) => {
         const eventMemberProps = await EventMember.find({ "user.user_id": userId });
 
-        return Promise.all(eventMemberProps.map(async (member) => {
+        return await Promise.all(eventMemberProps.map(async (member) => {
             const eventData = await this.getFormattedEventDataByEventId(member.event_id);
             const memberData = await this.getEventMemberDataByEventId(eventData._id)
             return {
@@ -37,7 +37,7 @@ class GetEventDataService {
     getEventMemberDataByEventId = async (eventId) => {
         const eventMemberProps = await EventMember.find({ event_id: eventId });
 
-        return Promise.all(eventMemberProps.map(async (member) => {
+        return await Promise.all(eventMemberProps.map(async (member) => {
             const userData = await getUserDataService.getFormattedUserData(member.user.user_id)
             const roleData = await getRoleDataService.getRawRoleData(member.user.user_role);
 

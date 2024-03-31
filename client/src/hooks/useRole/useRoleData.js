@@ -9,4 +9,3 @@ const useRoleData = async (roleId) => {
 }
 
 export default useRoleData;
-

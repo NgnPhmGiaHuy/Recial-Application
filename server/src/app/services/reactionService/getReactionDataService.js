@@ -10,23 +10,19 @@ class GetReactionDataService {
 
     getFormattedReactionData = async (reactionData) => {
         const reactionType = await getTypeDataService.getTypeByTypeId(reactionData.reaction_type);
-        const destinationType = await getTypeDataService.getTypeByTypeId(reactionData.destination.type);
 
         return {
             _id: reactionData._id,
             user: await getUserDataService.getFormattedUserData(reactionData.source_id),
-            destination: {
-                type: destinationType.type_name,
-                destination_id: reactionData.destination.destination_id,
-            },
             reaction_type: reactionType.type_name,
+            destination_id: reactionData.destination_id,
             created_at: reactionData.createdAt,
             updated_at: reactionData.updatedAt,
         };
     }
 
     getReactionBySourceAndDestination = async (source, destination) => {
-        return Reaction.findOne({ "source_id": source, "destination.destination_id": destination });
+        return Reaction.findOne({ source_id: source, destination_id: destination });
     }
 }
 

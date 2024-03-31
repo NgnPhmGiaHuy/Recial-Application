@@ -9,7 +9,7 @@ const AsideFollowItem = ({ userProps, hasNotificationBadge }) => {
                     <div className="min-h-[48px] px-[8px] flex flex-row items-center justify-between relative">
                         <div className="my-[6px] mr-[12px] flex flex-col self-center relative">
                             <div className="w-[32px] h-[32px] flex flex-row items-center justify-center rounded-md overflow-hidden relative">
-                                <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                <Image src={userProps?.user?.profile?.profile_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                             </div>
                         </div>
                         <div className="flex flex-row flex-shrink grow items-center justify-between self-stretch relative">
@@ -18,7 +18,7 @@ const AsideFollowItem = ({ userProps, hasNotificationBadge }) => {
                                     <div className="my-[5px]">
                                         <span className="block text-[16px] text-black text-left font-medium break-words leading-5">
                                             <span className="overflow-hidden line-clamp-2 relative">
-                                                {userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname}
+                                                {userProps?.user?.profile?.username || userProps?.user?.profile?.firstname + " " + userProps?.user?.profile?.lastname}
                                             </span>
                                         </span>
                                     </div>

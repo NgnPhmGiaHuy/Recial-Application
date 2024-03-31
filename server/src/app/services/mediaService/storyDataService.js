@@ -24,14 +24,13 @@ class StoryDataService {
         const mediaProps = {
             _id: storyProps._id,
             user: {
+                _id: userProps._id,
                 profile: {
-                    _id: userProps._id,
-                    email: userProps.email,
                     username: userProps.username,
                     firstname: userProps.firstname,
                     lastname: userProps.lastname,
                     profile_picture_url: userProps.profile_picture_url,
-                },
+                }
             },
             media_name: storyProps.story_title,
             media_type: "Story",

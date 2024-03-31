@@ -2,9 +2,11 @@ const { faker } = require("@faker-js/faker");
 
 const GroupMember = require("../../../app/models/GroupMember");
 
-const generateGroupsMembers = async (allGroups, allUsers, insertedRoles) => {
+const generateGroupsMembers = async (allGroups, allUsers, insertedRoles, maxNumberOfGroupsMembers) => {
     const groupMemberProps = allGroups.flatMap(group => {
-        return Array.from({ length: 50 }, () => {
+        const numberOfGroupsMembers = faker.number.int({ min: 1, max: maxNumberOfGroupsMembers });
+
+        return Array.from({ length: numberOfGroupsMembers }, () => {
             const randomUser = faker.helpers.objectValue(allUsers);
 
             return {

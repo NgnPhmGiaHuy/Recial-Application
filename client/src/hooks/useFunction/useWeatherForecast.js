@@ -1,7 +1,8 @@
 "use client"
 
-import {useEffect, useState} from "react";
-import {getWeatherForecastData} from "@/app/api/fetchWeatherForecastData";
+import { useEffect, useState } from "react";
+
+import { getWeatherForecastData } from "@/utils";
 
 const useWeatherForecast = (longitude, latitude) => {
     const [weatherForecast, setWeatherForecast] = useState(null);
@@ -17,7 +18,7 @@ const useWeatherForecast = (longitude, latitude) => {
             }
         }
 
-        if (longitude  && latitude ) {
+        if (longitude && latitude) {
             getWeatherForecast();
         }
     }, [longitude, latitude]);

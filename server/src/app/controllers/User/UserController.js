@@ -232,7 +232,7 @@ class UserController {
                 return res.status(404).json({ error: "User not found" });
             }
 
-            const groupListProps = await getUserDataService.getUserGroup(user._id);
+            const groupListProps = await getUserDataService.getUserGroupWithMember(user._id);
 
             return res.status(200).json(groupListProps);
         } catch (error) {
@@ -414,14 +414,14 @@ class UserController {
 
                 wss.clients.forEach((client) => {
                     if (client.readyState === WebSocket.OPEN && client.userId.toString() === user._id.toString()) {
-                        client.send(JSON.stringify(userProfileUpdateMessage));
+                        return client.send(JSON.stringify(userProfileUpdateMessage));
                     }
                 })
             }
 
             return res.status(200).json({ message: "User profile updated successfully" });
         } catch (error) {
-            return res.status(500).json(error);
+            return res.status(500).json({ error: "An error occurred while updating user profile" });
         }
     }
 }

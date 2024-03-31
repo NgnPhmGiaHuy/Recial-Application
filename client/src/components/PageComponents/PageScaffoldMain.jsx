@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 import { CreatePost, PageScaffoldMainNavigationItem, PostPage } from "@/components";
 
-const PageScaffoldMain = ({ postRef, pagePostProps }) => {
+const PageScaffoldMain = () => {
     const pageProps = useSelector(state => state.page);
 
     return (
@@ -34,7 +34,7 @@ const PageScaffoldMain = ({ postRef, pagePostProps }) => {
             ) }
             <main>
                 <div className="my-[16px] flex flex-col gap-4 relative">
-                    <PostPage postRef={postRef} pagePostProps={pagePostProps}/>
+                    <PostPage postRef={pageProps?.post_list?.ref} pagePostProps={pageProps?.post_list?.posts}/>
                 </div>
             </main>
         </div>

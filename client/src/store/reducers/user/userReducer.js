@@ -1,25 +1,39 @@
-import { SET_USER_PROFILE_DATA, SET_USER_NOTIFICATION_DATA, SET_USER_CONTACT_DATA, SET_USER_MESSAGE_DATA, SET_USER_SETTING_DATA, SET_USER_FRIEND_DATA, SET_USER_SEARCH_DATA, SET_USER_FOLLOWING_DATA, SET_USER_FOLLOWER_DATA, SET_USER_PHOTO_LIST_DATA, SET_USER_GROUP_LIST_DATA, SET_USER_FRIEND_REQUEST_DATA } from "../../actions/user/userActions";
+import { createPostComment, createPostReaction, updatePostReaction } from "@/utils";
+
+import { SET_USER_POST_DATA, SET_USER_PROFILE_DATA, SET_USER_NOTIFICATION_DATA, SET_USER_CONTACT_DATA, SET_USER_MESSAGE_DATA, SET_USER_SETTING_DATA, SET_USER_FRIEND_DATA, SET_USER_SEARCH_DATA, SET_USER_FOLLOWING_DATA, SET_USER_FOLLOWER_DATA, SET_USER_PHOTO_LIST_DATA, SET_USER_GROUP_LIST_DATA, SET_USER_FRIEND_REQUEST_DATA } from "../../actions/user/userActions";
+import { CREATE_USER_POST_DATA, CREATE_USER_POST_COMMENT_DATA, CREATE_USER_POST_REACTION_DATA } from "../../actions/user/userActions";
+import { UPDATE_USER_POST_REACTION_DATA } from "../../actions/user/userActions";
+import { CLEAR_USER_POST_DATA } from "../../actions/user/userActions";
 
 const initialState = {
     user: {
         _id: "",
-        profile: {},
-        contact: {},
-        friends: [],
-        follower: [],
-        following: [],
+        profile: null,
+        contact: null,
+        friends: null,
+        follower: null,
+        following: null,
     },
-    search: [],
-    settings: {},
-    messages: [],
-    photo_list: [],
-    group_list: [],
-    notifications: [],
-    friend_request: [],
+    search: null,
+    settings: null,
+    messages: null,
+    photo_list: null,
+    group_list: null,
+    post_list: null,
+    notifications: null,
+    friend_request: null,
 }
 
 const userReducer = (state  = initialState, action) => {
     switch (action.type) {
+        case SET_USER_POST_DATA:
+            return {
+                ...state,
+                post_list: {
+                    ref: action.payload.ref,
+                    posts: action.payload.posts,
+                }
+            }
         case SET_USER_PROFILE_DATA:
             return {
                 ...state,
@@ -96,6 +110,21 @@ const userReducer = (state  = initialState, action) => {
                 ...state,
                 friend_request: action.payload,
             };
+        case CREATE_USER_POST_DATA:
+             return {
+                 ...state,
+             };
+        case CREATE_USER_POST_COMMENT_DATA:
+            return createPostComment(state, action);
+        case CREATE_USER_POST_REACTION_DATA:
+            return createPostReaction(state, action);
+        case UPDATE_USER_POST_REACTION_DATA:
+            return updatePostReaction(state, action);
+        case CLEAR_USER_POST_DATA:
+            return {
+                ...state,
+                post_list: null,
+            }
         default:
             return state;
     }

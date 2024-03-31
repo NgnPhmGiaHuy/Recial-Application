@@ -1,4 +1,4 @@
-import { interpretWeatherCode } from "@/utils/handleWeather";
+import { interpretWeatherCode } from "@/utils";
 
 import WEATHER_ICONS from "@/constants/AsideConstants/AsideWeatherConstants";
 

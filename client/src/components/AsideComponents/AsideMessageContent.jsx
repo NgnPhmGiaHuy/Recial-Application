@@ -3,12 +3,13 @@
 import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { useGetUserMessageData } from "@/hooks/useUser/useUserData";
+import { useGetUserDataFetcher } from "@/hooks";
 import { MessageContentItem, SmallTypeButton } from "@/components";
+import { setUserMessageData } from "@/store/actions/user/userActions";
 
 const AsideMessageContent = ({ action }) => {
     const userProps = useSelector(state => state.user);
-    const { isLoading } = useGetUserMessageData();
+    const { isLoading } = useGetUserDataFetcher("message", setUserMessageData);
 
     const [showTypeNotification, setShowTypeNotification] = useState("inbox");
 

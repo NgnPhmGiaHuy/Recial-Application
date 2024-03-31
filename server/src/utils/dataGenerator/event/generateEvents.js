@@ -3,8 +3,8 @@ const { faker } = require("@faker-js/faker");
 
 const Event = require("../../../app/models/Event");
 
-const generateEvents = async () => {
-    const eventProps = Array.from({ length: 100 }, () => ({
+const generateEvents = async (numberOfEvents) => {
+    const eventProps = Array.from({ length: numberOfEvents }, () => ({
         _id: new mongoose.Types.ObjectId(),
         event_name: faker.lorem.text(),
         event_color: faker.color.human(),

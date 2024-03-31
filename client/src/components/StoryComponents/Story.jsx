@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 
@@ -10,17 +11,16 @@ const Story = () => {
     const userProps = useSelector(state => state.user);
 
     const { storyProps } = useStoryData();
-    const { itemRefs, containerRef, scrollLeftVisible, scrollRightVisible, handleScroll } = useSliderScroll();
+    const { itemRefs, containerRef, scrollLeftVisible, scrollRightVisible, handleScroll } = useSliderScroll({ storyProps });
 
     return (
-        <div className="max-w-full relative">
-            <div className="sm:min-h-[200px] min-h-[140px] mb-[14px] relative">
-                { scrollLeftVisible && <MediumPrevButton onClick={() => handleScroll("left")}/>}
-                <div className="my-[-8px] py-[8px] relative">
-                    <div className="py-[8px] flex flex-col overflow-x-auto overflow-y-hidden relative custom-story-scrollbar">
+        <div className="w-full flex flex-col flex-shrink-0 relative">
+            <div className="w-full sm:min-h-[200px] min-h-[140px] mb-[14px] overflow-hidden relative">
+                <div className="my-[-8px] py-[8px] flex flex-col flex-shrink-0 grow relative">
+                    <div ref={containerRef} className="py-[8px] flex flex-col overflow-x-auto overflow-y-hidden overscroll-x-contain no-scrollbar relative">
                         <div className="flex flex-row grow relative">
-                            <div className="mr-[12px] flex flex-shrink-0 grow-0 sm:basis-[160px] basis-[100px] relative">
-                                <a href={`/${userProps?.user?._id}`} className="w-full block overflow-hidden cursor-pointer rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
+                            <div ref={(ref) => (itemRefs.current[0] = ref)} className="mr-[12px] flex flex-shrink-0 grow-0 sm:basis-[160px] basis-[100px] relative">
+                                <Link href={`/${userProps?.user?._id}`} className="w-full block overflow-hidden cursor-pointer rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
                                     <div className="w-full h-0 sm:pt-[230px] pt-[140px] overflow-hidden relative">
                                         <div className="absolute top-0 right-0 bottom-0 left-0">
                                             <div className="h-full flex flex-col relative">
@@ -48,17 +48,16 @@ const Story = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </a>
+                                </Link>
                             </div>
-                            <div ref={containerRef} className="flex flex-row grow items-center relative">
-                                { Array.isArray(storyProps) && storyProps?.map((value, index) => (
-                                    <StoryItem key={index} index={index} storyProps={value} ref={(ref) => (itemRefs.current[index] = ref)}/>
-                                )) }
-                            </div>
+                            { Array.isArray(storyProps) && storyProps?.map((value, index) => (
+                                <StoryItem key={index} storyProps={value} ref={(ref) => (itemRefs.current[index + 1] = ref)}/>
+                            )) }
                         </div>
                     </div>
+                    { scrollLeftVisible && <MediumPrevButton onClick={() => handleScroll("left")}/>}
+                    { scrollRightVisible && <MediumNextButton onClick={() => handleScroll("right")}/> }
                 </div>
-                { scrollRightVisible && <MediumNextButton onClick={() => handleScroll("right")}/> }
             </div>
         </div>
     );

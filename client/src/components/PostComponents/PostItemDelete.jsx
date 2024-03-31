@@ -1,4 +1,4 @@
-import { deletePostData } from "@/app/api/fetchPostData";
+import { deletePostData } from "@/utils";
 
 const PostItemDelete = ({ props, postDeleteRef, handleState }) => {
     const handleDeletePost = async (postId) => {

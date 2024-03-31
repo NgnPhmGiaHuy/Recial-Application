@@ -3,8 +3,8 @@ const { faker } = require("@faker-js/faker");
 
 const Group = require("../../../app/models/Group");
 
-const generateGroups = async () => {
-    const groupProps = Array.from({ length: 100 }, () => ({
+const generateGroups = async (numberOfGroups) => {
+    const groupProps = Array.from({ length: numberOfGroups }, () => ({
         _id: new mongoose.Types.ObjectId(),
         group_name: faker.lorem.text(),
         group_description: faker.lorem.paragraph(),

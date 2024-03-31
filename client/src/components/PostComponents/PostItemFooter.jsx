@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 
-import { handleFormatNumber } from "@/utils";
 import { useMostReactedIcons, useCountComment } from "@/hooks";
-import { createReactionData } from "@/app/api/fetchReactionData";
+import { createReactionData, handleFormatNumber } from "@/utils";
 
 const PostItemFooter = ({ footerRef, footerCommentRef, timeoutRef, handleState, props }) => {
     const totalComments = useCountComment(props.postProps);
@@ -13,7 +12,7 @@ const PostItemFooter = ({ footerRef, footerCommentRef, timeoutRef, handleState, 
 
     const handleReaction = async (reactionType) => {
         try {
-            await createReactionData(reactionType, props.postProps?.post?._id, "Post");
+            await createReactionData(reactionType, props.postProps?.post?._id);
 
             return handleState.handleShowPostReactionButton();
         } catch (error) {

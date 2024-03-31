@@ -1,18 +1,19 @@
 "use client"
 
 import { handleNewPostData } from "@/utils/handleNewData";
-import { useUserGroupData } from "@/hooks/useGroup/useGroupData";
-import { useUserData, useWebSocket, useWithAuth } from "@/hooks";
+import { setUserGroupListData } from "@/store/actions/user/userActions";
 import { AsideScaffold, GroupScaffoldPost, Header, LoadingPageComponent } from "@/components";
+import { useGetGroupFeedData, useGetUserDataFetcher, useUserData, useWebSocket, useWithAuth } from "@/hooks";
 
 const GroupFeedPage = () => {
     const { userProps } = useUserData();
-    const { postRef, groupPostProps, setGroupPostProps } = useUserGroupData(userProps);
+    const { postRef, groupPostProps, setGroupPostProps } = useGetGroupFeedData(userProps);
 
     const onDataReceived = async (data) => {
         await handleNewPostData(data, groupPostProps, setGroupPostProps);
     };
 
+    useGetUserDataFetcher("group-list", setUserGroupListData);
     useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
     return (

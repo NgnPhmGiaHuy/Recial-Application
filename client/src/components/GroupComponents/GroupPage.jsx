@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { GroupPageContent, GroupPageContentBlock, GroupPageHeader, GroupPageNavigation } from "@/components";
 
-const GroupPage = ({ postRef, groupData }) => {
+const GroupPage = () => {
     const groupProps = useSelector(state => state.group);
 
     return (
@@ -14,7 +14,7 @@ const GroupPage = ({ postRef, groupData }) => {
                         </div>
                         <GroupPageNavigation/>
                         { (groupProps?.profile?.group_privacy === "Public" || groupProps?.currentUserRole) ? (
-                            <GroupPageContent postRef={postRef} groupData={groupData}/>
+                            <GroupPageContent/>
                         ) : (
                             <GroupPageContentBlock/>
                         ) }

@@ -1,6 +1,7 @@
 const Photo = require("../../models/Photo");
-const getUserDataService = require("../userService/getUserDataService");
+
 const generalDataService = require("../generalDataService");
+const getUserDataService = require("../userService/getUserDataService");
 
 class PhotoDataService {
     getPhotoData = async (userId, photoId) => {
@@ -9,11 +10,7 @@ class PhotoDataService {
 
         const mediaProps = {
             _id: photoProps._id,
-            user: {
-                profile: {
-                    ...userProps,
-                }
-            },
+            user: userProps,
             media_name: photoProps.photo_title,
             media_type: "Photo",
             media_text: photoProps.photo_description,

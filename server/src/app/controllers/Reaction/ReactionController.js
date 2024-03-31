@@ -48,10 +48,9 @@ class ReactionController {
 
             const reactionType = await getTypeDataService.getTypeByTypeName(data.reaction_type);
 
-            const destinationId = data.destination.destination_id;
-            const destinationType = await getTypeDataService.getTypeByTypeName(data.destination.type);
+            const destinationId = data.destination_id;
 
-            const existReaction = await getReactionDataService.getReactionBySourceAndDestination(user._id, data.destination.destination_id);
+            const existReaction = await getReactionDataService.getReactionBySourceAndDestination(user._id, data.destination_id);
 
             const wss = req.app.get("wss");
 
@@ -63,7 +62,7 @@ class ReactionController {
 
                 if (wss) {
                     const reactionMessage = {
-                        type: `update_${destinationType.type_name.toString().toLowerCase()}_reaction`,
+                        type: "update_reaction",
                         reactionId: existReaction._id,
                     }
 
@@ -76,11 +75,11 @@ class ReactionController {
 
                 return res.status(200).json({ message: "Reaction update/create successfully" });
             } else {
-                const newReaction = await createReactionDataService.createReactionData(user, destinationType, destinationId, reactionType);
+                const newReaction = await createReactionDataService.createReactionData(user, destinationId, reactionType);
 
                 if (wss) {
                     const reactionMessage = {
-                        type: `create_${destinationType.type_name.toString().toLowerCase()}_reaction`,
+                        type: "create_reaction",
                         reactionId: newReaction._id,
                     }
 

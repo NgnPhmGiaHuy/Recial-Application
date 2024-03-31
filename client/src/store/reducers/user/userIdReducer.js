@@ -1,20 +1,34 @@
-import { SET_USER_ID_PROFILE_DATA, SET_USER_ID_CONTACT_DATA, SET_USER_ID_FRIEND_DATA, SET_USER_ID_FOLLOWER_DATA, SET_USER_ID_FOLLOWING_DATA, SET_USER_ID_PHOTO_LIST_DATA, SET_USER_ID_GROUP_LIST_DATA } from "../../actions/user/userIdActions";
+import { createPostComment, createPostReaction, updatePostReaction } from "@/utils";
+
+import { SET_USER_ID_POST_DATA, SET_USER_ID_PROFILE_DATA, SET_USER_ID_CONTACT_DATA, SET_USER_ID_FRIEND_DATA, SET_USER_ID_FOLLOWER_DATA, SET_USER_ID_FOLLOWING_DATA, SET_USER_ID_PHOTO_LIST_DATA, SET_USER_ID_GROUP_LIST_DATA } from "../../actions/user/userIdActions";
+import { CREATE_USER_ID_POST_DATA, CREATE_USER_ID_POST_COMMENT_DATA, CREATE_USER_ID_POST_REACTION_DATA } from "../../actions/user/userIdActions";
+import { UPDATE_USER_ID_POST_REACTION_DATA } from "../../actions/user/userIdActions";
+import { CLEAR_USER_ID_POST_DATA } from "../../actions/user/userIdActions";
 
 const initialState = {
     user: {
         _id: "",
-        profile: {},
-        contact: {},
-        friends: [],
-        follower: [],
-        following: [],
+        profile: null,
+        contact: null,
+        friends: null,
+        follower: null,
+        following: null,
     },
-    photo_list: [],
-    group_list: [],
+    post_list: null,
+    photo_list: null,
+    group_list: null,
 }
 
 const userIdReducer = (state  = initialState, action) => {
     switch (action.type) {
+        case SET_USER_ID_POST_DATA:
+            return {
+                ...state,
+                post_list: {
+                    ref: action.payload.ref,
+                    posts: action.payload.posts,
+                }
+            }
         case SET_USER_ID_PROFILE_DATA:
             return {
                 ...state,
@@ -66,6 +80,17 @@ const userIdReducer = (state  = initialState, action) => {
                 ...state,
                 group_list: action.payload,
             };
+        case CREATE_USER_ID_POST_COMMENT_DATA:
+            return createPostComment(state, action);
+        case CREATE_USER_ID_POST_REACTION_DATA:
+            return createPostReaction(state, action);
+        case UPDATE_USER_ID_POST_REACTION_DATA:
+            return updatePostReaction(state, action);
+        case CLEAR_USER_ID_POST_DATA:
+            return {
+                ...state,
+                post_list: null,
+            }
         default:
             return state;
     }

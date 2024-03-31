@@ -3,17 +3,19 @@
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import { ref, uploadBytes, getDownloadURL, list, listAll } from "firebase/storage";
 
-import { storage } from "@/utils/firebaseConfig";
-import { createPostData, getPostData } from "@/app/api/fetchPostData";
-import { toggleCreatePost } from "@/store/actions/toggle/toggleActions";
+import { getPostData } from "@/utils";
+import { useScrollHandler } from "@/hooks";
+import { setPostData } from "@/store/actions/post/postActions";
 
-export const useGetPostData = () => {
+const useGetPostData = () => {
+    const dispatch = useDispatch();
+
     const router = useRouter();
     const postRef = useRef(null);
-    const [postProps, setPostProps] = useState([]);
+
     const [loading, setLoading] = useState(false);
+    const [postProps, setPostProps] = useState([]);
 
     const fetchData = async () => {
         setLoading(true);
@@ -40,74 +42,19 @@ export const useGetPostData = () => {
         fetchData();
     }, [router]);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (postRef.current && (window.innerHeight + document.documentElement.scrollTop) >= (document.documentElement.scrollHeight * 9) / 10 && !loading) {
-                fetchData();
-            }
-        };
+    useScrollHandler(async () => {
+        if (postRef.current && (window.innerHeight + document.documentElement.scrollTop) >= (document.documentElement.scrollHeight * 9) / 10 && !loading) {
+            await fetchData();
+        }
+    }, [loading])
 
-        window.addEventListener("scroll", handleScroll);
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, [loading]);
+    useEffect(() => {
+        if (postProps) {
+            dispatch(setPostData({ ref: postRef, posts: postProps }))
+        }
+    }, [postRef, postProps, dispatch]);
 
     return { postProps, setPostProps, postRef };
 };
 
-export const useSetPostData = () => {
-    const dispatch = useDispatch();
-    const [postSubmitStatus, setPostSubmitStatus] = useState(false);
-
-    const handleSetPostData = async ({ inputText, inputImage, userProps, groupProps }) => {
-        try {
-            const uploadTasks = inputImage.map(async (base64String) => {
-                const block = base64String.split(";");
-                const contentType = block[0].split(":")[1];
-                const realData = block[1].split(",")[1];
-
-                const blob = await fetch(`data:${contentType};base64,${realData}`).then((res) =>
-                    res.blob()
-                );
-
-                const file = new File([blob], `image_${Date.now()}_${userProps.user._id}.jpeg`, {
-                    type: contentType,
-                });
-
-                const imageRef = ref(
-                    storage,
-                    `${userProps.user._id}/images/${file.name}`
-                );
-
-                const snapshot = await uploadBytes(imageRef, file);
-                return getDownloadURL(snapshot.ref);
-            });
-
-            const uploadedURLs = await Promise.all(uploadTasks);
-            const postData = {
-                post: {
-                    post_content: inputText,
-                    post_image: uploadedURLs,
-                    post_group: groupProps?.groupProps?._id,
-                    post_privacy: userProps?.settings?.privacy?.post_visibility,
-                },
-            };
-
-            const createPost = await createPostData(postData);
-
-            if (createPost && !createPost.error) {
-                setPostSubmitStatus(true);
-            }
-        } catch (error) {
-            console.error("Error uploading images or creating post:", error);
-        }
-    };
-
-    useEffect(() => {
-        dispatch(toggleCreatePost());
-    }, [postSubmitStatus]);
-
-    return { postSubmitStatus, handleSetPostData };
-};
-
+export default useGetPostData;

@@ -14,14 +14,14 @@ const AuthenticationSettingPage = () => {
                     link: "",
                     icon: "",
                     title: "Email addresses",
-                    itemProps: `${userProps?.user?.email}`,
+                    itemProps: `${userProps?.user?.profile?.email}`,
                     chevronRight: false,
                 },
                 {
                     link: "",
                     icon: "",
                     title: "Phone numbers",
-                    itemProps: `${userProps?.user?.phone_number}`,
+                    itemProps: `${userProps?.user?.contact?.phone_number}`,
                     chevronRight: false,
                 },
                 {

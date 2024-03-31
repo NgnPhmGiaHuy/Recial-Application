@@ -1,6 +1,6 @@
 "use client"
 
-import { convertDateFormat } from "@/utils";
+import { formatLongDate } from "@/utils";
 import { useToggleState, useDateOfBirth } from "@/hooks";
 
 const UserProfileEditInputBirthdate = ({ formData, handleFormChange }) => {
@@ -154,7 +154,7 @@ const UserProfileEditInputBirthdate = ({ formData, handleFormChange }) => {
                 <div className="flex flex-col justify-center relative">
                     <span className="text-[20px] text-black text-left font-normal break-words relative leading-6">
                         <span className="overflow-hidden relative">
-                            {convertDateFormat(formData?.session_date_of_birth)}
+                            {formatLongDate(formData?.session_date_of_birth)}
                         </span>
                     </span>
                 </div>

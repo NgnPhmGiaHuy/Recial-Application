@@ -23,7 +23,7 @@ class GetCommentDataService {
                 updated_at: updatedAt,
             },
             destination: {
-                destination_id: commentData.destination.destination_id,
+                destination_id: commentData.destination_id,
             }
         }
     }

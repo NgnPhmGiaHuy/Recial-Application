@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { formatTimeAgoFull } from "@/utils";
+import { formatFullTimeAgo } from "@/utils";
 import { useNotificationHeaderItemAction } from "@/hooks";
 import { NotificationHeaderItemQuickSetting } from "@/components";
 
@@ -45,7 +45,7 @@ const NotificationHeaderItem = ({ notificationProps }) => {
                                             <span className="max-w-full block text-lime-500 text-left sm:text-[13px] text-[10px] font-normal break-words leading-4">
                                                 <span className="block overflow-hidden whitespace-nowrap text-ellipsis relative">
                                                     <span className="font-semibold break-words">
-                                                        {formatTimeAgoFull(notificationProps?.updated_at)} ago
+                                                        {formatFullTimeAgo(notificationProps?.updated_at)} ago
                                                     </span>
                                                 </span>
                                             </span>

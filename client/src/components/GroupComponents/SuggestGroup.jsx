@@ -32,7 +32,7 @@ const SuggestGroup = ({ groupProps }) => {
                         {groupProps?.members?.slice(0, 4).map((value, index) => (
                             <Link href={value._id} key={index}>
                                 <div style={{ zIndex: index }} className="w-[40px] h-[40px] ml-[-14px] border-[2px] border-solid border-zinc-100 rounded-full relative cursor-pointer overflow-hidden">
-                                    <Image src={value.profile_picture_url} alt={`${value.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover" />
+                                    <Image src={value.profile?.profile_picture_url} alt={`${value.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover" />
                                 </div>
                             </Link>
                         ))}

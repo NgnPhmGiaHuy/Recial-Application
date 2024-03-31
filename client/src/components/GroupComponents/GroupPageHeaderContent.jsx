@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-
 import { useSelector } from "react-redux";
+
 import { handleFormatNumber } from "@/utils";
 import { GroupPageHeaderContentButton } from "@/components";
 import { GROUP_PAGE_HEADER_BUTTON_OPTIONS } from "@/constants/GroupConstants/GroupPageHeaderConstants";
@@ -80,7 +80,7 @@ const GroupPageHeaderContent = () => {
                                                 <div className={`${index !== 0 && "ml-[-4px]"} mb-[20px] relative`} style={{zIndex: 20 - index}} key={index}>
                                                     <Link href={`/${value.user._id}`}>
                                                         <div className="w-[32px] h-[32px] flex flex-col items-center justify-center rounded-full border border-solid border-white overflow-hidden relative">
-                                                            <Image src={value.user.profile_picture_url} alt={`${value.user.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                                            <Image src={value.user?.profile?.profile_picture_url} alt={`${value.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                                         </div>
                                                     </Link>
                                                 </div>

@@ -1,4 +1,4 @@
-import {handleFormatNumber} from "@/utils";
+import { handleFormatNumber } from "@/utils";
 
 export const communityCardConstants = (like, follow) => {
     return [

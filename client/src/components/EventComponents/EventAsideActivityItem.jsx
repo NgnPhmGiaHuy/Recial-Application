@@ -11,7 +11,7 @@ const EventAsideActivityItem = () => {
                     <div className="flex flex-col flex-shrink-0 relative">
                         <a href="">
                             <div className="w-[32px] h-[32px] flex items-center justify-center rounded-full overflow-hidden relative">
-                                <Image src={userProps?.user?.profile_picture_url} alt={`${userProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                <Image src={userProps?.user?.profile?.profile_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                             </div>
                         </a>
                     </div>

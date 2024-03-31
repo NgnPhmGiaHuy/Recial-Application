@@ -1,20 +1,24 @@
 "use client"
 
-import { useGetPostData, useUserData, useWithAuth, useUserProfileActions } from "@/hooks";
+import { useDispatch } from "react-redux";
+
+import { handleNewPostData, handleNewUserData } from "@/utils";
 import { Header, Aside, Main, CreatePostDialog, LoadingPageComponent } from "@/components";
+import { useGetPostData, useUserData, useWithAuth, useUserProfileActions, useWebSocket } from "@/hooks";
 
 const HomePage = () => {
+    useGetPostData();
+
+    const dispatch = useDispatch();
+    const { userProps } = useUserData();
     const { profileActionRef, showCreatePost } = useUserProfileActions();
 
-    const { userProps } = useUserData();
-    const { postRef, postProps, setPostProps } = useGetPostData();
+    const onDataReceived = async (data) => {
+        await handleNewPostData(data, dispatch);
+        await handleNewUserData(data, dispatch);
+    };
 
-    // const onDataReceived = async (data) => {
-        // await handleNewPostData(data, postProps, setPostProps);
-        // await handleNewUserData(data, userProps, setUserProps);
-    // };
-
-    // useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
+    useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
     return (
         <>
@@ -27,7 +31,7 @@ const HomePage = () => {
                                 <div className="min-w-[320px] min-h-[inherit] flex flex-row flex-nowrap flex-shrink-0 items-stretch justify-center relative">
                                     <div className="min-h-[inherit] flex flex-row flex-shrink flex-nowrap grow items-start justify-between basis-0 relative">
                                         <Aside/>
-                                        <Main postRef={postRef} postProps={postProps} setPostProps={setPostProps}/>
+                                        <Main/>
                                     </div>
                                 </div>
                             </div>

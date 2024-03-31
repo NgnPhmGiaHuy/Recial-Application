@@ -7,29 +7,33 @@ const getPostDataService = require("../../services/postService/getPostDataServic
 class EnhancePostDataService {
     enhancePostsWithUserData = async (posts) => {
         try {
-            const enhancedPosts = [];
+            const enhancedPosts = await Promise.all(posts.map(async (post) => {
+                const postProps = post._doc || post;
+                const { group, post_photos, createdAt, updatedAt, ...otherPostProps } = postProps;
 
-            for (const post of posts) {
-                let postProps = post._doc || post;
+                const [groupData, photo, user, comment, reaction, share] = await Promise.all([
+                    Group.findById(group),
+                    getPostDataService.getPostPhoto(post),
+                    getPostDataService.getPostAuthor(post._id),
+                    generalDataService.getComment(post._id),
+                    generalDataService.getReaction(post._id),
+                    generalDataService.getUsersByInteractionType(PostShare, "post_id", post._id)
+                ]);
 
-                const { group, createdAt, updatedAt, ...otherPostProps } = postProps;
-
-                const postWithUserData = {
+                return {
                     post: {
+                        user,
                         ...otherPostProps,
-                        group: await Group.findById(group),
+                        group: groupData,
                         created_at: createdAt,
                         updated_at: updatedAt,
                     },
-                    photo: await getPostDataService.getPostPhoto(post),
-                    user: await getPostDataService.getPostAuthor(post._id),
-                    comment: await generalDataService.getComment(post._id),
-                    reaction: await generalDataService.getReaction(post._id),
-                    share: await generalDataService.getUsersByInteractionType(PostShare, "post_id", post._id),
+                    photo,
+                    comment,
+                    reaction,
+                    share,
                 };
-
-                enhancedPosts.push(postWithUserData);
-            }
+            }));
 
             return enhancedPosts;
         } catch (error) {

@@ -7,7 +7,7 @@ import { useCountComment } from "@/hooks";
 import { MediaPhotoPageScaffoldItem, MediaPageScaffoldCommentItem, MediaPageScaffoldFooter, MediaPageScaffoldHeader } from "@/components";
 const DynamicVideoPageScaffoldItem = dynamic(() => import("@/components/VideoComponents/VideoPageScaffoldItem"), { ssr: false });
 
-const MediaPageScaffold = ({ videoProps, mediaType }) => {
+const MediaPageScaffold = ({ videoProps }) => {
     const mediaProps = useSelector(state => state.media);
 
     const totalComment = useCountComment(mediaProps?.media)
@@ -53,7 +53,7 @@ const MediaPageScaffold = ({ videoProps, mediaType }) => {
                     </div>
                 </div>
                 <div className="mx-[32px] py-[20px] flex-[0_0_auto] bg-white relative">
-                    <MediaPageScaffoldFooter mediaType={mediaType}/>
+                    <MediaPageScaffoldFooter/>
                 </div>
             </div>
         </div>

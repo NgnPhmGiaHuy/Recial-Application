@@ -24,9 +24,9 @@ const useMediaNavigation = () => {
     const fetchMediaURL = (mediaId, mediaType) => {
         let mediaURL;
         if (mediaType === "Story") {
-            mediaURL = `http://localhost:3000/story?user=${mediaProps?.media?.user?.profile?._id}&set=${mediaId}`;
+            mediaURL = `http://localhost:3000/story?user=${mediaProps?.media?.user?._id}&set=${mediaId}`;
         } else if (mediaType === "Photo") {
-            mediaURL = `http://localhost:3000/post?user=${mediaProps?.media?.user?.profile?._id}&post=${mediaProps.media.media_set}&photo=${mediaId}`;
+            mediaURL = `http://localhost:3000/post?user=${mediaProps?.media?.user?._id}&post=${mediaProps.media.media_set}&photo=${mediaId}`;
         }
         return mediaURL;
     };

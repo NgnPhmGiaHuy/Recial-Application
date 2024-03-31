@@ -1,11 +1,11 @@
 import { SET_GROUP_DATA, SET_GROUP_POST_DATA, SET_GROUP_MEMBER_DATA, SET_GROUP_REQUEST_DATA, SET_GROUP_ACTIVITY_DATA, SET_GROUP_CURRENT_USER_ROLE_DATA, CLEAR_GROUP_CURRENT_USER_ROLE_DATA } from "@/store/actions/group/groupActions";
 
 const initialState = {
-    posts: null,
     profile: null,
     members: null,
     activity: null,
     requests: null,
+    post_list: null,
     currentUserRole: null,
 }
 
@@ -19,7 +19,10 @@ const groupReducer = (state  = initialState, action) => {
         case SET_GROUP_POST_DATA:
             return {
                 ...state,
-                posts: action.payload,
+                post_list: {
+                    ref: action.payload.ref,
+                    posts: action.payload.posts,
+                },
             };
         case SET_GROUP_MEMBER_DATA:
             return {

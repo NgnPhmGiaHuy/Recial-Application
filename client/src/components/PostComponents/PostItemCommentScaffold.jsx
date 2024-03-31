@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 import { PostItemCommentInput } from "@/components";
-import { formatTimeAgoShort, handleFormatNumber } from "@/utils";
+import { formatShortTimeAgo, handleFormatNumber } from "@/utils";
 import { useMostReactedIcons, useOverflowText, useToggleState } from "@/hooks";
 
 const PostItemCommentScaffold = ({ postProps, isRely }) => {
@@ -34,7 +34,7 @@ const PostItemCommentScaffold = ({ postProps, isRely }) => {
                 <Link href={postProps?.user?._id}>
                     <div className="mt-[0px] flex-shrink-0 self-start">
                         <div className="w-[40px] h-[40px] flex items-center justify-center bg-white rounded-full overflow-hidden relative">
-                            <Image src={postProps?.user?.profile_picture_url} alt={`${postProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                            <Image src={postProps?.user?.profile?.profile_picture_url} alt={`${postProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                         </div>
                     </div>
                 </Link>
@@ -43,7 +43,7 @@ const PostItemCommentScaffold = ({ postProps, isRely }) => {
                         <div className="min-h-[22px] flex flex-col items-start justify-center">
                             <span className="text-[16px] text-black text-left font-semibold break-words relative leading-5">
                                 <span className="overflow-hidden whitespace-nowrap text-ellipsis">
-                                    {postProps?.user?.username || postProps?.user?.firstname + " " + postProps?.user?.lastname}
+                                    {postProps?.user?.profile?.username || postProps?.user?.profile?.firstname + " " + postProps?.user?.profile?.lastname}
                                 </span>
                             </span>
                         </div>
@@ -53,7 +53,7 @@ const PostItemCommentScaffold = ({ postProps, isRely }) => {
                     <div className="mr-[4px]">
                         <span className="text-[14px] text-zinc-500 text-left font-normal break-words relative leading-5">
                             <span className="overflow-hidden relative">
-                                {formatTimeAgoShort(postProps?.updated_at)}
+                                {formatShortTimeAgo(postProps?.updated_at)}
                             </span>
                         </span>
                     </div>

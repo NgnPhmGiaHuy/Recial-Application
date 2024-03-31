@@ -8,7 +8,7 @@ const MessageContentItemSourceImage = ({ messageProps }) => {
                     <div className="w-full h-full absolute">
                         <div className="w-full h-full overflow-hidden block rounded-3xl bg-white border border-solid border-gray-500 relative">
                             <div className="w-full h-full flex flex-col relative">
-                                <Image src={messageProps?.source?.profile_picture_url} alt={`${messageProps?.source?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                <Image src={messageProps?.source?.profile?.profile_picture_url} alt={`${messageProps?.source?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                             </div>
                         </div>
                     </div>

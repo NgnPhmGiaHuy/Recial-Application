@@ -1,10 +1,7 @@
-const {faker} = require("@faker-js/faker");
-
 const Type = require("../../app/models/Type");
+const Role = require("../../app/models/Role");
+const Status = require("../../app/models/Status");
 const Photo = require("../../app/models/Photo");
-const Video = require("../../app/models/Video");
-const Story = require("../../app/models/Story");
-const Post = require("../../app/models/Post");
 const PhotoView = require("../../app/models/PhotoView");
 const PhotoShare = require("../../app/models/PhotoShare");
 const PhotoSaved = require("../../app/models/PhotoSaved");
@@ -38,99 +35,97 @@ const generateUserProps = require("./user/generateUserProps");
 const generateComments = require("./comment/generateComments");
 const generateReplyComments = require("./comment/generateReplyComments");
 
-const generateNotifications = require("./notification/generateNotifications");
-const generateReactions = require("./reaction/generateReactions");
-const generateSettings = require("./setting/generateSettings");
+const generateVideoData = require("./media/generateVideoData");
+const generateStoryData = require("./media/generateStoryData");
+const generateViewShareSaved = require("./media/generateViewShareSaved");
+
+const generateMessages = require("./user/generateMessages");
 const generateFollowers = require("./user/generateFollowers");
 const generateFollowings = require("./user/generateFollowings");
-const generateMessages = require("./user/generateMessages");
 const generateFriendships = require("./user/generateFriendships");
 const generateSearchQueries = require("./user/generateSearchQueries");
 const generateFriendRequests = require("./user/generateFriendRequests");
-const generateViewShareSaved = require("./media/generateViewShareSaved");
-const generateGroupsPosts = require("./post/generateGroupsPosts");
+
+const generateSettings = require("./setting/generateSettings");
+const generateReactions = require("./reaction/generateReactions");
+const generateNotifications = require("./notification/generateNotifications");
+const generatePosts = require("./post/generatePosts");
 const generatePagesPosts = require("./post/generatePagesPosts");
+const generateGroupsPosts = require("./post/generateGroupsPosts");
 
 const generateDummyData = async () => {
     try {
+        console.log("Start: " + new Date().toLocaleString());
+
         const insertedTypes = await generateTypes();
+        // const insertedTypes = await Type.find({});
+
         const insertedRoles = await generateRoles();
+        // const insertedRoles = await Role.find({});
+
         const insertedStatuses = await generateStatuses();
+        // const insertedStatuses = await Status.find({});
 
-        const allUsers = await generateUserProps(insertedRoles);
+        const allUsers = await generateUserProps(insertedRoles, 1000);
 
-        console.log(allUsers)
-
-        await Photo.insertMany(allUsers.flatMap(user => user.photo_list.map(photoId => ({
-            _id: photoId,
-            photo_url: faker.image.url(),
-            photo_title: faker.lorem.text(),
-            photo_description: faker.lorem.paragraph(),
-        }))));
-
-        await Post.insertMany(allUsers.flatMap(user => user.post_list));
-        await Story.insertMany(allUsers.flatMap(user => user.story_list));
-        await Video.insertMany(allUsers.flatMap(user => user.video_list));
-
-        const allPages = await generatePages();
-        const allEvents = await generateEvents();
-        const allGroups = await generateGroups();
+        const allPosts = await generatePosts(allUsers, 20);
 
         const allPhotos = await Photo.find({});
-        const allStories = await Story.find({});
-        const allPosts = await Post.find({});
-        const allVideos = await Video.find({});
+        const allVideos = await generateVideoData(allUsers, 10);
+        const allStories = await generateStoryData(allUsers, 100);
 
-        await generatePagesLikes(allPages, allUsers);
-        await generatePagesFollows(allPages, allUsers);
-        await generatePagesMembers(allPages, allUsers, insertedRoles);
+        const allPages = await generatePages(1000);
+        const allEvents = await generateEvents(1000);
+        const allGroups = await generateGroups(1000);
 
-        await generateGroupsMembers(allGroups, allUsers, insertedRoles);
-        await generateEventsMembers(allEvents, allUsers, insertedRoles);
+        await generatePagesPosts(allPages, allPosts, 10000);
+        await generatePagesLikes(allPages, allUsers, 1000);
+        await generatePagesFollows(allPages, allUsers, 1000);
+        await generatePagesMembers(allPages, allUsers, insertedRoles, 100);
+
+        await generateGroupsPosts(allGroups, allPosts, 10000);
+        await generateGroupsMembers(allGroups, allUsers, insertedRoles, 100);
+
+        await generateEventsMembers(allEvents, allUsers, insertedRoles, 100);
 
         const reactionTypes = ["Like", "Dislike", "Happiness", "Unhappiness"];
-        const interestedTypes = ["Post", "Story", "Video", "Photo", "Page", "Group"];
-        const typesWithComment = ["Post", "Story", "Video", "Photo", "Page", "Group", "Comment"];
+        const interestedTypes = ["Post", "Story", "Video", "Photo"];
+        const typesWithComment = ["Post", "Story", "Video", "Photo", "Comment"];
 
         const reactionsFilteredTypes = insertedTypes.filter(type => reactionTypes.includes(type.type_name));
         const interestedFilteredTypes = insertedTypes.filter(type => interestedTypes.includes(type.type_name));
         const typesWithCommentFiltered = insertedTypes.filter(type => typesWithComment.includes(type.type_name));
 
-        const allComments = await generateComments(allUsers, interestedFilteredTypes, allPages, allGroups, allStories);
-        const allNotifications = await generateNotifications(allUsers, typesWithCommentFiltered, allPages, allGroups, allComments, allStories);
-        const allReactions = await generateReactions(allUsers, typesWithCommentFiltered, reactionsFilteredTypes, allPages, allGroups, allComments, allStories);
+        const allComments = await generateComments(interestedFilteredTypes, allUsers.flat(), allPosts, allPhotos, allVideos, allStories, 100000);
+        await generateReplyComments(allUsers, allComments, 100000);
 
-
-        const commentTypePhoto = await Type.find({ "type_name": "Photo" });
-        await generateReplyComments(allUsers, allComments, commentTypePhoto[0]);
-
-        const commentTypeComment = await Type.find({ "type_name": "Comment" });
-        await generateReplyComments(allUsers, allComments, commentTypeComment[0]);
+        await generateReactions(typesWithCommentFiltered, reactionsFilteredTypes, allUsers, allPosts, allPhotos, allVideos, allStories, allComments, 10000);
+        await generateNotifications(typesWithCommentFiltered, allUsers, allPosts, allPhotos, allVideos, allStories, allComments, 10000);
 
         await generateSettings(allUsers);
-        await generateFollowers(allUsers);
-        await generateMessages(allUsers);
-        await generateFollowings(allUsers);
-        await generateFriendships(allUsers)
-        await generateSearchQueries(allUsers);
-        await generateFriendRequests(allUsers);
+        await generateMessages(allUsers, 10000);
+        await generateSearchQueries(allUsers, 10000);
 
-        await generateViewShareSaved("Photo", PhotoView, allPhotos, allUsers);
-        await generateViewShareSaved("Photo", PhotoShare, allPhotos, allUsers);
-        await generateViewShareSaved("Photo", PhotoSaved, allPhotos, allUsers);
-        await generateViewShareSaved("Post", PostView, allPosts, allUsers);
-        await generateViewShareSaved("Post", PostShare, allPosts, allUsers);
-        await generateViewShareSaved("Post", PostSaved, allPosts, allUsers);
-        await generateViewShareSaved("Story", StoryView, allStories, allUsers);
-        await generateViewShareSaved("Story", StoryShare, allStories, allUsers);
-        await generateViewShareSaved("Story", StorySaved, allStories, allUsers);
-        await generateViewShareSaved("Video", VideoView, allVideos, allUsers);
-        await generateViewShareSaved("Video", VideoShare, allVideos, allUsers);
-        await generateViewShareSaved("Video", VideoSaved, allVideos, allUsers);
+        await generateFollowers(allUsers, 20);
+        await generateFollowings(allUsers, 20);
+        await generateFriendships(allUsers, 20);
+        await generateFriendRequests(allUsers, 20);
 
-        await generatePagesPosts(allPages, allPosts);
-        await generateGroupsPosts(allGroups, allPosts);
+        await generateViewShareSaved("PostView", "Post", PostView, allPosts, allUsers, 10000);
+        await generateViewShareSaved("PostShare", "Post", PostShare, allPosts, allUsers, 10000);
+        await generateViewShareSaved("PostSaved", "Post", PostSaved, allPosts, allUsers, 10000);
+        await generateViewShareSaved("VideoView", "Video", VideoView, allVideos, allUsers, 10000);
+        await generateViewShareSaved("VideoShare", "Video", VideoShare, allVideos, allUsers, 10000);
+        await generateViewShareSaved("VideoSaved", "Video", VideoSaved, allVideos, allUsers, 10000);
+        await generateViewShareSaved("PhotoView", "Photo", PhotoView, allPhotos, allUsers, 10000);
+        await generateViewShareSaved("PhotoShare", "Photo", PhotoShare, allPhotos, allUsers, 10000);
+        await generateViewShareSaved("PhotoSaved", "Photo", PhotoSaved, allPhotos, allUsers, 10000);
+        await generateViewShareSaved("StoryView", "Story", StoryView, allStories, allUsers, 10000);
+        await generateViewShareSaved("StoryShare", "Story", StoryShare, allStories, allUsers, 10000);
+        await generateViewShareSaved("StorySaved", "Story", StorySaved, allStories, allUsers, 10000);
+
         console.log("Dummy data generated successfully.");
+        console.log("End: " + new Date().toLocaleString());
     } catch (error) {
         console.error("Error generating dummy data:", error);
     }

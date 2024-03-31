@@ -1,15 +1,12 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-import { storage } from "@/utils/firebaseConfig";
-import { setUserProfile } from "@/app/api/fetchUserData";
+import { handleSetUserProfileData } from "@/utils";
 
 const useUpdateUserProfile = (userProps) => {
-    const [submitStatus, setSubmitStatus] = useState(false);
-
     const [formData, setFormData] = useState(null);
+    const [submitStatus, setSubmitStatus] = useState(false);
 
     useEffect(() => {
         setFormData({
@@ -24,54 +21,9 @@ const useUpdateUserProfile = (userProps) => {
         });
     }, [userProps]);
 
-    const uploadImage = async (base64String) => {
-        if (base64String.startsWith('data:image')) {
-            const block = base64String.split(";");
-            const contentType = block[0].split(":")[1];
-            const realData = block[1].split(",")[1];
-
-            const blob = await fetch(`data:${contentType};base64,${realData}`).then((res) =>
-                res.blob()
-            );
-
-            const file = new File([blob], `image_${Date.now()}_${userProps.user._id}.jpeg`, {
-                type: contentType,
-            });
-
-            const imageRef = ref(
-                storage,
-                `${userProps.user._id}/images/${file.name}`
-            );
-
-            const snapshot = await uploadBytes(imageRef, file);
-            return getDownloadURL(snapshot.ref);
-        } else {
-            return base64String;
-        }
-    }
-
     const handleSetUserProfile = async () => {
-        try {
-            const uploadedProfilePictureURL = await uploadImage(formData?.session_profile_picture_url);
-            const uploadedCoverPictureURL = await uploadImage(formData?.session_profile_cover_photo_url);
-
-            const { session_profile_picture_url, session_profile_cover_photo_url, ...otherFormData } = formData;
-
-            const dataToSend = {
-                ...otherFormData,
-                session_profile_picture_url: uploadedProfilePictureURL,
-                session_profile_cover_photo_url: uploadedCoverPictureURL,
-            }
-
-            const updateUserProfile = await setUserProfile(dataToSend);
-
-            if (updateUserProfile && !updateUserProfile.error) {
-                return setSubmitStatus(true);
-            }
-        } catch (error) {
-            console.error('Error handling friend request:', error);
-        }
-    }
+        await handleSetUserProfileData({ formData, userProps, setSubmitStatus });
+    };
 
     return { formData, setFormData, submitStatus, handleSetUserProfile };
 }

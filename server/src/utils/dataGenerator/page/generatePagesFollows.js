@@ -2,9 +2,11 @@ const { faker } = require("@faker-js/faker");
 
 const PageFollow = require("../../../app/models/PageFollow");
 
-const generatePagesFollows = async (allPages, allUsers) => {
+const generatePagesFollows = async (allPages, allUsers, maxNumberOfPagesFollows) => {
     const pageFollowProps = allPages.flatMap(page => {
-        return Array.from({ length: 50 }, () => {
+        const numberOfPagesFollows = faker.number.int({ min: 1, max: maxNumberOfPagesFollows });
+
+        return Array.from({ length: numberOfPagesFollows }, () => {
             const randomUser = faker.helpers.objectValue(allUsers);
 
             return {

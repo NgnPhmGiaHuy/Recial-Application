@@ -19,8 +19,10 @@ const MessageContentItem = ({ messageProps, action }) => {
                 <div className="flex flex-col flex-shrink-0 grow relative">
                     <div className="flex flex-col items-stretch p-[8px] m-[-6px]">
                         <div className="flex flex-row flex-shrink-0 flex-nowrap items-center justify-between relative rounded-md cursor-pointer hover:bg-zinc-100 transition-all">
-                            <MessageContentItemSourceImage messageProps={messageProps}/>
-                            <MessageContentItemText messageProps={messageProps}/>
+                            <div className="flex flex-row flex-shrink items-center justify-center relative">
+                                <MessageContentItemSourceImage messageProps={messageProps}/>
+                                <MessageContentItemText messageProps={messageProps}/>
+                            </div>
                             <MessageContentItemStatus messageProps={messageProps}/>
                         </div>
                     </div>

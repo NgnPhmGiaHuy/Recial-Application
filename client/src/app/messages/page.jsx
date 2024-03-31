@@ -1,18 +1,8 @@
-"use client"
-
-import { useState } from "react";
-
-import { useUserData, useWithAuth } from "@/hooks";
+import { useMessageData, useWithAuth} from "@/hooks";
 import { AsideMessage, Header, LoadingPageComponent, MessageNoChatSelected, MessageScaffold } from "@/components";
 
 const MessagePage = () => {
-    const { userProps } = useUserData();
-
-    const [messageId, setMessageId] = useState(null);
-
-    const handleChangeMessageId = (messageId) => {
-        return setMessageId(messageId);
-    }
+    const { userProps, messageId, handleChangeMessageId } = useMessageData();
 
     return (
         <>

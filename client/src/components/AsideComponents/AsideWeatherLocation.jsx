@@ -1,4 +1,4 @@
-import { formatCurrentDate } from "@/utils";
+import { formatCurrentFullDate } from "@/utils";
 
 const AsideWeatherLocation = ({ location }) => {
     return (
@@ -7,7 +7,7 @@ const AsideWeatherLocation = ({ location }) => {
                 <div>
                     <span className="block text-[18px] text-center font-bold break-words relative leading-5">
                         <span className="overflow-hidden relative">
-                            { formatCurrentDate(new Date()) }
+                            { formatCurrentFullDate(new Date()) }
                         </span>
                     </span>
                 </div>

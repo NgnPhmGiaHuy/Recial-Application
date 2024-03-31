@@ -143,7 +143,7 @@ class UserIdController {
                 return res.status(404).json({ error: "User not found" });
             }
 
-            const groupListProps = await getUserDataService.getUserGroup(user._id);
+            const groupListProps = await getUserDataService.getUserGroupWithoutMemberDetail(user._id);
 
             return res.status(200).json(groupListProps);
         } catch (error) {

@@ -30,7 +30,7 @@ const MediaPageScaffoldCommentItem = ({ mediaProps, isReply }) => {
                 <div className="mr-[12px] flex-[0_0_40px]">
                     <a href="">
                         <div className="w-[40px] h-[40px] flex items-center justify-center bg-white rounded-full overflow-hidden relative">
-                            <Image src={mediaProps?.user?.profile_picture_url} alt={`${mediaProps?.user?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                            <Image src={mediaProps?.user?.profile?.profile_picture_url} alt={`${mediaProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                         </div>
                     </a>
                 </div>
@@ -39,7 +39,7 @@ const MediaPageScaffoldCommentItem = ({ mediaProps, isReply }) => {
                         <a href="">
                             <span className="block text-[14px] text-black text-left font-semibold break-words relative leading-5 hover:underline transition-all">
                                 <span className="overflow-hidden text-ellipsis line-clamp-1 relative">
-                                    {mediaProps?.user?.username || mediaProps?.user?.firstname + " " + mediaProps?.user?.lastname}
+                                    {mediaProps?.user?.profile?.username || mediaProps?.user?.profile?.firstname + " " + mediaProps?.user?.profile?.lastname}
                                 </span>
                             </span>
                         </a>
@@ -111,7 +111,7 @@ const MediaPageScaffoldCommentItem = ({ mediaProps, isReply }) => {
             {showReplyPanel ? (
                 <div className="pl-[52px]">
                     <div className="mb-[16px]">
-                        <MediaPageScaffoldFooter mediaProps={mediaProps} mediaType="Comment" isComment={true} handleShowReplyPanel={handleShowReplyPanel}/>
+                        <MediaPageScaffoldFooter mediaProps={mediaProps} isComment={true} handleShowReplyPanel={handleShowReplyPanel}/>
                     </div>
                 </div>
             ) : null}

@@ -39,8 +39,6 @@ import AsideShowMoreOrShowLessButton from "@/components/AsideComponents/AsideSho
 
 import Main from "@/components/MainComponents/Main";
 
-import ClimateActions from "@/components/ClimateComponents/ClimateActions";
-import ClimateChangeFacts from "@/components/ClimateComponents/ClimateChangeFacts";
 import ClimateSciencePageSmallCard from "@/components/ClimateComponents/ClimateSciencePageSmallCard";
 import ClimateSciencePageSmallCardItem from "@/components/ClimateComponents/ClimateSciencePageSmallCardItem";
 import ClimateSciencePageMediumCard from "@/components/ClimateComponents/ClimateSciencePageMediumCard";
@@ -74,6 +72,7 @@ import MessageContentItemSourceImage from "@/components/MessageComponents/Messag
 import MessageScaffold from "@/components/MessageComponents/MessageScaffold";
 import MessageScaffoldContent from "@/components/MessageComponents/MessageScaffoldContent";
 import MessageScaffoldContentHeader from "@/components/MessageComponents/MessageScaffoldContentHeader";
+import MessageScaffoldContentHeaderButton from "@/components/MessageComponents/MessageScaffoldContentHeaderButton";
 import MessageScaffoldContentStatus from "@/components/MessageComponents/MessageScaffoldContentStatus";
 import MessageScaffoldContentSource from "@/components/MessageComponents/MessageScaffoldContentSource";
 import MessageScaffoldContentSourceWithTimeStamp from "@/components/MessageComponents/MessageScaffoldContentSourceWithTimeStamp";
@@ -124,6 +123,7 @@ import CreateGroupReviewAboutCard from "@/components/CreateGroupComponents/Creat
 import CreateGroupReviewContent from "@/components/CreateGroupComponents/CreateGroupReviewContent";
 import CreateGroupReviewContentName from "@/components/CreateGroupComponents/CreateGroupReviewContentName";
 import CreateGroupReviewContentNavigation from "@/components/CreateGroupComponents/CreateGroupReviewContentNavigation";
+import CreateGroupReviewContentNavigationItem from "@/components/CreateGroupComponents/CreateGroupReviewContentNavigationItem";
 import CreateGroupReviewCreatePost from "@/components/CreateGroupComponents/CreateGroupReviewCreatePost";
 
 import Post from "@/components/PostComponents/Post";
@@ -207,6 +207,7 @@ import SuggestEventItem from "@/components/EventComponents/SuggestEventItem";
 
 import NotificationHeader from "@/components/NotificationComponents/NotificationHeader";
 import NotificationScaffold from "@/components/NotificationComponents/NotificationScaffold";
+import NotificationTitle from "@/components/NotificationComponents/NotificationTitle";
 import NotificationHeaderContent from "@/components/NotificationComponents/NotificationHeaderContent";
 import NotificationHeaderItem from "@/components/NotificationComponents/NotificationHeaderItem";
 import NotificationHeaderItemQuickSetting from "@/components/NotificationComponents/NotificationHeaderItemQuickSetting";
@@ -244,6 +245,9 @@ import VideoScaffoldItemAside from "@/components/VideoComponents/VideoScaffoldIt
 import MediaPageScaffold from "@/components/VideoComponents/MediaPageScaffold";
 import VideoPageScaffoldItem from "@/components/VideoComponents/VideoPageScaffoldItem";
 import MediaPageScaffoldHeader from "@/components/VideoComponents/MediaPageScaffoldHeader";
+import MediaPageScaffoldHeaderURL from "@/components/VideoComponents/MediaPageScaffoldHeaderURL";
+import MediaPageScaffoldHeaderText from "@/components/VideoComponents/MediaPageScaffoldHeaderText";
+import MediaPageScaffoldHeaderReaction from "@/components/VideoComponents/MediaPageScaffoldHeaderReaction";
 import MediaPageScaffoldFooter from "@/components/VideoComponents/MediaPageScaffoldFooter";
 import MediaPageScaffoldCommentItem from "@/components/VideoComponents/MediaPageScaffoldCommentItem";
 import MediaPhotoPageScaffoldItem from "@/components/VideoComponents/MediaPhotoPageScaffoldItem";
@@ -283,6 +287,7 @@ export {
     QuickSettingItem,
 
     NotificationScaffold,
+    NotificationTitle,
     NotificationHeader,
     NotificationHeaderItem,
     NotificationHeaderContent,
@@ -318,8 +323,6 @@ export {
 
     Main,
 
-    ClimateActions,
-    ClimateChangeFacts,
     ClimateSciencePageSmallCard,
     ClimateSciencePageSmallCardItem,
     ClimateSciencePageMediumCard,
@@ -353,6 +356,7 @@ export {
     MessageScaffold,
     MessageScaffoldContent,
     MessageScaffoldContentHeader,
+    MessageScaffoldContentHeaderButton,
     MessageScaffoldContentStatus,
     MessageScaffoldContentSource,
     MessageScaffoldContentSourceWithTimeStamp,
@@ -403,6 +407,7 @@ export {
     CreateGroupReviewContent,
     CreateGroupReviewContentName,
     CreateGroupReviewContentNavigation,
+    CreateGroupReviewContentNavigationItem,
     CreateGroupReviewCreatePost,
 
     Post,
@@ -516,6 +521,9 @@ export {
     MediaPageScaffold,
     VideoPageScaffoldItem,
     MediaPageScaffoldHeader,
+    MediaPageScaffoldHeaderURL,
+    MediaPageScaffoldHeaderText,
+    MediaPageScaffoldHeaderReaction,
     MediaPageScaffoldFooter,
     MediaPageScaffoldCommentItem,
     MediaPhotoPageScaffoldItem,

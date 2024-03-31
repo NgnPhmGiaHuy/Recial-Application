@@ -6,6 +6,7 @@ const PageFollow = require("../../models/PageFollow");
 
 const generalDataService = require("../generalDataService");
 const getPostDataService = require("../postService/getPostDataService");
+const Group = require("../../models/Group");
 
 class GetPageDataService {
     getRawPageData = async (pageId) => {
@@ -39,19 +40,23 @@ class GetPageDataService {
 
             const { post_photos, ...otherPostIdProps } = post_id;
 
-            const photo = await getPostDataService.getPostPhoto(post_id);
+            const [photo, user, comment, reaction, share] = await Promise.all([
+                getPostDataService.getPostPhoto(post_id),
+                getPostDataService.getPostAuthor(post_id),
+                generalDataService.getComment(post_id),
+                generalDataService.getReaction(post_id),
+                generalDataService.getUsersByInteractionType(PostShare, "post_id", post_id)
+            ]);
 
             return {
                 post: {
+                    user,
+                    page: page_id,
                     ...otherPostIdProps,
                     created_at: createdAt,
                     updated_at: updatedAt,
                 },
-                photo: photo,
-                page: page_id,
-                comment: await generalDataService.getComment(post_id._id),
-                reaction: await generalDataService.getReaction(post_id._id),
-                share: await generalDataService.getUsersByInteractionType(PostShare, "post_id", post_id._id),
+                photo, comment, reaction, share,
             };
         }));
 

@@ -1,13 +1,13 @@
 "use client"
 
-import { useGroupData, useUserData, useUserProfileActions, useWithAuth } from "@/hooks";
+import { useGetGroupData, useUserData, useUserProfileActions, useWithAuth } from "@/hooks";
 import { CreatePostDialog, GroupPage, Header, LoadingPageComponent } from "@/components";
 
 const GroupScaffoldPage = ({ params }) => {
-    const { profileActionRef, showCreatePost } = useUserProfileActions();
+    useGetGroupData(params.groupId);
 
     const { userProps } = useUserData();
-    const { postRef, groupData } = useGroupData(params.groupId);
+    const { profileActionRef, showCreatePost } = useUserProfileActions();
 
     return (
         <>
@@ -16,12 +16,12 @@ const GroupScaffoldPage = ({ params }) => {
                     <div>
                         <Header/>
                         <div className="flex flex-col relative">
-                            <GroupPage postRef={postRef} groupData={groupData}/>
+                            <GroupPage/>
                         </div>
                     </div>
                     <div>
                         { showCreatePost && (
-                            <CreatePostDialog groupProps={groupData} createPostRef={profileActionRef.createPostRef}/>
+                            <CreatePostDialog createPostRef={profileActionRef.createPostRef}/>
                         ) }
                     </div>
                 </>

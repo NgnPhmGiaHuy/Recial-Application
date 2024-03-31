@@ -3,13 +3,20 @@ const { faker } = require("@faker-js/faker");
 
 const User = require("../../../app/models/User");
 
-const generateMediaData = require("../media/generateMediaData");
+const existingEmails = new Set();
 
-const generateUserProps = async (insertedRoles) => {
-    const userProps = await Promise.all(Array.from({ length: 1000 }, async () => {
-        return {
+const generateUserProps = async (insertedRoles, length) => {
+    const userProps = await Promise.all(Array.from({ length: length }, async () => {
+        let email;
+        do {
+            email = faker.internet.email();
+        } while (existingEmails.has(email));
+
+        existingEmails.add(email);
+
+        const user = new User({
             _id: new mongoose.Types.ObjectId(),
-            email: faker.internet.email(),
+            email: email,
             username: faker.internet.userName(),
             password: faker.internet.password(),
             refreshToken: faker.string.uuid(),
@@ -23,18 +30,21 @@ const generateUserProps = async (insertedRoles) => {
             roles: [insertedRoles[0]._id],
             profile_picture_url: faker.image.avatarLegacy(),
             profile_cover_photo_url: faker.image.urlLoremFlickr({ category: "abstract" }),
-        };
-    }))
+        });
 
-    try {
-        await User.insertMany(userProps);
+        try {
+            await user.save();
 
-        console.log("Users generated successfully.")
+            return user;
+        } catch (error) {
+            return console.error("Error saving user:", error);
+        }
+    }));
 
-        return userProps;
-    } catch (error) {
-        return console.error("Error generating users:", error);
-    }
+    console.log("Users generated successfully.");
+
+    return userProps;
 };
+
 
 module.exports = generateUserProps;

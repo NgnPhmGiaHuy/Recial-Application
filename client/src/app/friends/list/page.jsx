@@ -1,27 +1,22 @@
 "use client"
 
-import { useState } from "react";
-
+import { useDispatch } from "react-redux";
 import UserPage from "@/app/[userId]/page";
-import { handleNewUserData } from "@/utils/handleNewData";
-import { useUserData, useWebSocket, useWithAuth } from "@/hooks";
-import { useGetUserFriendData } from "@/hooks/useUser/useUserData";
+
+import { handleNewUserData } from "@/utils";
+import { setUserFriendData } from "@/store/actions/user/userActions";
 import { AsideScaffold, Header, LoadingPageComponent } from "@/components";
+import { useFriendData, useGetUserDataFetcher, useWebSocket, useWithAuth } from "@/hooks";
 
 const FriendListPage = () => {
-    const { userProps, setUserProps } = useUserData();
-
-    const [friendId, setFriendId] = useState(null);
-
-    const handleFriendClick = (clickedFriendId) => {
-        return setFriendId(clickedFriendId);
-    }
+    const dispatch = useDispatch();
+    const { userProps, friendId, handleFriendClick } = useFriendData();
 
     const onDataReceived = async (data) => {
-        await handleNewUserData(data, userProps, setUserProps);
+        await handleNewUserData(data, dispatch);
     };
 
-    useGetUserFriendData();
+    useGetUserDataFetcher("friend", setUserFriendData);
     useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
     return (

@@ -2,9 +2,11 @@ const { faker } = require("@faker-js/faker");
 
 const EventMember = require("../../../app/models/EventMember");
 
-const generateEventsMembers = async (allEvents, allUsers, insertedRoles) => {
+const generateEventsMembers = async (allEvents, allUsers, insertedRoles, maxNumberOfEventsMembers) => {
     const eventMemberProps = allEvents.flatMap(event => {
-        return Array.from({ length: 50 }, () => {
+        const numberOfEventsMembers = faker.number.int({ min: 1, max: maxNumberOfEventsMembers });
+
+        return Array.from({ length: numberOfEventsMembers }, () => {
             const randomUser = faker.helpers.objectValue(allUsers);
 
             return {

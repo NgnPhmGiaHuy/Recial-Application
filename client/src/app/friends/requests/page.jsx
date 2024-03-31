@@ -1,29 +1,24 @@
 "use client"
 
-import { useState } from "react";
-
+import { useDispatch } from "react-redux";
 import UserPage from "@/app/[userId]/page";
-import { handleNewUserData } from "@/utils/handleNewData";
-import { useUserData, useWebSocket, useWithAuth } from "@/hooks";
-import { useGetUserFriendRequestData } from "@/hooks/useUser/useUserData";
+
+import { handleNewUserData } from "@/utils";
+import { setUserFriendRequestData } from "@/store/actions/user/userActions";
 import { AsideScaffold, Header, LoadingPageComponent } from "@/components";
+import { useFriendData, useGetUserDataFetcher, useWebSocket, useWithAuth } from "@/hooks";
 
 const FriendRequestPage = () => {
-    const { userProps, setUserProps } = useUserData();
-
-    const [friendRequestId, setFriendRequestId] = useState(null);
-
-    const handleFriendClick = (clickedFriendId) => {
-        return setFriendRequestId(clickedFriendId);
-    }
+    const dispatch = useDispatch();
+    const { userProps, friendId, handleFriendClick } = useFriendData();
 
     const onDataReceived = async (data) => {
-        await handleNewUserData(data, userProps, setUserProps);
+        await handleNewUserData(data, dispatch);
     };
 
-    useGetUserFriendRequestData();
     useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
-    
+    useGetUserDataFetcher("friend-request", setUserFriendRequestData);
+
     return (
         <>
             { userProps ? (
@@ -38,9 +33,9 @@ const FriendRequestPage = () => {
                                             <AsideScaffold aside={{ title: "Friend Requests", subtitle: "Friends", role: { friend_request: true } }} action={handleFriendClick}/>
                                         </div>
                                     </div>
-                                    { friendRequestId && (
+                                    { friendId && (
                                         <div className="w-full min-h-[inherit] flex flex-col flex-shrink grow basis-0 relative">
-                                            <UserPage params={{ userId: friendRequestId }} asAProps={true}/>
+                                            <UserPage params={{ userId: friendId }} asAProps={true}/>
                                         </div>
                                     ) }
                                 </div>

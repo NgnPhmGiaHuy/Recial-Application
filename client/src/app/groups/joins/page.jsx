@@ -1,13 +1,14 @@
 "use client"
 
-import { useUserData, useWithAuth } from "@/hooks";
-import { useGetUserGroupListData } from "@/hooks/useUser/useUserData";
+import { setUserGroupListData } from "@/store/actions/user/userActions";
+import { useGetUserDataFetcher, useUserData, useWithAuth } from "@/hooks";
 import { AsideScaffold, GroupScaffoldJoin, Header, LoadingPageComponent } from "@/components";
 
 const GroupJoinPage = () => {
     const { userProps } = useUserData();
 
-    useGetUserGroupListData();
+    useGetUserDataFetcher("group-list", setUserGroupListData);
+
     return (
         <>
             { userProps ? (

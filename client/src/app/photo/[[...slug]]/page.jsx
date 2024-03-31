@@ -20,7 +20,7 @@ const PhotoPage = ({ searchParams }) => {
         <>
             { mediaProps ? (
                 <div className="relative">
-                    <MediaPageScaffold mediaType="Photo"/>
+                    <MediaPageScaffold/>
                 </div>
             ) : (
                 <LoadingPageComponent/>

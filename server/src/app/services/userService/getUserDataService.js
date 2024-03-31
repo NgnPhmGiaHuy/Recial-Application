@@ -25,13 +25,12 @@ class GetUserDataService {
 
         return {
             _id: user._id,
-            email: user.email,
-            username: user.username,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            gender: user.gender,
-            date_of_birth: user.date_of_birth,
-            profile_picture_url: user.profile_picture_url,
+            profile: {
+                username: user.username,
+                firstname: user.firstname,
+                lastname: user.lastname,
+                profile_picture_url: user.profile_picture_url,
+            }
         }
     }
 
@@ -174,7 +173,7 @@ class GetUserDataService {
         }));
     };
 
-    getUserGroup = async (userId) => {
+    getUserGroupWithMember = async (userId) => {
         const groupMembers = await GroupMember.find({ "user.user_id": userId });
 
         return await Promise.all(groupMembers.map(async group => {
@@ -195,6 +194,24 @@ class GetUserDataService {
                 group_member: groupMember,
                 created_at: createdAt,
                 updated_at: updatedAt,
+            }
+        }));
+    };
+
+    getUserGroupWithoutMemberDetail = async (userId) => {
+        const groupMembers = await GroupMember.find({ "user.user_id": userId });
+
+        return await Promise.all(groupMembers.map(async group => {
+            const groupProps = await Group.findById(group.group_id);
+            const groupMemberProps = await GroupMember.find({ group_id: groupProps._id }).populate("user");
+
+            const { createdAt, updatedAt, ...otherGroupProps } = groupProps._doc;
+
+            return {
+                ...otherGroupProps,
+                created_at: createdAt,
+                updated_at: updatedAt,
+                group_member: groupMemberProps.map(member => member.user.user_id),
             }
         }));
     };

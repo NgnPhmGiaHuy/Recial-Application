@@ -1,11 +1,12 @@
 "use client"
 
-import { useUserData, usePageData, useWithAuth } from "@/hooks";
+import { useUserData, useGetPageData, useWithAuth } from "@/hooks";
 import { Header, LoadingPageComponent, PageCover, PageScaffold } from "@/components";
 
 const PagePage = ({ params }) => {
+    useGetPageData(params.pageId);
+
     const { userProps } = useUserData();
-    const { postRef, pagePostProps } = usePageData(params.pageId);
 
     return (
         <>
@@ -19,7 +20,7 @@ const PagePage = ({ params }) => {
                                     <div className="min-h-[inherit] flex flex-col grow relative">
                                         <PageCover/>
                                         <div className="min-w-[900px] min-h-[inherit] py-[12px] flex flex-row flex-nowrap flex-shrink-0 grow items-stretch justify-start relative">
-                                            <PageScaffold postRef={postRef} pagePostProps={pagePostProps}/>
+                                            <PageScaffold/>
                                         </div>
                                     </div>
                                 </div>

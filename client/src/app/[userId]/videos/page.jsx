@@ -1,6 +1,5 @@
 "use client"
 
-import {fakeUserData} from "@/constants";
 import { useUserIdLayout, useWithAuth } from "@/hooks";
 import { Header, LoadingPageComponent, UserAboutScaffold, UserProfileCover } from "@/components";
 

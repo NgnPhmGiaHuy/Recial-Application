@@ -2,9 +2,11 @@ const { faker } = require("@faker-js/faker");
 
 const PageMember = require("../../../app/models/PageMember");
 
-const generatePagesMembers = async (allPages, allUsers, insertedRoles) => {
+const generatePagesMembers = async (allPages, allUsers, insertedRoles, maxNumberOfPagesMembers) => {
     const pageMemberProps = allPages.flatMap(page => {
-        return Array.from({ length: 50 }, () => {
+        const numberOfPagesMembers = faker.number.int({ min: 1, max: maxNumberOfPagesMembers });
+
+        return Array.from({ length: numberOfPagesMembers }, () => {
             const randomUser = faker.helpers.objectValue(allUsers);
 
             return {

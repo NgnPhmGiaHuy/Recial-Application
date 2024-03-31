@@ -1,5 +1,5 @@
 import { AsideScaffoldGroupItem, AsideScaffoldGroupNavigation } from "@/components";
-import { useFilterUserGroupsByRole, useGetGroupDataAfterFilterUserRole } from "@/hooks/useGroup/useGroupData";
+import { useFilterUserGroupsByRole, useGetGroupDataAfterFilterUserRole } from "@/hooks";
 
 const AsideScaffoldGroup = () => {
     const { managedGroups, joinedGroups } = useFilterUserGroupsByRole();

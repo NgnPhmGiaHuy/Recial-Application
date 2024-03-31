@@ -2,14 +2,14 @@
 
 import { useSelector } from "react-redux";
 
-import { useGetUserSettingData } from "@/hooks/useUser/useUserData";
+import { useGetUserDataFetcher } from "@/hooks";
+import { setUserSettingData } from "@/store/actions/user/userActions";
 import { CreatePostDialogAudience, CreatePostDialogCard } from "@/components";
 
-
-const CreatePostDialog = ({ groupProps, createPostRef }) => {
+const CreatePostDialog = ({ createPostRef }) => {
     const { showCreatePostAudience, showCreatePostPanel } = useSelector(state => state.toggle);
 
-    useGetUserSettingData();
+    const { isLoading } = useGetUserDataFetcher("setting", setUserSettingData);
 
     return (
         <div className="z-[9999] relative">
@@ -20,7 +20,7 @@ const CreatePostDialog = ({ groupProps, createPostRef }) => {
                             <form action="" method="POST">
                                 <div ref={createPostRef} className="w-[750px] h-[700px] overflow-hidden relative">
                                     <div className={`${showCreatePostPanel ? "opacity-100 visible translate-x-0" : "opacity-0 invisible -translate-x-full pointer-events-none"} w-full h-full top-0 left-0 absolute`}>
-                                        <CreatePostDialogCard groupProps={groupProps}/>
+                                        <CreatePostDialogCard/>
                                     </div>
                                     <div className={`${showCreatePostAudience ? "opacity-100 visible translate-x-0 animate-movePanelRightToLeft" : "opacity-0 invisible translate-x-full pointer-events-none"} top-0 left-0 absolute `}>
                                         <CreatePostDialogAudience/>

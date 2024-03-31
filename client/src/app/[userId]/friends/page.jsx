@@ -1,17 +1,22 @@
 "use client"
 
+import { useDispatch } from "react-redux";
+
+import { handleNewUserData } from "@/utils";
 import { useUserIdLayout, useUserProfileActions, useWebSocket, useWithAuth } from "@/hooks";
 import { Header, LoadingPageComponent, UserAboutScaffold, UserProfileCover, UserProfileEdit } from "@/components";
 
 const UserFriendsPage = ({ params }) => {
-    const { currentUser: userProps, isCurrentUser, isFriend, isFriendRequest } = useUserIdLayout(params);
-    const { profileActionRef, showCreatePost, showEditProfile } = useUserProfileActions();
+    const dispatch = useDispatch();
 
-    // const onDataReceived = async (data) => {
-    //     await handleNewUserData(data, userData, setUserData);
-    // };
+    const { currentUser: userProps } = useUserIdLayout(params);
+    const { profileActionRef, showEditProfile } = useUserProfileActions();
 
-    // useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
+    const onDataReceived = async (data) => {
+        await handleNewUserData(data, dispatch);
+    };
+
+    useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
     return (
         <>

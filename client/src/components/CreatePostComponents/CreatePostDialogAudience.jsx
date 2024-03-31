@@ -1,69 +1,24 @@
 "use client"
 
-import { useDispatch, useSelector } from "react-redux";
-import { useState, useCallback, useEffect } from "react";
+import { useSelector } from "react-redux";
 
+import { useCreatePostDialogAudience } from "@/hooks";
 import { CreatePostDialogAudienceItem } from "@/components";
-import { setUserSettingData } from "@/store/actions/user/userActions";
-import { CREATE_POST_AUDIENCE } from "@/constants/CreatePostConstants";
-import { toggleCreatePostAudience, toggleCreatePostPanel } from "@/store/actions/toggle/toggleActions";
+
+import CREATE_POST_AUDIENCE from "@/constants/CreatePostConstants/CreatePostDialogAudienceConstants";
 
 const renderAudienceItems = (userProps, handleCreatePostAudienceChecked) => {
     return CREATE_POST_AUDIENCE.map((value, index) => {
         return (
-            <CreatePostDialogAudienceItem key={index} createPostAudienceData={value} checked={userProps?.settings?.privacy?.post_visibility === value.createPostAudienceOption} onSelect={() => handleCreatePostAudienceChecked(index)} />
+            <CreatePostDialogAudienceItem key={index} createPostAudienceData={value} checked={userProps?.settings?.privacy?.post_visibility === value.option} onSelect={() => handleCreatePostAudienceChecked(index)} />
         );
     });
 };
 
 const CreatePostDialogAudience = () => {
-    const dispatch = useDispatch();
     const userProps = useSelector(state => state.user);
 
-    const handeShowCreatePostAudience = () => {
-        dispatch(toggleCreatePostPanel());
-
-        return dispatch(toggleCreatePostAudience());
-    }
-
-    const [previousVisibility, setPreviousVisibility] = useState(null);
-
-    const updateSettings = (newSettings) => {
-        dispatch(setUserSettingData(newSettings));
-    };
-
-    const handleCreatePostAudienceChecked = useCallback((index) => {
-        const newPostSettingPrivacy = CREATE_POST_AUDIENCE[index].createPostAudienceOption;
-
-        setPreviousVisibility(userProps?.settings?.privacy?.post_visibility);
-
-        updateSettings({
-            ...userProps,
-            privacy: {
-                ...userProps.privacy,
-                post_visibility: newPostSettingPrivacy
-            }
-        });
-
-    }, [userProps?.settings?.privacy?.post_visibility]);
-
-    const handleCancel = () => {
-        if (previousVisibility !== null) {
-            updateSettings({
-                ...userProps,
-                privacy: {
-                    ...userProps.privacy,
-                    post_visibility: previousVisibility
-                }
-            });
-        }
-
-        return handeShowCreatePostAudience();
-    }
-
-    useEffect(() => {
-
-    }, [userProps?.settings?.privacy?.post_visibility]);
+    const { handleCreatePostAudienceChecked, handeShowCreatePostAudience, handleCancel } = useCreatePostDialogAudience();
 
     return (
         <div className="min-w-[750px] relative">

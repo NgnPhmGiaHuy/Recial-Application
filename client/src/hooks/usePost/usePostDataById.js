@@ -1,79 +1,29 @@
 "use client"
 
-import { useRouter } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
+import { useFetchAndScroll } from "@/hooks";
+import { useUserIdData } from "@/hooks/useUser/useUserIdData";
 import { getPostDataByUserId } from "@/app/api/fetchPostDataById";
+import { setUserPostData } from "@/store/actions/user/userActions";
+import { setUserIdPostData } from "@/store/actions/user/userIdActions";
 
 const usePostDataByUserId = (userId) => {
-    const router = useRouter();
-    const postByIdRef = useRef(null);
+    const dispatch = useDispatch();
+    const isCurrentUser = useUserIdData(userId);
 
-    const [page, setPage] = useState(0);
-    const [loading, setLoading] = useState(false);
-    const [postByUserIdProps, setPostByUserIdProps] = useState([]);
+    const { postRef: postByIdRef, postProps: postByUserIdProps, setPostProps: setPostByUserIdProps } = useFetchAndScroll(userId, (page) => getPostDataByUserId({ userId, page }),);
 
-    const debounce = (func, delay) => {
-        let timeoutId;
-        return function (...args) {
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => {
-                func.apply(this, args);
-            }, delay);
-        };
-    };
-
-    const fetchPostData = async () => {
-        if (loading) return;
-
-        setLoading(true);
-
-        try {
-            const postProps = await getPostDataByUserId({ userId, page });
-
-            if (!postProps || postProps.error) {
-                return router.push("/auth/login");
-            }
-
-            if (Array.isArray(postProps)) {
-                if (page <= 1) {
-                    setPostByUserIdProps(postProps);
-                } else {
-                    setPostByUserIdProps((prevPosts) => [...prevPosts, ...postProps]);
-                }
-                setPage((prevPage) => prevPage + 1);
-            }
-        } catch (error) {
-            return console.error(error);
-        } finally {
-            setLoading(false);
+    useEffect(() => {
+        if (postByUserIdProps && isCurrentUser) {
+            dispatch(setUserPostData({ ref: postByIdRef, posts: postByUserIdProps }));
         }
-    };
+        if (postByUserIdProps && !isCurrentUser) {
+            dispatch(setUserIdPostData({ ref: postByIdRef, posts: postByUserIdProps }));
+        }
+    }, [postByIdRef, postByUserIdProps, dispatch])
 
-    useEffect(() => {
-        setPage(0);
-        setPostByUserIdProps([]);
-
-        return () => { };
-    }, [userId]);
-
-    useEffect(() => {
-        fetchPostData();
-    }, [userId, router]);
-
-    useEffect(() => {
-        const handleScroll = debounce(async () => {
-            if (postByIdRef.current && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight * 0.9 && !loading) {
-                await fetchPostData();
-            }
-        }, 200);
-
-        window.addEventListener("scroll", handleScroll);
-
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, [userId, loading, fetchPostData]);
 
     return { postByIdRef, postByUserIdProps, setPostByUserIdProps };
 };

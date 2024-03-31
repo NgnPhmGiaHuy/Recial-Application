@@ -1,12 +1,22 @@
 "use client"
 
+import { useDispatch } from "react-redux";
 import {fakeUserData} from "@/constants";
-import { useUserData, useWithAuth } from "@/hooks";
+
+import { handleNewUserData}  from "@/utils";
+import { useUserData, useWebSocket, useWithAuth} from "@/hooks";
 import { AsideScaffold, FriendScaffold, Header, LoadingPageComponent } from "@/components";
 
 const FriendPage = () => {
+    const dispatch = useDispatch();
     const { userProps } = useUserData();
-    
+
+    const onDataReceived = async (data) => {
+        await handleNewUserData(data, dispatch);
+    }
+
+    useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
+
     return (
         <>
             { userProps ? (

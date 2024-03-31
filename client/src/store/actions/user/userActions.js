@@ -1,3 +1,4 @@
+export const SET_USER_POST_DATA = "SET_USER_POST_DATA";
 export const SET_USER_PROFILE_DATA = "SET_USER_PROFILE_DATA";
 export const SET_USER_CONTACT_DATA = "SET_USER_CONTACT_DATA";
 export const SET_USER_NOTIFICATION_DATA = "SET_USER_NOTIFICATION_DATA";
@@ -10,6 +11,19 @@ export const SET_USER_FOLLOWING_DATA = "SET_USER_FOLLOWING_DATA";
 export const SET_USER_PHOTO_LIST_DATA = "SET_USER_PHOTO_LIST_DATA";
 export const SET_USER_GROUP_LIST_DATA = "SET_USER_GROUP_LIST_DATA";
 export const SET_USER_FRIEND_REQUEST_DATA = "SET_USER_FRIEND_REQUEST_DATA";
+
+export const CREATE_USER_POST_DATA = "CREATE_USER_POST_DATA";
+export const CREATE_USER_POST_COMMENT_DATA = "CREATE_USER_POST_COMMENT_DATA";
+export const CREATE_USER_POST_REACTION_DATA = "CREATE_USER_POST_REACTION_DATA";
+
+export const UPDATE_USER_POST_REACTION_DATA = "UPDATE_USER_POST_REACTION_DATA";
+
+export const CLEAR_USER_POST_DATA = "CLEAR_USER_POST_DATA";
+
+export const setUserPostData = (postData) => ({
+    type: SET_USER_POST_DATA,
+    payload: postData,
+})
 
 export const setUserProfileData = (profileData) => ({
     type: SET_USER_PROFILE_DATA,
@@ -70,3 +84,27 @@ export const setUserFriendRequestData = (friendRequestData) => ({
     type: SET_USER_FRIEND_REQUEST_DATA,
     payload: friendRequestData,
 });
+
+export const createUserPostData = (postData) => ({
+    type: CREATE_USER_POST_DATA,
+    payload: postData,
+})
+
+export const createUserPostCommentData = (commentData) => ({
+    type: CREATE_USER_POST_COMMENT_DATA,
+    payload: commentData,
+})
+
+export const createUserPostReactionData = (reactionData) => ({
+    type: CREATE_USER_POST_REACTION_DATA,
+    payload: reactionData,
+})
+
+export const updateUserPostReactionData = (reactionData) => ({
+    type: UPDATE_USER_POST_REACTION_DATA,
+    payload: reactionData,
+})
+
+export const clearUserPostData = () => ({
+    type: CLEAR_USER_POST_DATA,
+})

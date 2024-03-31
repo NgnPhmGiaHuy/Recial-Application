@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useCallback } from "react";
 
-import { createReactionData } from "@/app/api/fetchReactionData";
+import { createReactionData } from "@/utils";
 
 import Like from "/public/images/Icon/like.png";
 import Dislike from "/public/images/Icon/dislike.png";
@@ -21,7 +21,7 @@ const PostItemReactionButton = ({ timeoutRef, postReactionButtonRef, props, hand
 
     const handleReaction = async (reactionType) => {
         try {
-            await createReactionData(reactionType, props.postProps?.post?._id, "Post");
+            await createReactionData(reactionType, props.postProps?.post?._id);
 
             return handleState.handleShowPostReactionButton();
         } catch (error) {

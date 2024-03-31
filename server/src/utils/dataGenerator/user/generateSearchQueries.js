@@ -3,8 +3,8 @@ const { faker } = require("@faker-js/faker");
 
 const SearchHistory = require("../../../app/models/SearchHistory");
 
-const generateSearchQueries = async (allUsers) => {
-    const searchQuery = Array.from({ length: 50000 }, () => {
+const generateSearchQueries = async (allUsers, numberOfSearchQueries) => {
+    const searchQuery = Array.from({ length: numberOfSearchQueries }, () => {
         const randomUser = faker.helpers.objectValue(allUsers);
 
         return {

@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
 
+import { useGetUserDataFetcher } from "@/hooks";
 import { MessageContentItem } from "@/components";
-import { useGetUserMessageData } from "@/hooks/useUser/useUserData";
+import { setUserMessageData } from "@/store/actions/user/userActions";
 
 const MessageHeaderContent = () => {
     const userProps = useSelector(state => state.user);
 
-    const { isLoading } = useGetUserMessageData();
+    const { isLoading } = useGetUserDataFetcher("message", setUserMessageData);
 
     return (
         <div>

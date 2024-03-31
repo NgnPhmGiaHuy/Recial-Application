@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 import { useCommentMediaData, useContentEditable } from "@/hooks";
 
-const MediaPageScaffoldFooter = ({ mediaType, isComment, handleShowReplyPanel }) => {
+const MediaPageScaffoldFooter = ({ isComment, handleShowReplyPanel }) => {
     const userProps = useSelector(state => state.user);
     const mediaProps = useSelector(state => state.media);
 
@@ -14,7 +14,7 @@ const MediaPageScaffoldFooter = ({ mediaType, isComment, handleShowReplyPanel })
     const { commentSubmitStatus, handleSetCommentData } = useCommentMediaData();
 
     const handleSubmitComment = async () => {
-        await handleSetCommentData(inputText, userProps, mediaProps, mediaType, isComment);
+        await handleSetCommentData(inputText, userProps, mediaProps, isComment);
     }
 
     useEffect(() => {

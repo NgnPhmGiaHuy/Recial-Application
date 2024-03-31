@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { convertTo12HourFormat, formatCurrentWeekdayDate } from "@/utils";
+import { formatCurrentWeekday, formatTime12Hour } from "@/utils";
 
 const EventAsideItem = ({ eventProps, eventItemId, handleSetEventItemId }) => {
     const active = eventItemId === eventProps?._id;
@@ -20,7 +20,7 @@ const EventAsideItem = ({ eventProps, eventItemId, handleSetEventItemId }) => {
                         <div>
                             <span className="block text-[16px] text-black text-left font-normal break-words relative leading-5">
                                 <span className="overflow-hidden line-clamp-1 relative">
-                                    { formatCurrentWeekdayDate(eventProps?.event_start_datetime) }
+                                    { formatCurrentWeekday(eventProps?.event_start_datetime) }
                                 </span>
                             </span>
                         </div>
@@ -28,7 +28,7 @@ const EventAsideItem = ({ eventProps, eventItemId, handleSetEventItemId }) => {
                     <div className="flex flex-row flex-shrink-0 items-center justify-center">
                         <span className="block text-[12px] text-zinc-500 text-left font-normal break-words relative leading-5">
                             <span className="overflow-hidden relative">
-                                at { convertTo12HourFormat(eventProps?.event_start_datetime) }
+                                at { formatTime12Hour(eventProps?.event_start_datetime) }
                             </span>
                         </span>
                     </div>

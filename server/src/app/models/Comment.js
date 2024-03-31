@@ -8,16 +8,9 @@ const CommentSchema = new Schema(
             ref: "User",
             required: true,
         },
-        destination: {
-            type: {
-                type: Schema.Types.ObjectId,
-                ref: "Type",
-                required: true,
-            },
-            destination_id: {
-                type: Schema.Types.ObjectId,
-                required: true,
-            },
+        destination_id: {
+            type: Schema.Types.ObjectId,
+            required: true,
         },
         comment_text: {
             type: String,

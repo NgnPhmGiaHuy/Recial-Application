@@ -14,20 +14,29 @@ class GetPostDataService {
     getFormattedPostData = async (postId) => {
         const postProps = await Post.findById(postId);
 
-        const { group, createdAt, updatedAt, ...otherPostProps } = postProps._doc;
+        const { group, post_photos, createdAt, updatedAt, ...otherPostProps } = postProps._doc;
+
+        const [groupData, photo, user, comment, reaction, share] = await Promise.all([
+            Group.findById(group),
+            this.getPostPhoto(postProps),
+            this.getPostAuthor(postProps._id),
+            generalDataService.getComment(postProps._id),
+            generalDataService.getReaction(postProps._id),
+            generalDataService.getUsersByInteractionType(PostShare, "post_id", postProps._id)
+        ]);
 
         return {
             post: {
+                user,
                 ...otherPostProps,
-                group: await Group.findById(group),
+                group: groupData,
                 created_at: createdAt,
                 updated_at: updatedAt,
             },
-            photo: await this.getPostPhoto(postProps),
-            user: await this.getPostAuthor(postProps._id),
-            comment: await generalDataService.getComment(postProps._id),
-            reaction: await generalDataService.getReaction(postProps._id),
-            share: await generalDataService.getUsersByInteractionType(PostShare, "post_id", postProps._id),
+            photo,
+            comment,
+            reaction,
+            share,
         }
     }
 
@@ -36,11 +45,12 @@ class GetPostDataService {
 
         return {
             _id: postAuthor._id,
-            email: postAuthor.email,
-            username: postAuthor.username,
-            firstname: postAuthor.firstname,
-            lastname: postAuthor.lastname,
-            profile_picture_url: postAuthor.profile_picture_url,
+            profile: {
+                username: postAuthor.username,
+                firstname: postAuthor.firstname,
+                lastname: postAuthor.lastname,
+                profile_picture_url: postAuthor.profile_picture_url,
+            }
         }
     }
 
@@ -48,9 +58,13 @@ class GetPostDataService {
         return await Promise.all(post.post_photos.map(async (photo) => {
             const photos = await Photo.findById(photo);
 
+            const { createdAt, updatedAt, ...otherPhotoProps } = photos._doc;
+
             return {
-                ...photos._doc,
-            }
+                photo_url: photos.photo_url,
+                created_at: createdAt,
+                updated_at: updatedAt,
+            };
         }));
     }
 

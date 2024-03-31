@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useSelector } from "react-redux";
 
-import { convertDateFormat } from "@/utils";
+import { formatLongDate } from "@/utils";
 
 import Favicon from "/public/images/Metadata/favicon.ico";
 
@@ -54,7 +54,7 @@ const PageScaffoldAsideSecurityCard = () => {
                                 <div>
                                     <span className="block text-[12px] text-left font-normal break-words relative leading-5">
                                         <span className="overflow-hidden relative">
-                                            Page created on {convertDateFormat(pageProps?.profile?.created_at)}
+                                            Page created on {formatLongDate(pageProps?.profile?.created_at)}
                                         </span>
                                     </span>
                                 </div>

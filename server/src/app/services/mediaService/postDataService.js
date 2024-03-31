@@ -11,11 +11,7 @@ class PostDataService {
 
         return {
             _id: photoProps._id,
-            user: {
-                profile: {
-                    ...userProps,
-                },
-            },
+            user: userProps,
             media_name: photoProps.photo_title,
             media_set: postId,
             media_type: "Photo",

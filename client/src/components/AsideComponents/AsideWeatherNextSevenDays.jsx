@@ -1,8 +1,8 @@
 import { AsideWeatherDayScaffold } from "@/components";
-import { getCurrentAndNextSixDaysOfWeek } from "@/utils/handleWeather";
+import { getCurrentAndNextSixDaysOfWeekNames } from "@/utils";
 
 const AsideWeatherNextSevenDays = ({ weatherForecast }) => {
-    const currentAndNextSixDaysOfWeek = getCurrentAndNextSixDaysOfWeek();
+    const currentAndNextSixDaysOfWeek = getCurrentAndNextSixDaysOfWeekNames();
 
     return (
         <div className="my-[20px] p-[16px] flex items-center justify-between rounded-xl bg-black/40 relative">

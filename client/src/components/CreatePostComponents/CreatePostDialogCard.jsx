@@ -3,8 +3,10 @@ import { useSelector } from "react-redux";
 import { useContentEditable, useMultipleImagesData, useSetPostData } from "@/hooks";
 import { CreatePostDialogCardHeader, CreatePostDialogImageInput, CreatePostDialogCardNavigation } from "@/components";;
 
-const CreatePostDialogCard = ({ groupProps }) => {
+const CreatePostDialogCard = () => {
     const userProps = useSelector(state => state.user);
+    const groupProps = useSelector(state => state.group);
+
     const { showCreatePostMediaInput } = useSelector(state => state.toggle);
 
     const { handleSetPostData } = useSetPostData();

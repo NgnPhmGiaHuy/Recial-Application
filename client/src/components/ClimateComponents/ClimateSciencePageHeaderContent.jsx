@@ -1,10 +1,10 @@
 import Image from "next/image";
 
-import {IconButton, MediumFollowButton} from "@/components";
+import { IconButton, MediumFollowButton } from "@/components";
 
-import ClimateIcon01 from "/public/images/Icon/climate.png";
 import InfoIcon01 from "/public/images/Icon/info-0001.svg";
 import ShareIcon01 from "/public/images/Icon/share-0001.svg";
+import ClimateIcon01 from "/public/images/Icon/climate-0001.png";
 
 const ClimateSciencePageHeaderContent = () => {
     return (

@@ -49,7 +49,7 @@ const POST_ITEM_QUICK_SETTING = (props) => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             ),
-            title: `Snooze ${props.postProps?.user?.username || props.postProps?.user?.firstname + " " + props.postProps?.user?.lastname} for 30 days`,
+            title: `Snooze ${props.postProps?.post?.user?.profile?.username || props.postProps?.post?.user?.profile?.firstname + " " + props.postProps?.post?.user?.profile?.lastname} for 30 days`,
             settingItemSubtitle: "Temporarily stop seeing posts.",
             switchButton: false,
         }, {
@@ -70,7 +70,7 @@ const POST_ITEM_QUICK_SETTING = (props) => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                 </svg>
             ),
-            title: `Block ${props.postProps?.user?.username || props.postProps?.user?.firstname + " " + props.postProps?.user?.lastname}'s profile`,
+            title: `Block ${props.postProps?.post?.user?.profile?.username || props.postProps?.post?.user?.profile?.firstname + " " + props.postProps?.post?.user?.profile?.lastname}'s profile`,
             settingItemSubtitle: "You won't be able to see or contact each other.",
             switchButton: false,
         },

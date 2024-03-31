@@ -48,7 +48,7 @@ const PostItemContent = ({ contentRef, props }) => {
                 {(props.postProps?.photo && props.postProps?.photo?.length) ? (
                     <div className="w-full h-0 pt-[75%] block overflow-hidden bg-white relative">
                         {props.postProps?.photo?.length === 1 ? (
-                            <Link href={`/post/?user=${props.postProps?.user?._id}&post=${props.postProps?.post?._id}&photo=${props.postProps?.photo[0]._id}`}>
+                            <Link href={`/post/?user=${props.postProps?.post?.user?._id}&post=${props.postProps?.post?._id}&photo=${props.postProps?.photo[0]._id}`}>
                                 <div className="w-full h-full top-0 left-0 block absolute">
                                     <div className="w-full h-full flex overflow-hidden relative">
                                         <Image src={props.postProps?.photo[0]?.photo_url} alt={`${props.postProps?.photo[0]?.photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="w-full h-full object-cover object-center rounded-xl bg-no-repeat"/>
@@ -60,7 +60,7 @@ const PostItemContent = ({ contentRef, props }) => {
                                 const { insetStyles, width, height } = calculateAttachmentStyles(props.postProps?.photo?.length, index);
 
                                 return (
-                                    <Link key={index} href={`/post/?user=${props.postProps?.user?._id}&post=${props.postProps?.post?._id}&photo=${props.postProps?.photo[0]._id}`}>
+                                    <Link key={index} href={`/post/?user=${props.postProps?.post?.user?._id}&post=${props.postProps?.post?._id}&photo=${props.postProps?.photo[0]._id}`}>
                                         <div className="p-[4px] block absolute" style={{...insetStyles, width, height}}>
                                             <div className="relative w-full h-full">
                                                 <Image src={value?.photo_url} alt={`${value?.photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover rounded-xl"/>

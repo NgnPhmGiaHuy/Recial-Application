@@ -2,24 +2,31 @@
 
 import { useState, useRef, useEffect } from "react";
 
-const useSliderScroll = () => {
+const useSliderScroll = ({ storyProps } = {}) => {
     const itemRefs = useRef([]);
     const containerRef = useRef(null);
 
+    const [isInitialized, setIsInitialized] = useState(false);
     const [scrollLeftVisible, setScrollLeftVisible] = useState(false);
     const [scrollRightVisible, setScrollRightVisible] = useState(true);
 
     useEffect(() => {
         const container = containerRef.current;
 
-        if (container) {
+        if (container && isInitialized) {
             const isLeftVisible = container.scrollLeft > 0;
             const isRightVisible = container.scrollLeft < (container.scrollWidth - container.clientWidth);
 
             setScrollLeftVisible(isLeftVisible);
             setScrollRightVisible(isRightVisible);
         }
-    }, [containerRef]);
+    }, [containerRef, isInitialized]);
+
+    useEffect(() => {
+        if (storyProps && !isInitialized) {
+            setIsInitialized(true);
+        }
+    }, [storyProps, isInitialized]);
 
     const handleScroll = (direction) => {
         const container = containerRef.current;

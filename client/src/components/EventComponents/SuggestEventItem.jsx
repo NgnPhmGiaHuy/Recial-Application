@@ -1,7 +1,7 @@
-import {getMonthAndDay} from "@/utils";
+import { extractMonthAndDay } from "@/utils";
 
 const SuggestEventItem = ({ eventProps }) => {
-    const { month, day } = getMonthAndDay(eventProps?.event_start_datetime);
+    const { month, day } = extractMonthAndDay(eventProps?.event_start_datetime);
 
     return (
         <div className="pt-[12px] mx-[-4px] flex flex-col flex-auto justify-between relative">

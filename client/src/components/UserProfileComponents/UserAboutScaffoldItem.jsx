@@ -8,7 +8,7 @@ const UserAboutScaffoldItem = ({ userProps }) => {
                 <Link href={userProps?._id ? `/groups/${userProps?._id}` : `/${userProps?.user?._id}`}>
                     <div className="mr-[16px] rounded-lg border border-solid border-zinc-100 bg-white relative">
                         <div className="w-[80px] h-[80px] rounded-lg overflow-hidden relative">
-                            <Image src={userProps?.user?.profile_picture_url || userProps?.group_picture_url} alt={`${userProps?.user?.profile_picture_url || userProps?.group_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                            <Image src={userProps?.user?.profile?.profile_picture_url || userProps?.group_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url || userProps?.group_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                         </div>
                     </div>
                 </Link>
@@ -18,7 +18,7 @@ const UserAboutScaffoldItem = ({ userProps }) => {
                     <Link href={userProps?._id ? `/groups/${userProps?._id}` : `/${userProps?.user?._id}`}>
                         <span className="text-[17px] text-black text-left font-semibold break-words relative leading-5 hover:underline">
                             <span className="overflow-hidden text-ellipsis line-clamp-1 relative">
-                                {userProps?.group_name ? userProps?.group_name : (userProps?.user?.username || userProps?.user?.firstname + " " + userProps?.user?.lastname) }
+                                {userProps?.group_name ? userProps?.group_name : (userProps?.user?.profile?.username || userProps?.user?.profile?.firstname + " " + userProps?.user?.profile?.lastname) }
                             </span>
                         </span>
                     </Link>
@@ -64,7 +64,7 @@ const UserAboutScaffoldItem = ({ userProps }) => {
                     </div>
                 ) : null}
             </div>
-            {userProps?.user?.username ? (
+            {userProps?.user?.profile?.username ? (
                 <div className="m-[-6px] flex flex-row flex-nowrap flex-shrink-0 items-center justify-between relative">
                     <div className="p-[6px] flex flex-col flex-shrink-0 relative">
                         <div className="w-[32px] h-[32px] flex items-center justify-center cursor-pointer rounded-full overflow-hidden relative hover:bg-zinc-100">

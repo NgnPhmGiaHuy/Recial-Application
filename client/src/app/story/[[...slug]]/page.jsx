@@ -20,7 +20,7 @@ const StoryPage = ({ searchParams }) => {
         <>
             { mediaProps ? (
                 <div className="relative">
-                    <MediaPageScaffold mediaType="Story"/>
+                    <MediaPageScaffold/>
                 </div>
             ) : (
                 <LoadingPageComponent/>

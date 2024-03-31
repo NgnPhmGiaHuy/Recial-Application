@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useSelector } from "react-redux";
 
-import { formatTimeAgoShort } from "@/utils";
+import { formatShortTimeAgo } from "@/utils";
 import { MessageScaffoldInfoHeaderButton } from "@/components";
 
 import MESSAGE_SCAFFOLD_INFO_HEADER_BUTTON from "@/constants/MessageConstants/MessageScaffoldInfoHeaderConstants";
@@ -31,7 +31,7 @@ const MessageScaffoldInfoHeader = () => {
                     <div className="pt-[8px] flex flex-col flex-shrink-0 items-center relative">
                         <span className="block text-[12px] text-zinc-500 text-center font-normal break-words relative leading-3">
                             <span className="overflow-hidden relative">
-                                Active { formatTimeAgoShort(userProps?.user?.updated_at) } ago
+                                Active { formatShortTimeAgo(userProps?.user?.updated_at) } ago
                             </span>
                         </span>
                     </div>

@@ -3,8 +3,8 @@ const { faker } = require("@faker-js/faker");
 
 const Notification = require("../../../app/models/Notification");
 
-const generateNotifications = async (allUsers, typesWithCommentFiltered, allPages, allGroups, allComments, allStories) => {
-    const notificationProps = Array.from({ length: 100000 }, () => {
+const generateNotifications = async (typesWithCommentFiltered, allUsers, allPosts, allPhotos, allVideos, allStories, allComments, numberOfNotification) => {
+    const notificationProps = Array.from({ length: numberOfNotification }, () => {
         const randomUser = faker.helpers.objectValue(allUsers);
         const randomType = typesWithCommentFiltered[Math.floor(Math.random() * typesWithCommentFiltered.length)];
 
@@ -12,19 +12,13 @@ const generateNotifications = async (allUsers, typesWithCommentFiltered, allPage
 
         switch (randomType.type_name) {
             case "Post":
-                randomSourceId = faker.helpers.objectValue(randomUser.post_list)._id;
+                randomSourceId = faker.helpers.objectValue(allPosts)._id;
                 break;
             case "Video":
-                randomSourceId = faker.helpers.objectValue(randomUser.video_list)._id;
+                randomSourceId = faker.helpers.objectValue(allVideos)._id;
                 break;
             case "Photo":
-                randomSourceId = faker.helpers.objectValue(randomUser.photo_list)._id;
-                break;
-            case "Page":
-                randomSourceId = faker.helpers.objectValue(allPages)._id;
-                break;
-            case "Group":
-                randomSourceId = faker.helpers.objectValue(allGroups)._id;
+                randomSourceId = faker.helpers.objectValue(allPhotos)._id;
                 break;
             case "Comment":
                 randomSourceId = faker.helpers.objectValue(allComments)._id;

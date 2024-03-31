@@ -15,7 +15,7 @@ const NotificationsPage = () => {
                         <div className="top-[56px] min-h-[calc(100vh-56px)] flex flex-col relative">
                             <div className="min-h-[inherit] mb-[calc(-100vh-56px)] flex flex-col relative">
                                 <div className="min-w-[900px] min-h-[inherit] flex justify-center relative">
-                                    <NotificationScaffold userProps={userProps}/>
+                                    <NotificationScaffold/>
                                 </div>
                             </div>
                         </div>

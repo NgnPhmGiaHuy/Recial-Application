@@ -6,6 +6,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import userReducer from "@/store/reducers/user/userReducer";
 import userIdReducer from "@/store/reducers/user/userIdReducer";
 import pageReducer from "@/store/reducers/page/pageReducer";
+import postReducer from "@/store/reducers/post/postReducer";
 import groupReducer from "@/store/reducers/group/groupReducer";
 import mediaReducer from "@/store/reducers/media/mediaReducer";
 import eventPageReducer from "@/store/reducers/event/eventPageReducer";
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     user: userReducer,
     userId: userIdReducer,
     page: pageReducer,
+    post: postReducer,
     group: groupReducer,
     media: mediaReducer,
     toggle: toggleReducer,
@@ -33,6 +35,5 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = createStore(persistedReducer, applyMiddleware(thunk));
 
 const persist = persistStore(store);
-
 
 export { store, persist };

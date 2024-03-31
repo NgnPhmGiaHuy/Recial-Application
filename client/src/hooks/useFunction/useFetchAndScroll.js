@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useState, useEffect } from 'react';
+import {useScrollHandler} from "@/hooks";
 
 const useFetchAndScroll = (dependencies, fetchDataFunction) => {
     const postRef = useRef(null);
@@ -8,16 +9,6 @@ const useFetchAndScroll = (dependencies, fetchDataFunction) => {
     const [page, setPage] = useState(0);
     const [postProps, setPostProps] = useState([]);
     const [loading, setLoading] = useState(false);
-
-    const debounce = (func, delay) => {
-        let timeoutId;
-        return function (...args) {
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => {
-                func.apply(this, args);
-            }, delay);
-        };
-    };
 
     const fetchPostData = async () => {
         if (loading) return;
@@ -57,18 +48,10 @@ const useFetchAndScroll = (dependencies, fetchDataFunction) => {
         fetchPostData();
     }, [dependencies]);
 
-    useEffect(() => {
-        const handleScroll = debounce(async () => {
-            if (postRef.current && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight * 0.8 && !loading) {
-                await fetchPostData();
-            }
-        }, 200);
-
-        window.addEventListener("scroll", handleScroll);
-
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
+    useScrollHandler(async () => {
+        if (postRef.current && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight * 0.8 && !loading) {
+            await fetchPostData();
+        }
     }, [dependencies, loading, fetchPostData]);
 
     return { postRef, postProps, setPostProps };

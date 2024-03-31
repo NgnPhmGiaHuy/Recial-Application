@@ -14,8 +14,8 @@ class DeletePostDataService {
             PostView.deleteMany({ post_id: req.body.postId }),
             PostShare.deleteMany({ post_id: req.body.postId }),
             PostSaved.deleteMany({ post_id: req.body.postId }),
-            Comment.deleteMany({ "destination.destination_id": req.body.postId }),
-            Reaction.deleteMany({ "destination.destination_id": req.body.postId }),
+            Comment.deleteMany({ destination_id: req.body.postId }),
+            Reaction.deleteMany({ destination_id: req.body.postId }),
             Post.deleteOne({ _id: req.body.postId }),
         ]);
     }

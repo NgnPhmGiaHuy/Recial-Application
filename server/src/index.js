@@ -47,7 +47,7 @@ const startServer = async () => {
                     return ws.terminate();
                 }
 
-                ws.userId = decodedToken.userId;
+                ws.userId = decodedToken.user_id;
 
                 ws.on('error', console.error);
                 ws.on('message', (message) => {

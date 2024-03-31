@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const PagePost = require("../../../app/models/PagePost");
 
-const generatePagesPosts = async (allPages, allPosts) => {
-    const pagePosts = Array.from({ length: 100000 }, () => {
+const generatePagesPosts = async (allPages, allPosts, numberOfPagesPosts) => {
+    const pagePosts = Array.from({ length: numberOfPagesPosts }, () => {
         const randomPost = allPosts[Math.floor(Math.random() * allPosts.length)];
         const randomPage = allPages[Math.floor(Math.random() * allPages.length)];
 

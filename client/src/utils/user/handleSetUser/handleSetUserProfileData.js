@@ -1,5 +1,4 @@
-import { handleUploadImage } from "@/utils";
-import { setUserProfile } from "@/app/api/fetchUserData";
+import { handleUploadImage, setUserProfile } from "@/utils";
 
 const handleSetUserProfileData = async ({ formData, userProps, setSubmitStatus }) => {
     try {

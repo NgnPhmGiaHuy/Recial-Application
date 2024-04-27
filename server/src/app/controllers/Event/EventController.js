@@ -1,18 +1,8 @@
 const getEventDataService = require("../../services/eventService/getEventDataService");
-const getUserDataService = require("../../services/userService/getUserDataService");
 
 class EventController {
     getEventData = async (req, res) => {
         try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.user_id;
-
-            const user = await getUserDataService.getRawUserData(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: "User not found" });
-            }
-
             const eventId = req.query.event;
 
             const eventProps = getEventDataService.getFormattedEventDataByEventId(eventId);
@@ -29,16 +19,9 @@ class EventController {
 
     getEventPageData = async (req, res) => {
         try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.user_id;
+            const userId = req.userId;
 
-            const user = await getUserDataService.getRawUserData(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: "User not found" });
-            }
-
-            const eventProps = await getEventDataService.getFormattedEventPageData(user._id);
+            const eventProps = await getEventDataService.getFormattedEventPageData(userId);
 
             if (!eventProps) {
                 return res.status(404).json({ error: "Event not found" });
@@ -52,15 +35,6 @@ class EventController {
 
     getEventMember = async (req, res) => {
         try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.user_id;
-
-            const user = await getUserDataService.getRawUserData(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: "User not found" });
-            }
-
             const eventId = req.query.event;
 
             const eventMemberProps = getEventDataService.getEventMemberDataByEventId(eventId);

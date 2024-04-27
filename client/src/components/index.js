@@ -131,6 +131,7 @@ import PostDialog from "@/components/PostComponents/PostDialog";
 import PostItem from "@/components/PostComponents/PostItem";
 import PostItemHeader from "@/components/PostComponents/PostItemHeader";
 import PostItemContent from "@/components/PostComponents/PostItemContent";
+import PostItemContentText from "@/components/PostComponents/PostItemContentText";
 import PostItemDelete from "@/components/PostComponents/PostItemDelete";
 import PostItemFooter from "@/components/PostComponents/PostItemFooter";
 import PostItemComment from "@/components/PostComponents/PostItemComment";
@@ -271,7 +272,10 @@ import MediumNextButton from "@/components/Button/MediumNextButton";
 import MediumChatInput from "@/components/InputComponents/MediumChatInput";
 import SmallSearchInput from "@/components/InputComponents/SmallSearchInput";
 
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
 import LoadingPageComponent from "@/components/LoadingComponent/LoadingPageComponent";
+import LoadingAnimatedEllipsis from "@/components/LoadingComponent/LoadingAnimatedEllipsis";
+import LoadingThreeDotsComponent from "@/components/LoadingComponent/LoadingThreeDotsComponent";
 
 export {
     Header,
@@ -415,6 +419,7 @@ export {
     PostItem,
     PostItemHeader,
     PostItemContent,
+    PostItemContentText,
     PostItemDelete,
     PostItemFooter,
     PostItemComment,
@@ -547,5 +552,8 @@ export {
     MediumChatInput,
     SmallSearchInput,
 
+    LoadingComponent,
     LoadingPageComponent,
+    LoadingAnimatedEllipsis,
+    LoadingThreeDotsComponent,
 }

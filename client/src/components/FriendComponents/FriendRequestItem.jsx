@@ -1,9 +1,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { formatShortTimeAgo } from "@/utils";
-import { setUserFriendRequest } from "@/app/api/fetchUserData";
 import { FriendRequestItemButton } from "@/components";
+import { formatShortTimeAgo, setUserFriendRequest } from "@/utils";
 
 const FriendRequestItem = ({ userProps, action }) => {
     const router = useRouter();

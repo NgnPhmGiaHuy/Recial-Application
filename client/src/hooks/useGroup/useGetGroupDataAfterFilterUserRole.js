@@ -3,7 +3,7 @@
 import useSWR from "swr";
 import { useEffect, useState } from "react";
 
-import fetcherWithoutAccessToken from "@/app/api/fetcherWithoutAccessToken";
+import { fetcherWithoutAccessToken } from "@/utils";
 
 const useGetGroupDataAfterFilterUserRole = (managedGroups, joinedGroups) => {
     const [joinedGroupsProps, setJoinedGroupsProps] = useState(null);

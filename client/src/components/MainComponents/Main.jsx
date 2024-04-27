@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 import { setUserFriendRequestData } from "@/store/actions/user/userActions";
 import { useGetUserDataFetcher, useSuggestEventData, useSuggestGroupData, useSuggestPageData } from "@/hooks";
-import { Story, CreatePost, Post, FriendRequest, SuggestGroup, SuggestPage, SuggestEvent } from "@/components";
+import { Story, CreatePost, Post, FriendRequest, SuggestGroup, SuggestPage, SuggestEvent, LoadingComponent } from "@/components";
 
 const Main = () => {
     const userProps = useSelector(state => state.user);
@@ -38,17 +38,10 @@ const Main = () => {
                         </div>
                         <div className="w-[320px] min-h-screen px-[12px] py-[8px] sm:flex hidden flex-col gap-[16px] flex-shrink-0 relative">
                             { isLoading ? (
-                                <div className="w-full h-full py-[16px] flex items-center justify-center relative">
-                                    <div className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-lime-700 motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
-                                        <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-                                            Loading...
-                                        </span>
-                                    </div>
-                                </div>
+                                <LoadingComponent/>
                             ) : (
                                 userProps.friend_request?.length > 0 && <FriendRequest/>
                             ) }
-
                             { suggestPageProps && <SuggestPage pageProps={suggestPageProps}/> }
                             { suggestGroupProps && <SuggestGroup groupProps={suggestGroupProps}/> }
                             { suggestEventProps && <SuggestEvent eventProps={suggestEventProps}/> }

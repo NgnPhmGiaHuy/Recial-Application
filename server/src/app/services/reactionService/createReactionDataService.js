@@ -1,9 +1,9 @@
 const Reaction = require("../../models/Reaction");
 
 class CreateReactionDataService {
-    createReactionData = async (userData, destinationId, reactionType) => {
+    createReactionData = async (userId, destinationId, reactionType) => {
         const newReaction = new Reaction({
-            source_id: userData._id,
+            source_id: userId,
             destination_id: destinationId,
             reaction_type: reactionType._id,
         });

@@ -12,6 +12,7 @@ import mediaReducer from "@/store/reducers/media/mediaReducer";
 import eventPageReducer from "@/store/reducers/event/eventPageReducer";
 import toggleReducer from "@/store/reducers/toggle/toggleReducer";
 import userRelationshipReducer from "@/store/reducers/user/userRelationshipReducer";
+import messageReducer from "@/store/reducers/message/messageReducer";
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
     group: groupReducer,
     media: mediaReducer,
     toggle: toggleReducer,
+    message: messageReducer,
     eventList: eventPageReducer,
     userRelationship: userRelationshipReducer,
 })

@@ -46,8 +46,8 @@ class StoryDataService {
         return mediaProps;
     };
 
-    getUserFeedStoryData = async (user) => {
-        const userProps = await getUserDataService.getRawUserData(user._id);
+    getUserFeedStoryData = async (userId) => {
+        const userProps = await getUserDataService.getRawUserData(userId);
 
         const oneDayAgo = moment().subtract(1, 'days');
 

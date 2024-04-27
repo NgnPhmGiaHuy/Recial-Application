@@ -4,8 +4,8 @@ import useSWR from "swr";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import {clearMediaData, setMediaData} from "@/store/actions/media/mediaActions";
-import fetcherWithoutAccessToken from "@/app/api/fetcherWithoutAccessToken";
+import { clearMediaData, setMediaData } from "@/store/actions/media/mediaActions";
+import { fetcherWithoutAccessToken } from "@/utils";
 
 const useMediaData = (url) => {
     const dispatch = useDispatch();

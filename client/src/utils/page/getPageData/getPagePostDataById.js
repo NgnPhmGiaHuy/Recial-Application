@@ -1,6 +1,6 @@
-export const getGroupPostData = async ({ groupId, page }) => {
+const getPagePostDataById = async ({ pageId, page }) => {
     try {
-        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/group/post/?group=${groupId}&page=${page}`;
+        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/page/post/?page=${pageId}&scrollPage=${page}`;
 
         const response = await fetch(url, {
             method: "GET",
@@ -13,10 +13,11 @@ export const getGroupPostData = async ({ groupId, page }) => {
             return await response.json();
         } else {
             const errorData = await response.json();
-            return { error: errorData.message || "Error fetch group post data" };
+            return { error: errorData.message || "Error fetch page post data" };
         }
     } catch (error) {
         return console.error(error);
     }
-};
+}
 
+export default getPagePostDataById;

@@ -1,5 +1,5 @@
-import {MessageScaffoldContent, MessageScaffoldInfo} from "@/components";
-import {useToggleState} from "@/hooks";
+import { useToggleState } from "@/hooks";
+import { MessageScaffoldContent, MessageScaffoldInfo } from "@/components";
 
 const MessageScaffold = () => {
     const [showInfo, setShowInfo, handleShowInfo] = useToggleState(true);

@@ -4,13 +4,13 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import { useFetchAndScroll } from "@/hooks";
-import { getGroupPostData } from "@/app/api/fetchGroupData";
+import { getGroupPostData } from "@/utils";
 import { setGroupPostData } from "@/store/actions/group/groupActions";
 
 const useGetGroupPostData = (groupId) => {
     const dispatch = useDispatch();
 
-    const { postRef: ref, postProps, setPostProps } = useFetchAndScroll(groupId, (page) => getGroupPostData({ groupId, page }),);
+    const { postRef: ref, postProps } = useFetchAndScroll(groupId, (page) => getGroupPostData({ groupId, page }),);
 
     useEffect(() => {
         if (postProps) {

@@ -14,11 +14,11 @@ const useGetPostData = () => {
     const router = useRouter();
     const postRef = useRef(null);
 
-    const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [postProps, setPostProps] = useState([]);
 
     const fetchData = async () => {
-        setLoading(true);
+        setIsLoading(true);
         try {
             const postProps = await getPostData();
 
@@ -34,7 +34,7 @@ const useGetPostData = () => {
         } catch (error) {
             return console.error(error);
         } finally {
-            setLoading(false);
+            setIsLoading(false);
         }
     }
 
@@ -43,10 +43,10 @@ const useGetPostData = () => {
     }, [router]);
 
     useScrollHandler(async () => {
-        if (postRef.current && (window.innerHeight + document.documentElement.scrollTop) >= (document.documentElement.scrollHeight * 9) / 10 && !loading) {
+        if (postRef.current && (window.innerHeight + document.documentElement.scrollTop) >= (document.documentElement.scrollHeight * 9) / 10 && !isLoading) {
             await fetchData();
         }
-    }, [loading])
+    }, [isLoading])
 
     useEffect(() => {
         if (postProps) {

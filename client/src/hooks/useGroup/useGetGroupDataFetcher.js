@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import fetcherWithoutAccessToken from "@/app/api/fetcherWithoutAccessToken";
+import { fetcherWithoutAccessToken } from "@/utils";
 
 const useGetGroupDataFetcher = (groupId, endpoint, setDataAction) => {
     const dispatch = useDispatch();

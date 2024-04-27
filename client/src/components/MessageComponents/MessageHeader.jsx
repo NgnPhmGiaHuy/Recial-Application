@@ -1,11 +1,13 @@
 "use client"
 
+import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
 import { useClickOutside, useToggleState } from "@/hooks";
 import { MessageHeaderChatBox, MessageHeaderContent, MessageHeaderCreate, MessageHeaderQuickSetting, SmallSearchInput } from "@/components";
 
 const MessageHeader = ({ forwardedRef }) => {
+    const userProps = useSelector((state) => state.user);
     const messageQuickSettingButtonRef = useRef(null);
 
     const [messageQuickSettingTranslateYValue, setMessageQuickSettingTranslateYValue] = useState(-415);
@@ -24,7 +26,7 @@ const MessageHeader = ({ forwardedRef }) => {
             <div className="mt-[5px] mr-[8px] animate-slideInTop">
                 <div className="overflow-hidden rounded-xl bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
                     <div className="w-[360px] max-h-[calc(100vh-56px-16px)] flex flex-col">
-                        <div className="flex flex-col flex-shrink grow no-scrollbar overflow-x-hidden overflow-y-auto overscroll-y-contain basis-full relative">
+                        <div ref={userProps?.user_messages?.message_list?.ref} className="flex flex-col flex-shrink grow no-scrollbar overflow-x-hidden overflow-y-auto overscroll-y-contain basis-full relative">
                             <div className="flex flex-col grow relative">
                                 <MessageHeaderChatBox messageQuickSettingButtonRef={messageQuickSettingButtonRef} handleMessageQuickSettingButton={handleMessageQuickSettingButton}/>
                                 <div>

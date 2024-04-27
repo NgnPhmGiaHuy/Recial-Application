@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 const useCheckAccessToken = (WrappedComponent) => {
     const ControlledComponent = (props) => {
         const router = useRouter();
-        const [loading, setLoading] = useState(true);
+        const [isLoading, setIsLoading] = useState(true);
 
         useEffect(() => {
             const checkAccess = async () => {
@@ -16,7 +16,7 @@ const useCheckAccessToken = (WrappedComponent) => {
                     if (accessToken) {
                         return router.push("/");
                     } else {
-                        return setLoading(false);
+                        return setIsLoading(false);
                     }
                 } catch (error) {
                     console.error("Error checking access token:", error);
@@ -28,7 +28,7 @@ const useCheckAccessToken = (WrappedComponent) => {
             checkAccess();
         }, [router]);
 
-        return loading ? null : <WrappedComponent {...props} />;
+        return isLoading ? null : <WrappedComponent {...props} />;
     };
 
     return ControlledComponent;

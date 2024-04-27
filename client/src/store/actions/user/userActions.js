@@ -3,6 +3,7 @@ export const SET_USER_PROFILE_DATA = "SET_USER_PROFILE_DATA";
 export const SET_USER_CONTACT_DATA = "SET_USER_CONTACT_DATA";
 export const SET_USER_NOTIFICATION_DATA = "SET_USER_NOTIFICATION_DATA";
 export const SET_USER_MESSAGE_DATA = "SET_USER_MESSAGE_DATA";
+export const SET_USER_MESSAGE_LOADING = "SET_USER_MESSAGE_LOADING";
 export const SET_USER_SETTING_DATA = "SET_USER_SETTING_DATA";
 export const SET_USER_FRIEND_DATA = "SET_USER_FRIEND_DATA";
 export const SET_USER_SEARCH_DATA = "SET_USER_SEARCH_DATA";
@@ -18,7 +19,10 @@ export const CREATE_USER_POST_REACTION_DATA = "CREATE_USER_POST_REACTION_DATA";
 
 export const UPDATE_USER_POST_REACTION_DATA = "UPDATE_USER_POST_REACTION_DATA";
 
+export const DELETE_USER_POST_DATA = "DELETE_USER_POST_DATA";
+
 export const CLEAR_USER_POST_DATA = "CLEAR_USER_POST_DATA";
+export const CLEAR_USER_MESSAGE_DATA = "CLEAR_USER_MESSAGE_DATA";
 
 export const setUserPostData = (postData) => ({
     type: SET_USER_POST_DATA,
@@ -43,6 +47,11 @@ export const setUserNotificationData = (notificationData) => ({
 export const setUserMessageData = (messageData) => ({
     type: SET_USER_MESSAGE_DATA,
     payload: messageData,
+})
+
+export const setUserMessageLoading = (messageLoading) => ({
+    type: SET_USER_MESSAGE_LOADING,
+    payload: messageLoading,
 })
 
 export const setUserSettingData = (settingData) => ({
@@ -105,6 +114,15 @@ export const updateUserPostReactionData = (reactionData) => ({
     payload: reactionData,
 })
 
+export const deleteUserPostData = (postData) => ({
+    type: DELETE_USER_POST_DATA,
+    payload: postData,
+})
+
 export const clearUserPostData = () => ({
     type: CLEAR_USER_POST_DATA,
+})
+
+export const clearUserMessageData = () => ({
+    type: CLEAR_USER_MESSAGE_DATA,
 })

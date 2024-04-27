@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
 import { useLogout } from "@/hooks";
 import { HeaderPersonalAccountSettingItem } from "@/components";
 import { HEADER_PERSONAL_ACCOUNT } from "@/constants/HeaderConstants";
-import {useSelector} from "react-redux";
 
 const HeaderPersonalAccount = ({ forwardedRef }) => {
     const router = useRouter();

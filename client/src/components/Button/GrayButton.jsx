@@ -14,7 +14,6 @@ const GrayButton = ({ title, onClick }) => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 };

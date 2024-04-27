@@ -3,13 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 
 import { useScrollHandler } from "@/hooks";
-import { getGroupPostData } from "@/app/api/fetchGroupData";
+import { getGroupPostData } from "@/utils";
 
 const useGetGroupFeedPostData = (user) => {
     const postRef = useRef();
 
     const [page, setPage] = useState(0);
-    const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [groupPostProps, setGroupPostProps] = useState([]);
     const [fetchedGroupIds, setFetchedGroupIds] = useState([]);
@@ -33,9 +33,9 @@ const useGetGroupFeedPostData = (user) => {
     };
 
     const fetchPostData = async () => {
-        if (loading) return;
+        if (isLoading) return;
 
-        setLoading(true);
+        setIsLoading(true);
 
         try {
             const groupId = getRandomGroupId();
@@ -43,7 +43,6 @@ const useGetGroupFeedPostData = (user) => {
             if (groupId) {
                 const groupPostData = await getGroupPostData({ groupId, page });
 
-                console.log(groupPostData)
                 if (!groupPostData || groupPostData.error) {
                     return { error: "Error fetch group post data" };
                 }
@@ -62,7 +61,7 @@ const useGetGroupFeedPostData = (user) => {
         } catch (error) {
             return console.error(error);
         } finally {
-            setLoading(false);
+            setIsLoading(false);
         }
     };
 
@@ -79,10 +78,10 @@ const useGetGroupFeedPostData = (user) => {
     }, [user]);
 
     useScrollHandler(async () => {
-        if (postRef.current && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight * 0.8 && !loading) {
+        if (postRef.current && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight * 0.8 && !isLoading) {
             await fetchPostData();
         }
-    }, [user, loading, fetchPostData]);
+    }, [user, isLoading, fetchPostData]);
 
     return { postRef, groupPostProps, setGroupPostProps };
 }

@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 
-import { fetchTokenRefresh } from "@/app/api/fetchAuthData";
+import { fetchTokenRefresh } from "@/utils";
 
 const useTokenRefresh = () => {
     const router = useRouter();

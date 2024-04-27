@@ -1,15 +1,19 @@
-import { getCommentData, getReactionData } from "@/utils";
-import { createUserPostCommentData, createUserPostReactionData, updateUserPostReactionData } from "@/store/actions/user/userActions";
+import { getCommentData, getPostDataByPostId, getReactionData } from "@/utils";
+import { createUserPostCommentData, createUserPostData, createUserPostReactionData, deleteUserPostData, updateUserPostReactionData } from "@/store/actions/user/userActions";
 
 const handleNewUserPostData = async (data, dispatch) => {
     const { type } = data;
 
-    if (type === "create_new_post") {
-        // await handleCreateNewPost(data, props, setProps);
+    if (type === "delete_post") {
+        const { postId } = data;
+
+        return dispatch(deleteUserPostData(postId));
     }
 
-    if (type === "delete_post") {
-        // await handleDeletePost(data, props, setProps);
+    if (type === "create_new_post") {
+        const { postId } = data;
+
+        return dispatch(createUserPostData(await getPostDataByPostId(postId)))
     }
 
     if (type === "create_comment") {

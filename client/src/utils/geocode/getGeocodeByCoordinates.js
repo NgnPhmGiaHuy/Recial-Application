@@ -1,4 +1,4 @@
-export const getGeocodeByCoordinates = async (latitude, longitude) => {
+const getGeocodeByCoordinates = async (latitude, longitude) => {
     try {
         const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${process.env.NEXT_PUBLIC_OPEN_CAGE_API_KEY}`);
 
@@ -9,3 +9,5 @@ export const getGeocodeByCoordinates = async (latitude, longitude) => {
         return console.error(error);
     }
 };
+
+export default getGeocodeByCoordinates;

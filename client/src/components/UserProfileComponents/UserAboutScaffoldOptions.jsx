@@ -2,7 +2,6 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useSelector } from "react-redux";
 
-import { fakeUserData } from "@/constants";
 import { UserAboutPhotoScaffoldItem, UserAboutScaffoldItem } from "@/components";
 
 const DynamicUserAboutVideoScaffoldItem = dynamic(() => import("@/components/UserProfileComponents/UserAboutVideoScaffoldItem"), { ssr: false });
@@ -65,7 +64,7 @@ const UserAboutScaffoldOptions = ({ options }) => {
             ) }
             { options?.isVideoPage && (
                 <div className="flex flex-row flex-wrap relative">
-                    { fakeUserData.videos_list.map((value, index) => (
+                    { userProps?.videos_list.map((value, index) => (
                         <DynamicUserAboutVideoScaffoldItem key={index} userProps={value}/>
                     )) }
                 </div>

@@ -1,7 +1,6 @@
 "use client"
 
 import { useDispatch } from "react-redux";
-import {fakeUserData} from "@/constants";
 
 import { handleNewUserData}  from "@/utils";
 import { useUserData, useWebSocket, useWithAuth} from "@/hooks";
@@ -32,7 +31,7 @@ const FriendPage = () => {
                                         </div>
                                     </div>
                                     <div className="w-full min-h-[inherit] flex flex-col flex-shrink grow basis-0 relative">
-                                        <FriendScaffold userProps={fakeUserData}/>
+                                        <FriendScaffold/>
                                     </div>
                                 </div>
                             </div>

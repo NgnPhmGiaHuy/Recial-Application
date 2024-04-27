@@ -4,13 +4,13 @@ import { useEffect} from "react";
 import { useDispatch } from "react-redux";
 
 import { useFetchAndScroll } from "@/hooks";
-import { getPagePostDataById } from "@/app/api/fetchPageData";
+import { getPagePostDataById } from "@/utils";
 import { setPagePostData } from "@/store/actions/page/pageActions";
 
 const useGetPagePostData = (pageId) => {
     const dispatch = useDispatch();
 
-    const { postRef, postProps, setPostProps } = useFetchAndScroll(pageId, (page) => getPagePostDataById({ pageId, page }));
+    const { postRef, postProps } = useFetchAndScroll(pageId, (page) => getPagePostDataById({ pageId, page }));
 
     useEffect(() => {
         if (postProps) {
@@ -18,7 +18,7 @@ const useGetPagePostData = (pageId) => {
         }
     }, [postRef, postProps, dispatch]);
 
-    return { postRef, pagePostProps: postProps, setPagePostProps: setPostProps };
+    return { postRef, pagePostProps: postProps };
 }
 
 export default useGetPagePostData;

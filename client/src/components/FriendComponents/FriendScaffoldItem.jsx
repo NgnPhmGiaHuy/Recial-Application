@@ -7,10 +7,10 @@ const FriendScaffoldItem = ({ userProps }) => {
                 <div className="flex flex-col justify-between relative">
                     <span className="block text-[16px] text-left text-black font-normal break-words relative leading-5">
                         <span className="overflow-hidden whitespace-nowrap text-ellipsis relative">
-                            {userProps.location ? (
-                                `People you may know in ${userProps.location} Area`
-                            ) : (userProps.job_name ? (
-                                `More suggestion related to your ${userProps.job_name} job`
+                            {userProps?.location ? (
+                                `People you may know in ${userProps?.location} Area`
+                            ) : (userProps?.job_name ? (
+                                `More suggestion related to your ${userProps?.job_name} job`
                             ) : (
                                 "Audio events for you"
                             ))}
@@ -25,15 +25,15 @@ const FriendScaffoldItem = ({ userProps }) => {
                     </span>
                 </div>
             </div>
-            {userProps.user ? (
+            {userProps?.user ? (
                 <ul className="mb-[48px] grid lg:grid-cols-3 xl:grid-cols-5 gap-5 relative">
-                    {userProps.user.map((value, index) => (
+                    {userProps?.user.map((value, index) => (
                         <FriendScaffoldProfileItem key={index} userProps={value}/>
                     ))}
                 </ul>
             ) : (
                 <ul className="mb-[48px] grid lg:grid-cols-3 xl:grid-cols-4 gap-5 relative">
-                    {userProps.slice(0, 8).map((value, index) => (
+                    {userProps?.slice(0, 8).map((value, index) => (
                         <FriendScaffoldEventItem key={index} userProps={value}/>
                     ))}
                 </ul>

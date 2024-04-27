@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 import { useWeatherForecast } from "@/hooks";
-import { getGeocodeByCoordinates } from "@/app/api/fetchGeocode";
+import { getGeocodeByCoordinates } from "@/utils";
 
 const useWeatherData = () => {
     const [location, setLocation] = useState(null);

@@ -1,11 +1,11 @@
 import { MessageScaffoldContentSource, MessageScaffoldContentTimeStamp } from "@/components";
 
-const MessageScaffoldContentSourceWithTimeStamp = () => {
+const MessageScaffoldContentSourceWithTimeStamp = ({ messageProps }) => {
     return (
         <div>
-            <MessageScaffoldContentTimeStamp/>
+            <MessageScaffoldContentTimeStamp messageProps={messageProps}/>
             <div>
-                <MessageScaffoldContentSource/>
+                <MessageScaffoldContentSource messageProps={messageProps}/>
             </div>
         </div>
     );

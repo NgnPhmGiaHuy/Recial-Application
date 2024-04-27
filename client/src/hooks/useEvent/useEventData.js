@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import fetcherWithAccessToken from "@/app/api/fetcherWithAccessToken";
+import { fetcherWithAccessToken } from "@/utils";
 import { setEventPageData } from "@/store/actions/event/eventPageActions";
 
 export const useEventData = () => {

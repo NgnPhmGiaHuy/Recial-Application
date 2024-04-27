@@ -1,7 +1,6 @@
 const { WebSocket } = require("ws");
 
 const websocketService = require("../../services/websocketService");
-const getUserDataService = require("../../services/userService/getUserDataService");
 const getPostDataService = require("../../services/postService/getPostDataService");
 const deletePostDataService = require("../../services/postService/deletePostDataService");
 const createPostDataService = require("../../services/postService/createPostDataService");
@@ -10,15 +9,6 @@ const enhancePostDataService = require("../../services/postService/enhancePostDa
 class PostController {
     getPostData = async (req, res) => {
         try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.user_id;
-
-            const user = await getUserDataService.getFormattedUserData(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: "User not found" });
-            }
-
             const posts = await getPostDataService.getPostFeedData();
 
             const postsWithUserData = await enhancePostDataService.enhancePostsWithUserData(posts);
@@ -31,16 +21,8 @@ class PostController {
 
     createPostData = async (req, res) => {
        try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.user_id;
-
-            const userData = await getUserDataService.getRawUserData(userId);
-
-            if (!userData) {
-                return res.status(404).json({ error: "User not found" });
-            }
-
             const postData = req.body;
+            const userData = req.user;
 
             const newPost = await createPostDataService.createPostData(postData, userData);
 
@@ -58,8 +40,7 @@ class PostController {
 
     deletePostData = async (req, res) => {
         try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.user_id;
+            const userId = req.userId;
 
             const deletedPost = await getPostDataService.getRawPostData(req.body.postId);
 
@@ -79,7 +60,7 @@ class PostController {
             if (wss) {
                 const message = {
                     type: "delete_post",
-                    userId: user._id.toString(),
+                    postId: req.body.postId,
                 };
 
                 wss.clients.forEach((client) => {

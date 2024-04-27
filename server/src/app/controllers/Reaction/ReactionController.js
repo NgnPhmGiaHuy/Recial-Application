@@ -1,6 +1,5 @@
 const { WebSocket } = require("ws");
 
-const getUserDataService = require("../../services/userService/getUserDataService");
 const getTypeDataService = require("../../services/typeService/getTypeDataService");
 const getReactionDataService = require("../../services/reactionService/getReactionDataService");
 const createReactionDataService = require("../../services/reactionService/createReactionDataService");
@@ -8,15 +7,6 @@ const createReactionDataService = require("../../services/reactionService/create
 class ReactionController {
     getReactionData = async (req, res) => {
         try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.user_id;
-
-            const user = await getUserDataService.getFormattedUserData(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: "User not found" });
-            }
-
             const reactionId = req.query.reaction;
 
             const reactionData = await getReactionDataService.getRawReactionData(reactionId);
@@ -35,22 +25,14 @@ class ReactionController {
     
     createReaction = async (req, res) => {
         try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.user_id;
-
-            const user = await getUserDataService.getFormattedUserData(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: "User not found" });
-            }
-
             const data = req.body;
+            const userId = req.userId;
 
             const reactionType = await getTypeDataService.getTypeByTypeName(data.reaction_type);
 
             const destinationId = data.destination_id;
 
-            const existReaction = await getReactionDataService.getReactionBySourceAndDestination(user._id, data.destination_id);
+            const existReaction = await getReactionDataService.getReactionBySourceAndDestination(userId, data.destination_id);
 
             const wss = req.app.get("wss");
 
@@ -67,7 +49,7 @@ class ReactionController {
                     }
 
                     wss.clients.forEach((client) => {
-                        if (client.readyState === WebSocket.OPEN && client.userId.toString() === user._id.toString()) {
+                        if (client.readyState === WebSocket.OPEN && client.userId.toString() === userId.toString()) {
                             client.send(JSON.stringify(reactionMessage));
                         }
                     })
@@ -75,7 +57,7 @@ class ReactionController {
 
                 return res.status(200).json({ message: "Reaction update/create successfully" });
             } else {
-                const newReaction = await createReactionDataService.createReactionData(user, destinationId, reactionType);
+                const newReaction = await createReactionDataService.createReactionData(userId, destinationId, reactionType);
 
                 if (wss) {
                     const reactionMessage = {
@@ -84,7 +66,7 @@ class ReactionController {
                     }
 
                     wss.clients.forEach((client) => {
-                        if (client.readyState === WebSocket.OPEN && client.userId.toString() === user._id.toString()) {
+                        if (client.readyState === WebSocket.OPEN && client.userId.toString() === userId.toString()) {
                             client.send(JSON.stringify(reactionMessage));
                         }
                     })

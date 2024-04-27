@@ -1,13 +1,21 @@
+import { useSelector } from "react-redux";
+
 import { formatShortTimeAgo } from "@/utils";
 
 const MessageContentItemText = ({ messageProps }) => {
+    const userProps = useSelector((state) => state.user);
+
     return (
         <div>
             <div className="flex flex-row flex-shrink flex-wrap grow basis-auto items-center justify-between relative">
                 <div className="max-w-full flex flex-col flex-shrink-0 grow relative p-[6px]">
                     <span className="block text-[15px] text-black text-left font-medium break-words leading-5">
                         <span className="block overflow-hidden whitespace-nowrap text-ellipsis relative">
-                            {messageProps?.source?.profile?.username || messageProps?.source?.profile?.firstname + " " + messageProps?.source?.profile?.lastname}
+                            { messageProps?.source?._id === userProps?.user?._id ? (
+                                messageProps?.destination?.profile?.username || messageProps?.destination?.profile?.firstname + " " + messageProps?.destination?.profile?.lastname
+                            ) : (
+                                messageProps?.source?.profile?.username || messageProps?.source?.profile?.firstname + " " + messageProps?.source?.profile?.lastname
+                            ) }
                         </span>
                     </span>
                     <div className="min-h-[16px] flex flex-row items-center pt-[6px]">

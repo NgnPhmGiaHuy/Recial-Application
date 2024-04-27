@@ -10,6 +10,7 @@ const mediaRoutes = require("../routes/media/mediaRoutes");
 const groupRoutes = require("../routes/group/groupRoutes");
 const postIdRoutes = require("../routes/post/postIdRoutes");
 const userIdRouter = require("../routes/user/userIdRoutes");
+const messageRoutes = require("../routes/message/messageRoutes");
 const settingRoutes = require("../routes/setting/settingRoutes");
 const commentRoutes = require("../routes/comment/commentRoutes");
 const reactionRoutes = require("../routes/reaction/reactionRoutes");
@@ -29,6 +30,7 @@ const routes = (app) => {
     app.use("/api/v1/secure/comment/", MiddlewareController.verifyToken, commentRoutes);
     app.use("/api/v1/secure/setting/", MiddlewareController.verifyToken, settingRoutes);
     app.use("/api/v1/secure/suggest/", MiddlewareController.verifyToken, suggestRoutes);
+    app.use("/api/v1/secure/messages/", MiddlewareController.verifyToken, messageRoutes);
     app.use("/api/v1/secure/reaction/", MiddlewareController.verifyToken, reactionRoutes);
     app.use("/api/v1/secure/friend-request/", MiddlewareController.verifyToken, friendRequestRoutes);
 

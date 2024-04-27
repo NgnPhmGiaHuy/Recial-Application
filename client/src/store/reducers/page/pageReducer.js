@@ -16,7 +16,6 @@ const pageReducer = (state = initialState, action) => {
                 profile: action.payload,
             };
         case SET_PAGE_POST_DATA:
-            console.log(action.payload)
             return {
                 ...state,
                 post_list: {

@@ -1,5 +1,9 @@
 const Type = require("../../app/models/Type");
+const User = require("../../app/models/User");
 const Role = require("../../app/models/Role");
+const Post = require("../../app/models/Post");
+const Video = require("../../app/models/Video");
+const Story = require("../../app/models/Story");
 const Status = require("../../app/models/Status");
 const Photo = require("../../app/models/Photo");
 const PhotoView = require("../../app/models/PhotoView");
@@ -67,12 +71,18 @@ const generateDummyData = async () => {
         // const insertedStatuses = await Status.find({});
 
         const allUsers = await generateUserProps(insertedRoles, 1000);
+        // const allUsers = await User.find({});
 
         const allPosts = await generatePosts(allUsers, 20);
+        // const allPosts = await Post.find({});
 
         const allPhotos = await Photo.find({});
+
         const allVideos = await generateVideoData(allUsers, 10);
+        // const allVideos = await Video.find({});
+
         const allStories = await generateStoryData(allUsers, 100);
+        // const allStories = await Story.find({});
 
         const allPages = await generatePages(1000);
         const allEvents = await generateEvents(1000);
@@ -103,7 +113,7 @@ const generateDummyData = async () => {
         await generateNotifications(typesWithCommentFiltered, allUsers, allPosts, allPhotos, allVideos, allStories, allComments, 10000);
 
         await generateSettings(allUsers);
-        await generateMessages(allUsers, 10000);
+        await generateMessages(allUsers, 500000);
         await generateSearchQueries(allUsers, 10000);
 
         await generateFollowers(allUsers, 20);

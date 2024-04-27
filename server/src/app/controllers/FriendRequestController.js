@@ -4,15 +4,6 @@ const getFriendRequestDataService = require("../services/friendRequestService/ge
 class FriendRequestController {
     getFriendRequestById = async (req, res) => {
         try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.user_id;
-
-            const user = await getUserDataService.getFormattedUserData(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: "User not found" });
-            }
-
             const requestId = req.query.request;
 
             const friendRequestData = await getFriendRequestDataService.getRawFriendRequestDataById(requestId);

@@ -1,18 +1,8 @@
-const getUserDataService = require("../../services/userService/getUserDataService");
 const getSuggestDataService = require("../../services/suggestService/getSuggestDataService");
 
 class SuggestController {
     getSuggestEventData = async (req, res) => {
         try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.user_id;
-
-            const user = await getUserDataService.getFormattedUserData(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: 'User not found' });
-            }
-
             const suggestEvent = await getSuggestDataService.getSuggestedEvents();
 
             return res.status(200).json(suggestEvent);
@@ -23,15 +13,6 @@ class SuggestController {
 
     getSuggestGroupData = async (req, res) => {
         try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.user_id;
-
-            const user = await getUserDataService.getFormattedUserData(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: 'User not found' });
-            }
-
             const suggestGroup = await getSuggestDataService.getSuggestedGroup();
 
             return res.status(200).json(suggestGroup);
@@ -42,15 +23,6 @@ class SuggestController {
 
     getSuggestPageData = async (req, res) => {
         try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.user_id;
-
-            const user = await getUserDataService.getFormattedUserData(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: 'User not found' });
-            }
-
             const suggestPage = await getSuggestDataService.getSuggestedPages();
 
             return res.status(200).json(suggestPage);

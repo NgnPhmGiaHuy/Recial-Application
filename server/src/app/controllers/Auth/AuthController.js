@@ -163,14 +163,7 @@ class AuthController {
 
     logoutUser = async (req, res) => {
         try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.user_id;
-
-            const user = await getUserDataService.getRawUserData(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: 'User not found' });
-            }
+            const user = req.user;
 
             user.refreshToken = null;
 

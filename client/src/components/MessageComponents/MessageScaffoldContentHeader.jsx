@@ -8,7 +8,7 @@ import { MessageScaffoldContentHeaderButton } from "@/components";
 import MESSAGE_SCAFFOLD_CONTENT_HEADER_BUTTON from "@/constants/MessageConstants/MessageScaffoldContentHeaderConstant";
 
 const MessageScaffoldContentHeader = ({ handleShowInfo }) => {
-    const userProps = useSelector(state => state.user);
+    const messageProps = useSelector((state) => state.message);
 
     const button = MESSAGE_SCAFFOLD_CONTENT_HEADER_BUTTON({ handleShowInfo });
 
@@ -23,7 +23,7 @@ const MessageScaffoldContentHeader = ({ handleShowInfo }) => {
                                     <div className="m-[-6px] flex flex-row flex-shrink-0 flex-nowrap items-stretch justify-between relative">
                                         <div className="p-[6px] flex flex-col flex-shrink-0 relative">
                                             <div className="w-[40px] h-[40px] flex items-center justify-center rounded-xl relative overflow-hidden">
-                                                <Image src={userProps?.user?.profile?.profile_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                                <Image src={messageProps?.user?.profile?.profile_picture_url} alt={`${messageProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                             </div>
                                         </div>
                                         <div className="px-[2px] py-[6px] flex flex-col flex-shrink grow basis-0 relative">
@@ -31,14 +31,14 @@ const MessageScaffoldContentHeader = ({ handleShowInfo }) => {
                                                 <div>
                                                     <span className="block text-[16px] text-black text-left font-semibold break-words relative leading-5">
                                                         <span className="overflow-hidden relative">
-                                                            { userProps?.user?.profile?.username || userProps?.user?.profile?.firstname + userProps?.user?.profile?.lastname }
+                                                            { messageProps?.user?.profile?.username || messageProps?.user?.profile?.firstname + messageProps?.user?.profile?.lastname }
                                                         </span>
                                                     </span>
                                                 </div>
                                                 <div>
                                                     <span className="block text-[12px] text-black text-left font-normal break-words relative leading-3">
                                                         <span className="overflow-hidden relative">
-                                                            Active {formatShortTimeAgo(userProps?.user?.profile?.updated_at)} ago
+                                                            Active {formatShortTimeAgo(messageProps?.user?.profile?.updated_at)} ago
                                                         </span>
                                                     </span>
                                                 </div>

@@ -1,19 +1,9 @@
 "use client"
 
+import { debounce} from "lodash";
 import { useEffect } from "react";
 
 const useScrollHandler = (callback, dependencies) => {
-    const debounce = (func, delay) => {
-        let timeoutId;
-
-        return function (...args) {
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => {
-                func.apply(this, args);
-            }, delay);
-        };
-    };
-
     useEffect(() => {
         const handleScroll = debounce(async () => {
             await callback();

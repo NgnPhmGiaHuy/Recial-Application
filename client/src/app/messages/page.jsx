@@ -1,8 +1,11 @@
-import { useMessageData, useWithAuth} from "@/hooks";
-import { AsideMessage, Header, LoadingPageComponent, MessageNoChatSelected, MessageScaffold } from "@/components";
+"use client"
+
+import { useSetMessageId, useUserData, useWithAuth } from "@/hooks";
+import { AsideMessage, Header, LoadingPageComponent, MessageNoChatSelected } from "@/components";
 
 const MessagePage = () => {
-    const { userProps, messageId, handleChangeMessageId } = useMessageData();
+    const { userProps } = useUserData();
+    const { handleChangeMessageId } = useSetMessageId();
 
     return (
         <>
@@ -20,13 +23,7 @@ const MessagePage = () => {
                                             </div>
                                         </div>
                                         <div className="w-full min-h-[inherit] flex flex-col flex-shrink grow basis-0 relative">
-                                            { messageId ? (
-                                                <div>
-                                                    <MessageScaffold/>
-                                                </div>
-                                            ) : (
-                                                <MessageNoChatSelected/>
-                                            ) }
+                                            <MessageNoChatSelected/>
                                         </div>
                                     </div>
                                 </div>

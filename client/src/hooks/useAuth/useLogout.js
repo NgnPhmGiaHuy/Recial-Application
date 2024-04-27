@@ -1,6 +1,6 @@
 import { signOut } from "next-auth/react";
 
-import { fetchLogoutData } from "@/app/api/fetchAuthData";
+import { fetchLogoutData } from "@/utils";
 
 const clearLocalStorage = () => {
     return localStorage.clear();

@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import fetcherWithoutAccessToken from "@/app/api/fetcherWithoutAccessToken";
+import { fetcherWithoutAccessToken } from "@/utils";
 import { setUserIdContactData, setUserIdFollowerData, setUserIdFollowingData, setUserIdFriendData, setUserIdGroupListData, setUserIdPhotoListData, setUserIdProfileData } from "@/store/actions/user/userIdActions";
 
 export const useUserIdData = (userId) => {

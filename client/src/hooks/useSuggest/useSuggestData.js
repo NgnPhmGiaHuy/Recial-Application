@@ -2,7 +2,7 @@
 
 import useSWR from "swr";
 
-import fetcherWithAccessToken from "@/app/api/fetcherWithAccessToken";
+import { fetcherWithAccessToken } from "@/utils";
 
 export const useSuggestEventData = () => {
     const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/suggest/event`, fetcherWithAccessToken)

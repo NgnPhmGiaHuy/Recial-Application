@@ -3,8 +3,8 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { createUserFriendRequest } from "@/utils";
 import { useClickOutside, useToggleState } from "@/hooks";
-import { createUserFriendRequest } from "@/app/api/fetchUserData";
 import { UserProfileCoverFooterFriendRequest } from "@/components";
 import { toggleEditProfile } from "@/store/actions/toggle/toggleActions";
 

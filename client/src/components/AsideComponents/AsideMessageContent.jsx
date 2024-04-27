@@ -1,21 +1,22 @@
 "use client"
 
-import { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useCallback, useState } from "react";
+import { shallowEqual, useSelector } from "react-redux";
 
-import { useGetUserDataFetcher } from "@/hooks";
-import { MessageContentItem, SmallTypeButton } from "@/components";
-import { setUserMessageData } from "@/store/actions/user/userActions";
+import { useGetUserDataFetcherByPage } from "@/hooks";
+import { LoadingComponent, SmallTypeButton } from "@/components";
+const MessageContentItem = React.lazy(() => import("@/components/MessageComponents/MessageContentItem"));
 
-const AsideMessageContent = ({ action }) => {
-    const userProps = useSelector(state => state.user);
-    const { isLoading } = useGetUserDataFetcher("message", setUserMessageData);
+const AsideMessageContent = ({ messageId }) => {
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     const [showTypeNotification, setShowTypeNotification] = useState("inbox");
 
     const handleTypeClick = useCallback((type) => {
         setShowTypeNotification(type);
     }, []);
+
+    useGetUserDataFetcherByPage();
 
     return (
         <section>
@@ -28,23 +29,16 @@ const AsideMessageContent = ({ action }) => {
                 </div>
             </div>
             <div>
-                {isLoading ? (
-                    <div className="w-full h-full py-[16px] flex items-center justify-center relative">
-                        <div className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-lime-700 motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
-                            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-                                Loading...
-                            </span>
-                        </div>
-                    </div>
-                ) : (
-                    <div className="mx-[-8px]">
-                        <ul className="flex flex-col relative">
-                            {userProps?.messages?.map((value, index) => (
-                                <MessageContentItem key={index} messageProps={value} action={action}/>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+                <div className="mx-[-8px]">
+                    <ul className="flex flex-col relative">
+                        { userProps?.user_messages?.message_list?.messages?.map((value, index) => (
+                            <MessageContentItem key={index} messageProps={value} messageId={messageId}/>
+                        )) }
+                    </ul>
+                </div>
+                { userProps?.user_messages?.isLoading && (
+                    <LoadingComponent/>
+                ) }
             </div>
         </section>
     );

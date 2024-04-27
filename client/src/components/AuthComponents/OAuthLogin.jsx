@@ -7,7 +7,7 @@ import { signIn, useSession } from "next-auth/react";
 
 import Google from "/public/images/Brands/Google.png";
 import { useRouter } from "next/navigation";
-import { fetchLoginData } from "@/app/api/fetchAuthData";
+import { fetchLoginData } from "@/utils";
 import { useAccessTokenContext } from "@/components/ProviderComponents/Providers";
 
 const OAuthLogin = ({ isLogin, isSignup, setError }) => {

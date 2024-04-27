@@ -1,6 +1,6 @@
 import { formatTimestampForCover } from "@/utils";
 
-const MessageScaffoldContentTimeStamp = () => {
+const MessageScaffoldContentTimeStamp = ({ messageProps }) => {
     return (
         <div>
             <div className="flex flex-col justify-end relative">
@@ -8,7 +8,7 @@ const MessageScaffoldContentTimeStamp = () => {
                     <div className="max-w-[456px] mx-auto my-[2px] relative">
                         <span className="block text-[12px] text-center text-zinc-500 font-normal break-words relative leading-5">
                             <span className="overflow-hidden relative">
-                                {formatTimestampForCover(new Date())}
+                                {formatTimestampForCover(messageProps?.createdAt)}
                             </span>
                         </span>
                     </div>

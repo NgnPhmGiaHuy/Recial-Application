@@ -1,4 +1,4 @@
-import { setUserFriendRequest } from "@/app/api/fetchUserData";
+import { setUserFriendRequest } from "@/utils";
 
 const UserProfileCoverFooterFriendRequest = ({ userProps }) => {
     const handleFriendRequest = async (status) => {

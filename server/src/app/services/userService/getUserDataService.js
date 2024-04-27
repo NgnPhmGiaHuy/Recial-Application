@@ -63,17 +63,56 @@ class GetUserDataService {
         return formattedProfile;
     }
 
+    getUserMessages = async (userId, page) => {
+        const limit = 10;
+        const skip = page * limit;
 
-    getUserMessages = async (userId) => {
-        const messages = await Message.find({ destination_id: userId });
+        const latestMessages = await Message.aggregate([
+            {
+                $match: {
+                    $or: [
+                        { source_id: userId },
+                        { destination_id: userId }
+                    ],
+                    $expr: { $ne: ["$source_id", "$destination_id"] }
+                }
+            },
+            {
+                $sort: { createdAt: -1 }
+            },
+            {
+                $group: {
+                    _id: {
+                        $cond: [
+                            { $eq: ["$source_id", userId] },
+                            "$destination_id",
+                            "$source_id"
+                        ]
+                    },
+                    message: { $first: "$$ROOT" }
+                }
+            },
+            {
+                $replaceRoot: { newRoot: "$message" }
+            },
+            {
+                $sort: { createdAt: -1 }
+            },
+            {
+                $skip: skip
+            },
+            {
+                $limit: limit
+            }
+        ]);
 
-        return await Promise.all(messages.map(async message => {
-            const { createdAt, updatedAt, source_id, destination_id, ...otherMessageProps } = message._doc;
+        return await Promise.all(latestMessages.map(async message => {
+            const { createdAt, updatedAt, source_id, destination_id, ...otherMessageProps } = message;
 
             return {
                 ...otherMessageProps,
                 source: await this.getFormattedUserData(source_id),
-                destination: await this.getFormattedUserData(message.destination_id),
+                destination: await this.getFormattedUserData(destination_id),
                 created_at: createdAt,
                 updated_at: updatedAt,
             }

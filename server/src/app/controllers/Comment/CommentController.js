@@ -1,21 +1,11 @@
 const { WebSocket } = require("ws");
 
-const getUserDataService = require("../../services/userService/getUserDataService");
 const getCommentDataService = require("../../services/commentService/getCommentDataService");
 const createCommentDataService = require("../../services/commentService/createCommentDataService");
 
 class CommentController {
     getCommentData = async (req, res) => {
         try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.user_id;
-
-            const user = await getUserDataService.getFormattedUserData(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: 'User not found' });
-            }
-
             const commentId = req.query.comment;
 
             const commentProps = await getCommentDataService.getFormattedCommentData(commentId);
@@ -28,15 +18,7 @@ class CommentController {
 
     createCommentData = async (req, res) => {
         try {
-            const decodedToken = req.decodedToken;
-            const userId = decodedToken.user_id;
-
-            const user = await getUserDataService.getFormattedUserData(userId);
-
-            if (!user) {
-                return res.status(404).json({ error: 'User not found' });
-            }
-
+            const userId = req.userId;
             const comment = req.body;
 
             const newComment = await createCommentDataService.createCommentData(comment);
@@ -46,7 +28,7 @@ class CommentController {
             if (wss) {
                 const comment = {
                     type: "create_comment",
-                    userId: user._id.toString(),
+                    userId: userId.toString(),
                     commentId: newComment._id.toString(),
                 }
 

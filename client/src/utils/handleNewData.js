@@ -1,6 +1,6 @@
 import { useGetUserDataFetcher } from "@/hooks";
 import { setUserPhotoListData } from "@/store/actions/user/userActions";
-import { getPostDataByUserId, getPostDataByPostId } from "@/app/api/fetchPostDataById";
+import { getPostDataByUserId, getPostDataByPostId } from "@/utils";
 
 const handleDeletePost = async (data, props, setProps) => {
     try {

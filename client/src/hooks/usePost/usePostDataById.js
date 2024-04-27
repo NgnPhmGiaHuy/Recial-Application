@@ -4,28 +4,30 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import { useFetchAndScroll } from "@/hooks";
+import { getPostDataByUserId } from "@/utils";
 import { useUserIdData } from "@/hooks/useUser/useUserIdData";
-import { getPostDataByUserId } from "@/app/api/fetchPostDataById";
 import { setUserPostData } from "@/store/actions/user/userActions";
-import { setUserIdPostData } from "@/store/actions/user/userIdActions";
+import { clearUserIdPostData, setUserIdPostData } from "@/store/actions/user/userIdActions";
 
 const usePostDataByUserId = (userId) => {
     const dispatch = useDispatch();
     const isCurrentUser = useUserIdData(userId);
 
-    const { postRef: postByIdRef, postProps: postByUserIdProps, setPostProps: setPostByUserIdProps } = useFetchAndScroll(userId, (page) => getPostDataByUserId({ userId, page }),);
+    const { postRef: postByIdRef, postProps: postByUserIdProps } = useFetchAndScroll(userId, (page) => getPostDataByUserId({ userId, page }));
 
     useEffect(() => {
+        dispatch(clearUserIdPostData());
+
         if (postByUserIdProps && isCurrentUser) {
             dispatch(setUserPostData({ ref: postByIdRef, posts: postByUserIdProps }));
         }
         if (postByUserIdProps && !isCurrentUser) {
             dispatch(setUserIdPostData({ ref: postByIdRef, posts: postByUserIdProps }));
         }
-    }, [postByIdRef, postByUserIdProps, dispatch])
+    }, [userId, postByIdRef, postByUserIdProps])
 
 
-    return { postByIdRef, postByUserIdProps, setPostByUserIdProps };
+    return { postByIdRef, postByUserIdProps };
 };
 
 

@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import fetcherWithAccessToken from "@/app/api/fetcherWithAccessToken";
+import { fetcherWithAccessToken } from "@/utils";
 
 const useGetUserDataFetcher = (endpoint, setDataAction, refreshInterval = 0) => {
     const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-export const getStoryData = async () => {
+const getMessageData = async (destinationUserId, page) => {
     try {
         const accessToken = localStorage.getItem("accessToken");
 
@@ -6,7 +6,7 @@ export const getStoryData = async () => {
             return console.error("Access token not found.");
         }
 
-        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/story/";
+        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/messages/?destinationUserId=${destinationUserId}&page=${page}`;
 
         const response = await fetch(url, {
             method: "GET",
@@ -20,9 +20,12 @@ export const getStoryData = async () => {
             return await response.json();
         } else {
             const errorData = await response.json();
-            return { error: errorData.message || "Error fetching story data" };
+
+            return { error: errorData.message || "Error fetch message data" };
         }
     } catch (error) {
         return console.error(error);
     }
 }
+
+export default getMessageData;

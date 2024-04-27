@@ -17,6 +17,7 @@ import useClickOutside from "@/hooks/useFunction/useClickOutside";
 import useContentEditable from "@/hooks/useFunction/useContentEditable";
 import useCountComment from "@/hooks/useFunction/useCountComment";
 import useCountLikeReaction from "@/hooks/useFunction/useCountLikeReaction";
+import useDataFetcher from "@/hooks/useFunction/useDataFetcher";
 import useDateOfBirth from "@/hooks/useFunction/useDateOfBirth";
 import useFetchAndScroll from "@/hooks/useFunction/useFetchAndScroll";
 import useFilteredNotification from "@/hooks/useFunction/useFilteredNotification";
@@ -52,7 +53,9 @@ import useMediaCopyLink from "@/hooks/useMedia/useMediaCopyLink";
 import useStoryData from "@/hooks/useMedia/useStoryData";
 import useStoryControls from "@/hooks/useMedia/useStoryControls";
 
-import useMessageData from "@/hooks/useMessage/useMessageData";
+import useGetMessageDataByUserId from "@/hooks/useMessage/useGetMessageDataByUserId";
+import useMessageTimestampDisplay from "@/hooks/useMessage/useMessageTimestampDisplay";
+import useSetMessageId from "@/hooks/useMessage/useSetMessageId";
 
 import useGetPageData from "@/hooks/usePage/useGetPageData";
 import useGetPagePostData from "@/hooks/usePage/useGetPagePostData";
@@ -79,6 +82,7 @@ import useUserData from "@/hooks/useUser/useUserData";
 import useUserIdLayout from "@/hooks/useUser/useUserIdLayout";
 import useCheckUserFriend from "@/hooks/useUser/useCheckUserFriend";
 import useGetUserDataFetcher from "@/hooks/useUser/useGetUserDataFetcher";
+import useGetUserDataFetcherByPage from "@/hooks/useUser/useGetUserDataFetcherByPage";
 import useUpdateUserProfile from "@/hooks/useUser/useUpdateUserProfile";
 import useUserProfileActions from "@/hooks/useUser/useUserProfileActions";
 
@@ -95,7 +99,7 @@ export {
 
     useFriendData,
 
-    useClickOutside, useContentEditable, useCountComment, useCountLikeReaction, useDateOfBirth, useFetchAndScroll, useFilteredNotification, useSingleImageData, useMultipleImagesData, useMostReactedIcons, useMultipleHandleState, useMultipleRefs, useOverflowText, useScrollHandler, useSliderScroll, useToggleState, useWeatherData, useWeatherForecast,
+    useClickOutside, useContentEditable, useCountComment, useCountLikeReaction, useDataFetcher, useDateOfBirth, useFetchAndScroll, useFilteredNotification, useSingleImageData, useMultipleImagesData, useMostReactedIcons, useMultipleHandleState, useMultipleRefs, useOverflowText, useScrollHandler, useSliderScroll, useToggleState, useWeatherData, useWeatherForecast,
 
     useGroupCreateAction, useGetGroupData, useGetGroupDataFetcher, useGetGroupPostData, useGetGroupFeedData, useGetGroupFeedPostData, useCheckUserGroupRole, useFilterUserGroupsByRole, useGetGroupDataAfterFilterUserRole,
 
@@ -103,7 +107,7 @@ export {
 
     useMediaData, useMediaNavigation, useMediaReaction, useMediaCheckFollow, useMediaCopyLink, useStoryData, useStoryControls,
 
-    useMessageData,
+    useGetMessageDataByUserId, useMessageTimestampDisplay, useSetMessageId,
 
     useGetPageData, useGetPagePostData, useGetPageDataFetcher, useCheckUserPageRole,
 
@@ -115,7 +119,7 @@ export {
 
     useSuggestEventData, useSuggestGroupData, useSuggestPageData,
 
-    useUserData, useUserIdLayout, useCheckUserFriend, useGetUserDataFetcher, useUpdateUserProfile, useUserProfileActions,
+    useUserData, useUserIdLayout, useCheckUserFriend, useGetUserDataFetcher, useGetUserDataFetcherByPage, useUpdateUserProfile, useUserProfileActions,
 
     useWebSocket,
 }

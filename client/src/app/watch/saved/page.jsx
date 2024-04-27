@@ -1,10 +1,10 @@
-import {fakeUserData, fakeVideoListData} from "@/constants";
-import {AsideScaffold, Header, VideoScaffold} from "@/components";
+import { fakeVideoListData } from "@/constants";
+import { AsideScaffold, Header, VideoScaffold } from "@/components";
 
-const MovieSavedPage = ({ videoProps }) => {
+const MovieSavedPage = () => {
     return (
         <div>
-            <Header userProps={fakeUserData}/>
+            <Header/>
             <div className="flex flex-col relative z-0 ">
                 <div className="top-[56px] min-h-[calc(100vh-88px)] flex flex-col relative">
                     <div className="min-h-[inherit] mb-[calc(-100vh-56px)] flex flex-col flex-shrink-0 items-stretch justify-start relative">

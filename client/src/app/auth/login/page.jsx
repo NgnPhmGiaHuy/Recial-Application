@@ -4,9 +4,9 @@ import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+import { fetchLoginData } from "@/utils";
 import { useCheckAccessToken } from "@/hooks";
 import { AuthLoginForm, AuthHeader } from "@/components";
-import { fetchLoginData } from "@/app/api/fetchAuthData";
 import { useAccessTokenContext } from "@/components/ProviderComponents/Providers";
 import Illustration from "/public/images/Illustration/illustration-of-a-man-and-a-woman-watering-a-plant.jpg";
 
@@ -40,7 +40,7 @@ const Login = () => {
                     <div className="self-start relative flex-shrink-0 sm:w-[55%] w-full sm:pr-[42px]">
                         <AuthLoginForm isLogin="true" action={handleSubmit} handleChange={handleChange} error={error} setError={setError}/>
                     </div>
-                    <Image src={Illustration} alt="illustration-of-a-man-and-a-woman-watering-a-plant" width={600} height={560} priority={true} className="w-auto h-auto hidden z-[1] relative flex-shrink object-cover lg:block"/>
+                    <Image src={Illustration} alt={`${Illustration}-image`} width={600} height={560} priority={true} className="w-auto h-auto hidden z-[1] relative flex-shrink object-cover lg:block"/>
                 </section>
             </main>
             </div>

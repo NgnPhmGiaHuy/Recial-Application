@@ -1,7 +1,7 @@
 import {fakeVideoItemData} from "@/constants";
 import {MediaPageScaffold} from "@/components";
 
-const VideoPage = ({videoProps}) => {
+const VideoPage = () => {
     return (
         <div className="relative">
             <MediaPageScaffold videoProps={fakeVideoItemData}/>

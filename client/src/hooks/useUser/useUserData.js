@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getUserProfileData } from "@/app/api/fetchUserData";
+import { getUserProfileData } from "@/utils";
 import { setUserProfileData } from "@/store/actions/user/userActions";
 
 const useUserData = () => {

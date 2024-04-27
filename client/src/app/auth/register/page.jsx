@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { handleValidateForm } from "@/utils";
 import { useCheckAccessToken } from "@/hooks";
 import { AuthHeader, AuthLoginForm } from "@/components";
-import { fetchRegisterData } from "@/app/api/fetchAuthData";
+import { fetchRegisterData, handleValidateForm } from "@/utils";
+
 
 const Signup = () => {
     const router = useRouter();

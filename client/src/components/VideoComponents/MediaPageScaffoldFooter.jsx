@@ -9,7 +9,7 @@ const MediaPageScaffoldFooter = ({ isComment, handleShowReplyPanel }) => {
     const userProps = useSelector(state => state.user);
     const mediaProps = useSelector(state => state.media);
 
-    const { inputContentEditableRef, inputText, setCreatePostInputText, setCreatePostAllowSubmit, allowSubmit, handleInputTextChange } = useContentEditable()
+    const { inputContentEditableRef, inputText, setInputText, setAllowSubmit, allowSubmit, handleInputTextChange } = useContentEditable()
 
     const { commentSubmitStatus, handleSetCommentData } = useCommentMediaData();
 
@@ -19,8 +19,8 @@ const MediaPageScaffoldFooter = ({ isComment, handleShowReplyPanel }) => {
 
     useEffect(() => {
         const resetInput = () => {
-            setCreatePostInputText('');
-            setCreatePostAllowSubmit(false);
+            setInputText('');
+            setAllowSubmit(false);
             inputContentEditableRef.current.innerText = '';
         };
 

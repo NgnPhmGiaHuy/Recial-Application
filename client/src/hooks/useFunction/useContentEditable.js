@@ -26,6 +26,7 @@ const useContentEditable = () => {
     const handlePaste = (event) => {
         event.preventDefault();
         const text = (event.originalEvent || event).clipboardData.getData('text/plain');
+
         document.execCommand("insertText", false, text);
     };
 

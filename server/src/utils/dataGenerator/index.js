@@ -113,7 +113,7 @@ const generateDummyData = async () => {
         await generateNotifications(typesWithCommentFiltered, allUsers, allPosts, allPhotos, allVideos, allStories, allComments, 10000);
 
         await generateSettings(allUsers);
-        await generateMessages(allUsers, 500000);
+        await generateMessages(allUsers, insertedStatuses, 50000);
         await generateSearchQueries(allUsers, 10000);
 
         await generateFollowers(allUsers, 20);

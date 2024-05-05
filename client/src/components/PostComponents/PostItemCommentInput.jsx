@@ -10,7 +10,7 @@ import {useContentEditable, useCommentData} from "@/hooks";
 const PostItemCommentInput = ({ postProps, isReply }) => {
     const userProps = useSelector(state => state.user);
 
-    const { inputContentEditableRef, inputText, setCreatePostInputText, setCreatePostAllowSubmit, allowSubmit, handleInputTextChange } = useContentEditable()
+    const { inputContentEditableRef, inputText, setInputText, setAllowSubmit, allowSubmit, handleInputTextChange } = useContentEditable()
 
     const { commentSubmitStatus, handleSetCommentData } = useCommentData();
 
@@ -20,8 +20,8 @@ const PostItemCommentInput = ({ postProps, isReply }) => {
 
     useEffect(() => {
         const resetInput = () => {
-            setCreatePostInputText('');
-            setCreatePostAllowSubmit(false);
+            setInputText('');
+            setAllowSubmit(false);
             inputContentEditableRef.current.innerText = '';
         };
 

@@ -53,9 +53,10 @@ import useMediaCopyLink from "@/hooks/useMedia/useMediaCopyLink";
 import useStoryData from "@/hooks/useMedia/useStoryData";
 import useStoryControls from "@/hooks/useMedia/useStoryControls";
 
-import useGetMessageDataByUserId from "@/hooks/useMessage/useGetMessageDataByUserId";
-import useMessageTimestampDisplay from "@/hooks/useMessage/useMessageTimestampDisplay";
+import useMessageData from "@/hooks/useMessage/useMessageData";
 import useSetMessageId from "@/hooks/useMessage/useSetMessageId";
+import useGetMessageDataByConversationId from "@/hooks/useMessage/useGetMessageDataByConversationId";
+import useMessageTimestampDisplay from "@/hooks/useMessage/useMessageTimestampDisplay";
 
 import useGetPageData from "@/hooks/usePage/useGetPageData";
 import useGetPagePostData from "@/hooks/usePage/useGetPagePostData";
@@ -107,7 +108,7 @@ export {
 
     useMediaData, useMediaNavigation, useMediaReaction, useMediaCheckFollow, useMediaCopyLink, useStoryData, useStoryControls,
 
-    useGetMessageDataByUserId, useMessageTimestampDisplay, useSetMessageId,
+    useMessageData, useGetMessageDataByConversationId, useMessageTimestampDisplay, useSetMessageId,
 
     useGetPageData, useGetPagePostData, useGetPageDataFetcher, useCheckUserPageRole,
 

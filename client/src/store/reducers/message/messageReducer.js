@@ -1,10 +1,13 @@
-import { SET_MESSAGES_DATA, SET_MESSAGES_ACTIONS, SET_MESSAGES_LOADING, SET_MESSAGES_DESTINATION_USER } from "@/store/actions/message/messageAction";
+import { SET_MESSAGES_DATA, SET_MESSAGES_ACTIONS, SET_MESSAGES_LOADING, SET_NO_MORE_MESSAGES, SET_MESSAGES_CONVERSATION_INFO } from "@/store/actions/message/messageAction";
+import { UPDATE_MESSAGE_DATA } from "@/store/actions/message/messageAction";
+import { CREATE_MESSAGE_DATA } from "@/store/actions/message/messageAction";
 import { CLEAR_MESSAGES_DATA } from "@/store/actions/message/messageAction";
 
 const initialState = {
-    user: null,
     action: null,
     isLoading: false,
+    conversation: null,
+    noMoreMessage: false,
     message_list: {
         ref: null,
         messages: null,
@@ -31,10 +34,39 @@ const messageReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: action.payload,
             }
-        case SET_MESSAGES_DESTINATION_USER:
+        case SET_NO_MORE_MESSAGES:
             return {
                 ...state,
-                user: action.payload,
+                noMoreMessage: action.payload,
+            }
+        case SET_MESSAGES_CONVERSATION_INFO:
+            return {
+                ...state,
+                conversation: action.payload,
+            }
+        case UPDATE_MESSAGE_DATA:
+            const updatedMessages = state.message_list.messages.slice();
+
+            updatedMessages.unshift(...action.payload);
+
+            return {
+                ...state,
+                message_list: {
+                    ref: state.message_list.ref,
+                    messages: [...updatedMessages],
+                }
+            }
+        case CREATE_MESSAGE_DATA:
+            const createdMessages = state.message_list.messages.slice();
+
+            createdMessages.push(action.payload);
+
+            return {
+                ...state,
+                message_list: {
+                    ref: state.message_list.ref,
+                    messages: createdMessages,
+                },
             }
         case CLEAR_MESSAGES_DATA:
             return {

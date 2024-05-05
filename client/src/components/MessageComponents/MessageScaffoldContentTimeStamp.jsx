@@ -8,7 +8,7 @@ const MessageScaffoldContentTimeStamp = ({ messageProps }) => {
                     <div className="max-w-[456px] mx-auto my-[2px] relative">
                         <span className="block text-[12px] text-center text-zinc-500 font-normal break-words relative leading-5">
                             <span className="overflow-hidden relative">
-                                {formatTimestampForCover(messageProps?.createdAt)}
+                                { formatTimestampForCover(messageProps?.created_at) }
                             </span>
                         </span>
                     </div>

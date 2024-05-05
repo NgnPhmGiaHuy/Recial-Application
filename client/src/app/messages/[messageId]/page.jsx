@@ -2,9 +2,8 @@
 
 import { useDispatch } from "react-redux";
 
-import { useGetUserProfileById } from "@/hooks/useUser/useUserIdData";
-import { setMessageDestinationUser } from "@/store/actions/message/messageAction";
-import { useGetMessageDataByUserId, useSetMessageId, useUserData, useWithAuth } from "@/hooks";
+import { handleNewMessageData } from "@/utils";
+import { useGetMessageDataByConversationId, useSetMessageId, useUserData, useWebSocket, useWithAuth } from "@/hooks";
 import { AsideMessage, Header, LoadingPageComponent, MessageNoChatSelected, MessageScaffold } from "@/components";
 
 const MessageIdPage = ({ params }) => {
@@ -13,8 +12,12 @@ const MessageIdPage = ({ params }) => {
     const { userProps } = useUserData();
     const { messageId } = useSetMessageId(params);
 
-    useGetMessageDataByUserId(params.messageId);
-    dispatch(setMessageDestinationUser(useGetUserProfileById(params.messageId).data));
+    const onDataReceived = async (data) => {
+        await handleNewMessageData(data, dispatch);
+    };
+
+    useGetMessageDataByConversationId(params.messageId);
+    useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
     return (
         <>

@@ -1,15 +1,29 @@
 "use client"
 
-import {useEffect} from "react";
+import { useEffect } from "react";
 
-import {useContentEditable} from "@/hooks";
+import { useContentEditable } from "@/hooks";
 
-const MediumChatInput = ({ setIsText }) => {
-    const { inputContentEditableRef, inputText, allowSubmit, handleInputTextChange } = useContentEditable()
+const MediumChatInput = ({ submitStatus, setText, setIsText }) => {
+    const { inputContentEditableRef, inputText, setInputText, setAllowSubmit, handleInputTextChange } = useContentEditable();
 
     useEffect(() => {
         setIsText(!!inputText);
     }, [inputText, setIsText]);
+
+    useEffect(() => {
+        setText(inputText);
+    }, [inputText]);
+
+    useEffect(() => {
+        const resetInputText = () => {
+            setInputText('');
+            setAllowSubmit(false);
+            inputContentEditableRef.current.innerText = '';
+        }
+
+        resetInputText();
+    }, [submitStatus]);
 
     return (
         <div className="w-full h-full flex flex-col">
@@ -24,7 +38,7 @@ const MediumChatInput = ({ setIsText }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="ml-[-12px] pb-[4px] pr-[4px] flex items-center justify-center self-end relative">
+                    <div className="ml-[-12px] pb-[8px] pr-[4px] flex items-center justify-center self-end relative">
                         <div className="w-[24px] h-[24px] flex items-center justify-center rounded-full overflow-hidden cursor-pointer text-lime-500 hover:bg-zinc-100 relative transition-all">
                             <i>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">

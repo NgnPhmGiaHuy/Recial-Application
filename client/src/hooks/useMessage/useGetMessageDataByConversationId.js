@@ -3,15 +3,15 @@
 import { useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
-import { getMessageData } from "@/utils";
-import { clearMessageData, setMessageData, setMessageLoading } from "@/store/actions/message/messageAction";
+import { getConversationData } from "@/utils";
+import { clearMessageData, setNoMoreMessages, setMessageConversationInfo, setMessageData, setMessageLoading, updateMessageData } from "@/store/actions/message/messageAction";
 
-const useGetMessageDataByUserId = (messageId) => {
+const useGetMessageDataByConversationId = (messageId) => {
     const dispatch = useDispatch();
     const messageItemRef = useRef(null);
 
     const [page, setPage] = useState(0);
-    const [messageProps, setMessageProps] = useState(null);
+    const [prevHeight, setPrevHeight] = useState(0);
     const [isAtTop, setIsAtTop] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [fetchTriggered, setFetchTriggered] = useState(false);
@@ -23,18 +23,25 @@ const useGetMessageDataByUserId = (messageId) => {
         dispatch(setMessageLoading(true));
 
         try {
-            const messageData = await getMessageData(messageId, page);
+            const messageData = await getConversationData(messageId, page);
 
-            if (Array.isArray(messageData)) {
-                const reversedMessageData = [...messageData].reverse();
+            if (!messageData || messageData.error) {
+                return { error: messageData ? messageData.error : "Error fetching conversation message data" };
+            }
+
+            if (messageData.no_more_messages) {
+                dispatch(setNoMoreMessages(true));
+            }
+
+            if (messageData) {
+                const reversedMessageData = [...messageData.messages].reverse();
 
                 if (page <= 1) {
-                    setMessageProps(messageData.reverse());
                     dispatch(setMessageData({ ref: messageItemRef, messages: reversedMessageData}))
                 } else {
-                    setMessageProps((prevPosts) => [...prevPosts, ...reversedMessageData]);
-                    dispatch(setMessageData({ ref: messageItemRef, messages: [...messageProps, ...reversedMessageData] }))
+                    dispatch(updateMessageData(reversedMessageData))
                 }
+                dispatch(setMessageConversationInfo(messageData.conversation))
                 setPage((prevPage) => prevPage + 1);
             }
         } catch (error) {
@@ -46,10 +53,22 @@ const useGetMessageDataByUserId = (messageId) => {
     }
 
     useEffect(() => {
+        if (messageItemRef && messageItemRef.current) {
+            if (page <= 2) {
+                messageItemRef.current.scrollTop = messageItemRef.current.scrollHeight;
+                setPrevHeight(messageItemRef.current.scrollHeight);
+            } else {
+                messageItemRef.current.scrollTop = messageItemRef.current.scrollHeight - prevHeight;
+                setPrevHeight(messageItemRef.current.scrollHeight);
+            }
+        }
+    }, [page]);
+
+    useEffect(() => {
         setPage(0);
         setIsAtTop(false);
-        setMessageProps(null);
         dispatch(clearMessageData());
+        dispatch(setNoMoreMessages(false));
 
         return () => {};
     }, [messageId]);
@@ -90,7 +109,7 @@ const useGetMessageDataByUserId = (messageId) => {
         }
     }, [isAtTop, fetchTriggered, isLoading]);
 
-    return { isLoading, messageItemRef, messageProps, setMessageProps };
+    return { isLoading, messageItemRef };
 }
 
-export default useGetMessageDataByUserId;
+export default useGetMessageDataByConversationId;

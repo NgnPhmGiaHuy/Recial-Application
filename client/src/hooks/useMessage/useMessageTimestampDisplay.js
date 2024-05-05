@@ -6,16 +6,19 @@ import { shouldDisplayMessageWithTimeStamp } from "@/utils";
 
 const useMessageTimestampDisplay = () => {
     const messageProps = useSelector((state) => state.message, shallowEqual);
+
     const [timestampDisplayMemo, setTimestampDisplayMemo] = useState({});
 
     useEffect(() => {
         if (messageProps?.message_list?.messages?.length > 0) {
-            const firstMessage = messageProps.message_list.messages[0];
             const updatedMemo = {};
+            const messages = messageProps.message_list.messages;
 
-            messageProps.message_list.messages.forEach((message) => {
-                updatedMemo[message._id] = shouldDisplayMessageWithTimeStamp(message, firstMessage);
-            });
+            for (let i = 0; i < messages.length; i++) {
+                const currentMessage = messages[i];
+                const prevMessage = i > 0 ? messages[i - 1] : null;
+                updatedMemo[currentMessage._id] = shouldDisplayMessageWithTimeStamp(currentMessage, prevMessage);
+            }
 
             setTimestampDisplayMemo(updatedMemo);
         }

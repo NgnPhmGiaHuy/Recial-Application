@@ -1,4 +1,4 @@
-const getMessageData = async (messageId) => {
+const getConversationData = async (conversationId, pageNumber) => {
     try {
         const accessToken = localStorage.getItem("accessToken");
 
@@ -6,7 +6,7 @@ const getMessageData = async (messageId) => {
             return console.error("Access token not found.");
         }
 
-        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/messages/?message=${messageId}`;
+        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/messages/conversation/?conversation=${conversationId}&page=${pageNumber}`;
 
         const response = await fetch(url, {
             method: "GET",
@@ -21,11 +21,11 @@ const getMessageData = async (messageId) => {
         } else {
             const errorData = await response.json();
 
-            return { error: errorData.message || "Error fetch message" };
+            return { error: errorData.message || "Error fetch message data" };
         }
     } catch (error) {
         return console.error(error);
     }
 }
 
-export default getMessageData;
+export default getConversationData;

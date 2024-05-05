@@ -1,21 +1,34 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { useMessageData } from "@/hooks";
 import { MediumChatInput, MessageScaffoldContentFooterButton } from "@/components";
-import {
-    MESSAGE_SCAFFOLD_CONTENT_FOOTER_ACTIONS_BUTTONS,
-    MESSAGE_SCAFFOLD_CONTENT_FOOTER_LIKE_BUTTON,
-    MESSAGE_SCAFFOLD_CONTENT_FOOTER_MORE_BUTTON,
-    MESSAGE_SCAFFOLD_CONTENT_FOOTER_SEND_BUTTON
-} from "@/constants/MessageConstants/MessageScaffoldContentFooterConstants";
+import { MESSAGE_SCAFFOLD_CONTENT_FOOTER_ACTIONS_BUTTONS, MESSAGE_SCAFFOLD_CONTENT_FOOTER_LIKE_BUTTON, MESSAGE_SCAFFOLD_CONTENT_FOOTER_MORE_BUTTON, MESSAGE_SCAFFOLD_CONTENT_FOOTER_SEND_BUTTON } from "@/constants/MessageConstants/MessageScaffoldContentFooterConstants";
 
 const MessageScaffoldContentFooter = () => {
+    const [text, setText] = useState(null);
     const [isText, setIsText] = useState(false);
+
+    const { messageSubmitStatus , handleSubmitMessageData } = useMessageData();
+
+    const handleSubmitMessage = async () => {
+        const trimmedText = text.trim();
+        await handleSubmitMessageData(trimmedText);
+    }
+
+    useEffect(() => {
+        const resetInput = () => {
+            setText(null);
+            setIsText(false);
+        }
+
+        resetInput();
+    }, [messageSubmitStatus]);
 
     return (
         <div>
-            <div className="py-[12px] flex items-center shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] relative">
+            <div className="py-[8px] flex items-center shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] relative">
                 <MessageScaffoldContentFooterButton button={MESSAGE_SCAFFOLD_CONTENT_FOOTER_MORE_BUTTON.button} toolTip={MESSAGE_SCAFFOLD_CONTENT_FOOTER_MORE_BUTTON.toolTip}/>
                 <div className="flex grow overflow-x-auto relative">
                     <div className="flex flex-row flex-shrink-0 items-center justify-between relative">
@@ -26,10 +39,10 @@ const MessageScaffoldContentFooter = () => {
                         ) }
                     </div>
                     <div className="w-full flex flex-shrink items-center justify-center relative">
-                        <MediumChatInput setIsText={setIsText}/>
+                        <MediumChatInput submitStatus={messageSubmitStatus} setText={setText} setIsText={setIsText}/>
                     </div>
                 </div>
-                <MessageScaffoldContentFooterButton button={isText ? MESSAGE_SCAFFOLD_CONTENT_FOOTER_SEND_BUTTON.button : MESSAGE_SCAFFOLD_CONTENT_FOOTER_LIKE_BUTTON.button} toolTip={isText ? MESSAGE_SCAFFOLD_CONTENT_FOOTER_SEND_BUTTON.toolTip : MESSAGE_SCAFFOLD_CONTENT_FOOTER_LIKE_BUTTON.toolTip}/>
+                <MessageScaffoldContentFooterButton action={handleSubmitMessage} button={isText ? MESSAGE_SCAFFOLD_CONTENT_FOOTER_SEND_BUTTON.button : MESSAGE_SCAFFOLD_CONTENT_FOOTER_LIKE_BUTTON.button} toolTip={isText ? MESSAGE_SCAFFOLD_CONTENT_FOOTER_SEND_BUTTON.toolTip : MESSAGE_SCAFFOLD_CONTENT_FOOTER_LIKE_BUTTON.toolTip}/>
             </div>
         </div>
     );

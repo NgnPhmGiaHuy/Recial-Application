@@ -31,6 +31,10 @@ import handleSingleImageFileUpload from "@/utils/image/handleSingleImageFileUplo
 import handleUploadImage from "@/utils/image/handleUploadImage";
 
 import getMessageData from "@/utils/message/getMessageData";
+import createMessageData from "@/utils/message/createMessageData/createMessageData";
+import handleNewMessageData from "@/utils/message/handleNewMessageData/handleNewMessageData";
+import getConversationData from "@/utils/message/getConversationData";
+import renderMessageComponent from "@/utils/message/renderMessageComponent";
 import shouldDisplayMessageWithTimeStamp from "@/utils/message/shouldDisplayMessageWithTimeStamp";
 
 import handleFormatNumber from "@/utils/number/handleFormatNumber";
@@ -85,7 +89,7 @@ export {
     fetchGoogleData,
     getGroupPostData,
     handleMultipleImageFileUpload, handleSingleImageFileUpload, handleUploadImage,
-    getMessageData, shouldDisplayMessageWithTimeStamp,
+    getMessageData, createMessageData, handleNewMessageData, getConversationData, renderMessageComponent, shouldDisplayMessageWithTimeStamp,
     handleFormatNumber,
     getPagePostDataById,
     createPostData, getPostData, deletePostData, handleNewPostData,

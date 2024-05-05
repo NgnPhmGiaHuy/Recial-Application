@@ -8,12 +8,15 @@ const Photo = require("../../models/Photo");
 const Video = require("../../models/Video");
 const Event = require("../../models/Event");
 const Message = require("../../models/Message");
+const Conversation = require("../../models/Conversation");
 const Setting = require("../../models/Setting");
 const EventMember = require("../../models/EventMember");
 const GroupMember = require("../../models/GroupMember");
 const Notification = require("../../models/Notification");
 const FriendRequest = require("../../models/FriendRequest");
 const SearchHistory = require("../../models/SearchHistory");
+
+const getMessageDataService = require("../../services/messageService/getMessageDataService");
 
 class GetUserDataService {
     getRawUserData = async (userId) => {
@@ -65,57 +68,37 @@ class GetUserDataService {
 
     getUserMessages = async (userId, page) => {
         const limit = 10;
-        const skip = page * limit;
+        const skip = (page - 1) * limit;
 
-        const latestMessages = await Message.aggregate([
-            {
-                $match: {
-                    $or: [
-                        { source_id: userId },
-                        { destination_id: userId }
-                    ],
-                    $expr: { $ne: ["$source_id", "$destination_id"] }
-                }
-            },
-            {
-                $sort: { createdAt: -1 }
-            },
-            {
-                $group: {
-                    _id: {
-                        $cond: [
-                            { $eq: ["$source_id", userId] },
-                            "$destination_id",
-                            "$source_id"
-                        ]
-                    },
-                    message: { $first: "$$ROOT" }
-                }
-            },
-            {
-                $replaceRoot: { newRoot: "$message" }
-            },
-            {
-                $sort: { createdAt: -1 }
-            },
-            {
-                $skip: skip
-            },
-            {
-                $limit: limit
+        const messages = await Conversation.find({ participants: userId })
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit)
+
+        return await Promise.all(messages.map(async (message) => {
+            const messageParticipants = await Promise.all(message.participants.map(async (participant) => {
+                return await this.getFormattedUserData(participant);
+            }));
+
+            const nearestMessageContent = await getMessageDataService.getMessageDataById(message.messages[0]);
+
+            const messageData = {
+                _id: message._id,
+                participants: messageParticipants,
+                nearest_message: nearestMessageContent,
+                created_at: message.createdAt,
+                updated_at: message.updatedAt,
+            };
+
+            if (message.conversation_name) {
+                messageData.conversation_name = message.conversation_name;
             }
-        ]);
 
-        return await Promise.all(latestMessages.map(async message => {
-            const { createdAt, updatedAt, source_id, destination_id, ...otherMessageProps } = message;
-
-            return {
-                ...otherMessageProps,
-                source: await this.getFormattedUserData(source_id),
-                destination: await this.getFormattedUserData(destination_id),
-                created_at: createdAt,
-                updated_at: updatedAt,
+            if (message.conversation_picture_url) {
+                messageData.conversation_picture_url = message.conversation_picture_url;
             }
+
+            return messageData;
         }));
     }
 

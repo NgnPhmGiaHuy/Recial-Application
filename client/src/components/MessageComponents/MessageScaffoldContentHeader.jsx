@@ -23,7 +23,7 @@ const MessageScaffoldContentHeader = ({ handleShowInfo }) => {
                                     <div className="m-[-6px] flex flex-row flex-shrink-0 flex-nowrap items-stretch justify-between relative">
                                         <div className="p-[6px] flex flex-col flex-shrink-0 relative">
                                             <div className="w-[40px] h-[40px] flex items-center justify-center rounded-xl relative overflow-hidden">
-                                                <Image src={messageProps?.user?.profile?.profile_picture_url} alt={`${messageProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                                <Image src={messageProps?.conversation?.conversation_picture_url} alt={`${messageProps?.conversation?.conversation_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                             </div>
                                         </div>
                                         <div className="px-[2px] py-[6px] flex flex-col flex-shrink grow basis-0 relative">
@@ -31,14 +31,14 @@ const MessageScaffoldContentHeader = ({ handleShowInfo }) => {
                                                 <div>
                                                     <span className="block text-[16px] text-black text-left font-semibold break-words relative leading-5">
                                                         <span className="overflow-hidden relative">
-                                                            { messageProps?.user?.profile?.username || messageProps?.user?.profile?.firstname + messageProps?.user?.profile?.lastname }
+                                                            { messageProps?.conversation?.conversation_name }
                                                         </span>
                                                     </span>
                                                 </div>
                                                 <div>
                                                     <span className="block text-[12px] text-black text-left font-normal break-words relative leading-3">
                                                         <span className="overflow-hidden relative">
-                                                            Active {formatShortTimeAgo(messageProps?.user?.profile?.updated_at)} ago
+                                                            Active {formatShortTimeAgo(messageProps?.conversation?.updated_at)} ago
                                                         </span>
                                                     </span>
                                                 </div>
@@ -52,9 +52,9 @@ const MessageScaffoldContentHeader = ({ handleShowInfo }) => {
                 </div>
                 <div className="px-[6px] flex flex-col flex-shrink-0 relative">
                     <div className="m-[-6px] flex flex-row flex-nowrap flex-shrink-0 items-center justify-between relative">
-                        {button.map((value, index) => (
+                        { button.map((value, index) => (
                             <MessageScaffoldContentHeaderButton key={index} button={value}/>
-                        ))}
+                        )) }
                     </div>
                 </div>
             </div>

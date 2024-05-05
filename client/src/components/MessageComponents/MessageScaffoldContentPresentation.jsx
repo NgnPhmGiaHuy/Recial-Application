@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 const MessageScaffoldContentPresentation = () => {
-    const userProps = useSelector(state => state.user);
+    const messageProps = useSelector((state) => state.message, shallowEqual);
 
     return (
         <div role="Presentation">
@@ -10,13 +10,13 @@ const MessageScaffoldContentPresentation = () => {
                 <div className="px-[12px] pt-[20px] flex flex-col justify-start relative">
                     <div className="mb-[20px] flex justify-center relative">
                         <div className="w-[60px] h-[60px] flex items-center justify-center rounded-xl bg-white overflow-hidden relative">
-                            <Image src={userProps?.user?.profile?.profile_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                            <Image src={messageProps?.conversation?.conversation_picture_url} alt={`${messageProps?.conversation?.conversation_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                         </div>
                     </div>
                     <div className="mb-[16px] flex justify-center relative">
                         <span className="block text-[16px] text-black text-center font-semibold break-words relative leading-5">
                             <span className="overflow-hidden relative">
-                                {userProps?.user?.profile?.username || userProps?.user?.profile?.firstname + userProps?.user?.profile?.lastname}
+                                { messageProps?.conversation?.conversation_name }
                             </span>
                         </span>
                     </div>

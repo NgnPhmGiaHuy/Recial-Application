@@ -1,6 +1,6 @@
 # Recial Application
 
-Welcome to Recial Application! This application is built using `Next.js`, `React.js`, `TailwindCSS`, `Node.js`, `Express`, `MongoDB`, `Mongoose`, `Firebase` and utilizes environment variables with `.env`.
+Welcome to Recial Application! This application is built using `Next.js`, `React.js`, `Redux`, `TailwindCSS`, `Node.js`, `Express`, `MongoDB`, `Mongoose`, `Firebase`, `WebSocket` and utilizes environment variables with `.env`.
 
 ## Table of Contents
 
@@ -125,10 +125,10 @@ Once the data generation is complete, comment the dataGenerator function again i
 ![Register_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/43acd1d5-e478-416f-a1a4-9939babac001)
 <p align="center"><b>Figure 02:</b> Register Interface</p>
 
-![Landing_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/a71e92df-fe77-4d0c-8082-90b57fdcb2bb)
+![Landing_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/ee41d239-d876-4fff-a07a-4c7b07b16c6c)
 <p align="center"><b>Figure 03:</b> Landing Interface</p>
 
-![User_Landing_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/66f1ea03-867d-494e-b692-94bd1cc9818a)
+![User_Landing_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/5cfb103a-19f0-43d0-917f-2458e5e97109)
 <p align="center"><b>Figure 04:</b> User Landing Interface</p>
 
 ![Profile_Setting_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/66431085-53e2-4e8c-bd19-a5ef6971c7c2)
@@ -152,11 +152,20 @@ Once the data generation is complete, comment the dataGenerator function again i
 ![Group_Join_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/5137dc2e-d45e-40a7-87ec-658782bd3d5e)
 <p align="center"><b>Figure 11:</b> Group Join Interface</p>
 
-![Group_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/84b92831-3658-4327-9506-cc01d4b5cb9b)
+![Group_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/5da8a5d7-97bb-42ef-87f8-ea134540e2a4)
 <p align="center"><b>Figure 12:</b> Group Interface</p>
 
+![Page_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/c38c6cdd-644c-41d4-972d-be0f8a24ae6f)
+<p align="center"><b>Figure 13:</b> Page Interface</p>
+
+![Event_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/904f4c4b-b4b3-42e3-9161-bee22ec6f73e)
+<p align="center"><b>Figure 14:</b> Event Interface</p>
+
+![Message_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/e34ee458-575f-45bd-9f0f-cb141b53b63a)
+<p align="center"><b>Figure 15:</b> Message Interface</p>
+
 ![Setting_Interface](https://github.com/NgnPhamGiaHuy/Recial-Application/assets/84061230/10fdfb6c-b432-4c23-be12-5639b2f8339b)
-<p align="center"><b>Figure 13:</b> Setting Interface</p>
+<p align="center"><b>Figure 16:</b> Setting Interface</p>
 
 ## License
 

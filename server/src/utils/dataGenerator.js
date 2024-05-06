@@ -757,7 +757,7 @@ const generateDummyData = async () => {
         await generatePagePost(allPages, allPosts);
         console.log("Dummy data generated successfully.");
     } catch (error) {
-        console.error("Error generating dummy data:", error);
+        console.error("Error generating dummy data: ", error);
     }
 }
 

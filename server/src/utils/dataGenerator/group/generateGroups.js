@@ -21,7 +21,7 @@ const generateGroups = async (numberOfGroups) => {
 
         return groupProps;
     } catch (error) {
-        return console.error("Error generating groups:", error);
+        return console.error("Error generating groups: ", error);
     }
 };
 

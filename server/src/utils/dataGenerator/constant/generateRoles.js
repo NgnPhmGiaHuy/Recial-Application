@@ -32,7 +32,7 @@ const generateRoles = async () => {
 
         return roleProps;
     } catch (error) {
-        return console.error("Error generating roles:", error);
+        return console.error("Error generating roles: ", error);
     }
 };
 

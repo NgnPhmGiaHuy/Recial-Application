@@ -7,11 +7,12 @@ class MediaController {
         try {
             const { user: userId, photo: photoId } = req.query;
 
-            const mediaProps = await photoDataService.getPhotoData(userId, photoId);
+            const mediaProps = await photoDataService.getFormattedPhotoDataByIdAndUserId(userId, photoId);
 
             return res.status(200).json(mediaProps);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getPhotoData: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     };
 
@@ -19,11 +20,12 @@ class MediaController {
         try {
             const { user: userId, photo: photoId, post: postId } = req.query
 
-            const mediaProps = await postDataService.getPostPhotoData(userId, photoId, postId);
+            const mediaProps = await postDataService.getFormattedPostPhotoDataById(userId, photoId, postId);
 
             return res.status(200).json(mediaProps);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getPostPhotoData: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     };
 
@@ -31,11 +33,12 @@ class MediaController {
         try {
             const { user: userId, set: setId } = req.query;
 
-            const mediaProps = await storyDataService.getStoryData(userId, setId);
+            const mediaProps = await storyDataService.getFormattedStoryDataByIdAndUserId(userId, setId);
 
             return res.status(200).json(mediaProps)
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getStoryData: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     };
 }

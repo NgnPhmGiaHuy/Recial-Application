@@ -21,7 +21,7 @@ const generatePagesLikes = async (allPages, allUsers, maxNumberOfPagesLikes) => 
 
         return console.log("Page Like generated successfully.");
     } catch (error) {
-        return console.error("Error generating pages likes:", error);
+        return console.error("Error generating pages likes: ", error);
     }
 };
 

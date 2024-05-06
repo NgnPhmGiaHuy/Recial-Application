@@ -16,13 +16,14 @@ class PostIdController {
 
             const postList = user.post_list.slice((page - 1) * postsPerPage, page * postsPerPage);
 
-            const postsWithUserData = await Promise.all(postList.map(async (post) => {
-                return await getPostDataService.getFormattedPostData(post);
+            const postsWithUserData = await Promise.all(postList.map(async (postId) => {
+                return await getPostDataService.getFormattedPostDataById(postId);
             }));
 
             return res.status(200).json(postsWithUserData);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getPostByUserId: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 
@@ -30,11 +31,12 @@ class PostIdController {
         try {
             const postId = req.query.post;
 
-            const postProps = await getPostDataService.getFormattedPostData(postId);
+            const postProps = await getPostDataService.getFormattedPostDataById(postId);
 
             return res.status(200).json(postProps)
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getPostByPostId: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 }

@@ -32,7 +32,7 @@ const generateVideoData = async (allUsers, maxNumberOfVideos) => {
 
         return allVideos.flat();
     } catch (error) {
-        return console.error("Error generating videos:", error);
+        return console.error("Error generating videos: ", error);
     }
 }
 

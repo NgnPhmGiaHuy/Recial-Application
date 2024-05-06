@@ -16,7 +16,7 @@ const HeaderPersonalAccount = ({ forwardedRef }) => {
         try {
             return await logout();
         } catch (error) {
-            return console.error("Logout failed:", error);
+            return console.error("Logout failed: ", error);
         }
     }
 

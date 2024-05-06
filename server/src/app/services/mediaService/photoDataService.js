@@ -4,24 +4,43 @@ const generalDataService = require("../generalDataService");
 const getUserDataService = require("../userService/getUserDataService");
 
 class PhotoDataService {
-    getPhotoData = async (userId, photoId) => {
-        const photoProps = await Photo.findById(photoId);
-        const userProps = await getUserDataService.getFormattedUserData(userId);
+    getRawPhotoData = async (photoId) => {
+        try {
+            const photoData = await Photo.findById(photoId);
 
-        const mediaProps = {
-            _id: photoProps._id,
-            user: userProps,
-            media_name: photoProps.photo_title,
-            media_type: "Photo",
-            media_text: photoProps.photo_description,
-            media_url: photoProps.photo_url,
-            comment: await generalDataService.getComment(photoProps._id),
-            reaction: await generalDataService.getReaction(photoProps._id),
-            created_at: photoProps.createdAt,
-            updated_at: photoProps.updatedAt,
+            return photoData;
+        } catch (error) {
+            console.error("Error in getRawPhotoData: ", error);
+            throw new Error("Failed to fetch raw photo data");
         }
+    }
 
-        return mediaProps;
+    getFormattedPhotoDataByIdAndUserId = async (photoId, userId) => {
+        try {
+            const photoData = await this.getRawPhotoData(photoId);
+
+            const userData = await getUserDataService.getFormattedUserDataById(userId);
+            const commentData = await generalDataService.getCommentData(photoData._id);
+            const reactionData = await generalDataService.getReactionData(photoData._id);
+
+            const mediaProps = {
+                _id: photoData._id,
+                user: userData,
+                media_name: photoData.photo_title,
+                media_type: "Photo",
+                media_url: photoData.photo_url,
+                media_text: photoData.photo_description,
+                comment: commentData,
+                reaction: reactionData,
+                created_at: photoData.createdAt,
+                updated_at: photoData.updatedAt,
+            };
+
+            return mediaProps;
+        } catch (error) {
+            console.error("Error in getFormattedPhotoDataByIdAndUserId: ", error);
+            throw new Error("Failed to fetch photo data");
+        }
     };
 }
 

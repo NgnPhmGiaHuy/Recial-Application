@@ -19,7 +19,7 @@ const useWithAuth = (WrappedComponent) => {
                         return setIsLoading(false);
                     }
                 } catch (error) {
-                    console.error("Error checking auth token:", error);
+                    console.error("Error checking auth token: ", error);
 
                     return router.push("auth/login")
                 }

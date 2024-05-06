@@ -1,5 +1,4 @@
-const { WebSocket } = require("ws");
-
+const WebSocketService = require("../../services/webSocketService/webSocketService");
 const getCommentDataService = require("../../services/commentService/getCommentDataService");
 const createCommentDataService = require("../../services/commentService/createCommentDataService");
 
@@ -8,11 +7,12 @@ class CommentController {
         try {
             const commentId = req.query.comment;
 
-            const commentProps = await getCommentDataService.getFormattedCommentData(commentId);
+            const commentProps = await getCommentDataService.getFormattedCommentDataById(commentId);
 
             return res.status(200).json(commentProps);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getCommentData: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     };
 
@@ -24,24 +24,14 @@ class CommentController {
             const newComment = await createCommentDataService.createCommentData(comment);
 
             const wss = req.app.get("wss");
+            const webSocketService = new WebSocketService(wss);
 
-            if (wss) {
-                const comment = {
-                    type: "create_comment",
-                    userId: userId.toString(),
-                    commentId: newComment._id.toString(),
-                }
-
-                wss.clients.forEach((client) => {
-                    if (client.readyState === WebSocket.OPEN) {
-                        client.send(JSON.stringify(comment));
-                    }
-                });
-            }
+            await webSocketService.notifyClientsAboutNewComment(userId, newComment);
 
             return res.status(200).json(newComment);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in createCommentData: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     };
 }

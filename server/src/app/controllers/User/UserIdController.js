@@ -21,7 +21,8 @@ class UserIdController {
 
             return res.status(200).json(userProps);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getUserIdData: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 
@@ -39,7 +40,8 @@ class UserIdController {
 
             return res.status(200).json(userContactProps);
         } catch (error) {
-            return res.status(500).json(error)
+            console.error("Error in getUserIdContact: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 
@@ -57,7 +59,8 @@ class UserIdController {
 
             return res.status(200).json(userProfileProps);
         } catch (error) {
-            return res.status(500).json(error)
+            console.error("Error in getUserIdProfile: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 
@@ -75,7 +78,8 @@ class UserIdController {
 
             return res.status(200).json(followerProps)
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getUserIdFollower: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 
@@ -93,7 +97,8 @@ class UserIdController {
 
             return res.status(200).json(followingProps);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getUserIdFollowing: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 
@@ -111,7 +116,8 @@ class UserIdController {
 
             return res.status(200).json(friendProps);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getUserIdFriend: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 
@@ -129,7 +135,8 @@ class UserIdController {
 
             return res.status(200).json(photoListProps);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getUserIdPhotoList: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 
@@ -147,7 +154,8 @@ class UserIdController {
 
             return res.status(200).json(groupListProps);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getUserIdGroupList: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 }

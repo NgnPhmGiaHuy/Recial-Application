@@ -16,7 +16,7 @@ const generatePhotoData = async () => {
 
         return photo;
     } catch (error) {
-        return console.error("Error generating photo:", error);
+        return console.error("Error generating photo: ", error);
     }
 }
 

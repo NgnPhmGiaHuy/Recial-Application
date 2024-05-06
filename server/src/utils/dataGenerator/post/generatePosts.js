@@ -46,7 +46,7 @@ const generatePosts = async (allUsers, maxNumberOfPosts) => {
 
         return flattenedPosts;
     } catch (error) {
-        return  console.error("Error generating or inserting posts:", error);
+        return  console.error("Error generating or inserting posts: ", error);
     }
 };
 

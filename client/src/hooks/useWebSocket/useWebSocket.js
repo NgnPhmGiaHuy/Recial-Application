@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { useAccessTokenContext } from "@/components/ProviderComponents/Providers";
 
-const useWebSocket = (url, onDataReceived) => {
+const useWebSocket = (url, onDataReceived, options = {}) => {
     const router = useRouter();
     const { accessToken } = useAccessTokenContext();
 
@@ -18,7 +18,17 @@ const useWebSocket = (url, onDataReceived) => {
 
     useEffect(() => {
         const createWebSocket = () => {
-            const newSocket = new WebSocket(url + `?token=${accessToken.toString()}`);
+            let wsUrl = url;
+
+            if (accessToken) {
+                wsUrl += `?token=${accessToken.toString()}`;
+            }
+
+            if (options.name) {
+                wsUrl += `&&${options.name}=${options.id.toString()}`;
+            }
+
+            const newSocket = new WebSocket(wsUrl);
 
             newSocket.onopen = () => {
                 console.log("Connected to WebSocket server");
@@ -30,7 +40,7 @@ const useWebSocket = (url, onDataReceived) => {
             };
 
             newSocket.onerror = (error) => {
-                console.error("WebSocket error:", error);
+                console.error("WebSocket error: ", error);
             };
 
             newSocket.onclose = () => {

@@ -4,7 +4,7 @@ import Illustration from "/public/images/Illustration/illustration-of-a-man-and-
 
 const FriendScaffoldProfileItem = ({ userProps }) => {
     return (
-        <li className="my-[12px] h-full flex flex-col items-center justify-center text-center align-top hyphens-auto relative hover:">
+        <li className="my-[12px] h-full flex flex-col items-center justify-center text-center align-top hyphens-auto relative hover">
             <section className="w-full h-full relative">
                 <a href="">
                     <div className="w-full h-full p-[12px] rounded-xl bg-white relative outline outline-black/30 hover:shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2),0px_4px_4px_rgb(0_0_0/0.3)] transition-all">

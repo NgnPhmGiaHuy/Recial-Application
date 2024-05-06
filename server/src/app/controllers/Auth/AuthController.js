@@ -1,18 +1,19 @@
-const jwt= require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const { OAuth2Client } = require('google-auth-library');
 
 const User = require("../../models/User");
 const Setting = require("../../models/Setting");
 const generateToken = require("../../services/tokenService/generateToken");
-const getUserDataService = require("../../services/userService/getUserDataService");
 
 class AuthController {
     registerUser = async (req, res) => {
         try {
             const { session_key, hashedPassword, session_firstname, session_lastname } = req.body;
 
-            const existingUser = await User.findOne({email: session_key});
+            if (!session_key || !hashedPassword || !session_firstname || !session_lastname) {
+                return res.status(400).json({ message: "All fields are required for registration." });
+            }
+
+            const existingUser = await User.findOne({ email: session_key });
 
             if (existingUser) {
                 return res.status(409).json({ message: "This email already exists, please try again!" });
@@ -35,6 +36,7 @@ class AuthController {
 
             return res.status(201).json({ message: "User registered successfully" });
         } catch (error) {
+            console.error("Error in registerUser: ", error);
             return res.status(500).json({ error: "Internal Server Error" });
         }
     };
@@ -42,6 +44,10 @@ class AuthController {
     loginUser = async (req, res) => {
         try {
             const { session_key, session_password } = req.body;
+
+            if (!session_key || !session_password) {
+                return res.status(400).json({ message: "Email and password are required for login." });
+            }
 
             const user = await User.findOne({ email: session_key });
 
@@ -57,112 +63,27 @@ class AuthController {
                 }
             }
 
-            const accessToken = await generateToken.generateAccessToken(user);
-            const refreshToken = await generateToken.generateRefreshToken(user);
+            const accessToken = await generateToken.generateAccessTokenData(user);
+            const refreshToken = await generateToken.generateRefreshTokenData(user);
 
             user.refreshToken = refreshToken;
+            user.updatedAt = Date.now();
 
             await user.save();
 
             return res.status(201).json({ accessToken: accessToken, refreshToken: refreshToken });
         } catch (error) {
-            return res.status(500).json(error);
-        }
-    };
-
-    handleGoogleSignIn = async (req, res) => {
-        try {
-            const googleToken = req.headers.authorization;
-
-            if (!googleToken) {
-                return res.status(401).json({ error: "Google token missing" });
-            }
-
-            const token = googleToken.split(' ')[1];
-
-            const client = new OAuth2Client();
-
-            const ticket = await client.verifyIdToken({
-                idToken: token,
-            })
-
-            const { payload } = ticket;
-
-            const user = payload;
-
-            const existingUser = await User.findOne({ email: user.email });
-
-            if (existingUser) {
-                const accessToken = await generateToken.generateAccessToken(existingUser);
-                const refreshToken = await generateToken.generateRefreshToken(existingUser);
-
-                existingUser.refreshToken = refreshToken;
-
-                await existingUser.save();
-
-                return res.status(201).json({ accessToken: accessToken, refreshToken: refreshToken });
-            }
-
-            const newUser = new User({
-                email: user.email,
-                isOAuthUser: true,
-                username: user.name,
-                firstname: user.family_name,
-                lastname: user.given_name,
-                profile_picture_url: user.picture,
-            });
-
-            const accessToken = await generateToken.generateAccessToken(newUser);
-            const refreshToken = await generateToken.generateRefreshToken(newUser);
-
-            newUser.refreshToken = refreshToken;
-
-            await newUser.save();
-
-            const newUserSetting = new Setting({
-                source_id: newUser._id,
-            });
-
-            await newUserSetting.save();
-
-            return res.status(201).json({ accessToken: accessToken, refreshToken: refreshToken });
-        } catch (error) {
-            return res.status(500).json(error);
-        }
-    };
-
-    requestRefreshToken = async (req, res) => {
-        try {
-            const refreshToken = req.headers.authorization;
-
-            if (!refreshToken) {
-                return res.status(401).json({ error: "You're not authenticated" });
-            }
-
-            const token = refreshToken.split(' ')[1];
-
-            jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (error, decoded) => {
-                if (error) {
-                    return res.status(403).json({ error: "Refresh token is not valid" });
-                }
-
-                const user = await User.findById(decoded.userId);
-
-                if (!user) {
-                    return res.status(403).json({ error: "User not found" });
-                }
-
-                const newAccessToken = await generateToken.generateAccessToken(user);
-
-                return res.status(200).json({ accessToken: newAccessToken });
-            });
-        } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in loginUser: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     };
 
     logoutUser = async (req, res) => {
         try {
+            if (!req.user) {
+                return res.status(401).json({ error: "User not authenticated" });
+            }
+
             const user = req.user;
 
             user.refreshToken = null;
@@ -171,7 +92,8 @@ class AuthController {
 
             return res.status(200).json({ message: "Logout" });
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in logoutUser: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     };
 }

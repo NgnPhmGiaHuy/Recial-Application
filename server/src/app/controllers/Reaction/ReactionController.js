@@ -1,5 +1,4 @@
-const { WebSocket } = require("ws");
-
+const WebSocketService = require("../../services/webSocketService/webSocketService");
 const getTypeDataService = require("../../services/typeService/getTypeDataService");
 const getReactionDataService = require("../../services/reactionService/getReactionDataService");
 const createReactionDataService = require("../../services/reactionService/createReactionDataService");
@@ -15,11 +14,12 @@ class ReactionController {
                 return res.status(404).json({ error: "Reaction not found" });
             }
 
-            const reactionProps = await getReactionDataService.getFormattedReactionData(reactionData);
+            const reactionProps = await getReactionDataService.getFormattedReactionDataByRaw(reactionData);
 
             return res.status(200).json(reactionProps);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getReactionData: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
     
@@ -28,13 +28,14 @@ class ReactionController {
             const data = req.body;
             const userId = req.userId;
 
-            const reactionType = await getTypeDataService.getTypeByTypeName(data.reaction_type);
+            const reactionType = await getTypeDataService.getTypeDataByName(data.reaction_type);
 
             const destinationId = data.destination_id;
 
-            const existReaction = await getReactionDataService.getReactionBySourceAndDestination(userId, data.destination_id);
+            const existReaction = await getReactionDataService.getRawReactionDataBySourceAndDestination(userId, data.destination_id);
 
             const wss = req.app.get("wss");
+            const webSocketService = new WebSocketService(wss);
 
             if (existReaction) {
                 existReaction.reaction_type = reactionType._id;
@@ -42,40 +43,19 @@ class ReactionController {
 
                 await existReaction.save();
 
-                if (wss) {
-                    const reactionMessage = {
-                        type: "update_reaction",
-                        reactionId: existReaction._id,
-                    }
-
-                    wss.clients.forEach((client) => {
-                        if (client.readyState === WebSocket.OPEN && client.userId.toString() === userId.toString()) {
-                            client.send(JSON.stringify(reactionMessage));
-                        }
-                    })
-                }
+                await webSocketService.notifyClientsAboutUpdateReaction(userId, existReaction);
 
                 return res.status(200).json({ message: "Reaction update/create successfully" });
             } else {
                 const newReaction = await createReactionDataService.createReactionData(userId, destinationId, reactionType);
 
-                if (wss) {
-                    const reactionMessage = {
-                        type: "create_reaction",
-                        reactionId: newReaction._id,
-                    }
-
-                    wss.clients.forEach((client) => {
-                        if (client.readyState === WebSocket.OPEN && client.userId.toString() === userId.toString()) {
-                            client.send(JSON.stringify(reactionMessage));
-                        }
-                    })
-                }
+                await webSocketService.notifyClientsAboutCreateReaction(userId, newReaction);
 
                 return res.status(200).json({ message: "Reaction create successfully" });
             }
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in createReaction: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 }

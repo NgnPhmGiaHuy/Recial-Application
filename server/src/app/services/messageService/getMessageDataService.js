@@ -3,9 +3,21 @@ const Message = require("../../models/Message");
 const Conversation = require("../../models/Conversation");
 
 class GetMessageDataService {
-    getMessageDataById = async (messageId) => {
+    getRawMessageData = async (messageId) => {
         try {
             const messageData = await Message.findById(messageId);
+
+            return messageData;
+        } catch (error) {
+            console.error("Error in getRawMessageData: ", error);
+            throw new Error("Failed to fetch raw message data");
+        }
+    }
+
+    getFormattedMessageDataById = async (messageId) => {
+        try {
+            const messageData = await this.getRawMessageData(messageId);
+
             if (!messageData) {
                 throw new Error("Message not found");
             }
@@ -13,6 +25,7 @@ class GetMessageDataService {
             const { createdAt, updatedAt, source_id, ...otherMessageData } = messageData._doc;
 
             const userProps = await User.findById(source_id);
+
             if (!userProps) {
                 throw new Error("User not found");
             }
@@ -34,8 +47,8 @@ class GetMessageDataService {
                 updated_at: updatedAt,
             };
         } catch (error) {
-            console.error("Error in getMessageDataById:", error.message);
-            throw error;
+            console.error("Error in getFormattedMessageDataById: ", error);
+            throw new Error("Failed to fetch message data");
         }
     };
 
@@ -44,8 +57,8 @@ class GetMessageDataService {
         try {
             return await Message.find({ source_id: source, destination_id: destination });
         } catch (error) {
-            console.error("Error in getRawMessageDataBySourceAndDestination:", error.message);
-            throw error;
+            console.error("Error in getRawMessageDataBySourceAndDestination: ", error.message);
+            throw new Error("Failed to get message data by source and destination");
         }
     };
 
@@ -92,21 +105,23 @@ class GetMessageDataService {
             const messageIds = conversationData.messages.slice(skip, skip + limit);
 
             const messagesPromises = messageIds.map(async messageId => {
-                return await this.getMessageDataById(messageId);
+                return await this.getFormattedMessageDataById(messageId);
             });
 
             const messages = await Promise.all(messagesPromises);
 
             const no_more_messages = parseInt(page) === 0 ? messageIds.length < limit : messageIds.length === 0;
-            console.log({messageLength: messageIds.length, limit, skip, page, no_more_messages});
+
+            const formattedConversationData =  await this.formatConversationData(userId, conversationData);
+
             return {
                 messages: messages,
                 no_more_messages: no_more_messages,
-                conversation: await this.formatConversationData(userId, conversationData),
+                conversation: formattedConversationData,
             };
         } catch (error) {
-            console.error("Error in getFormattedMessageData:", error.message);
-            throw error;
+            console.error("Error in getFormattedConversationMessageData: ", error.message);
+            throw new Error("Failed to get conversation message data");
         }
     };
 }

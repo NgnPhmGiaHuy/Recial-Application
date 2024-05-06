@@ -21,7 +21,7 @@ const generatePagesFollows = async (allPages, allUsers, maxNumberOfPagesFollows)
 
         return console.log("Page Follow generated successfully.");
     } catch (error) {
-        return console.error("Error generating pages follow:", error);
+        return console.error("Error generating pages follow: ", error);
     }
 };
 

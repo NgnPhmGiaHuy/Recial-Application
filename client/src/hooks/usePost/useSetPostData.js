@@ -33,7 +33,7 @@ const useSetPostData = () => {
                 return setPostSubmitStatus(true);
             }
         } catch (error) {
-            return console.error("Error uploading images or creating post:", error);
+            return console.error("Error uploading images or creating post: ", error);
         }
     };
 

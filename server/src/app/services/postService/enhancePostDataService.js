@@ -13,10 +13,10 @@ class EnhancePostDataService {
 
                 const [groupData, photo, user, comment, reaction, share] = await Promise.all([
                     Group.findById(group),
-                    getPostDataService.getPostPhoto(post),
-                    getPostDataService.getPostAuthor(post._id),
-                    generalDataService.getComment(post._id),
-                    generalDataService.getReaction(post._id),
+                    getPostDataService.getFormattedPostPhotoDataById(post),
+                    getPostDataService.getFormattedPostAuthorDataById(post._id),
+                    generalDataService.getCommentData(post._id),
+                    generalDataService.getReactionData(post._id),
                     generalDataService.getUsersByInteractionType(PostShare, "post_id", post._id)
                 ]);
 
@@ -37,7 +37,8 @@ class EnhancePostDataService {
 
             return enhancedPosts;
         } catch (error) {
-            return console.error(error);
+            console.error("Error in enhancePostsWithUserData: ", error);
+            throw new Error("Failed to enhance posts with user data");
         }
     }
 }

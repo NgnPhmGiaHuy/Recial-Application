@@ -4,7 +4,8 @@ class SettingController {
 
 
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in setPostVisibilitySetting: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 }

@@ -19,7 +19,7 @@ const handleSetUserProfileData = async ({ formData, userProps, setSubmitStatus }
             return setSubmitStatus(true);
         }
     } catch (error) {
-        return console.error("Error handling friend request:", error);
+        return console.error("Error handling friend request: ", error);
     }
 }
 

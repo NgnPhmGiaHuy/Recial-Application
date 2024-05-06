@@ -5,26 +5,42 @@ const generalDataService = require("../generalDataService");
 
 class GetCommentDataService {
     getRawCommentData = async (commentId) => {
-         return Comment.findById(commentId);
+        try {
+            const commentData = await Comment.findById(commentId);
+
+            return commentData;
+        } catch (error) {
+            console.error("Error in getRawCommentData: ", error);
+            throw new Error("Failed to fetch raw comment data");
+        }
     }
 
-    getFormattedCommentData = async (commentId) => {
-        const commentData = await this.getRawCommentData(commentId);
+    getFormattedCommentDataById = async (commentId) => {
+        try {
+            const commentData = await this.getRawCommentData(commentId);
 
-        const { createdAt, updatedAt, ...otherCommentProps } = commentData._doc;
+            const { createdAt, updatedAt, ...otherCommentProps } = commentData._doc;
 
-        return {
-            comment: {
-                ...otherCommentProps,
-                user: await getUserDataService.getFormattedUserData(commentData.source_id),
-                comment_reactions: await generalDataService.getReaction(commentData._id),
-                comment_reply: await generalDataService.getComment(commentData._id),
-                created_at: createdAt,
-                updated_at: updatedAt,
-            },
-            destination: {
-                destination_id: commentData.destination_id,
-            }
+            const userData = await getUserDataService.getFormattedUserDataById(commentData.source_id);
+            const commentReplyData = await generalDataService.getCommentData(commentData._id);
+            const commentReactionData = await generalDataService.getReactionData(commentData._id);
+
+            return {
+                comment: {
+                    ...otherCommentProps,
+                    user: userData,
+                    comment_reply: commentReplyData,
+                    comment_reactions: commentReactionData,
+                    created_at: createdAt,
+                    updated_at: updatedAt,
+                },
+                destination: {
+                    destination_id: commentData.destination_id,
+                }
+            };
+        } catch (error) {
+            console.error("Error in getFormattedCommentDataById: ", error);
+            throw new Error("Failed to format comment data");
         }
     }
 }

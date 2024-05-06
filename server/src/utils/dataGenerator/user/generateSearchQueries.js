@@ -19,7 +19,7 @@ const generateSearchQueries = async (allUsers, numberOfSearchQueries) => {
 
         return console.log("Search History generated successfully.");
     } catch (error) {
-        return console.error("Error generating search queries:", error);
+        return console.error("Error generating search queries: ", error);
     }
 };
 

@@ -5,11 +5,12 @@ class StoryController {
         try {
             const userId = req.userId;
 
-            const story = await storyDataService.getUserFeedStoryData(userId);
+            const story = await storyDataService.getFormattedUserFeedStoryDataByUserId(userId);
             
             return res.status(200).json(story);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getStory: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 }

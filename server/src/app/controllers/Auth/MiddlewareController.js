@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+
 const getUserDataService = require("../../services/userService/getUserDataService");
 
 class MiddlewareController {
@@ -26,8 +27,7 @@ class MiddlewareController {
 
             return next();
         } catch (error) {
-            console.error("Error in verifyToken middleware:", error);
-
+            console.error("Error in verifyToken: ", error);
             return res.status(500).json({ error: "Internal server error" });
         }
     };

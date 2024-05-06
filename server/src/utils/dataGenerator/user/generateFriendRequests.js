@@ -27,7 +27,7 @@ const generateFriendRequests = async (allUsers, maxNumberOfFriendRequests) => {
 
         return console.log("Friend Requests generated successfully.");
     } catch (error) {
-        return console.error("Error generating friend requests:", error);
+        return console.error("Error generating friend requests: ", error);
     }
 }
 

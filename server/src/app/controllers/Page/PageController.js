@@ -5,7 +5,7 @@ class PageController {
         try {
             const pageId = req.query.page;
 
-            const pageProps = await getPageDataService.getFormattedPageData(pageId);
+            const pageProps = await getPageDataService.getFormattedPageDataById(pageId);
 
             if (!pageProps) {
                 return res.status(404).json({ error: "Page not found" });
@@ -13,7 +13,8 @@ class PageController {
 
             return res.status(200).json(pageProps);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getPageData: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 
@@ -23,7 +24,7 @@ class PageController {
             const postsPerPage = 5;
             const page = parseInt(req.query.scrollPage) || 1;
 
-            const pagePostProps = await getPageDataService.getPagePostData(pageId, page, postsPerPage);
+            const pagePostProps = await getPageDataService.getFormattedPagePostDataById(pageId, page, postsPerPage);
 
             if (!pagePostProps) {
                 return res.status(404).json({ error: "Page post not found" });
@@ -31,7 +32,8 @@ class PageController {
 
             return res.status(200).json(pagePostProps);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getPagePostData: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 
@@ -39,7 +41,7 @@ class PageController {
         try {
             const pageId = req.query.page;
 
-            const pageLikeProps = await getPageDataService.getPageLikeData(pageId);
+            const pageLikeProps = await getPageDataService.getFormattedPageLikeDataById(pageId);
 
             if (!pageLikeProps) {
                 return res.status(404).json({ error: "Page not found" });
@@ -47,7 +49,8 @@ class PageController {
 
             return res.status(200).json(pageLikeProps);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getPageLikeData: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 
@@ -55,7 +58,7 @@ class PageController {
         try {
             const pageId = req.query.page;
 
-            const pageFollowProps = await getPageDataService.getPageFollowData(pageId);
+            const pageFollowProps = await getPageDataService.getFormattedPageFollowDataById(pageId);
 
             if (!pageFollowProps) {
                 return res.status(404).json({ error: "Page not found" });
@@ -63,7 +66,8 @@ class PageController {
 
             return res.status(200).json(pageFollowProps);
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getPageFollowData: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 }

@@ -87,7 +87,7 @@ import useGetUserDataFetcherByPage from "@/hooks/useUser/useGetUserDataFetcherBy
 import useUpdateUserProfile from "@/hooks/useUser/useUpdateUserProfile";
 import useUserProfileActions from "@/hooks/useUser/useUserProfileActions";
 
-import useWebSocket from "@/hooks/useWebSocket";
+import useWebSocket from "@/hooks/useWebSocket/useWebSocket";
 
 export {
     useCheckAccessToken, useDecodeToken, useLogout, useTokenRefresh, useWithAuth,

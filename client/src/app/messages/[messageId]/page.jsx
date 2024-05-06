@@ -17,7 +17,7 @@ const MessageIdPage = ({ params }) => {
     };
 
     useGetMessageDataByConversationId(params.messageId);
-    useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
+    useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived, { name: "conversation", id: messageId });
 
     return (
         <>

@@ -22,7 +22,7 @@ class CreateMessageService {
 
             return newMessage;
         } catch (error) {
-            console.error("Error creating message data:", error);
+            console.error("Error in createMessageData: ", error);
             throw new Error("Failed to create message data");
         }
     }

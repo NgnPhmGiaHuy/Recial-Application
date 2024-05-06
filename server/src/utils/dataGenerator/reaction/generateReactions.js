@@ -46,7 +46,7 @@ const generateReactions = async (typesWithCommentFiltered, reactionsFilteredType
 
         return reactionProps;
     } catch (error) {
-        return console.error("Error generating reactions:", error);
+        return console.error("Error generating reactions: ", error);
     }
 };
 

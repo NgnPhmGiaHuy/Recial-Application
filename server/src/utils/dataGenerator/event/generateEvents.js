@@ -22,7 +22,7 @@ const generateEvents = async (numberOfEvents) => {
 
         return eventProps;
     } catch (error) {
-        return console.error("Error generating events:", error);
+        return console.error("Error generating events: ", error);
     }
 };
 

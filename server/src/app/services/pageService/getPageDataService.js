@@ -6,73 +6,96 @@ const PageFollow = require("../../models/PageFollow");
 
 const generalDataService = require("../generalDataService");
 const getPostDataService = require("../postService/getPostDataService");
-const Group = require("../../models/Group");
 
 class GetPageDataService {
     getRawPageData = async (pageId) => {
-        return Page.findById(pageId);
-    }
+        try {
+            const pageData = await Page.findById(pageId);
 
-    getFormattedPageData = async (pageId) => {
-        const pageProps = await this.getRawPageData(pageId);
-
-        const { createdAt, updatedAt, ...otherPageProps } = pageProps._doc;
-
-        return {
-            ...otherPageProps,
-            created_at: createdAt,
-            updated_at: updatedAt,
+            return pageData;
+        } catch (error) {
+            console.error("Error in getRawPageData: ", error);
+            throw new Error("Failed to fetch raw message data");
         }
     }
 
-    getPagePostData = async (pageId, page, postsPerPage) => {
-        const skipPosts = (page - 1) * postsPerPage;
+    getFormattedPageDataById = async (pageId) => {
+        try {
+            const pageProps = await this.getRawPageData(pageId);
 
-        const pagePostProps = await PagePost.find({ page_id: pageId })
-            .sort({ createdAt: -1 })
-            .skip(skipPosts)
-            .limit(postsPerPage)
-            .populate("post_id")
-            .populate("page_id");
-
-        const formattedPagePosts = await Promise.all(pagePostProps.map(async (pagePost) => {
-            const { page_id, post_id, createdAt, updatedAt, ...rest } = pagePost.toObject();
-
-            const { post_photos, ...otherPostIdProps } = post_id;
-
-            const [photo, user, comment, reaction, share] = await Promise.all([
-                getPostDataService.getPostPhoto(post_id),
-                getPostDataService.getPostAuthor(post_id),
-                generalDataService.getComment(post_id),
-                generalDataService.getReaction(post_id),
-                generalDataService.getUsersByInteractionType(PostShare, "post_id", post_id)
-            ]);
+            const { createdAt, updatedAt, ...otherPageProps } = pageProps._doc;
 
             return {
-                post: {
-                    user,
-                    page: page_id,
-                    ...otherPostIdProps,
-                    created_at: createdAt,
-                    updated_at: updatedAt,
-                },
-                photo, comment, reaction, share,
+                ...otherPageProps,
+                created_at: createdAt,
+                updated_at: updatedAt,
             };
-        }));
-
-        return formattedPagePosts;
+        } catch (error) {
+            console.error("Error in getFormattedPageDataById: ", error);
+            throw new Error("Failed to format page data by ID");
+        }
     }
 
-    getPageLikeData = async (pageId) => {
-        const pageLikeProps = await PageLike.find({ page_id: pageId }).populate("user_id", "username firstname lastname profile_picture_url profile_cover_url");
+    getFormattedPagePostDataById = async (pageId, pageNumber, postsPerPage) => {
+        try {
+            const skipPosts = (parseInt(pageNumber) - 1) * postsPerPage;
 
-        return pageLikeProps;
+            const pagePostProps = await PagePost.find({ page_id: pageId })
+                .sort({ createdAt: -1 })
+                .skip(skipPosts)
+                .limit(postsPerPage)
+                .populate("post_id")
+                .populate("page_id");
+
+            const formattedPagePosts = await Promise.all(pagePostProps.map(async (pagePost) => {
+                const { page_id, post_id, createdAt, updatedAt, ...rest } = pagePost.toObject();
+                const { post_photos, ...otherPostIdProps } = post_id;
+                const [photo, user, comment, reaction, share] = await Promise.all([
+                    getPostDataService.getFormattedPostPhotoDataById(post_id),
+                    getPostDataService.getFormattedPostAuthorDataById(post_id),
+                    generalDataService.getCommentData(post_id),
+                    generalDataService.getReactionData(post_id),
+                    generalDataService.getUsersByInteractionType(PostShare, "post_id", post_id)
+                ]);
+                return {
+                    post: {
+                        user,
+                        page: page_id,
+                        ...otherPostIdProps,
+                        created_at: createdAt,
+                        updated_at: updatedAt,
+                    },
+                    photo, comment, reaction, share,
+                };
+            }));
+
+            return formattedPagePosts;
+        } catch (error) {
+            console.error("Error in getPagePostData: ", error);
+            throw new Error("Failed to fetch page post data");
+        }
     }
 
-    getPageFollowData = async (pageId) => {
-        const pageFollowProps = await PageFollow.find({ page_id: pageId }).populate("user_id", "username firstname lastname profile_picture_url profile_cover_url");
+    getFormattedPageLikeDataById = async (pageId) => {
+        try {
+            const pageLikeProps = await PageLike.find({ page_id: pageId }).populate("user_id", "username firstname lastname profile_picture_url profile_cover_url");
 
-        return pageFollowProps;
+            return pageLikeProps;
+        } catch (error) {
+            console.error("Error in getFormattedPageLikeDataById: ", error);
+            throw new Error("Failed to fetch page like data");
+        }
+    }
+
+    getFormattedPageFollowDataById = async (pageId) => {
+        try {
+            const pageFollowProps = await PageFollow.find({ page_id: pageId }).populate("user_id", "username firstname lastname profile_picture_url profile_cover_url");
+
+            return pageFollowProps;
+        } catch (error) {
+            console.error("Error in getFormattedPageFollowDataById: ", error);
+            throw new Error("Failed to fetch page follow data");
+        }
     }
 }
 

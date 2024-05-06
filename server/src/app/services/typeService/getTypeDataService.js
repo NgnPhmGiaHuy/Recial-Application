@@ -1,12 +1,26 @@
 const Type = require("../../models/Type");
 
 class GetTypeDataService {
-    getTypeByTypeId = async (typeId) => {
-        return Type.findById(typeId);
+    getRawTypeData = async (typeId) => {
+        try {
+            const typeData = await Type.findById(typeId);
+
+            return typeData;
+        } catch (error) {
+            console.error("Error in getRawTypeData: ", error);
+            throw new Error("Failed to get type by ID");
+        }
     }
 
-    getTypeByTypeName = async (typeName) => {
-        return Type.findOne({ type_name: typeName });
+    getTypeDataByName = async (typeName) => {
+        try {
+            const typeData = await Type.findOne({ type_name: typeName });
+
+            return typeData;
+        } catch (error) {
+            console.error("Error in getTypeDataByName: ", error);
+            throw new Error("Failed to get type by name");
+        }
     }
 }
 

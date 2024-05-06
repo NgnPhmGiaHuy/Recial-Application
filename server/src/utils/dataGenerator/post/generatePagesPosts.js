@@ -19,7 +19,7 @@ const generatePagesPosts = async (allPages, allPosts, numberOfPagesPosts) => {
 
         return console.log("Page post generated successfully.");
     } catch (error) {
-        return console.error("Error generating pages posts:", error);
+        return console.error("Error generating pages posts: ", error);
     }
 }
 

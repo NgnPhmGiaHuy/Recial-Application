@@ -28,7 +28,7 @@ const generateSettings = async (allUsers) => {
 
         return console.log("Setting generated successfully.");
     } catch (error) {
-        return console.error("Error generating settings:", error);
+        return console.error("Error generating settings: ", error);
     }
 }
 

@@ -1,6 +1,4 @@
-const { WebSocket } = require("ws");
-
-const websocketService = require("../../services/websocketService");
+const WebSocketService = require("../../services/webSocketService/webSocketService");
 const getPostDataService = require("../../services/postService/getPostDataService");
 const deletePostDataService = require("../../services/postService/deletePostDataService");
 const createPostDataService = require("../../services/postService/createPostDataService");
@@ -9,13 +7,14 @@ const enhancePostDataService = require("../../services/postService/enhancePostDa
 class PostController {
     getPostData = async (req, res) => {
         try {
-            const posts = await getPostDataService.getPostFeedData();
+            const posts = await getPostDataService.getFormattedPostFeedDataById();
 
             const postsWithUserData = await enhancePostDataService.enhancePostsWithUserData(posts);
 
             return res.status(200).json(postsWithUserData)
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in getPostData: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 
@@ -30,11 +29,15 @@ class PostController {
 
             await userData.save();
 
-            await websocketService.sendNewPostMessage(req.app.get("wss"), userData._id, newPost._id);
+           const wss = req.app.get("wss");
+           const webSocketService = new WebSocketService(wss);
+
+           await webSocketService.notifyClientsAboutNewPost(userData, newPost);
 
             return res.status(200).json(newPost);
         } catch (error) {
-            return res.status(500).json(error);
+           console.error("Error in createPostData: ", error);
+           return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 
@@ -56,23 +59,15 @@ class PostController {
 
             await deletePostDataService.deletePost(req, deletedPost);
 
-            const wss = req.app.get("wss")
-            if (wss) {
-                const message = {
-                    type: "delete_post",
-                    postId: req.body.postId,
-                };
+            const wss = req.app.get("wss");
+            const webSocketService = new WebSocketService(wss);
 
-                wss.clients.forEach((client) => {
-                    if (client.readyState === WebSocket.OPEN && client.userId.toString() === userId.toString()) {
-                        client.send(JSON.stringify(message));
-                    }
-                });
-            }
+            await webSocketService.notifyClientsAboutDeletePost(userId, deletedPost);
 
             return res.status(200).json({ message: "Post deleted successfully" });
         } catch (error) {
-            return res.status(500).json(error);
+            console.error("Error in deletePostData: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 }

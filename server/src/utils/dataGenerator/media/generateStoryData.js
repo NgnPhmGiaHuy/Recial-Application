@@ -29,7 +29,7 @@ const generateStoryData = async (allUsers, maxNumberOfStories) => {
 
         return allStories.flat();
     } catch (error) {
-        return console.error("Error generating stories:", error);
+        return console.error("Error generating stories: ", error);
     }
 }
 

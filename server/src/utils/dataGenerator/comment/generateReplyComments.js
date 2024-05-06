@@ -22,7 +22,7 @@ const generateReplyComments = async (allUsers, allComments, numberOfReplyComment
 
         return replyComment;
     } catch (error) {
-        return console.error("Error generating comments:", error);
+        return console.error("Error generating comments: ", error);
     }
 };
 

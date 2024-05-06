@@ -2,15 +2,20 @@ const Reaction = require("../../models/Reaction");
 
 class CreateReactionDataService {
     createReactionData = async (userId, destinationId, reactionType) => {
-        const newReaction = new Reaction({
-            source_id: userId,
-            destination_id: destinationId,
-            reaction_type: reactionType._id,
-        });
+        try {
+            const newReaction = new Reaction({
+                source_id: userId,
+                destination_id: destinationId,
+                reaction_type: reactionType._id,
+            });
 
-        await newReaction.save();
+            await newReaction.save();
 
-        return newReaction;
+            return newReaction;
+        } catch (error) {
+            console.error("Error in createReactionData: ", error);
+            throw new Error("Failed to create reaction data");
+        }
     }
 }
 

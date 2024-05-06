@@ -20,7 +20,7 @@ const generatePages = async (numberOfPages) => {
 
         return pageProps;
     } catch (error) {
-        return console.error("Error generating pages:", error);
+        return console.error("Error generating pages: ", error);
     }
 };
 

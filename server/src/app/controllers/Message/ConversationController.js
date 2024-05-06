@@ -10,8 +10,8 @@ class ConversationController {
 
             return res.status(200).json(conversationData);
         } catch (error) {
-            console.error("Error fetching conversation data:", error);
-            return res.status(500).json({ error: "Failed to fetch conversation data." });
+            console.error("Error in getConversationData: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
     }
 }

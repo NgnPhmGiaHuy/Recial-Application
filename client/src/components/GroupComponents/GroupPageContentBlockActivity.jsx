@@ -44,7 +44,7 @@ const GroupPageContentBlockActivity = () => {
                                                 <span
                                                     className="block text-[15px] text-zinc-900 text-left font-normal relative leading-5">
                                                     <span className="overflow-hidden relative">
-                                                        { groupProps?.activity?.groupPostToday } new posts today
+                                                        { groupProps?.activity?.group_post_today } new posts today
                                                     </span>
                                                 </span>
                                             </div>
@@ -52,7 +52,7 @@ const GroupPageContentBlockActivity = () => {
                                                 <span
                                                     className="block text-[13px] text-zinc-500 text-left font-normal relative leading-5">
                                                     <span className="overflow-hidden relative">
-                                                        { groupProps?.activity?.groupPostLastMonth } in the last month
+                                                        { groupProps?.activity?.group_post_last_month } in the last month
                                                     </span>
                                                 </span>
                                             </div>
@@ -89,7 +89,7 @@ const GroupPageContentBlockActivity = () => {
                                                 <span
                                                     className="block text-[13px] text-zinc-500 text-left font-normal relative leading-5">
                                                     <span className="overflow-hidden relative">
-                                                        + { groupProps?.activity?.groupMemberAddLastWeek } in the last week
+                                                        + { groupProps?.activity?.group_member_add_last_week } in the last week
                                                     </span>
                                                 </span>
                                             </div>

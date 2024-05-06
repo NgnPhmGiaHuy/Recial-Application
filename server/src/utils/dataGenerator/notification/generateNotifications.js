@@ -51,7 +51,7 @@ const generateNotifications = async (typesWithCommentFiltered, allUsers, allPost
 
         return notificationProps;
     } catch (error) {
-        return console.error("Error generating notifications:", error);
+        return console.error("Error generating notifications: ", error);
     }
 };
 

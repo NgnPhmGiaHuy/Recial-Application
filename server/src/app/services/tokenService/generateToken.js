@@ -7,7 +7,7 @@ const EventMember = require("../../models/EventMember");
 const getRoleDataService = require("../roleService/getRoleDataService");
 
 class GenerateToken {
-    generateAccessToken = async (user) => {
+    generateAccessTokenData = async (user) => {
         try {
             const userPageRoles = await PageMember.find({ "user.user_id": user._id });
             const userGroupRoles = await GroupMember.find({ "user.user_id": user._id });
@@ -48,14 +48,24 @@ class GenerateToken {
                 }
             };
 
-            return jwt.sign(tokenPayload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+            const accessTokenData = jwt.sign(tokenPayload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
+
+            return accessTokenData;
         } catch (error) {
-            return console.error('Error generating access token:', error);
+            console.error("Error in generateAccessTokenData: ", error);
+            throw new Error("Failed to generate access token");
         }
     };
 
-    generateRefreshToken = (user) => {
-        return jwt.sign({ userId: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '365d' });
+    generateRefreshTokenData = (user) => {
+        try {
+            const refreshTokenData = jwt.sign({ userId: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "365d" })
+
+            return refreshTokenData;
+        } catch (error) {
+            console.error("Error in generateRefreshTokenData: ", error);
+            throw new Error("Failed to generate refresh token");
+        }
     };
 }
 

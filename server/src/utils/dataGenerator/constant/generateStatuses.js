@@ -28,7 +28,7 @@ const generateStatuses = async () => {
 
         return statusProps;
     } catch (error) {
-        return console.error("Error generating status:", error);
+        return console.error("Error generating status: ", error);
     }
 };
 

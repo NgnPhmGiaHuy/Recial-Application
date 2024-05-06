@@ -19,7 +19,7 @@ const generateGroupsPosts = async (allGroups, allPosts, numberOfGroupsPosts) => 
 
         return console.log("Groups posts generated successfully.");
     } catch (error) {
-        return console.error("Error generating groups posts:", error);
+        return console.error("Error generating groups posts: ", error);
     }
 };
 

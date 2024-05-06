@@ -24,7 +24,7 @@ const generatePagesMembers = async (allPages, allUsers, insertedRoles, maxNumber
 
         return console.log("Page Members generated successfully.");
     } catch (error) {
-        return console.error("Error generating page members:", error);
+        return console.error("Error generating page members: ", error);
     }
 };
 

@@ -24,7 +24,7 @@ const generateEventsMembers = async (allEvents, allUsers, insertedRoles, maxNumb
 
         return console.log("Event Members generated successfully.");
     } catch (error) {
-        return console.error("Error generating event members:", error);
+        return console.error("Error generating event members: ", error);
     }
 };
 

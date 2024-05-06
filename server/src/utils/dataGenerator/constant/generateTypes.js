@@ -35,7 +35,7 @@ const generateTypes = async () => {
 
         return typeProps;
     } catch (error) {
-        return console.error("Error generating types:", error);
+        return console.error("Error generating types: ", error);
     }
 }
 

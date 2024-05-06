@@ -5,24 +5,44 @@ const getTypeDataService = require("../typeService/getTypeDataService");
 
 class GetReactionDataService {
     getRawReactionData = async (reactionId) => {
-        return Reaction.findById(reactionId);
+        try {
+            const reactionData = await Reaction.findById(reactionId);
+
+            return reactionData;
+        } catch (error) {
+            console.error("Error in getRawReactionData: ", error);
+            throw new Error("Failed to fetch raw reaction data");
+        }
     }
 
-    getFormattedReactionData = async (reactionData) => {
-        const reactionType = await getTypeDataService.getTypeByTypeId(reactionData.reaction_type);
+    getFormattedReactionDataByRaw = async (reactionData) => {
+        try {
+            const userData = await getUserDataService.getFormattedUserDataById(reactionData.source_id);
+            const reactionType = await getTypeDataService.getRawTypeData(reactionData.reaction_type);
 
-        return {
-            _id: reactionData._id,
-            user: await getUserDataService.getFormattedUserData(reactionData.source_id),
-            reaction_type: reactionType.type_name,
-            destination_id: reactionData.destination_id,
-            created_at: reactionData.createdAt,
-            updated_at: reactionData.updatedAt,
-        };
+            return {
+                _id: reactionData._id,
+                user: userData,
+                reaction_type: reactionType.type_name,
+                destination_id: reactionData.destination_id,
+                created_at: reactionData.createdAt,
+                updated_at: reactionData.updatedAt,
+            };
+        } catch (error) {
+            console.error("Error in getFormattedReactionDataByRaw: ", error);
+            throw new Error("Failed to format reaction data");
+        }
     }
 
-    getReactionBySourceAndDestination = async (source, destination) => {
-        return Reaction.findOne({ source_id: source, destination_id: destination });
+    getRawReactionDataBySourceAndDestination = async (source, destination) => {
+        try {
+            const reactionData = await Reaction.findOne({ source_id: source, destination_id: destination });
+
+            return reactionData;
+        } catch (error) {
+            console.error("Error in getRawReactionDataBySourceAndDestination: ", error);
+            throw new Error("Failed to fetch reaction by source and destination");
+        }
     }
 }
 

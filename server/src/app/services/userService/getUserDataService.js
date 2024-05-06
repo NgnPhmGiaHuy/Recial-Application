@@ -16,230 +16,342 @@ const Notification = require("../../models/Notification");
 const FriendRequest = require("../../models/FriendRequest");
 const SearchHistory = require("../../models/SearchHistory");
 
+const getTypeDataService = require("../../services/typeService/getTypeDataService");
 const getMessageDataService = require("../../services/messageService/getMessageDataService");
 
 class GetUserDataService {
     getRawUserData = async (userId) => {
-        return User.findById(userId);
+        try {
+            const userData = await User.findById(userId);
+
+            return userData;
+        } catch (error) {
+            console.error("Error in getRawUserData: ", error);
+            throw new Error("Failed to fetch raw user data");
+        }
     }
 
-    getFormattedUserData = async (userId) => {
-        const user = await this.getRawUserData(userId);
+    getFormattedUserDataByRawData = async (user) => {
+        try {
+            return {
+                _id: user._id,
+                profile: {
+                    username: user.username,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    profile_picture_url: user.profile_picture_url,
+                }
+            };
+        } catch (error) {
+            console.error("Error in getFormattedUserDataByRawData: ", error);
+            throw new Error("Failed to format user data by raw data");
+        }
+    }
 
-        return {
-            _id: user._id,
-            profile: {
-                username: user.username,
-                firstname: user.firstname,
-                lastname: user.lastname,
-                profile_picture_url: user.profile_picture_url,
-            }
+    getFormattedUserDataById = async (userId) => {
+        try {
+            const user = await this.getRawUserData(userId);
+
+            return this.getFormattedUserDataByRawData(user);
+        } catch (error) {
+            console.error("Error in getFormattedUserDataById: ", error);
+            throw new Error("Failed to format user data by ID");
         }
     }
 
     getFormattedUserContact = async (user) => {
-        const formattedUserContact = {
-            phone_number: user.phone_number,
-            location: user.location,
-            description: user.description,
-            short_description: user.short_description,
-        }
+        try {
+            const formattedUserContact = {
+                location: user.location,
+                description: user.description,
+                phone_number: user.phone_number,
+                short_description: user.short_description,
+            };
 
-        return formattedUserContact;
+            return formattedUserContact;
+        } catch (error) {
+            console.error("Error in getFormattedUserContact: ", error);
+            throw new Error("Failed to format user contact data");
+        }
     }
 
     getFormattedUserProfile = async (user) => {
-        const formattedProfile = {
-            user_id: user._id,
-            profile: {
-                email: user.email,
-                username: user.username,
-                firstname: user.firstname,
-                lastname: user.lastname,
-                gender: user.gender,
-                date_of_birth: user.date_of_birth,
-                profile_picture_url: user.profile_picture_url,
-                profile_cover_photo_url: user.profile_cover_photo_url,
-            }
-        };
-
-        return formattedProfile;
-    }
-
-    getUserMessages = async (userId, page) => {
-        const limit = 10;
-        const skip = (page - 1) * limit;
-
-        const messages = await Conversation.find({ participants: userId })
-            .sort({ createdAt: -1 })
-            .skip(skip)
-            .limit(limit)
-
-        return await Promise.all(messages.map(async (message) => {
-            const messageParticipants = await Promise.all(message.participants.map(async (participant) => {
-                return await this.getFormattedUserData(participant);
-            }));
-
-            const nearestMessageContent = await getMessageDataService.getMessageDataById(message.messages[0]);
-
-            const messageData = {
-                _id: message._id,
-                participants: messageParticipants,
-                nearest_message: nearestMessageContent,
-                created_at: message.createdAt,
-                updated_at: message.updatedAt,
+        try {
+            const formattedProfile = {
+                user_id: user._id,
+                profile: {
+                    email: user.email,
+                    username: user.username,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    gender: user.gender,
+                    date_of_birth: user.date_of_birth,
+                    profile_picture_url: user.profile_picture_url,
+                    profile_cover_photo_url: user.profile_cover_photo_url,
+                }
             };
 
-            if (message.conversation_name) {
-                messageData.conversation_name = message.conversation_name;
-            }
+            return formattedProfile;
+        } catch (error) {
+            console.error("Error in getFormattedUserProfile: ", error);
+            throw new Error("Failed to format user profile data");
+        }
+    }
 
-            if (message.conversation_picture_url) {
-                messageData.conversation_picture_url = message.conversation_picture_url;
-            }
+    getUserMessages = async (userId, pageNumber) => {
+        try {
+            const limit = 10;
+            const skip = (parseInt(pageNumber) - 1) * limit;
 
-            return messageData;
-        }));
+            const messages = await Conversation.find({ participants: userId })
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limit);
+
+            const userMessageData = await Promise.all(messages.map(async (message) => {
+                try {
+                    const messageParticipants = await Promise.all(message.participants.map(async (participant) => {
+                        return await this.getFormattedUserDataById(participant);
+                    }));
+
+                    const nearestMessageContent = await getMessageDataService.getFormattedMessageDataById(message.messages[0]);
+
+                    const messageData = {
+                        _id: message._id,
+                        participants: messageParticipants,
+                        nearest_message: nearestMessageContent,
+                        created_at: message.createdAt,
+                        updated_at: message.updatedAt,
+                    };
+
+                    if (message.conversation_name) {
+                        messageData.conversation_name = message.conversation_name;
+                    }
+
+                    if (message.conversation_picture_url) {
+                        messageData.conversation_picture_url = message.conversation_picture_url;
+                    }
+
+                    return messageData;
+                } catch (error) {
+                    console.error("Error processing user message: ", error);
+                    throw new Error("Failed to process user message");
+                }
+            }));
+
+            return userMessageData;
+        } catch (error) {
+            console.error("Error in getUserMessages: ", error);
+            throw new Error("Failed to fetch user messages");
+        }
     }
 
     getUserSocial = async (user) => {
-        return await Promise.all(user.map(async social => {
-            return {
-                user: await this.getFormattedUserData(social),
-            }
-        }));
+        try {
+            const userSocialData = await Promise.all(user.map(async social => {
+                return {
+                    user: await this.getFormattedUserDataById(social),
+                };
+            }));
+
+            return userSocialData;
+        } catch (error) {
+            console.error("Error in getUserSocial: ", error);
+            throw new Error("Failed to fetch user social data");
+        }
     }
 
     getUserFriendRequest = async (userId) => {
-        const userFriendRequestData = await FriendRequest.find({ destination_id: userId });
+        try {
+            const userFriendRequestData = await FriendRequest.find({ destination_id: userId });
 
-        return await Promise.all(userFriendRequestData.map(async request => {
-            return {
-                _id: request._id,
-                user: await this.getFormattedUserData(request.source_id),
-                created_at: request.createdAt,
-                updated_at: request.updatedAt,
-            };
-        })).then(requests => {
-            return requests.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
-        });
+            return await Promise.all(userFriendRequestData.map(async request => {
+                return {
+                    _id: request._id,
+                    user: await this.getFormattedUserDataById(request.source_id),
+                    created_at: request.createdAt,
+                    updated_at: request.updatedAt,
+                };
+            })).then(requests => {
+                return requests.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+            });
+        } catch (error) {
+            console.error("Error in getUserFriendRequest: ", error);
+            throw new Error("Failed to fetch user friend requests");
+        }
     }
 
     getUserSearchQuery = async (userId) => {
-        return SearchHistory.find({ source_id: userId});
+        try {
+            const userSearchQuery = await SearchHistory.find({ source_id: userId });
+
+            return userSearchQuery;
+        } catch (error) {
+            console.error("Error in getUserSearchQuery: ", error);
+            throw new Error("Failed to fetch user search queries");
+        }
     }
 
     getUserNotifications = async (userId) => {
-        const notifications = await Notification.find({ destination_id: userId });
+        try {
+            const notifications = await Notification.find({ destination_id: userId });
 
-        return await Promise.all(notifications.map(async notification => {
-            const sourceType = await Type.findById(notification.source.type);
-            const notificationType = await Type.findById(notification.notification_type);
+            const userNotificationData = await Promise.all(notifications.map(async notification => {
+                try {
+                    const sourceType = await getTypeDataService.getRawTypeData(notification.source.type);
+                    const notificationType = await getTypeDataService.getRawTypeData(notification.notification_type);
 
-            let relatedData = null;
-            let sourceProps = null;
-            switch (sourceType.type_name) {
-                case 'Post':
-                    relatedData = await Post.findById(notification.source.source_id);
-                    const userProps = await User.findOne({ post_list: relatedData._id });
-                    sourceProps = userProps.profile_picture_url;
-                    break;
-                case 'Group':
-                    relatedData = await Group.findById(notification.source.source_id);
-                    sourceProps = relatedData.group_picture_url;
-                    break;
-                case 'Page':
-                    relatedData = await Page.findById(notification.source.source_id);
-                    sourceProps = relatedData.page_picture_url;
-                    break;
-                case 'Video':
-                    relatedData = await Video.findById(notification.source.source_id);
-                    sourceProps = relatedData.video_thumbnail;
-                    break;
-                case 'Photo':
-                    relatedData = await Photo.findById(notification.source.source_id);
-                    sourceProps = relatedData.photo_url;
-                    break;
-                default:
-                    console.log(`Type ${sourceType.type_name} not handled`);
-                    break;
-            }
+                    let relatedData = null;
+                    let sourceProps = null;
+                    switch (sourceType.type_name) {
+                        case 'Post':
+                            relatedData = await Post.findById(notification.source.source_id);
+                            const userProps = await User.findOne({ post_list: relatedData._id });
+                            sourceProps = userProps.profile_picture_url;
+                            break;
+                        case 'Group':
+                            relatedData = await Group.findById(notification.source.source_id);
+                            sourceProps = relatedData.group_picture_url;
+                            break;
+                        case 'Page':
+                            relatedData = await Page.findById(notification.source.source_id);
+                            sourceProps = relatedData.page_picture_url;
+                            break;
+                        case 'Video':
+                            relatedData = await Video.findById(notification.source.source_id);
+                            sourceProps = relatedData.video_thumbnail;
+                            break;
+                        case 'Photo':
+                            relatedData = await Photo.findById(notification.source.source_id);
+                            sourceProps = relatedData.photo_url;
+                            break;
+                        default:
+                            console.log(`Type ${sourceType.type_name} not handled`);
+                            break;
+                    }
 
-            return {
-                _id: notification._id,
-                source: {
-                    type: notification.source.type,
-                    sourceProps: sourceProps,
-                },
-                destination_id: notification.destination_id,
-                notification_content: notification.notification_content,
-                notification_type: notificationType.type_name,
-                is_read: notification.is_read,
-                is_mute: notification.is_mute,
-                created_at: notification.createdAt,
-                updated_at: notification.updatedAt,
-            }
-        }));
+                    return {
+                        _id: notification._id,
+                        source: {
+                            type: notification.source.type,
+                            sourceProps: sourceProps,
+                        },
+                        destination_id: notification.destination_id,
+                        notification_content: notification.notification_content,
+                        notification_type: notificationType.type_name,
+                        is_read: notification.is_read,
+                        is_mute: notification.is_mute,
+                        created_at: notification.createdAt,
+                        updated_at: notification.updatedAt,
+                    };
+                } catch (error) {
+                    console.error("Error processing user notification:", error);
+                    throw new Error("Failed to process user notification");
+                }
+            }));
+
+            return userNotificationData;
+        } catch (error) {
+            console.error("Error in getUserNotifications: ", error);
+            throw new Error("Failed to fetch user notifications");
+        }
     };
 
     getUserPhotoList = async (photo_list) => {
-        return await Promise.all(photo_list.map(async photo => {
-            const photoProps = await Photo.findById(photo);
-            const { createdAt, updatedAt, ...otherPhotoProps } = photoProps._doc;
+        try {
+            return await Promise.all(photo_list.map(async photo => {
+                try {
+                    const photoProps = await Photo.findById(photo);
+                    const { createdAt, updatedAt, ...otherPhotoProps } = photoProps._doc;
 
-            return {
-                ...otherPhotoProps,
-                created_at: createdAt,
-                updated_at: updatedAt,
-            };
-        }));
+                    return {
+                        ...otherPhotoProps,
+                        created_at: createdAt,
+                        updated_at: updatedAt,
+                    };
+                } catch (error) {
+                    console.error("Error fetching user photo:", error);
+                    throw new Error("Failed to fetch user photo");
+                }
+            }));
+        } catch (error) {
+            console.error("Error in getUserPhotoList: ", error);
+            throw new Error("Failed to fetch user photo list");
+        }
     };
 
     getUserGroupWithMember = async (userId) => {
-        const groupMembers = await GroupMember.find({ "user.user_id": userId });
+        try {
+            const groupMembers = await GroupMember.find({ "user.user_id": userId });
 
-        return await Promise.all(groupMembers.map(async group => {
-            const groupProps = await Group.findById(group.group_id);
-            const groupMemberProps = await GroupMember.find({ group_id: groupProps._id });
+            return await Promise.all(groupMembers.map(async group => {
+                try {
+                    const groupProps = await Group.findById(group.group_id);
+                    const groupMemberProps = await GroupMember.find({ group_id: groupProps._id });
 
-            const { createdAt, updatedAt, ...otherGroupProps } = groupProps._doc;
+                    const { createdAt, updatedAt, ...otherGroupProps } = groupProps._doc;
 
-            const groupMember = await Promise.all(groupMemberProps.map(async (member) => {
-                return {
-                    user: await this.getFormattedUserData(member.user.user_id),
-                    role: (await Role.findById(member.user.user_role)).role_name,
+                    const groupMember = await Promise.all(groupMemberProps.map(async (member) => {
+                        return {
+                            user: await this.getFormattedUserDataById(member.user.user_id),
+                            role: (await Role.findById(member.user.user_role)).role_name,
+                        };
+                    }));
+
+                    return {
+                        ...otherGroupProps,
+                        group_member: groupMember,
+                        created_at: createdAt,
+                        updated_at: updatedAt,
+                    };
+                } catch (error) {
+                    console.error("Error fetching group member:", error);
+                    throw new Error("Failed to fetch group member");
                 }
-            }))
-
-            return {
-                ...otherGroupProps,
-                group_member: groupMember,
-                created_at: createdAt,
-                updated_at: updatedAt,
-            }
-        }));
+            }));
+        } catch (error) {
+            console.error("Error in getUserGroupWithMember: ", error);
+            throw new Error("Failed to fetch user groups with members");
+        }
     };
 
     getUserGroupWithoutMemberDetail = async (userId) => {
-        const groupMembers = await GroupMember.find({ "user.user_id": userId });
+        try {
+            const groupMembers = await GroupMember.find({ "user.user_id": userId });
 
-        return await Promise.all(groupMembers.map(async group => {
-            const groupProps = await Group.findById(group.group_id);
-            const groupMemberProps = await GroupMember.find({ group_id: groupProps._id }).populate("user");
+            return await Promise.all(groupMembers.map(async group => {
+                try {
+                    const groupProps = await Group.findById(group.group_id);
+                    const groupMemberProps = await GroupMember.find({ group_id: groupProps._id }).populate("user");
 
-            const { createdAt, updatedAt, ...otherGroupProps } = groupProps._doc;
+                    const { createdAt, updatedAt, ...otherGroupProps } = groupProps._doc;
 
-            return {
-                ...otherGroupProps,
-                created_at: createdAt,
-                updated_at: updatedAt,
-                group_member: groupMemberProps.map(member => member.user.user_id),
-            }
-        }));
+                    return {
+                        ...otherGroupProps,
+                        created_at: createdAt,
+                        updated_at: updatedAt,
+                        group_member: groupMemberProps.map(member => member.user.user_id),
+                    };
+                } catch (error) {
+                    console.error("Error fetching group member detail:", error);
+                    throw new Error("Failed to fetch group member detail");
+                }
+            }));
+        } catch (error) {
+            console.error("Error in getUserGroupWithoutMemberDetail: ", error);
+            throw new Error("Failed to fetch user groups without member detail");
+        }
     };
 
     getUserSetting = async (userId) => {
-        return Setting.findOne({source_id: userId});
+        try {
+            const userSettingData = await Setting.findOne({ source_id: userId })
+
+            return userSettingData;
+        } catch (error) {
+            console.error("Error in getUserSetting: ", error);
+            throw new Error("Failed to fetch user setting");
+        }
     };
 }
 

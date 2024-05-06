@@ -32,7 +32,7 @@ const generateMessages = async (allUsers, allStatuses, numberOfMessages) => {
 
         return console.log("Messages generated successfully.");
     } catch (error) {
-        return console.error("Error generating messages:", error);
+        return console.error("Error generating messages: ", error);
     }
 };
 

@@ -24,7 +24,7 @@ const generateGroupsMembers = async (allGroups, allUsers, insertedRoles, maxNumb
 
         return console.log("Group Members generated successfully.");
     } catch (error) {
-        return console.error("Error generating group members:", error);
+        return console.error("Error generating group members: ", error);
     }
 };
 

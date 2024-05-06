@@ -137,7 +137,7 @@ const generateDummyData = async () => {
         console.log("Dummy data generated successfully.");
         console.log("End: " + new Date().toLocaleString());
     } catch (error) {
-        console.error("Error generating dummy data:", error);
+        console.error("Error generating dummy data: ", error);
     }
 }
 

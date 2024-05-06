@@ -41,7 +41,7 @@ const generateComments = async (interestedFilteredTypes, allUsers, allPosts, all
 
         return commentProps;
     } catch (error) {
-        return console.error("Error generating comments:", error);
+        return console.error("Error generating comments: ", error);
     }
 };
 

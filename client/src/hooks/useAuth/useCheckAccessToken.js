@@ -19,7 +19,7 @@ const useCheckAccessToken = (WrappedComponent) => {
                         return setIsLoading(false);
                     }
                 } catch (error) {
-                    console.error("Error checking access token:", error);
+                    console.error("Error checking access token: ", error);
 
                     return router.push("/");
                 }

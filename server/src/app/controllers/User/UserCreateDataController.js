@@ -7,13 +7,13 @@ class UserCreateDataController {
         try {
             const userId = req.userId;
 
-            const { friendId } = req.body;
+            const { friend_request_id } = req.query;
 
-            if (!friendId) {
+            if (!friend_request_id) {
                 return res.status(400).json({ error: "Friend ID is missing" });
             }
 
-            const existFriendRequest = await getFriendRequestDataService.getFriendRequestData(userId, friendId);
+            const existFriendRequest = await getFriendRequestDataService.getRawFriendRequestDataBySourceAndDestination(userId, friend_request_id);
 
             const wss = req.app.get("wss");
             const webSocketService = new WebSocketService(wss);
@@ -22,14 +22,14 @@ class UserCreateDataController {
                 existFriendRequest.updatedAt = new Date();
                 await existFriendRequest.save();
 
-                await webSocketService.notifyClientsAboutCreateFriendRequest(userId, friendId, existFriendRequest);
+                await webSocketService.notifyClientsAboutCreateFriendRequest(userId, friend_request_id, existFriendRequest);
 
                 return res.status(200).json(existFriendRequest);
             }
 
-            const newFriendRequest = await createFriendRequestDataService.createFriendRequestData(userId, friendId);
+            const newFriendRequest = await createFriendRequestDataService.createFriendRequestData(userId, friend_request_id);
 
-            await webSocketService.notifyClientsAboutCreateFriendRequest(userId, friendId, newFriendRequest);
+            await webSocketService.notifyClientsAboutCreateFriendRequest(userId, friend_request_id, newFriendRequest);
 
             return res.status(200).json(newFriendRequest);
         } catch (error) {

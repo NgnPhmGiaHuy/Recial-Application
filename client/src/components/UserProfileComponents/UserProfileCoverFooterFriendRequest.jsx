@@ -1,14 +1,6 @@
-import { setUserFriendRequest } from "@/utils";
+import { handleFriendRequest } from "@/utils";
 
 const UserProfileCoverFooterFriendRequest = ({ userProps }) => {
-    const handleFriendRequest = async (status) => {
-        try {
-            await setUserFriendRequest(status, userProps);
-        } catch (error) {
-            return console.error(error);
-        }
-    }
-
     return (
         <div className="mt-[16px]">
             <div className="w-full pb-[16px] flex relative">
@@ -24,7 +16,7 @@ const UserProfileCoverFooterFriendRequest = ({ userProps }) => {
                         <div className="p-[6px] flex flex-shrink-0 self-center relative">
                             <div className="flex flex-row flex-wrap flex-shrink-0 items-stretch justify-between relative">
                                 <div className="p-[6px] flex flex-col flex-shrink grow basis-auto relative">
-                                    <div className="w-full flex flex-col justify-center cursor-pointer relative" onClick={() => handleFriendRequest("Confirm")}>
+                                    <div className="w-full flex flex-col justify-center cursor-pointer relative" onClick={(e) => handleFriendRequest(e, "Confirm", userProps?.user?._id)}>
                                         <div className="h-[36px] px-[12px] flex flex-nowrap flex-shrink-0 items-center justify-center rounded-md bg-blue-500 hover:bg-blue-700 relative transition-all">
                                             <span className="block text-[16px] text-white text-center font-semibold break-words leading-5">
                                                 <span className="overflow-hidden relative">
@@ -35,7 +27,7 @@ const UserProfileCoverFooterFriendRequest = ({ userProps }) => {
                                     </div>
                                 </div>
                                 <div className="p-[6px] flex flex-col flex-shrink grow basis-auto relative">
-                                    <div className="w-full flex flex-col justify-center cursor-pointer relative" onClick={() => handleFriendRequest("Delete")}>
+                                    <div className="w-full flex flex-col justify-center cursor-pointer relative" onClick={(e) => handleFriendRequest(e, "Delete", userProps?.user?._id)}>
                                         <div className="h-[36px] px-[12px] flex flex-nowrap flex-shrink-0 items-center justify-center rounded-md bg-zinc-200 hover:bg-zinc-300 relative transition-all">
                                             <span className="block text-[16px] text-gray-700 text-center font-semibold break-words leading-5">
                                                 <span className="overflow-hidden relative">

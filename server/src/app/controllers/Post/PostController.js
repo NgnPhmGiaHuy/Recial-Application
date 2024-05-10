@@ -32,7 +32,7 @@ class PostController {
            const wss = req.app.get("wss");
            const webSocketService = new WebSocketService(wss);
 
-           await webSocketService.notifyClientsAboutNewPost(userData, newPost);
+           await webSocketService.notifyClientsAboutNewPost(userData._id.toString(), newPost);
 
             return res.status(200).json(newPost);
         } catch (error) {
@@ -44,8 +44,9 @@ class PostController {
     deletePostData = async (req, res) => {
         try {
             const userId = req.userId;
+            const { postId } = req.query;
 
-            const deletedPost = await getPostDataService.getRawPostData(req.body.postId);
+            const deletedPost = await getPostDataService.getRawPostData(postId);
 
             if (!deletedPost) {
                 return res.status(404).json({ error: "Post not found" });

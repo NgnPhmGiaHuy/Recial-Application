@@ -1,4 +1,5 @@
 const User = require("../../models/User");
+const Status = require("../../models/Status");
 const Message = require("../../models/Message");
 const Conversation = require("../../models/Conversation");
 
@@ -14,21 +15,26 @@ class GetMessageDataService {
         }
     }
 
-    getFormattedMessageDataById = async (messageId) => {
+    getFormattedMessageDataById = async (userId, messageId) => {
         try {
             const messageData = await this.getRawMessageData(messageId);
+            const deleteStatus = await Status.findOne({ status_name: "Deleted" });
 
             if (!messageData) {
                 throw new Error("Message not found");
             }
 
-            const { createdAt, updatedAt, source_id, ...otherMessageData } = messageData._doc;
+            const { createdAt, updatedAt, source_id, message_content, message_status, ...otherMessageData } = messageData._doc;
 
             const userProps = await User.findById(source_id);
 
             if (!userProps) {
                 throw new Error("User not found");
             }
+
+            const hiddenByCurrentUser = messageData.message_hidden_by.some(value =>
+                value.user_id.toString() === userId.toString()
+            );
 
             const userData = {
                 _id: userProps._id,
@@ -40,9 +46,20 @@ class GetMessageDataService {
                 }
             };
 
+            if (message_status.toString() === deleteStatus._id.toString() || hiddenByCurrentUser) {
+                return {
+                    user: userData,
+                    message_content: "",
+                    ...otherMessageData,
+                    created_at: createdAt,
+                    updated_at: updatedAt,
+                }
+            }
+
             return {
                 user: userData,
                 ...otherMessageData,
+                message_content: message_content,
                 created_at: createdAt,
                 updated_at: updatedAt,
             };
@@ -75,7 +92,7 @@ class GetMessageDataService {
                 conversationData.conversation_picture_url = singleParticipantData.profile_picture_url;
                 break;
             case 2:
-                const otherParticipantId = participants.find(id => id !== userId);
+                const otherParticipantId = participants.find(id => id.toString() !== userId.toString());
                 const otherParticipantData = await User.findById(otherParticipantId);
                 conversationData.conversation_name = otherParticipantData.username || (otherParticipantData.firstname + ' ' + otherParticipantData.lastname);
                 conversationData.conversation_picture_url = otherParticipantData.profile_picture_url;
@@ -105,7 +122,7 @@ class GetMessageDataService {
             const messageIds = conversationData.messages.slice(skip, skip + limit);
 
             const messagesPromises = messageIds.map(async messageId => {
-                return await this.getFormattedMessageDataById(messageId);
+                return await this.getFormattedMessageDataById(userId, messageId);
             });
 
             const messages = await Promise.all(messagesPromises);

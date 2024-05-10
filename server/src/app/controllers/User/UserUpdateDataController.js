@@ -7,23 +7,24 @@ class UserUpdateDataController {
         try {
             const user = req.user;
 
-            const requestData = req.body;
-            const userFriendRequestData = await getFriendRequestDataService.getRawFriendRequestDataBySourceAndDestination(requestData.user._id, user._id);
+            const { status, user_id } = req.query;
 
-            if (requestData.status === "Confirm") {
+            const userFriendRequestData = await getFriendRequestDataService.getRawFriendRequestDataBySourceAndDestination(user_id, user._id);
+
+            if (status === "Confirm") {
                 user.friends.unshift(userFriendRequestData.source_id);
 
                 await user.save();
             }
 
-            if (requestData.status === "Confirm" || requestData.status === "Delete") {
+            if (status === "Confirm" || status === "Delete") {
                 await deleteFriendRequestDataService.deleteFriendRequestDataById(userFriendRequestData._id);
             }
 
             const wss = req.app.get("wss");
             const webSocketService = new WebSocketService(wss);
 
-            await webSocketService.notifyClientsAboutUpdateFriendRequest(user._id, requestData.status, userFriendRequestData);
+            await webSocketService.notifyClientsAboutUpdateFriendRequest(user._id, status, userFriendRequestData);
 
             return res.status(200).json({ message: "Request processed successfully" });
         } catch (error) {

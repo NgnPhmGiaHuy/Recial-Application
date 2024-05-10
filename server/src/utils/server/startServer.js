@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 const database = require("../../config/database");
+const generateDummyData = require("../dataGenerator/index.js");
 
 const PORT = 8080;
 

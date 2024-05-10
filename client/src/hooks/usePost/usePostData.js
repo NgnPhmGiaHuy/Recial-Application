@@ -4,8 +4,8 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 
-import { getPostData } from "@/utils";
 import { useScrollHandler } from "@/hooks";
+import { fetchDataWithAccessToken } from "@/utils";
 import { setPostData } from "@/store/actions/post/postActions";
 
 const useGetPostData = () => {
@@ -20,7 +20,9 @@ const useGetPostData = () => {
     const fetchData = async () => {
         setIsLoading(true);
         try {
-            const postProps = await getPostData();
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/post/";
+
+            const postProps = await fetchDataWithAccessToken(url, "GET");
 
             if (!postProps && postProps.error) {
                 return router.push("/auth/login");

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
-import { getUserMessageData } from "@/utils";
+import { fetchDataWithAccessToken } from "@/utils";
 import { setUserMessageData, setUserMessageLoading } from "@/store/actions/user/userActions";
 
 const useGetUserDataFetcherByPage = () => {
@@ -24,7 +24,9 @@ const useGetUserDataFetcherByPage = () => {
         dispatch(setUserMessageLoading(true));
 
         try {
-            const messageData = await getUserMessageData(page);
+            const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/user/message/?page=${page}`;
+
+            const messageData = await fetchDataWithAccessToken(url, "GET");
 
             if (!messageData || messageData.error) {
                 return { error: messageData ? messageData.error : "Error fetching user message data" };

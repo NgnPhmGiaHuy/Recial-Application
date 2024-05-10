@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import { useScrollHandler } from "@/hooks";
-import { getGroupPostData } from "@/utils";
+import { fetcherWithoutAccessToken } from "@/utils";
 
 const useGetGroupFeedPostData = (user) => {
     const postRef = useRef();
@@ -41,7 +41,9 @@ const useGetGroupFeedPostData = (user) => {
             const groupId = getRandomGroupId();
 
             if (groupId) {
-                const groupPostData = await getGroupPostData({ groupId, page });
+                const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/group/post/?group=${groupId}&page=${page}`;
+
+                const groupPostData = await fetcherWithoutAccessToken(url, "GET");
 
                 if (!groupPostData || groupPostData.error) {
                     return { error: "Error fetch group post data" };

@@ -89,6 +89,9 @@ import MessageScaffoldInfoListMenu from "@/components/MessageComponents/MessageS
 import MessageScaffoldInfoListItem from "@/components/MessageComponents/MessageScaffoldInfoListItem";
 import MessageScaffoldInfoHeader from "@/components/MessageComponents/MessageScaffoldInfoHeader";
 import MessageScaffoldInfoHeaderButton from "@/components/MessageComponents/MessageScaffoldInfoHeaderButton";
+import MessageScaffoldItemDeleteButton from "@/components/MessageComponents/MessageScaffoldItemDeleteButton";
+import MessageScaffoldItemSourceDelete from "@/components/MessageComponents/MessageScaffoldItemSourceDelete";
+import MessageScaffoldItemDestinationDelete from "@/components/MessageComponents/MessageScaffoldItemDestinationDelete";
 
 import Story from "@/components/StoryComponents/Story";
 import StoryItem from "@/components/StoryComponents/StoryItem";
@@ -261,13 +264,14 @@ import AuthHeader from "@/components/AuthComponents/AuthHeader";
 import OAuthLogin from "@/components/AuthComponents/OAuthLogin";
 import AuthLoginForm from "@/components/AuthComponents/AuthLoginForm";
 
-import IconButton from "@/components/Button/IconButton";
-import GrayButton from "@/components/Button/GrayButton";
-import SmallMoreButton from "@/components/Button/SmallMoreButton";
-import SmallTypeButton from "@/components/Button/SmallTypeButton";
-import MediumFollowButton from "@/components/Button/MediumFollowButton";
-import MediumPrevButton from "@/components/Button/MediumPrevButton";
-import MediumNextButton from "@/components/Button/MediumNextButton";
+import IconButton from "@/components/ButtonComponents/IconButton";
+import GrayButton from "@/components/ButtonComponents/GrayButton";
+import DeleteButton from "@/components/ButtonComponents/DeleteButton";
+import SmallMoreButton from "@/components/ButtonComponents/SmallMoreButton";
+import SmallTypeButton from "@/components/ButtonComponents/SmallTypeButton";
+import MediumFollowButton from "@/components/ButtonComponents/MediumFollowButton";
+import MediumPrevButton from "@/components/ButtonComponents/MediumPrevButton";
+import MediumNextButton from "@/components/ButtonComponents/MediumNextButton";
 
 import MediumChatInput from "@/components/InputComponents/MediumChatInput";
 import SmallSearchInput from "@/components/InputComponents/SmallSearchInput";
@@ -377,6 +381,9 @@ export {
     MessageScaffoldInfoListItem,
     MessageScaffoldInfoHeader,
     MessageScaffoldInfoHeaderButton,
+    MessageScaffoldItemDeleteButton,
+    MessageScaffoldItemSourceDelete,
+    MessageScaffoldItemDestinationDelete,
 
     Story,
     StoryItem,
@@ -543,6 +550,7 @@ export {
 
     IconButton,
     GrayButton,
+    DeleteButton,
     SmallMoreButton,
     SmallTypeButton,
     MediumFollowButton,

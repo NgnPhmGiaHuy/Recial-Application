@@ -45,7 +45,11 @@ class AuthController {
         try {
             const { session_key, session_password } = req.body;
 
-            if (!session_key || !session_password) {
+            // if (!session_key || !session_password) {
+            //     return res.status(400).json({ message: "Email and password are required for login." });
+            // }
+
+            if (!session_key) {
                 return res.status(400).json({ message: "Email and password are required for login." });
             }
 

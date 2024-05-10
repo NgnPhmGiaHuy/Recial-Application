@@ -7,6 +7,8 @@ const router = express.Router();
 router.route("/").get(MessageController.getMessageData);
 router.route("/").post(MessageController.createMessageData);
 
+router.route("/").delete(MessageController.deleteMessageData);
+
 router.route("/conversation/").get(ConversationController.getConversationData);
 
 module.exports = router;

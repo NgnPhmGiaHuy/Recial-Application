@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import { useFetchAndScroll } from "@/hooks";
-import { getPostDataByUserId } from "@/utils";
+import {fetchDataWithAccessToken, getPostDataByUserId} from "@/utils";
 import { useUserIdData } from "@/hooks/useUser/useUserIdData";
 import { setUserPostData } from "@/store/actions/user/userActions";
 import { clearUserIdPostData, setUserIdPostData } from "@/store/actions/user/userIdActions";
@@ -13,7 +13,7 @@ const usePostDataByUserId = (userId) => {
     const dispatch = useDispatch();
     const isCurrentUser = useUserIdData(userId);
 
-    const { postRef: postByIdRef, postProps: postByUserIdProps } = useFetchAndScroll(userId, (page) => getPostDataByUserId({ userId, page }));
+    const { postRef: postByIdRef, postProps: postByUserIdProps } = useFetchAndScroll(userId, (page) => fetchDataWithAccessToken(process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/post/?user=${userId}&page=${page}`, "GET"));
 
     useEffect(() => {
         dispatch(clearUserIdPostData());

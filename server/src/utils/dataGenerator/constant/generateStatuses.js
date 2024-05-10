@@ -11,6 +11,7 @@ const generateStatuses = async () => {
         { _id: new mongoose.Types.ObjectId(), status_name: "Failed", status_description: "The message delivery failed due to some technical issue." },
         { _id: new mongoose.Types.ObjectId(), status_name: "Draft", status_description: "The message is saved as a draft and hasn't been sent yet." },
         { _id: new mongoose.Types.ObjectId(), status_name: "Archived", status_description: "The message has been archived and is no longer visible in the active conversation." },
+        { _id: new mongoose.Types.ObjectId(), status_name: "Hidden", status_description: "The message has been hidden and is no longer visible in some recipient." },
         { _id: new mongoose.Types.ObjectId(), status_name: "Deleted", status_description: "The message has been deleted by either the sender or the recipient." },
         { _id: new mongoose.Types.ObjectId(), status_name: "Scheduled", status_description: "The message is scheduled to be sent at a specific time in the future." },
         { _id: new mongoose.Types.ObjectId(), status_name: "Edited", status_description: "The message has been edited since it was initially sent." },

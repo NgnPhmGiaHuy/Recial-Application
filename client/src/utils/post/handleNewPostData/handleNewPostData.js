@@ -1,4 +1,4 @@
-import { getCommentData, getReactionData } from "@/utils";
+import { fetchDataWithAccessToken } from "@/utils";
 import { createPostCommentData, createPostReactionData, updatePostReactionData } from "@/store/actions/post/postActions";
 
 const handleNewPostData = async (data, dispatch) => {
@@ -14,20 +14,23 @@ const handleNewPostData = async (data, dispatch) => {
 
     if (type === "create_comment") {
         const { commentId } = data;
+        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/comment/?comment=${commentId}`;
 
-        return dispatch(createPostCommentData(await getCommentData(commentId)))
+        return dispatch(createPostCommentData(await fetchDataWithAccessToken(url, "GET")))
     }
 
     if (type === "create_reaction") {
         const { reactionId } = data;
+        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/reaction/?reaction=${reactionId}`;
 
-        return dispatch(createPostReactionData(await getReactionData(reactionId)));
+        return dispatch(createPostReactionData(await fetchDataWithAccessToken(url, "GET")));
     }
 
     if (type === "update_reaction") {
         const { reactionId } = data;
+        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/reaction/?reaction=${reactionId}`;
 
-        return dispatch(updatePostReactionData(await getReactionData(reactionId)));
+        return dispatch(updatePostReactionData(await fetchDataWithAccessToken(url, "GET")));
     }
 }
 

@@ -1,17 +1,6 @@
-import { deletePostData } from "@/utils";
+import { handleDeletePostData } from "@/utils";
 
 const PostItemDelete = ({ props, postDeleteRef, handleState }) => {
-    const handleDeletePost = async (postId) => {
-        try {
-            const deletedPost = await deletePostData(postId);
-            if (deletedPost && !deletedPost.error) {
-                return handleState.handleDeletePostStatus();
-            }
-        } catch (error) {
-            return console.error(error);
-        }
-    }
-
     return (
         <div className="z-[9999] relative">
             <div className="top-0 right-0 bottom-0 left-0 z-0 fixed bg-[rgba(0,0,0,0.25)]">
@@ -62,7 +51,7 @@ const PostItemDelete = ({ props, postDeleteRef, handleState }) => {
                                                 </div>
                                                 <div className="flex flex-col flex-shrink-0 basis-0 relative">
                                                     <div className="w-full flex flex-col justify-center relative">
-                                                        <div className="h-[36px] px-[40px] flex flex-row flex-shrink-0 items-center justify-center rounded-md bg-lime-500 hover:bg-lime-700 cursor-pointer relative transition-all" onClick={() => handleDeletePost(props.postProps?.post?._id)}>
+                                                        <div className="h-[36px] px-[40px] flex flex-row flex-shrink-0 items-center justify-center rounded-md bg-lime-500 hover:bg-lime-700 cursor-pointer relative transition-all" onClick={() => handleDeletePostData(props.postProps?.post?._id, handleState.handleShowPostItemDelete)}>
                                                             <span className="block text-[15px] text-white text-center font-semibold break-words relative leading-5">
                                                                 <span className="overflow-hidden relative">
                                                                     Delete

@@ -3,22 +3,12 @@
 import Image from "next/image";
 
 import { useMostReactedIcons, useCountComment } from "@/hooks";
-import { createReactionData, handleFormatNumber } from "@/utils";
+import { handleFormatNumber, handleReactionData } from "@/utils";
 
 const PostItemFooter = ({ footerRef, footerCommentRef, timeoutRef, handleState, props }) => {
     const totalComments = useCountComment(props.postProps);
     const totalShares = props.postProps?.share?.length;
     const mostReactedIcons = useMostReactedIcons(props.postProps?.reaction);
-
-    const handleReaction = async (reactionType) => {
-        try {
-            await createReactionData(reactionType, props.postProps?.post?._id);
-
-            return handleState.handleShowPostReactionButton();
-        } catch (error) {
-            return console.error(error);
-        }
-    }
 
     return (
         <div ref={footerRef} className="overflow-hidden">
@@ -59,7 +49,7 @@ const PostItemFooter = ({ footerRef, footerCommentRef, timeoutRef, handleState, 
                     <div className="mx-[-2px] my-[-4px] px-[4px] flex flex-row flex-nowrap items-stretch justify-between relative">
                         <div ref={timeoutRef} className="px-[2px] py-[6px] flex flex-col flex-shrink grow relative" onMouseEnter={handleState.handleMouseEnter} onMouseLeave={handleState.handleMouseLeave}>
                             <div className="flex flex-row basis-auto relative">
-                                <div className="sm:h-[36px] h-[30px] mx-[-4px] my-[2px] sm:px-[12px] px-[6px] flex flex-row flex-shrink flex-nowrap basis-0 grow items-center justify-center whitespace-nowrap rounded-md cursor-pointer relative hover:bg-zinc-200" onClick={() => handleReaction("Like")}>
+                                <div className="sm:h-[36px] h-[30px] mx-[-4px] my-[2px] sm:px-[12px] px-[6px] flex flex-row flex-shrink flex-nowrap basis-0 grow items-center justify-center whitespace-nowrap rounded-md cursor-pointer relative hover:bg-zinc-200" onClick={() => handleReactionData("Like", props.postProps?.post?._id, handleState.handleShowPostReactionButton)}>
                                     <div className="px-[4px] py-[6px] flex flex-col flex-shrink-0 relative">
                                         <i>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"

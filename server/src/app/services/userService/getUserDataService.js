@@ -1,16 +1,12 @@
 const User = require("../../models/User");
 const Role = require("../../models/Role");
-const Type = require("../../models/Type");
 const Post = require("../../models/Post");
 const Page = require("../../models/Page");
 const Group = require("../../models/Group");
 const Photo = require("../../models/Photo");
 const Video = require("../../models/Video");
-const Event = require("../../models/Event");
-const Message = require("../../models/Message");
 const Conversation = require("../../models/Conversation");
 const Setting = require("../../models/Setting");
-const EventMember = require("../../models/EventMember");
 const GroupMember = require("../../models/GroupMember");
 const Notification = require("../../models/Notification");
 const FriendRequest = require("../../models/FriendRequest");
@@ -114,7 +110,7 @@ class GetUserDataService {
                         return await this.getFormattedUserDataById(participant);
                     }));
 
-                    const nearestMessageContent = await getMessageDataService.getFormattedMessageDataById(message.messages[0]);
+                    const nearestMessageContent = await getMessageDataService.getFormattedMessageDataById(userId, message.messages[0]);
 
                     const messageData = {
                         _id: message._id,

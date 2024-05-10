@@ -1,9 +1,7 @@
-const getPagePostDataById = async ({ pageId, page }) => {
+const fetchDataWithoutAccessToken = async (url, method) => {
     try {
-        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/page/post/?page=${pageId}&scrollPage=${page}`;
-
         const response = await fetch(url, {
-            method: "GET",
+            method: `${method}`,
             headers: {
                 "Content-Type": "application/json",
             },
@@ -13,11 +11,11 @@ const getPagePostDataById = async ({ pageId, page }) => {
             return await response.json();
         } else {
             const errorData = await response.json();
-            return { error: errorData.message || "Error fetch page post data" };
+            return { error: errorData.message || "Error fetch data" };
         }
     } catch (error) {
         return console.error(error);
     }
 }
 
-export default getPagePostDataById;
+export default fetchDataWithoutAccessToken;

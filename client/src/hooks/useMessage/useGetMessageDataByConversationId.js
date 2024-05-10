@@ -3,7 +3,7 @@
 import { useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
-import { getConversationData } from "@/utils";
+import { fetcherWithAccessToken } from "@/utils";
 import { clearMessageData, setNoMoreMessages, setMessageConversationInfo, setMessageData, setMessageLoading, updateMessageData } from "@/store/actions/message/messageAction";
 
 const useGetMessageDataByConversationId = (messageId) => {
@@ -23,7 +23,9 @@ const useGetMessageDataByConversationId = (messageId) => {
         dispatch(setMessageLoading(true));
 
         try {
-            const messageData = await getConversationData(messageId, page);
+            const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/messages/conversation/?conversation=${messageId}&page=${page}`;
+
+            const messageData = await fetcherWithAccessToken(url, "GET");
 
             if (!messageData || messageData.error) {
                 return { error: messageData ? messageData.error : "Error fetching conversation message data" };

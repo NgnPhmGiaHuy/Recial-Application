@@ -24,8 +24,7 @@ const MessageContentItem = ({ messageProps, messageId }) => {
                 <div className="px-[8px] relative">
                     <div className="flex flex-col flex-shrink-0 grow relative">
                         <div className="flex flex-col items-stretch p-[8px] m-[-6px]">
-                            <div
-                                className={`${active ? "bg-zinc-200" : "hover:bg-zinc-200"} flex flex-row flex-shrink-0 flex-nowrap items-center justify-between relative rounded-md cursor-pointer transition-all`}>
+                            <div className={`${active ? "bg-zinc-200" : "hover:bg-zinc-200"} flex flex-row flex-shrink-0 flex-nowrap items-center justify-between relative rounded-md cursor-pointer transition-all`}>
                                 <div className="flex flex-row flex-shrink items-center justify-center relative">
                                     <MessageContentItemSourceImage messageProps={messageProps}/>
                                     <MessageContentItemText messageProps={messageProps}/>
@@ -34,10 +33,8 @@ const MessageContentItem = ({ messageProps, messageId }) => {
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <SmallMoreButton buttonRef={messageQuickSettingItemButtonRef}
-                                         state={showHeaderMessageContentItemMoreButton}
-                                         onClick={handleShowHeaderMessageItemQuickSettingButton}/>
+                    <div className="top-1/2 right-[48px] -translate-y-1/2 absolute">
+                        <SmallMoreButton buttonRef={messageQuickSettingItemButtonRef} state={showHeaderMessageContentItemMoreButton} onClick={handleShowHeaderMessageItemQuickSettingButton}/>
                     </div>
                 </div>
             </Link>

@@ -1,4 +1,4 @@
-const getReactionData = async (reactionId) => {
+const fetchDataWithAccessTokenAndData = async (url, method, data) => {
     try {
         const accessToken = localStorage.getItem("accessToken");
 
@@ -6,26 +6,24 @@ const getReactionData = async (reactionId) => {
             return console.error("Access token not found.");
         }
 
-        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/reaction/?reaction=${reactionId}`;
-
         const response = await fetch(url, {
-            method: "GET",
+            method: `${method}`,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${accessToken}`,
             },
+            body: JSON.stringify(data),
         });
 
         if (response.ok) {
             return await response.json();
         } else {
             const errorData = await response.json();
-
-            return { error: errorData.message || "Error fetching reaction data" };
+            return { error: errorData.message || "Error fetch data" };
         }
     } catch (error) {
         return console.error(error);
     }
-};
+}
 
-export default getReactionData;
+export default fetchDataWithAccessTokenAndData;

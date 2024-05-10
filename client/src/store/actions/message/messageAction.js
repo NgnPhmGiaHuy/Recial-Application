@@ -5,6 +5,7 @@ export const SET_NO_MORE_MESSAGES = "SET_NO_MORE_MESSAGES";
 export const SET_MESSAGES_CONVERSATION_INFO = "SET_MESSAGES_CONVERSATION_INFO";
 
 export const UPDATE_MESSAGE_DATA = "UPDATE_MESSAGE_DATA";
+export const UPDATE_MESSAGE_DATA_AFTER_DELETED = "UPDATE_MESSAGE_DATA_AFTER_DELETED";
 
 export const CREATE_MESSAGE_DATA = "CREATE_MESSAGE_DATA";
 
@@ -37,6 +38,11 @@ export const setMessageConversationInfo = (conversation) => ({
 
 export const updateMessageData = (messageData) => ({
     type: UPDATE_MESSAGE_DATA,
+    payload: messageData,
+})
+
+export const updateMessageDataAfterDeleted = (messageData) => ({
+    type: UPDATE_MESSAGE_DATA_AFTER_DELETED,
     payload: messageData,
 })
 

@@ -77,6 +77,17 @@ class WebSocketService {
         }
     }
 
+    notifyClientsAboutDeleteMessage(conversationId, messageId) {
+        if (this.wss) {
+            const deleteMessage = {
+                type: "delete_message",
+                messageId: messageId._id.toString(),
+            }
+
+            this.broadcastMessageToConversation(deleteMessage, conversationId);
+        }
+    }
+
     notifyClientsAboutDeletePost (userId, deletedPost) {
         if (this.wss) {
             const deletePostMessage = {

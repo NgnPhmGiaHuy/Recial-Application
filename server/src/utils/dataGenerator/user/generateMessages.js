@@ -17,7 +17,7 @@ const generateMessages = async (allUsers, allStatuses, numberOfMessages) => {
         }
 
         for (const conversation of conversations) {
-            const numberOfMessagesInConversation = faker.number.int({ min: 1, max: 5 });
+            const numberOfMessagesInConversation = faker.number.int({ min: 1, max: 10 });
             const messages = [];
             for (let i = 0; i < numberOfMessagesInConversation; i++) {
                 const sourceId = faker.helpers.arrayElement(conversation.participants)._id;

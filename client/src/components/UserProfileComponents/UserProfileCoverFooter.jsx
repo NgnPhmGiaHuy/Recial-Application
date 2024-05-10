@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { createUserFriendRequest } from "@/utils";
+import { handleSentFriendRequest } from "@/utils";
 import { useClickOutside, useToggleState } from "@/hooks";
 import { UserProfileCoverFooterFriendRequest } from "@/components";
 import { toggleEditProfile } from "@/store/actions/toggle/toggleActions";
@@ -28,14 +28,6 @@ const UserProfileCoverFooter = () => {
     const handleClick = async () => {
         if (!userCheck?.isCurrentUser && !userCheck?.isFriend && !userCheck?.isFriendRequest) {
             await handleSentFriendRequest(userProps.user._id);
-        }
-    }
-
-    const handleSentFriendRequest = async (friendId) => {
-        try {
-            return await createUserFriendRequest(friendId);
-        } catch (error) {
-            return console.error(error);
         }
     }
 

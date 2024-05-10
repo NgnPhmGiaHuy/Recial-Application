@@ -25,14 +25,14 @@ class ReactionController {
     
     createReaction = async (req, res) => {
         try {
-            const data = req.body;
             const userId = req.userId;
+            const { reaction_type, destination_id } = req.query;
 
-            const reactionType = await getTypeDataService.getTypeDataByName(data.reaction_type);
+            const reactionType = await getTypeDataService.getTypeDataByName(reaction_type);
 
-            const destinationId = data.destination_id;
+            const destinationId = destination_id;
 
-            const existReaction = await getReactionDataService.getRawReactionDataBySourceAndDestination(userId, data.destination_id);
+            const existReaction = await getReactionDataService.getRawReactionDataBySourceAndDestination(userId, destination_id);
 
             const wss = req.app.get("wss");
             const webSocketService = new WebSocketService(wss);

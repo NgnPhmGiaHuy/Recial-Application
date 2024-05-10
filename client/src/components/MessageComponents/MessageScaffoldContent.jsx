@@ -16,7 +16,7 @@ const MessageScaffoldContent = ({ handleShowInfo }) => {
         <div className="flex flex-col flex-shrink grow basis-0 overflow-hidden relative">
             <MessageScaffoldContentHeader handleShowInfo={handleShowInfo}/>
             <div className="h-full flex flex-col grow basis-full overflow-hidden relative">
-                <div ref={messageProps?.message_list?.ref} className="flex flex-col flex-shrink grow basis-auto items-stretch overflow-y-auto overflow-x-hidden isolate relative">
+                <div ref={messageProps?.message_list?.ref} className="flex flex-col flex-shrink grow basis-auto items-stretch overflow-y-auto overflow-x-hidden isolate relative z-10">
                     <div className="my-[8px]"></div>
                     { messageProps?.noMoreMessage && (
                         <MessageScaffoldContentPresentation/>

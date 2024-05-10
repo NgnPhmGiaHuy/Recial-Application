@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react";
-import { createCommentData } from "@/utils";
+
+import { fetchDataWithAccessTokenAndData } from "@/utils";
 
 const useCommentData = () => {
     const [commentSubmitStatus, setCommentSubmitStatus] = useState(false);
@@ -13,9 +14,11 @@ const useCommentData = () => {
             destination_id: isReply ? postProps._id : postProps.post._id,
         };
 
-        const createComment = await createCommentData(commentData);
+        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/comment/";
 
-        if (createComment && !createComment.error) {
+        const createdComment = await fetchDataWithAccessTokenAndData(url, "POST", commentData);
+
+        if (createdComment && !createdComment.error) {
             return setCommentSubmitStatus(true);
         }
     }

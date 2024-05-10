@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { FriendRequestItemButton } from "@/components";
-import { formatShortTimeAgo, setUserFriendRequest } from "@/utils";
+import { formatShortTimeAgo, handleFriendRequest } from "@/utils";
 
 const FriendRequestItem = ({ userProps, action }) => {
     const router = useRouter();
@@ -12,15 +12,6 @@ const FriendRequestItem = ({ userProps, action }) => {
             return action(userProps?.user?._id);
         } else {
             return router.push(`/${userProps?.user?._id}`)
-        }
-    }
-
-    const handleFriendRequest = async (e, status) => {
-        e.stopPropagation();
-        try {
-            return await setUserFriendRequest(status, userProps);
-        } catch (error) {
-            return console.error('Error handling friend request:', error);
         }
     }
 
@@ -78,8 +69,8 @@ const FriendRequestItem = ({ userProps, action }) => {
                     </div>
                     <div className="mx-[-12px] flex flex-col grow relative">
                         <div className="px-[8px] flex flex-row flex-wrap items-stretch justify-between relative">
-                            <FriendRequestItemButton color={true} title="Confirm" onClick={(e) => handleFriendRequest(e,  "Confirm")}/>
-                            <FriendRequestItemButton color={false} title="Delete" onClick={(e) => handleFriendRequest(e,  "Delete")}/>
+                            <FriendRequestItemButton color={true} title="Confirm" onClick={(e) => handleFriendRequest(e,  "Confirm", userProps?.user?._id)}/>
+                            <FriendRequestItemButton color={false} title="Delete" onClick={(e) => handleFriendRequest(e,  "Delete", userProps?.user?._id)}/>
                         </div>
                     </div>
                 </div>

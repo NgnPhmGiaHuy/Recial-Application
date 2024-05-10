@@ -3,8 +3,8 @@
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 
-import { createPostData, handleUploadImage } from "@/utils";
 import { toggleCreatePost } from "@/store/actions/toggle/toggleActions";
+import { fetchDataWithAccessTokenAndData, handleUploadImage } from "@/utils";
 
 const useSetPostData = () => {
     const dispatch = useDispatch();
@@ -27,9 +27,11 @@ const useSetPostData = () => {
                 },
             };
 
-            const createPost = await createPostData(postData);
+            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/post/";
 
-            if (createPost && !createPost.error) {
+            const createdPost = await fetchDataWithAccessTokenAndData(url, "POST", postData);
+
+            if (createdPost && !createdPost.error) {
                 return setPostSubmitStatus(true);
             }
         } catch (error) {

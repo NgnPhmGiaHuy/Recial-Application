@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 
-import { createMessageData } from "@/utils";
+import { fetchDataWithAccessTokenAndData } from "@/utils";
 
 const useMessageData = () => {
     const messageProps = useSelector((state) => state.message, shallowEqual);
@@ -18,9 +18,11 @@ const useMessageData = () => {
             conversation_id: messageProps?.conversation?._id,
         }
 
-        const createMessage = await createMessageData(messageData);
+        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/messages/";
 
-        if (createMessage && !createMessage.error) {
+        const createdMessage = await fetchDataWithAccessTokenAndData(url, "POST", messageData);
+
+        if (createdMessage && !createdMessage.error) {
             return setMessageSubmitStatus(true);
         }
     }

@@ -1,4 +1,4 @@
-import { handleUploadImage, setUserProfile } from "@/utils";
+import { fetchDataWithAccessTokenAndData, handleUploadImage } from "@/utils";
 
 const handleSetUserProfileData = async ({ formData, userProps, setSubmitStatus }) => {
     try {
@@ -13,11 +13,15 @@ const handleSetUserProfileData = async ({ formData, userProps, setSubmitStatus }
             session_profile_cover_photo_url: uploadedCoverPictureURL,
         }
 
-        const updateUserProfile = await setUserProfile(dataToSend);
+        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/user/profile/";
 
-        if (updateUserProfile && !updateUserProfile.error) {
-            return setSubmitStatus(true);
+        const updatedUserProfile = await fetchDataWithAccessTokenAndData(url, "PUT", dataToSend);
+
+        if (!updatedUserProfile) {
+            return { error: "Error updating profile." };
         }
+
+        return setSubmitStatus(true);
     } catch (error) {
         return console.error("Error handling friend request: ", error);
     }

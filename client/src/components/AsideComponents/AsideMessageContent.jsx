@@ -7,7 +7,7 @@ import { useGetUserDataFetcherByPage } from "@/hooks";
 import { LoadingComponent, SmallTypeButton } from "@/components";
 const MessageContentItem = React.lazy(() => import("@/components/MessageComponents/MessageContentItem"));
 
-const AsideMessageContent = ({ messageId }) => {
+const AsideMessageContent = ({ messageId, userMessages }) => {
     const userProps = useSelector(state => state.user, shallowEqual);
 
     const [showTypeNotification, setShowTypeNotification] = useState("inbox");
@@ -31,7 +31,7 @@ const AsideMessageContent = ({ messageId }) => {
             <div>
                 <div className="mx-[-8px]">
                     <ul className="flex flex-col relative">
-                        { userProps?.user_messages?.message_list?.messages?.map((value, index) => (
+                        { userMessages?.map((value, index) => (
                             <MessageContentItem key={index} messageProps={value} messageId={messageId}/>
                         )) }
                     </ul>

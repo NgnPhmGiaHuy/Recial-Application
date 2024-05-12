@@ -1,4 +1,4 @@
-const SmallSearchInput = ({ id, name, type, placeholder }) => {
+const SmallSearchInput = ({ id, name, placeholder, value, onChange }) => {
     return (
         <section>
             <div className="w-full h-full flex flex-col">
@@ -11,7 +11,7 @@ const SmallSearchInput = ({ id, name, type, placeholder }) => {
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
                                     </svg>
                                 </span>
-                                <input type={ type ? type : "text" } name={name} id={id} placeholder={placeholder} className="px-[8px] pt-[7px] pb-[9px] w-full h-full outline-none bg-zinc-100 rounded-r-full"/>
+                                <input type="text" name={name} id={id} placeholder={placeholder} className="px-[8px] pt-[7px] pb-[9px] w-full h-full outline-none bg-zinc-100 rounded-r-full" value={value} onChange={onChange}/>
                             </label>
                         </label>
                     </div>

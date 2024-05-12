@@ -274,6 +274,7 @@ import MediumPrevButton from "@/components/ButtonComponents/MediumPrevButton";
 import MediumNextButton from "@/components/ButtonComponents/MediumNextButton";
 
 import MediumChatInput from "@/components/InputComponents/MediumChatInput";
+import MediumChatInputImage from "@/components/InputComponents/MediumChatInputImage";
 import SmallSearchInput from "@/components/InputComponents/SmallSearchInput";
 
 import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
@@ -558,6 +559,7 @@ export {
     MediumNextButton,
 
     MediumChatInput,
+    MediumChatInputImage,
     SmallSearchInput,
 
     LoadingComponent,

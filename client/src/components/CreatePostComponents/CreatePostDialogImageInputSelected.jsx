@@ -9,7 +9,7 @@ const CreatePostDialogImageInputSelected = ({ selectedImagesFunction }) => {
     const [selectedImageHover, setSelectedImageHover] = useState(false);
 
     const containerStyle = selectedImagesFunction.selectedImages ? { height: `${(2 / 3) * 900}px` } : { height: "900px" };
-    const { gridTemplateRowsValue, gridTemplateColumnsValue, imageGridAreas } = calculateGridProperties(selectedImagesFunction.selectedImages)
+    const { gridTemplateRowsValue, gridTemplateColumnsValue, imageGridAreas } = calculateGridProperties(selectedImagesFunction.selectedImages);
 
     return (
         <div className="w-full rounded-xl overflow-hidden relative">

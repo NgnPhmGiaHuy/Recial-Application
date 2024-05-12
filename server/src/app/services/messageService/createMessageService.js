@@ -1,12 +1,25 @@
+const Photo = require("../../models/Photo");
 const Message = require("../../models/Message");
 const Conversation = require("../../models/Conversation");
 
 class CreateMessageService {
-    async createMessageData(sourceId, message_content, conversationId) {
+    async createMessageData(sourceId, message_content, message_content_url, conversationId) {
         try {
+            const messagePhotos = await Promise.all(message_content_url.map(async (image) => {
+                const newPhoto = new Photo({
+                    photo_url: image,
+                    photo_privacy: "Public",
+                })
+
+                await newPhoto.save();
+
+                return newPhoto._id
+            }))
+
             const newMessage = new Message({
                 source_id: sourceId,
                 message_content: message_content,
+                message_content_url: messagePhotos,
             });
 
             await newMessage.save();

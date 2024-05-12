@@ -4,7 +4,7 @@ const handleFriendRequest = async (e, status, userId) => {
     e.stopPropagation();
 
     try {
-        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/user/friend-request/?status=${status}&&user_id=${userId}`;
+        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/user/friend-request/?status=${status}&user_id=${userId}`;
         const friendRequest = await fetchDataWithAccessToken(url, "PUT");
 
         if (!friendRequest) {

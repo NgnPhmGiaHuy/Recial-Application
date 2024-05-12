@@ -5,15 +5,16 @@ const Page = require("../../models/Page");
 const Group = require("../../models/Group");
 const Photo = require("../../models/Photo");
 const Video = require("../../models/Video");
-const Conversation = require("../../models/Conversation");
 const Setting = require("../../models/Setting");
 const GroupMember = require("../../models/GroupMember");
 const Notification = require("../../models/Notification");
+const Conversation = require("../../models/Conversation");
 const FriendRequest = require("../../models/FriendRequest");
 const SearchHistory = require("../../models/SearchHistory");
 
 const getTypeDataService = require("../../services/typeService/getTypeDataService");
 const getMessageDataService = require("../../services/messageService/getMessageDataService");
+const getConversationService = require("../../services/messageService/getConversationService");
 
 class GetUserDataService {
     getRawUserData = async (userId) => {
@@ -94,39 +95,37 @@ class GetUserDataService {
         }
     }
 
-    getUserMessages = async (userId, pageNumber) => {
+    getUserConversation = async (userId, pageNumber) => {
         try {
             const limit = 10;
             const skip = (parseInt(pageNumber) - 1) * limit;
 
-            const messages = await Conversation.find({ participants: userId })
+            const conversations = await Conversation.find({ participants: userId })
                 .sort({ createdAt: -1 })
                 .skip(skip)
                 .limit(limit);
 
-            const userMessageData = await Promise.all(messages.map(async (message) => {
+            const userMessageData = await Promise.all(conversations.map(async (message) => {
                 try {
+                    const formattedConversation = await getConversationService.formatConversationData(userId, message);
+
                     const messageParticipants = await Promise.all(message.participants.map(async (participant) => {
                         return await this.getFormattedUserDataById(participant);
                     }));
 
-                    const nearestMessageContent = await getMessageDataService.getFormattedMessageDataById(userId, message.messages[0]);
+                    const nearestMessageContent = message.messages.length > 0
+                        ? await getMessageDataService.getFormattedMessageDataById(userId, message.messages[0])
+                        : null;
 
                     const messageData = {
                         _id: message._id,
                         participants: messageParticipants,
+                        conversation_name: formattedConversation.conversation_name,
+                        conversation_picture_url: formattedConversation.conversation_picture_url,
                         nearest_message: nearestMessageContent,
                         created_at: message.createdAt,
                         updated_at: message.updatedAt,
                     };
-
-                    if (message.conversation_name) {
-                        messageData.conversation_name = message.conversation_name;
-                    }
-
-                    if (message.conversation_picture_url) {
-                        messageData.conversation_picture_url = message.conversation_picture_url;
-                    }
 
                     return messageData;
                 } catch (error) {
@@ -137,7 +136,7 @@ class GetUserDataService {
 
             return userMessageData;
         } catch (error) {
-            console.error("Error in getUserMessages: ", error);
+            console.error("Error in getUserConversation: ", error);
             throw new Error("Failed to fetch user messages");
         }
     }

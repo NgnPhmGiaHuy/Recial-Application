@@ -1,7 +1,7 @@
+const User = require("../models/User");
 const Comment = require("../models/Comment");
 const Reaction = require("../models/Reaction");
 
-const getUserDataService = require("./userService/getUserDataService");
 const getTypeDataService = require("./typeService/getTypeDataService");
 
 class GeneralDataService {
@@ -20,22 +20,24 @@ class GeneralDataService {
 
     getCommentData = async (entityId) => {
         try {
-            const comment = await Comment.find({ destination_id: entityId }).populate("source_id").sort({ updatedAt: -1 });
+            const comments = await Comment.find({ destination_id: entityId }).sort({ updatedAt: -1 });
 
-            return await Promise.all(comment.map(async (comment) => {
-                const userData = await getUserDataService.getFormattedUserDataById(comment.source_id);
-                
+            const formattedCommentsData = await Promise.all(comments.map(async (comment) => {
+                const userData = await this.formattedUserData(comment.source_id);
+
+                const { createdAt, updatedAt, source_id, destination_id, ...rest } = comment.toObject();
+
                 return {
-                    _id: comment._id,
+                    ...rest,
                     user: userData,
-                    comment_text: comment.comment_text,
-                    comment_tags: comment.comment_tags,
                     comment_reply: await this.getCommentData(comment),
                     comment_reactions: await this.getReactionData(comment),
-                    created_at: comment.createdAt,
-                    updated_at: comment.updatedAt,
+                    created_at: createdAt,
+                    updated_at: updatedAt,
                 };
             }));
+
+            return formattedCommentsData;
         } catch (error) {
             console.error("Error in getCommentData: ", error);
             throw new Error("Failed to get comments");
@@ -44,10 +46,10 @@ class GeneralDataService {
 
     getReactionData = async (entityId) => {
         try {
-            const reaction = await Reaction.find({ destination_id: entityId }).populate("source_id").sort({ updatedAt: -1 });
+            const reactions = await Reaction.find({ destination_id: entityId }).sort({ updatedAt: -1 });
 
-            return await Promise.all(reaction.map(async (reaction) => {
-                const userData = await getUserDataService.getFormattedUserDataById(reaction.source_id);
+            const formattedReactionsData = await Promise.all(reactions.map(async (reaction) => {
+                const userData = await this.formattedUserData(reaction.source_id);
                 const reactionType = await getTypeDataService.getRawTypeData(reaction.reaction_type);
 
                 return {
@@ -58,9 +60,32 @@ class GeneralDataService {
                     updated_at: reaction.updatedAt,
                 }
             }));
+
+            return formattedReactionsData;
         } catch (error) {
             console.error("Error in getReactionData: ", error);
             throw new Error("Failed to get reactions");
+        }
+    }
+
+    formattedUserData = async (userId) => {
+        try {
+            const user = await User.findById(userId);
+
+            const formattedUserDate = {
+                _id: user._id,
+                profile: {
+                    username: user.username,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    profile_picture_url: user.profile_picture_url,
+                }
+            }
+
+            return formattedUserDate;
+        } catch (error) {
+            console.error("Error in formattedUserData: ", error);
+            throw new Error("Failed to formatted user data");
         }
     }
 }

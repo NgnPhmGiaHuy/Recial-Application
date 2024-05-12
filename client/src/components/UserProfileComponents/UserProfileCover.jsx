@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { UserProfileCoverFooter, UserProfileCoverNavigation } from "@/components";
 
 const UserProfileCover = () => {
-    const { isCurrentUser } = useSelector(state => state.userRelationship);
+    const { isCurrentUser } = useSelector(state => state.userRelationship, shallowEqual);
 
-    const userProps = isCurrentUser ? useSelector(state => state.user) : useSelector(state => state.userId);
+    const userProps = isCurrentUser ? useSelector(state => state.user, shallowEqual) : useSelector(state => state.userId, shallowEqual);
 
     return (
         <section className="flex flex-col bg-white rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
@@ -14,11 +14,11 @@ const UserProfileCover = () => {
                 <div className="w-full h-[134px] flex flex-col relative">
                     <div className="top-0 right-0 bottom-0 left-0 absolute">
                         <figure className="w-full h-[134px] rounded-t-xl overflow-hidden relative">
-                            {userProps?.user?.profile?.profile_cover_photo_url ? (
+                            { userProps?.user?.profile?.profile_cover_photo_url && (
                                 <div className="w-full h-full bg-white relative">
                                     <Image src={userProps?.user?.profile?.profile_cover_photo_url} alt={`${userProps?.user?.profile?.profile_cover_photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 </div>
-                            ) : null}
+                            ) }
                         </figure>
                     </div>
                 </div>

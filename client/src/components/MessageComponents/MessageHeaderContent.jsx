@@ -1,19 +1,19 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { MessageContentItem } from "@/components";
 import { useGetUserDataFetcherByPage } from "@/hooks";
 
-const MessageHeaderContent = () => {
-    const userProps = useSelector(state => state.user);
+const MessageHeaderContent = ({ userMessages }) => {
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     useGetUserDataFetcherByPage();
 
     return (
         <div>
             <ul className="flex flex-col relative">
-                {userProps?.user_messages?.message_list?.messages?.map((value, index) => (
+                { userMessages?.map((value, index) => (
                     <MessageContentItem key={index} messageProps={value}/>
-                ))}
+                )) }
             </ul>
             { userProps?.user_messages?.isLoading && (
                 <div className="w-full h-full py-[16px] flex items-center justify-center relative">

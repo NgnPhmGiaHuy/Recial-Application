@@ -2,7 +2,21 @@ import { useSelector } from "react-redux";
 
 import { formatShortTimeAgo } from "@/utils";
 
-const MessageContentItemText = ({ messageProps }) => {
+const MessageContentItemTextDot = () => {
+    return (
+        <div>
+            <span className="flex items-center break-words">
+                <span className="block text-[13px] text-gray-500 font-normal break-words leading-4 mx-[4px]">
+                    <span className="block overflow-hidden whitespace-nowrap text-ellipsis relative">
+                        <span> · </span>
+                    </span>
+                </span>
+            </span>
+        </div>
+    )
+}
+
+const MessageContentItemText = ({messageProps}) => {
     const userProps = useSelector((state) => state.user);
 
     const shouldDisplayParticipant = messageProps?.participants && messageProps.participants.length <= 2;
@@ -20,27 +34,39 @@ const MessageContentItemText = ({ messageProps }) => {
                         </span>
                     </span>
                     <div className="min-h-[16px] flex flex-row items-center pt-[6px]">
-                        <span className="flex items-center break-words pr-[2px]">
-                            <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
-                                <span className="max-w-[150px] block overflow-hidden whitespace-nowrap text-ellipsis relative">
-                                    { messageProps?.nearest_message?.message_content }
+                        { messageProps?.nearest_message?.message_status?.toLowerCase().toString() === "delete" && (
+                            <>
+                                <span className="flex items-center break-words pr-[2px]">
+                                    <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
+                                        <span className="max-w-[180px] block overflow-hidden whitespace-nowrap text-ellipsis relative">
+                                            This message have been deleted
+                                        </span>
+                                    </span>
+                                </span>
+                                <MessageContentItemTextDot/>
+                            </>
+                        ) }
+                        { messageProps?.nearest_message?.message_content && (
+                            <>
+                                <span className="flex items-center break-words pr-[2px]">
+                                    <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
+                                        <span className="max-w-[180px] block overflow-hidden whitespace-nowrap text-ellipsis relative">
+                                            {messageProps?.nearest_message?.message_content}
+                                        </span>
+                                    </span>
+                                </span>
+                                <MessageContentItemTextDot/>
+                            </>
+                        ) }
+                        { messageProps?.nearest_message?.updated_at && (
+                            <span className="flex items-center break-words pl-[2px]">
+                                <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
+                                    <span className="block overflow-hidden whitespace-nowrap text-ellipsis line-clamp-1 relative">
+                                        { formatShortTimeAgo(messageProps?.nearest_message?.updated_at) }
+                                    </span>
                                 </span>
                             </span>
-                        </span>
-                        <span className="flex items-center break-words">
-                            <span className="block text-[13px] text-gray-500 font-normal break-words leading-4 mx-[4px]">
-                                <span className="block overflow-hidden whitespace-nowrap text-ellipsis relative">
-                                    <span> · </span>
-                                </span>
-                            </span>
-                        </span>
-                        <span className="flex items-center break-words pl-[2px]">
-                            <span className="block text-[14px] text-gray-500 font-normal break-words leading-4">
-                                <span className="block overflow-hidden whitespace-nowrap text-ellipsis line-clamp-1 relative">
-                                    {formatShortTimeAgo(messageProps?.nearest_message?.created_at)}
-                                </span>
-                            </span>
-                        </span>
+                        ) }
                     </div>
                 </div>
             </div>

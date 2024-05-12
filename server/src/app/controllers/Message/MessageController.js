@@ -21,13 +21,13 @@ class MessageController {
     createMessageData = async (req, res) => {
         try {
             const userId = req.userId;
-            const { message_content, conversation_id } = req.body;
+            const { message_content, message_content_url, conversation_id } = req.body;
 
             if (!message_content || !conversation_id) {
                 return res.status(400).json({ error: "Message content and conversation ID are required." });
             }
 
-            const newMessage = await createMessageService.createMessageData(userId, message_content, conversation_id);
+            const newMessage = await createMessageService.createMessageData(userId, message_content, message_content_url, conversation_id);
 
             const wss = req.app.get("wss");
             const webSocketService = new WebSocketService(wss);

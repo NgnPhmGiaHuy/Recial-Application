@@ -1,14 +1,16 @@
 "use client"
 
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
-import { useClickOutside, useToggleState } from "@/hooks";
+import { useClickOutside, useMessageSearch, useToggleState } from "@/hooks";
 import { MessageHeaderChatBox, MessageHeaderContent, MessageHeaderCreate, MessageHeaderQuickSetting, SmallSearchInput } from "@/components";
 
 const MessageHeader = ({ forwardedRef }) => {
-    const userProps = useSelector((state) => state.user);
+    const userProps = useSelector((state) => state.user, shallowEqual);
     const messageQuickSettingButtonRef = useRef(null);
+
+    const { searchQuery, filteredMessages, handleSearchInputChange } = useMessageSearch();
 
     const [messageQuickSettingTranslateYValue, setMessageQuickSettingTranslateYValue] = useState(-415);
     const [showMessageQuickSetting, setShowMessageQuickSetting, handleMessageQuickSettingButton] = useToggleState(false);
@@ -31,12 +33,12 @@ const MessageHeader = ({ forwardedRef }) => {
                                 <MessageHeaderChatBox messageQuickSettingButtonRef={messageQuickSettingButtonRef} handleMessageQuickSettingButton={handleMessageQuickSettingButton}/>
                                 <div>
                                     <div className="px-[16px]">
-                                        <SmallSearchInput id="message-header-search" name="session-message-header-search" placeholder="Search in Recial Message"/>
+                                        <SmallSearchInput id="message-header-search" name="session-message-header-search" placeholder="Search in Recial Message" value={searchQuery} onChange={handleSearchInputChange}/>
                                     </div>
                                     <MessageHeaderCreate/>
                                 </div>
                             </div>
-                            <MessageHeaderContent/>
+                            <MessageHeaderContent userMessages={filteredMessages}/>
                         </div>
                     </div>
                 </div>

@@ -19,13 +19,13 @@ class GetCommentDataService {
         try {
             const commentData = await this.getRawCommentData(commentId);
 
-            const { createdAt, updatedAt, ...otherCommentProps } = commentData._doc;
+            const { createdAt, updatedAt, source_id, destination_id, ...otherCommentProps } = commentData._doc;
 
-            const userData = await getUserDataService.getFormattedUserDataById(commentData.source_id);
+            const userData = await getUserDataService.getFormattedUserDataById(source_id);
             const commentReplyData = await generalDataService.getCommentData(commentData._id);
             const commentReactionData = await generalDataService.getReactionData(commentData._id);
 
-            return {
+            const formattedCommentData = {
                 comment: {
                     ...otherCommentProps,
                     user: userData,
@@ -35,9 +35,11 @@ class GetCommentDataService {
                     updated_at: updatedAt,
                 },
                 destination: {
-                    destination_id: commentData.destination_id,
+                    destination_id: destination_id,
                 }
             };
+
+            return formattedCommentData;
         } catch (error) {
             console.error("Error in getFormattedCommentDataById: ", error);
             throw new Error("Failed to format comment data");

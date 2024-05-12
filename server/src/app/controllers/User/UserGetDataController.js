@@ -130,7 +130,7 @@ class UserGetDataController {
 
             const page = parseInt(req.query.page) || 1;
 
-            const messageProps = await getUserDataService.getUserMessages(userId, page);
+            const messageProps = await getUserDataService.getUserConversation(userId, page);
 
             return res.status(200).json(messageProps);
         } catch (error) {

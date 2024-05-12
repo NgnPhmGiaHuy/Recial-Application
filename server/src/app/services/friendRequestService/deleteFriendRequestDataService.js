@@ -3,9 +3,9 @@ const FriendRequest = require("../../models/FriendRequest");
 class DeleteFriendRequestDataService {
     deleteFriendRequestDataById = async (friendRequestId) => {
         try {
-            const deletedFriendRequest = await FriendRequest.deleteOne({ _id: friendRequestId })
+            const deletedFriendRequestData = await FriendRequest.deleteOne({ _id: friendRequestId })
 
-            return deletedFriendRequest;
+            return deletedFriendRequestData;
         } catch (error) {
             console.error("Error in deleteFriendRequestDataById: ", error);
             throw new Error("Failed to delete friend request");

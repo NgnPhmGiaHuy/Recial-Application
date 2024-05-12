@@ -11,7 +11,7 @@ class PostIdController {
             const user = await getUserDataService.getRawUserData(userQueryId);
 
             if (!user) {
-                return res.status(404).json({ error: 'User not found' });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const postList = user.post_list.slice((page - 1) * postsPerPage, page * postsPerPage);

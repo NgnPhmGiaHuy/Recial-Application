@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 const MessageContentItemSourceImage = ({ messageProps }) => {
-    const userProps = useSelector((state) => state.user);
+    const userProps = useSelector((state) => state.user, shallowEqual);
 
     const shouldDisplayConversationPicture = messageProps?.participants && messageProps?.participants.length > 2;
     const participantPictureToDisplay = shouldDisplayConversationPicture ? null : messageProps.participants.find(participant => participant._id !== userProps.user?._id);

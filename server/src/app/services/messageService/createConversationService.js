@@ -16,7 +16,7 @@ class CreateConversationService {
         }
     }
 
-    createConversationInfo = async (userId) => {
+    createConversationInfoWithSingleUser = async (userId) => {
         try {
             if (userId) {
                 const userData = await User.findById(userId);
@@ -30,6 +30,27 @@ class CreateConversationService {
         } catch (error) {
             console.error("Error in getConversationInfo: ", error);
             throw new Error("Failed to fetch user information for conversation");
+        }
+    }
+
+    createConversationInfoWithMultipleUser = async (userIds) => {
+        try {
+            if (userIds) {
+                const userData = userIds.map(async userId => {
+                    const userProps = await User.findById(userId);
+
+                    return userProps.username;
+                })
+
+                const userDataPromise = await Promise.all(userData);
+
+                const conversation_name = "New message to " + userDataPromise.join(" and ");
+
+                return { conversation_name, conversation_picture_url: null }
+            }
+        } catch (error) {
+            console.error("Error in createConversationInfoWithMultipleUser: ", error);
+            throw new Error("Failed to createConversationInfoWithMultipleUser");
         }
     }
 
@@ -47,7 +68,7 @@ class CreateConversationService {
                 }
             }
 
-            const { conversation_name, conversation_picture_url } = userIds.length === 1 ? await this.createConversationInfo(userIds[0]) : {};
+            const { conversation_name, conversation_picture_url } = userIds.length === 1 ? await this.createConversationInfoWithSingleUser(userIds[0]) : await this.createConversationInfoWithMultipleUser(userIds);
 
             const newConversationData = new Conversation({
                 participants: [...userIds, currentUserId],

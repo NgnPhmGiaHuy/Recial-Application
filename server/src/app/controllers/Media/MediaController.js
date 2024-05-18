@@ -1,46 +1,18 @@
-const postDataService = require("../../services/mediaService/postDataService");
-const photoDataService = require("../../services/mediaService/photoDataService");
-const storyDataService = require("../../services/mediaService/storyDataService");
+const mediaDataService = require("../../services/mediaService/mediaDataService");
 
 class MediaController {
-    getPhotoData = async (req, res) => {
+    getMediaAuthorData = async (req, res) => {
         try {
-            const { user: userId, photo: photoId } = req.query;
+            const { user_id } = req.query;
 
-            const mediaProps = await photoDataService.getFormattedPhotoDataByIdAndUserId(userId, photoId);
+            const mediaAuthorData = await mediaDataService.getFormattedMediaAuthorByUserId(user_id);
 
-            return res.status(200).json(mediaProps);
+            return res.status(200).json(mediaAuthorData);
         } catch (error) {
-            console.error("Error in getPhotoData: ", error);
-            return res.status(500).json({ error: "Internal Server Error" });
+            console.error("Error in getFormattedPhotoAuthorByUserId: ", error);
+            throw new Error("Failed to format user data by ID");
         }
-    };
-
-    getPostPhotoData = async (req, res) => {
-        try {
-            const { user: userId, photo: photoId, post: postId } = req.query
-
-            const mediaProps = await postDataService.getFormattedPostPhotoDataById(userId, photoId, postId);
-
-            return res.status(200).json(mediaProps);
-        } catch (error) {
-            console.error("Error in getPostPhotoData: ", error);
-            return res.status(500).json({ error: "Internal Server Error" });
-        }
-    };
-
-    getStoryData = async (req, res) => {
-        try {
-            const { user: userId, set: setId } = req.query;
-
-            const mediaProps = await storyDataService.getFormattedStoryDataByIdAndUserId(userId, setId);
-
-            return res.status(200).json(mediaProps)
-        } catch (error) {
-            console.error("Error in getStoryData: ", error);
-            return res.status(500).json({ error: "Internal Server Error" });
-        }
-    };
+    }
 }
 
 

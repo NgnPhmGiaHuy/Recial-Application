@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { useUpdateUserProfile } from "@/hooks";
 import { toggleEditProfile } from "@/store/actions/toggle/toggleActions";
@@ -9,7 +9,7 @@ import { UserProfileEditHeader, UserProfileEditImage, UserProfileEditInput } fro
 
 const UserProfileEdit = ({ editProfileRef }) => {
     const dispatch = useDispatch();
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     const { formData, setFormData, submitStatus, handleSetUserProfile } = useUpdateUserProfile(userProps);
 

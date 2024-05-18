@@ -4,6 +4,23 @@ const Conversation = require("../../models/Conversation");
 const getMessageDataService = require("../messageService/getMessageDataService");
 
 class GetConversationService {
+    formattedUserDataByRawData = async (user) => {
+        try {
+            return {
+                _id: user._id,
+                profile: {
+                    username: user.username,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    profile_picture_url: user.profile_picture_url,
+                }
+            };
+        } catch (error) {
+            console.error("Error in getFormattedUserDataByRawData: ", error);
+            throw new Error("Failed to format user data by raw data");
+        }
+    }
+
     formatConversationData = async (userId, conversation) => {
         const { _id, createdAt, updatedAt, participants, conversation_name, conversation_picture_url, ...otherConversationData } = conversation;
 
@@ -45,20 +62,27 @@ class GetConversationService {
 
             const messageIds = conversationData.messages.slice(skip, skip + limit);
 
-            const messagesPromises = messageIds.map(async messageId => {
+            const messagesData = messageIds.map(async messageId => {
                 return await getMessageDataService.getFormattedMessageDataById(userId, messageId);
             });
 
-            const messages = await Promise.all(messagesPromises);
+            const messageParticipants = conversationData.participants.map(async (participant) => {
+                const userData =  await User.findById(participant);
+
+                return await this.formattedUserDataByRawData(userData);
+            });
+
+            const messagesPromises = await Promise.all(messagesData);
+            const messageParticipantsPromise = await Promise.all(messageParticipants);
 
             const no_more_messages = parseInt(page) === 0 ? messageIds.length < limit : messageIds.length === 0;
 
             const formattedConversationData =  await this.formatConversationData(userId, conversationData);
 
             return {
-                messages: messages,
+                messages: messagesPromises,
                 no_more_messages: no_more_messages,
-                conversation: formattedConversationData,
+                conversation: { ...formattedConversationData, participants: [...messageParticipantsPromise] },
             };
         } catch (error) {
             console.error("Error in getFormattedConversationMessageData: ", error.message);

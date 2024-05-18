@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { EventScaffoldItem } from "@/components";
 
 const EventScaffold = () => {
-    const eventListProps = useSelector(state => state.eventList);
+    const eventListProps = useSelector(state => state.eventList, shallowEqual);
 
     return (
         <div className="flex flex-row items-center justify-between relative">

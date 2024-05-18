@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { useHeaderAction } from "@/hooks";
 import { HEADER_NAVIGATION } from "@/constants/HeaderConstants";
@@ -13,7 +13,7 @@ import Favicon from "/public/images/Metadata/favicon.ico";
 const Header = ({ disableMessage, disableNotification }) => {
     const dispatch = useDispatch();
 
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     const headerActionProps = useHeaderAction(userProps);
 

@@ -3,12 +3,12 @@ const calculateGridProperties = (selectedImages) => {
     let gridTemplateRowsValue = "";
     let gridTemplateColumnsValue = "";
 
-    if (selectedImages.length === 1) {
+    if (selectedImages?.length === 1) {
         gridTemplateRowsValue = "100%";
         gridTemplateColumnsValue = "100%";
-    } else if (selectedImages.length === 2) {
+    } else if (selectedImages?.length === 2) {
         gridTemplateColumnsValue = "1fr 1fr";
-    } else if (selectedImages.length === 3) {
+    } else if (selectedImages?.length === 3) {
         gridTemplateRowsValue = "repeat(6, 1fr)";
         gridTemplateColumnsValue = "repeat(4, 1fr) 0fr 1fr";
         imageGridAreas = [
@@ -16,7 +16,7 @@ const calculateGridProperties = (selectedImages) => {
             "1 / 4 / 4 / 7",
             "4 / 4 / 7 / 7",
         ];
-    } else if (selectedImages.length === 4) {
+    } else if (selectedImages?.length === 4) {
         gridTemplateRowsValue = "repeat(6, 1fr)";
         gridTemplateColumnsValue = "repeat(4, 1fr) 0fr 1fr";
         imageGridAreas = [

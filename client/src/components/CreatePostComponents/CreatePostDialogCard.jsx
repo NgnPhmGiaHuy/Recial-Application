@@ -1,17 +1,22 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { useContentEditable, useMultipleImagesData, useSetPostData } from "@/hooks";
-import { CreatePostDialogCardHeader, CreatePostDialogImageInput, CreatePostDialogCardNavigation } from "@/components";;
+import {
+    CreatePostDialogCardHeader,
+    CreatePostDialogImageInput,
+    CreatePostDialogCardNavigation,
+    GifPicker
+} from "@/components";;
 
 const CreatePostDialogCard = () => {
-    const userProps = useSelector(state => state.user);
-    const groupProps = useSelector(state => state.group);
+    const userProps = useSelector(state => state.user, shallowEqual);
+    const groupProps = useSelector(state => state.group, shallowEqual);
 
     const { showCreatePostMediaInput } = useSelector(state => state.toggle);
 
     const { handleSetPostData } = useSetPostData();
     const { selectedImagesFunction } = useMultipleImagesData();
-    const { inputContentEditableRef, inputText, allowSubmit, handleInputTextChange } = useContentEditable()
+    const { inputRef, inputText, allowSubmit, handleInputTextChange } = useContentEditable()
 
     const handleSubmitPost = async () => {
         await handleSetPostData({ inputText: inputText, inputImage: selectedImagesFunction.selectedImages, userProps: userProps, groupProps: groupProps });
@@ -30,7 +35,7 @@ const CreatePostDialogCard = () => {
                                 <div className="w-full h-fit px-[16px] pb-[40px] relative">
                                     <div className="flex items-center relative">
                                         <div className="w-full h-full pb-[8px] pt-[4px] text-[24px] text-black text-ellipsis overflow-hidden font-normal leading-7">
-                                            <div className="w-full h-full text-black select-text whitespace-pre-wrap break-words outline-none relative" contentEditable={true} spellCheck={false} onInput={handleInputTextChange} ref={inputContentEditableRef}>
+                                            <div className="w-full h-full text-black select-text whitespace-pre-wrap break-words outline-none relative" contentEditable={true} spellCheck={false} onInput={handleInputTextChange} ref={inputRef}>
                                             </div>
                                             <div className="top-[5px] overflow-hidden text-zinc-500 text-ellipsis pointer-events-none absolute z-[1]">
                                                 {inputText.length === 0 ? `What's on your mind, ${userProps?.user?.profile?.username || userProps?.user?.profile?.firstname + " " + userProps?.user?.profile?.lastname}?` : null}

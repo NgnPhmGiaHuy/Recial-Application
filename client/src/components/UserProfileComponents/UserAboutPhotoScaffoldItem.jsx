@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 const UserAboutPhotoScaffoldItem = ({ mediaProps }) => {
-    const { isCurrentUser } = useSelector(state => state.userRelationship);
+    const { isCurrentUser } = useSelector(state => state.userRelationship, shallowEqual);
 
-    const userProps = isCurrentUser ? useSelector(state => state.user) : useSelector(state => state.userId);
+    const userProps = isCurrentUser ? useSelector(state => state.user, shallowEqual) : useSelector(state => state.userId, shallowEqual);
 
     return (
         <div className="min-w-[200px] max-w-[200px] p-[4px] grow basis-0 overflow-hidden relative">

@@ -1,27 +1,19 @@
-import Image from "next/image";
-import { shallowEqual, useSelector } from "react-redux";
+import { MessagePresentationImage } from "@/components";
 
 const MessageContentItemSourceImage = ({ messageProps }) => {
-    const userProps = useSelector((state) => state.user, shallowEqual);
-
-    const shouldDisplayConversationPicture = messageProps?.participants && messageProps?.participants.length > 2;
-    const participantPictureToDisplay = shouldDisplayConversationPicture ? null : messageProps.participants.find(participant => participant._id !== userProps.user?._id);
-    const conversationPictureUrl = shouldDisplayConversationPicture ? messageProps?.conversation_picture_url : participantPictureToDisplay.profile.profile_picture_url;
+    const participantPictureUrl = messageProps?.participants?.slice(0, 2).map((pictureUrl) => pictureUrl?.profile?.profile_picture_url);
+    const conversationPictureUrl = messageProps?.conversation_picture_url ? messageProps?.conversation_picture_url : participantPictureUrl;
 
     return (
-        <div>
+        <>
             <div className="flex flex-col flex-shrink-0 relative p-[6px]">
                 <div className="w-[56px] h-[56px] relative cursor-pointer">
                     <div className="w-full h-full absolute">
-                        <div className="w-full h-full overflow-hidden block rounded-3xl bg-white border border-solid border-gray-500 relative">
-                            <div className="w-full h-full flex flex-col relative">
-                                <Image src={conversationPictureUrl} alt={`${conversationPictureUrl}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
-                            </div>
-                        </div>
+                        <MessagePresentationImage conversationPictureUrl={conversationPictureUrl}/>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

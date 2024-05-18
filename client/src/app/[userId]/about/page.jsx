@@ -18,7 +18,6 @@ const UserAboutPage = ({ params }) => {
 
     useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
-
     return (
         <>
             { userProps ? (

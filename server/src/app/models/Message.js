@@ -10,7 +10,6 @@ const MessageSchema = new Schema(
         },
         message_content: {
             type: String,
-            required: true,
         },
         message_content_url: [{
             type: Schema.Types.ObjectId,

@@ -1,22 +1,27 @@
-import Image from "next/image";
+import { shallowEqual, useSelector } from "react-redux";
 
-import { useSelector } from "react-redux";
 import { formatShortTimeAgo } from "@/utils";
-import { MessageScaffoldInfoHeaderButton } from "@/components";
+import { MessagePresentationImage, MessageScaffoldInfoHeaderButton } from "@/components";
 
 import MESSAGE_SCAFFOLD_INFO_HEADER_BUTTON from "@/constants/MessageConstants/MessageScaffoldInfoHeaderConstants";
 
 const MessageScaffoldInfoHeader = () => {
-    const button = MESSAGE_SCAFFOLD_INFO_HEADER_BUTTON();
-    const messageProps = useSelector((state) => state.message);
+    const userProps = useSelector((state) => state.user, shallowEqual);
+    const messageProps = useSelector((state) => state.message, shallowEqual);
+
+    const otherUserProps = messageProps?.conversation?.participants?.length <= 2 ? messageProps?.conversation?.participants.filter(conversation => conversation._id !== userProps?.user?._id) : null;
+
+    const button = MESSAGE_SCAFFOLD_INFO_HEADER_BUTTON({ userProps: otherUserProps[0], displayProfile: messageProps?.conversation?.participants?.length <= 2 });
+
+    const participantPictureUrl = messageProps?.conversation?.participants?.slice(0, 2).map((pictureUrl) => pictureUrl?.profile?.profile_picture_url);
+    const conversationPictureUrl = messageProps?.conversation?.conversation_picture_url ? messageProps?.conversation?.conversation_picture_url : participantPictureUrl;
 
     return (
         <div>
             <div className="flex flex-col flex-shrink-0 grow relative">
                 <div className="pt-[16px] pb-[12px] flex flex-col flex-shrink-0 items-center relative">
-                    <div
-                        className="w-[72px] h-[72px] flex items-center justify-center rounded-xl overflow-hidden relative">
-                        <Image src={messageProps?.conversation?.conversation_picture_url} alt={`${messageProps?.conversation?.conversation_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                    <div className="w-[72px] h-[72px] flex items-center justify-center rounded-xl overflow-hidden relative">
+                        <MessagePresentationImage conversationPictureUrl={conversationPictureUrl}/>
                     </div>
                 </div>
                 <div className="px-[16px] flex flex-col flex-shrink-0 items-center relative">

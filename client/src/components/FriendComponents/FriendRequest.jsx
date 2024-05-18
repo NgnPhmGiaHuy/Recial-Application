@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { FriendRequestItem } from "@/components";
 
 const FriendRequest = () => {
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     return (
         <section className="flex flex-col rounded-xl bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">

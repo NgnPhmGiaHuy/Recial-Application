@@ -1,8 +1,9 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
+
 import { FriendRequestItem } from "@/components";
 
 const AsideScaffoldFriendRequest = ({ aside, action }) => {
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     return (
         <>

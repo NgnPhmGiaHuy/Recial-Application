@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { GroupScaffoldJoinItem } from "@/components";
 
 const GroupScaffoldJoin = () => {
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     return (
         <div className="w-full p-[16px] flex flex-col items-center justify-center relative">

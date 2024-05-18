@@ -1,15 +1,15 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { UserAboutPhotoScaffoldItem, UserAboutScaffoldItem } from "@/components";
 
 const DynamicUserAboutVideoScaffoldItem = dynamic(() => import("@/components/UserProfileComponents/UserAboutVideoScaffoldItem"), { ssr: false });
 
 const UserAboutScaffoldOptions = ({ options }) => {
-    const { isCurrentUser } = useSelector(state => state.userRelationship);
+    const { isCurrentUser } = useSelector(state => state.userRelationship, shallowEqual);
 
-    const userProps = isCurrentUser ? useSelector(state => state.user) : useSelector(state => state.userId);
+    const userProps = isCurrentUser ? useSelector(state => state.user, shallowEqual) : useSelector(state => state.userId, shallowEqual);
 
     return (
         <section>

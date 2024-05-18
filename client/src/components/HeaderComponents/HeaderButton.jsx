@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { toggleHeaderMenu, toggleHeaderMessage, toggleHeaderNotification, toggleHeaderPersonalAccount } from "@/store/actions/toggle/toggleActions";
 
 const HeaderButton = ({ headerActionProps, disableMessage, disableNotification }) => {
     const dispatch = useDispatch();
 
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     return (
         <>

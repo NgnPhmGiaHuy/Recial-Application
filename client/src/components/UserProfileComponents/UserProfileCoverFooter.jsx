@@ -41,7 +41,7 @@ const UserProfileCoverFooter = () => {
 
     return (
         <div className="flex flex-col relative">
-            {userCheck?.isCurrentUser || userCheck?.isFriend || userCheck?.isFriendRequest ? (
+            { userCheck?.isCurrentUser || userCheck?.isFriend || userCheck?.isNotFriend || userCheck?.isFriendRequest ? (
                 <>
                     <div className="pt-[12px] flex flex-row items-center relative">
                         <div className="ml-[-6px] flex flex-row flex-wrap items-center justify-center relative">
@@ -56,11 +56,20 @@ const UserProfileCoverFooter = () => {
                                             </svg>
                                         </i>
                                     ) }
-                                    {userCheck?.isFriendRequest && (
+                                    { userCheck?.isNotFriend && (
                                         <i>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                  strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                                 <path strokeLinecap="round" strokeLinejoin="round"
+                                                      d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"/>
+                                            </svg>
+                                        </i>
+                                    )}
+                                    {userCheck?.isFriendRequest && (
+                                        <i>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                 strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                            <path strokeLinecap="round" strokeLinejoin="round"
                                                       d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"/>
                                             </svg>
                                         </i>
@@ -75,6 +84,7 @@ const UserProfileCoverFooter = () => {
                                     <span className="block text-[16px] text-center font-semibold break-words leading-5">
                                         <span className="overflow-hidden relative">
                                             { userCheck?.isFriend && "Friends" }
+                                            { userCheck?.isNotFriend && "Add friend" }
                                             { userCheck?.isFriendRequest && "Response" }
                                             { userCheck?.isCurrentUser && "Add to story" }
                                         </span>
@@ -83,16 +93,7 @@ const UserProfileCoverFooter = () => {
                             </div>
                             <div onClick={handleToggleEditProfile} className="min-w-[135px] min-h-[12px] ml-[8px] px-[16px] py-[6px] flex grow rounded-md cursor-pointer outline outline-lime-700 relative hover:outline-2 hover:outline-lime-700 hover:bg-lime-100 transition-all">
                                 <div className="flex items-center justify-center gap-1 text-lime-700">
-                                    { userCheck?.isFriend && (
-                                        <i>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                 strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                <path strokeLinecap="round" strokeLinejoin="round"
-                                                      d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"/>
-                                            </svg>
-                                        </i>
-                                    ) }
-                                    { userCheck?.isFriendRequest && (
+                                    { (userCheck?.isFriend || userCheck?.isNotFriend || userCheck?.isFriendRequest) && (
                                         <i>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                  strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -111,8 +112,7 @@ const UserProfileCoverFooter = () => {
                                     ) }
                                     <span className="block text-[16px] text-center font-semibold break-words leading-5">
                                         <span className="overflow-hidden relative">
-                                            { userCheck?.isFriend && "Message" }
-                                            { userCheck?.isFriendRequest && "Message" }
+                                            { (userCheck?.isFriend || userCheck?.isNotFriend ||  userCheck?.isFriendRequest) && "Message" }
                                             { userCheck?.isCurrentUser && "Edit Profile" }
                                         </span>
                                     </span>

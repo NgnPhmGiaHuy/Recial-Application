@@ -1,15 +1,15 @@
 "use client"
 
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { useGetUserDataFetcher } from "@/hooks";
 import { setUserSettingData } from "@/store/actions/user/userActions";
-import { CreatePostDialogAudience, CreatePostDialogCard } from "@/components";
+import { CreatePostDialogAudience, CreatePostDialogCard, CreatePostDialogGif } from "@/components";
 
 const CreatePostDialog = ({ createPostRef }) => {
-    const { showCreatePostAudience, showCreatePostPanel } = useSelector(state => state.toggle);
+    const { showCreatePostAudience, showCreatePostPanel } = useSelector(state => state.toggle, shallowEqual);
 
-    const { isLoading } = useGetUserDataFetcher("setting", setUserSettingData);
+    useGetUserDataFetcher("setting", setUserSettingData);
 
     return (
         <div className="z-[9999] relative">
@@ -25,6 +25,9 @@ const CreatePostDialog = ({ createPostRef }) => {
                                     <div className={`${showCreatePostAudience ? "opacity-100 visible translate-x-0 animate-movePanelRightToLeft" : "opacity-0 invisible translate-x-full pointer-events-none"} top-0 left-0 absolute `}>
                                         <CreatePostDialogAudience/>
                                     </div>
+                                    {/*<div className={`${true ? "opacity-100 visible translate-x-0 animate-movePanelRightToLeft" : "opacity-0 invisible translate-x-full pointer-events-none"} top-0 left-0 absolute `}>*/}
+                                    {/*    <CreatePostDialogGif/>*/}
+                                    {/*</div>*/}
                                 </div>
                             </form>
                         </div>

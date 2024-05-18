@@ -14,12 +14,15 @@ const CommentSchema = new Schema(
         },
         comment_text: {
             type: String,
-            required: true,
         },
         comment_tags: [{
             type: Schema.Types.ObjectId,
             ref: "Tag",
-        }]
+        }],
+        comment_content_url: {
+            type: String,
+            ref: "Photo",
+        }
     }, {
         timestamps: true,
     }

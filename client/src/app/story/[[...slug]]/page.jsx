@@ -1,14 +1,17 @@
 "use client"
 
-import { LoadingPageComponent, MediaPageScaffold } from "@/components";
 import { handleNewPostData } from "@/utils/handleNewData";
-import { useMediaData, useUserData, useWebSocket, useWithAuth } from "@/hooks";
+import { LoadingPageComponent, MediaPageScaffold } from "@/components";
+import { useStoryData, useUserData, useWebSocket, useWithAuth } from "@/hooks";
 
 const StoryPage = ({ searchParams }) => {
-    const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/public/media/story/?" + new URLSearchParams(searchParams).toString();
+    const urlParams = new URLSearchParams(searchParams);
+
+    const user = urlParams.get("user");
+    const story = urlParams.get("story");
 
     const { userProps } = useUserData();
-    const { mediaProps } = useMediaData(url);
+    const { mediaProps } = useStoryData(user, story);
 
     // const onDataReceived = async (data) => {
     //     await handleNewPostData(data, mediaProps, setMediaProps)

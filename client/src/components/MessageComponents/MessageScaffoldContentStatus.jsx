@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 const MessageScaffoldContentStatus = ({ status }) => {
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     return (
         <div className="block h-fit">

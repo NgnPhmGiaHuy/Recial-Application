@@ -3,14 +3,15 @@
 import { shallowEqual, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
-import { useClickOutside, useMessageSearch, useToggleState } from "@/hooks";
+import { useClickOutside, useSearchData, useToggleState } from "@/hooks";
 import { MessageHeaderChatBox, MessageHeaderContent, MessageHeaderCreate, MessageHeaderQuickSetting, SmallSearchInput } from "@/components";
 
 const MessageHeader = ({ forwardedRef }) => {
     const userProps = useSelector((state) => state.user, shallowEqual);
     const messageQuickSettingButtonRef = useRef(null);
 
-    const { searchQuery, filteredMessages, handleSearchInputChange } = useMessageSearch();
+    const messageFilterFunction = (item, searchQuery) => item.conversation_name?.toLowerCase().includes(searchQuery.toLowerCase());
+    const { searchQuery, filteredSearchData, handleSearchInputChange } = useSearchData(userProps?.user_messages?.message_list?.messages, messageFilterFunction);
 
     const [messageQuickSettingTranslateYValue, setMessageQuickSettingTranslateYValue] = useState(-415);
     const [showMessageQuickSetting, setShowMessageQuickSetting, handleMessageQuickSettingButton] = useToggleState(false);
@@ -38,7 +39,7 @@ const MessageHeader = ({ forwardedRef }) => {
                                     <MessageHeaderCreate/>
                                 </div>
                             </div>
-                            <MessageHeaderContent userMessages={filteredMessages}/>
+                            <MessageHeaderContent userMessages={filteredSearchData}/>
                         </div>
                     </div>
                 </div>

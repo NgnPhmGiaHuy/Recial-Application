@@ -1,8 +1,12 @@
-import Image from "next/image";
 import { shallowEqual, useSelector } from "react-redux";
+
+import { MessagePresentationImage } from "@/components";
 
 const MessageScaffoldContentPresentation = () => {
     const messageProps = useSelector((state) => state.message, shallowEqual);
+
+    const participantPictureUrl = messageProps?.conversation?.participants?.slice(0, 2).map((pictureUrl) => pictureUrl?.profile?.profile_picture_url);
+    const conversationPictureUrl = messageProps?.conversation?.conversation_picture_url ? messageProps?.conversation?.conversation_picture_url : participantPictureUrl;
 
     return (
         <div role="Presentation">
@@ -10,7 +14,7 @@ const MessageScaffoldContentPresentation = () => {
                 <div className="px-[12px] pt-[20px] flex flex-col justify-start relative">
                     <div className="mb-[20px] flex justify-center relative">
                         <div className="w-[60px] h-[60px] flex items-center justify-center rounded-xl bg-white overflow-hidden relative">
-                            <Image src={messageProps?.conversation?.conversation_picture_url} alt={`${messageProps?.conversation?.conversation_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                            <MessagePresentationImage conversationPictureUrl={conversationPictureUrl}/>
                         </div>
                     </div>
                     <div className="mb-[16px] flex justify-center relative">

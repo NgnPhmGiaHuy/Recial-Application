@@ -32,6 +32,7 @@ import handleUploadImage from "@/utils/image/handleUploadImage";
 import handleNewMessageData from "@/utils/message/handleNewMessageData/handleNewMessageData";
 import handleCreateConversationData from "@/utils/message/handleCreateConversationData";
 import handleDeleteMessage from "@/utils/message/handleDeleteMessage";
+import handleDeleteConversation from "@/utils/message/handleDeleteConversation";
 import renderMessageComponent from "@/utils/message/renderMessageComponent";
 import shouldDisplayMessageWithTimeStamp from "@/utils/message/shouldDisplayMessageWithTimeStamp";
 
@@ -78,7 +79,7 @@ export {
     getGeocodeByCoordinates,
     fetchGoogleData,
     handleMultipleImageFileUpload, handleSingleImageFileUpload, handleUploadImage,
-    handleNewMessageData, handleCreateConversationData, handleDeleteMessage, renderMessageComponent, shouldDisplayMessageWithTimeStamp,
+    handleNewMessageData, handleCreateConversationData, handleDeleteMessage, handleDeleteConversation, renderMessageComponent, shouldDisplayMessageWithTimeStamp,
     handleFormatNumber,
     handleDeletePostData, handleNewPostData,
     createPostReaction, handleReactionData, updatePostReaction,

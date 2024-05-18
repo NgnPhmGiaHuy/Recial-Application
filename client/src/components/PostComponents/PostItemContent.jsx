@@ -26,7 +26,7 @@ const PostItemContent = ({ contentRef, props }) => {
                                 const { insetStyles, width, height } = calculateAttachmentStyles(props.postProps?.photo?.length, index);
 
                                 return (
-                                    <Link key={index} href={`/post/?user=${props.postProps?.post?.user?._id}&post=${props.postProps?.post?._id}&photo=${props.postProps?.photo[0]._id}`}>
+                                    <Link key={index} href={`/post/?user=${props.postProps?.post?.user?._id}&post=${props.postProps?.post?._id}&photo=${value._id}`}>
                                         <div className="p-[4px] block absolute" style={{...insetStyles, width, height}}>
                                             <div className="relative w-full h-full">
                                                 <Image src={value?.photo_url} alt={`${value?.photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" loading="lazy" className="object-cover rounded-xl"/>

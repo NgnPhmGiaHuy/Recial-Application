@@ -1,16 +1,21 @@
 "use client"
 
 import { useState } from "react";
+import { shallowEqual, useSelector } from "react-redux";
 
-import { fetchDataWithAccessTokenAndData } from "@/utils";
+import { fetchDataWithAccessTokenAndData, handleUploadImage } from "@/utils";
 
 const useCommentData = () => {
+    const userProps = useSelector(state => state.user, shallowEqual);
     const [commentSubmitStatus, setCommentSubmitStatus] = useState(false);
 
-    const handleSetCommentData = async (inputText, userProps, postProps, isReply) => {
+    const handleSetCommentData = async ({ inputText, inputImage, postProps, isReply }) => {
+        const uploadedURL = inputImage ? await handleUploadImage(inputImage, userProps.user._id) : null;
+
         const commentData = {
             source_id: userProps.user._id,
             comment_text: inputText,
+            comment_content_url: uploadedURL,
             destination_id: isReply ? postProps._id : postProps.post._id,
         };
 
@@ -23,7 +28,7 @@ const useCommentData = () => {
         }
     }
 
-    return { commentSubmitStatus, handleSetCommentData }
+    return { commentSubmitStatus, setCommentSubmitStatus, handleSetCommentData }
 }
 
 export default useCommentData;

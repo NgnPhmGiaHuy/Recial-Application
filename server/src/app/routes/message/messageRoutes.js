@@ -11,5 +11,6 @@ router.route("/").delete(MessageController.deleteMessageData);
 
 router.route("/conversation/").get(ConversationController.getConversationData);
 router.route("/conversation/").post(ConversationController.createConversationData);
+router.route("/conversation/").delete(ConversationController.deleteConversationData);
 
 module.exports = router;

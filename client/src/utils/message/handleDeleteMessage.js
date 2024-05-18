@@ -6,9 +6,11 @@ const handleDeleteMessage = async (messageId, conversationId, handleState) => {
 
         const deletedMessage = await fetchDataWithAccessToken(url, "DELETE");
 
-        if (deletedMessage && !deletedMessage.error) {
-            return handleState();
+        if (!deletedMessage) {
+            return { error: "Error while deleting message" };
         }
+
+        return handleState();
     } catch (error) {
         return console.error(error);
     }

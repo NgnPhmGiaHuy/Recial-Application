@@ -3,7 +3,6 @@ import { fetchDataWithAccessToken } from "@/utils";
 const handleCreateConversationData = async (userId) => {
     try {
         const userIds = Array.isArray(userId) ? userId : [userId];
-
         const userIdsString = userIds.join(',');
 
         const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/messages/conversation/?user_id=${userIdsString}`;

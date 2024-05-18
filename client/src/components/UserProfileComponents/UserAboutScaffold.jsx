@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { UserAboutScaffoldOptions } from "@/components";
 
 const UserAboutScaffold = ({ titleLabel, options }) => {
-    const { isCurrentUser } = useSelector(state => state.userRelationship);
+    const { isCurrentUser } = useSelector(state => state.userRelationship, shallowEqual);
 
     return (
         <div className="flex flex-col rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white overflow-hidden relative">

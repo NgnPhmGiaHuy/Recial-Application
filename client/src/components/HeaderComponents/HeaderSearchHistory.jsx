@@ -1,11 +1,11 @@
-import {useSelector} from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { useGetUserDataFetcher } from "@/hooks";
 import { setUserSearchData } from "@/store/actions/user/userActions";
 import { HeaderSearchHistoryItem, LoadingComponent } from "@/components";
 
 const HeaderSearchHistory = () => {
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
     const { isLoading } = useGetUserDataFetcher("search", setUserSearchData);
 
     return (

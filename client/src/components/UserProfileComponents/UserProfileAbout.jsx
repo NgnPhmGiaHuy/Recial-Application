@@ -3,13 +3,13 @@
 import Link from "next/link";
 
 import { useOverflowText } from "@/hooks";
-import {useSelector} from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 const UserProfileAbout = () => {
-    const { isCurrentUser } = useSelector(state => state.userRelationship);
+    const { isCurrentUser } = useSelector(state => state.userRelationship, shallowEqual);
     const { textRef, showMoreText, isOverflowing, handleShowMoreText } = useOverflowText();
 
-    const userProps = isCurrentUser ? useSelector(state => state.user) : useSelector(state => state.userId);
+    const userProps = isCurrentUser ? useSelector(state => state.user, shallowEqual) : useSelector(state => state.userId, shallowEqual);
 
     return (
         <section className="mb-[16px] bg-white rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">

@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { FriendScaffoldItem } from "@/components";
 
 const FriendScaffold = () => {
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     return (
         <div className="flex flex-col grow items-stretch justify-center relative">

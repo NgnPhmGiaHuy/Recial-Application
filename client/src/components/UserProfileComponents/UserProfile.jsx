@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { CreatePost, Post, UserProfileAbout, UserProfileCover } from "@/components";
 
 const UserProfile = () => {
-    const { isCurrentUser } = useSelector(state => state.userRelationship);
+    const { isCurrentUser } = useSelector(state => state.userRelationship, shallowEqual);
 
-    const userProps = isCurrentUser ? useSelector(state => state.user) : useSelector(state => state.userId);
+    const userProps = isCurrentUser ? useSelector(state => state.user, shallowEqual) : useSelector(state => state.userId, shallowEqual);
 
     return (
         <main>

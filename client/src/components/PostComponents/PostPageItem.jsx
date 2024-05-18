@@ -2,13 +2,13 @@
 
 import Image from "next/image";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { usePostItemData } from "@/hooks";
 import { PostItemComment, PostItemContent, PostItemDelete, PostItemFooter, PostItemHeader, PostItemQuickSetting, PostItemReactionButton, PostItemShareSetting } from "@/components";
 
 const PostPageItem = ({ postProps }) => {
-    const pageProps = useSelector(state => state.page);
+    const pageProps = useSelector(state => state.page, shallowEqual);
 
     const props = { postProps: postProps, pageProps: pageProps }
 

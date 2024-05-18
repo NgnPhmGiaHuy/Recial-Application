@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { formatLongDate } from "@/utils";
 
 import Favicon from "/public/images/Metadata/favicon.ico";
 
 const PageScaffoldAsideSecurityCard = () => {
-    const pageProps = useSelector(state => state.page);
+    const pageProps = useSelector(state => state.page, shallowEqual);
 
     return (
         <section className="w-full h-full">

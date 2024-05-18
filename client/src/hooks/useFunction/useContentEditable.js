@@ -2,36 +2,40 @@
 
 import { useCallback, useEffect, useState, useRef } from "react";
 
+import { useEmojiHandler } from "@/hooks";
+
 const useContentEditable = () => {
-    const inputContentEditableRef = useRef(null);
+    const inputRef = useRef(null);
 
     const [inputText, setInputText] = useState("");
     const [allowSubmit, setAllowSubmit] = useState(false);
 
     const handleInputTextChange = useCallback(() => {
-        const newText = inputContentEditableRef.current.innerText;
+        const newText = inputRef.current.textContent;
         setInputText(newText);
         setAllowSubmit(newText.trim().length > 0);
     }, []);
 
+    const handleAddEmoji = useEmojiHandler(inputRef, setInputText, setAllowSubmit);
+
     useEffect(() => {
-        const range = document.createRange();
-        const selection = window.getSelection();
-        range.selectNodeContents(inputContentEditableRef.current);
-        range.collapse(false);
-        selection.removeAllRanges();
-        selection.addRange(range);
-    }, [inputText]);
+        const element = inputRef.current;
+        if (element) {
+            element.addEventListener('input', handleInputTextChange);
+            return () => {
+                element.removeEventListener('input', handleInputTextChange);
+            };
+        }
+    }, [handleInputTextChange]);
 
     const handlePaste = (event) => {
         event.preventDefault();
         const text = (event.originalEvent || event).clipboardData.getData('text/plain');
-
         document.execCommand("insertText", false, text);
     };
 
     useEffect(() => {
-        const element = inputContentEditableRef.current;
+        const element = inputRef.current;
         if (element) {
             element.addEventListener('paste', handlePaste);
             return () => {
@@ -40,7 +44,7 @@ const useContentEditable = () => {
         }
     }, []);
 
-    return { inputContentEditableRef, inputText, setInputText, setAllowSubmit, allowSubmit, handleInputTextChange };
+    return { inputRef, inputText, setInputText, setAllowSubmit, allowSubmit, handleAddEmoji, handleInputTextChange };
 }
 
 export default useContentEditable;

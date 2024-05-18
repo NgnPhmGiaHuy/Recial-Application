@@ -1,12 +1,12 @@
 "use client"
 
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { EventAsideItem } from "@/components";
-import {useState} from "react";
 
 const EventAside = () => {
-    const eventListProps = useSelector(state => state.eventList);
+    const eventListProps = useSelector(state => state.eventList, shallowEqual);
 
     const initialEventId = eventListProps && eventListProps.event && eventListProps.event.length > 0 ? eventListProps.event[0]._id : null;
 

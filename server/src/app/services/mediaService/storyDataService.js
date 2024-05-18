@@ -17,6 +17,29 @@ class StoryDataService {
         }
     }
 
+    getFormattedStoryDataById = async (storyId) => {
+        try {
+            const storyData = await this.getRawStoryData(storyId);
+
+            const formattedStoryData = {
+                _id: storyData._id,
+                media_type: "Photo",
+                media_url: storyData.story_media_url,
+                media_title: storyData.story_title,
+                media_description: storyData.story_description,
+                media_duration: storyData.story_duration,
+                media_privacy: storyData.story_privacy,
+                media_tags: storyData.story_tags,
+                media_location: storyData.story_location,
+            }
+
+            return formattedStoryData;
+        } catch (error) {
+            console.error("Error in getRawStoryDataById: ", error);
+            throw new Error("Failed to fetch raw story data");
+        }
+    }
+
     getFormattedStoryDataByIdAndUserId = async (userId, setId) => {
         try {
             const storyProps = await this.getRawStoryData(setId);
@@ -39,11 +62,13 @@ class StoryDataService {
 
             const mediaProps = {
                 _id: storyProps._id,
-                user: userData,
-                media_name: storyProps.story_title,
                 media_type: "Story",
-                media_text: storyProps.story_description,
+                media_title: storyProps.story_title,
                 media_url: storyProps.story_media_url,
+                media_description: storyProps.story_description,
+                media_thumbnail: "",
+                media_resolution: "",
+                user: userData,
                 comment: commentData,
                 reaction: reactionData,
                 created_at: storyProps.createdAt,

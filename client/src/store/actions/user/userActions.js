@@ -17,9 +17,11 @@ export const CREATE_USER_POST_DATA = "CREATE_USER_POST_DATA";
 export const CREATE_USER_POST_COMMENT_DATA = "CREATE_USER_POST_COMMENT_DATA";
 export const CREATE_USER_POST_REACTION_DATA = "CREATE_USER_POST_REACTION_DATA";
 
+export const UPDATE_USER_MESSAGE_DATA = "UPDATE_USER_MESSAGE_DATA";
 export const UPDATE_USER_POST_REACTION_DATA = "UPDATE_USER_POST_REACTION_DATA";
 
 export const DELETE_USER_POST_DATA = "DELETE_USER_POST_DATA";
+export const DELETE_USER_CONVERSATION_DATA = "DELETE_USER_CONVERSATION_DATA";
 
 export const CLEAR_USER_POST_DATA = "CLEAR_USER_POST_DATA";
 export const CLEAR_USER_MESSAGE_DATA = "CLEAR_USER_MESSAGE_DATA";
@@ -109,6 +111,11 @@ export const createUserPostReactionData = (reactionData) => ({
     payload: reactionData,
 })
 
+export const updateUserMessageData = (messageData) => ({
+    type: UPDATE_USER_MESSAGE_DATA,
+    payload: messageData,
+})
+
 export const updateUserPostReactionData = (reactionData) => ({
     type: UPDATE_USER_POST_REACTION_DATA,
     payload: reactionData,
@@ -117,6 +124,11 @@ export const updateUserPostReactionData = (reactionData) => ({
 export const deleteUserPostData = (postData) => ({
     type: DELETE_USER_POST_DATA,
     payload: postData,
+})
+
+export const deleteUserConversationData = (conversationData) => ({
+    type: DELETE_USER_CONVERSATION_DATA,
+    payload: conversationData,
 })
 
 export const clearUserPostData = () => ({

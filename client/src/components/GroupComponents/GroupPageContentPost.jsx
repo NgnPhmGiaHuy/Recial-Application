@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { CreatePost, Post } from "@/components";
 
 const GroupPageContentPost = () => {
-    const groupPostProps = useSelector(state => state.group.post_list)
+    const groupPostProps = useSelector(state => state.group.post_list, shallowEqual);
 
     return (
         <div className="max-w-[840px] m-[8px] flex flex-col flex-shrink grow-[25] basis-[500px] relative">

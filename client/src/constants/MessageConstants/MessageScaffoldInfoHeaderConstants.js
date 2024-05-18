@@ -1,7 +1,7 @@
-const MESSAGE_SCAFFOLD_INFO_HEADER_BUTTON = () => {
+const MESSAGE_SCAFFOLD_INFO_HEADER_BUTTON = ({ userProps, displayProfile }) => {
     return [
-        {
-            link: "",
+        displayProfile ? {
+            link: `/${userProps?._id}`,
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 24 24" fill="currentColor"
@@ -12,7 +12,7 @@ const MESSAGE_SCAFFOLD_INFO_HEADER_BUTTON = () => {
                 </svg>
             ),
             title: "Profile"
-        }, {
+        } : null, {
             link: "",
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">

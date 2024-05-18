@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { PageCoverNavigation, PageCoverProfileSubHeader } from "@/components";
 
 const PageCover = () => {
-    const pageProps = useSelector(state => state.page);
+    const pageProps = useSelector(state => state.page, shallowEqual);
 
     return (
         <section className="flex flex-col relative">

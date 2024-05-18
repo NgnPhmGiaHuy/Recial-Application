@@ -5,7 +5,7 @@ import React, { forwardRef } from "react";
 const StoryItem = forwardRef(({ storyProps }, ref) => {
     return (
         <div ref={ref} className="mr-[12px] flex flex-shrink-0 grow-0 sm:basis-[160px] basis-[100px] relative">
-            <Link href={`/story/?user=${storyProps?.user?._id}&set=${storyProps?.stories[0]?.story._id}`} className="w-full block overflow-hidden cursor-pointer shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] rounded-xl relative">
+            <Link href={`/story/?user=${storyProps?.user?._id}&story=${storyProps?.stories[0]?.story._id}`} className="w-full block overflow-hidden cursor-pointer shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] rounded-xl relative">
                 <div className="w-full h-0 sm:pt-[230px] pt-[140px] overflow-hidden relative">
                     <div className="absolute top-0 right-0 bottom-0 left-0">
                         <div className="h-full flex flex-col relative">

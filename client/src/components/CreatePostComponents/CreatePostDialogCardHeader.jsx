@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { toggleCreatePost, toggleCreatePostAudience, toggleCreatePostPanel } from "@/store/actions/toggle/toggleActions";
 
 const CreatePostDialogCardHeader = () => {
     const dispatch = useDispatch();
 
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     const handleToggleShowCreatePost = () => {
         return dispatch(toggleCreatePost());

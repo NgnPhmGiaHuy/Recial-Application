@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { CreatePost, PageScaffoldMainNavigationItem, PostPage } from "@/components";
 
 const PageScaffoldMain = () => {
-    const pageProps = useSelector(state => state.page);
+    const pageProps = useSelector(state => state.page, shallowEqual);
 
     return (
         <div className="w-full min-h-[inherit] mx-[12px] flex flex-col flex-shrink grow basis-0 relative">

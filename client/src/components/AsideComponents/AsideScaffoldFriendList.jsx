@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { FriendListItem } from "@/components";
 
-const AsideScaffoldFriendList = ({ aside, action }) => {
-    const userProps = useSelector(state => state.user);
+const AsideScaffoldFriendList = ({ aside, action, data }) => {
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     return (
         <>
@@ -12,14 +12,14 @@ const AsideScaffoldFriendList = ({ aside, action }) => {
                     <div className="flex flex-col grow relative">
                         <span className="block text-[17px] text-black text-left font-semibold break-words leading-5 relative">
                             <span className="overflow-hidden relative">
-                                {userProps?.user?.friends?.length + " " + aside?.title}
+                                { userProps?.user?.friends?.length + " " + aside?.title }
                             </span>
                         </span>
                     </div>
                 </div>
             </div>
             <div className="px-[8px]">
-                {userProps?.user?.friends?.map((value, index) => (
+                {data?.map((value, index) => (
                     <FriendListItem key={index} userProps={value} action={action}/>
                 ))}
             </div>

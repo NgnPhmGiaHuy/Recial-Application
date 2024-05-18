@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 const GroupPageContentBlockAboutDescription = () => {
-    const groupProps = useSelector(state => state.group);
+    const groupProps = useSelector(state => state.group, shallowEqual);
 
     return (
         <div>

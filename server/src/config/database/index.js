@@ -1,5 +1,5 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
+require("dotenv").config();
+const mongoose = require("mongoose");
 
 async function connect() {
     try {
@@ -7,9 +7,9 @@ async function connect() {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
-        console.log('Connect database successfully!!!');
+        console.log("Connect database successfully!!!");
     } catch (error){
-        console.log('Connect database failure!!!');
+        console.log("Connect database failure!!!");
     }
 }
 

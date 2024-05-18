@@ -4,10 +4,10 @@ import Image from "next/image";
 import { useEffect } from "react";
 
 import { useSingleImageData } from "@/hooks";
-import {useSelector} from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 const UserProfileEditImage = ({ formData, setFormData }) => {
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     const [coverImageFileInputRef, selectedCoverImage, setSelectedCoverImage, handleCoverImageFileUpload, handleCoverImageTriggerClick] = useSingleImageData();
     const [profileImageFileInputRef, selectedProfileImage, setSelectedProfileImage, handleProfileImageFileUpload, handleProfileImageTriggerClick] = useSingleImageData();

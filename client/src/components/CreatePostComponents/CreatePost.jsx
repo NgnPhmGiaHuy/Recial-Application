@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { CreatePostOptionItem } from "@/components";
 import { toggleCreatePost } from "@/store/actions/toggle/toggleActions";
@@ -8,7 +8,7 @@ import { createPostOptionItemListConstants } from "@/constants/CreatePostConstan
 const CreatePost = () => {
     const dispatch = useDispatch();
 
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     const handleToggleShowCreatePost = () => {
         dispatch(toggleCreatePost());

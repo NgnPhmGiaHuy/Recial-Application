@@ -1,16 +1,16 @@
 "use client"
 
-import { useSelector } from "react-redux";
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { QuickSettingItem } from "@/components";
 import { useClickOutside, useToggleState } from "@/hooks";
 import { userAboutOverviewSettingList } from "@/constants/UserProfileConstants";
 
 const UserAboutOverview = () => {
-    const { isCurrentUser } = useSelector(state => state.userRelationship);
+    const { isCurrentUser } = useSelector(state => state.userRelationship, shallowEqual);
 
-    const userProps = isCurrentUser ? useSelector(state => state.user) : useSelector(state => state.userId);
+    const userProps = isCurrentUser ? useSelector(state => state.user, shallowEqual) : useSelector(state => state.userId, shallowEqual);
 
     const userAboutOverviewRef = useRef(null);
     const userAboutOverviewSettingButtonRef = useRef(null);

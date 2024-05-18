@@ -5,7 +5,6 @@ import { useRef, useState } from "react";
 import { useClickOutside, useToggleState } from "@/hooks";
 import { postItemCommentSortList } from "@/constants/PostConstants";
 import { PostItemCommentInput, PostItemCommentScaffold, QuickSettingItem } from "@/components";
-import {useSelector} from "react-redux";
 
 const PostItemComment = ({ commentRef, props }) => {
     const commentSortContentRef = useRef(null);

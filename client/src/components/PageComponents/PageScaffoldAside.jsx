@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { PageScaffoldAsideCard, PageScaffoldAsideHeader, PageScaffoldAsideSecurityCard } from "@/components";
 import { aboutCardConstants, communityCardConstants } from "@/constants/PageConstants/pageScaffoldAsideConstants";
 
 const PageScaffoldAside = () => {
-    const pageProps = useSelector(state => state.page);
+    const pageProps = useSelector(state => state.page, shallowEqual);
 
     const communityConstants = communityCardConstants(pageProps?.like?.length, pageProps?.follow?.length)
 

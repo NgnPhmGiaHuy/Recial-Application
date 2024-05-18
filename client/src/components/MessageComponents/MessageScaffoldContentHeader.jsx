@@ -1,16 +1,18 @@
 import Link from "next/link";
-import Image from "next/image";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { formatShortTimeAgo } from "@/utils";
-import { MessageScaffoldContentHeaderButton } from "@/components";
+import { MessagePresentationImage, MessageScaffoldContentHeaderButton } from "@/components";
 
 import MESSAGE_SCAFFOLD_CONTENT_HEADER_BUTTON from "@/constants/MessageConstants/MessageScaffoldContentHeaderConstant";
 
 const MessageScaffoldContentHeader = ({ handleShowInfo }) => {
-    const messageProps = useSelector((state) => state.message);
+    const messageProps = useSelector((state) => state.message, shallowEqual);
 
     const button = MESSAGE_SCAFFOLD_CONTENT_HEADER_BUTTON({ handleShowInfo });
+
+    const participantPictureUrl = messageProps?.conversation?.participants?.slice(0, 2).map((pictureUrl) => pictureUrl?.profile?.profile_picture_url);
+    const conversationPictureUrl = messageProps?.conversation?.conversation_picture_url ? messageProps?.conversation?.conversation_picture_url : participantPictureUrl;
 
     return (
         <div>
@@ -23,7 +25,7 @@ const MessageScaffoldContentHeader = ({ handleShowInfo }) => {
                                     <div className="m-[-6px] flex flex-row flex-shrink-0 flex-nowrap items-stretch justify-between relative">
                                         <div className="p-[6px] flex flex-col flex-shrink-0 relative">
                                             <div className="w-[40px] h-[40px] flex items-center justify-center rounded-xl relative overflow-hidden">
-                                                <Image src={messageProps?.conversation?.conversation_picture_url} alt={`${messageProps?.conversation?.conversation_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                                <MessagePresentationImage conversationPictureUrl={conversationPictureUrl}/>
                                             </div>
                                         </div>
                                         <div className="px-[2px] py-[6px] flex flex-col flex-shrink grow basis-0 relative">

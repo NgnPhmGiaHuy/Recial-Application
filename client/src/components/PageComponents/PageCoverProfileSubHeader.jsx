@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { handleFormatNumber } from "@/utils";
 
 const PageCoverProfileSubHeader = () => {
-    const pageProps = useSelector(state => state.page);
+    const pageProps = useSelector(state => state.page, shallowEqual);
 
     return (
         <div className="w-full mt-[8px] flex flex-row items-center justify-start relative">

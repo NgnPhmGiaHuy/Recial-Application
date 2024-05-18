@@ -2,18 +2,18 @@ import { QuickSettingItem } from "@/components";
 
 import MESSAGE_HEADER_QUICK_SETTING from "@/constants/MessageConstants/MessageHeaderQuickSettingConstants";
 
-const MessageContentItemSetting = ({ messageQuickSettingItemButtonRef }) => {
+const MessageContentItemSetting = ({ quickSettingRef, setShowDelete }) => {
+    const button = MESSAGE_HEADER_QUICK_SETTING({ deleteOnclick: setShowDelete });
+
     return (
-        <div ref={messageQuickSettingItemButtonRef}
-             className="absolute top-0 left-0 translate-x-[10px] translate-y-[-265px] z-50">
-            <div
-                className="relative mt-[15px] rounded-l-md rounded-r-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
+        <div ref={quickSettingRef} className="absolute top-0 left-0 translate-x-[10px] translate-y-[-265px] z-50">
+            <div className="relative mt-[15px] rounded-l-md rounded-r-md shadow-[rgba(0,_0,_0,_0.24)_4px_7px_50px_1px]">
                 <div className="overflow-hidden rounded-l-md rounded-r-md bg-white">
                     <div className="flex flex-col grow items-stretch origin-top-left relative">
                         <div
                             className="w-[344px] py-[8px] overflow-x-hidden overflow-y-auto overscroll-y-contain flex flex-col relative">
                             <div className="flex flex-col grow relative">
-                                {MESSAGE_HEADER_QUICK_SETTING.map((value, index) => (
+                                {button.map((value, index) => (
                                     <QuickSettingItem key={index} settingProps={value}/>
                                 ))}
                             </div>

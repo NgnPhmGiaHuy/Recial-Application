@@ -1,5 +1,7 @@
+const WebSocketService = require("../../services/webSocketService/webSocketService");
 const getConversationService = require("../../services/messageService/getConversationService");
 const createConversationService = require("../../services/messageService/createConversationService");
+const deleteConversationService = require("../../services/messageService/deleteConversationService");
 
 class ConversationController {
     async getConversationData(req, res) {
@@ -23,9 +25,33 @@ class ConversationController {
 
             const createdConversationData = await createConversationService.createConversationDataByUserIds(userId, conversationIds);
 
+            const wss = req.app.get("wss");
+            const webSocketService = new WebSocketService(wss);
+
+            await webSocketService.notifyClientsAboutNewConversation(conversationIds, createdConversationData);
+
             return res.status(200).json(createdConversationData);
         } catch (error) {
             console.error("Error in createConversationData: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+    }
+
+    async deleteConversationData(req, res) {
+        try {
+            const userId = req.userId;
+            const { conversation_id } = req.query;
+
+            const deletedConversation = await deleteConversationService.deleteConversationData(conversation_id);
+
+            const wss = req.app.get("wss");
+            const webSocketService = new WebSocketService(wss);
+
+            await webSocketService.notifyClientsAboutDeleteConversation(userId, deletedConversation);
+
+            return res.status(200).json(deletedConversation);
+        } catch (error) {
+            console.error("Error in deleteConversationData: ", error);
             return res.status(500).json({ error: "Internal Server Error" });
         }
     }

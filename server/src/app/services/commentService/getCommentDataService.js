@@ -1,5 +1,6 @@
 const Comment = require("../../models/Comment");
 
+const photoDataService = require("../mediaService/photoDataService");
 const getUserDataService = require("../userService/getUserDataService");
 const generalDataService = require("../generalDataService");
 
@@ -19,7 +20,7 @@ class GetCommentDataService {
         try {
             const commentData = await this.getRawCommentData(commentId);
 
-            const { createdAt, updatedAt, source_id, destination_id, ...otherCommentProps } = commentData._doc;
+            const { createdAt, updatedAt, source_id, destination_id, comment_content_url, ...otherCommentProps } = commentData._doc;
 
             const userData = await getUserDataService.getFormattedUserDataById(source_id);
             const commentReplyData = await generalDataService.getCommentData(commentData._id);
@@ -38,6 +39,10 @@ class GetCommentDataService {
                     destination_id: destination_id,
                 }
             };
+
+            if (comment_content_url) {
+                formattedCommentData.comment["comment_content_url"] = await photoDataService.getFormattedPhotoDataById(comment_content_url)
+            }
 
             return formattedCommentData;
         } catch (error) {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { useCreatePostDialogAudience } from "@/hooks";
 import { CreatePostDialogAudienceItem } from "@/components";
@@ -16,7 +16,7 @@ const renderAudienceItems = (userProps, handleCreatePostAudienceChecked) => {
 };
 
 const CreatePostDialogAudience = () => {
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     const { handleCreatePostAudienceChecked, handeShowCreatePostAudience, handleCancel } = useCreatePostDialogAudience();
 

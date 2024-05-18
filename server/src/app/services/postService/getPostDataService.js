@@ -74,6 +74,7 @@ class GetPostDataService {
                 const { createdAt, updatedAt, ...otherPhotoProps } = photos._doc;
 
                 return {
+                    _id: photos._id,
                     photo_url: photos.photo_url,
                     created_at: createdAt,
                     updated_at: updatedAt,

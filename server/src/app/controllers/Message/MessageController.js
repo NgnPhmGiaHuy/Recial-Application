@@ -23,8 +23,12 @@ class MessageController {
             const userId = req.userId;
             const { message_content, message_content_url, conversation_id } = req.body;
 
-            if (!message_content || !conversation_id) {
+            if (!conversation_id) {
                 return res.status(400).json({ error: "Message content and conversation ID are required." });
+            }
+
+            if (!message_content && !message_content_url) {
+                return res.status(400).json({ error: "Message content URL are required." });
             }
 
             const newMessage = await createMessageService.createMessageData(userId, message_content, message_content_url, conversation_id);

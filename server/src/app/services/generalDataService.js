@@ -1,10 +1,28 @@
 const User = require("../models/User");
+const Photo = require("../models/Photo");
 const Comment = require("../models/Comment");
 const Reaction = require("../models/Reaction");
 
 const getTypeDataService = require("./typeService/getTypeDataService");
 
 class GeneralDataService {
+    getFormattedPhotoDataById = async (photoId) => {
+        try {
+            const photoData = await Photo.findById(photoId);
+
+            const { createdAt, updatedAt, ...otherPhotoData } = photoData._doc;
+
+            return {
+                ...otherPhotoData,
+                created_at: createdAt,
+                updated_at: updatedAt,
+            }
+        } catch (error) {
+            console.error("Error in getFormattedPhotoDataById: ", error);
+            throw new Error("Failed to fetch photo data");
+        }
+    }
+
     getUsersByInteractionType = async (model, modelId, interactId) => {
         try {
             const props = await model.find({ [`${modelId.toString().toLowerCase()}`]: interactId }).populate("user_id", "username firstname lastname profile_picture_url");
@@ -23,18 +41,26 @@ class GeneralDataService {
             const comments = await Comment.find({ destination_id: entityId }).sort({ updatedAt: -1 });
 
             const formattedCommentsData = await Promise.all(comments.map(async (comment) => {
-                const userData = await this.formattedUserData(comment.source_id);
+                const { createdAt, updatedAt, source_id, destination_id, comment_content_url, ...rest } = comment.toObject();
 
-                const { createdAt, updatedAt, source_id, destination_id, ...rest } = comment.toObject();
+                const userData = await this.formattedUserData(source_id);
+                const commentReplyData = await this.getCommentData(comment);
+                const commentReactionData = await this.getReactionData(comment);
 
-                return {
+                const formattedCommentData ={
                     ...rest,
                     user: userData,
-                    comment_reply: await this.getCommentData(comment),
-                    comment_reactions: await this.getReactionData(comment),
+                    comment_reply: commentReplyData,
+                    comment_reactions: commentReactionData,
                     created_at: createdAt,
                     updated_at: updatedAt,
                 };
+
+                if (comment_content_url) {
+                    formattedCommentData["comment_content_url"] = await this.getFormattedPhotoDataById(comment_content_url);
+                }
+
+                return formattedCommentData;
             }));
 
             return formattedCommentsData;

@@ -1,6 +1,8 @@
+"use client"
+
 import Link from "next/link";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
 import { useLogout } from "@/hooks";
@@ -9,7 +11,7 @@ import { HEADER_PERSONAL_ACCOUNT } from "@/constants/HeaderConstants";
 
 const HeaderPersonalAccount = ({ forwardedRef }) => {
     const router = useRouter();
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     const handleLogout = async () => {
         const logout = await useLogout(router);

@@ -1,13 +1,13 @@
-"use client"
+import { useGetMediaFetcher } from "@/hooks";
+import { clearMediaData, setMediaAuthor, setMediaComment, setMediaData, setMediaReaction } from "@/store/actions/media/mediaActions";
 
-import useSWR from "swr";
+const useStoryData = (user, story) => {
+    const mediaProps = useGetMediaFetcher(`story/?story_id=${story}`, setMediaData);
+    const mediaAuthorProps = useGetMediaFetcher(`story/author/?user_id=${user}`, setMediaAuthor);
+    const mediaCommentProps = useGetMediaFetcher(`story/comment/?story_id=${story}`, setMediaComment);
+    const mediaReactionProps = useGetMediaFetcher(`story/reaction/?story_id=${story}`, setMediaReaction);
 
-import { fetcherWithAccessToken } from "@/utils";
-
-const useStoryData = () => {
-    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/story/`, fetcherWithAccessToken);
-
-    return { storyProps: data, error, isLoading, isValidating }
-};
+    return { mediaProps, mediaAuthorProps, mediaCommentProps, mediaReactionProps }
+}
 
 export default useStoryData;

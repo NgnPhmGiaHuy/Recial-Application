@@ -4,42 +4,54 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 
-import { useClickOutside, useToggleState } from "@/hooks";
+import { useClickOutside } from "@/hooks";
 import { MessageContentItemSetting, MessageContentItemSourceImage, MessageContentItemStatus, MessageContentItemText, SmallMoreButton } from "@/components";
 
-const MessageContentItem = ({ messageProps, messageId }) => {
+const MessageContentItem = ({ messageProps, messageId, setShowDelete }) => {
     const messageIdProps = useSelector(state => state.message, shallowEqual);
 
     const active = messageId === messageProps?._id;
-    const messageQuickSettingItemButtonRef = useRef();
+    const quickSettingRef = useRef();
 
-    const [showHeaderMessageContentItemMoreButton, setShowHeaderMessageContentItemMoreButton] = useState(false);
-    const [showHeaderMessageItemQuickSetting, setShowHeaderMessageItemQuickSetting, handleShowHeaderMessageItemQuickSettingButton] = useToggleState(false);
+    const [showMoreButton, setShowMoreButton] = useState(false);
+    const [showQuickSetting, setShowQuickSetting] = useState(false);
 
-    useClickOutside(messageQuickSettingItemButtonRef, showHeaderMessageItemQuickSetting, setShowHeaderMessageItemQuickSetting);
+    const handleShowQuickSetting = (e) => {
+        e.preventDefault();
+
+        return setShowQuickSetting((prevState) => !prevState);
+    }
+
+    const handleLinkClick = (e) => {
+        if (quickSettingRef.current && !quickSettingRef.current.contains(e.target)) {
+            if (messageIdProps.action) {
+                messageIdProps.action(messageProps?._id);
+            }
+        }
+    };
+
+    useClickOutside(quickSettingRef, showQuickSetting, setShowQuickSetting);
 
     return (
-        <li className="relative" onMouseOver={() => setShowHeaderMessageContentItemMoreButton(true)} onMouseOut={() => setShowHeaderMessageContentItemMoreButton(false)} onClick={messageIdProps.action && (() => messageIdProps.action(messageProps?._id))}>
+        <li className="flex flex-col relative" onMouseOver={() => setShowMoreButton(true)} onMouseOut={() => setShowMoreButton(false)} onClick={handleLinkClick}>
             <Link href={`/messages/${messageProps?._id}`}>
-                <div className="px-[8px] relative">
-                    <div className="flex flex-col flex-shrink-0 grow relative">
-                        <div className="flex flex-col items-stretch p-[8px] m-[-6px]">
+                <div className="px-[8px] block relative">
+                    <div className="max-w-full flex flex-col flex-shrink-0 grow relative">
+                        <div className="flex flex-col items-stretch justify-center p-[8px] m-[-6px]">
                             <div className={`${active ? "bg-zinc-200" : "hover:bg-zinc-200"} flex flex-row flex-shrink-0 flex-nowrap items-center justify-between relative rounded-md cursor-pointer transition-all`}>
-                                <div className="flex flex-row flex-shrink items-center justify-center relative">
-                                    <MessageContentItemSourceImage messageProps={messageProps}/>
-                                    <MessageContentItemText messageProps={messageProps}/>
-                                </div>
+                                <MessageContentItemSourceImage messageProps={messageProps}/>
+                                <MessageContentItemText messageProps={messageProps}/>
                                 <MessageContentItemStatus messageProps={messageProps}/>
                             </div>
                         </div>
                     </div>
                     <div className="top-1/2 right-[48px] -translate-y-1/2 absolute">
-                        <SmallMoreButton buttonRef={messageQuickSettingItemButtonRef} state={showHeaderMessageContentItemMoreButton} onClick={handleShowHeaderMessageItemQuickSettingButton}/>
+                        <SmallMoreButton buttonRef={quickSettingRef} state={showMoreButton} onClick={handleShowQuickSetting}/>
                     </div>
                 </div>
             </Link>
             <div>
-                { showHeaderMessageItemQuickSetting && <MessageContentItemSetting messageQuickSettingItemButtonRef={messageQuickSettingItemButtonRef}/> }
+                { showQuickSetting && <MessageContentItemSetting quickSettingRef={quickSettingRef} setShowDelete={() => setShowDelete(messageProps?._id)}/> }
             </div>
         </li>
     );

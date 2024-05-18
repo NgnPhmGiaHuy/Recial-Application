@@ -1,13 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { handleFormatNumber } from "@/utils";
 import { GroupPageHeaderContentButton } from "@/components";
 import { GROUP_PAGE_HEADER_BUTTON_OPTIONS } from "@/constants/GroupConstants/GroupPageHeaderConstants";
 
 const GroupPageHeaderContent = () => {
-    const groupProps = useSelector(state => state.group);
+    const groupProps = useSelector(state => state.group, shallowEqual);
 
     const button = GROUP_PAGE_HEADER_BUTTON_OPTIONS(groupProps).filter(Boolean)
 

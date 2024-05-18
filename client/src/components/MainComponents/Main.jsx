@@ -1,14 +1,14 @@
 "use client"
 
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { setUserFriendRequestData } from "@/store/actions/user/userActions";
 import { useGetUserDataFetcher, useSuggestEventData, useSuggestGroupData, useSuggestPageData } from "@/hooks";
 import { Story, CreatePost, Post, FriendRequest, SuggestGroup, SuggestPage, SuggestEvent, LoadingComponent } from "@/components";
 
 const Main = () => {
-    const userProps = useSelector(state => state.user);
-    const postProps = useSelector(state => state.post);
+    const userProps = useSelector(state => state.user, shallowEqual);
+    const postProps = useSelector(state => state.post, shallowEqual);
 
     const { suggestPageProps } = useSuggestPageData();
     const { suggestEventProps } = useSuggestEventData();

@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { GroupPageContent, GroupPageContentBlock, GroupPageHeader, GroupPageNavigation } from "@/components";
 
 const GroupPage = () => {
-    const groupProps = useSelector(state => state.group);
+    const groupProps = useSelector(state => state.group, shallowEqual);
 
     return (
         <div className="min-h-[calc(100vh-56px)] mb-[calc(-100vh+56px)] top-[56px] flex flex-col relative">

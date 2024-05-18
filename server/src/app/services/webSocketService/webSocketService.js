@@ -77,6 +77,17 @@ class WebSocketService {
         }
     }
 
+    notifyClientsAboutNewConversation(userIds, newConversation) {
+        if (this.wss) {
+            const conversationMessage = {
+                type: "create_conversation",
+                conversationId: newConversation._id.toString(),
+            }
+
+            this.broadcastMessageToMatchingClients(userIds, conversationMessage);
+        }
+    }
+
     notifyClientsAboutDeleteMessage(conversationId, messageId) {
         if (this.wss) {
             const deleteMessage = {
@@ -85,6 +96,17 @@ class WebSocketService {
             }
 
             this.broadcastMessageToConversation(deleteMessage, conversationId);
+        }
+    }
+
+    notifyClientsAboutDeleteConversation(userId, deletedConversation) {
+        if (this.wss) {
+            const deletedConversationMessage = {
+                type: "delete_conversation",
+                conversationId: deletedConversation._id.toString(),
+            }
+
+            this.broadcastMessageToUser(deletedConversationMessage, userId);
         }
     }
 
@@ -132,6 +154,14 @@ class WebSocketService {
     broadcastMessageToUser(message, userId) {
         this.wss.clients.forEach((client) => {
             if (client.readyState === WebSocket.OPEN && client.userId.toString() === userId.toString()) {
+                client.send(JSON.stringify(message));
+            }
+        });
+    }
+
+    broadcastMessageToMatchingClients(userIds, message) {
+        this.wss.clients.forEach(client => {
+            if (client.readyState === WebSocket.OPEN && userIds.includes(client.userId.toString())) {
                 client.send(JSON.stringify(message));
             }
         });

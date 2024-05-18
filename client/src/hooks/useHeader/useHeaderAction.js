@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { useClickOutside, useMultipleRefs } from "@/hooks";
 import { toggleHeaderMenu, toggleHeaderMessage, toggleHeaderNotification, toggleHeaderPersonalAccount, toggleHeaderSearchHistory } from "@/store/actions/toggle/toggleActions";
@@ -9,7 +9,7 @@ import { toggleHeaderMenu, toggleHeaderMessage, toggleHeaderNotification, toggle
 const useHeaderAction = (userProps) => {
     const dispatch = useDispatch();
 
-    const { showMenu, showMessage, showNotification, showSearchHistory, showPersonalAccount } = useSelector(state => state.toggle);
+    const { showMenu, showMessage, showNotification, showSearchHistory, showPersonalAccount } = useSelector(state => state.toggle, shallowEqual);
 
     const [notificationUnreadCount, setNotificationUnreadCount] = useState(0);
 

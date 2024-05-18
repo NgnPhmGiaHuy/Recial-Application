@@ -1,6 +1,6 @@
 "use client"
 
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useState, useCallback, useEffect } from "react";
 
 import { setUserSettingData } from "@/store/actions/user/userActions";
@@ -9,7 +9,7 @@ import CREATE_POST_AUDIENCE from "@/constants/CreatePostConstants/CreatePostDial
 
 const useCreatePostDialogAudience = () => {
     const dispatch = useDispatch();
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     const [previousVisibility, setPreviousVisibility] = useState(null);
 

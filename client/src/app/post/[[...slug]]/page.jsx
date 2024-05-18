@@ -2,13 +2,17 @@
 
 import { LoadingPageComponent, MediaPageScaffold } from "@/components";
 import { handleNewPostData } from "@/utils/handleNewData";
-import { useMediaData, useUserData, useWebSocket, useWithAuth } from "@/hooks";
+import { usePostMediaData, useUserData, useWebSocket, useWithAuth } from "@/hooks";
 
 const PostPage = ({ searchParams }) => {
-    const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/public/media/post/?" + new URLSearchParams(searchParams).toString();
+    const urlParams = new URLSearchParams(searchParams);
+
+    const user = urlParams.get("user");
+    const post = urlParams.get("post");
+    const photo = urlParams.get("photo");
 
     const { userProps } = useUserData();
-    const { mediaProps } = useMediaData(url);
+    const { mediaProps } = usePostMediaData(user, post, photo);
 
     // const onDataReceived = async (data) => {
     //     await handleNewPostData(data, mediaProps, setMediaProps)

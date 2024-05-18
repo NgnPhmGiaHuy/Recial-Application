@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { useOverflowText } from "@/hooks";
 
 const MediaPageScaffoldHeaderText = () => {
-    const mediaProps = useSelector(state => state.media);
+    const mediaProps = useSelector(state => state.media, shallowEqual);
 
-    const { textRef, showMoreText, isOverflowing, handleShowMoreText } = useOverflowText(mediaProps?.media?.media_text);
+    const { textRef, showMoreText, isOverflowing, handleShowMoreText } = useOverflowText(mediaProps?.media_description);
 
     return (
         <div>
@@ -15,7 +15,7 @@ const MediaPageScaffoldHeaderText = () => {
                     <div className="w-full text-ellipsis overflow-hidden relative before:h-[calc(100%-21px)] before:w-0 before:mt-0 before:float-right">
                         <span ref={textRef} className={`${showMoreText ? "" : "line-clamp-2 max-h-[44px]"} webkit-box text-[16px] text-black text-left break-words relative leading-5`}>
                             <span className="font-normal leading-5">
-                                {mediaProps?.media?.media_text} &nbsp;
+                                {mediaProps?.media_description} &nbsp;
                             </span>
                             {mediaProps?.tags?.map((value, index) => (
                                 <Link href="" key={index}>
@@ -47,7 +47,7 @@ const MediaPageScaffoldHeaderText = () => {
                         </div>
                     ) }
                 </div>
-                { mediaProps?.media?.media_type === "Video" && (
+                { mediaProps?.media_type === "Video" && (
                     <div className="mt-[8px] flex-[0_0_auto]">
                         <Link href="">
                             <div className="flex flex-row items-center">

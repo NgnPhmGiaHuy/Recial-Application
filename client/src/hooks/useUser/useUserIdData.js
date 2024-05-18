@@ -2,14 +2,14 @@
 
 import useSWR from "swr";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { fetcherWithoutAccessToken } from "@/utils";
 import { setUserIdContactData, setUserIdFollowerData, setUserIdFollowingData, setUserIdFriendData, setUserIdGroupListData, setUserIdPhotoListData, setUserIdProfileData } from "@/store/actions/user/userIdActions";
 
 export const useUserIdData = (userId) => {
     const dispatch = useDispatch();
-    const currentUser = useSelector(state  => state.user);
+    const currentUser = useSelector(state  => state.user, shallowEqual);
 
     useEffect(() => {
 

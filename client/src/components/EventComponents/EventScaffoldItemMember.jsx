@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 const EventScaffoldItemMember = ({ eventProps }) => {
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     return (
         <div>

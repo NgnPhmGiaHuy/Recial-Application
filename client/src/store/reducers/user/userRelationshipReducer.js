@@ -3,6 +3,7 @@ import { SET_USER_RELATIONSHIP } from "@/store/actions/user/userRelationshipActi
 const initialState = {
     isCurrentUser: false,
     isFriend: false,
+    isNotFriend: true,
     isFriendRequest: false,
 };
 

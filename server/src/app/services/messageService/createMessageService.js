@@ -5,22 +5,30 @@ const Conversation = require("../../models/Conversation");
 class CreateMessageService {
     async createMessageData(sourceId, message_content, message_content_url, conversationId) {
         try {
-            const messagePhotos = await Promise.all(message_content_url.map(async (image) => {
-                const newPhoto = new Photo({
-                    photo_url: image,
-                    photo_privacy: "Public",
-                })
+            const messagePhotos = message_content_url
+                ? await Promise.all(message_content_url.map(async (image) => {
+                    const newPhoto = new Photo({
+                        photo_url: image,
+                        photo_privacy: "Public",
+                    })
 
-                await newPhoto.save();
+                    await newPhoto.save();
 
-                return newPhoto._id
-            }))
+                    return newPhoto._id
+                }))
+                : null;
 
             const newMessage = new Message({
                 source_id: sourceId,
-                message_content: message_content,
-                message_content_url: messagePhotos,
             });
+
+            if (message_content) {
+                newMessage["message_content"] = message_content;
+            }
+
+            if (messagePhotos) {
+                newMessage["message_content_url"] = messagePhotos;
+            }
 
             await newMessage.save();
 

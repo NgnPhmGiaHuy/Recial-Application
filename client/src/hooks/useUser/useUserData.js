@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { getUserProfileData } from "@/utils";
 import { setUserProfileData } from "@/store/actions/user/userActions";
@@ -10,7 +10,7 @@ import { setUserProfileData } from "@/store/actions/user/userActions";
 const useUserData = () => {
     const router = useRouter();
     const dispatch = useDispatch();
-    const userProps = useSelector(state  => state.user);
+    const userProps = useSelector(state  => state.user, shallowEqual);
 
     useEffect(() => {
         const fetchData = async () => {

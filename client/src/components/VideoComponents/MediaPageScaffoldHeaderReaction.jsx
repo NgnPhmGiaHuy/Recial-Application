@@ -1,13 +1,15 @@
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
-import { useMediaReaction } from "@/hooks";
 import { handleFormatNumber } from "@/utils";
+import { useCountComment, useCountLikeReaction } from "@/hooks";
 
 const MediaPageScaffoldHeaderReaction = () => {
-    const mediaProps = useSelector(state => state.media);
+    const mediaProps = useSelector(state => state.media, shallowEqual);
 
-    const { totalLike, totalComment } = useMediaReaction();
+    const totalLike = useCountLikeReaction(mediaProps);
+    const totalComment = useCountComment(mediaProps);
+    console.log(mediaProps)
 
     return (
         <div>

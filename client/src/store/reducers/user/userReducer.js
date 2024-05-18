@@ -2,8 +2,8 @@ import { createPostComment, createPostReaction, updatePostReaction } from "@/uti
 
 import { SET_USER_POST_DATA, SET_USER_PROFILE_DATA, SET_USER_NOTIFICATION_DATA, SET_USER_CONTACT_DATA, SET_USER_MESSAGE_DATA, SET_USER_MESSAGE_LOADING, SET_USER_SETTING_DATA, SET_USER_FRIEND_DATA, SET_USER_SEARCH_DATA, SET_USER_FOLLOWING_DATA, SET_USER_FOLLOWER_DATA, SET_USER_PHOTO_LIST_DATA, SET_USER_GROUP_LIST_DATA, SET_USER_FRIEND_REQUEST_DATA } from "../../actions/user/userActions";
 import { CREATE_USER_POST_DATA, CREATE_USER_POST_COMMENT_DATA, CREATE_USER_POST_REACTION_DATA } from "../../actions/user/userActions";
-import { UPDATE_USER_POST_REACTION_DATA } from "../../actions/user/userActions";
-import { DELETE_USER_POST_DATA } from "../../actions/user/userActions";
+import { UPDATE_USER_MESSAGE_DATA, UPDATE_USER_POST_REACTION_DATA } from "../../actions/user/userActions";
+import { DELETE_USER_POST_DATA, DELETE_USER_CONVERSATION_DATA } from "../../actions/user/userActions";
 import { CLEAR_USER_POST_DATA, CLEAR_USER_MESSAGE_DATA } from "../../actions/user/userActions";
 
 const initialState = {
@@ -140,6 +140,21 @@ const userReducer = (state  = initialState, action) => {
             return createPostComment(state, action);
         case CREATE_USER_POST_REACTION_DATA:
             return createPostReaction(state, action);
+        case UPDATE_USER_MESSAGE_DATA:
+            const updatedUserMessage = state.user_messages.message_list.slice();
+
+            updatedUserMessage.unshift(...action.payload);
+
+            return {
+                ...state,
+                user_messages: {
+                    ...state.user_messages.isLoading,
+                    message_list: {
+                        ...state.user_messages.messages.message_list,
+                        messages: updatedUserMessage,
+                    }
+                }
+            }
         case UPDATE_USER_POST_REACTION_DATA:
             return updatePostReaction(state, action);
         case DELETE_USER_POST_DATA:
@@ -152,6 +167,19 @@ const userReducer = (state  = initialState, action) => {
                     posts: updatedPosts,
                 }
             };
+        case DELETE_USER_CONVERSATION_DATA:
+            const updatedUserConversations = state.user_messages.message_list.messages.filter(message => message._id.toString() !== action.payload.toString());
+
+            return {
+                ...state,
+                user_messages: {
+                    ...state.user_messages.isLoading,
+                    message_list: {
+                        ...state.user_messages.message_list.ref,
+                        messages: updatedUserConversations,
+                    }
+                }
+            }
         case CLEAR_USER_POST_DATA:
             return {
                 ...state,

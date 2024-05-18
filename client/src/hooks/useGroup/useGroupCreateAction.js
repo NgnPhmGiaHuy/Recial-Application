@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { useClickOutside, useMultipleHandleState, useMultipleRefs } from "@/hooks";
 import { toggleGroupPrivacy, toggleGroupVisible } from "@/store/actions/toggle/toggleActions";
@@ -14,8 +14,8 @@ const useGroupCreateAction = () => {
     const [groupVisible, setGroupVisible] = useState("Visible");
     const [inputData, setInputData] = useState({ inputValue: "", isInputFocused: false });
 
-    const { showGroupPrivacy } = useSelector(state => state.toggle);
-    const { showGroupVisible } = useSelector(state => state.toggle);
+    const { showGroupPrivacy } = useSelector(state => state.toggle, shallowEqual);
+    const { showGroupVisible } = useSelector(state => state.toggle, shallowEqual);
 
     const handleInputFocus = () => {
         setInputData(prevState => ({ ...prevState, isInputFocused: true }));

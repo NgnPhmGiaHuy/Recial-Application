@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 const GroupPageHeaderCover = () => {
-    const groupProps = useSelector(state => state.group);
+    const groupProps = useSelector(state => state.group, shallowEqual);
 
     return (
         <div className="flex flex-row flex-nowrap items-stretch justify-center bg-white relative">

@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { useGetUserDataFetcher, useCheckUserFriend } from "@/hooks";
 import { setUserRelationship } from "@/store/actions/user/userRelationshipActions";
@@ -10,10 +10,10 @@ import { setUserContactData, setUserFollowerData, setUserFollowingData, setUserF
 
 const useUserIdLayout = (params) => {
     const dispatch = useDispatch();
-    const currentUser = useSelector(state => state.user);
+    const currentUser = useSelector(state => state.user, shallowEqual);
 
     const isCurrentUser = useUserIdData(params.userId);
-    const userProps = isCurrentUser ? useSelector(state => state.user) : useSelector(state => state.userId);
+    const userProps = isCurrentUser ? useSelector(state => state.user, shallowEqual) : useSelector(state => state.userId, shallowEqual);
 
     isCurrentUser ? useGetUserDataFetcher("friend-request", setUserFriendRequestData): null;
     isCurrentUser ? useGetUserDataFetcher("friend", setUserFriendData) : useGetUserFriendById(params.userId);
@@ -27,7 +27,7 @@ const useUserIdLayout = (params) => {
     const { isFriend, isFriendRequest } = useCheckUserFriend(currentUser, userProps);
 
     useEffect(() => {
-        dispatch(setUserRelationship({ isCurrentUser, isFriend, isFriendRequest }))
+        dispatch(setUserRelationship({ isCurrentUser, isFriend, isNotFriend: !isCurrentUser && !isFriend && !isFriendRequest ,isFriendRequest }))
     }, [isCurrentUser, isFriend, isFriendRequest]);
 
     return { currentUser, isCurrentUser, isFriend, isFriendRequest };

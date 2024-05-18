@@ -1,5 +1,6 @@
 "use client"
 
+import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 
 const useDecodeToken = () => {
@@ -9,8 +10,14 @@ const useDecodeToken = () => {
         const token = localStorage.getItem("accessToken");
 
         if (token) {
-            const decoded = JSON.parse(atob(token.split('.')[1]));
-            setDecodedToken(decoded);
+            try {
+                const decoded = jwtDecode(token);
+
+                setDecodedToken(decoded);
+            } catch (error) {
+                console.error("Error decoding token:", error);
+                setDecodedToken(null);
+            }
         }
     }, []);
 

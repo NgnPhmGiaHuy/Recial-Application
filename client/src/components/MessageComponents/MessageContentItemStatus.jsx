@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 const MessageContentItemStatus = ({ messageProps }) => {
-    const userProps = useSelector((state) => state.user);
+    const userProps = useSelector((state) => state.user, shallowEqual);
 
     return (
-        <div>
-            <div className="flex flex-col flex-shrink-0 relative p-[6px]">
+        <>
+            <div className="p-[6px] flex flex-col flex-shrink-0 relative">
                 <div className="flex flex-row flex-nowrap items-center">
                     <i className="w-[20px] h-[20px] flex items-center justify-center rounded-full overflow-hidden relative">
                         { messageProps?.is_mute ? (
@@ -23,7 +23,7 @@ const MessageContentItemStatus = ({ messageProps }) => {
                     </i>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

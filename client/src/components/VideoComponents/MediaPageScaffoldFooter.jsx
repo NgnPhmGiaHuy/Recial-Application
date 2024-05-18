@@ -1,15 +1,15 @@
 "use client"
 
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { useCommentMediaData, useContentEditable } from "@/hooks";
 
 const MediaPageScaffoldFooter = ({ isComment, handleShowReplyPanel }) => {
-    const userProps = useSelector(state => state.user);
-    const mediaProps = useSelector(state => state.media);
+    const userProps = useSelector(state => state.user, shallowEqual);
+    const mediaProps = useSelector(state => state.media, shallowEqual);
 
-    const { inputContentEditableRef, inputText, setInputText, setAllowSubmit, allowSubmit, handleInputTextChange } = useContentEditable()
+    const { inputRef, inputText, setInputText, setAllowSubmit, allowSubmit, handleInputTextChange } = useContentEditable()
 
     const { commentSubmitStatus, handleSetCommentData } = useCommentMediaData();
 
@@ -21,7 +21,7 @@ const MediaPageScaffoldFooter = ({ isComment, handleShowReplyPanel }) => {
         const resetInput = () => {
             setInputText('');
             setAllowSubmit(false);
-            inputContentEditableRef.current.innerText = '';
+            inputRef.current.innerText = '';
         };
 
         resetInput();
@@ -34,7 +34,7 @@ const MediaPageScaffoldFooter = ({ isComment, handleShowReplyPanel }) => {
                     <div className="h-auto mr-[8px] my-[10px] flex-[1_1_auto]">
                         <div className="max-h-[68px] min-h-[17px] text-[14px] no-scrollbar text-black text-left break-words overflow-y-auto leading-4">
                             <div className="flex items-center relative">
-                                <div className="w-full h-full select-text whitespace-pre-wrap break-words outline-none relative" contentEditable={true} spellCheck={false} onInput={handleInputTextChange} ref={inputContentEditableRef}>
+                                <div className="w-full h-full select-text whitespace-pre-wrap break-words outline-none relative" contentEditable={true} spellCheck={false} onInput={handleInputTextChange} ref={inputRef}>
                                 </div>
                                 <div className="top-[1px] text-[14px] text-zinc-500 text-ellipsis pointer-events-none absolute leading-4">
                                     <div className="whitespace-pre-wrap">

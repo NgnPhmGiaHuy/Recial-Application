@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
-import { PostItemCommentInput } from "@/components";
+import {ImageWithMetadata, PostItemCommentInput} from "@/components";
 import { formatShortTimeAgo, handleFormatNumber } from "@/utils";
 import { useMostReactedIcons, useOverflowText, useToggleState } from "@/hooks";
 
@@ -91,6 +91,13 @@ const PostItemCommentScaffold = ({ postProps, isRely }) => {
                     ) : null}
                 </div>
             </div>
+            { postProps?.comment_content_url && (
+                <div className="ml-[44px] pr-[16px] pt-[12px] pb-[12px]">
+                    <div className="max-w-[300px] max-h-[300px] overflow-hidden relative">
+                        <ImageWithMetadata src={postProps?.comment_content_url?.photo_url} alt={`${postProps?.comment_content_url?.photo_url}-image`} fill={true} parentWidth={300} parentHeight={300} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                    </div>
+                </div>
+            ) }
             <div>
                 <div className="ml-[44px] pl-[8px]">
                     <div className="mt-[4px] flex items-center">

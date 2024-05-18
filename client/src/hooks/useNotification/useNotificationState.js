@@ -1,12 +1,12 @@
 "use client"
 
-import { useSelector } from "react-redux";
 import { useCallback, useState } from "react";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { useFilteredNotification } from "@/hooks";
 
 const useNotificationState = () => {
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     const [showTypeNotification, setShowTypeNotification] = useState("all");
 

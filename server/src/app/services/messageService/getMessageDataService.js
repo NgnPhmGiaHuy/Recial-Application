@@ -1,6 +1,7 @@
 const User = require("../../models/User");
 const Status = require("../../models/Status");
 const Message = require("../../models/Message");
+
 const photoDataService = require("../mediaService/photoDataService");
 
 class GetMessageDataService {
@@ -62,7 +63,7 @@ class GetMessageDataService {
                     user: userData,
                     message_content: "",
                     message_status: "Delete",
-                    message_content_url: messagePhoto,
+                    message_content_url: null,
                     ...otherMessageData,
                     created_at: createdAt,
                     updated_at: updatedAt,

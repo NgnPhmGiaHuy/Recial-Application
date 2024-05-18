@@ -1,47 +1,54 @@
 "use client"
 
-import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { shallowEqual, useSelector } from "react-redux";
 
-import { useToggleState } from "@/hooks";
-
-const useMediaNavigation = () => {
+const useMediaNavigation = (url) => {
     const router = useRouter();
-    const mediaProps = useSelector(state => state.media);
-    const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
+    const mediaProps = useSelector(state => state.media, shallowEqual);
 
-    const [showPrevButton, setShowPrevButton, handleShowPrevButton] = useToggleState(false);
-    const [showNextButton, setShowNextButton, handleShowNextButton] = useToggleState(false);
+    const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
+    const [showPrev, setShowPrev] = useState(false);
+    const [showNext, setShowNext] = useState(false);
 
     useEffect(() => {
-        const currentIndex = mediaProps?.media?.media_recent?.indexOf(mediaProps?.media?._id);
+        const currentIndex = mediaProps?.media_recent?.indexOf(mediaProps?._id);
         if (currentIndex !== -1) {
             setCurrentMediaIndex(currentIndex);
         }
     }, [mediaProps]);
 
-    const fetchMediaURL = (mediaId, mediaType) => {
-        let mediaURL;
-        if (mediaType === "Story") {
-            mediaURL = `http://localhost:3000/story?user=${mediaProps?.media?.user?._id}&set=${mediaId}`;
-        } else if (mediaType === "Photo") {
-            mediaURL = `http://localhost:3000/post?user=${mediaProps?.media?.user?._id}&post=${mediaProps.media.media_set}&photo=${mediaId}`;
+    useEffect(() => {
+        if (mediaProps?.media_recent) {
+            setShowPrev(currentMediaIndex !== 0);
+            setShowNext(currentMediaIndex < mediaProps.media_recent.length - 1);
         }
-        return mediaURL;
+    }, [currentMediaIndex, mediaProps, setShowPrev, setShowNext]);
+
+
+    const fetchMediaURL = (mediaId) => {
+        const urlObject = new URL(url, window.location.origin);
+        const params = new URLSearchParams(urlObject.search);
+
+        params.set("photo", mediaId);
+
+        urlObject.search = params.toString();
+
+        return urlObject.pathname + urlObject.search;
     };
 
     const fetchMedia = (indexDelta) => {
-        const newIndex = (currentMediaIndex + indexDelta + mediaProps?.media?.media_recent?.length) % mediaProps?.media?.media_recent?.length;
-        const newMediaId = mediaProps?.media?.media_recent[newIndex];
+        const newIndex = currentMediaIndex + indexDelta;
 
-        if (newMediaId) {
-            const mediaType = mediaProps.media.media_type;
-            const mediaURL = fetchMediaURL(newMediaId, mediaType);
+        if (newIndex >= 0 && newIndex < mediaProps?.media_recent?.length) {
+            const newMediaId = mediaProps.media_recent[newIndex];
 
-            router.push(mediaURL);
+            const mediaURL = fetchMediaURL(newMediaId);
 
-            setCurrentMediaIndex(newIndex);
+            router.replace(mediaURL);
+
+            return setCurrentMediaIndex(newIndex);
         }
     };
 
@@ -53,11 +60,11 @@ const useMediaNavigation = () => {
         fetchMedia(1);
     };
 
-    const handleExistClick = () => {
+    const handleExistClick = async () => {
         return router.back();
     };
 
-    return { currentMediaIndex, showPrevButton, showNextButton, handleExistClick, handleShowPrevButton, handleShowNextButton, fetchPreviousMedia, fetchNextMedia };
+    return { currentMediaIndex, showPrev, showNext, handleExistClick, fetchPreviousMedia, fetchNextMedia };
 };
 
 export default useMediaNavigation;

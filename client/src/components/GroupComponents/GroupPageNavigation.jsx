@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { GroupPageNavigationButton } from "@/components";
 import { GROUP_PAGE_NAVIGATION_BUTTON_OPTIONS } from "@/constants/GroupConstants/GroupPageNavigationConstants";
 
 const GroupPageNavigation = () => {
-    const groupProps = useSelector(state => state.group);
+    const groupProps = useSelector(state => state.group, shallowEqual);
 
     const button = GROUP_PAGE_NAVIGATION_BUTTON_OPTIONS(groupProps).filter(Boolean);
 

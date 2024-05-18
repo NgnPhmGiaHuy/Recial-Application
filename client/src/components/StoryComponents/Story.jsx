@@ -2,15 +2,15 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
-import { useSliderScroll, useStoryData } from "@/hooks";
+import { useSliderScroll, useUserStoryData } from "@/hooks";
 import { MediumNextButton, MediumPrevButton, StoryItem } from "@/components";
 
 const Story = () => {
-    const userProps = useSelector(state => state.user);
+    const userProps = useSelector(state => state.user, shallowEqual);
 
-    const { storyProps } = useStoryData();
+    const { storyProps } = useUserStoryData();
     const { itemRefs, containerRef, scrollLeftVisible, scrollRightVisible, handleScroll } = useSliderScroll({ storyProps });
 
     return (

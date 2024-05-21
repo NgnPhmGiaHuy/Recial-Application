@@ -16,7 +16,7 @@ const UserProfileCover = () => {
                         <figure className="w-full h-[134px] rounded-t-xl overflow-hidden relative">
                             { userProps?.user?.profile?.profile_cover_photo_url && (
                                 <div className="w-full h-full bg-white relative">
-                                    <Image src={userProps?.user?.profile?.profile_cover_photo_url} alt={`${userProps?.user?.profile?.profile_cover_photo_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                    <Image src={userProps?.user?.profile?.profile_cover_photo_url} alt={`${userProps?.user?.profile?.profile_cover_photo_url}-image`} fill={true} loading="lazy" sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 </div>
                             ) }
                         </figure>
@@ -27,7 +27,7 @@ const UserProfileCover = () => {
                         <div className="mt-[64px] flex flex-col relative">
                             <div className="h-0">
                                 <div className="w-[128px] h-[128px] border-2 border-solid border-white rounded-xl overflow-hidden relative translate-y-[-100%]">
-                                    <Image src={userProps?.user?.profile?.profile_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                    <Image src={userProps?.user?.profile?.profile_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url}-image`} fill={true} loading="lazy" sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 </div>
                             </div>
                             <div className="mt-[8px] flex flex-col relative">

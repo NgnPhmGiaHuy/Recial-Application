@@ -1,14 +1,33 @@
+"use client"
+
+import { useDispatch } from "react-redux";
+
 import { useGetMediaFetcher } from "@/hooks";
 import { setMediaAuthor, setMediaComment, setMediaData, setMediaReaction, setMediaRecent } from "@/store/actions/media/mediaActions";
 
 const usePostMediaData = (user, post, photo) => {
-    const mediaProps = useGetMediaFetcher(`photo/?photo_id=${photo}`, setMediaData);
-    const mediaAuthorProps = useGetMediaFetcher(`post/author/?user_id=${user}`, setMediaAuthor);
-    const mediaCommentProps = useGetMediaFetcher(`post/comment/?photo_id=${photo}`, setMediaComment);
-    const mediaReactionProps = useGetMediaFetcher(`post/reaction/?photo_id=${photo}`, setMediaReaction);
-    const mediaPhotoRecentProps = useGetMediaFetcher(`post/recent/?post_id=${post}`, setMediaRecent);
+    const dispatch = useDispatch();
 
-    return { mediaProps, mediaPhotoRecentProps, mediaAuthorProps, mediaCommentProps, mediaReactionProps }
+    const endpoints = [
+        { url: `photo/?photo_id=${photo}`, action: setMediaData },
+        { url: `post/author/?user_id=${user}`, action: setMediaAuthor },
+        { url: `post/comment/?photo_id=${photo}`, action: setMediaComment },
+        { url: `post/reaction/?photo_id=${photo}`, action: setMediaReaction },
+        { url: `post/recent/?post_id=${post}`, action: setMediaRecent },
+    ]
+
+    const results = endpoints.map(({ url, action }) => useGetMediaFetcher(url, action, dispatch))
+
+    return {
+        mediaProps: results[0].data,
+        mediaAuthorProps: results[1].data,
+        mediaCommentProps: results[2].data,
+        mediaReactionProps: results[3].data,
+        mediaPhotoRecentProps: results[3].data,
+        errors: results.map(result => result.error),
+        loadingStates: results.map(result => result.isLoading),
+        validatingStates: results.map(result => result.isValidating),
+    }
 }
 
 export default usePostMediaData;

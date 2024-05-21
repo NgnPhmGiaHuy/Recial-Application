@@ -1,24 +1,31 @@
-import dynamic from 'next/dynamic';
+"use client"
 
-import { GlobalMuteProvider } from "@/components/ProviderComponents/GlobalMuteProvider";
-const DynamicVideoScaffoldItem = dynamic(() => import("@/components/VideoComponents/VideoScaffoldItem"), { ssr: false });
+import { useState } from "react";
+import { shallowEqual, useSelector } from "react-redux";
 
-const VideoScaffold = ({ videoProps }) => {
+import { LoadingComponent, VideoScaffoldItem } from "@/components";
+
+const VideoScaffold = () => {
+    const [globalMute, setGlobalMute] = useState(false);
+    const watchProps = useSelector(state => state.watch, shallowEqual);
+
     return (
-        <GlobalMuteProvider>
-            <section className="mt-[16px] mr-[24px] min-h-screen flex flex-col rounded-md bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-x-hidden relative no-scrollbar">
-                <main className="flex flex-col grow rounded-md order-4">
-                    <div className="h-screen pt-[32px] scroll-pt-8 snap-y snap-mandatory overscroll-y-auto">
-                        <div className="flex flex-col gap-[32px]">
-                            {videoProps.map((value, index) => (
-                                <DynamicVideoScaffoldItem key={index} autoPlay={index === 0} videoProps={value}/>
-                            ))}
-                        </div>
+        <section className="w-full flex flex-col items-center justify-center relative">
+            <main className="w-full flex flex-row flex-wrap items-stretch justify-center">
+                <div className="w-full flex flex-col items-stretch">
+                    <div ref={watchProps?.watch_list?.ref} className="w-full max-h-[calc(-60px+100lvh)] overflow-y-scroll snap-y snap-mandatory z-10">
+                        { watchProps?.watch_list?.video_list?.map((value, index) => (
+                            <VideoScaffoldItem key={index} autoPlay={index === 0} globalMute={globalMute} setGlobalMute={setGlobalMute} videoProps={value}/>
+                        )) }
                     </div>
-                </main>
-            </section>
-        </GlobalMuteProvider>
+                    { watchProps?.isLoading && (
+                        <LoadingComponent/>
+                    ) }
+                </div>
+            </main>
+        </section>
     );
 };
 
 export default VideoScaffold;
+

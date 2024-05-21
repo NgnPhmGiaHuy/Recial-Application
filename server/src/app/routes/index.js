@@ -7,6 +7,8 @@ const roleRoutes = require("../routes/role/roleRoutes");
 const suggestRoutes = require("../routes/suggestRoutes");
 const storyRouter = require("../routes/media/storyRoutes");
 const mediaRoutes = require("../routes/media/mediaRoutes");
+const watchRoutes = require("../routes/video/watchRoutes");
+const videoRoutes = require("../routes/video/videoRoutes");
 const groupRoutes = require("../routes/group/groupRoutes");
 const postIdRoutes = require("../routes/post/postIdRoutes");
 const userIdRouter = require("../routes/user/userIdRoutes");
@@ -24,7 +26,9 @@ const routes = (app) => {
     app.use("/api/v1/public/media/", mediaRoutes);
     app.use("/api/v1/public/group/", groupRoutes);
 
+    app.use("/api/v1/secure/video/", MiddlewareController.setCORPHeader("cross-origin"), videoRoutes);
     app.use("/api/v1/secure/role/", MiddlewareController.verifyToken, roleRoutes);
+    app.use("/api/v1/secure/watch/", MiddlewareController.verifyToken, watchRoutes);
     app.use("/api/v1/secure/event/", MiddlewareController.verifyToken, eventRoutes);
     app.use("/api/v1/secure/story/", MiddlewareController.verifyToken, storyRouter);
     app.use("/api/v1/secure/comment/", MiddlewareController.verifyToken, commentRoutes);

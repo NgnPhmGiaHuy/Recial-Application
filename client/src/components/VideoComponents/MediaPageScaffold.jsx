@@ -1,12 +1,10 @@
 "use client"
 
-import dynamic from "next/dynamic";
 import { shallowEqual, useSelector } from "react-redux";
 
-import { MediaPhotoPageScaffoldItem, MediaPageScaffoldAside } from "@/components";
-const DynamicVideoPageScaffoldItem = dynamic(() => import("@/components/VideoComponents/VideoPageScaffoldItem"), { ssr: false });
+import { MediaPhotoPageScaffoldItem, MediaPageScaffoldAside, VideoPageScaffoldItem } from "@/components";
 
-const MediaPageScaffold = ({ videoProps }) => {
+const MediaPageScaffold = ({ progress }) => {
     const mediaProps = useSelector(state => state.media, shallowEqual);
 
     return (
@@ -15,7 +13,9 @@ const MediaPageScaffold = ({ videoProps }) => {
                 { mediaProps?.media_type?.toLowerCase() === "photo" && (
                     <MediaPhotoPageScaffoldItem/>
                 ) }
-                {/*<DynamicVideoPageScaffoldItem videoProps={videoProps}/>*/}
+                { mediaProps?.media_type?.toLowerCase() === "video" && (
+                    <VideoPageScaffoldItem progress={progress}/>
+                ) }
             </div>
             <MediaPageScaffoldAside/>
         </div>

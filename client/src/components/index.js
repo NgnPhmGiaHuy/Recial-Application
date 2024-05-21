@@ -252,6 +252,8 @@ import VideoScaffold from "@/components/VideoComponents/VideoScaffold";
 import VideoScaffoldItem from "@/components/VideoComponents/VideoScaffoldItem";
 import VideoScaffoldItemInfo from "@/components/VideoComponents/VideoScaffoldItemInfo";
 import VideoScaffoldItemAside from "@/components/VideoComponents/VideoScaffoldItemAside";
+import VideoScaffoldItemAsideIcon from "@/components/VideoComponents/VideoScaffoldItemAsideIcon";
+import VideoScaffoldItemControl from "@/components/VideoComponents/VideoScaffoldItemControl";
 import MediaPageScaffold from "@/components/VideoComponents/MediaPageScaffold";
 import MediaPageScaffoldAside from "@/components/VideoComponents/MediaPageScaffoldAside";
 import VideoPageScaffoldItem from "@/components/VideoComponents/VideoPageScaffoldItem";
@@ -547,6 +549,8 @@ export {
     VideoScaffoldItem,
     VideoScaffoldItemInfo,
     VideoScaffoldItemAside,
+    VideoScaffoldItemAsideIcon,
+    VideoScaffoldItemControl,
     MediaPageScaffold,
     MediaPageScaffoldAside,
     VideoPageScaffoldItem,

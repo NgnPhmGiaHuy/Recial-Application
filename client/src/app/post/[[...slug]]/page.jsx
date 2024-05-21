@@ -12,7 +12,7 @@ const PostPage = ({ searchParams }) => {
     const photo = urlParams.get("photo");
 
     const { userProps } = useUserData();
-    const { mediaProps } = usePostMediaData(user, post, photo);
+    const { errors, loadingStates } = usePostMediaData(user, post, photo);
 
     // const onDataReceived = async (data) => {
     //     await handleNewPostData(data, mediaProps, setMediaProps)
@@ -20,16 +20,21 @@ const PostPage = ({ searchParams }) => {
     //
     // useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
+    const hasError = errors.some(error => error);
+    const isLoading = loadingStates.some(isLoading => isLoading);
+
+    if (isLoading) {
+        return <LoadingPageComponent />;
+    }
+
+    if (hasError) {
+        return <div>Error loading data...</div>;
+    }
+
     return (
-        <>
-            { mediaProps ? (
-                <div className="relative">
-                    <MediaPageScaffold/>
-                </div>
-            ) : (
-                <LoadingPageComponent/>
-            ) }
-        </>
+         <div className="relative">
+             <MediaPageScaffold/>
+         </div>
     );
 };
 

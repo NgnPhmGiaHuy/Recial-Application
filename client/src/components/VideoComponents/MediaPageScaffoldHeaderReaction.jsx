@@ -9,7 +9,6 @@ const MediaPageScaffoldHeaderReaction = () => {
 
     const totalLike = useCountLikeReaction(mediaProps);
     const totalComment = useCountComment(mediaProps);
-    console.log(mediaProps)
 
     return (
         <div>

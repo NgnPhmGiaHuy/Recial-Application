@@ -1,7 +1,12 @@
-import { fakeVideoListData } from "@/constants";
+"use client"
+
+import { useUserData, useWatchData, useWithAuth } from "@/hooks";
 import { AsideScaffold, Header, VideoScaffold } from "@/components";
 
 const MovieSavedPage = () => {
+    const { userProps } = useUserData();
+    const { watchProps } = useWatchData();
+
     return (
         <div>
             <Header/>
@@ -14,8 +19,8 @@ const MovieSavedPage = () => {
                                     <AsideScaffold aside={{ title: "Video", role: { watch: true } }}/>
                                 </div>
                             </div>
-                            <div className="w-full min-h-[inherit] flex flex-col flex-shrink grow basis-0 relative">
-                                <VideoScaffold videoProps={fakeVideoListData}/>
+                            <div className="flex flex-col flex-shrink grow basis-0 relative">
+                                <VideoScaffold/>
                             </div>
                         </div>
                     </div>
@@ -25,4 +30,4 @@ const MovieSavedPage = () => {
     );
 };
 
-export default MovieSavedPage;
+export default useWithAuth(MovieSavedPage);

@@ -1,7 +1,7 @@
 import { shallowEqual, useSelector } from "react-redux";
 
-import { MediaPageScaffoldCommentItem, MediaPageScaffoldFooter, MediaPageScaffoldHeader } from "@/components";
 import { useCountComment } from "@/hooks";
+import { MediaPageScaffoldCommentItem, MediaPageScaffoldFooter, MediaPageScaffoldHeader } from "@/components";
 
 const MediaPageScaffoldAside = () => {
     const mediaProps = useSelector(state => state.media, shallowEqual);

@@ -6,12 +6,11 @@ import { usePhotoData, useUserData, useWebSocket, useWithAuth } from "@/hooks";
 
 const PhotoPage = ({ searchParams }) => {
     const urlParams = new URLSearchParams(searchParams);
-
     const user = urlParams.get("user");
     const photo = urlParams.get("photo");
 
     const { userProps } = useUserData();
-    const { mediaProps } = usePhotoData(user, photo);
+    const { errors, loadingStates } = usePhotoData(user, photo);
 
     // const onDataReceived = async (data) => {
     //     await handleNewPostData(data, mediaProps, setMediaProps)
@@ -19,16 +18,21 @@ const PhotoPage = ({ searchParams }) => {
     //
     // useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
+    const hasError = errors.some(error => error);
+    const isLoading = loadingStates.some(isLoading => isLoading);
+
+    if (isLoading) {
+        return <LoadingPageComponent />;
+    }
+
+    if (hasError) {
+        return <div>Error loading data...</div>;
+    }
+
     return (
-        <>
-            { mediaProps ? (
-                <div className="relative">
-                    <MediaPageScaffold/>
-                </div>
-            ) : (
-                <LoadingPageComponent/>
-            ) }
-        </>
+        <div className="relative">
+            <MediaPageScaffold/>
+        </div>
     );
 };
 

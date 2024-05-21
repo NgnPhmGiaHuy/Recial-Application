@@ -8,21 +8,25 @@ import { useScrollHandler } from "@/hooks";
 import { fetchDataWithAccessToken } from "@/utils";
 import { setPostData } from "@/store/actions/post/postActions";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/post/";
+
 const useGetPostData = () => {
     const dispatch = useDispatch();
 
     const router = useRouter();
     const postRef = useRef(null);
 
-    const [isLoading, setIsLoading] = useState(false);
     const [postProps, setPostProps] = useState([]);
 
-    const fetchData = async () => {
-        setIsLoading(true);
-        try {
-            const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/post/";
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
-            const postProps = await fetchDataWithAccessToken(url, "GET");
+    const fetchData = async () => {
+        setError(null);
+        setIsLoading(true);
+
+        try {
+            const postProps = await fetchDataWithAccessToken(API_URL, "GET");
 
             if (!postProps && postProps.error) {
                 return router.push("/auth/login");
@@ -34,7 +38,8 @@ const useGetPostData = () => {
                 return console.error("Post data is not iterable");
             }
         } catch (error) {
-            return console.error(error);
+            console.error(error);
+            return setError(error.message);
         } finally {
             setIsLoading(false);
         }
@@ -56,7 +61,7 @@ const useGetPostData = () => {
         }
     }, [postRef, postProps, dispatch]);
 
-    return { postProps, setPostProps, postRef };
+    return { postProps, setPostProps, postRef, isLoading, error };
 };
 
 export default useGetPostData;

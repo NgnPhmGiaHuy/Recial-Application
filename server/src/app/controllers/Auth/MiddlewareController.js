@@ -31,6 +31,19 @@ class MiddlewareController {
             return res.status(500).json({ error: "Internal server error" });
         }
     };
+
+    setCORPHeader = (policy) => {
+        return (req, res, next) => {
+            const requestOrigin = req.get("origin");
+
+            if (requestOrigin && requestOrigin === "http://localhost:3000") {
+                res.set("Cross-Origin-Resource-Policy", "same-site");
+            } else {
+                res.set("Cross-Origin-Resource-Policy", policy);
+            }
+            next();
+        };
+    };
 }
 
 module.exports = new MiddlewareController();

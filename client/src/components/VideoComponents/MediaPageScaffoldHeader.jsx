@@ -37,7 +37,7 @@ const MediaPageScaffoldHeader = () => {
                             ) : null}
                         </Link>
                         <div className="flex flex-row items-center relative">
-                            { mediaProps?.media_type.toLowerCase() === "video" ? (
+                            { mediaProps?.media_type?.toLowerCase() === "video" ? (
                                 <>
                                     <span className="text-[14px] text-black text-left font-normal break-words relative leading-5">
                                         <span className="overflow-hidden text-ellipsis line-clamp-1 relative">

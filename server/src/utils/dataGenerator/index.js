@@ -78,7 +78,7 @@ const generateDummyData = async () => {
 
         const allPhotos = await Photo.find({});
 
-        const allVideos = await generateVideoData(allUsers, 10);
+        const allVideos = await generateVideoData(allUsers, 2);
         // const allVideos = await Video.find({});
 
         const allStories = await generateStoryData(allUsers, 100);

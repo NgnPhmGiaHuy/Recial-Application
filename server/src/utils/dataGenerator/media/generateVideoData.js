@@ -11,7 +11,7 @@ const generateVideoData = async (allUsers, maxNumberOfVideos) => {
             const videosProps = await Promise.all(Array.from({ length: numberOfVideos }, async () => {
                 const video = new Video ({
                     _id: new mongoose.Types.ObjectId(),
-                    video_url: faker.internet.url(),
+                    video_url: `/Users/yuh.nguyenpham/GitHub/Recial-Application/server/src/public/videos/video-${faker.number.int(50)}.mp4`,
                     video_title: faker.lorem.text(),
                     video_description: faker.lorem.paragraph(),
                     video_thumbnail: faker.image.url(),

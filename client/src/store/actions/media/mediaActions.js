@@ -5,6 +5,7 @@ export const SET_MEDIA_DATA_COMMENT = "SET_MEDIA_DATA_COMMENT";
 export const SET_MEDIA_DATA_REACTION = "SET_MEDIA_DATA_REACTION";
 
 export const CLEAR_MEDIA_DATA = "CLEAR_MEDIA_DATA";
+export const CLEAR_MEDIA_DATA_RECENT = "CLEAR_MEDIA_DATA_RECENT";
 
 export const setMediaData = (mediaData) => ({
     type: SET_MEDIA_DATA,
@@ -33,4 +34,8 @@ export const setMediaReaction = (mediaReaction) => ({
 
 export const clearMediaData = () => ({
     type: CLEAR_MEDIA_DATA,
+})
+
+export const clearMediaDataRecent = () => ({
+    type: CLEAR_MEDIA_DATA_RECENT,
 })

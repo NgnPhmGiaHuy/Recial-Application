@@ -38,4 +38,6 @@ server/src/.env
 **next-env.d.ts
 
 # file
+**/public/videos/**.mp4
+/server/src/public/videos/*
 **rock-drake-399814-9b8c1b3a2eef.json

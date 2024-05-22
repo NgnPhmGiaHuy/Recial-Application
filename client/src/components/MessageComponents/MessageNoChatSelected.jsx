@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import Message from "@/public/images/Icon/message.png";
+import MessageImage from "/public/images/Icon/message.png";
 
 const MessageNoChatSelected = () => {
     return (
@@ -11,7 +11,7 @@ const MessageNoChatSelected = () => {
                         <div className="flex flex-col grow justify-center relative">
                             <div className="pb-[12px] flex flex-col flex-shrink-0 items-center justify-center relative">
                                 <div className="w-[256px] h-[256px] flex items-center justify-center relative overflow-hidden">
-                                    <Image src={Message} alt={`${Message}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                                    <Image src={MessageImage} alt={`${MessageImage}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                                 </div>
                             </div>
                             <div className="pt-[20px] flex flex-col flex-shrink-0 items-center relative">

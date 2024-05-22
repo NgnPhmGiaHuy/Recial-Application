@@ -27,8 +27,11 @@
 # local env files
 **.env
 **.env*.local
+**.env*.production
 client/src/.env
 server/src/.env
+client/src/.env.production
+server/src/.env.production
 
 # vercel
 **.vercel
@@ -41,3 +44,4 @@ server/src/.env
 **/public/videos/**.mp4
 /server/src/public/videos/*
 **rock-drake-399814-9b8c1b3a2eef.json
+

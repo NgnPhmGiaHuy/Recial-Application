@@ -21,7 +21,12 @@ const limiter = rateLimit({
     max: 100,
 });
 
-app.use(cors());
+const corsOptions = {
+    origin: 'https://recial-client-dot-recial-application.as.r.appspot.com',
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use(helmet());
 // app.use(limiter)

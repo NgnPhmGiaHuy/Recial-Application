@@ -1,0 +1,19 @@
+runtime: nodejs20
+
+service: recial-client
+
+handlers:
+  - url: /.*
+    secure: always
+    script: auto
+
+env_variables:
+  NODE_ENV: "production"
+
+automatic_scaling:
+  min_idle_instances: automatic
+  max_idle_instances: automatic
+  min_pending_latency: automatic
+  max_pending_latency: automatic
+
+service_account: recial-application@appspot.gserviceaccount.com

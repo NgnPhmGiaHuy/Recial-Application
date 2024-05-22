@@ -1,7 +1,7 @@
 import { shallowEqual, useSelector } from "react-redux";
 
 import { PageScaffoldAsideCard, PageScaffoldAsideHeader, PageScaffoldAsideSecurityCard } from "@/components";
-import { aboutCardConstants, communityCardConstants } from "@/constants/PageConstants/pageScaffoldAsideConstants";
+import { aboutCardConstants, communityCardConstants } from "@/constants/PageConstants/PageScaffoldAsideConstants";
 
 const PageScaffoldAside = () => {
     const pageProps = useSelector(state => state.page, shallowEqual);

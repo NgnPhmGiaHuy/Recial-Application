@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import Message from "/public/images/Icon/message.png";
+import Message from "@/public/images/Icon/message.png";
 
 const MessageNoChatSelected = () => {
     return (

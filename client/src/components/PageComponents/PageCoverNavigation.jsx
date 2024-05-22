@@ -1,5 +1,5 @@
 import { PageCoverNavigationItem } from "@/components";
-import { pageCoverNavigationConstants } from "@/constants/PageConstants/pageCoverNavigationConstants";
+import { pageCoverNavigationConstants } from "@/constants/PageConstants/PageCoverNavigationConstants";
 
 const PageCoverNavigation = () => {
     return (

@@ -1,12 +1,11 @@
 import "./globals.css";
-import { Cabin, Exo_2, Jost, Rubik, Roboto, Nunito_Sans, Montserrat, Open_Sans, Noto_Sans } from "next/font/google";
+import { Cabin, Exo_2, Jost, Rubik, Roboto, Montserrat, Open_Sans, Noto_Sans } from "next/font/google";
 
 import { Providers } from "@/components";
 
 import Favicon from "/public/images/Metadata/favicon.ico";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
-const nunitoSans = Nunito_Sans({ subsets: ["latin"] });
 const cabin = Cabin({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 const roboto = Roboto({ subsets: ["latin"], weight: ["100", "300", "400", "500", "700", "900"] });
 const openSans = Open_Sans({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800"] });

@@ -3,9 +3,11 @@
 import { AsideScaffold, Header, VideoScaffold } from "@/components";
 import { useUserData, useWatchData, useWithAuth } from "@/hooks";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/watch";
+
 const MoviePage = () => {
     const { userProps } = useUserData();
-    const { data: watchProps } = useWatchData();
+    const { watchProps } = useWatchData(API_URL);
 
     return (
         <div>

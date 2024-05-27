@@ -1,11 +1,13 @@
 "use client"
 
-import { useUserData, useWatchData, useWithAuth } from "@/hooks";
 import { AsideScaffold, Header, VideoScaffold } from "@/components";
+import { useUserData, useWatchData, useWithAuth } from "@/hooks";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/watch/user";
 
 const MovieSavedPage = () => {
     const { userProps } = useUserData();
-    const { watchProps } = useWatchData();
+    const { watchProps } = useWatchData(API_URL);
 
     return (
         <div>
@@ -19,7 +21,7 @@ const MovieSavedPage = () => {
                                     <AsideScaffold aside={{ title: "Video", role: { watch: true } }}/>
                                 </div>
                             </div>
-                            <div className="flex flex-col flex-shrink grow basis-0 relative">
+                            <div className="flex flex-shrink grow basis-0 relative">
                                 <VideoScaffold/>
                             </div>
                         </div>

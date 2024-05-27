@@ -6,14 +6,28 @@ const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 const compression = require("compression");
 const { WebSocketServer } = require("ws");
-const { createServer } = require("http");
+const { createServer } = require("https");
+
+const fs = require("fs");
+const path = require("path");
+
+const privateKeyPath = path.join(__dirname, "certificates", "private.key");
+const certificatePath = path.join(__dirname, "certificates", "certificate.crt");
 
 const routes = require("./app/routes");
 const startServer = require("./utils/server/startServer");
 
 const app = express();
 
-const server = createServer(app);
+const privateKey = fs.readFileSync(privateKeyPath, "utf8");
+const certificate = fs.readFileSync(certificatePath, "utf8");
+
+const credentials = {
+    key: privateKey,
+    cert: certificate,
+};
+
+const server = createServer(credentials, app);
 
 const wss = new WebSocketServer({ server });
 

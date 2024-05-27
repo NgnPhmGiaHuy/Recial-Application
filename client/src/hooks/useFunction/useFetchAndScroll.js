@@ -5,17 +5,17 @@ import { useRef } from "react";
 import { useDataFetcher, useScrollHandler } from "@/hooks";
 
 const useFetchAndScroll = (dependencies, fetchDataFunction) => {
-    const postRef = useRef(null);
+    const dataRef = useRef(null);
 
-    const { data: postProps, isLoading: postLoading, fetchData: fetchPostData } = useDataFetcher(fetchDataFunction, [dependencies]);
+    const { data, isLoading, fetchData } = useDataFetcher(fetchDataFunction, [dependencies]);
 
     useScrollHandler(async () => {
-        if (postRef.current && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight * 0.8 && !postLoading) {
-            await fetchPostData();
+        if (dataRef.current && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight * 0.8 && !isLoading) {
+            await fetchData();
         }
-    }, [dependencies, postLoading, fetchPostData]);
+    }, [dependencies, isLoading, fetchData]);
 
-    return { postRef, postProps };
+    return { dataRef, data };
 };
 
 export default useFetchAndScroll;

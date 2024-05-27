@@ -3,10 +3,7 @@ const mongoose = require("mongoose");
 
 async function connect() {
     try {
-        const mongoURI = process.env.NODE_ENV === "production" ? process.env.DATABASE_PRODUCTION_CONNECT_LINK : process.env.DATABASE_LOCAL_CONNECT_LINK;
-
-        console.log(mongoURI)
-        await mongoose.connect(mongoURI, {
+        await mongoose.connect(process.env.DATABASE_CONNECT_LINK, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
@@ -16,4 +13,4 @@ async function connect() {
     }
 }
 
-module.exports = {connect};
+module.exports = { connect };

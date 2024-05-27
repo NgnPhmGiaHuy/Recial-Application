@@ -17,8 +17,70 @@ const nextConfig = {
         return config;
     },
     images: {
-        domains: ["storage.cloud.google.com", "storage.googleapis.com", "firebasestorage.googleapis.com", "lh3.googleusercontent.com", "cloudflare-ipfs.com", "loremflickr.com", "picsum.photos", "avatars.githubusercontent.com", "scontent.fsgn2-10.fna.fbcdn.net", "scontent.fsgn2-11.fna.fbcdn.net", "scontent.fsgn2-5.fna.fbcdn.net", "static.xx.fbcdn.net"],
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "storage.cloud.google.com",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "storage.googleapis.com",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "firebasestorage.googleapis.com",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "lh3.googleusercontent.com",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "cloudflare-ipfs.com",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "loremflickr.com",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "picsum.photos",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "avatars.githubusercontent.com",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "scontent.fsgn2-10.fna.fbcdn.net",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "scontent.fsgn2-11.fna.fbcdn.net",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "scontent.fsgn2-5.fna.fbcdn.net",
+                pathname: "**",
+            },
+            {
+                protocol: "https",
+                hostname: "static.xx.fbcdn.net",
+                pathname: "**",
+            },
+        ],
     },
+
     reactStrictMode: true,
 }
 

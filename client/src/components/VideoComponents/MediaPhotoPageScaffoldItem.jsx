@@ -27,14 +27,14 @@ const MediaPhotoPageScaffoldItem = () => {
         <>
             <div className="w-full h-full inset-0 opacity-50 absolute blur-lg z-0">
                 <div className="w-full h-full relative">
-                    <Image src={mediaProps?.media_url} alt={mediaProps?.media_url} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                    <Image src={mediaProps?.media_url} alt={mediaProps?.media_url} fill={true} priority={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                 </div>
             </div>
             <div className="w-full h-full px-[80px] cursor-pointer relative z-20">
                 <div className="w-full h-full flex items-center justify-center bg-transparent overflow-hidden relative">
                     <div className="w-full h-full top-0 left-0 absolute">
                         <div className="w-full h-full relative">
-                            <Image src={mediaProps?.media_url} alt={mediaProps?.media_url} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
+                            <Image src={mediaProps?.media_url} alt={mediaProps?.media_url} fill={true} priority={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                         </div>
                     </div>
                 </div>

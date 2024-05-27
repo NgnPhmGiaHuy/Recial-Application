@@ -36,7 +36,7 @@ class MiddlewareController {
         return (req, res, next) => {
             const requestOrigin = req.get("origin");
 
-            if (requestOrigin && requestOrigin === "http://localhost:3000") {
+            if (requestOrigin && (requestOrigin === "http://localhost:3000" || requestOrigin === "http://35.247.175.118/" || requestOrigin === "https://recial-application.as.r.appspot.com/")) {
                 res.set("Cross-Origin-Resource-Policy", "same-site");
             } else {
                 res.set("Cross-Origin-Resource-Policy", policy);

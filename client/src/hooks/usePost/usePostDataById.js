@@ -13,21 +13,21 @@ const usePostDataByUserId = (userId) => {
     const dispatch = useDispatch();
     const isCurrentUser = useUserIdData(userId);
 
-    const { postRef: postByIdRef, postProps: postByUserIdProps } = useFetchAndScroll(userId, (page) => fetchDataWithAccessToken(process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/post/?user=${userId}&page=${page}`, "GET"));
+    const { dataRef, data } = useFetchAndScroll(userId, (page) => fetchDataWithAccessToken(process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/post/?user=${userId}&page=${page}`, "GET"));
 
     useEffect(() => {
         dispatch(clearUserIdPostData());
 
-        if (postByUserIdProps && isCurrentUser) {
-            dispatch(setUserPostData({ ref: postByIdRef, posts: postByUserIdProps }));
+        if (data && isCurrentUser) {
+            dispatch(setUserPostData({ ref: dataRef, posts: data }));
         }
-        if (postByUserIdProps && !isCurrentUser) {
-            dispatch(setUserIdPostData({ ref: postByIdRef, posts: postByUserIdProps }));
+        if (data && !isCurrentUser) {
+            dispatch(setUserIdPostData({ ref: dataRef, posts: data }));
         }
-    }, [userId, postByIdRef, postByUserIdProps])
+    }, [userId, dataRef, data])
 
 
-    return { postByIdRef, postByUserIdProps };
+    return { dataRef, data };
 };
 
 

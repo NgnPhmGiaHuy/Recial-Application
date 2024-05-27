@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev:local": "dotenv -e .env next dev",
+    "dev:production": "dotenv -e .env.production next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -33,9 +34,11 @@
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^3.1.0",
+    "sharp": "^0.33.4",
     "swr": "^2.2.5"
   },
   "devDependencies": {
+    "dotenv-cli": "^7.4.2",
     "tailwindcss": "^3"
   }
 }

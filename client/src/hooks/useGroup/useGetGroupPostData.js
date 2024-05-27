@@ -10,15 +10,15 @@ import { setGroupPostData } from "@/store/actions/group/groupActions";
 const useGetGroupPostData = (groupId) => {
     const dispatch = useDispatch();
 
-    const { postRef: ref, postProps } = useFetchAndScroll(groupId, (page) => fetchDataWithoutAccessToken(process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/group/post/?group=${groupId}&page=${page}`, "GET"));
+    const { dataRef, data } = useFetchAndScroll(groupId, (page) => fetchDataWithoutAccessToken(process.env.NEXT_PUBLIC_API_URL + `/api/v1/public/group/post/?group=${groupId}&page=${page}`, "GET"));
 
     useEffect(() => {
-        if (postProps) {
-            dispatch(setGroupPostData({ ref: ref, posts: postProps }));
+        if (data) {
+            dispatch(setGroupPostData({ ref: dataRef, posts: data }));
         }
-    }, [ref, postProps, dispatch])
+    }, [dataRef, data, dispatch])
 
-    return { ref, groupPostProps: postProps };
+    return { dataRef, data };
 }
 
 export default useGetGroupPostData;

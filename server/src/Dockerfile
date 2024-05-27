@@ -11,10 +11,10 @@ COPY package.json package-lock.json ./
 # Install dependencies
 RUN npm install
 
-COPY --chown=node:node . .
+COPY . .
 
 # Expose the port Node.js is running on
 EXPOSE 8080
 
 # Start the Node.js application
-CMD ["node", "index.js"]
+CMD ["npm", "start"]

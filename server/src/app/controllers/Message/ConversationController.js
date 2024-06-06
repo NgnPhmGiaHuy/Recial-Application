@@ -1,7 +1,7 @@
 const WebSocketService = require("../../services/webSocketService/webSocketService");
-const getConversationService = require("../../services/messageService/getConversationService");
-const createConversationService = require("../../services/messageService/createConversationService");
-const deleteConversationService = require("../../services/messageService/deleteConversationService");
+const getConversationService = require("../../services/conversationService/getConversationService");
+const deleteConversationService = require("../../services/conversationService/deleteConversationService");
+const createConversationService = require("../../services/conversationService/createConversationService");
 
 class ConversationController {
     async getConversationData(req, res) {

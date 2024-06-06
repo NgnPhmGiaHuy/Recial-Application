@@ -29,6 +29,8 @@ import handleMultipleImageFileUpload from "@/utils/image/handleMultipleImageFile
 import handleSingleImageFileUpload from "@/utils/image/handleSingleImageFileUpload";
 import handleUploadImage from "@/utils/image/handleUploadImage";
 
+import handleNewMediaData from "@/utils/media/handleNewMediaData";
+
 import handleNewMessageData from "@/utils/message/handleNewMessageData/handleNewMessageData";
 import handleCreateConversationData from "@/utils/message/handleCreateConversationData";
 import handleDeleteMessage from "@/utils/message/handleDeleteMessage";
@@ -66,6 +68,14 @@ import handleSetUserProfileData from "@/utils/user/handleSetUser/handleSetUserPr
 import handleFriendRequest from "@/utils/user/handleUserData/handleFriendRequest";
 import handleSentFriendRequest from "@/utils/user/handleUserData/handleSentFriendRequest";
 
+import extractVideoMetadata from "@/utils/video/extractVideoMetadata";
+import uploadVideoDataOnCloud from "@/utils/video/uploadVideoDataOnCloud";
+import deleteVideoDataOnCloud from "@/utils/video/deleteVideoDataOnCloud";
+import discardVideoDataUpload from "@/utils/video/discardVideoDataUpload";
+import handleFormatVideoSize from "@/utils/video/handleFormatVideoSize";
+import handleFormatVideoDuration from "@/utils/video/handleFormatVideoDuration";
+import handleCalculateUploadStatus from "@/utils/video/handleCalculateVideoUploadStatus";
+
 import getRandomWeatherIllustration from "@/utils/weather/getRandomWeatherIllustration";
 import getWeatherForecastData from "@/utils/weather/getWeatherForecastData";
 import interpretWeatherCode from "@/utils/weather/interpretWeatherCode";
@@ -79,11 +89,13 @@ export {
     getGeocodeByCoordinates,
     fetchGoogleData,
     handleMultipleImageFileUpload, handleSingleImageFileUpload, handleUploadImage,
+    handleNewMediaData,
     handleNewMessageData, handleCreateConversationData, handleDeleteMessage, handleDeleteConversation, renderMessageComponent, shouldDisplayMessageWithTimeStamp,
     handleFormatNumber,
     handleDeletePostData, handleNewPostData,
     createPostReaction, handleReactionData, updatePostReaction,
     extractMonthAndDay, formatCurrentFullDate, formatCurrentWeekday, formatDate, formatDateTime, formatFullTimeAgo, formatLongDate, formatShortTimeAgo, formatTime, formatTime12Hour, formatTimestampForCover, getCurrentAndNextSixDaysOfWeekNames,
     fetchUserData, getUserProfileData, handleNewUserData, handleNewUserPostData, handleSetUserProfileData, handleFriendRequest, handleSentFriendRequest,
+    extractVideoMetadata, uploadVideoDataOnCloud, deleteVideoDataOnCloud, discardVideoDataUpload, handleFormatVideoSize, handleFormatVideoDuration, handleCalculateUploadStatus,
     getRandomWeatherIllustration, getWeatherForecastData, interpretWeatherCode,
 }

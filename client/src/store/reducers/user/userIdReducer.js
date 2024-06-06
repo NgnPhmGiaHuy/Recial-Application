@@ -1,6 +1,6 @@
 import { createPostComment, createPostReaction, updatePostReaction } from "@/utils";
 
-import { SET_USER_ID_POST_DATA, SET_USER_ID_PROFILE_DATA, SET_USER_ID_CONTACT_DATA, SET_USER_ID_FRIEND_DATA, SET_USER_ID_FOLLOWER_DATA, SET_USER_ID_FOLLOWING_DATA, SET_USER_ID_PHOTO_LIST_DATA, SET_USER_ID_GROUP_LIST_DATA } from "../../actions/user/userIdActions";
+import { SET_USER_ID_POST_DATA, SET_USER_ID_PROFILE_DATA, SET_USER_ID_CONTACT_DATA, SET_USER_ID_FRIEND_DATA, SET_USER_ID_FOLLOWER_DATA, SET_USER_ID_FOLLOWING_DATA, SET_USER_ID_PHOTO_LIST_DATA, SET_USER_ID_VIDEO_LIST_DATA, SET_USER_ID_GROUP_LIST_DATA } from "../../actions/user/userIdActions";
 import { CREATE_USER_ID_POST_DATA, CREATE_USER_ID_POST_COMMENT_DATA, CREATE_USER_ID_POST_REACTION_DATA } from "../../actions/user/userIdActions";
 import { UPDATE_USER_ID_POST_REACTION_DATA } from "../../actions/user/userIdActions";
 import { CLEAR_USER_ID_POST_DATA } from "../../actions/user/userIdActions";
@@ -16,6 +16,7 @@ const initialState = {
     },
     post_list: null,
     photo_list: null,
+    video_list: null,
     group_list: null,
 }
 
@@ -74,6 +75,11 @@ const userIdReducer = (state  = initialState, action) => {
             return {
                 ...state,
                 photo_list: action.payload,
+            };
+        case SET_USER_ID_VIDEO_LIST_DATA:
+            return {
+                ...state,
+                video_list: action.payload,
             };
         case SET_USER_ID_GROUP_LIST_DATA:
             return {

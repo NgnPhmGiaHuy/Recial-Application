@@ -1,11 +1,11 @@
-const mediaDataService = require("../../services/mediaService/mediaDataService");
+const getMediaDataService = require("../../services/mediaService/getMediaDataService");
 
 class MediaController {
     getMediaAuthorData = async (req, res) => {
         try {
             const { user_id } = req.query;
 
-            const mediaAuthorData = await mediaDataService.getFormattedMediaAuthorByUserId(user_id);
+            const mediaAuthorData = await getMediaDataService.getFormattedMediaAuthorByUserId(user_id);
 
             return res.status(200).json(mediaAuthorData);
         } catch (error) {

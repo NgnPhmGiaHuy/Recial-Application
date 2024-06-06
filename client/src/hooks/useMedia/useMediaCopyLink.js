@@ -15,12 +15,11 @@ const useMediaCopyLink = () => {
         }
     }, []);
 
-
     const handleCopyToClipboard = useCallback(() => {
         navigator.clipboard.writeText(currentURL)
-            .then(() => setCopyLinkSuccess('Copied!'))
-            .catch((error) => console.error('Failed to copy:', error));
-    }, [mediaProps?._id]);
+            .then(() => setCopyLinkSuccess("Copied!"))
+            .catch((error) => console.error("Failed to copy:", error));
+    }, [currentURL, mediaProps?._id]);
 
     return { currentURL, copyLinkSuccess, handleCopyToClipboard };
 }

@@ -4,8 +4,8 @@ const Group = require("../../models/Group");
 const PostShare = require("../../models/PostShare");
 
 const generalDataService = require("../generalDataService");
-const photoDataService = require("../mediaService/photoDataService");
 const getUserDataService = require("../userService/getUserDataService");
+const getPhotoDataService = require("../mediaService/getPhotoDataService");
 
 class GetPostDataService {
     getRawPostData = async (postId) => {
@@ -69,7 +69,7 @@ class GetPostDataService {
     getFormattedPostPhotoDataById = async (post) => {
         try {
             return await Promise.all(post.post_photos.map(async (photo) => {
-                const photos = await photoDataService.getRawPhotoData(photo);
+                const photos = await getPhotoDataService.getRawPhotoData(photo);
 
                 const { createdAt, updatedAt, ...otherPhotoProps } = photos._doc;
 

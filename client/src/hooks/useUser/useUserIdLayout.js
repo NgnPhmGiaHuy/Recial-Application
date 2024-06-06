@@ -5,8 +5,8 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { useGetUserDataFetcher, useCheckUserFriend } from "@/hooks";
 import { setUserRelationship } from "@/store/actions/user/userRelationshipActions";
-import { useGetUserContactById, useGetUserFollowerById, useGetUserFollowingById, useGetUserFriendById, useGetUserGroupListById, useGetUserPhotoListById, useGetUserProfileById, useUserIdData } from "@/hooks/useUser/useUserIdData";
-import { setUserContactData, setUserFollowerData, setUserFollowingData, setUserFriendData, setUserFriendRequestData, setUserGroupListData, setUserPhotoListData, setUserProfileData } from "@/store/actions/user/userActions";
+import { useGetUserContactById, useGetUserFollowerById, useGetUserFollowingById, useGetUserFriendById, useGetUserGroupListById, useGetUserPhotoListById, useGetUserProfileById, useUserIdData, useGetUserVideoListById } from "@/hooks/useUser/useUserIdData";
+import { setUserContactData, setUserFollowerData, setUserFollowingData, setUserFriendData, setUserFriendRequestData, setUserGroupListData, setUserPhotoListData, setUserProfileData, setUserVideoListData } from "@/store/actions/user/userActions";
 
 const useUserIdLayout = (params) => {
     const dispatch = useDispatch();
@@ -23,6 +23,7 @@ const useUserIdLayout = (params) => {
     isCurrentUser ? useGetUserDataFetcher("following", setUserFollowingData) : useGetUserFollowingById(params.userId);
     isCurrentUser ? useGetUserDataFetcher("group-list", setUserGroupListData) : useGetUserGroupListById(params.userId);
     isCurrentUser ? useGetUserDataFetcher("photo-list", setUserPhotoListData) : useGetUserPhotoListById(params.userId);
+    isCurrentUser ? useGetUserDataFetcher("video-list", setUserVideoListData) : useGetUserVideoListById(params.userId);
 
     const { isFriend, isFriendRequest } = useCheckUserFriend(currentUser, userProps);
 

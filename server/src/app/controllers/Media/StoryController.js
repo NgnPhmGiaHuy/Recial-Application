@@ -1,11 +1,11 @@
-const storyDataService = require("../../services/mediaService/storyDataService");
+const getStoryDataService = require("../../services/mediaService/getStoryDataService");
 
 class StoryController {
     getStory = async (req, res) => {
         try {
             const userId = req.userId;
 
-            const story = await storyDataService.getFormattedUserFeedStoryDataByUserId(userId);
+            const story = await getStoryDataService.getFormattedUserFeedStoryDataByUserId(userId);
             
             return res.status(200).json(story);
         } catch (error) {

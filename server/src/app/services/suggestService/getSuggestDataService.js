@@ -2,6 +2,7 @@ const Page = require("../../models/Page");
 const Event = require("../../models/Event");
 const Group = require("../../models/Group");
 const GroupMember = require("../../models/GroupMember");
+
 const getUserDataService = require("../userService/getUserDataService");
 
 class GetSuggestDataService {

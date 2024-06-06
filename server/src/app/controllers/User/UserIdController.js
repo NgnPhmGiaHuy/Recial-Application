@@ -140,6 +140,25 @@ class UserIdController {
         }
     }
 
+    getUserIdVideoList = async (req, res) => {
+        try {
+            const { userId } = req.params;
+
+            const user = await getUserDataService.getRawUserData(userId);
+
+            if (!user) {
+                return res.status(404).json({ error: "User not found" });
+            }
+
+            const videoListProps = await getUserDataService.getUserVideoList(user.video_list);
+
+            return res.status(200).json(videoListProps);
+        } catch (error) {
+            console.error("Error in getUserIdVideoList: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+    }
+
     getUserIdGroupList = async (req, res) => {
         try {
             const { userId } = req.params;

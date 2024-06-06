@@ -62,6 +62,7 @@ import useMessageData from "@/hooks/useMessage/useMessageData";
 import useMessageScaffold from "@/hooks/useMessage/useMessageScaffold";
 import useSetMessageId from "@/hooks/useMessage/useSetMessageId";
 import useSetMessageData from "@/hooks/useMessage/useSetMessageData";
+import useSubmitMessageData from "@/hooks/useMessage/useSubmitMessageData";
 import useGetMessageDataByConversationId from "@/hooks/useMessage/useGetMessageDataByConversationId";
 import useMessageTimestampDisplay from "@/hooks/useMessage/useMessageTimestampDisplay";
 
@@ -99,6 +100,8 @@ import useUserProfileActions from "@/hooks/useUser/useUserProfileActions";
 import useVideoData from "@/hooks/useVideo/useVideoData";
 import useVideoScaffold from "@/hooks/useVideo/useVideoScaffold";
 import useWatchData from "@/hooks/useVideo/useWatchData";
+import useCreateVideoData from "@/hooks/useVideo/useCreateVideoData";
+import useHandleUploadVideo from "@/hooks/useVideo/useHandleUploadVideo";
 
 import useWebSocket from "@/hooks/useWebSocket/useWebSocket";
 
@@ -121,7 +124,7 @@ export {
 
     useGetMediaFetcher, useGetVideoMediaFetcher, usePostMediaData, useMediaNavigation, useMediaCheckFollow, useMediaCopyLink, usePhotoData, useStoryData, useUserStoryData, useStoryControls,
 
-    useMessageData, useMessageScaffold, useGetMessageDataByConversationId, useMessageTimestampDisplay, useSetMessageId, useSetMessageData,
+    useMessageData, useMessageScaffold, useGetMessageDataByConversationId, useMessageTimestampDisplay, useSetMessageId, useSetMessageData, useSubmitMessageData,
 
     useGetPageData, useGetPagePostData, useGetPageDataFetcher, useCheckUserPageRole,
 
@@ -137,7 +140,7 @@ export {
 
     useUserData, useUserIdLayout, useCheckUserFriend, useGetUserDataFetcher, useGetUserDataFetcherByPage, useUpdateUserProfile, useUserProfileActions,
 
-    useVideoData, useVideoScaffold, useWatchData,
+    useVideoData, useVideoScaffold, useWatchData, useCreateVideoData, useHandleUploadVideo,
 
     useWebSocket,
 }

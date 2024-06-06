@@ -20,7 +20,7 @@ const MessageScaffoldContentFooter = ({ participants }) => {
 
     const handleFileUpload = (event) => handleMultipleImageFileUpload(event, setSelectedImages);
 
-    const { messageSubmitStatus , setMessageSubmitStatus, handleSetMessageData } = useSetMessageData();
+    const { status , setStatus, handleSetMessageData } = useSetMessageData();
     const { inputRef, inputText, setInputText, setAllowSubmit, handleAddEmoji, handleInputTextChange } = useContentEditable();
 
     const handleSubmitMessage = async () => {
@@ -42,7 +42,7 @@ const MessageScaffoldContentFooter = ({ participants }) => {
     const inputAction = MESSAGE_SCAFFOLD_CONTENT_FOOTER_ACTIONS_BUTTONS(() => chatInputRef.current.click());
 
     useClickOutside(iconRef, showIconPanel, setShowIconPanel);
-    useResetInput(inputRef, inputText, setInputText, setAllowSubmit, messageSubmitStatus, setMessageSubmitStatus, () => setSelectedImages([]));
+    useResetInput(inputRef, inputText, setInputText, setAllowSubmit, status, setStatus, () => setSelectedImages([]));
 
     return (
         <div>

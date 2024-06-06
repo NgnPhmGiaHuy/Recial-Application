@@ -4,16 +4,16 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import { useGetMediaFetcher } from "@/hooks";
-import { clearMediaDataRecent, setMediaAuthor, setMediaComment, setMediaData, setMediaReaction } from "@/store/actions/media/mediaActions";
+import { clearMediaDataRecent, setMediaAuthorData, setMediaCommentData, setMediaData, setMediaReactionData } from "@/store/actions/media/mediaActions";
 
 const useStoryData = (user, story) => {
     const dispatch = useDispatch();
 
     const endpoints = [
         { url: `story/?story_id=${story}`, action: setMediaData },
-        { url: `story/author/?user_id=${user}`, action: setMediaAuthor },
-        { url: `story/comment/?story_id=${story}`, action: setMediaComment },
-        { url: `story/reaction/?story_id=${story}`, action: setMediaReaction },
+        { url: `story/author/?user_id=${user}`, action: setMediaAuthorData },
+        { url: `story/comment/?story_id=${story}`, action: setMediaCommentData },
+        { url: `story/reaction/?story_id=${story}`, action: setMediaReactionData },
     ];
 
     const results = endpoints.map(({ url, action }) => useGetMediaFetcher(url, action, dispatch));

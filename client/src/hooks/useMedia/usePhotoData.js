@@ -4,16 +4,16 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import { useGetMediaFetcher } from "@/hooks";
-import { clearMediaDataRecent, setMediaData, setMediaAuthor, setMediaComment, setMediaReaction } from "@/store/actions/media/mediaActions";
+import { clearMediaDataRecent, setMediaData, setMediaAuthorData, setMediaCommentData, setMediaReactionData } from "@/store/actions/media/mediaActions";
 
 const usePhotoData = (user, photo) => {
     const dispatch = useDispatch();
 
     const endpoints = [
         { url: `photo/?photo_id=${photo}`, action: setMediaData },
-        { url: `photo/author/?user_id=${user}`, action: setMediaAuthor },
-        { url: `photo/comment/?photo_id=${photo}`, action: setMediaComment },
-        { url: `photo/reaction/?photo_id=${photo}`, action: setMediaReaction },
+        { url: `photo/author/?user_id=${user}`, action: setMediaAuthorData },
+        { url: `photo/comment/?photo_id=${photo}`, action: setMediaCommentData },
+        { url: `photo/reaction/?photo_id=${photo}`, action: setMediaReactionData },
     ];
 
     const results = endpoints.map(({ url, action }) => useGetMediaFetcher(url, action, dispatch));

@@ -1,8 +1,8 @@
 const Comment = require("../../models/Comment");
 
-const photoDataService = require("../mediaService/photoDataService");
-const getUserDataService = require("../userService/getUserDataService");
 const generalDataService = require("../generalDataService");
+const getUserDataService = require("../userService/getUserDataService");
+const getPhotoDataService = require("../mediaService/getPhotoDataService");
 
 class GetCommentDataService {
     getRawCommentData = async (commentId) => {
@@ -41,7 +41,7 @@ class GetCommentDataService {
             };
 
             if (comment_content_url) {
-                formattedCommentData.comment["comment_content_url"] = await photoDataService.getFormattedPhotoDataById(comment_content_url)
+                formattedCommentData.comment["comment_content_url"] = await getPhotoDataService.getFormattedPhotoDataById(comment_content_url)
             }
 
             return formattedCommentData;

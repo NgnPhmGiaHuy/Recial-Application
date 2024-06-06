@@ -1,10 +1,22 @@
 "use client"
 
-import { useUserIdLayout, useWithAuth } from "@/hooks";
-import { Header, LoadingPageComponent, UserAboutScaffold, UserProfileCover } from "@/components";
+import { useDispatch } from "react-redux";
+
+import { handleNewUserData } from "@/utils";
+import { useUserIdLayout, useUserProfileActions, useWebSocket, useWithAuth } from "@/hooks";
+import { Header, LoadingPageComponent, UserAboutScaffold, UserProfileCover, UserProfileEdit } from "@/components";
 
 const UserVideosPage = ({ params }) => {
-    const { userProps } = useUserIdLayout(params.userId);
+    const dispatch = useDispatch();
+
+    const { currentUser: userProps } = useUserIdLayout(params);
+    const { profileActionRef, showEditProfile } = useUserProfileActions();
+
+    const onDataReceived = async (data) => {
+        await handleNewUserData(data, dispatch);
+    };
+
+    useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
     return (
         <>

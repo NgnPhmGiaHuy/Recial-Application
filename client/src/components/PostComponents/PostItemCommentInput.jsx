@@ -18,9 +18,9 @@ const PostItemCommentInput = ({ postProps, isReply }) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [showIconPanel, setShowIconPanel] = useState(false);
 
-    const { inputRef, inputText, setInputText, setAllowSubmit, allowSubmit, handleAddEmoji, handleInputTextChange } = useContentEditable()
+    const { inputRef, inputText, setInputText, setAllowSubmit, allowSubmit, handleAddEmoji, handleInputTextChange } = useContentEditable();
 
-    const { commentSubmitStatus, setCommentSubmitStatus, handleSetCommentData } = useCommentData();
+    const { status, setStatus, handleSetCommentData } = useCommentData();
 
     const handleSubmitComment = async () => {
         await handleSetCommentData({ inputText: inputText, inputImage: selectedImage, postProps: postProps, isReply: isReply });
@@ -29,7 +29,7 @@ const PostItemCommentInput = ({ postProps, isReply }) => {
     const handleFileUpload = async (event) => handleSingleImageFileUpload(event, setSelectedImage);
 
     useClickOutside(iconRef, showIconPanel, setShowIconPanel);
-    useResetInput(inputRef, inputText, setInputText, setAllowSubmit, commentSubmitStatus, setCommentSubmitStatus, () => setSelectedImage(null));
+    useResetInput(inputRef, inputText, setInputText, setAllowSubmit, status, setStatus, () => setSelectedImage(null));
 
     return (
         <div className={`${isReply ? "ml-[44px]" : "mx-[16px]"} pt-[4px] pb-[8px] flex flex-row flex-shrink-0 items-start`}>
@@ -93,7 +93,7 @@ const PostItemCommentInput = ({ postProps, isReply }) => {
                         </div>
                     </div>
                 </form>
-                {showIconPanel && (
+                { showIconPanel && (
                     <div className="bottom-[40px] right-[84px] absolute z-20">
                         <div ref={iconRef} className="w-full h-full shadow-md relative">
                             <Picker data={data} onEmojiSelect={(emoji) => handleAddEmoji(emoji)} />

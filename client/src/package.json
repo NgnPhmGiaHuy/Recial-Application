@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev": "next dev",
     "dev:local": "dotenv -e .env next dev",
     "dev:production": "dotenv -e .env.production next dev",
     "build": "next build",

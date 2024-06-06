@@ -54,9 +54,9 @@ const AsideScaffold = ({ aside, action }) => {
                             ) }
                             { aside?.role?.watch && (
                                 <ul>
-                                    {ASIDE_VIDEO.map((value, index) => (
+                                    { ASIDE_VIDEO.map((value, index) => (
                                         <AsideScaffoldItem key={index} itemProps={value}/>
-                                    ))}
+                                    )) }
                                 </ul>
                             ) }
                         </section>

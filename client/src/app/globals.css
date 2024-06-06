@@ -320,6 +320,31 @@ b, strong {
     display: none;
 }
 
+.custom-checkbox {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    display: grid;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    place-content: center;
+    border: 2px solid #84cc16;
+}
+
+.custom-checkbox:checked {
+    background-color: #84cc16;
+}
+
+.custom-checkbox:checked::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 20%, 80% 0%, 43% 62%);
+    background-color: white;
+}
+
 
 
 /*::-webkit-scrollbar {*/

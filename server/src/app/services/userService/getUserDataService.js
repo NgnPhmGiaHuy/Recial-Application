@@ -12,9 +12,9 @@ const Conversation = require("../../models/Conversation");
 const FriendRequest = require("../../models/FriendRequest");
 const SearchHistory = require("../../models/SearchHistory");
 
-const getTypeDataService = require("../../services/typeService/getTypeDataService");
-const getMessageDataService = require("../../services/messageService/getMessageDataService");
-const getConversationService = require("../../services/messageService/getConversationService");
+const getTypeDataService = require("../typeService/getTypeDataService");
+const getMessageDataService = require("../messageService/getMessageDataService");
+const getConversationService = require("../conversationService/getConversationService");
 
 class GetUserDataService {
     getRawUserData = async (userId) => {
@@ -272,6 +272,29 @@ class GetUserDataService {
         } catch (error) {
             console.error("Error in getUserPhotoList: ", error);
             throw new Error("Failed to fetch user photo list");
+        }
+    };
+
+    getUserVideoList = async (video_list) => {
+        try {
+            return await Promise.all(video_list.map(async video => {
+                try {
+                    const videoProps = await Video.findById(video);
+                    const { createdAt, updatedAt, ...otherVideoProps } = videoProps._doc;
+
+                    return {
+                        ...otherVideoProps,
+                        created_at: createdAt,
+                        updated_at: updatedAt,
+                    };
+                } catch (error) {
+                    console.error("Error fetching user video:", error);
+                    throw new Error("Failed to fetch user video");
+                }
+            }));
+        } catch (error) {
+            console.error("Error in getUserVideoList: ", error);
+            throw new Error("Failed to fetch user video list");
         }
     };
 

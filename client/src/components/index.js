@@ -254,16 +254,32 @@ import VideoScaffoldItemInfo from "@/components/VideoComponents/VideoScaffoldIte
 import VideoScaffoldItemAside from "@/components/VideoComponents/VideoScaffoldItemAside";
 import VideoScaffoldItemAsideIcon from "@/components/VideoComponents/VideoScaffoldItemAsideIcon";
 import VideoScaffoldItemControl from "@/components/VideoComponents/VideoScaffoldItemControl";
-import MediaPageScaffold from "@/components/VideoComponents/MediaPageScaffold";
-import MediaPageScaffoldAside from "@/components/VideoComponents/MediaPageScaffoldAside";
+import VideoUploadScaffold from "@/components/VideoComponents/VideoUploadScaffold";
+import VideoUploadScaffoldInput from "@/components/VideoComponents/VideoUploadScaffoldInput";
+import VideoUploadScaffoldList from "@/components/VideoComponents/VideoUploadScaffoldList";
+import VideoUploadScaffoldListItem from "@/components/VideoComponents/VideoUploadScaffoldListItem";
+import VideoUploadScaffoldData from "@/components/VideoComponents/VideoUploadScaffoldData";
+import VideoUploadScaffoldDataHeader from "@/components/VideoComponents/VideoUploadScaffoldDataHeader";
+import VideoUploadScaffoldDataContent from "@/components/VideoComponents/VideoUploadScaffoldDataContent";
+import VideoUploadScaffoldDataContentReview from "@/components/VideoComponents/VideoUploadScaffoldDataContentReview";
+import VideoUploadScaffoldDataContentThumbnail from "@/components/VideoComponents/VideoUploadScaffoldDataContentThumbnail";
+import VideoUploadScaffoldDataContentDescription from "@/components/VideoComponents/VideoUploadScaffoldDataContentDescription";
+import VideoUploadScaffoldDataContentPrivacy from "@/components/VideoComponents/VideoUploadScaffoldDataContentPrivacy";
+import VideoUploadScaffoldDataContentPrivacyOption from "@/components/VideoComponents/VideoUploadScaffoldDataContentPrivacyOption";
+import VideoUploadScaffoldDataContentUserInteraction from "@/components/VideoComponents/VideoUploadScaffoldDataContentUserInteraction";
+import VideoUploadScaffoldDataContentUserInteractionOption from "@/components/VideoComponents/VideoUploadScaffoldDataContentUserInteractionOption";
+
+import MediaPageScaffold from "@/components/MediaComponents/MediaPageScaffold";
+import MediaPageScaffoldAside from "@/components/MediaComponents/MediaPageScaffoldAside";
 import VideoPageScaffoldItem from "@/components/VideoComponents/VideoPageScaffoldItem";
-import MediaPageScaffoldHeader from "@/components/VideoComponents/MediaPageScaffoldHeader";
-import MediaPageScaffoldHeaderURL from "@/components/VideoComponents/MediaPageScaffoldHeaderURL";
-import MediaPageScaffoldHeaderText from "@/components/VideoComponents/MediaPageScaffoldHeaderText";
-import MediaPageScaffoldHeaderReaction from "@/components/VideoComponents/MediaPageScaffoldHeaderReaction";
-import MediaPageScaffoldFooter from "@/components/VideoComponents/MediaPageScaffoldFooter";
-import MediaPageScaffoldCommentItem from "@/components/VideoComponents/MediaPageScaffoldCommentItem";
-import MediaPhotoPageScaffoldItem from "@/components/VideoComponents/MediaPhotoPageScaffoldItem";
+import MediaPageScaffoldHeader from "@/components/MediaComponents/MediaPageScaffoldHeader";
+import MediaPageScaffoldHeaderURL from "@/components/MediaComponents/MediaPageScaffoldHeaderURL";
+import MediaPageScaffoldHeaderText from "@/components/MediaComponents/MediaPageScaffoldHeaderText";
+import MediaPageScaffoldHeaderReaction from "@/components/MediaComponents/MediaPageScaffoldHeaderReaction";
+import MediaPageScaffoldFooter from "@/components/MediaComponents/MediaPageScaffoldFooter";
+import MediaPageScaffoldCommentItem from "@/components/MediaComponents/MediaPageScaffoldCommentItem";
+import MediaPageScaffoldCommentItemCard from "@/components/MediaComponents/MediaPageScaffoldCommentItemCard";
+import MediaPhotoPageScaffoldItem from "@/components/MediaComponents/MediaPhotoPageScaffoldItem";
 
 import SettingScaffold from "@/components/SettingComponents/SettingScaffold";
 import SettingScaffoldItem from "@/components/SettingComponents/SettingScaffoldItem";
@@ -545,21 +561,37 @@ export {
     UserProfileScaffold,
     UserProfileScaffoldItem,
 
+    VideoPageScaffoldItem,
     VideoScaffold,
     VideoScaffoldItem,
     VideoScaffoldItemInfo,
     VideoScaffoldItemAside,
-    VideoScaffoldItemAsideIcon,
     VideoScaffoldItemControl,
+    VideoScaffoldItemAsideIcon,
+    VideoUploadScaffold,
+    VideoUploadScaffoldInput,
+    VideoUploadScaffoldList,
+    VideoUploadScaffoldListItem,
+    VideoUploadScaffoldData,
+    VideoUploadScaffoldDataHeader,
+    VideoUploadScaffoldDataContent,
+    VideoUploadScaffoldDataContentReview,
+    VideoUploadScaffoldDataContentThumbnail,
+    VideoUploadScaffoldDataContentDescription,
+    VideoUploadScaffoldDataContentPrivacy,
+    VideoUploadScaffoldDataContentPrivacyOption,
+    VideoUploadScaffoldDataContentUserInteraction,
+    VideoUploadScaffoldDataContentUserInteractionOption,
+
     MediaPageScaffold,
     MediaPageScaffoldAside,
-    VideoPageScaffoldItem,
     MediaPageScaffoldHeader,
     MediaPageScaffoldHeaderURL,
     MediaPageScaffoldHeaderText,
     MediaPageScaffoldHeaderReaction,
     MediaPageScaffoldFooter,
     MediaPageScaffoldCommentItem,
+    MediaPageScaffoldCommentItemCard,
     MediaPhotoPageScaffoldItem,
 
     SettingScaffold,

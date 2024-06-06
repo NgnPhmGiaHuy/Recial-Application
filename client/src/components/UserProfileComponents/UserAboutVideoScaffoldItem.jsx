@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 
 import { calculateTimeDifference, formatTime } from "@/utils";
+import ReactPlayer from "react-player";
 
 const UserAboutVideoScaffoldItem = ({ userProps }) => {
     const videoRef = useRef(null);
@@ -53,10 +54,7 @@ const UserAboutVideoScaffoldItem = ({ userProps }) => {
                                 <div className="w-full h-0 pt-[100%] relative">
                                     <div className="top-0 right-0 bottom-0 left-0 flex flex-col absolute">
                                         <div className="w-full h-full top-0 right-0 bottom-0 left-0 absolute">
-                                            <video ref={videoRef} className="absolute h-full w-full object-cover" controls loop>
-                                                <source src={userProps.video_url} type="video/mp4"/>
-                                                Your browser does not support the video tag.
-                                            </video>
+                                            <ReactPlayer url={`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/video/${userProps._id}`} controls crossOrigin="anonymous" playing={false} muted={true} loop={true} width="100%" height="100%"/>
                                         </div>
                                     </div>
                                     <div className="px-[6px] py-[3px] top-[8px] right-[8px] rounded-md pointer-events-none bg-black/25 drop-shadow-md absolute">

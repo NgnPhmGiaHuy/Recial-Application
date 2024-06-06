@@ -10,6 +10,7 @@ export const SET_USER_SEARCH_DATA = "SET_USER_SEARCH_DATA";
 export const SET_USER_FOLLOWER_DATA = "SET_USER_FOLLOWER_DATA";
 export const SET_USER_FOLLOWING_DATA = "SET_USER_FOLLOWING_DATA";
 export const SET_USER_PHOTO_LIST_DATA = "SET_USER_PHOTO_LIST_DATA";
+export const SET_USER_VIDEO_LIST_DATA = "SET_USER_VIDEO_LIST_DATA";
 export const SET_USER_GROUP_LIST_DATA = "SET_USER_GROUP_LIST_DATA";
 export const SET_USER_FRIEND_REQUEST_DATA = "SET_USER_FRIEND_REQUEST_DATA";
 
@@ -84,6 +85,11 @@ export const setUserFollowerData = (followerData) => ({
 export const setUserPhotoListData = (photoListData) => ({
     type: SET_USER_PHOTO_LIST_DATA,
     payload: photoListData,
+});
+
+export const setUserVideoListData = (videoListData) => ({
+    type: SET_USER_VIDEO_LIST_DATA,
+    payload: videoListData,
 });
 
 export const setUserGroupListData = (groupListData) => ({

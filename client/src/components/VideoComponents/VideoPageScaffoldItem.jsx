@@ -1,7 +1,7 @@
 "use client"
 
 import dynamic from "next/dynamic";
-import {useRef, useState} from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { shallowEqual, useSelector } from "react-redux";
 
@@ -59,7 +59,8 @@ const VideoPageScaffoldItem = ({ progress }) => {
                             width="100%"
                             height="100%"
                             light={true}
-                        /></div>
+                        />
+                    </div>
                 </div>
             </div>
             <div className={`${isPlaying ? "opacity-0" : "opacity-100"} top-1/2 left-1/2 pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 z-50`}>

@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-const useVideoScaffold = ({ autoPlay, videoProps, setGlobalMute }) => {
+const useVideoScaffold = ({ autoPlay = false, videoProps, setGlobalMute = () => {} }) => {
     const router = useRouter();
 
     const videoRef = useRef(null);

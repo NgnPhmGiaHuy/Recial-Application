@@ -1,12 +1,12 @@
 const generalDataService = require("../../services/generalDataService");
-const photoDataService = require("../../services/mediaService/photoDataService");
+const getPhotoDataService = require("../../services/mediaService/getPhotoDataService");
 
 class PhotoController {
     getPhotoData = async (req, res)  =>{
         try {
             const { photo_id } = req.query;
 
-            const photoData = await photoDataService.getFormattedPhotoDataById(photo_id);
+            const photoData = await getPhotoDataService.getFormattedPhotoDataById(photo_id);
 
             return res.status(200).json(photoData);
         } catch (error) {

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { fetcherWithoutAccessToken } from "@/utils";
-import { setUserIdContactData, setUserIdFollowerData, setUserIdFollowingData, setUserIdFriendData, setUserIdGroupListData, setUserIdPhotoListData, setUserIdProfileData } from "@/store/actions/user/userIdActions";
+import { setUserIdContactData, setUserIdFollowerData, setUserIdFollowingData, setUserIdFriendData, setUserIdGroupListData, setUserIdPhotoListData, setUserIdProfileData, setUserIdVideoListData } from "@/store/actions/user/userIdActions";
 
 export const useUserIdData = (userId) => {
     const dispatch = useDispatch();
@@ -90,6 +90,19 @@ export const useGetUserPhotoListById = (userId) => {
     useEffect(() => {
         if (data) {
             dispatch(setUserIdPhotoListData(data));
+        }
+    }, [userId, data, dispatch]);
+
+    return { data, error, isLoading, isValidating };
+}
+
+export const useGetUserVideoListById = (userId) => {
+    const dispatch = useDispatch();
+    const { data, error, isLoading, isValidating } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/public/user/${userId}/video-list`, fetcherWithoutAccessToken);
+
+    useEffect(() => {
+        if (data) {
+            dispatch(setUserIdVideoListData(data));
         }
     }, [userId, data, dispatch]);
 

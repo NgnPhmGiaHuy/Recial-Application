@@ -152,6 +152,19 @@ class UserGetDataController {
         }
     }
 
+    getUserVideoList = async (req, res) => {
+        try {
+            const user = req.user;
+
+            const videoListProps = await getUserDataService.getUserVideoList(user.video_list);
+
+            return res.status(200).json(videoListProps);
+        } catch (error) {
+            console.error("Error in getUserVideoList: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+    }
+
     getUserGroupList = async (req, res) => {
         try {
             const userId = req.userId;

@@ -15,56 +15,56 @@ const UserAboutScaffoldOptions = ({ options }) => {
         <section>
             { options?.isFriendCard && (
                 <div className="flex flex-row flex-wrap justify-between relative">
-                    { userProps?.user?.friends.slice(0, 8).map((value, index) => (
+                    { userProps?.user?.friends?.slice(0, 8).map((value, index) => (
                         <UserAboutScaffoldItem key={index} userProps={value}/>
                     )) }
                 </div>
             ) }
             { options?.isFriendPage && (
                 <div className="flex flex-row flex-wrap justify-between relative">
-                    { userProps?.user?.friends.map((value, index) => (
+                    { userProps?.user?.friends?.map((value, index) => (
                         <UserAboutScaffoldItem key={index} userProps={value}/>
                     )) }
                 </div>
             ) }
             { options?.isGroupCard && (
                 <div className="flex flex-row flex-wrap justify-between relative">
-                    { userProps?.group_list.slice(0, 8).map((value, index) => (
+                    { userProps?.group_list?.slice(0, 8).map((value, index) => (
                         <UserAboutScaffoldItem key={index} userProps={value}/>
                     )) }
                 </div>
             ) }
             { options?.isGroupPage && (
                 <div className="flex flex-row flex-wrap justify-between relative">
-                    { userProps?.group_list.map((value, index) => (
+                    { userProps?.group_list?.map((value, index) => (
                         <UserAboutScaffoldItem key={index} userProps={value}/>
                     )) }
                 </div>
             ) }
             { options?.isPhotoCard && (
                 <div className="flex flex-row flex-wrap relative">
-                    { userProps?.photo_list.slice(0, 8).map((value, index) => (
+                    { userProps?.photo_list?.slice(0, 8).map((value, index) => (
                         <UserAboutPhotoScaffoldItem key={index} mediaProps={value}/>
                     )) }
                 </div>
             ) }
             { options?.isPhotoPage && (
                 <div className="flex flex-row flex-wrap relative">
-                    { userProps?.photo_list.map((value, index) => (
+                    { userProps?.photo_list?.map((value, index) => (
                         <UserAboutPhotoScaffoldItem key={index} mediaProps={value}/>
                     )) }
                 </div>
             ) }
             { options?.isVideoCard && (
                 <div className="flex flex-row flex-wrap relative">
-                    { userProps?.videos_list.slice(0, 8).map((value, index) => (
+                    { userProps?.video_list?.slice(0, 8).map((value, index) => (
                         <DynamicUserAboutVideoScaffoldItem key={index} userProps={value}/>
                     )) }
                 </div>
             ) }
             { options?.isVideoPage && (
                 <div className="flex flex-row flex-wrap relative">
-                    { userProps?.videos_list.map((value, index) => (
+                    { userProps?.video_list?.map((value, index) => (
                         <DynamicUserAboutVideoScaffoldItem key={index} userProps={value}/>
                     )) }
                 </div>

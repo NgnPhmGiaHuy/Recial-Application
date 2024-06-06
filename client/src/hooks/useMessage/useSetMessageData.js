@@ -1,36 +1,12 @@
-"use client"
-
-import { useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 
-import { fetchDataWithAccessTokenAndData, handleUploadImage } from "@/utils";
+import { handleUploadImage } from "@/utils";
+import { useSubmitMessageData } from "@/hooks";
 
 const useSetMessageData = () => {
     const userProps = useSelector((state) => state.user, shallowEqual);
-    const messageProps = useSelector((state) => state.message, shallowEqual);
 
-    const [messageSubmitStatus, setMessageSubmitStatus] = useState(false);
-
-    const handleSubmitMessageData = async ({ messageContent, conversationId }) => {
-        setMessageSubmitStatus(false);
-
-        const messageData = {
-            ...messageContent,
-            conversation_id: conversationId ? conversationId : messageProps?.conversation?._id,
-        }
-
-        const url = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/messages/";
-
-        try {
-            const createdMessage = await fetchDataWithAccessTokenAndData(url, "POST", messageData);
-
-            if (createdMessage && !createdMessage.error) {
-                setMessageSubmitStatus(true);
-            }
-        } catch (error) {
-            return console.error("Error submitting message data: ", error);
-        }
-    }
+    const { error, status, setStatus, handleSubmitMessageData } = useSubmitMessageData();
 
     const handleSetMessageData = async ({ inputText, inputImage, conversationId }) => {
         try {
@@ -39,13 +15,7 @@ const useSetMessageData = () => {
                     message_content: "👍",
                 };
 
-                const createdMessage = await handleSubmitMessageData({ messageContent: dataToSend, conversationId: conversationId });
-
-                if (!createdMessage) {
-                    return { error: "Invalid message format" };
-                }
-
-                return setMessageSubmitStatus(true);
+                return await handleSubmitMessageData({ messageContent: dataToSend, conversationId: conversationId });
             }
 
             const uploadTasks = inputImage.map(async (base64String) => {
@@ -59,19 +29,13 @@ const useSetMessageData = () => {
                 message_content_url: uploadedURLs,
             }
 
-            const createdMessage = await handleSubmitMessageData({ messageContent: dataToSend, conversationId: conversationId });
-
-            if (!createdMessage) {
-                return { error: "Invalid message format" };
-            }
-
-            return setMessageSubmitStatus(true);
+            return await handleSubmitMessageData({ messageContent: dataToSend, conversationId: conversationId });
         } catch (error) {
             return console.error("Error uploading images or creating post: ", error);
         }
     }
 
-    return { messageSubmitStatus, setMessageSubmitStatus, handleSetMessageData };
+    return { error, status, setStatus, handleSetMessageData };
 }
 
 export default useSetMessageData;

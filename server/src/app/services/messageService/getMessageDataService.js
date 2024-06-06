@@ -2,7 +2,7 @@ const User = require("../../models/User");
 const Status = require("../../models/Status");
 const Message = require("../../models/Message");
 
-const photoDataService = require("../mediaService/photoDataService");
+const getPhotoDataService = require("../mediaService/getPhotoDataService");
 
 class GetMessageDataService {
     getRawMessageData = async (messageId) => {
@@ -38,7 +38,7 @@ class GetMessageDataService {
             );
 
             const messagePhoto = await Promise.all(message_content_url.map(async (photo) => {
-                const photos = await photoDataService.getRawPhotoData(photo);
+                const photos = await getPhotoDataService.getRawPhotoData(photo);
                 const { createdAt, updatedAt, ...otherPhotoProps } = photos._doc;
 
                 return {

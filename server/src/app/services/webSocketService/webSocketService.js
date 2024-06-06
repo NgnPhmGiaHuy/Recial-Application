@@ -43,10 +43,10 @@ class WebSocketService {
         }
     }
 
-    notifyClientsAboutNewComment(userId, newComment) {
+    notifyClientsAboutNewComment(type, userId, newComment) {
         if (this.wss) {
             const commentMessage = {
-                type: "create_comment",
+                type: type,
                 userId: userId.toString(),
                 commentId: newComment._id.toString(),
             };
@@ -140,6 +140,17 @@ class WebSocketService {
             }
 
             this.broadcastMessageToUser(updatedReactionMessage, userId);
+        }
+    }
+
+    notifyClientsAboutDeleteReaction(userId, deletedReaction) {
+        if (this.wss) {
+            const deletedReactionMessage = {
+                type: "delete_reaction",
+                reactionId: deletedReaction._id.toString(),
+            }
+
+            this.broadcastMessageToUser(deletedReactionMessage, userId);
         }
     }
 

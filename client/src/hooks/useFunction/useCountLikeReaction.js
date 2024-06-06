@@ -18,12 +18,12 @@ const useCountLikeReaction = (entity) => {
     };
 
     useEffect(() => {
-        if (entity && entity.reaction && entity.reaction.length > 0) {
+        if (entity && entity.reaction) {
             const likeCount = countLike(entity.reaction);
 
             return setTotalLike(likeCount);
         }
-    }, [entity]);
+    }, [entity.reaction]);
 
     return totalLike;
 };

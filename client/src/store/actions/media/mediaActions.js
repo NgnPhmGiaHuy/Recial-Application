@@ -1,8 +1,14 @@
 export const SET_MEDIA_DATA = "SET_MEDIA_DATA";
-export const SET_MEDIA_DATA_AUTHOR = "SET_MEDIA_DATA_AUTHOR";
-export const SET_MEDIA_DATA_RECENT = "SET_MEDIA_DATA_RECENT";
-export const SET_MEDIA_DATA_COMMENT = "SET_MEDIA_DATA_COMMENT";
-export const SET_MEDIA_DATA_REACTION = "SET_MEDIA_DATA_REACTION";
+export const SET_MEDIA_AUTHOR_DATA = "SET_MEDIA_AUTHOR_DATA";
+export const SET_MEDIA_RECENT_DATA = "SET_MEDIA_RECENT_DATA";
+export const SET_MEDIA_COMMENT_DATA = "SET_MEDIA_COMMENT_DATA";
+export const SET_MEDIA_REACTION_DATA = "SET_MEDIA_REACTION_DATA";
+
+export const CREATE_MEDIA_COMMENT_DATA = "CREATE_MEDIA_COMMENT_DATA";
+
+export const CREATE_MEDIA_REACTION_DATA = "CREATE_MEDIA_REACTION_DATA";
+
+export const DELETE_MEDIA_REACTION_DATA = "DELETE_MEDIA_REACTION_DATA";
 
 export const CLEAR_MEDIA_DATA = "CLEAR_MEDIA_DATA";
 export const CLEAR_MEDIA_DATA_RECENT = "CLEAR_MEDIA_DATA_RECENT";
@@ -12,24 +18,39 @@ export const setMediaData = (mediaData) => ({
     payload: mediaData,
 })
 
-export const setMediaAuthor = (mediaAuthor) => ({
-    type: SET_MEDIA_DATA_AUTHOR,
+export const setMediaAuthorData = (mediaAuthor) => ({
+    type: SET_MEDIA_AUTHOR_DATA,
     payload: mediaAuthor,
 })
 
-export const setMediaRecent = (mediaRecent) => ({
-    type: SET_MEDIA_DATA_RECENT,
+export const setMediaRecentData = (mediaRecent) => ({
+    type: SET_MEDIA_RECENT_DATA,
     payload: mediaRecent,
 })
 
-export const setMediaComment = (mediaComment) => ({
-    type: SET_MEDIA_DATA_COMMENT,
+export const setMediaCommentData = (mediaComment) => ({
+    type: SET_MEDIA_COMMENT_DATA,
     payload: mediaComment,
 })
 
-export const setMediaReaction = (mediaReaction) => ({
-    type: SET_MEDIA_DATA_REACTION,
+export const setMediaReactionData = (mediaReaction) => ({
+    type: SET_MEDIA_REACTION_DATA,
     payload: mediaReaction,
+})
+
+export const createMediaCommentData = (commentData) => ({
+    type: CREATE_MEDIA_COMMENT_DATA,
+    payload: commentData,
+})
+
+export const createMediaReactionData = (reactionData) => ({
+    type: CREATE_MEDIA_REACTION_DATA,
+    payload: reactionData,
+})
+
+export const deleteMediaReactionData = (reactionData) => ({
+    type: DELETE_MEDIA_REACTION_DATA,
+    payload: reactionData,
 })
 
 export const clearMediaData = () => ({

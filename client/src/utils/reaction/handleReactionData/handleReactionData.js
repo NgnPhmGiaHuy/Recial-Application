@@ -1,16 +1,26 @@
 import { fetchDataWithAccessToken } from "@/utils";
 
-const handleReactionData = async (reactionType, destinationId, handleState) => {
+const handleReactionData = async (reactionType = "Like", destinationId, method = "POST", handleState = () => {}) => {
     try {
-        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/reaction/?reaction_type=${reactionType.toString()}&destination_id=${destinationId.toString()}`;
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/reaction/?reaction_type=${reactionType.toString()}&destination_id=${destinationId.toString()}`;
 
-        const reactionData = await fetchDataWithAccessToken(url, "POST");
+        const reactionData = await fetchDataWithAccessToken(url, method);
 
-        if (reactionData && !reactionData.error) {
-            return handleState();
+        if (!reactionData) {
+            console.error("Failed to fetch reaction data. No response from server.");
+            return { success: false, message: "No response from server." };
         }
+
+        if (reactionData.error) {
+            console.error(`Error: ${reactionData.error.message || "Unknown error occurred"}`);
+            return { success: false, message: reactionData.error.message || "Unknown error occurred" };
+        }
+
+        handleState();
+        return { success: true, message: "Reaction successfully handled." };
     } catch (error) {
-        return console.error(error);
+        console.error(`Network error: ${error.message || "An unknown error occurred"}`);
+        return { success: false, message: `Network error: ${error.message || "An unknown error occurred"}` };
     }
 }
 

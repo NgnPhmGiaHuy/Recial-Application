@@ -12,7 +12,7 @@ const authOptions = {
     ],
     pages: {
         signIn: "/",
-        signOut: '/auth/login',
+        signOut: "/auth/login",
     },
     callbacks: {
         async signIn({ account }) {

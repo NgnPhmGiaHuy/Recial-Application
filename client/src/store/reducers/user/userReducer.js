@@ -1,6 +1,6 @@
 import { createPostComment, createPostReaction, updatePostReaction } from "@/utils";
 
-import { SET_USER_POST_DATA, SET_USER_PROFILE_DATA, SET_USER_NOTIFICATION_DATA, SET_USER_CONTACT_DATA, SET_USER_MESSAGE_DATA, SET_USER_MESSAGE_LOADING, SET_USER_SETTING_DATA, SET_USER_FRIEND_DATA, SET_USER_SEARCH_DATA, SET_USER_FOLLOWING_DATA, SET_USER_FOLLOWER_DATA, SET_USER_PHOTO_LIST_DATA, SET_USER_GROUP_LIST_DATA, SET_USER_FRIEND_REQUEST_DATA } from "../../actions/user/userActions";
+import { SET_USER_POST_DATA, SET_USER_PROFILE_DATA, SET_USER_NOTIFICATION_DATA, SET_USER_CONTACT_DATA, SET_USER_MESSAGE_DATA, SET_USER_MESSAGE_LOADING, SET_USER_SETTING_DATA, SET_USER_FRIEND_DATA, SET_USER_SEARCH_DATA, SET_USER_FOLLOWING_DATA, SET_USER_FOLLOWER_DATA, SET_USER_PHOTO_LIST_DATA, SET_USER_VIDEO_LIST_DATA, SET_USER_GROUP_LIST_DATA, SET_USER_FRIEND_REQUEST_DATA } from "../../actions/user/userActions";
 import { CREATE_USER_POST_DATA, CREATE_USER_POST_COMMENT_DATA, CREATE_USER_POST_REACTION_DATA } from "../../actions/user/userActions";
 import { UPDATE_USER_MESSAGE_DATA, UPDATE_USER_POST_REACTION_DATA } from "../../actions/user/userActions";
 import { DELETE_USER_POST_DATA, DELETE_USER_CONVERSATION_DATA } from "../../actions/user/userActions";
@@ -20,6 +20,7 @@ const initialState = {
     post_list: null,
     group_list: null,
     photo_list: null,
+    video_list: null,
     user_messages: {
         isLoading: false,
         message_list: null,
@@ -118,6 +119,11 @@ const userReducer = (state  = initialState, action) => {
                 ...state,
                 photo_list: action.payload,
             };
+        case SET_USER_VIDEO_LIST_DATA:
+            return {
+                ...state,
+                video_list: action.payload,
+            }
         case SET_USER_GROUP_LIST_DATA:
             return {
                 ...state,

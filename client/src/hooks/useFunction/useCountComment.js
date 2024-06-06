@@ -19,14 +19,14 @@ const useCountComment = (entity) => {
     };
 
     useEffect(() => {
-        if (entity && entity.comment && entity.comment.length > 0) {
+        if (entity && entity.comment) {
             const commentCount = countComments(entity.comment);
             
             return setTotalComments(commentCount);
         } else {
             return setTotalComments(0);
         }
-    }, [entity]);
+    }, [entity.comment]);
 
     return totalComments;
 }

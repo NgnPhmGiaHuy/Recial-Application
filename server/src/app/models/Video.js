@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const {tr} = require("@faker-js/faker");
 const Schema = mongoose.Schema;
 
 const VideoSchema = new Schema(
@@ -14,7 +15,13 @@ const VideoSchema = new Schema(
             type: String,
             required: true,
             default: "Public",
-            enum: ["Public", "Private", "Friends", "Specific_Friends"],
+            // enum: ["Public", "Private", "Friends", "Specific_Friends", "Followers", "Only_You"],
+        },
+        video_size: {
+            type: Number,
+        },
+        video_format: {
+            type: String,
         },
         video_description: {
             type: String,
@@ -36,6 +43,20 @@ const VideoSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "Location",
         },
+        video_interaction: {
+            allow_duet: {
+                type: Schema.Types.Boolean,
+                default: true,
+            },
+            allow_stitch: {
+                type: Schema.Types.Boolean,
+                default: true,
+            },
+            allow_comments: {
+                type: Schema.Types.Boolean,
+                default: true,
+            },
+        }
     }, {
         timestamps: true,
     }

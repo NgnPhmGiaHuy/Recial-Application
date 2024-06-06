@@ -2,6 +2,7 @@ const WebSocketService = require("../../services/webSocketService/webSocketServi
 const getTypeDataService = require("../../services/typeService/getTypeDataService");
 const getReactionDataService = require("../../services/reactionService/getReactionDataService");
 const createReactionDataService = require("../../services/reactionService/createReactionDataService");
+const deleteReactionDataService = require("../../services/reactionService/deleteReactionDataService");
 
 class ReactionController {
     getReactionData = async (req, res) => {
@@ -55,6 +56,25 @@ class ReactionController {
             }
         } catch (error) {
             console.error("Error in createReaction: ", error);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+    }
+
+    deleteReaction = async (req, res) => {
+        try {
+            const userId = req.userId;
+            const { destination_id } = req.query;
+
+            const deletedReactionData = await deleteReactionDataService.deleteReactionData(userId, destination_id);
+
+            const wss = req.app.get("wss");
+            const webSocketService = new WebSocketService(wss);
+
+            await webSocketService.notifyClientsAboutDeleteReaction(userId, deletedReactionData);
+
+            return res.status(200).json(deletedReactionData);
+        } catch (error) {
+            console.error("Error in deleteReaction: ", error);
             return res.status(500).json({ error: "Internal Server Error" });
         }
     }

@@ -9,6 +9,7 @@ const mediaRoutes = require("./media/mediaRoutes");
 const watchRoutes = require("./video/watchRoutes");
 const videoRoutes = require("./video/videoRoutes");
 const groupRoutes = require("./group/groupRoutes");
+const savedRoutes = require("./saved/savedRoutes");
 const postIdRoutes = require("./post/postIdRoutes");
 const userIdRouter = require("./user/userIdRoutes");
 const messageRoutes = require("./message/messageRoutes");
@@ -32,6 +33,7 @@ module.exports = [
     { path: "/secure/watch", route: watchRoutes, middleware: MiddlewareController.verifyToken },
     { path: "/secure/event", route: eventRoutes, middleware: MiddlewareController.verifyToken },
     { path: "/secure/story", route: storyRoutes, middleware: MiddlewareController.verifyToken },
+    { path: "/secure/saved", route: savedRoutes, middleware: MiddlewareController.verifyToken },
     { path: "/secure/comment", route: commentRoutes, middleware: MiddlewareController.verifyToken },
     { path: "/secure/setting", route: settingRoutes, middleware: MiddlewareController.verifyToken },
     { path: "/secure/suggest", route: suggestRoutes, middleware: MiddlewareController.verifyToken },

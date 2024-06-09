@@ -3,16 +3,17 @@
 import { useDispatch } from "react-redux";
 
 import { useGetMediaFetcher } from "@/hooks";
-import { setMediaAuthorData, setMediaCommentData, setMediaData, setMediaReactionData, setMediaRecentData } from "@/store/actions/media/mediaActions";
+import { setMediaAuthorData, setMediaCommentData, setMediaData, setMediaReactionData, setMediaRecentData, setMediaSavedData } from "@/store/actions/media/mediaActions";
 
 const usePostMediaData = (user, post, photo) => {
     const dispatch = useDispatch();
 
     const endpoints = [
         { url: `photo/?photo_id=${photo}`, action: setMediaData },
-        { url: `post/author/?user_id=${user}`, action: setMediaAuthorData },
-        { url: `post/comment/?photo_id=${photo}`, action: setMediaCommentData },
-        { url: `post/reaction/?photo_id=${photo}`, action: setMediaReactionData },
+        { url: `photo/saved/?photo_id=${photo}`, action: setMediaSavedData },
+        { url: `photo/author/?user_id=${user}`, action: setMediaAuthorData },
+        { url: `photo/comment/?photo_id=${photo}`, action: setMediaCommentData },
+        { url: `photo/reaction/?photo_id=${photo}`, action: setMediaReactionData },
         { url: `post/recent/?post_id=${post}`, action: setMediaRecentData },
     ]
 

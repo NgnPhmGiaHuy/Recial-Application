@@ -24,7 +24,7 @@ class GetCommentDataService {
 
             const userData = await getUserDataService.getFormattedUserDataById(source_id);
             const commentReplyData = await generalDataService.getCommentData(commentData._id);
-            const commentReactionData = await generalDataService.getReactionData(commentData._id);
+            const commentReactionData = await generalDataService.getReactionDataAndReturnUserId(commentData._id);
 
             const formattedCommentData = {
                 comment: {

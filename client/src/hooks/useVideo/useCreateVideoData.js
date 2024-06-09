@@ -18,6 +18,7 @@ const useCreateVideoData = () => {
                 video_title: videoProps?.meta?.name,
                 video_format: videoProps?.meta?.format,
                 video_privacy: videoProps?.meta?.privacy,
+                video_thumbnail: videoProps?.thumbnail,
                 video_description: videoProps?.meta?.description,
                 video_duration: videoProps?.meta?.duration,
                 video_resolution: videoProps?.meta?.resolution,

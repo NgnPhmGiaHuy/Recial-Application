@@ -1,20 +1,43 @@
 import { fetchDataWithAccessToken } from "@/utils";
-import { createMediaCommentData, deleteMediaReactionData, createMediaReactionData } from "@/store/actions/media/mediaActions";
+import { createMediaCommentData, createMediaCommentReactionData, createMediaReactionData, createMediaSavedData, deleteMediaReactionData, deleteMediaSavedData, deleteMediaCommentReactionData } from "@/store/actions/media/mediaActions";
 
 const handleNewMediaData = async (data, dispatch) => {
     const { type } = data;
 
     if (type === "create_reaction") {
-        const { reactionId } = data;
-        const url = process.env.NEXT_PUBLIC_API_URL + `/api/v1/secure/reaction/?reaction=${reactionId}`;
+        const { sourceId } = data;
 
-        return dispatch(createMediaReactionData(await fetchDataWithAccessToken(url, "GET")));
+        return dispatch(createMediaReactionData(sourceId.toString()));
+    }
+
+    if (type === "create_comment_reaction") {
+        const { sourceId, destinationId } = data;
+
+        return dispatch(createMediaCommentReactionData({ sourceId: sourceId.toString(), destinationId: destinationId.toString() }));
     }
 
     if (type === "delete_reaction") {
-        const { reactionId } = data;
+        const { sourceId } = data;
 
-        return dispatch(deleteMediaReactionData(reactionId))
+        return dispatch(deleteMediaReactionData(sourceId.toString()))
+    }
+
+    if (type === "delete_comment_reaction") {
+        const { sourceId, destinationId } = data;
+
+        return dispatch(deleteMediaCommentReactionData({ sourceId: sourceId.toString(), destinationId: destinationId.toString() }))
+    }
+
+    if (type === "create_video_saved") {
+        const { userId } = data;
+
+        return dispatch(createMediaSavedData(userId.toString()));
+    }
+
+    if (type === "delete_video_saved") {
+        const { userId } = data;
+
+        return dispatch(deleteMediaSavedData(userId.toString()));
     }
 
     if (type === "create_media_comment") {

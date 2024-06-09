@@ -3,13 +3,18 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
+import { shallowEqual, useSelector } from "react-redux";
 
-import { formatDate } from "@/utils";
+import { formatDate, handleReaction } from "@/utils";
 import { useClickOutside, useToggleState } from "@/hooks";
 
 const MediaPageScaffoldCommentItemCard = ({ commentProps, showMoreButton, handleShowReplyPanel }) => {
+    const userProps = useSelector((state) => state.user, shallowEqual);
+
     const reportButtonRef = useRef(null);
     const [showReportPanel, setShowReportPanel, handleShowReportPanel] = useToggleState(false);
+
+    const hasReaction = commentProps.comment_reactions?.includes(userProps?.user?._id);
 
     useClickOutside(reportButtonRef, showReportPanel, setShowReportPanel);
 
@@ -82,17 +87,19 @@ const MediaPageScaffoldCommentItemCard = ({ commentProps, showMoreButton, handle
                             </div>
                         ) }
                     </div>
-                    <div className="w-full h-fit flex flex-col items-center justify-center rounded-full overflow-hidden relative transition-all">
-                        <i>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
-                            </svg>
-                        </i>
+                    <div onClick={() => handleReaction({ condition: hasReaction, destinationId: commentProps._id, destinationType: "comment" })} className="select-none">
+                        <div className="w-full h-fit flex flex-col items-center justify-center rounded-full overflow-hidden relative transition-all">
+                            <i>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill={`${hasReaction ? "red" : "none"}`} viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                                </svg>
+                            </i>
+                        </div>
                     </div>
                     <div className="flex items-center">
                         <span className="block text-[12px] text-left font-normal break-words relative leading-5">
                             <span className="overflow-hidden relative">
-                                { commentProps?.likes_count }
+                                { commentProps?.comment_reactions?.length }
                             </span>
                         </span>
                     </div>

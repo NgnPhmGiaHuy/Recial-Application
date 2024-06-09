@@ -20,7 +20,7 @@ const MediaPageScaffoldAside = () => {
                             <div className="h-[50px] pt-[18px] flex flex-row items-center relative">
                                 <div className="w-1/2 h-full border-b-2 border-solid border-black">
                                     <span className="block text-[14px] text-black text-center font-bold break-words cursor-pointer relative leading-5">
-                                        <span className="overflow-hidden relative">
+                                        <span className="overflow-hidden tabular-nums relative">
                                             Comment {totalComment ? (`(${totalComment})`) : null}
                                         </span>
                                     </span>

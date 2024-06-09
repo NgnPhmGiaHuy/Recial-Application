@@ -277,7 +277,7 @@ class GetUserDataService {
 
     getUserVideoList = async (video_list) => {
         try {
-            return await Promise.all(video_list.map(async video => {
+            const videoList = video_list.map(async video => {
                 try {
                     const videoProps = await Video.findById(video);
                     const { createdAt, updatedAt, ...otherVideoProps } = videoProps._doc;
@@ -291,7 +291,11 @@ class GetUserDataService {
                     console.error("Error fetching user video:", error);
                     throw new Error("Failed to fetch user video");
                 }
-            }));
+            })
+
+            const videoListPromises = await Promise.all(videoList);
+
+            return videoListPromises;
         } catch (error) {
             console.error("Error in getUserVideoList: ", error);
             throw new Error("Failed to fetch user video list");

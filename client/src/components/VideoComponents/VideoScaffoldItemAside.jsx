@@ -2,15 +2,18 @@
 
 import Link from "next/link";
 import Image from "next/image";
-
 import { useRouter } from "next/navigation";
+import { shallowEqual, useSelector } from "react-redux";
+
 import { VideoScaffoldItemAsideIcon } from "@/components";
 
 import VIDEO_ASIDE_BUTTON from "@/constants/VideoConstants/VideoScaffoldItemAsideConstant";
 
 const VideoScaffoldItemAside = ({ videoProps, progress }) => {
     const router = useRouter();
-    const button = VIDEO_ASIDE_BUTTON(videoProps, progress, router);
+    const userProps = useSelector((state) => state.user, shallowEqual);
+
+    const button = VIDEO_ASIDE_BUTTON(videoProps, userProps?.user?._id, progress, router);
 
     return (
         <div className="w-[60px] ml-[12px] mb-[4px] flex flex-col flex-shrink-0 grow-0 gap-3 items-center justify-end overflow-visible static">

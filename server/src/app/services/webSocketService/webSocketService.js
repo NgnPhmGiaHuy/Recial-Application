@@ -121,36 +121,81 @@ class WebSocketService {
         }
     }
 
-    notifyClientsAboutCreateReaction(userId, newReaction) {
+    notifyClientsAboutCreateReaction(userId, newReaction, type = "create_reaction") {
         if (this.wss) {
             const newReactionMessage = {
-                type: "create_reaction",
+                type: type,
                 reactionId: newReaction._id.toString(),
+                sourceId: newReaction.source_id.toString(),
+                destinationId: newReaction.destination_id.toString(),
             }
 
             this.broadcastMessageToUser(newReactionMessage, userId);
         }
     }
 
-    notifyClientsAboutUpdateReaction(userId, updatedReaction) {
+    notifyClientsAboutUpdateReaction(userId, updatedReaction, type = "update_reaction") {
         if (this.wss) {
             const updatedReactionMessage = {
-                type: "update_reaction",
+                type: type,
                 reactionId: updatedReaction._id.toString(),
+                sourceId: updatedReaction.source_id.toString(),
+                destinationId: updatedReaction.destination_id.toString(),
             }
 
             this.broadcastMessageToUser(updatedReactionMessage, userId);
         }
     }
 
-    notifyClientsAboutDeleteReaction(userId, deletedReaction) {
+    notifyClientsAboutDeleteReaction(userId, deletedReaction, type = "delete_reaction") {
         if (this.wss) {
             const deletedReactionMessage = {
-                type: "delete_reaction",
+                type: type,
                 reactionId: deletedReaction._id.toString(),
+                sourceId: deletedReaction.source_id.toString(),
+                destinationId: deletedReaction.destination_id.toString(),
             }
 
             this.broadcastMessageToUser(deletedReactionMessage, userId);
+        }
+    }
+
+    notifyClientsAboutCreateVideoSaved(userId, newSaved) {
+        if (this.wss) {
+            const newSavedMessage = {
+                type: "create_video_saved",
+                savedId: newSaved._id.toString(),
+                userId: newSaved.user_id.toString(),
+                videoId: newSaved.video_id.toString(),
+            }
+
+            this.broadcastMessageToUser(newSavedMessage, userId);
+        }
+    }
+
+    notifyClientsAboutUpdateVideoSaved(userId, updatedSaved) {
+        if (this.wss) {
+            const updatedSavedMessage = {
+                type: "update_video_saved",
+                savedId: updatedSaved._id.toString(),
+                userId: updatedSaved.user_id.toString(),
+                videoId: updatedSaved.video_id.toString(),
+            }
+
+            this.broadcastMessageToUser(updatedSavedMessage, userId);
+        }
+    }
+
+    notifyClientsAboutDeleteVideoSaved(userId, deletedSaved) {
+        if (this.wss) {
+            const deletedSavedMessage = {
+                type: "delete_video_saved",
+                savedId: deletedSaved._id.toString(),
+                userId: deletedSaved.user_id.toString(),
+                videoId: deletedSaved.video_id.toString(),
+            }
+
+            this.broadcastMessageToUser(deletedSavedMessage, userId);
         }
     }
 

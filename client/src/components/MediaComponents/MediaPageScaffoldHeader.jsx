@@ -5,13 +5,13 @@ import Image from "next/image";
 import { shallowEqual, useSelector } from "react-redux";
 
 import { formatDate } from "@/utils";
-import { useMediaCheckFollow } from "@/hooks";
 import { MediaPageScaffoldHeaderReaction, MediaPageScaffoldHeaderText, MediaPageScaffoldHeaderURL } from "@/components";
 
 const MediaPageScaffoldHeader = () => {
+    const userProps = useSelector(state => state.user, shallowEqual);
     const mediaProps = useSelector(state => state.media, shallowEqual);
 
-    const { hasFollow } = useMediaCheckFollow();
+    const hasFollow = mediaProps?.user?.follower?.includes(userProps?.user?._id);
 
     return (
         <div className="mx-[-32px]">

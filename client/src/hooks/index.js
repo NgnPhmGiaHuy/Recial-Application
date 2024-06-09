@@ -51,7 +51,6 @@ import useGetMediaFetcher from "@/hooks/useMedia/useGetMediaFetcher";
 import useGetVideoMediaFetcher from "@/hooks/useMedia/useGetVideoMediaFetcher";
 import usePostMediaData from "@/hooks/useMedia/usePostMediaData";
 import useMediaNavigation from "@/hooks/useMedia/useMediaNavigation";
-import useMediaCheckFollow from "@/hooks/useMedia/useMediaCheckFollow";
 import useMediaCopyLink from "@/hooks/useMedia/useMediaCopyLink";
 import usePhotoData from "@/hooks/useMedia/usePhotoData";
 import useStoryData from "@/hooks/useMedia/useStoryData";
@@ -102,6 +101,7 @@ import useVideoScaffold from "@/hooks/useVideo/useVideoScaffold";
 import useWatchData from "@/hooks/useVideo/useWatchData";
 import useCreateVideoData from "@/hooks/useVideo/useCreateVideoData";
 import useHandleUploadVideo from "@/hooks/useVideo/useHandleUploadVideo";
+import useHandleUploadThumbnail from "@/hooks/useVideo/useHandleUploadThumbnail";
 
 import useWebSocket from "@/hooks/useWebSocket/useWebSocket";
 
@@ -122,7 +122,7 @@ export {
 
     useHeaderAction,
 
-    useGetMediaFetcher, useGetVideoMediaFetcher, usePostMediaData, useMediaNavigation, useMediaCheckFollow, useMediaCopyLink, usePhotoData, useStoryData, useUserStoryData, useStoryControls,
+    useGetMediaFetcher, useGetVideoMediaFetcher, usePostMediaData, useMediaNavigation, useMediaCopyLink, usePhotoData, useStoryData, useUserStoryData, useStoryControls,
 
     useMessageData, useMessageScaffold, useGetMessageDataByConversationId, useMessageTimestampDisplay, useSetMessageId, useSetMessageData, useSubmitMessageData,
 
@@ -140,7 +140,7 @@ export {
 
     useUserData, useUserIdLayout, useCheckUserFriend, useGetUserDataFetcher, useGetUserDataFetcherByPage, useUpdateUserProfile, useUserProfileActions,
 
-    useVideoData, useVideoScaffold, useWatchData, useCreateVideoData, useHandleUploadVideo,
+    useVideoData, useVideoScaffold, useWatchData, useCreateVideoData, useHandleUploadVideo, useHandleUploadThumbnail,
 
     useWebSocket,
 }

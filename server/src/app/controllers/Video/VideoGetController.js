@@ -90,7 +90,7 @@ class VideoGetController {
                 return res.status(400).send({ message: "Video ID not found" });
             }
 
-            const videoReactionData = await generalDataService.getReactionData(video_id);
+            const videoReactionData = await generalDataService.getReactionDataAndReturnUserId(video_id);
 
             if (!videoReactionData) {
                 return res.status(404).send({ error: "Video not found" });
@@ -99,6 +99,27 @@ class VideoGetController {
             return res.status(200).json(videoReactionData);
         } catch (error) {
             console.error("Error in getVideoReactionData: ", error);
+            return res.status(500).send({ error: "Internal Server Error" });
+        }
+    }
+
+    getVideoSavedData = async (req, res) => {
+        try {
+            const { video_id } = req.query;
+
+            if (!video_id) {
+                return res.status(400).send({ message: "Video ID not found" });
+            }
+
+            const videoSavedData = await getVideoDataService.getSavedVideoData(video_id);
+
+            if (!videoSavedData) {
+                return res.status(404).send({ error: "Video not found" });
+            }
+
+            return res.status(200).json(videoSavedData);
+        } catch (error) {
+            console.error("Error in getVideoSavedData: ", error);
             return res.status(500).send({ error: "Internal Server Error" });
         }
     }

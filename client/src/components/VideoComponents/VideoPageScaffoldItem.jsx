@@ -48,17 +48,17 @@ const VideoPageScaffoldItem = ({ progress }) => {
                     <div className="w-full h-full top-0 left-0 absolute z-20" onClick={handleSetIsPlaying}>
                         <ReactPlayer
                             url={`${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/video/${mediaProps._id}`}
-                            crossOrigin="anonymous"
-                            controls={true}
+                            volume={1}
+                            muted={isMuted}
                             playing={isPlaying}
                             onReady={handleOnReady}
                             onStart={handleOnStart}
-                            volume={1}
-                            muted={isMuted}
                             loop={true}
+                            light={true}
+                            controls={true}
                             width="100%"
                             height="100%"
-                            light={true}
+                            crossOrigin="anonymous"
                         />
                     </div>
                 </div>

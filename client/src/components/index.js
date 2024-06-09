@@ -276,6 +276,7 @@ import MediaPageScaffoldHeader from "@/components/MediaComponents/MediaPageScaff
 import MediaPageScaffoldHeaderURL from "@/components/MediaComponents/MediaPageScaffoldHeaderURL";
 import MediaPageScaffoldHeaderText from "@/components/MediaComponents/MediaPageScaffoldHeaderText";
 import MediaPageScaffoldHeaderReaction from "@/components/MediaComponents/MediaPageScaffoldHeaderReaction";
+import MediaPageScaffoldHeaderReactionItem from "@/components/MediaComponents/MediaPageScaffoldHeaderReactionItem";
 import MediaPageScaffoldFooter from "@/components/MediaComponents/MediaPageScaffoldFooter";
 import MediaPageScaffoldCommentItem from "@/components/MediaComponents/MediaPageScaffoldCommentItem";
 import MediaPageScaffoldCommentItemCard from "@/components/MediaComponents/MediaPageScaffoldCommentItemCard";
@@ -589,6 +590,7 @@ export {
     MediaPageScaffoldHeaderURL,
     MediaPageScaffoldHeaderText,
     MediaPageScaffoldHeaderReaction,
+    MediaPageScaffoldHeaderReactionItem,
     MediaPageScaffoldFooter,
     MediaPageScaffoldCommentItem,
     MediaPageScaffoldCommentItemCard,

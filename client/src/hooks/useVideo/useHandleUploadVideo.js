@@ -35,7 +35,7 @@ const useHandleUploadVideo = () => {
         const file = event.target.files[0];
         if (file) {
             startTimeRef.current = new Date().getTime();
-            extractVideoMetadata(file, (meta, file, thumbnail) => {
+            extractVideoMetadata(userProps?.user?._id, file, (meta, file, thumbnail) => {
                 setVideoProps({
                     meta,
                     data: file,

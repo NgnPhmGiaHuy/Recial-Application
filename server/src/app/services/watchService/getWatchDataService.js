@@ -1,10 +1,11 @@
 const User = require("../../models/User");
 const Video = require("../../models/Video");
+const Comment = require("../../models/Comment");
+const Reaction = require("../../models/Reaction");
 const VideoSaved = require("../../models/VideoSaved");
 
-const getVideoDataService = require("../videoService/getVideoDataService");
-const generalDataService = require("../generalDataService");
 const getUserDataService = require("../userService/getUserDataService");
+const getVideoDataService = require("../videoService/getVideoDataService");
 
 class GetWatchDataService {
     getWatchData = async () => {
@@ -18,15 +19,21 @@ class GetWatchDataService {
             const formattedWatchData = await Promise.all(watchData.map(async (video) => {
                 const { createdAt, updatedAt, ...otherProps } = video;
 
-                const userData = await User.find({ video_list: video._id })
+                const userData = await User.findOne({ video_list: video._id })
+                const savedData = await VideoSaved.find({ video_id: video._id });
+                const commentData = await Comment.find({ destination_id: video._id });
+                const reactionData = await Reaction.find({ destination_id: video._id });
 
-                const formattedUserData = await getUserDataService.getFormattedUserDataByRawData(userData[0]);
-                const formattedCommentData = await generalDataService.getCommentData(video._id);
-                const formattedReactionData = await generalDataService.getReactionData(video._id);
+                const formattedUserData = await getUserDataService.getFormattedUserDataByRawData(userData);
+
+                const formattedSavedData = savedData.map((video) => video.user_id);
+                const formattedCommentData = commentData.map((comment) => comment.source_id);
+                const formattedReactionData = reactionData.map((reaction) => reaction.source_id);
 
                 return {
                     ...otherProps,
                     user: formattedUserData,
+                    saved: formattedSavedData,
                     comment: formattedCommentData,
                     reaction: formattedReactionData,
                     created_at: createdAt,
@@ -52,15 +59,21 @@ class GetWatchDataService {
 
             const formattedWatchSavedData = await Promise.all(watchSavedProps.map(async (video) => {
                 const userData = await User.findOne({ video_list: video.video_id })
+                const savedData = await VideoSaved.find({ video_id: video.video_id });
+                const commentData = await Comment.find({ destination_id: video.video_id });
+                const reactionData = await Reaction.find({ destination_id: video.video_id });
 
                 const formattedUserData = await getUserDataService.getFormattedUserDataByRawData(userData);
                 const formattedVideoData = await getVideoDataService.getFormattedVideoDataById(video.video_id);
-                const formattedCommentData = await generalDataService.getCommentData(video.video_id);
-                const formattedReactionData = await generalDataService.getReactionData(video.video_id);
+
+                const formattedSavedData = savedData.map((video) => video.user_id);
+                const formattedCommentData = commentData.map((comment) => comment.source_id);
+                const formattedReactionData = reactionData.map((reaction) => reaction.source_id);
 
                 return {
                     ...formattedVideoData,
                     user: formattedUserData,
+                    saved: formattedSavedData,
                     comment: formattedCommentData,
                     reaction: formattedReactionData,
                 }

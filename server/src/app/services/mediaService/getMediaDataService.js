@@ -12,7 +12,8 @@ class GetMediaDataService {
                     firstname: user.firstname,
                     lastname: user.lastname,
                     profile_picture_url: user.profile_picture_url,
-                }
+                },
+                follower: user.followers,
             };
         } catch (error) {
             console.error("Error in getFormattedPhotoAuthorByUserId: ", error);

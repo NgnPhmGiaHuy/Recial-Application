@@ -30,7 +30,7 @@ const MediaPhotoPageScaffoldItem = () => {
                     <Image src={mediaProps?.media_url} alt={mediaProps?.media_url} fill={true} priority={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                 </div>
             </div>
-            <div className="w-full h-full px-[80px] cursor-pointer relative z-20">
+            <div className="w-full h-full px-[80px] cursor-pointer select-none relative z-20">
                 <div className="w-full h-full flex items-center justify-center bg-transparent overflow-hidden relative">
                     <div className="w-full h-full top-0 left-0 absolute">
                         <div className="w-full h-full relative">
@@ -53,7 +53,7 @@ const MediaPhotoPageScaffoldItem = () => {
                 <div>
                     { showPrev && (
                         <div className="h-full top-0 left-[10px] flex items-center justify-center cursor-pointer absolute z-20" onMouseEnter={() => setShowPrevButton(true)} onMouseLeave={() => setShowPrevButton(false)}>
-                            <div className="w-[60px] h-[60px] relative">
+                            <div className="w-[60px] h-[60px] select-none relative">
                                 { showPrevButton && (
                                     <MediumPrevButton onClick={fetchPreviousMedia}/>
                                 ) }
@@ -62,7 +62,7 @@ const MediaPhotoPageScaffoldItem = () => {
                     ) }
                     { showNext && (
                         <div className="h-full top-0 right-[10px] flex items-center justify-center cursor-pointer absolute z-20" onMouseEnter={() => setShowNextButton(true)} onMouseLeave={() => setShowNextButton(false)}>
-                            <div className="w-[60px] h-[60px] relative">
+                            <div className="w-[60px] h-[60px] select-none relative">
                                 { showNextButton && (
                                     <MediumNextButton onClick={fetchNextMedia}/>
                                 ) }

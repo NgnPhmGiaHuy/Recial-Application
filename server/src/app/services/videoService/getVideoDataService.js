@@ -2,6 +2,7 @@ const fs = require("node:fs");
 const axios = require("axios");
 
 const Video = require("../../models/Video");
+const VideoSaved = require("../../models/VideoSaved");
 
 class GetVideoDataService {
     getHeaders = (start, end, fileSize, chunkSize) => {
@@ -79,6 +80,23 @@ class GetVideoDataService {
         } catch (error) {
             console.error("Error in getVideoData: ", error);
             throw new Error("Failed to get video data.");
+        }
+    }
+
+    getSavedVideoData = async (videoId) => {
+        try {
+             const videoSavedData = await VideoSaved.find({ video_id: videoId });
+
+             if (!videoSavedData) {
+                 throw new Error("Video not found");
+             }
+
+             const formattedVideoSavedData = videoSavedData.map((video) => video.user_id);
+
+             return formattedVideoSavedData;
+        } catch (error) {
+            console.error("Error in getSavedVideoData: ", error);
+            throw new Error("Failed to get saved video data");
         }
     }
 

@@ -1,8 +1,13 @@
 import { fetchDataWithAccessToken } from "@/utils";
 
-const handleReactionData = async (reactionType = "Like", destinationId, method = "POST", handleState = () => {}) => {
+const handleReactionData = async ({ method = "POST", reactionType = "Like", destinationId, destinationType = "", handleState = () => {} }) => {
+    if (!destinationId) {
+        console.error("destinationId is required");
+        return { success: false, message: "DestinationId is required" };
+    }
+
     try {
-        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/reaction/?reaction_type=${reactionType.toString()}&destination_id=${destinationId.toString()}`;
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/secure/reaction/${destinationType}?reaction_type=${reactionType.toString()}&destination_id=${destinationId.toString()}`;
 
         const reactionData = await fetchDataWithAccessToken(url, method);
 

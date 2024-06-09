@@ -8,7 +8,7 @@ const VideoUploadScaffoldDataContent = ({ videoProps, setVideoProps, handleCreat
                     <VideoUploadScaffoldDataContentReview videoProps={videoProps}/>
                     <div className="flex-1">
                         <VideoUploadScaffoldDataContentDescription videoProps={videoProps} setVideoProps={setVideoProps}/>
-                        <VideoUploadScaffoldDataContentThumbnail videoProps={videoProps}/>
+                        <VideoUploadScaffoldDataContentThumbnail videoProps={videoProps} setVideoProps={setVideoProps}/>
                         <VideoUploadScaffoldDataContentPrivacy videoProps={videoProps} setVideoProps={setVideoProps}/>
                         <VideoUploadScaffoldDataContentUserInteraction videoProps={videoProps} setVideoProps={setVideoProps}/>
                         <div className="h-[1px] mt-[24px]">

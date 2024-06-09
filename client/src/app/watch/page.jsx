@@ -1,13 +1,24 @@
 "use client"
 
+import { useDispatch } from "react-redux";
+
+import { handleNewWatchData } from "@/utils";
 import { AsideScaffold, Header, VideoScaffold } from "@/components";
-import { useUserData, useWatchData, useWithAuth } from "@/hooks";
+import { useUserData, useWatchData, useWebSocket, useWithAuth } from "@/hooks";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL + "/api/v1/secure/watch";
 
 const MoviePage = () => {
+    const dispatch = useDispatch();
+
     const { userProps } = useUserData();
     const { watchProps } = useWatchData(API_URL);
+
+    const onDataReceived = async (data) => {
+        await handleNewWatchData(data, dispatch);
+    };
+
+    useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL, onDataReceived);
 
     return (
         <div>

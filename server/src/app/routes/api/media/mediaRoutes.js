@@ -7,6 +7,7 @@ const MediaRecentController = require("../../../controllers/Media/MediaRecentCon
 const router = express.Router();
 
 router.route("/photo").get(PhotoController.getPhotoData);
+router.route("/photo/saved").get(PhotoController.getPhotoSaved);
 router.route("/photo/author").get(MediaController.getMediaAuthorData);
 router.route("/photo/comment").get(PhotoController.getPhotoComment);
 router.route("/photo/reaction").get(PhotoController.getPhotoReaction);
@@ -18,9 +19,6 @@ router.route("/story/comment").get(StoryController.getStoryComment);
 router.route("/story/reaction").get(StoryController.getStoryReaction);
 router.route("/story/recent").get(MediaRecentController.getStoryRecentMediaData);
 
-router.route("/post/author").get(MediaController.getMediaAuthorData);
-router.route("/post/comment").get(PhotoController.getPhotoComment);
-router.route("/post/reaction").get(PhotoController.getPhotoReaction);
 router.route("/post/recent").get(MediaRecentController.getPostRecentMediaData);
 
 module.exports = router;

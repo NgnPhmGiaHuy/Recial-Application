@@ -43,6 +43,9 @@ const UserVideosPage = ({ params }) => {
                             </div>
                         </div>
                     </div>
+                    <div>
+                        { showEditProfile && <UserProfileEdit editProfileRef={profileActionRef.editProfileRef}/> }
+                    </div>
                 </>
             ) : (
                 <LoadingPageComponent/>

@@ -6,6 +6,27 @@ const Reaction = require("../models/Reaction");
 const getTypeDataService = require("./typeService/getTypeDataService");
 
 class GeneralDataService {
+    formattedUserData = async (userId) => {
+        try {
+            const user = await User.findById(userId);
+
+            const formattedUserDate = {
+                _id: user._id,
+                profile: {
+                    username: user.username,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    profile_picture_url: user.profile_picture_url,
+                }
+            }
+
+            return formattedUserDate;
+        } catch (error) {
+            console.error("Error in formattedUserData: ", error);
+            throw new Error("Failed to formatted user data");
+        }
+    }
+
     getFormattedPhotoDataById = async (photoId) => {
         try {
             const photoData = await Photo.findById(photoId);
@@ -45,7 +66,7 @@ class GeneralDataService {
 
                 const userData = await this.formattedUserData(source_id);
                 const commentReplyData = await this.getCommentData(comment);
-                const commentReactionData = await this.getReactionData(comment);
+                const commentReactionData = await this.getReactionDataAndReturnUserId(comment);
 
                 const formattedCommentData ={
                     ...rest,
@@ -94,24 +115,16 @@ class GeneralDataService {
         }
     }
 
-    formattedUserData = async (userId) => {
+    getReactionDataAndReturnUserId = async (entityId) => {
         try {
-            const user = await User.findById(userId);
+            const reactions = await Reaction.find({ destination_id: entityId }).sort({ updatedAt: -1 });
 
-            const formattedUserDate = {
-                _id: user._id,
-                profile: {
-                    username: user.username,
-                    firstname: user.firstname,
-                    lastname: user.lastname,
-                    profile_picture_url: user.profile_picture_url,
-                }
-            }
+            const formattedReactionsData = reactions.map((reaction) => reaction.source_id.toString())
 
-            return formattedUserDate;
+            return formattedReactionsData;
         } catch (error) {
-            console.error("Error in formattedUserData: ", error);
-            throw new Error("Failed to formatted user data");
+            console.error("Error in getReactionData: ", error);
+            throw new Error("Failed to get reactions");
         }
     }
 }

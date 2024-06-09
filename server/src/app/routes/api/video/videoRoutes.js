@@ -6,6 +6,7 @@ const VideoCreateController = require("../../../controllers/Video/VideoCreateCon
 const MiddlewareController = require("../../../controllers/Auth/MiddlewareController");
 
 router.route("/info").get(VideoGetController.getVideoInfoData);
+router.route("/saved").get(VideoGetController.getVideoSavedData);
 router.route("/author").get(VideoGetController.getVideoAuthorData);
 router.route("/comment").get(VideoGetController.getVideoCommentData);
 router.route("/reaction").get(VideoGetController.getVideoReactionData);

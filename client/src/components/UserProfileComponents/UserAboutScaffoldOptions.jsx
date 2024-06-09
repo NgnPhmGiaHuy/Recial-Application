@@ -58,14 +58,14 @@ const UserAboutScaffoldOptions = ({ options }) => {
             { options?.isVideoCard && (
                 <div className="flex flex-row flex-wrap relative">
                     { userProps?.video_list?.slice(0, 8).map((value, index) => (
-                        <DynamicUserAboutVideoScaffoldItem key={index} userProps={value}/>
+                        <DynamicUserAboutVideoScaffoldItem key={index} videoProps={value}/>
                     )) }
                 </div>
             ) }
             { options?.isVideoPage && (
                 <div className="flex flex-row flex-wrap relative">
                     { userProps?.video_list?.map((value, index) => (
-                        <DynamicUserAboutVideoScaffoldItem key={index} userProps={value}/>
+                        <DynamicUserAboutVideoScaffoldItem key={index} videoProps={value}/>
                     )) }
                 </div>
             ) }

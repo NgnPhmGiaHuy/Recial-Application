@@ -11,7 +11,7 @@ const MessageScaffoldInfoHeader = () => {
 
     const otherUserProps = messageProps?.conversation?.participants?.length <= 2 ? messageProps?.conversation?.participants.filter(conversation => conversation._id !== userProps?.user?._id) : null;
 
-    const button = MESSAGE_SCAFFOLD_INFO_HEADER_BUTTON({ userProps: otherUserProps[0], displayProfile: messageProps?.conversation?.participants?.length <= 2 });
+    const button = MESSAGE_SCAFFOLD_INFO_HEADER_BUTTON({ userProps: otherUserProps && otherUserProps[0], displayProfile: messageProps?.conversation?.participants?.length <= 2 });
 
     const participantPictureUrl = messageProps?.conversation?.participants?.slice(0, 2).map((pictureUrl) => pictureUrl?.profile?.profile_picture_url);
     const conversationPictureUrl = messageProps?.conversation?.conversation_picture_url ? messageProps?.conversation?.conversation_picture_url : participantPictureUrl;

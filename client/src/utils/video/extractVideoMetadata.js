@@ -1,4 +1,6 @@
-const extractVideoMetadata = (file, callback) => {
+import { handleUploadImage } from "@/utils";
+
+const extractVideoMetadata = (userId, file, callback) => {
     const videoElement = document.createElement("video");
     videoElement.src = URL.createObjectURL(file);
 
@@ -8,7 +10,7 @@ const extractVideoMetadata = (file, callback) => {
 
         videoElement.currentTime = 1;
 
-        videoElement.onseeked = () => {
+        videoElement.onseeked = async () => {
             const canvas = document.createElement("canvas");
             canvas.width = videoWidth;
             canvas.height = videoHeight;
@@ -16,6 +18,7 @@ const extractVideoMetadata = (file, callback) => {
             context.drawImage(videoElement, 0, 0, videoWidth, videoHeight);
 
             const thumbnail = canvas.toDataURL("image/png");
+            const uploadedImageUrl = await handleUploadImage(thumbnail, userId);
 
             const videoMeta = {
                 name: file.name,
@@ -33,7 +36,7 @@ const extractVideoMetadata = (file, callback) => {
                 }
             };
 
-            callback(videoMeta, file, thumbnail);
+            callback(videoMeta, file, uploadedImageUrl);
             URL.revokeObjectURL(videoElement.src);
         };
     };

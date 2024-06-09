@@ -17,7 +17,7 @@ const UserAbout = () => {
                     <UserAboutOverview/>
                 </div>
                 { userProps?.photo_list && <UserAboutScaffold titleLabel="Photos" options={{ isPhotoCard: true }}/> }
-                { userProps?.videos_list && <UserAboutScaffold titleLabel="Videos" options={{ isVideoCard: true }} /> }
+                { userProps?.video_list && <UserAboutScaffold titleLabel="Videos" options={{ isVideoCard: true }} /> }
                 { userProps?.user?.friends && <UserAboutScaffold titleLabel="Friends" options={{ isFriendCard: true }}/> }
                 { userProps?.group_list && <UserAboutScaffold titleLabel="Groups" options={{ isGroupCard: true }} /> }
             </div>

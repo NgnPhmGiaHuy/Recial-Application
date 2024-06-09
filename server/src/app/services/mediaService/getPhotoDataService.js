@@ -1,4 +1,5 @@
 const Photo = require("../../models/Photo");
+const PhotoSaved = require("../../models/PhotoSaved");
 
 class GetPhotoDataService {
     getRawPhotoData = async (photoId) => {
@@ -28,6 +29,19 @@ class GetPhotoDataService {
         } catch (error) {
             console.error("Error in getFormattedPhotoDataById: ", error);
             throw new Error("Failed to fetch photo data");
+        }
+    }
+
+    getFormattedPhotoSavedDataAndReturnUserId = async (photoId) => {
+        try {
+            const photoSavedData = await PhotoSaved.find({ photo_id: photoId });
+
+            const formattedPhotoSavedData = photoSavedData.map(photoSaved => photoSaved.user_id.toString());
+
+            return formattedPhotoSavedData;
+        } catch (error) {
+            console.error("Error in getFormattedPhotoSavedDataAndReturnUserId: ", error);
+            throw new Error("Failed to fetch photo saved data");
         }
     }
 }

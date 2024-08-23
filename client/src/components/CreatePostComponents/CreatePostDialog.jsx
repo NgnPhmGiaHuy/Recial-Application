@@ -17,19 +17,17 @@ const CreatePostDialog = ({ createPostRef }) => {
                 <div className="min-h-screen flex flex-col grow items-stretch justify-center animate-float relative">
                     <div className="min-h-[500px] px-[8px] pt-[56px] flex items-start justify-center">
                         <div className="flex flex-col rounded-xl shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] overflow-hidden bg-white relative">
-                            <form action="" method="POST">
-                                <div ref={createPostRef} className="w-[750px] h-[700px] overflow-hidden relative">
-                                    <div className={`${showCreatePostPanel ? "opacity-100 visible translate-x-0" : "opacity-0 invisible -translate-x-full pointer-events-none"} w-full h-full top-0 left-0 absolute`}>
-                                        <CreatePostDialogCard/>
-                                    </div>
-                                    <div className={`${showCreatePostAudience ? "opacity-100 visible translate-x-0 animate-movePanelRightToLeft" : "opacity-0 invisible translate-x-full pointer-events-none"} top-0 left-0 absolute `}>
-                                        <CreatePostDialogAudience/>
-                                    </div>
-                                    {/*<div className={`${true ? "opacity-100 visible translate-x-0 animate-movePanelRightToLeft" : "opacity-0 invisible translate-x-full pointer-events-none"} top-0 left-0 absolute `}>*/}
-                                    {/*    <CreatePostDialogGif/>*/}
-                                    {/*</div>*/}
+                            <div ref={createPostRef} className="w-[750px] h-[700px] overflow-hidden relative">
+                                <div className={`${showCreatePostPanel ? "opacity-100 visible translate-x-0" : "opacity-0 invisible -translate-x-full pointer-events-none"} w-full h-full top-0 left-0 absolute`}>
+                                    <CreatePostDialogCard/>
                                 </div>
-                            </form>
+                                <div className={`${showCreatePostAudience ? "opacity-100 visible translate-x-0 animate-movePanelRightToLeft" : "opacity-0 invisible translate-x-full pointer-events-none"} top-0 left-0 absolute `}>
+                                    <CreatePostDialogAudience/>
+                                </div>
+                                {/*<div className={`${true ? "opacity-100 visible translate-x-0 animate-movePanelRightToLeft" : "opacity-0 invisible translate-x-full pointer-events-none"} top-0 left-0 absolute `}>*/}
+                                {/*    <CreatePostDialogGif/>*/}
+                                {/*</div>*/}
+                            </div>
                         </div>
                     </div>
                 </div>

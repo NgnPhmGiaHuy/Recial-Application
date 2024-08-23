@@ -4,9 +4,7 @@ const PageScaffoldAsideCardItem = ({ icon, title, handleAction }) => {
             <div className="py-[8px] flex flex-row flex-nowrap items-center justify-between gap-3 relative">
                 <div className="flex flex-col flex-shrink-0 relative">
                     <div className="w-[24px] h-[24px] flex flex-row items-center justify-center overflow-hidden relative">
-                        <i>
-                            {icon}
-                        </i>
+                        { icon }
                     </div>
                 </div>
                 <div className="flex flex-col flex-shrink grow self-center basis-0 relative">

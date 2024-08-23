@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { shallowEqual, useSelector } from "react-redux";
 
-import { PageCoverNavigation, PageCoverProfileSubHeader } from "@/components";
+import { PageCoverNavigation, PageCoverProfileSubHeader, PlusIcon } from "@/components";
 
 const PageCover = () => {
     const pageProps = useSelector(state => state.page, shallowEqual);
@@ -29,21 +29,17 @@ const PageCover = () => {
                                 </div>
                                 <div className="bottom-[-8px] right-[-8px] absolute">
                                     <div className="w-[32px] h-[32px] flex items-center justify-center rounded-full text-white bg-lime-500 overflow-hidden cursor-pointer hover:bg-lime-700 relative transition-all">
-                                        <i>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
-                                            </svg>
-                                        </i>
+                                        <PlusIcon fill="none" stroke="currentColor" strokeWidth={2} />
                                     </div>
                                 </div>
                             </div>
                             <div className="mt-[8px] flex flex-col relative">
                             <div className="flex flex-col relative">
-                                    <span className="max-w-[512px] block text-[32px] text-black text-left font-semibold break-words leading-10">
-                                        <span className="block overflow-hidden text-ellipsis whitespace-nowrap break-words relative">
-                                            {pageProps?.profile?.page_name}
-                                        </span>
+                                <span className="max-w-[512px] block text-[32px] text-black text-left font-semibold break-words leading-10">
+                                    <span className="block overflow-hidden text-ellipsis whitespace-nowrap break-words relative">
+                                        {pageProps?.profile?.page_name}
                                     </span>
+                                </span>
                                 </div>
                             </div>
                         </div>

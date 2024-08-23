@@ -1,4 +1,4 @@
-import {ClimateSciencePageMediumCard, ClimateSciencePageSliderCard, ClimateSciencePageSmallCard} from "@/components";
+import { ClimateSciencePageMediumCard, ClimateSciencePageSliderCard, ClimateSciencePageSmallCard } from "@/components";
 
 import { ACTION_AGAINST_CLIMATE_CHANGE, CLIMATE_FACT, IPCC_REPORT, IPCC_UPDATE, ONE_FIVE_DEGREE_EXPLAINED } from "@/constants/ClimateScienceConstants/ClimateSciencePageContentMainConstants";
 

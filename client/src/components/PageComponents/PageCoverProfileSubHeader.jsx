@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { shallowEqual, useSelector } from "react-redux";
 
+import { ClockIcon } from "@/components";
 import { handleFormatNumber } from "@/utils";
 
 const PageCoverProfileSubHeader = () => {
@@ -14,15 +15,13 @@ const PageCoverProfileSubHeader = () => {
                         <div>
                             <span className="block text-[24px] text-black text-left font-bold break-words relative leading-5">
                                 <span className="overflow-hidden relative">
-                                    {handleFormatNumber(pageProps?.follow?.length)}
+                                    { handleFormatNumber(pageProps?.follow?.length) }
                                 </span>
                             </span>
                         </div>
                         <div>
                             <span className="block text-[12px] text-zinc-500 text-left font-normal break-words uppercase relative leading-4">
-                                <span className="overflow-hidden relative">
-                                    Followers
-                                </span>
+                                Followers
                             </span>
                         </div>
                     </div>
@@ -32,19 +31,11 @@ const PageCoverProfileSubHeader = () => {
                         <Link href="" replace={true}>
                             <div className="px-[16px] py-[8px] flex flex-row items-center justify-between gap-1 relative transition-all">
                                 <div className="w-[16px] h-[16px] flex items-center justify-center text-black overflow-hidden relative">
-                                    <i>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                             strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                                            <path strokeLinecap="round" strokeLinejoin="round"
-                                                  d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                                        </svg>
-                                    </i>
+                                    <ClockIcon fill="none" stroke="currentColor" width={16} height={16} />
                                 </div>
                                 <div className="flex flex-row items-center relative">
                                     <span className="text-[16px] text-black text-left font-normal break-words leading-4 relative">
-                                        <span className="overflow-hidden relative">
-                                            History
-                                        </span>
+                                        History
                                     </span>
                                 </div>
                             </div>

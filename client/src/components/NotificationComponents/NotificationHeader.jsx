@@ -15,7 +15,7 @@ const NotificationHeader = ({ forwardedRef }) => {
                     <div className="sm:w-[360px] w-[300px] sm:max-h-[calc(100vh-56px-16px)] max-h-[calc(80vh-56px-16px)] flex flex-col">
                         <div className="flex flex-col flex-shrink grow overflow-x-hidden overflow-y-auto overscroll-y-contain no-scrollbar basis-full relative">
                             <div className="flex flex-col grow relative">
-                                <NotificationTitle noticeQuickSettingRef={noticeQuickSettingRef} handleNoticeQuickSettingButton={handleNoticeQuickSettingButton}/>
+                                <NotificationTitle forwardRef={noticeQuickSettingRef} handleOnclick={handleNoticeQuickSettingButton}/>
                                 <div>
                                     <div className="mb-[12px] pl-[16px] flex flex-row flex-wrap">
                                         <SmallTypeButton type="all" showType={showTypeNotification} onClick={handleTypeClick}/>

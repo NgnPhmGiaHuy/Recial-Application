@@ -1,3 +1,5 @@
+import { XMarkIcon } from "@/components";
+
 const MessageCreateUser = ({ index, userProps, handleRemoveSelectedParticipant }) => {
     return (
         <div>
@@ -12,11 +14,7 @@ const MessageCreateUser = ({ index, userProps, handleRemoveSelectedParticipant }
                     </div>
                     <div onClick={() => handleRemoveSelectedParticipant(index)}>
                         <div className="w-[12px] h-[12px] flex items-center justify-center cursor-pointer hover:text-black relative">
-                            <i>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-3 h-3">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12"/>
-                                </svg>
-                            </i>
+                            <XMarkIcon fill="none" stroke="currentColor" strokeWidth={3} width={12} height={12} />
                         </div>
                     </div>
                 </div>

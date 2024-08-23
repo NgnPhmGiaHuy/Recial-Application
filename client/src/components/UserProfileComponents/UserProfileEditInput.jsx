@@ -1,25 +1,25 @@
-import {UserProfileEditInputBirthdate, UserProfileEditInputItem} from "@/components";
+import { UserProfileEditInputBirthdate, BoxedLabeledInput } from "@/components";
 
 const UserProfileEditInput = ({ formData, handleFormChange }) => {
     return (
         <>
             <div>
-                <UserProfileEditInputItem title="Username*" inputName="session_username" required={true} formData={formData?.session_username} handleFormChange={handleFormChange}/>
+                <BoxedLabeledInput label="Username*" name="session_username" required={true} value={formData?.session_username} onChange={handleFormChange}/>
             </div>
             <div>
-                <UserProfileEditInputItem title="First name*" inputName="session_firstname" required={true} formData={formData?.session_firstname} handleFormChange={handleFormChange}/>
+                <BoxedLabeledInput label="First name*" name="session_firstname" required={true} value={formData?.session_firstname} onChange={handleFormChange}/>
             </div>
             <div>
-                <UserProfileEditInputItem title="Last name" inputName="session_lastname" formData={formData?.session_lastname} handleFormChange={handleFormChange}/>
+                <BoxedLabeledInput label="Last name" name="session_lastname" value={formData?.session_lastname} onChange={handleFormChange}/>
             </div>
             <div>
-                <UserProfileEditInputItem title="Description" inputName="session_description" textarea={true} formData={formData?.session_description} handleFormChange={handleFormChange}/>
+                <BoxedLabeledInput label="Description" name="session_description" textarea={true} value={formData?.session_description} onChange={handleFormChange}/>
             </div>
             <div>
-                <UserProfileEditInputItem title="Location" inputName="session_location" formData={formData?.session_location} handleFormChange={handleFormChange}/>
+                <BoxedLabeledInput label="Location" name="session_location" value={formData?.session_location} onChange={handleFormChange}/>
             </div>
             <div>
-                <UserProfileEditInputBirthdate formData={formData} handleFormChange={handleFormChange}/>
+                <UserProfileEditInputBirthdate formData={formData} handleFormChange={handleFormChange} />
             </div>
         </>
     );

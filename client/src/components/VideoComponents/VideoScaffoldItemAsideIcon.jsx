@@ -4,9 +4,7 @@ const VideoScaffoldItemAsideIcon = ({ icon, number, onClick }) => {
         <div onClick={onClick} className="select-none">
             <div className="flex flex-col items-center cursor-pointer hover:text-zinc-500 transition-all">
                 <div className="w-[42px] h-[42px] flex flex-col items-center justify-center overflow-hidden relative">
-                    <i>
-                        { icon }
-                    </i>
+                    { icon }
                 </div>
                 { number && (
                     <div className="mt-[4px] flex items-center">

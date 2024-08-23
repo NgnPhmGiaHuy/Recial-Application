@@ -3,7 +3,7 @@
 import { shallowEqual, useSelector } from "react-redux";
 
 import { useCreatePostDialogAudience } from "@/hooks";
-import { CreatePostDialogAudienceItem } from "@/components";
+import { ArrowLeftIcon, CreatePostDialogAudienceItem, PrimaryActionButton } from "@/components";
 
 import CREATE_POST_AUDIENCE from "@/constants/CreatePostConstants/CreatePostDialogAudienceConstants";
 
@@ -18,7 +18,7 @@ const renderAudienceItems = (userProps, handleCreatePostAudienceChecked) => {
 const CreatePostDialogAudience = () => {
     const userProps = useSelector(state => state.user, shallowEqual);
 
-    const { handleCreatePostAudienceChecked, handeShowCreatePostAudience, handleCancel } = useCreatePostDialogAudience();
+    const { handleCreatePostAudienceChecked, handleShowCreatePostAudience, handleCancel } = useCreatePostDialogAudience();
 
     return (
         <div className="min-w-[750px] relative">
@@ -31,12 +31,8 @@ const CreatePostDialogAudience = () => {
                     </span>
                 </div>
                 <div className="top-[12px] left-[16px] absolute">
-                    <div className="w-[36px] h-[36px] flex items-center justify-center rounded-full overflow-x-hidden cursor-pointer bg-zinc-200 hover:bg-zinc-300 relative" onClick={handeShowCreatePostAudience}>
-                        <i>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                            </svg>
-                        </i>
+                    <div className="w-[36px] h-[36px] flex items-center justify-center rounded-full overflow-x-hidden cursor-pointer bg-zinc-200 hover:bg-zinc-300 relative" onClick={handleShowCreatePostAudience}>
+                        <ArrowLeftIcon fill="none" stroke="currentColor" strokeWidth={2}/>
                     </div>
                 </div>
             </div>
@@ -86,15 +82,7 @@ const CreatePostDialogAudience = () => {
                                 </div>
                             </div>
                             <div className="p-[6px] flex flex-col relative">
-                                <div className="w-full h-full inline-flex flex-col justify-center cursor-pointer relative">
-                                    <div className="w-[120px] h-[36px] px-[12px] flex flex-row flex-nowrap items-center justify-center rounded-md bg-lime-500 relative hover:bg-lime-700 transition-all" onClick={handeShowCreatePostAudience}>
-                                        <span className="block text-[15px] text-white font-semibold break-words leading-5">
-                                            <span className="overflow-hidden whitespace-nowrap text-ellipsis relative">
-                                                Done
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
+                                <PrimaryActionButton handleClick={handleShowCreatePostAudience} label="Done" style={{ width: "120px", minWidth: "100px", margin: "0", height: "36px", flexGrow: "none", padding: "0 12px", borderRadius: "0.375rem" }} hoverStyle={{ outline: "none" }} />
                             </div>
                         </div>
                     </div>

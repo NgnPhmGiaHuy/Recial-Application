@@ -1,18 +1,12 @@
 "use client"
 
 import { useRef } from "react";
-import { useRouter } from "next/navigation";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 
-import {handleCreateConversationData, handleSentFriendRequest} from "@/utils";
-import { useClickOutside, useToggleState } from "@/hooks";
-import { UserProfileCoverFooterFriendRequest } from "@/components";
-import { toggleEditProfile } from "@/store/actions/toggle/toggleActions";
+import { useClickOutside, useToggleState, useUserProfile } from "@/hooks";
+import { ChatBubbleOvalLeftEllipsisIcon, ChevronDownIcon, ChevronUpIcon, PencilSquareIcon, PlusIcon, PrimaryActionButton, SecondaryActionButton, ToggleActionButton, UserPlusIcon, UserProfileCoverFooterFriendRequest, UsersIcon } from "@/components";
 
 const UserProfileCoverFooter = () => {
-    const router = useRouter();
-    const dispatch = useDispatch();
-
     const userCheck = useSelector(state => state.userRelationship, shallowEqual);
     const userProps = userCheck.isCurrentUser ? useSelector(state => state.user, shallowEqual) : useSelector(state => state.userId, shallowEqual);
 
@@ -22,22 +16,7 @@ const UserProfileCoverFooter = () => {
 
     useClickOutside(peopleYouMayKnowButtonRef, showPeopleYouMayKnow, setShowPeopleYouMayKnow);
 
-    const handleToggleEditProfile = async () => {
-        if (userCheck?.isCurrentUser) {
-            return dispatch(toggleEditProfile());
-        }
-        if (!userCheck?.isCurrentUser) {
-            const createdConversation = await handleCreateConversationData(userProps?.user?._id);
-
-            return router.push(`/messages/${createdConversation._id}`)
-        }
-    };
-
-    const handleClick = async () => {
-        if (!userCheck?.isCurrentUser && !userCheck?.isFriend && !userCheck?.isFriendRequest) {
-            await handleSentFriendRequest(userProps.user._id);
-        }
-    }
+    const { handleToggleEditProfile, handleClick } = useUserProfile(userCheck, userProps);
 
     return (
         <div className="flex flex-col relative">
@@ -45,101 +24,29 @@ const UserProfileCoverFooter = () => {
                 <>
                     <div className="pt-[12px] flex flex-row items-center relative">
                         <div className="ml-[-6px] flex flex-row flex-wrap items-center justify-center relative">
-                            <div className={`${userCheck?.isFriendRequest ? "outline-lime-500 bg-lime-500 hover:outline-blue-700 hover:bg-blue-700" : "outline-lime-500 bg-lime-500 hover:outline-lime-700 hover:bg-lime-700"} min-w-[135px] min-h-[12px] ml-[8px] px-[16px] py-[6px] flex grow rounded-md cursor-pointer outline relative transition-all`} onClick={handleClick}>
-                                <div className="w-full flex items-center justify-center gap-1 text-white">
-                                    { userCheck?.isFriend && (
-                                        <i>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                 strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                <path strokeLinecap="round" strokeLinejoin="round"
-                                                      d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/>
-                                            </svg>
-                                        </i>
-                                    ) }
-                                    { userCheck?.isNotFriend && (
-                                        <i>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                 strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                <path strokeLinecap="round" strokeLinejoin="round"
-                                                      d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"/>
-                                            </svg>
-                                        </i>
-                                    )}
-                                    {userCheck?.isFriendRequest && (
-                                        <i>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                 strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                            <path strokeLinecap="round" strokeLinejoin="round"
-                                                      d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"/>
-                                            </svg>
-                                        </i>
-                                    ) }
-                                    { userCheck?.isCurrentUser && (
-                                        <i>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
-                                            </svg>
-                                        </i>
-                                    ) }
-                                    <span className="block text-[16px] text-center font-semibold break-words leading-5">
-                                        <span className="overflow-hidden relative">
-                                            { userCheck?.isFriend && "Friends" }
-                                            { userCheck?.isNotFriend && "Add friend" }
-                                            { userCheck?.isFriendRequest && "Response" }
-                                            { userCheck?.isCurrentUser && "Add to story" }
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div onClick={handleToggleEditProfile} className="min-w-[135px] min-h-[12px] ml-[8px] px-[16px] py-[6px] flex grow rounded-md cursor-pointer outline outline-lime-700 relative hover:outline-2 hover:outline-lime-700 hover:bg-lime-100 transition-all">
-                                <div className="flex items-center justify-center gap-1 text-lime-700">
-                                    { (userCheck?.isFriend || userCheck?.isNotFriend || userCheck?.isFriendRequest) && (
-                                        <i>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                 strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                <path strokeLinecap="round" strokeLinejoin="round"
-                                                      d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"/>
-                                            </svg>
-                                        </i>
-                                    ) }
-                                    { userCheck?.isCurrentUser && (
-                                        <i>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 576 512"
-                                                 strokeWidth={1.5} stroke="none" className="w-5 h-5">
-                                                <path d="m402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1 0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6m156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7 0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8M460.1 174L402 115.9L216.2 301.8l-7.3 65.3l65.3-7.3zm64.8-79.7l-43.2-43.2c-4.1-4.1-10.8-4.1-14.8 0L436 82l58.1 58.1l30.9-30.9c4-4.2 4-10.8-.1-14.9"/>
-                                            </svg>
-                                        </i>
-                                    ) }
-                                    <span className="block text-[16px] text-center font-semibold break-words leading-5">
-                                        <span className="overflow-hidden relative">
-                                            { (userCheck?.isFriend || userCheck?.isNotFriend ||  userCheck?.isFriendRequest) && "Message" }
-                                            { userCheck?.isCurrentUser && "Edit Profile" }
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
+                            { userCheck.isFriend && (
+                                <PrimaryActionButton handleClick={handleClick} icon={<UsersIcon fill="none" stroke="currentColor" strokeWidth={2} width={20} height={20} />} label="Friends"/>
+                            )}
+                            { userCheck.isNotFriend && (
+                                <PrimaryActionButton handleClick={handleClick} icon={<UserPlusIcon fill="none" stroke="currentColor" strokeWidth={2} width={20} height={20} />} label="Add friend"/>
+                            ) }
+                            {userCheck.isFriendRequest && (
+                                <PrimaryActionButton handleClick={handleClick} icon={<UserPlusIcon fill="none" stroke="currentColor" strokeWidth={2} width={20} height={20} />} label="Response"/>
+                            ) }
+                            { userCheck.isCurrentUser && (
+                                <PrimaryActionButton handleClick={handleClick} icon={<PlusIcon fill="none" stroke="currentColor" strokeWidth={2} width={20} height={20} />} label="Add to story"/>
+                            ) }
+                            { (userCheck.isFriend || userCheck.isNotFriend || userCheck.isFriendRequest) && (
+                                <SecondaryActionButton handleToggleAction={handleToggleEditProfile} icon={<ChatBubbleOvalLeftEllipsisIcon fill="none" stroke="currentColor" strokeWidth={2} width={20} height={20} />} label="Message"/>
+                            ) }
+                            { userCheck.isCurrentUser && (
+                                <SecondaryActionButton handleToggleAction={handleToggleEditProfile} icon={<PencilSquareIcon width={20} height={20} />} label="Edit Profile"/>
+                            ) }
                             { userCheck?.isCurrentUser && (
-                                <div className="min-h-[12px] ml-[8px] px-[16px] py-[6px] flex items-center justify-center rounded-full cursor-pointer outline outline-zinc-500 relative hover:outline-black hover:outline-2 hover:bg-zinc-200 transition-all" onClick={handleShowPeopleYouMayKnow}>
-                                    <div className="flex items-center justify-center gap-1 text-black">
-                                        { showPeopleYouMayKnow ? (
-                                            <i>
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                     strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                    <path strokeLinecap="round" strokeLinejoin="round"
-                                                          d="M4.5 15.75l7.5-7.5 7.5 7.5"/>
-                                                </svg>
-                                            </i>
-                                        ) : (
-                                            <i>
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                     strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                    <path strokeLinecap="round" strokeLinejoin="round"
-                                                          d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
-                                                </svg>
-                                            </i>
-                                        ) }
-                                    </div>
-                                </div>
+                                <ToggleActionButton showToggle={showPeopleYouMayKnow} handleToggleAction={handleShowPeopleYouMayKnow} icons={{
+                                    toggleOn: <ChevronUpIcon fill="none" stroke="currentColor" strokeWidth={2} width={20} height={20} />,
+                                    toggleOff: <ChevronDownIcon fill="none" stroke="currentColor" strokeWidth={2} width={20} height={20} />
+                                }}/>
                             ) }
                         </div>
                     </div>
@@ -147,7 +54,7 @@ const UserProfileCoverFooter = () => {
                         <UserProfileCoverFooterFriendRequest userProps={userProps}/>
                     ) }
                 </>
-            ) : null}
+            ) : null }
         </div>
     );
 };

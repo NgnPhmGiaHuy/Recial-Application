@@ -1,3 +1,4 @@
+import { XMarkIcon } from "@/components";
 import { handleDeletePostData } from "@/utils";
 
 const PostItemDelete = ({ props, postDeleteRef, handleState }) => {
@@ -18,11 +19,7 @@ const PostItemDelete = ({ props, postDeleteRef, handleState }) => {
                                         </div>
                                         <div className="w-[36px] h-[36px] mx-[16px]">
                                             <div className="w-full h-full flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 cursor-pointer overflow-hidden relative transition-all" onClick={handleState.handleShowPostItemDelete}>
-                                                <i>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12"/>
-                                                    </svg>
-                                                </i>
+                                                <XMarkIcon fill="none" stroke="currentColor" strokeWidth={2} />
                                             </div>
                                         </div>
                                     </div>
@@ -42,9 +39,7 @@ const PostItemDelete = ({ props, postDeleteRef, handleState }) => {
                                                     <div className="w-full flex flex-col justify-center relative">
                                                         <div className="h-[36px] px-[12px] flex flex-row flex-shrink-0 items-center justify-center rounded-md hover:bg-zinc-100 cursor-pointer relative transition-all" onClick={handleState.handleShowPostItemDelete}>
                                                             <span className="block text-[15px] text-lime-500 text-center font-semibold break-words relative leading-5">
-                                                                <span className="overflow-hidden relative">
-                                                                    Cancel
-                                                                </span>
+                                                                Cancel
                                                             </span>
                                                         </div>
                                                     </div>
@@ -53,9 +48,7 @@ const PostItemDelete = ({ props, postDeleteRef, handleState }) => {
                                                     <div className="w-full flex flex-col justify-center relative">
                                                         <div className="h-[36px] px-[40px] flex flex-row flex-shrink-0 items-center justify-center rounded-md bg-lime-500 hover:bg-lime-700 cursor-pointer relative transition-all" onClick={() => handleDeletePostData(props.postProps?.post?._id, handleState.handleShowPostItemDelete)}>
                                                             <span className="block text-[15px] text-white text-center font-semibold break-words relative leading-5">
-                                                                <span className="overflow-hidden relative">
-                                                                    Delete
-                                                                </span>
+                                                                Delete
                                                             </span>
                                                         </div>
                                                     </div>

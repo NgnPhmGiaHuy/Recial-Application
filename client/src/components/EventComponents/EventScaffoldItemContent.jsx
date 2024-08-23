@@ -1,4 +1,5 @@
 import { formatLongDate } from "@/utils";
+import { MapPinIcon } from "@/components";
 
 const EventScaffoldItemContent = ({ eventProps }) => {
     return (
@@ -6,12 +7,7 @@ const EventScaffoldItemContent = ({ eventProps }) => {
             <div className="mt-[40px] mb-[12px] flex flex-row items-center relative">
                 <div className="flex flex-row items-center justify-start gap-1 relative">
                     <div className="w-[20px] h-[20px] flex items-center justify-center relative">
-                        <i>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/>
-                            </svg>
-                        </i>
+                        <MapPinIcon fill="none" stoke="currentColor" width={20} height={20} />
                     </div>
                     <div className="flex flex-col items-center justify-center relative">
                         <div className="block text-[16px] text-zinc-500 font-normal break-words relative leading-5">

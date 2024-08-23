@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { shallowEqual, useSelector } from "react-redux";
 
@@ -9,11 +10,11 @@ const EventAsideActivityItem = () => {
             <div className="py-[10px] flex items-start relative">
                 <div className="flex flex-row item-start justify-between relative">
                     <div className="flex flex-col flex-shrink-0 relative">
-                        <a href="">
+                        <Link href="">
                             <div className="w-[32px] h-[32px] flex items-center justify-center rounded-full overflow-hidden relative">
                                 <Image src={userProps?.user?.profile?.profile_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                             </div>
-                        </a>
+                        </Link>
                     </div>
                     <div className="ml-[12px]">
                         <div className="flex flex-col items-start justify-start relative">

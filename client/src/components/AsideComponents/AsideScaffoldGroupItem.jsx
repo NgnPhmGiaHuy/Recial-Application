@@ -27,7 +27,7 @@ const AsideScaffoldGroupItem = ({ groupProps }) => {
                                                 </span>
                                             </span>
                                         </div>
-                                        <div className="">
+                                        <div>
                                             <span className="block text-[13px] text-zinc-500 text-left font-normal break-words relative leading-4">
                                                 <span className="overflow-hidden line-clamp-1 relative">
                                                     Last activity {formatFullTimeAgo(groupProps?.profile?.updated_at)} ago

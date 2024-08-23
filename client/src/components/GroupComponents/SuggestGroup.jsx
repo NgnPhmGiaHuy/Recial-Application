@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import { ArrowUpRightOnSquareIcon, SuggestGroupMember } from "@/components";
+
 const SuggestGroup = ({ groupProps }) => {
     return (
         <section className="flex flex-col rounded-xl bg-white shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] relative">
@@ -28,31 +30,7 @@ const SuggestGroup = ({ groupProps }) => {
                         <Image src={groupProps?.group_picture_url} alt={`${groupProps?.group_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="p-[4px] rounded-xl object-cover"/>
                         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-5 transition-opacity"></div>
                     </Link>
-                    <div className="ml-[14px] my-[12px] flex flex-row items-center relative">
-                        {groupProps?.members?.slice(0, 4).map((value, index) => (
-                            <Link href={value._id} key={index}>
-                                <div style={{ zIndex: index }} className="w-[40px] h-[40px] ml-[-14px] border-[2px] border-solid border-zinc-100 rounded-full relative cursor-pointer overflow-hidden">
-                                    <Image src={value.profile?.profile_picture_url} alt={`${value.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover" />
-                                </div>
-                            </Link>
-                        ))}
-                        {groupProps?.members?.length > 4 ? (
-                            <div className="w-[40px] h-[40px] ml-[-14px] flex items-center justify-center border-[2px] border-solid border-zinc-100 rounded-full bg-zinc-200 relative cursor-pointer overflow-hidden z-10">
-                                <span className="block text-[16px] text-center text-zinc-500 font-bold break-words relative leading-5">
-                                    <span className="overflow-hidden relative">
-                                        +{groupProps?.members?.length - 4}
-                                    </span>
-                                </span>
-                            </div>
-                        ) : null}
-                        <div className="flex flex-col justify-between relative">
-                            <span className="block text-[14px] text-center text-zinc-700 font-bold break-words relative leading-5">
-                                <span className="overflow-hidden relative">
-                                    Member apply
-                                </span>
-                            </span>
-                        </div>
-                    </div>
+                    <SuggestGroupMember groupProps={groupProps} />
                     <div className="flex flex-col items-center justify-between relative">
                         <div className="w-full h-full flex flex-col flex-shrink grow basis-auto relative">
                             <div className="flex flex-col justify-center cursor-pointer">
@@ -60,9 +38,7 @@ const SuggestGroup = ({ groupProps }) => {
                                     <div className="h-[36px] px-[12px] flex flex-row flex-nowrap items-center justify-center rounded-xl bg-zinc-200 relative hover:bg-zinc-300 transition-all">
                                         <div className="mx-[3px] flex flex-shrink-0 items-center justify-center relative">
                                             <span className="block text-[15px] text-black font-semibold break-words relative leading-5">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                                                </svg>
+                                                <ArrowUpRightOnSquareIcon/>
                                             </span>
                                         </div>
                                         <div className="mx-[3px] flex flex-shrink items-center justify-center relative">

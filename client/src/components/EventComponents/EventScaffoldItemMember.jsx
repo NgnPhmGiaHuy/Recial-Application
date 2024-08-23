@@ -17,17 +17,13 @@ const EventScaffoldItemMember = ({ eventProps }) => {
                         </Link>
                         <div className="w-[40px] h-[40px] ml-[-14px] flex items-center justify-center border-[2px] border-solid border-zinc-100 rounded-full bg-zinc-200 relative cursor-pointer overflow-hidden z-10">
                             <span className="block text-[16px] text-center text-zinc-500 font-bold break-words relative leading-5">
-                                <span className="overflow-hidden relative">
-                                    + { eventProps?.members?.length - 1 }
-                                </span>
+                                + { eventProps?.members?.length - 1 }
                             </span>
                         </div>
                         <div className="ml-[12px] flex flex-col justify-between relative">
                             <div>
                                 <span className="block text-[14px] text-left text-zinc-700 font-bold break-words relative leading-4">
-                                    <span className="overflow-hidden relative">
-                                        Member apply
-                                    </span>
+                                    Member apply
                                 </span>
                             </div>
                             <div>

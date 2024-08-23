@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { useWeatherData } from "@/hooks";
 import { getRandomWeatherIllustration } from "@/utils";
-import { AsideWeatherLocation, AsideWeatherNextSevenDays, AsideWeatherTemperature } from "@/components";
+import { AsideWeatherLocation, AsideWeatherNextSevenDays, AsideWeatherTemperature, EllipsisVerticalIcon } from "@/components";
 
 const AsideWeather = () => {
     const { coordinates, location, weatherForecast } = useWeatherData();
@@ -26,13 +26,7 @@ const AsideWeather = () => {
                     <div className="p-[16px] flex justify-start items-center relative">
                         <div className="w-full ml-auto inline-flex items-center justify-end align-top relative">
                             <div className="w-[24px] h-[24px] flex items-center justify-center text-white relative overflow-hidden">
-                                <i>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                         strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round"
-                                              d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z"/>
-                                    </svg>
-                                </i>
+                                <EllipsisVerticalIcon fill="none" stroke="currentColor" />
                             </div>
                         </div>
                     </div>

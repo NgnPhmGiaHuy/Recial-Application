@@ -7,6 +7,7 @@ import { shallowEqual, useSelector } from "react-redux";
 
 import { formatDate, handleReaction } from "@/utils";
 import { useClickOutside, useToggleState } from "@/hooks";
+import { EllipsisHorizontalIcon, FlagIcon } from "@/components";
 
 const MediaPageScaffoldCommentItemCard = ({ commentProps, showMoreButton, handleShowReplyPanel }) => {
     const userProps = useSelector((state) => state.user, shallowEqual);
@@ -63,21 +64,13 @@ const MediaPageScaffoldCommentItemCard = ({ commentProps, showMoreButton, handle
                 <div className="ml-[18px] pt-[24px] pr-[2px] w-[24px] flex flex-col flex-[0_0_24px] items-center justify-center text-zinc-500 cursor-pointer relative hover:text-zinc-700 transition-all">
                     <div className={`${showMoreButton ? "flex" : "hidden"} w-[24px] h-[24px] mt-[-24px] text-black rounded-full relative hover:bg-zinc-100`}
                         onClick={handleShowReportPanel}>
-                        <i>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>
-                            </svg>
-                        </i>
+                        <EllipsisHorizontalIcon fill="none" stroke="currentColor" />
                         { showReportPanel && (
                             <div ref={reportButtonRef} className="top-[calc(100%+16px)] right-[-6px] rounded-md shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2)] bg-white absolute z-10">
                                 <div className="min-w-[180px] px-[16px] py-[8px]">
                                     <div className="py-[8px] flex items-center justify-center cursor-pointer text-black hover:text-lime-500 transition-all">
                                         <span className="flex items-center text-[16px] font-bold break-words whitespace-nowrap relative leading-5">
-                                            <i>
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5"/>
-                                                </svg>
-                                            </i>
+                                            <FlagIcon fill="currentColor" stroke="currentColor" />
                                             <span className="ml-[12px] overflow-hidden relative">
                                                 Report
                                             </span>

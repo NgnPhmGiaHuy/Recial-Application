@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CreateGroupAsideFormPrivacyMenuItem } from "@/components";
 
 import CREATE_GROUP_FORM_VISIBLE from "@/constants/CreateGroupConstants/CreateGroupFormVisibleConstants";
@@ -28,13 +29,11 @@ const CreateGroupAsideFormPrivacyMenu = ({ groupPrivacy, groupVisible, handleSet
                                 </span>
                             </div>
                             <div>
-                                <a href="">
+                                <Link href="">
                                     <span className="block text-[12px] text-lime-500 text-left font-normal break-words relative leading-5 hover:underline transition-all">
-                                        <span className="overflow-hidden relative">
-                                            Learn more about
-                                        </span>
+                                        Learn more about
                                     </span>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </>

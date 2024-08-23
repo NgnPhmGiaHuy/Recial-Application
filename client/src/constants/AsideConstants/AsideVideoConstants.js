@@ -10,7 +10,7 @@ const ASIDE_VIDEO = [
             </svg>
         ),
         title: "Home",
-        chevronRight: false,
+        showChevron: false,
     },
     {
         link: "",
@@ -20,7 +20,7 @@ const ASIDE_VIDEO = [
             </svg>
         ),
         title: "Live",
-        chevronRight: false,
+        showChevron: false,
     },
     {
         link: "/watch/saved",
@@ -30,7 +30,7 @@ const ASIDE_VIDEO = [
             </svg>
         ),
         title: "Saved Videos",
-        chevronRight: false,
+        showChevron: false,
     },
     {
         link: "/video/upload",
@@ -40,7 +40,7 @@ const ASIDE_VIDEO = [
             </svg>
         ),
         title: "Upload Videos",
-        chevronRight: false,
+        showChevron: false,
     },
 ];
 

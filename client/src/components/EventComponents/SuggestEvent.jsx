@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { SuggestEventItem } from "@/components";
 
 const SuggestEvent = ({ eventProps }) => {
@@ -14,11 +16,11 @@ const SuggestEvent = ({ eventProps }) => {
                             </span>
                         </div>
                     </div>
-                    <a href="" >
+                    <Link href="" >
                         <span className="block text-[14px] text-left text-lime-500 font-semibold break-words relative leading-5 hover:text-lime-700">
                             See all
                         </span>
-                    </a>
+                    </Link>
                 </div>
             </div>
             {eventProps.slice(0, 3).map((value,index) => (

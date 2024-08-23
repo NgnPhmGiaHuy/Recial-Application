@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRightIcon } from "@/components";
 
 const CreateGroupAsideHeader = () => {
     return (
@@ -8,11 +9,7 @@ const CreateGroupAsideHeader = () => {
                     <Link href="/groups/feed">
                         <div className="my-[6px] mr-[12px] flex flex-col self-center relative">
                             <div className="w-[32px] h-[32px] flex flex-row items-center justify-center rounded-xl relative hover:bg-zinc-200 transition-all">
-                                <i>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"/>
-                                    </svg>
-                                </i>
+                                <ArrowRightIcon fill="none" stroke="currentColor" />
                             </div>
                         </div>
                     </Link>

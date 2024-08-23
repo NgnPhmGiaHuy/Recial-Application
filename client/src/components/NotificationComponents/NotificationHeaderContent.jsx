@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { NotificationHeaderItem } from "@/components";
 
 const NotificationHeaderContent = ({ title, props, hasNews }) => {
@@ -10,29 +12,29 @@ const NotificationHeaderContent = ({ title, props, hasNews }) => {
                             <div className="flex flex-col flex-shrink grow relative">
                                 <span className="block text-[17px] text-black font-semibold break-words leading-5">
                                     <span className="overflow-hidden relative">
-                                        {title}
+                                        { title }
                                     </span>
                                 </span>
                             </div>
-                            {!hasNews && (
+                            { !hasNews && (
                                 <div className="flex flex-col flex-shrink-0 self-start justify-center relative ml-[8px]">
                                     <div className="flex flex-row flex-shrink-0 flex-nowrap items-center justify-between relative ">
-                                        <a href="/notifications" className="text-[15px] text-lime-500 font-normal break-words leading-5 rounded-md cursor-pointer hover:text-lime-700 hover:bg-zinc-100 transition-all p-[8px]">
+                                        <Link href="/notifications" className="text-[15px] text-lime-500 font-normal break-words leading-5 rounded-md cursor-pointer hover:text-lime-700 hover:bg-zinc-100 transition-all p-[8px]">
                                             <span className="overflow-hidden relative">
                                                 See all
                                             </span>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
-                            )}
+                            ) }
                         </div>
                     </div>
                 </div>
             </div>
             <ul className="relative">
-                {props?.map((value, index) => (
+                { props?.map((value, index) => (
                     <NotificationHeaderItem key={index} notificationProps={value}/>
-                ))}
+                )) }
             </ul>
         </>
     );

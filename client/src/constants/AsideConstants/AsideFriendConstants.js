@@ -10,7 +10,7 @@ const ASIDE_FRIEND = [
             </svg>
         ),
         title: "Home",
-        chevronRight: false,
+        showChevron: false,
     },
     {
         link: "/friends/requests",
@@ -23,7 +23,7 @@ const ASIDE_FRIEND = [
             </svg>
         ),
         title: "Friend Requests",
-        chevronRight: true,
+        showChevron: true,
     },
     {
         link: "/friends/list",
@@ -35,7 +35,7 @@ const ASIDE_FRIEND = [
             </svg>
         ),
         title: "All Friends",
-        chevronRight: true,
+        showChevron: true,
     },
 ];
 

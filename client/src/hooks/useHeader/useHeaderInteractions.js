@@ -1,17 +1,14 @@
 "use client"
 
-import { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { useClickOutside, useMultipleRefs } from "@/hooks";
 import { toggleHeaderMenu, toggleHeaderMessage, toggleHeaderNotification, toggleHeaderPersonalAccount, toggleHeaderSearchHistory } from "@/store/actions/toggle/toggleActions";
 
-const useHeaderAction = (userProps) => {
+const useHeaderInteractions = () => {
     const dispatch = useDispatch();
 
     const { showMenu, showMessage, showNotification, showSearchHistory, showPersonalAccount } = useSelector(state => state.toggle, shallowEqual);
-
-    const [notificationUnreadCount, setNotificationUnreadCount] = useState(0);
 
     const headerRef = useMultipleRefs({ menuButtonRef: null, messageButtonRef: null, notificationButtonRef: null, searchHistoryButtonRef: null, personalAccountButtonRef: null });
 
@@ -21,13 +18,7 @@ const useHeaderAction = (userProps) => {
     useClickOutside(headerRef.searchHistoryButtonRef, showSearchHistory, () => dispatch(toggleHeaderSearchHistory()));
     useClickOutside(headerRef.personalAccountButtonRef, showPersonalAccount, () => dispatch(toggleHeaderPersonalAccount()));
 
-    useEffect(() => {
-        setNotificationUnreadCount(
-            userProps?.notifications?.filter(notification => !notification.is_read).length
-        );
-    }, [userProps?.notifications]);
-
-    return { showMenu, showMessage, showNotification, showSearchHistory, showPersonalAccount, headerRef,notificationUnreadCount };
+    return { showMenu, showMessage, showNotification, showSearchHistory, showPersonalAccount, headerRef };
 }
 
-export default useHeaderAction;
+export default useHeaderInteractions;

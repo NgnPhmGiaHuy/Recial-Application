@@ -16,7 +16,7 @@ const GroupScaffoldPage = ({ params }) => {
                     <div>
                         <Header/>
                         <div className="flex flex-col relative">
-                            <GroupPage/>
+                            <GroupPage />
                         </div>
                     </div>
                     <div>

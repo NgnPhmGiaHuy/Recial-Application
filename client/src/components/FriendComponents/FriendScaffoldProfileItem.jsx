@@ -1,20 +1,18 @@
+import Link from "next/link";
 import Image from "next/image";
 
+import { XMarkIcon } from "@/components";
 import Illustration from "/public/images/Illustration/illustration-of-a-man-and-a-woman-watering-a-plant.jpg";
 
 const FriendScaffoldProfileItem = ({ userProps }) => {
     return (
         <li className="my-[12px] h-full flex flex-col items-center justify-center text-center align-top hyphens-auto relative hover">
             <section className="w-full h-full relative">
-                <a href="">
+                <Link href="">
                     <div className="w-full h-full p-[12px] rounded-xl bg-white relative outline outline-black/30 hover:shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2),0px_4px_4px_rgb(0_0_0/0.3)] transition-all">
                         <div className="top-[12px] right-[12px] absolute z-20">
                             <div className="w-[28px] h-[28px] flex items-center justify-center text-white rounded-xl cursor-pointer overflow-hidden bg-black/60 hover:bg-black/70 transition-all">
-                                <i>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </i>
+                                <XMarkIcon fill="none" stroke="currentColor" />
                             </div>
                         </div>
                         <div className="w-full h-full top-0 left-0 absolute ">
@@ -81,16 +79,14 @@ const FriendScaffoldProfileItem = ({ userProps }) => {
                                     </div>
                                     <div className="flex flex-col items-center relative">
                                         <span className="block text-[14px] font-bold break-words relative leading-5">
-                                            <span className="overflow-hidden relative">
-                                                Connect
-                                            </span>
+                                            Connect
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </a>
+                </Link>
             </section>
         </li>
     );

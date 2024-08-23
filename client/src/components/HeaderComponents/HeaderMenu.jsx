@@ -2,7 +2,9 @@ import { useDispatch } from "react-redux";
 
 import { HeaderMenuSectionItem } from "@/components";
 import { toggleHeaderMenu } from "@/store/actions/toggle/toggleActions";
-import { HEADER_MENU_SOCIAL, HEADER_MENU_PERSONAL } from "@/constants/HeaderConstants";
+
+import HEADER_MENU_SOCIAL from "@/constants/MenuConstants/MenuSocial";
+import HEADER_MENU_PERSONAL from "@/constants/MenuConstants/MenuPersonal";
 
 const HeaderMenu = ({ forwardedRef }) => {
     const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-import {ClimateSolutionsPhotos, RecognizedOrganizations} from "@/components";
+import { ClimateSolutionsPhotos, RecognizedOrganizations } from "@/components";
 
 const ClimateSciencePageContentAside = () => {
     return (

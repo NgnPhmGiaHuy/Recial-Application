@@ -1,12 +1,13 @@
 "use client"
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const HeaderNavigationItem = ({ itemProps }) => {
     const [url, setUrl] = useState("");
 
     useEffect(() => {
-        const isClient = typeof window !== 'undefined';
+        const isClient = typeof window !== "undefined";
 
         if (isClient) {
             setUrl(window.location.href || document.URL);
@@ -17,12 +18,12 @@ const HeaderNavigationItem = ({ itemProps }) => {
 
     return (
         <li className={`${active ? "after:border-b-2 after:border-solid after:border-black after:w-full" : null} w-[112px] flex flex-col items-center`}>
-            <a href={itemProps.link} className={`${active ? "text-black" : "text-gray-500"} min-w-[80px] min-h-[52px] flex flex-col items-center justify-center text-center relative bg-transparent hover:text-black transition-all`}>
+            <Link href={itemProps.link} className={`${active ? "text-black" : "text-gray-500"} min-w-[80px] min-h-[52px] flex flex-col items-center justify-center text-center relative bg-transparent hover:text-black transition-all`}>
                 <div>
                     {itemProps.icon}
                 </div>
                 <span className="text-[12px] text-center leading-normal font-normal">{itemProps.title}</span>
-            </a>
+            </Link>
         </li>
     );
 };

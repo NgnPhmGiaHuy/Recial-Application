@@ -8,9 +8,9 @@ const EventScaffold = () => {
     return (
         <div className="flex flex-row items-center justify-between relative">
             <div className="flex flex-col items-center relative">
-                {eventListProps?.event?.map((value, index) => (
+                { eventListProps?.event?.map((value, index) => (
                     <EventScaffoldItem key={index} eventProps={value}/>
-                ))}
+                )) }
             </div>
         </div>
     );

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { formatFullTimeAgo } from "@/utils";
+import { EllipsisHorizontalIcon } from "@/components";
 
 const GroupScaffoldJoinItem = ({ groupProps }) => {
     return (
@@ -41,9 +42,7 @@ const GroupScaffoldJoinItem = ({ groupProps }) => {
                         <div className="h-[36px] px-[12px] flex flex-row flex-nowrap flex-shrink-0 items-center justify-center rounded-xl text-lime-900 bg-lime-100 hover:bg-lime-200 hover:text-black transition-all">
                             <div className="w-full flex items-center justify-center">
                                 <span className="block text-[15px] text-center font-semibold break-words relative leading-5">
-                                    <span className="overflow-hidden relative">
-                                        View group
-                                    </span>
+                                    View group
                                 </span>
                             </div>
                         </div>
@@ -51,13 +50,7 @@ const GroupScaffoldJoinItem = ({ groupProps }) => {
                     <div className="ml-[8px] flex items-center relative">
                         <div className="h-[36px] px-[16px] flex flex-row items-center justify-center rounded-xl cursor-pointer bg-zinc-100 hover:bg-zinc-200 relative transition-all">
                             <div className="w-[12px] h-[12px] flex items-center justify-center relative">
-                                <i>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                         strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                        <path strokeLinecap="round" strokeLinejoin="round"
-                                              d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>
-                                    </svg>
-                                </i>
+                                <EllipsisHorizontalIcon fill="none" stroke="currentColor" width={20} height={20} />
                             </div>
                         </div>
                     </div>

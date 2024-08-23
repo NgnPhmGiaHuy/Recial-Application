@@ -45,7 +45,8 @@ import useCheckUserGroupRole from "@/hooks/useGroup/useCheckUserGroupRole";
 import useFilterUserGroupsByRole from "@/hooks/useGroup/useFilterUserGroupsByRole";
 import useGetGroupDataAfterFilterUserRole from "@/hooks/useGroup/useGetGroupDataAfterFilterUserRole";
 
-import useHeaderAction from "@/hooks/useHeader/useHeaderAction";
+import useHeaderRef from "@/hooks/useHeader/useHeaderRef";
+import useHeaderInteractions from "@/hooks/useHeader/useHeaderInteractions";
 
 import useGetMediaFetcher from "@/hooks/useMedia/useGetMediaFetcher";
 import useGetVideoMediaFetcher from "@/hooks/useMedia/useGetVideoMediaFetcher";
@@ -70,6 +71,7 @@ import useGetPagePostData from "@/hooks/usePage/useGetPagePostData";
 import useGetPageDataFetcher from "@/hooks/usePage/useGetPageDataFetcher";
 import useCheckUserPageRole from "@/hooks/usePage/useCheckUserPageRole";
 
+import useNotificationCount from "@/hooks/useNotification/useNotificationCount";
 import useNotificationState from "@/hooks/useNotification/useNotificationState";
 import useNotificationAnimation from "@/hooks/useNotification/useNotificationAnimation";
 import useNotificationHeaderItemAction from "@/hooks/useNotification/useNotificationHeaderItemAction";
@@ -94,6 +96,7 @@ import useCheckUserFriend from "@/hooks/useUser/useCheckUserFriend";
 import useGetUserDataFetcher from "@/hooks/useUser/useGetUserDataFetcher";
 import useGetUserDataFetcherByPage from "@/hooks/useUser/useGetUserDataFetcherByPage";
 import useUpdateUserProfile from "@/hooks/useUser/useUpdateUserProfile";
+import useUserProfile from "@/hooks/useUser/useUserProfile";
 import useUserProfileActions from "@/hooks/useUser/useUserProfileActions";
 
 import useVideoData from "@/hooks/useVideo/useVideoData";
@@ -120,7 +123,7 @@ export {
 
     useGroupCreateAction, useGetGroupData, useGetGroupDataFetcher, useGetGroupPostData, useGetGroupFeedData, useGetGroupFeedPostData, useCheckUserGroupRole, useFilterUserGroupsByRole, useGetGroupDataAfterFilterUserRole,
 
-    useHeaderAction,
+    useHeaderRef, useHeaderInteractions,
 
     useGetMediaFetcher, useGetVideoMediaFetcher, usePostMediaData, useMediaNavigation, useMediaCopyLink, usePhotoData, useStoryData, useUserStoryData, useStoryControls,
 
@@ -128,7 +131,7 @@ export {
 
     useGetPageData, useGetPagePostData, useGetPageDataFetcher, useCheckUserPageRole,
 
-    useNotificationState, useNotificationAnimation, useNotificationHeaderItemAction,
+    useNotificationCount, useNotificationState, useNotificationAnimation, useNotificationHeaderItemAction,
 
     useGetPostData, useSetPostData, usePostItemData, usePostItemAnimation, usePostItemToggleState, usePostItemMultipleRef, usePostDataByUserId,
 
@@ -138,7 +141,7 @@ export {
 
     useSuggestEventData, useSuggestGroupData, useSuggestPageData,
 
-    useUserData, useUserIdLayout, useCheckUserFriend, useGetUserDataFetcher, useGetUserDataFetcherByPage, useUpdateUserProfile, useUserProfileActions,
+    useUserData, useUserIdLayout, useCheckUserFriend, useGetUserDataFetcher, useGetUserDataFetcherByPage, useUpdateUserProfile, useUserProfile, useUserProfileActions,
 
     useVideoData, useVideoScaffold, useWatchData, useCreateVideoData, useHandleUploadVideo, useHandleUploadThumbnail,
 

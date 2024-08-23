@@ -1,5 +1,6 @@
 import { QuickSettingItem } from "@/components";
-import { postItemShareSettingList } from "@/constants/PostConstants";
+
+import POST_ITEM_SHARE_SETTING from "@/constants/PostConstants/PostItemShareSetting";
 
 const PostItemShareSetting = ({ postShareButtonRef, translateX, translateY }) => {
     return (
@@ -9,9 +10,9 @@ const PostItemShareSetting = ({ postShareButtonRef, translateX, translateY }) =>
                     <div className="flex flex-col grow items-stretch origin-top-left relative">
                         <div className="w-[344px] py-[8px] overflow-x-hidden overflow-y-auto overscroll-y-contain flex flex-col relative">
                             <div className="flex flex-col grow relative">
-                                {postItemShareSettingList.map((value, index) => (
+                                { POST_ITEM_SHARE_SETTING.map((value, index) => (
                                     <QuickSettingItem key={index} settingProps={value}/>
-                                ))}
+                                )) }
                             </div>
                         </div>
                     </div>

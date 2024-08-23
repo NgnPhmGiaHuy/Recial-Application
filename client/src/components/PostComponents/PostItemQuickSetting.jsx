@@ -1,6 +1,6 @@
 import { QuickSettingItem } from "@/components";
 
-import POST_ITEM_QUICK_SETTING from "@/constants/PostConstants/PostItemQuickSettingConstants";
+import POST_ITEM_QUICK_SETTING from "@/constants/PostConstants/PostItemQuickSetting";
 
 const PostItemQuickSetting = ({ props, postQuickSettingButtonRef, translateX, translateY }) => {
     const postItemQuickSettingList = POST_ITEM_QUICK_SETTING(props)

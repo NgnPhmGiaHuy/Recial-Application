@@ -1,3 +1,4 @@
+import { CheckCircleIcon, ChevronDownIcon, CloudUpIcon } from "@/components";
 import { handleCalculateUploadStatus, handleFormatVideoDuration, handleFormatVideoSize } from "@/utils";
 
 const VideoUploadScaffoldDataHeader = ({ startTimeRef, videoProps }) => {
@@ -46,20 +47,10 @@ const VideoUploadScaffoldDataHeader = ({ startTimeRef, videoProps }) => {
                         <div className={`${videoProps?.downloadURL ? "text-lime-500" : "text-zinc-500"} flex flex-row items-center gap-2 relative`}>
                             <div className="w-[20px] h-[20px] flex items-center justify-center overflow-hidden relative">
                                 { videoProps?.downloadURL ? (
-                                    <i>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                                        </svg>
-                                    </i>
+                                    <CheckCircleIcon fill="none" stroke="currentColor" width={20} height={20} />
                                 ) : (
-                                    <i>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                             strokeWidth={1.5} stroke="currentColor" className="size-5">
-                                            <path strokeLinecap="round" strokeLinejoin="round"
-                                                  d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z"/>
-                                        </svg>
-                                    </i>
-                                )}
+                                    <CloudUpIcon fill="none" stroke="currentColor" width={20} height={20} />
+                                ) }
                             </div>
                             <div>
                                 <span className="block text-[16px] text-left font-normal relative leading-5">
@@ -79,13 +70,8 @@ const VideoUploadScaffoldDataHeader = ({ startTimeRef, videoProps }) => {
                                     </span>
                                 </span>
                             </div>
-                            <div
-                                className="w-[20px] h-[20px] flex items-center justify-center text-zinc-500 overflow-hidden relative">
-                                <i>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="size-3">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
-                                    </svg>
-                                </i>
+                            <div className="w-[20px] h-[20px] flex items-center justify-center text-zinc-500 overflow-hidden relative">
+                                <ChevronDownIcon fill="none" stroke="currentColor" strokeWidth={3} width={12} height={12} />
                             </div>
                         </div>
                     </div>

@@ -4,9 +4,7 @@ const VideoUploadScaffoldListItem = ({ icon, title, subtitle }) => {
             <div className="flex flex-1">
                 <div className="pr-[16px] flex-shrink-0">
                     <div className="w-[24px] h-[24px] flex items-center justify-center text-zinc-500 overflow-hidden relative">
-                        <i>
-                            { icon }
-                        </i>
+                        { icon }
                     </div>
                 </div>
                 <div className="pt-[2px]">

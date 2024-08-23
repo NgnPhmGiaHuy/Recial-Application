@@ -31,7 +31,7 @@ const MessageHeader = ({ forwardedRef }) => {
                     <div className="w-[360px] max-h-[calc(100vh-56px-16px)] flex flex-col">
                         <div ref={userProps?.user_messages?.message_list?.ref} className="flex flex-col flex-shrink grow no-scrollbar overflow-x-hidden overflow-y-auto overscroll-y-contain basis-full relative">
                             <div className="flex flex-col grow relative">
-                                <MessageHeaderChatBox messageQuickSettingButtonRef={messageQuickSettingButtonRef} handleMessageQuickSettingButton={handleMessageQuickSettingButton}/>
+                                <MessageHeaderChatBox forwardRef={messageQuickSettingButtonRef} handleOnclick={handleMessageQuickSettingButton}/>
                                 <div>
                                     <div className="px-[16px]">
                                         <SmallSearchInput id="message-header-search" name="session-message-header-search" placeholder="Search in Recial Message" value={searchQuery} onChange={handleSearchInputChange}/>

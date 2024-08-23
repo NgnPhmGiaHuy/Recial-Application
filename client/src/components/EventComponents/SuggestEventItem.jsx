@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { extractMonthAndDay } from "@/utils";
 
 const SuggestEventItem = ({ eventProps }) => {
@@ -5,7 +7,7 @@ const SuggestEventItem = ({ eventProps }) => {
 
     return (
         <div className="pt-[12px] mx-[-4px] flex flex-col flex-auto justify-between relative">
-            <a href="">
+            <Link href="">
                 <div className="min-h-[44px] px-[4px] flex flex-row items-center justify-between rounded-lg relative hover:bg-zinc-100 transition-all">
                     <div className="my-[8px] mr-[12px] flex flex-col self-start relative">
                         <div style={{backgroundColor: eventProps?.event_color}} className="w-[60px] h-[60px] flex flex-col items-center justify-center rounded-md overflow-hidden relative">
@@ -50,7 +52,7 @@ const SuggestEventItem = ({ eventProps }) => {
                         </div>
                     </div>
                 </div>
-            </a>
+            </Link>
         </div>
     );
 };

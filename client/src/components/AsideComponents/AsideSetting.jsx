@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 
 import { AsideSettingItem } from "@/components";
@@ -10,11 +11,11 @@ const AsideSetting = ({ userProps }) => {
             <section className="block">
                 <div className="lg:p-[24px] px-[12px] py-[24px] flex flex-wrap items-center gap-[12px]">
                     <div>
-                        <a href="">
+                        <Link href="">
                             <div className="w-[32px] h-[32px] rounded-full overflow-hidden relative">
                                 <Image src={userProps?.user?.profile?.profile_picture_url} alt={`${userProps?.user?.profile?.profile_picture_url}-image`} fill={true} sizes="(max-width: 768px) 100vw" className="object-cover"/>
                             </div>
-                        </a>
+                        </Link>
                     </div>
                     <div className="lg:block hidden">
                         <span className="text-[32px] text-black text-left font-semibold break-words relative leading-10">

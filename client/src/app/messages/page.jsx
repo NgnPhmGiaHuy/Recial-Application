@@ -23,7 +23,7 @@ const MessagePage = () => {
         <>
             { userProps ? (
                 <div>
-                    <Header disableMessage={true}/>
+                    <Header isMessageDisabled={true}/>
                     <div className="flex flex-col relative">
                         <div className="flex flex-col relative z-0 ">
                             <div className="top-[56px] min-h-[calc(100vh-56px)] flex flex-col relative">

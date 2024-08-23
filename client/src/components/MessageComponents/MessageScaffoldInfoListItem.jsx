@@ -4,9 +4,7 @@ const MessageScaffoldInfoListItem = ({ button }) => {
             <div className="m-[-6px] p-[8px] flex flex-col items-stretch justify-center relative">
                 <div className="flex flex-row flex-nowrap flex-shrink-0 items-center justify-between rounded-md hover:bg-zinc-100 overflow-hidden cursor-pointer relative transition-all">
                     <div className="w-[24px] h-[24px] flex items-center justify-center overflow-hidden relative">
-                        <i>
-                            { button.icon }
-                        </i>
+                        { button.icon }
                     </div>
                     <div className="p-[6px] flex flex-row flex-wrap flex-shrink grow items-center justify-between basis-auto">
                         <div className="h-[24px] flex flex-col flex-shrink-0 relative">

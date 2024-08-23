@@ -11,9 +11,7 @@ const EventAsideActivity = () => {
                                 <div className="flex flex-col items-center justify-start relative">
                                     <div className="before:w-[3px] before:h-full before:left-[-12px] before:rounded-md before:bg-lime-500 before:absolute">
                                         <span className="block text-[24px] text-black text-left font-semibold break-words relative leading-5">
-                                            <span className="overflow-hidden relative">
-                                                Activity
-                                            </span>
+                                            Activity
                                         </span>
                                     </div>
                                 </div>

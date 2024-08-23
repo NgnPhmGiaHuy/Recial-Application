@@ -8,9 +8,7 @@ const UserProfileIntro = ({ userProps }) => {
                     <div className="flex flex-col flex-shrink grow basis-0 relative">
                         <div className="before:w-[3px] before:h-full before:left-[-16px] before:rounded-md before:bg-lime-500 before:absolute">
                             <span className="text-[20px] text-black font-bold break-words relative leading-6">
-                                <span className="overflow-hidden relative">
-                                    Intro
-                                </span>
+                                Intro
                             </span>
                         </div>
                     </div>
@@ -28,9 +26,7 @@ const UserProfileIntro = ({ userProps }) => {
                     <div className="p-[6px] flex flex-col flex-shrink grow basis-0 relative">
                         <div className="h-[36px] px-[12px] flex flex-row flex-nowrap items-center justify-center cursor-pointer rounded-lg bg-zinc-200 relative hover:bg-zinc-300 transition-all">
                             <span className="text-[14px] text-black text-left font-semibold break-words relative leading-4">
-                                <span className="overflow-hidden relative">
-                                    Edit details
-                                </span>
+                                Edit details
                             </span>
                         </div>
                     </div>

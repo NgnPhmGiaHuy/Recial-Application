@@ -1,6 +1,6 @@
 import { QuickSettingItem } from "@/components";
 
-import MESSAGE_HEADER_SETTING from "@/constants/MessageConstants/MessageHeaderSettingConstants";
+import MESSAGE_HEADER_SETTING from "@/constants/MessageConstants/MessageHeaderSetting";
 
 const MessageHeaderQuickSetting = ({ messageQuickSettingButtonRef, messageQuickSettingTranslateYValue}) => {
     return (

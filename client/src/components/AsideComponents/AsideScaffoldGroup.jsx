@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { AsideScaffoldGroupItem, AsideScaffoldGroupNavigation } from "@/components";
 import { useFilterUserGroupsByRole, useGetGroupDataAfterFilterUserRole } from "@/hooks";
 
@@ -13,11 +15,9 @@ const AsideScaffoldGroup = () => {
                 </section>
                 <div className="my-[12px] mx-[8px] border-b border-solid border-zinc-200"></div>
                 <section>
-                    <div
-                        className="m-[-6px] px-[16px] py-[12px] flex flex-row flex-shrink-0 flex-nowrap items-stretch justify-between">
+                    <div className="m-[-6px] px-[16px] py-[12px] flex flex-row flex-shrink-0 flex-nowrap items-stretch justify-between">
                         <div className="p-[6px] flex flex-col flex-shrink-0 relative">
-                            <span
-                                className="block text-[17px] text-black text-left font-semibold break-words relative leading-5">
+                            <span className="block text-[17px] text-black text-left font-semibold break-words relative leading-5">
                                 <span className="overflow-hidden relative">
                                     (Groups you manage)
                                 </span>
@@ -32,21 +32,16 @@ const AsideScaffoldGroup = () => {
                 <section>
                     <div className="m-[-6px] px-[16px] py-[12px] flex flex-row flex-shrink-0 flex-nowrap items-stretch justify-between">
                         <div className="p-[6px] flex flex-col flex-shrink-0 relative">
-                            <span
-                                className="block text-[17px] text-black text-left font-semibold break-words relative leading-5">
-                                <span className="overflow-hidden relative">
-                                    Groups you've joined
-                                </span>
+                            <span className="block text-[17px] text-black text-left font-semibold break-words relative leading-5">
+                                Groups you've joined
                             </span>
                         </div>
                         <div className="ml-[8px] p-[8px] flex flex-col flex-shrink-0 relative">
-                            <a href="">
+                            <Link href="">
                                 <span className="block text-[15px] text-lime-500 text-left font-normal break-words relative leading-5 hover:text-lime-700 transition-all">
-                                    <span className="overflow-hidden relative">
-                                        See all
-                                    </span>
+                                    See all
                                 </span>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                     { joinedGroupsProps?.map((value, index) => (

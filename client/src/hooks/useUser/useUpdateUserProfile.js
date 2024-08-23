@@ -1,12 +1,15 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import { shallowEqual, useSelector } from "react-redux";
 
 import { handleSetUserProfileData } from "@/utils";
 
-const useUpdateUserProfile = (userProps) => {
+const useUpdateUserProfile = () => {
     const [formData, setFormData] = useState(null);
     const [submitStatus, setSubmitStatus] = useState(false);
+
+    const userProps = useSelector(state => state.user, shallowEqual);
 
     useEffect(() => {
         setFormData({

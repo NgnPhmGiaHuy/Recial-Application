@@ -1,5 +1,7 @@
+import Link from "next/link";
 import Image from "next/image";
 
+import { XMarkIcon } from "@/components";
 import { formatDateTime } from "@/utils";
 import Illustration from "/public/images/Illustration/illustration-of-a-man-and-a-woman-watering-a-plant.jpg";
 
@@ -7,15 +9,11 @@ const FriendScaffoldEventItem = ({ userProps }) => {
     return (
         <li className="my-[12px] h-full flex flex-col items-center justify-center text-center align-top hyphens-auto relative hover">
             <section className="w-full h-full relative">
-                <a href="">
+                <Link href="">
                     <div className="w-full h-full rounded-xl outline outline-black/30 bg-white relative hover:shadow-[0px_0px_0px_1px_rgb(140_140_140/0.2),0px_4px_4px_rgb(0_0_0/0.3)] transition-all">
                         <div className="top-[12px] right-[12px] absolute z-20">
                             <div className="w-[28px] h-[28px] flex items-center justify-center text-white rounded-xl cursor-pointer overflow-hidden bg-black/60 hover:bg-black/70 transition-all">
-                                <i>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </i>
+                                <XMarkIcon fill="none" stroke="currentColor" strokeWidth={3} width={20} height={20} />
                             </div>
                         </div>
                         <div className="w-full h-full flex flex-col rounded-xl overflow-hidden relative">
@@ -71,16 +69,14 @@ const FriendScaffoldEventItem = ({ userProps }) => {
                                 <div className="w-full px-[16px] py-[6px] flex items-center justify-center gap-2 cursor-pointer outline text-lime-900 rounded-xl relative hover:outline-[2px] hover:bg-lime-100 hover:text-black transition-all">
                                     <div className="flex flex-col items-center relative">
                                         <span className="block text-[14px] font-bold break-words relative leading-5">
-                                            <span className="overflow-hidden relative">
-                                                Follow
-                                            </span>
+                                            Follow
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </a>
+                </Link>
             </section>
         </li>
     );

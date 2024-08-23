@@ -7,7 +7,7 @@ const ASIDE_SETTING = [
             </svg>
         ),
         title: "Account preferences",
-        chevronRight: false,
+        showChevron: false,
     },
     {
         link: "/settings/categories/sign-in-and-security",
@@ -17,7 +17,7 @@ const ASIDE_SETTING = [
             </svg>
         ),
         title: "Sign in & security",
-        chevronRight: false,
+        showChevron: false,
     },
     {
         link: "/settings/categories/profile-visibility",
@@ -28,7 +28,7 @@ const ASIDE_SETTING = [
             </svg>
         ),
         title: "Visibility",
-        chevronRight: false,
+        showChevron: false,
     },
     {
         link: "/settings/categories/privacy",
@@ -38,7 +38,7 @@ const ASIDE_SETTING = [
             </svg>
         ),
         title: "Data privacy",
-        chevronRight: false,
+        showChevron: false,
     },
     {
         link: "/settings/categories/ads",
@@ -48,7 +48,7 @@ const ASIDE_SETTING = [
             </svg>
         ),
         title: "Advertising data",
-        chevronRight: false,
+        showChevron: false,
     },
     {
         link: "/settings/categories/notifications",
@@ -59,7 +59,7 @@ const ASIDE_SETTING = [
             </svg>
         ),
         title: "Notifications",
-        chevronRight: false,
+        showChevron: false,
     },
 ];
 

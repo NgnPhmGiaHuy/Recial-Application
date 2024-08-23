@@ -1,6 +1,6 @@
 import { shallowEqual, useSelector } from "react-redux";
 
-import { CreatePost, Post } from "@/components";
+import { ChevronDownIcon, CreatePost, Post } from "@/components";
 
 const GroupPageContentPost = () => {
     const groupPostProps = useSelector(state => state.group.post_list, shallowEqual);
@@ -18,18 +18,12 @@ const GroupPageContentPost = () => {
                                 <div className="flex flex-row flex-nowrap items-center justify-between relative">
                                     <div className="flex flex-col flex-shrink grow basis-0 relative">
                                         <span className="block text-[17px] text-zinc-500 text-left font-semibold break-words relative leading-5">
-                                            <span className="overflow-hidden relative">
-                                                Most relevant
-                                            </span>
+                                            Most relevant
                                         </span>
                                     </div>
                                     <div className="h-full ml-[8px] flex flex-col flex-shrink-0 self-start items-center justify-center relative">
                                         <div className="w-[16px] h-[16px] flex items-center justify-center relative">
-                                            <i>
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
-                                                </svg>
-                                            </i>
+                                            <ChevronDownIcon fill="none" stroke="currentColor" width={16} height={16} />
                                         </div>
                                     </div>
                                 </div>

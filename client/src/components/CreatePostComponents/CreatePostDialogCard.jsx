@@ -1,12 +1,7 @@
 import { shallowEqual, useSelector } from "react-redux";
 
 import { useContentEditable, useMultipleImagesData, useSetPostData } from "@/hooks";
-import {
-    CreatePostDialogCardHeader,
-    CreatePostDialogImageInput,
-    CreatePostDialogCardNavigation,
-    GifPicker
-} from "@/components";;
+import { CreatePostDialogCardHeader, CreatePostDialogImageInput, CreatePostDialogCardNavigation, GifPicker } from "@/components";
 
 const CreatePostDialogCard = () => {
     const userProps = useSelector(state => state.user, shallowEqual);
@@ -16,7 +11,7 @@ const CreatePostDialogCard = () => {
 
     const { handleSetPostData } = useSetPostData();
     const { selectedImagesFunction } = useMultipleImagesData();
-    const { inputRef, inputText, allowSubmit, handleInputTextChange } = useContentEditable()
+    const { inputRef, inputText, allowSubmit, handleInputTextChange } = useContentEditable();
 
     const handleSubmitPost = async () => {
         await handleSetPostData({ inputText: inputText, inputImage: selectedImagesFunction.selectedImages, userProps: userProps, groupProps: groupProps });

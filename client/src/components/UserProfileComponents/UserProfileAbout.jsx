@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import { useOverflowText } from "@/hooks";
+import { ArrowRightIcon } from "@/components";
 import { shallowEqual, useSelector } from "react-redux";
 
 const UserProfileAbout = () => {
@@ -17,9 +18,7 @@ const UserProfileAbout = () => {
                 <header>
                     <div className="px-[24px] flex flex-col">
                         <span className="text-[24px] text-black text-left font-semibold break-words relative leading-6">
-                            <span className="overflow-hidden relative">
-                                About
-                            </span>
+                            About
                         </span>
                     </div>
                 </header>
@@ -32,18 +31,12 @@ const UserProfileAbout = () => {
                                 </span>
                             </div>
                             {!showMoreText && isOverflowing ? (
-                                <span
-                                    className="text-[16px] text-zinc-500 font-semibold break-words cursor-pointer relative leading-5 hover:underline transition-all" onClick={handleShowMoreText}>
-                                    <span className="overflow-hidden relative">
+                                <span className="text-[16px] text-zinc-500 font-semibold break-words cursor-pointer relative leading-5 hover:underline transition-all" onClick={handleShowMoreText}>
                                         See more
-                                    </span>
                                 </span>
                             ) : showMoreText && isOverflowing ? (
-                                <span className="text-[16px] text-zinc-500 font-semibold break-words cursor-pointer relative leading-5 hover:underline transition-all"
-                                    onClick={handleShowMoreText}>
-                                    <span className="overflow-hidden relative">
+                                <span className="text-[16px] text-zinc-500 font-semibold break-words cursor-pointer relative leading-5 hover:underline transition-all" onClick={handleShowMoreText}>
                                         See less
-                                    </span>
                                 </span>
                             ) : null}
                         </div>
@@ -54,17 +47,9 @@ const UserProfileAbout = () => {
                 <Link href={`/${userProps?.user?._id}/about`} className="w-full h-full">
                     <div className="py-[16px] flex flex-row items-center justify-center gap-2 relative text-zinc-500 hover:text-black transition-all">
                         <span className="text-[16px] text-center font-semibold break-words relative leading-5">
-                            <span className="overflow-hidden relative">
-                                Show all details
-                            </span>
+                            Show all details
                         </span>
-                        <i>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                 strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                <path strokeLinecap="round" strokeLinejoin="round"
-                                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
-                            </svg>
-                        </i>
+                        <ArrowRightIcon fill="none" stroke="currentColor" width={20} height={20} />
                     </div>
                 </Link>
             </footer>

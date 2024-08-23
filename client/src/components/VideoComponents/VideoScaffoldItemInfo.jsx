@@ -1,5 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+
+import { MusicalNoteIcon } from "@/components";
 
 const VideoScaffoldItemInfo = ({ videoProps }) => {
     return (
@@ -26,23 +28,19 @@ const VideoScaffoldItemInfo = ({ videoProps }) => {
                     <div className="w-full line-clamp-2 text-ellipsis relative">
                         <span className="text-[14px] text-black text-left leading-5">
                             <span className="overflow-hidden relative">
-                                {videoProps?.video_title} &nbsp;
+                                { videoProps?.video_title } &nbsp;
                             </span>
-                            {videoProps?.tags?.map((value, index) => (
-                                <a href="" key={index} className="font-semibold hover:font-bold">#${value} &nbsp;</a>
-                            ))}
+                            { videoProps?.tags?.map((value, index) => (
+                                <Link href="" key={index} className="font-semibold hover:font-bold">#${value} &nbsp;</Link>
+                            )) }
                         </span>
                     </div>
                 </div>
                 <div className="mb-[12px]">
-                    <a href="">
+                    <Link href="">
                         <div className="flex flex-row items-center justify-start bg-transparent overflow-visible static">
                             <div className="w-[12px] h-[12px] mr-[4px] flex flex-shrink-0 grow-0 items-stretch justify-start self-auto bg-transparent text-black overflow-visible static">
-                                <i>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"/>
-                                    </svg>
-                                </i>
+                                <MusicalNoteIcon fill="none" stroke="currentColor" width={12} height={12} />
                             </div>
                             <div className="flex flex-row flex-shrink grow-0 items-stretch justify-start self-auto bg-transparent overflow-hidden">
                                 <div className="flex flex-row flex-shrink-0 items-center translate-x-[0%]">
@@ -54,7 +52,7 @@ const VideoScaffoldItemInfo = ({ videoProps }) => {
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </Link>
                 </div>
             </div>
             <div>

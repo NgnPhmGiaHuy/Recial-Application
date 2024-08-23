@@ -3,6 +3,7 @@ const getCurrentAndNextSixDaysOfWeekNames = () => {
     const todayIndex = new Date().getDay();
 
     const currentAndNextSixDaysOfWeek = [];
+
     for (let i = 0; i < 7; i++) {
         const dayIndex = (todayIndex + i) % 7;
         currentAndNextSixDaysOfWeek.push(daysOfWeek[dayIndex]);

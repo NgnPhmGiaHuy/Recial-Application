@@ -32,7 +32,7 @@ const useCreatePostDialogAudience = () => {
 
     }, [userProps?.settings?.privacy?.post_visibility]);
 
-    const handeShowCreatePostAudience = () => {
+    const handleShowCreatePostAudience = () => {
         dispatch(toggleCreatePostPanel());
 
         return dispatch(toggleCreatePostAudience());
@@ -49,14 +49,14 @@ const useCreatePostDialogAudience = () => {
             });
         }
 
-        return handeShowCreatePostAudience();
+        return handleShowCreatePostAudience();
     }
 
     useEffect(() => {
 
     }, [userProps?.settings?.privacy?.post_visibility]);
 
-    return { handleCreatePostAudienceChecked, handeShowCreatePostAudience, handleCancel };
+    return { handleCreatePostAudienceChecked, handleShowCreatePostAudience, handleCancel };
 }
 
 export default useCreatePostDialogAudience;

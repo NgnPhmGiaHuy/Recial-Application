@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { useOverflowText } from "@/hooks";
 
 const PostItemContentText = ({ props }) => {
@@ -16,10 +18,10 @@ const PostItemContentText = ({ props }) => {
                         <div>
                             <span>
                                 {props.postProps?.postTags?.map((value, index) => (
-                                    <a key={index} href=""
+                                    <Link key={index} href=""
                                        className="mr-[4px] text-lime-500 hover:text-lime-700 transition-all">
                                         #{value}
-                                    </a>
+                                    </Link>
                                 ))}
                             </span>
                         </div>

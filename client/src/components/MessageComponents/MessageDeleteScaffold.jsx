@@ -1,4 +1,4 @@
-import { MessageScaffoldItemDeleteButton } from "@/components";
+import { MessageScaffoldItemDeleteButton, XMarkIcon } from "@/components";
 
 const MessageDeleteScaffold = ({ width, title, subtitle, forwardRef, handleShowScaffold, handleDeleteFunction }) => {
     return (
@@ -19,11 +19,7 @@ const MessageDeleteScaffold = ({ width, title, subtitle, forwardRef, handleShowS
                                         <div className="w-[36px] h-[36px] mx-[16px]">
                                             <div className="w-full h-full flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 cursor-pointer overflow-hidden relative transition-all"
                                                 onClick={handleShowScaffold}>
-                                                <i>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12"/>
-                                                    </svg>
-                                                </i>
+                                                <XMarkIcon fill="none" stroke="currentColor" strokeWidth={2} />
                                             </div>
                                         </div>
                                     </div>
@@ -31,7 +27,7 @@ const MessageDeleteScaffold = ({ width, title, subtitle, forwardRef, handleShowS
                                         <div className="px-[16px] py-[12px] relative">
                                             <span className="block text-[15px] text-black text-left font-normal break-words relative leading-5">
                                                 <span className="overflow-hidden relative">
-                                                    {subtitle}
+                                                    { subtitle }
                                                 </span>
                                             </span>
                                         </div>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SuggestPageItem } from "@/components";
 
 const SuggestPage = ({ pageProps }) => {
@@ -14,11 +15,11 @@ const SuggestPage = ({ pageProps }) => {
                             </span>
                         </div>
                     </div>
-                    <a href="" >
+                    <Link href="" >
                         <span className="block text-[14px] text-left text-lime-500 font-semibold break-words relative leading-5 hover:text-lime-700">
                             See all
                         </span>
-                    </a>
+                    </Link>
                 </div>
             </div>
             {pageProps.slice(0, 3).map((value,index) => (

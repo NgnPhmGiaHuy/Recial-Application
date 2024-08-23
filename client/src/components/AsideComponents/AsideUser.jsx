@@ -17,12 +17,12 @@ const AsideUser = () => {
                         </div>
                         { userProps?.photo_list && userProps?.photo_list?.length ? (
                             <div>
-                                <UserProfileScaffold userProps={userProps} mediaProps={userProps?.photo_list} isPhotoList={true}/>
+                                <UserProfileScaffold userProps={userProps} mediaProps={userProps?.photo_list} label="Photos" link="" linkText="See all photos" />
                             </div>
                         ) : null }
                         { userProps?.user?.friends && userProps?.user?.friends.length ? (
                             <div>
-                                <UserProfileScaffold userProps={userProps?.user?.friends} isFriendList={true}/>
+                                <UserProfileScaffold userProps={userProps?.user?.friends} label="Friends" link="" linkText="See all friends" />
                             </div>
                         ) : null }
                     </div>

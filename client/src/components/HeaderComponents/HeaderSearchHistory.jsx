@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { shallowEqual, useSelector } from "react-redux";
 
 import { useGetUserDataFetcher } from "@/hooks";
@@ -27,11 +28,11 @@ const HeaderSearchHistory = () => {
                                                     </div>
                                                     <div className="flex flex-col flex-shrink-0 justify-center relative ml-[8px]">
                                                         <div className="flex flex-row flex-shrink-0 flex-nowrap items-center relative z-0">
-                                                            <a href="" className="p-[8px] cursor-pointer hover:text-lime-700 hover:bg-zinc-100 rounded-md transition-all duration-300">
+                                                            <Link href="" className="p-[8px] cursor-pointer hover:text-lime-700 hover:bg-zinc-100 rounded-md transition-all duration-300">
                                                                 <span className="text-[15px] text-ellipsis text-lime-500 text-center font-normal leading-5 break-words">
                                                                     Edit
                                                                 </span>
-                                                            </a>
+                                                            </Link>
                                                         </div>
                                                     </div>
                                                 </div>

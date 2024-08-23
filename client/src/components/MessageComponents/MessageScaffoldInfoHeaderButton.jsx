@@ -9,9 +9,7 @@ const MessageScaffoldInfoHeaderButton = ({ button }) => {
                         <div className="flex flex-col flex-shrink-0 items-center relative">
                             <Link href={button.link}>
                                 <div className="w-[36px] h-[36px] flex items-center justify-center rounded-full bg-zinc-200 overflow-hidden hover:bg-zinc-300 relative transition-all">
-                                    <i>
-                                        { button?.icon }
-                                    </i>
+                                    { button?.icon }
                                 </div>
                             </Link>
                         </div>

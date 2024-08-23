@@ -1,5 +1,6 @@
 import { QuickSettingItem } from "@/components";
-import { HEADER_NOTIFICATION_SETTING } from "@/constants/HeaderConstants";
+
+import HEADER_NOTIFICATION_SETTING from "@/constants/NotificationConstants/NotificationSetting";
 
 const NotificationHeaderQuickSetting = ({ noticeQuickSettingRef, noticeTranslateXValue, noticeQuickSettingTranslateYValue }) => {
     return (

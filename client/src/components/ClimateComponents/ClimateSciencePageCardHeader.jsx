@@ -1,3 +1,5 @@
+import { InformationCircleIcon } from "@/components";
+
 const ClimateSciencePageCardHeader = ({ title, subtitle, onClick }) => {
     return (
         <div>
@@ -14,14 +16,7 @@ const ClimateSciencePageCardHeader = ({ title, subtitle, onClick }) => {
                         <div className="ml-[8px] flex flex-col flex-shrink-0 items-start justify-center relative">
                             <div className="w-[32px] h-[32px] flex items-center justify-center relative cursor-pointer rounded-full hover:bg-zinc-100 transition-all" onClick={onClick}>
                                 <div className="w-[20px] h-[20px] flex items-center justify-center overflow-hidden relative">
-                                    <i>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-5 h-5">
-                                            <g fill="none" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 14h1v9h1m12-7a13 13 0 1 1-26 0a13 13 0 0 1 26 0Z"></path>
-                                                <path fill="currentColor" d="M17 9.5a1 1 0 1 1-2 0a1 1 0 0 1 2 0Z"></path>
-                                            </g>
-                                        </svg>
-                                    </i>
+                                    <InformationCircleIcon fill="none" stroke="currentColor" width={20} height={20} />
                                 </div>
                             </div>
                         </div>

@@ -1,17 +1,17 @@
 "use client"
 
+import Link from "next/link";
 import { useEffect } from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { useUpdateUserProfile } from "@/hooks";
 import { toggleEditProfile } from "@/store/actions/toggle/toggleActions";
-import { UserProfileEditHeader, UserProfileEditImage, UserProfileEditInput } from "@/components";
+import { ChevronRightIcon, UserProfileEditHeader, UserProfileEditImage, UserProfileEditInput } from "@/components";
 
 const UserProfileEdit = ({ editProfileRef }) => {
     const dispatch = useDispatch();
-    const userProps = useSelector(state => state.user, shallowEqual);
 
-    const { formData, setFormData, submitStatus, handleSetUserProfile } = useUpdateUserProfile(userProps);
+    const { formData, setFormData, submitStatus, handleSetUserProfile } = useUpdateUserProfile();
 
     const handleFormChange = (e) => {
         const { name, value } = e.target;
@@ -40,28 +40,22 @@ const UserProfileEdit = ({ editProfileRef }) => {
                             <div className="pb-[64px] flex flex-col flex-shrink-0 items-stretch basis-auto relative">
                                 <UserProfileEditImage formData={formData} setFormData={setFormData}/>
                                 <UserProfileEditInput formData={formData} setFormData={setFormData} handleFormChange={handleFormChange}/>
-                                <a href="/settings/categories/account">
+                                <Link href="/settings/categories/account">
                                     <div className="min-h-[48px] px-[16px] py-[12px] flex flex-col items-stretch justify-center cursor-pointer outline-none relative hover:bg-zinc-100 transition-all">
                                         <div className="flex flex-row grow relative">
                                             <div className="flex flex-shrink grow relative">
                                                  <span className="block text-[20px] text-black text-left font-normal break-words relative leading-6">
-                                                    <span className="overflow-hidden relative">
-                                                        Switch to more customize
-                                                    </span>
+                                                     Switch to more customize
                                                 </span>
                                             </div>
                                             <div className="w-[20px] h-[20px] pl-[12px] flex flex-shrink-0 relative">
                                                 <div className="w-full h-full flex items-center justify-center relative">
-                                                    <i>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
-                                                        </svg>
-                                                    </i>
+                                                    <ChevronRightIcon fill="none" stroke="currentColor" width={20} height={20} />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>

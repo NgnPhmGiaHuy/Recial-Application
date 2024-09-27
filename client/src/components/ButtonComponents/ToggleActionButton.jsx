@@ -27,7 +27,7 @@ const ToggleActionButton = ({ showToggle, handleToggleAction, icons, style, hove
         <div style={defaultStyle} onClick={handleToggleAction}
             onMouseOver={(e) => Object.assign(e.currentTarget.style, defaultHoverStyle)}
             onMouseOut={(e) => Object.assign(e.currentTarget.style, defaultStyle)}>
-            <div className="flex items-center justify-center gap-1 text-black">
+            <div className="flex-center gap-1 select-none text-black">
                 { showToggle ? icons.toggleOn : icons.toggleOff }
             </div>
         </div>

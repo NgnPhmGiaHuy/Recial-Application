@@ -23,7 +23,7 @@ const UserProfileCoverFooter = () => {
             { userCheck?.isCurrentUser || userCheck?.isFriend || userCheck?.isNotFriend || userCheck?.isFriendRequest ? (
                 <>
                     <div className="pt-[12px] flex flex-row items-center relative">
-                        <div className="ml-[-6px] flex flex-row flex-wrap items-center justify-center relative">
+                        <div className="ml-[-6px] flex-center flex-row flex-wrap relative">
                             { userCheck.isFriend && (
                                 <PrimaryActionButton handleClick={handleClick} icon={<UsersIcon fill="none" stroke="currentColor" strokeWidth={2} width={20} height={20} />} label="Friends"/>
                             )}

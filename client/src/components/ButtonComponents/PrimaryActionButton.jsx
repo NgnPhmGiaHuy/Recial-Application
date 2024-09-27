@@ -26,7 +26,7 @@ const PrimaryActionButton = ({ handleClick, icon, label, style, hoverStyle }) =>
         <div style={defaultStyle} onClick={handleClick}
             onMouseOver={(e) => Object.assign(e.currentTarget.style, defaultHoverStyle)}
             onMouseOut={(e) => Object.assign(e.currentTarget.style, defaultStyle)}>
-            <div className="w-full flex items-center justify-center gap-1 text-white">
+            <div className="w-full flex-center gap-1 select-none text-white">
                 { icon }
                 <span className="block text-[16px] text-center font-semibold break-words leading-5">
                     {label}

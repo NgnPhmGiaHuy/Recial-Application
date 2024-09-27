@@ -22,9 +22,9 @@ const SuggestPage = ({ pageProps }) => {
                     </Link>
                 </div>
             </div>
-            {pageProps.slice(0, 3).map((value,index) => (
+            { pageProps.slice(0, 3).map((value,index) => (
                 <SuggestPageItem key={index} pageProps={value}/>
-            ))}
+            )) }
         </section>
     );
 };

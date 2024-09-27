@@ -27,7 +27,7 @@ const SecondaryActionButton = ({ handleToggleAction, icon, label, style, hoverSt
         <div style={defaultStyle} onClick={handleToggleAction}
             onMouseOver={(e) => Object.assign(e.currentTarget.style, defaultHoverStyle)}
             onMouseOut={(e) => Object.assign(e.currentTarget.style, defaultStyle)}>
-            <div className="flex items-center justify-center gap-1">
+            <div className="flex-center select-none gap-1">
                 { icon }
                 <span className="block text-[16px] text-center font-semibold break-words leading-5">
                     {label}

@@ -17,22 +17,18 @@ const UserProfileCoverFooterFriendRequest = ({ userProps }) => {
                             <div className="flex flex-row flex-wrap flex-shrink-0 items-stretch justify-between relative">
                                 <div className="p-[6px] flex flex-col flex-shrink grow basis-auto relative">
                                     <div className="w-full flex flex-col justify-center cursor-pointer relative" onClick={(e) => handleFriendRequest(e, "Confirm", userProps?.user?._id)}>
-                                        <div className="h-[36px] px-[12px] flex flex-nowrap flex-shrink-0 items-center justify-center rounded-md bg-blue-500 hover:bg-blue-700 relative transition-all">
+                                        <div className="h-[36px] px-[12px] flex-center flex-nowrap flex-shrink-0 rounded-md bg-blue-500 hover:bg-blue-700 relative transition-all">
                                             <span className="block text-[16px] text-white text-center font-semibold break-words leading-5">
-                                                <span className="overflow-hidden relative">
-                                                    Confirm request
-                                                </span>
+                                                Confirm request
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="p-[6px] flex flex-col flex-shrink grow basis-auto relative">
                                     <div className="w-full flex flex-col justify-center cursor-pointer relative" onClick={(e) => handleFriendRequest(e, "Delete", userProps?.user?._id)}>
-                                        <div className="h-[36px] px-[12px] flex flex-nowrap flex-shrink-0 items-center justify-center rounded-md bg-zinc-200 hover:bg-zinc-300 relative transition-all">
+                                        <div className="h-[36px] px-[12px] flex-center flex-nowrap flex-shrink-0 rounded-md bg-zinc-200 hover:bg-zinc-300 relative transition-all">
                                             <span className="block text-[16px] text-gray-700 text-center font-semibold break-words leading-5">
-                                                <span className="overflow-hidden relative">
-                                                    Delete request
-                                                </span>
+                                                Delete request
                                             </span>
                                         </div>
                                     </div>

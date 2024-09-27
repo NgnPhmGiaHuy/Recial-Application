@@ -1,0 +1,1143 @@
+{
+  ".env": "file",
+  ".env.production": "file",
+  "Dockerfile": "file",
+  "app": {
+    "[userId]": {
+      "about": {
+        "page.jsx": "file"
+      },
+      "friends": {
+        "page.jsx": "file"
+      },
+      "groups": {
+        "page.jsx": "file"
+      },
+      "page.jsx": "file",
+      "photos": {
+        "page.jsx": "file"
+      },
+      "videos": {
+        "page.jsx": "file"
+      }
+    },
+    "api": {
+      "auth": {
+        "[...nextauth]": {
+          "route.js": "file"
+        }
+      },
+      "image-metadata": {
+        "[slug]": {},
+        "route.js": "file"
+      }
+    },
+    "auth": {
+      "login": {
+        "page.jsx": "file"
+      },
+      "register": {
+        "page.jsx": "file"
+      }
+    },
+    "climatescienceinfo": {
+      "page.jsx": "file"
+    },
+    "event": {
+      "page.jsx": "file"
+    },
+    "friends": {
+      "list": {
+        "page.jsx": "file"
+      },
+      "page.jsx": "file",
+      "requests": {
+        "page.jsx": "file"
+      }
+    },
+    "globals.css": "file",
+    "groups": {
+      "[groupId]": {
+        "page.jsx": "file"
+      },
+      "create": {
+        "page.jsx": "file"
+      },
+      "feed": {
+        "page.jsx": "file"
+      },
+      "joins": {
+        "page.jsx": "file"
+      }
+    },
+    "layout.js": "file",
+    "messages": {
+      "[messageId]": {
+        "page.jsx": "file"
+      },
+      "page.jsx": "file"
+    },
+    "notifications": {
+      "page.jsx": "file"
+    },
+    "page.js": "file",
+    "pages": {
+      "[pageId]": {
+        "page.jsx": "file"
+      }
+    },
+    "photo": {
+      "[[...slug]]": {
+        "page.jsx": "file"
+      }
+    },
+    "post": {
+      "[[...slug]]": {
+        "page.jsx": "file"
+      }
+    },
+    "settings": {
+      "categories": {
+        "account": {
+          "page.jsx": "file"
+        },
+        "ads": {
+          "page.jsx": "file"
+        },
+        "notifications": {
+          "page.jsx": "file"
+        },
+        "privacy": {
+          "page.jsx": "file"
+        },
+        "profile-visibility": {
+          "page.jsx": "file"
+        },
+        "sign-in-and-security": {
+          "page.jsx": "file"
+        }
+      }
+    },
+    "story": {
+      "[[...slug]]": {
+        "page.jsx": "file"
+      }
+    },
+    "video": {
+      "[[...slug]]": {
+        "page.jsx": "file"
+      },
+      "upload": {
+        "page.jsx": "file"
+      }
+    },
+    "watch": {
+      "page.jsx": "file",
+      "saved": {
+        "page.jsx": "file"
+      }
+    }
+  },
+  "components": {
+    "AsideComponents": {
+      "Aside.jsx": "file",
+      "AsideFollow.jsx": "file",
+      "AsideFollowItem.jsx": "file",
+      "AsideItem.jsx": "file",
+      "AsideMessage.jsx": "file",
+      "AsideMessageContent.jsx": "file",
+      "AsideMessageHeader.jsx": "file",
+      "AsideNavigation.jsx": "file",
+      "AsideScaffold.jsx": "file",
+      "AsideScaffoldFriendList.jsx": "file",
+      "AsideScaffoldFriendRequest.jsx": "file",
+      "AsideScaffoldGroup.jsx": "file",
+      "AsideScaffoldGroupItem.jsx": "file",
+      "AsideScaffoldGroupNavigation.jsx": "file",
+      "AsideScaffoldGroupNavigationItem.jsx": "file",
+      "AsideScaffoldHeader.jsx": "file",
+      "AsideScaffoldItem.jsx": "file",
+      "AsideSetting.jsx": "file",
+      "AsideSettingItem.jsx": "file",
+      "AsideShowMoreOrShowLessButton.jsx": "file",
+      "AsideUser.jsx": "file",
+      "AsideWeather.jsx": "file",
+      "AsideWeatherDayScaffold.jsx": "file",
+      "AsideWeatherLocation.jsx": "file",
+      "AsideWeatherNextSevenDays.jsx": "file",
+      "AsideWeatherTemperature.jsx": "file"
+    },
+    "AuthComponents": {
+      "AuthHeader.jsx": "file",
+      "AuthLoginForm.jsx": "file",
+      "OAuthLogin.jsx": "file"
+    },
+    "ButtonComponents": {
+      "DeleteButton.jsx": "file",
+      "GrayButton.jsx": "file",
+      "IconButton.jsx": "file",
+      "MediumFollowButton.jsx": "file",
+      "MediumNextButton.jsx": "file",
+      "MediumPrevButton.jsx": "file",
+      "PrimaryActionButton.jsx": "file",
+      "SecondaryActionButton.jsx": "file",
+      "SmallMoreButton.jsx": "file",
+      "SmallTypeButton.jsx": "file",
+      "ToggleActionButton.jsx": "file"
+    },
+    "ClimateComponents": {
+      "ClimateSciencePage.jsx": "file",
+      "ClimateSciencePageCardHeader.jsx": "file",
+      "ClimateSciencePageCardSource.jsx": "file",
+      "ClimateSciencePageContent.jsx": "file",
+      "ClimateSciencePageContentAside.jsx": "file",
+      "ClimateSciencePageContentMain.jsx": "file",
+      "ClimateSciencePageHeader.jsx": "file",
+      "ClimateSciencePageHeaderContent.jsx": "file",
+      "ClimateSciencePageMediumCard.jsx": "file",
+      "ClimateSciencePageMediumCardItem.jsx": "file",
+      "ClimateSciencePageSliderCard.jsx": "file",
+      "ClimateSciencePageSliderCardItem.jsx": "file",
+      "ClimateSciencePageSmallCard.jsx": "file",
+      "ClimateSciencePageSmallCardItem.jsx": "file",
+      "ClimateSolutionsPhotos.jsx": "file",
+      "RecognizedOrganizations.jsx": "file",
+      "RecognizedOrganizationsItem.jsx": "file"
+    },
+    "CreateGroupComponents": {
+      "CreateGroupAside.jsx": "file",
+      "CreateGroupAsideForm.jsx": "file",
+      "CreateGroupAsideFormPrivacy.jsx": "file",
+      "CreateGroupAsideFormPrivacyMenu.jsx": "file",
+      "CreateGroupAsideFormPrivacyMenuItem.jsx": "file",
+      "CreateGroupAsideFormSubmit.jsx": "file",
+      "CreateGroupAsideFormVisible.jsx": "file",
+      "CreateGroupAsideHeader.jsx": "file",
+      "CreateGroupAsideUserRole.jsx": "file",
+      "CreateGroupReview.jsx": "file",
+      "CreateGroupReviewAbout.jsx": "file",
+      "CreateGroupReviewAboutCard.jsx": "file",
+      "CreateGroupReviewContent.jsx": "file",
+      "CreateGroupReviewContentName.jsx": "file",
+      "CreateGroupReviewContentNavigation.jsx": "file",
+      "CreateGroupReviewContentNavigationItem.jsx": "file",
+      "CreateGroupReviewCreatePost.jsx": "file",
+      "CreateGroupReviewHeader.jsx": "file",
+      "CreateGroupReviewIllustration.jsx": "file"
+    },
+    "CreatePostComponents": {
+      "CreatePost.jsx": "file",
+      "CreatePostDialog.jsx": "file",
+      "CreatePostDialogAudience.jsx": "file",
+      "CreatePostDialogAudienceItem.jsx": "file",
+      "CreatePostDialogCard.jsx": "file",
+      "CreatePostDialogCardHeader.jsx": "file",
+      "CreatePostDialogCardNavigation.jsx": "file",
+      "CreatePostDialogCustomizationItem.jsx": "file",
+      "CreatePostDialogGif.jsx": "file",
+      "CreatePostDialogImageInput.jsx": "file",
+      "CreatePostDialogImageInputEmpty.jsx": "file",
+      "CreatePostDialogImageInputSelected.jsx": "file",
+      "CreatePostOptionItem.jsx": "file"
+    },
+    "EventComponents": {
+      "EventAside.jsx": "file",
+      "EventAsideActivity.jsx": "file",
+      "EventAsideActivityItem.jsx": "file",
+      "EventAsideItem.jsx": "file",
+      "EventScaffold.jsx": "file",
+      "EventScaffoldItem.jsx": "file",
+      "EventScaffoldItemContent.jsx": "file",
+      "EventScaffoldItemHeader.jsx": "file",
+      "EventScaffoldItemMember.jsx": "file",
+      "SuggestEvent.jsx": "file",
+      "SuggestEventItem.jsx": "file"
+    },
+    "FriendComponents": {
+      "FriendListItem.jsx": "file",
+      "FriendListQuickSetting.jsx": "file",
+      "FriendRequest.jsx": "file",
+      "FriendRequestItem.jsx": "file",
+      "FriendRequestItemButton.jsx": "file",
+      "FriendRequestItemInfo.jsx": "file",
+      "FriendScaffold.jsx": "file",
+      "FriendScaffoldEventItem.jsx": "file",
+      "FriendScaffoldItem.jsx": "file",
+      "FriendScaffoldProfileItem.jsx": "file"
+    },
+    "GroupComponents": {
+      "GroupPage.jsx": "file",
+      "GroupPageContent.jsx": "file",
+      "GroupPageContentAside.jsx": "file",
+      "GroupPageContentAsideAbout.jsx": "file",
+      "GroupPageContentAsideAboutItem.jsx": "file",
+      "GroupPageContentBlock.jsx": "file",
+      "GroupPageContentBlockAbout.jsx": "file",
+      "GroupPageContentBlockAboutDescription.jsx": "file",
+      "GroupPageContentBlockAboutHistory.jsx": "file",
+      "GroupPageContentBlockAboutPrivacy.jsx": "file",
+      "GroupPageContentBlockActivity.jsx": "file",
+      "GroupPageContentBlockMember.jsx": "file",
+      "GroupPageContentPost.jsx": "file",
+      "GroupPageHeader.jsx": "file",
+      "GroupPageHeaderContent.jsx": "file",
+      "GroupPageHeaderContentButton.jsx": "file",
+      "GroupPageHeaderCover.jsx": "file",
+      "GroupPageNavigation.jsx": "file",
+      "GroupPageNavigationButton.jsx": "file",
+      "GroupScaffoldJoin.jsx": "file",
+      "GroupScaffoldJoinItem.jsx": "file",
+      "GroupScaffoldPost.jsx": "file",
+      "SuggestGroup.jsx": "file",
+      "SuggestGroupMember.jsx": "file"
+    },
+    "HeaderComponents": {
+      "Header.jsx": "file",
+      "HeaderControls.jsx": "file",
+      "HeaderLogo.jsx": "file",
+      "HeaderMenu.jsx": "file",
+      "HeaderMenuSectionItem.jsx": "file",
+      "HeaderNavigationItem.jsx": "file",
+      "HeaderPersonalAccount.jsx": "file",
+      "HeaderPersonalAccountControls.jsx": "file",
+      "HeaderPersonalAccountImage.jsx": "file",
+      "HeaderPersonalAccountSettingItem.jsx": "file",
+      "HeaderSearchBar.jsx": "file",
+      "HeaderSearchHistory.jsx": "file",
+      "HeaderSearchHistoryItem.jsx": "file",
+      "QuickHeaderButton.jsx": "file"
+    },
+    "IconComponents": {
+      "AdjustmentsHorizontalIcon.jsx": "file",
+      "ArchiveBoxIcon.jsx": "file",
+      "ArrowLeftIcon.jsx": "file",
+      "ArrowRightIcon.jsx": "file",
+      "ArrowRightStartOnRectangleIcon.jsx": "file",
+      "ArrowUpRightOnSquareIcon.jsx": "file",
+      "ArrowUturnRightIcon.jsx": "file",
+      "ArticleIcon.jsx": "file",
+      "ArticleVideoIcon.jsx": "file",
+      "AtSymbolIcon.jsx": "file",
+      "BellAlertIcon.jsx": "file",
+      "BellIcon.jsx": "file",
+      "BellSnoozeIcon.jsx": "file",
+      "BookMarkIcon.jsx": "file",
+      "BriefcaseIcon.jsx": "file",
+      "CalendarDaysIcon.jsx": "file",
+      "CameraIcon.jsx": "file",
+      "ChatBubbleBottomCenterTextIcon.jsx": "file",
+      "ChatBubbleInnerOuterIcon.jsx": "file",
+      "ChatBubbleLeftEllipsisIcon.jsx": "file",
+      "ChatBubbleLeftIcon.jsx": "file",
+      "ChatBubbleLeftRightIcon.jsx": "file",
+      "ChatBubbleOvalLeftEllipsisIcon.jsx": "file",
+      "CheckCircleIcon.jsx": "file",
+      "CheckIcon.jsx": "file",
+      "ChevronDownIcon.jsx": "file",
+      "ChevronLeftIcon.jsx": "file",
+      "ChevronRightIcon.jsx": "file",
+      "ChevronUpIcon.jsx": "file",
+      "ClockIcon.jsx": "file",
+      "CloudUpIcon.jsx": "file",
+      "CodeBracketCircleIcon.jsx": "file",
+      "CodeBracketIcon.jsx": "file",
+      "CogIcon.jsx": "file",
+      "CompassIcon.jsx": "file",
+      "CreditCardIcon.jsx": "file",
+      "DevicePhoneMobileIcon.jsx": "file",
+      "EllipsisHorizontalIcon.jsx": "file",
+      "EllipsisVerticalIcon.jsx": "file",
+      "EnvelopeOpenIcon.jsx": "file",
+      "ExclamationTriangleIcon.jsx": "file",
+      "EyeIcon.jsx": "file",
+      "EyeSlashIcon.jsx": "file",
+      "FaceSmileIcon.jsx": "file",
+      "FileUpIcon.jsx": "file",
+      "FlagIcon.jsx": "file",
+      "GlobeAltIcon.jsx": "file",
+      "HappyIcon.jsx": "file",
+      "HeartIcon.jsx": "file",
+      "HomeIcon.jsx": "file",
+      "ImageIcon.jsx": "file",
+      "InformationCircleIcon.jsx": "file",
+      "LockClosedIcon.jsx": "file",
+      "MagnifyingGlassIcon.jsx": "file",
+      "MapPinIcon.jsx": "file",
+      "MenuIcon.jsx": "file",
+      "MoonIcon.jsx": "file",
+      "MusicalNoteIcon.jsx": "file",
+      "NetworkIcon.jsx": "file",
+      "NoSymbolIcon.jsx": "file",
+      "PauseIcon.jsx": "file",
+      "PencilIcon.jsx": "file",
+      "PencilSquareIcon.jsx": "file",
+      "PhoneArrowDownLeftIcon.jsx": "file",
+      "PhotoAddIcon.jsx": "file",
+      "PhotoIcon.jsx": "file",
+      "PlayIcon.jsx": "file",
+      "PlusIcon.jsx": "file",
+      "QuestionMarkCircleIcon.jsx": "file",
+      "QuoteIcon.jsx": "file",
+      "ReactionIcon.jsx": "file",
+      "RectangleStackBlockIcon.jsx": "file",
+      "RectangleStackIcon.jsx": "file",
+      "RocketLaunchIcon.jsx": "file",
+      "SearchIcon.jsx": "file",
+      "ShareIcon.jsx": "file",
+      "SpeakerWaveIcon.jsx": "file",
+      "SpeakerXMarkIcon.jsx": "file",
+      "StackAddIcon.jsx": "file",
+      "TickIcon.jsx": "file",
+      "TrashIcon.jsx": "file",
+      "TriangleDownIcon.jsx": "file",
+      "TriangleRightIcon.jsx": "file",
+      "UserCircleIcon.jsx": "file",
+      "UserGroupIcon.jsx": "file",
+      "UserIcon.jsx": "file",
+      "UserPlusIcon.jsx": "file",
+      "UsersIcon.jsx": "file",
+      "UsersSecondOptionIcon.jsx": "file",
+      "VideoCameraIcon.jsx": "file",
+      "WatchIcon.jsx": "file",
+      "XMarkIcon.jsx": "file"
+    },
+    "ImageComponents": {
+      "GifPicker.jsx": "file",
+      "ImageWithMetadata.jsx": "file"
+    },
+    "InputComponents": {
+      "BoxedLabeledInput.jsx": "file",
+      "InputField.jsx": "file",
+      "MediumChatInput.jsx": "file",
+      "MediumChatInputImage.jsx": "file",
+      "SelectInput.jsx": "file",
+      "SmallSearchInput.jsx": "file"
+    },
+    "LoadingComponent": {
+      "LoadingAnimatedEllipsis.jsx": "file",
+      "LoadingComponent.jsx": "file",
+      "LoadingPageComponent.jsx": "file",
+      "LoadingThreeDotsComponent.jsx": "file"
+    },
+    "MainComponents": {
+      "Main.jsx": "file"
+    },
+    "MediaComponents": {
+      "MediaPageScaffold.jsx": "file",
+      "MediaPageScaffoldAside.jsx": "file",
+      "MediaPageScaffoldCommentItem.jsx": "file",
+      "MediaPageScaffoldCommentItemCard.jsx": "file",
+      "MediaPageScaffoldFooter.jsx": "file",
+      "MediaPageScaffoldHeader.jsx": "file",
+      "MediaPageScaffoldHeaderReaction.jsx": "file",
+      "MediaPageScaffoldHeaderReactionItem.jsx": "file",
+      "MediaPageScaffoldHeaderText.jsx": "file",
+      "MediaPageScaffoldHeaderURL.jsx": "file",
+      "MediaPhotoPageScaffoldItem.jsx": "file"
+    },
+    "MessageComponents": {
+      "MessageContentItem.jsx": "file",
+      "MessageContentItemSetting.jsx": "file",
+      "MessageContentItemSourceImage.jsx": "file",
+      "MessageContentItemStatus.jsx": "file",
+      "MessageContentItemText.jsx": "file",
+      "MessageCreate.jsx": "file",
+      "MessageCreateInput.jsx": "file",
+      "MessageCreateInputUser.jsx": "file",
+      "MessageCreateUser.jsx": "file",
+      "MessageDeleteScaffold.jsx": "file",
+      "MessageHeader.jsx": "file",
+      "MessageHeaderChatBox.jsx": "file",
+      "MessageHeaderContent.jsx": "file",
+      "MessageHeaderCreate.jsx": "file",
+      "MessageHeaderQuickSetting.jsx": "file",
+      "MessageHeaderSwitchButton.jsx": "file",
+      "MessageNoChatSelected.jsx": "file",
+      "MessagePresentationImage.jsx": "file",
+      "MessageScaffold.jsx": "file",
+      "MessageScaffoldContent.jsx": "file",
+      "MessageScaffoldContentDestination.jsx": "file",
+      "MessageScaffoldContentDestinationWithTimeStamp.jsx": "file",
+      "MessageScaffoldContentFooter.jsx": "file",
+      "MessageScaffoldContentHeader.jsx": "file",
+      "MessageScaffoldContentHeaderButton.jsx": "file",
+      "MessageScaffoldContentPresentation.jsx": "file",
+      "MessageScaffoldContentSource.jsx": "file",
+      "MessageScaffoldContentSourceImage.jsx": "file",
+      "MessageScaffoldContentSourceWithTimeStamp.jsx": "file",
+      "MessageScaffoldContentStatus.jsx": "file",
+      "MessageScaffoldContentTimeStamp.jsx": "file",
+      "MessageScaffoldHeader.jsx": "file",
+      "MessageScaffoldInfo.jsx": "file",
+      "MessageScaffoldInfoHeader.jsx": "file",
+      "MessageScaffoldInfoHeaderButton.jsx": "file",
+      "MessageScaffoldInfoList.jsx": "file",
+      "MessageScaffoldInfoListItem.jsx": "file",
+      "MessageScaffoldInfoListMenu.jsx": "file",
+      "MessageScaffoldItemDeleteButton.jsx": "file"
+    },
+    "NotificationComponents": {
+      "NotificationHeader.jsx": "file",
+      "NotificationHeaderContent.jsx": "file",
+      "NotificationHeaderItem.jsx": "file",
+      "NotificationHeaderItemQuickSetting.jsx": "file",
+      "NotificationHeaderQuickSetting.jsx": "file",
+      "NotificationScaffold.jsx": "file",
+      "NotificationTitle.jsx": "file"
+    },
+    "PageComponents": {
+      "PageCover.jsx": "file",
+      "PageCoverNavigation.jsx": "file",
+      "PageCoverNavigationItem.jsx": "file",
+      "PageCoverProfileSubHeader.jsx": "file",
+      "PageScaffold.jsx": "file",
+      "PageScaffoldAside.jsx": "file",
+      "PageScaffoldAsideCard.jsx": "file",
+      "PageScaffoldAsideCardItem.jsx": "file",
+      "PageScaffoldAsideHeader.jsx": "file",
+      "PageScaffoldAsideInfoItem.jsx": "file",
+      "PageScaffoldAsideSecurityCard.jsx": "file",
+      "PageScaffoldMain.jsx": "file",
+      "PageScaffoldMainHeader.jsx": "file",
+      "PageScaffoldMainNavigationItem.jsx": "file",
+      "SuggestPage.jsx": "file",
+      "SuggestPageItem.jsx": "file"
+    },
+    "PostComponents": {
+      "Post.jsx": "file",
+      "PostDialog.jsx": "file",
+      "PostItem.jsx": "file",
+      "PostItemComment.jsx": "file",
+      "PostItemCommentInput.jsx": "file",
+      "PostItemCommentLoadMore.jsx": "file",
+      "PostItemCommentScaffold.jsx": "file",
+      "PostItemCommentScaffoldContent.jsx": "file",
+      "PostItemCommentScaffoldControl.jsx": "file",
+      "PostItemCommentScaffoldHeader.jsx": "file",
+      "PostItemCommentScaffoldMedia.jsx": "file",
+      "PostItemCommentSort.jsx": "file",
+      "PostItemContent.jsx": "file",
+      "PostItemContentText.jsx": "file",
+      "PostItemDelete.jsx": "file",
+      "PostItemFooter.jsx": "file",
+      "PostItemFooterButton.jsx": "file",
+      "PostItemHeader.jsx": "file",
+      "PostItemHeaderControl.jsx": "file",
+      "PostItemHeaderDetail.jsx": "file",
+      "PostItemHeaderImage.jsx": "file",
+      "PostItemPopup.jsx": "file",
+      "PostItemQuickSetting.jsx": "file",
+      "PostItemReactionButton.jsx": "file",
+      "PostItemShareSetting.jsx": "file",
+      "PostPage.jsx": "file",
+      "PostPageItem.jsx": "file"
+    },
+    "ProviderComponents": {
+      "GlobalMuteProvider.jsx": "file",
+      "Providers.jsx": "file"
+    },
+    "QuickSettingComponents": {
+      "QuickSettingItem.jsx": "file"
+    },
+    "SettingComponents": {
+      "SettingScaffold.jsx": "file",
+      "SettingScaffoldItem.jsx": "file"
+    },
+    "StoryComponents": {
+      "Story.jsx": "file",
+      "StoryItem.jsx": "file"
+    },
+    "UserProfileComponents": {
+      "UserAbout.jsx": "file",
+      "UserAboutOverview.jsx": "file",
+      "UserAboutPhotoScaffoldItem.jsx": "file",
+      "UserAboutScaffold.jsx": "file",
+      "UserAboutScaffoldItem.jsx": "file",
+      "UserAboutScaffoldOptions.jsx": "file",
+      "UserAboutVideoScaffoldItem.jsx": "file",
+      "UserProfile.jsx": "file",
+      "UserProfileAbout.jsx": "file",
+      "UserProfileCover.jsx": "file",
+      "UserProfileCoverFooter.jsx": "file",
+      "UserProfileCoverFooterFriendRequest.jsx": "file",
+      "UserProfileCoverInformation.jsx": "file",
+      "UserProfileCoverNavigation.jsx": "file",
+      "UserProfileCoverNavigationItem.jsx": "file",
+      "UserProfileEdit.jsx": "file",
+      "UserProfileEditHeader.jsx": "file",
+      "UserProfileEditImage.jsx": "file",
+      "UserProfileEditInput.jsx": "file",
+      "UserProfileEditInputBirthdate.jsx": "file",
+      "UserProfileIntro.jsx": "file",
+      "UserProfileIntroItem.jsx": "file",
+      "UserProfileScaffold.jsx": "file",
+      "UserProfileScaffoldItem.jsx": "file"
+    },
+    "VideoComponents": {
+      "VideoPageScaffoldItem.jsx": "file",
+      "VideoScaffold.jsx": "file",
+      "VideoScaffoldItem.jsx": "file",
+      "VideoScaffoldItemAside.jsx": "file",
+      "VideoScaffoldItemAsideIcon.jsx": "file",
+      "VideoScaffoldItemControl.jsx": "file",
+      "VideoScaffoldItemInfo.jsx": "file",
+      "VideoUploadScaffold.jsx": "file",
+      "VideoUploadScaffoldData.jsx": "file",
+      "VideoUploadScaffoldDataContent.jsx": "file",
+      "VideoUploadScaffoldDataContentDescription.jsx": "file",
+      "VideoUploadScaffoldDataContentPrivacy.jsx": "file",
+      "VideoUploadScaffoldDataContentPrivacyOption.jsx": "file",
+      "VideoUploadScaffoldDataContentReview.jsx": "file",
+      "VideoUploadScaffoldDataContentThumbnail.jsx": "file",
+      "VideoUploadScaffoldDataContentUserInteraction.jsx": "file",
+      "VideoUploadScaffoldDataContentUserInteractionOption.jsx": "file",
+      "VideoUploadScaffoldDataHeader.jsx": "file",
+      "VideoUploadScaffoldInput.jsx": "file",
+      "VideoUploadScaffoldList.jsx": "file",
+      "VideoUploadScaffoldListItem.jsx": "file"
+    },
+    "index.js": "file"
+  },
+  "constants": {
+    "AsideConstants": {
+      "AsideFriendConstants.js": "file",
+      "AsideFriendListSettingConstants.js": "file",
+      "AsideGroupConstants.js": "file",
+      "AsideLandingConstants.js": "file",
+      "AsideSettingConstants.js": "file",
+      "AsideVideoConstants.js": "file",
+      "AsideWeatherConstants.js": "file"
+    },
+    "ClimateScienceConstants": {
+      "ClimateSciencePageContentMainConstants.js": "file"
+    },
+    "CreateGroupConstants": {
+      "CreateGroupFormPrivacyConstants.js": "file",
+      "CreateGroupFormVisibleConstants.js": "file"
+    },
+    "CreatePostConstants": {
+      "CreatePostContentCustomizationConstants.js": "file",
+      "CreatePostDialogAudienceConstants.js": "file",
+      "CreatePostOptionConstants.js": "file",
+      "index.js": "file"
+    },
+    "GroupConstants": {
+      "GroupPageHeaderConstants.js": "file",
+      "GroupPageNavigationConstants.js": "file"
+    },
+    "HeaderConstants": {
+      "HeaderNavigation.js": "file",
+      "HeaderPersonal.js": "file",
+      "index.js": "file"
+    },
+    "MainConstants": {
+      "index.js": "file"
+    },
+    "MenuConstants": {
+      "MenuPersonal.js": "file",
+      "MenuSocial.js": "file"
+    },
+    "MessageConstants": {
+      "MessageHeaderQuickSettingConstants.js": "file",
+      "MessageHeaderSetting.js": "file",
+      "MessageScaffoldContentFooterButton.js": "file",
+      "MessageScaffoldContentFooterConstants.js": "file",
+      "MessageScaffoldContentHeaderConstant.js": "file",
+      "MessageScaffoldInfoConstants.js": "file",
+      "MessageScaffoldInfoHeaderConstants.js": "file"
+    },
+    "NotificationConstants": {
+      "NotificationQuickSetting.js": "file",
+      "NotificationSetting.js": "file"
+    },
+    "PageConstants": {
+      "PageCoverNavigationConstants.js": "file",
+      "PageScaffoldAsideConstants.js": "file"
+    },
+    "PostConstants": {
+      "PostItemCommentSortList.js": "file",
+      "PostItemQuickSetting.js": "file",
+      "PostItemShareSetting.js": "file"
+    },
+    "UserProfileConstants": {
+      "UserAboutOverviewSetting.js": "file",
+      "UserProfileCoverNavigation.js": "file"
+    },
+    "VideoConstants": {
+      "VideoScaffoldItemAsideConstant.js": "file"
+    }
+  },
+  "hooks": {
+    "index.js": "file",
+    "useAuth": {
+      "useCheckAccessToken.js": "file",
+      "useDecodeToken.js": "file",
+      "useLogout.js": "file",
+      "useTokenRefresh.js": "file",
+      "useWithAuth.js": "file"
+    },
+    "useComment": {
+      "useCommentData.js": "file",
+      "useCommentMediaData.js": "file"
+    },
+    "useCreatePost": {
+      "useCreatePostDialogAudience.js": "file"
+    },
+    "useEvent": {
+      "useEventData.js": "file"
+    },
+    "useFriendData": {
+      "useFriendData.js": "file"
+    },
+    "useFunction": {
+      "useClickOutside.js": "file",
+      "useContentEditable.js": "file",
+      "useCountComment.js": "file",
+      "useCountLikeReaction.js": "file",
+      "useDataFetcher.js": "file",
+      "useDateOfBirth.js": "file",
+      "useEmojiHandler.js": "file",
+      "useFetchAndScroll.js": "file",
+      "useFilteredNotification.js": "file",
+      "useMostReactedIcons.js": "file",
+      "useMultipleHandleState.js": "file",
+      "useMultipleImagesData.js": "file",
+      "useMultipleRefs.js": "file",
+      "useOverflowText.js": "file",
+      "useResetInput.js": "file",
+      "useScrollHandler.js": "file",
+      "useSingleImageData.js": "file",
+      "useSliderScroll.js": "file",
+      "useToggleState.js": "file",
+      "useWeatherData.js": "file",
+      "useWeatherForecast.js": "file"
+    },
+    "useGroup": {
+      "useCheckUserGroupRole.js": "file",
+      "useFilterUserGroupsByRole.js": "file",
+      "useGetGroupData.js": "file",
+      "useGetGroupDataAfterFilterUserRole.js": "file",
+      "useGetGroupDataFetcher.js": "file",
+      "useGetGroupFeedData.js": "file",
+      "useGetGroupFeedPostData.js": "file",
+      "useGetGroupPostData.js": "file",
+      "useGroupCreateAction.js": "file"
+    },
+    "useHeader": {
+      "useHeaderInteractions.js": "file",
+      "useHeaderRef.js": "file"
+    },
+    "useMedia": {
+      "useGetMediaFetcher.js": "file",
+      "useGetVideoMediaFetcher.js": "file",
+      "useMediaCopyLink.js": "file",
+      "useMediaNavigation.js": "file",
+      "usePhotoData.js": "file",
+      "usePostMediaData.js": "file",
+      "useStoryControls.js": "file",
+      "useStoryData.js": "file",
+      "useUserStoryData.js": "file"
+    },
+    "useMessage": {
+      "useGetMessageDataByConversationId.js": "file",
+      "useMessageData.js": "file",
+      "useMessageScaffold.js": "file",
+      "useMessageTimestampDisplay.js": "file",
+      "useSetMessageData.js": "file",
+      "useSetMessageId.js": "file",
+      "useSubmitMessageData.js": "file"
+    },
+    "useNotification": {
+      "useNotificationAnimation.js": "file",
+      "useNotificationCount.js": "file",
+      "useNotificationHeaderItemAction.js": "file",
+      "useNotificationState.js": "file"
+    },
+    "usePage": {
+      "useCheckUserPageRole.js": "file",
+      "useGetPageData.js": "file",
+      "useGetPageDataFetcher.js": "file",
+      "useGetPagePostData.js": "file"
+    },
+    "usePost": {
+      "usePostData.js": "file",
+      "usePostDataById.js": "file",
+      "usePostItemAnimation.js": "file",
+      "usePostItemData.js": "file",
+      "usePostItemMultipleRef.js": "file",
+      "usePostItemToggleState.js": "file",
+      "useSetPostData.js": "file"
+    },
+    "useRole": {
+      "useRoleData.js": "file"
+    },
+    "useSearch": {
+      "useSearchData.js": "file"
+    },
+    "useSetting.js": "file",
+    "useSuggest": {
+      "useSuggestData.js": "file"
+    },
+    "useUser": {
+      "useCheckUserFriend.js": "file",
+      "useGetUserDataFetcher.js": "file",
+      "useGetUserDataFetcherByPage.js": "file",
+      "useUpdateUserProfile.js": "file",
+      "useUserData.js": "file",
+      "useUserIdData.js": "file",
+      "useUserIdLayout.js": "file",
+      "useUserProfile.js": "file",
+      "useUserProfileActions.js": "file"
+    },
+    "useVideo": {
+      "useCreateVideoData.js": "file",
+      "useHandleUploadThumbnail.js": "file",
+      "useHandleUploadVideo.js": "file",
+      "useVideoData.js": "file",
+      "useVideoScaffold.js": "file",
+      "useWatchData.js": "file"
+    },
+    "useWebSocket": {
+      "useWebSocket.js": "file"
+    }
+  },
+  "jsconfig.json": "file",
+  "middleware.js": "file",
+  "next.config.js": "file",
+  "package-lock.json": "file",
+  "package.json": "file",
+  "postcss.config.js": "file",
+  "public": {
+    "fonts": {
+      "Helvetica-Font": {
+        "Helvetica-Bold.ttf": "file",
+        "Helvetica-BoldOblique.ttf": "file",
+        "Helvetica-Oblique.ttf": "file",
+        "Helvetica.ttf": "file",
+        "helvetica-compressed-5871d14b6903a.otf": "file",
+        "helvetica-light-587ebe5a59211.ttf": "file",
+        "helvetica-rounded-bold-5871d05ead8de.otf": "file"
+      }
+    },
+    "images": {
+      "Avatars": {
+        "Avatar.png": "file"
+      },
+      "Brands": {
+        "AWS.png": "file",
+        "Apple.png": "file",
+        "Express.png": "file",
+        "Facebook.png": "file",
+        "Figma.svg": "file",
+        "Firebase.svg": "file",
+        "Git.png": "file",
+        "GitHub.png": "file",
+        "Google-Fonts.svg": "file",
+        "Google.png": "file",
+        "JWT-Full.svg": "file",
+        "JWT.svg": "file",
+        "Jest.svg": "file",
+        "MongoDB.png": "file",
+        "NextJS.svg": "file",
+        "NodeJS.png": "file",
+        "Npm.png": "file",
+        "PassportJS.svg": "file",
+        "Postman.png": "file",
+        "ReactJS.png": "file",
+        "ReactNative.png": "file",
+        "Redux.png": "file",
+        "TailwindCSS.svg": "file",
+        "Webstorm.png": "file"
+      },
+      "Icon": {
+        "bar-chart.png": "file",
+        "calendar.png": "file",
+        "climate-0001.png": "file",
+        "climate-change.png": "file",
+        "comments.png": "file",
+        "content-writing.png": "file",
+        "dislike.png": "file",
+        "feeds.png": "file",
+        "flag.png": "file",
+        "gif.png": "file",
+        "group.png": "file",
+        "happiness.png": "file",
+        "image.png": "file",
+        "info-0001.svg": "file",
+        "like.png": "file",
+        "live-video.png": "file",
+        "location.png": "file",
+        "memories.png": "file",
+        "message.png": "file",
+        "networking.png": "file",
+        "pages.png": "file",
+        "recent-ad-activity.png": "file",
+        "sad.png": "file",
+        "saved.png": "file",
+        "share-0001.svg": "file",
+        "tag-people.png": "file",
+        "video.png": "file"
+      },
+      "Illustration": {
+        "Climate": {
+          "climate-bg-00001.png": "file"
+        },
+        "Group": {
+          "group-bg-00001.png": "file"
+        },
+        "Weather": {
+          "weather-bg-00001.svg": "file",
+          "weather-bg-00002.svg": "file",
+          "weather-bg-00003.svg": "file",
+          "weather-bg-00004.svg": "file",
+          "weather-bg-00005.svg": "file"
+        },
+        "illustration-of-a-man-and-a-woman-watering-a-plant.jpg": "file",
+        "vecteezy-people-sorting-garbage-for-recycling-environment.jpg": "file"
+      },
+      "Metadata": {
+        "favicon.ico": "file",
+        "logo": {
+          "demo": {
+            "demo-01.ico": "file",
+            "demo-02.ico": "file"
+          },
+          "ico": {
+            "1.ico": "file"
+          },
+          "png": {
+            "remove-background": {
+              "Logo-01.png": "file",
+              "Logo-02.png": "file"
+            },
+            "white-background": {
+              "Logo-01.png": "file",
+              "Logo-02.png": "file",
+              "Logo-03.png": "file"
+            }
+          }
+        }
+      }
+    }
+  },
+  "scripts": {
+    "colorScanner.js": "file",
+    "folderScanner.js": "file",
+    "frontendAnalyzer.js": "file",
+    "json": {
+      "color-usage.json": "file",
+      "folder-structure.json": "file",
+      "frontend-report.json": "file"
+    }
+  },
+  "store": {
+    "actions": {
+      "event": {
+        "eventPageActions.js": "file"
+      },
+      "group": {
+        "groupActions.js": "file"
+      },
+      "media": {
+        "mediaActions.js": "file"
+      },
+      "message": {
+        "messageAction.js": "file"
+      },
+      "page": {
+        "pageActions.js": "file"
+      },
+      "post": {
+        "postActions.js": "file"
+      },
+      "toggle": {
+        "toggleActions.js": "file"
+      },
+      "user": {
+        "userActions.js": "file",
+        "userIdActions.js": "file",
+        "userRelationshipActions.js": "file"
+      },
+      "watch": {
+        "watchActions.js": "file"
+      }
+    },
+    "index.js": "file",
+    "reducers": {
+      "event": {
+        "eventPageReducer.js": "file"
+      },
+      "group": {
+        "groupReducer.js": "file"
+      },
+      "media": {
+        "mediaReducer.js": "file"
+      },
+      "message": {
+        "messageReducer.js": "file"
+      },
+      "page": {
+        "pageReducer.js": "file"
+      },
+      "post": {
+        "postReducer.js": "file"
+      },
+      "toggle": {
+        "toggleReducer.js": "file"
+      },
+      "user": {
+        "userIdReducer.js": "file",
+        "userReducer.js": "file",
+        "userRelationshipReducer.js": "file"
+      },
+      "watch": {
+        "watchReducer.js": "file"
+      }
+    }
+  },
+  "tailwind.config.js": "file",
+  "utils": {
+    "auth": {
+      "fetchAuthData": {
+        "fetchLoginData.js": "file",
+        "fetchRegisterData.js": "file",
+        "fetchTokenRefresh.js": "file"
+      },
+      "handleCheckPasswordStrength.js": "file",
+      "handleDecodeToken.js": "file",
+      "handleValidEmail.js": "file",
+      "handleValidateForm.js": "file"
+    },
+    "calculate": {
+      "calculateAttachmentStyles.js": "file",
+      "calculateGridProperties.js": "file",
+      "calculateTimeDifference.js": "file"
+    },
+    "comment": {
+      "createCommentData": {
+        "createPostComment.js": "file"
+      },
+      "updateCommentData": {
+        "updateComment.js": "file",
+        "updateNestedComments.js": "file"
+      }
+    },
+    "fetchData": {
+      "fetchDataWithAccessToken.js": "file",
+      "fetchDataWithAccessTokenAndData.js": "file",
+      "fetchDataWithoutAccessToken.js": "file"
+    },
+    "fetcher": {
+      "fetcherWithAccessToken.js": "file",
+      "fetcherWithoutAccessToken.js": "file"
+    },
+    "firebase": {
+      "firebaseConfig.js": "file"
+    },
+    "geocode": {
+      "getGeocodeByCoordinates.js": "file"
+    },
+    "google": {
+      "fetchGoogleData.js": "file"
+    },
+    "handleNewData.js": "file",
+    "image": {
+      "handleDeleteImage.js": "file",
+      "handleMultipleImageFileUpload.js": "file",
+      "handleSingleImageFileUpload.js": "file",
+      "handleUploadImage.js": "file"
+    },
+    "index.js": "file",
+    "media": {
+      "handleNewMediaData.js": "file"
+    },
+    "message": {
+      "handleCreateConversationData.js": "file",
+      "handleDeleteConversation.js": "file",
+      "handleDeleteMessage.js": "file",
+      "handleNewMessageData": {
+        "handleNewMessageData.js": "file"
+      },
+      "renderMessageComponent.js": "file",
+      "shouldDisplayMessageWithTimeStamp.js": "file"
+    },
+    "number": {
+      "handleFormatNumber.js": "file"
+    },
+    "post": {
+      "deletePostData": {
+        "handleDeletePostData.js": "file"
+      },
+      "handleNewPostData": {
+        "handleNewPostData.js": "file"
+      }
+    },
+    "reaction": {
+      "createReactionData": {
+        "createPostReaction.js": "file"
+      },
+      "handleReactionData": {
+        "handleReaction.js": "file",
+        "handleReactionData.js": "file"
+      },
+      "updateReactionData": {
+        "updateCommentReaction.js": "file",
+        "updatePostReaction.js": "file"
+      }
+    },
+    "readFileAsDataURL.js": "file",
+    "saved": {
+      "handleSavedData.js": "file"
+    },
+    "time": {
+      "extractMonthAndDay.js": "file",
+      "formatCurrentFullDate.js": "file",
+      "formatCurrentWeekday.js": "file",
+      "formatDate.js": "file",
+      "formatDateTime.js": "file",
+      "formatFullTimeAgo.js": "file",
+      "formatLongDate.js": "file",
+      "formatShortTimeAgo.js": "file",
+      "formatTime.js": "file",
+      "formatTime12Hour.js": "file",
+      "formatTimestampForCover.js": "file",
+      "getCurrentAndNextSixDaysOfWeekNames.js": "file"
+    },
+    "user": {
+      "fetchUserData": {
+        "fetchUserData.js": "file",
+        "getUserProfileData.js": "file"
+      },
+      "handleNewUserData": {
+        "handleNewUserData.js": "file"
+      },
+      "handleNewUserPostData": {
+        "handleNewUserPostData.js": "file"
+      },
+      "handleSetUser": {
+        "handleSetUserProfileData.js": "file"
+      },
+      "handleUserData": {
+        "handleFriendRequest.js": "file",
+        "handleSentFriendRequest.js": "file"
+      }
+    },
+    "video": {
+      "deleteVideoDataOnCloud.js": "file",
+      "discardVideoDataUpload.js": "file",
+      "extractVideoMetadata.js": "file",
+      "handleCalculateVideoUploadStatus.js": "file",
+      "handleFormatVideoDuration.js": "file",
+      "handleFormatVideoSize.js": "file",
+      "uploadVideoDataOnCloud.js": "file"
+    },
+    "watch": {
+      "handleNewWatchData.js": "file"
+    },
+    "weather": {
+      "getRandomWeatherIllustration.js": "file",
+      "getWeatherForecastData.js": "file",
+      "interpretWeatherCode.js": "file"
+    }
+  }
+}
